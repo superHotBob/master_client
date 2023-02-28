@@ -24,13 +24,7 @@ const Master = () => {
             </header>
             <section className={styles.section}>
                 <p>{id}</p>
-                <svg
-     
-      src="/sort.svg"
-      
-      width={500}
-      height={500}
-    />
+              
 
             </section>
 
