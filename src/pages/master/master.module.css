@@ -1,0 +1,37 @@
+.main {
+    align-items: center;
+   
+    min-height: 100vh;
+    max-width: 400px;
+    background-color: #fff;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.header {
+    text-align: center;
+    width: 100%;
+    border-bottom: 1px solid #ECEEFD;
+    color: #282828;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 72px;
+}
+
+.section {
+    text-align: center;
+    padding: 18px 16px;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 17px;
+}
+.left__arrow {
+    float: left;
+    margin: 17px;
+    background: #ECEEFD;
+    border-radius: 100%;
+}
