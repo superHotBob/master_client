@@ -3,14 +3,13 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
-import logo from '../../public/logo.svg'
-import menu from '../../public/sort.svg'
 import position from '../../public/position.svg'
 import close from '../../public/close.svg'
 import Navi from '@/components/navi'
 import arrow from '../../public/chevron right-small.svg'
 import one from '../../public/image/one.jpg'
 import two from '../../public/image/two.jpg'
+import Header from '@/components/header'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -23,17 +22,8 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <header className={styles.header}>
-
-
-          <Image alt="Picture of the author" src={logo} width={36} height={40} style={{ background: 'none' }} />
-          <span>masters.</span><span>place</span>
-          <Link href='/' className={styles.left__arrow}>
-            <Image alt="Picture of the author" src={menu} className={styles.left__arrow} width={20} height={20} />
-          </Link>
-
-        </header>
+      <main className={styles.main}>        
+        <Header />
         <section className={styles.section}>
           <div className={styles.message} >
             <Image alt="Picture of the author" src={close} height={10} width={10} />
@@ -58,12 +48,12 @@ export default function Home() {
             </Link>
           </div>
           <div className={styles.images}>
-            <Image src={one} />
-            <Image src={two} />
-            <Image src={one} />
-            <Image src={two} />
-            <Image src={one} />
-            <Image src={two} />
+            <Image src={one}  height="auto"/>
+            <Image src={two}   height="auto"/>
+            <Image src={one}  height="auto"/>
+            <Image src={two}   height="auto"/>
+            <Image src={one}   height="auto"/>
+            <Image src={two}   height="auto"/>
 
           </div>
 
@@ -73,7 +63,7 @@ export default function Home() {
 
 
 
-        <Navi />
+        <Navi page="home"/>
 
 
 

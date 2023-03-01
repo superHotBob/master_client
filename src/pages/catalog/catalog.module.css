@@ -1,0 +1,95 @@
+.main {
+    align-items: center;
+    min-height: 800px;
+    max-width: 500px;
+    background-color: #fff;
+    width: 100%;
+    margin: 0 auto;
+    padding-bottom: 50px;
+}
+
+.section {
+    padding: 16px;
+}
+
+.model,
+.master {
+    height: 80px;
+    width: 100%;
+    text-align: center;
+    border-radius: 8px;
+    display: block;
+    padding: 10px;
+    margin: 20px 0;
+    font: 700 24px/30px 'Dela Gothic One', sans-serif;
+    letter-spacing: 0px;
+    text-align: left;
+    color: #fff;
+
+}
+
+.model {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(90deg, #BD3DEA 0%, #2A3EF0 100%)
+}
+
+.master {
+    text-align: center;
+    line-height: 59px;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(90deg, #3DEAAC 0%, #2AF085 100%);
+}
+
+.city {
+    color: #3D4EEA;
+    background: #ECEEFD;
+    border-radius: 6px;
+}
+
+
+
+.city {
+    font: 500 16px/46px 'Rubik', sans-serif;
+    letter-spacing: 0px;
+    text-align: center;
+}
+
+.city img {
+    vertical-align: middle;
+    margin-left: 10px;
+}
+
+.images {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.uslugi,
+.around__masters {
+    height: 46px;
+    display: block;
+    color: #fff;
+    border-radius: 6px;
+    padding: 11px 8px 11px 8px;
+    margin: 20px 0;
+    background-color: #3D4EEA;
+    text-align: center;
+    font: 500 16px/24px 'Rubil', sans-serif;
+}
+.around__masters {
+    background-color: #ECEEFD;
+    color: #3D4EEA;
+    
+}
+.info {
+    display: block;
+    color: #3D4EEA;
+    font: 400 16px/28px 'Rubik', sans-serif;
+}
+.section h3 {
+    font: 500 16px/26px 'Rubik', sans-serif;
+    margin-bottom: 20px;
+}
+.agreement {
+    font: 400 10px/15px 'Rubik', sans-serif;
+    margin: 26px 0 50px;
+}

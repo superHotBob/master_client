@@ -1,7 +1,7 @@
 .main {
     align-items: center;
     min-height: 100vh;
-    max-width: 400px;
+    max-width: 500px;
     background-color: #fff;
     width: 100%;
     margin: 0 auto;
@@ -30,6 +30,7 @@
     display: block;
     height: 48px;
     width: 300px;
+    background-color: #fff;
     border-radius: 4px;
     padding: 0px 8px 0px 8px;
     border: 1px solid #3D4EEA;
@@ -41,12 +42,17 @@
 }
 .city {
     display: flex;
-   align-items: center;
+    align-items: center;
     justify-content: space-between;
     font: 700 14px/17px 'Rubik', sans-serif;
     height: 48px;
+    color: #000;
+}
+.city span {
+    color: #000;
 }
 .city input {
     height: 20px;
     width: 20px;
+    background-color: #fff;
 }
