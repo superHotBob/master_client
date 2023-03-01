@@ -1,0 +1,44 @@
+.main {
+    position: fixed;
+    top: 90vh;
+    left: calc(50% - 94px);
+    background: linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%);
+    border-radius: 30px;
+    height: 58px;
+    width: 188px;
+    border-radius: 30px;
+    padding: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.enter {
+    height: 46px;
+    width: 72px;
+    left: 104px;
+    top: 0px;
+    font: 500 16px/29px 'Rubik', sans-serif;
+    border-radius: 39px;
+    padding: 7px 16px 7px 16px;
+    background: rgba(255, 255, 255, 0.2);
+    text-align: center;
+    color: #fff;
+
+
+}
+
+.dashboard, .home {
+    height: 46px;
+    width: 46px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 46px;
+    text-align: center;
+}
+.home {
+    background-color: #fff;
+}
+.dashboard img , .home img{
+    margin-top: 13px;
+}

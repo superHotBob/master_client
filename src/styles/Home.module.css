@@ -66,8 +66,11 @@
   height: 84px;
   font: 400 12px/16px 'Rubik', sans-serif;
   /* Сolor accent/Accent status/Light */
-
-
+}
+.message img {
+  float: right;
+  cursor: pointer;
+  margin: 3px 6px;
 }
 
 .city {
