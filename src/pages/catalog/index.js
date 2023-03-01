@@ -10,8 +10,8 @@ const dela = Dela_Gothic_One({
     weight: '400',
     subsets: ['latin'],
 })
-const images = ['manicur', 'pedicur', 'makiash', 'resnici',
-    'brovi', 'depil', 'massage', 'strishka', 'colored', 'pricheska', 'resnici', 'barber']
+const images = ['manicur', 'pedicur', 'makiash', 'resnici','chistka',
+    'brovi', 'depil', 'massage', 'strishka', 'colored', 'pricheska', 'barber']
 export default function Catalog() {
     return (
         <div className={dela.className}>
@@ -29,7 +29,7 @@ export default function Catalog() {
                         СТАТЬ МАСТЕРОМ
                     </Link>
                     <div className={styles.images}>
-                        {images.map(i => <Image src={'/' + i + '.svg'} width="80" height='90' />)}
+                        {images.map(i => <Image key={i} alt="image" src={'/' + i + '.svg'} width="80" height='90' />)}
                     </div>
                     <Link href="/" className={styles.uslugi}>
                         Все услуги
@@ -39,8 +39,8 @@ export default function Catalog() {
                     </Link>
                     <h3>Информация</h3>
                     {['Помощь','О сервисе','Контакты','Пользовательское соглашение',
-                        "Политика обработки персональных данных",'Публичная оферта'].map(i=>
-                        <Link className={styles.info} href="/">{i}</Link>
+                        "Политика обработки персональных данных",'Публичная оферта'].map((i,index)=>
+                        <Link key={index} className={styles.info} href="/">{i}</Link>
                     )}
                     <h6 className={styles.agreement}>© 2022 – 2023 Некоммерческая организация. Все права защищены.</h6>
                 </section>

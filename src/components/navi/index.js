@@ -10,10 +10,10 @@ export default function Navi({page}) {
     return (
         <div className={styles.main}>
             <Link href="/" className={page === 'home' ? styles.home: styles.dashboard}>
-                <Image src={page === 'home' ? home : home_wh} height={20} width={20} />
+                <Image alt="home" src={page === 'home' ? home : home_wh} height={20} width={20} />
             </Link>
             <Link href="/catalog" className={page === 'catalog' ? styles.home : styles.dashboard }>
-                <Image src={page === 'catalog' ? dashboard_bl: dashboard} height={20} width={20} />
+                <Image alt="catalog" src={page === 'catalog' ? dashboard_bl: dashboard} height={20} width={20} />
             </Link>
             <Link href="/" className={styles.enter}>
                 Вход                
