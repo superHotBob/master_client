@@ -82,3 +82,29 @@
   vertical-align: middle;
   margin-left: 10px;
 }
+.main__filter {
+  margin:16px 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.main__filter span {
+  display: inline-block;
+  width: 45%;
+  color: #8B95F2;
+  overflow: hidden;
+  font: 500 14px/17px 'Rubik', sans-serif;
+}
+.main__filter span:last-of-type {
+  width: 35%;
+  color: #3D4EEA;
+}
+.images {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.images img {
+  width: 49%;
+  margin-bottom: 5px;
+}

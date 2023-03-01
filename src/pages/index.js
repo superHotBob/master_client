@@ -8,6 +8,9 @@ import menu from '../../public/sort.svg'
 import position from '../../public/position.svg'
 import close from '../../public/close.svg'
 import Navi from '@/components/navi'
+import arrow from '../../public/chevron right-small.svg'
+import one from '../../public/image/one.jpg'
+import two from '../../public/image/two.jpg'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -40,8 +43,28 @@ export default function Home() {
             мастеру!
           </div>
           <div className={styles.city}>
-            Выбрать ваш город
-            <Image alt="Picture of the author" src={position}  width={20} height={20} />
+            <Link href="/city"> Выбрать ваш город</Link>
+            <Image alt="Picture of the author" src={position} width={20} height={20} />
+          </div>
+          <div className={styles.main__filter}>
+            <span>
+              Ноготочки,макияж,мас.......
+            </span>
+            <span>
+              фильтр по услугам
+            </span>
+            <Link href="/">
+              <Image src={arrow} />
+            </Link>
+          </div>
+          <div className={styles.images}>
+            <Image src={one} />
+            <Image src={two} />
+            <Image src={one} />
+            <Image src={two} />
+            <Image src={one} />
+            <Image src={two} />
+
           </div>
 
 
@@ -50,7 +73,7 @@ export default function Home() {
 
 
 
-<Navi />
+        <Navi />
 
 
 
