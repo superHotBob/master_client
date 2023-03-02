@@ -23,10 +23,10 @@ export default function Catalog() {
                         <Image alt="Picture of the author" src={position} width={20} height={20} />
                     </div>
                     <Link href="/" className={styles.model}>
-                        СТАТЬ МОДЕЛЬЮ <br/> БЕСПЛАТНО
+                        <Image alt="master" src="/image/model.jpg" fill />
                     </Link>
-                    <Link href="/" className={styles.master}>
-                        СТАТЬ МАСТЕРОМ
+                    <Link href="/" className={styles.model}>
+                    <Image alt="master" src="/image/master.jpg" fill />
                     </Link>
                     <div className={styles.images}>
                         {images.map(i => <Link href={'/catalog/service/' + i } key={i}>

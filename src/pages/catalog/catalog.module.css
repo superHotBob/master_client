@@ -21,22 +21,15 @@
     display: block;
     padding: 10px;
     margin: 20px 0;
-    font: 900 26px/30px 'Dela Gothic One', sans-serif;
-    letter-spacing: 0px;
-    text-align: left;
+    position: relative;
     color: #fff;
 
 }
 
-.model {
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(90deg, #BD3DEA 0%, #2A3EF0 100%)
-}
 
-.master {
-    text-align: center;
-    line-height: 59px;
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(90deg, #3DEAAC 0%, #2AF085 100%);
-}
+
+
+
 
 .city {
     color: #3D4EEA;
@@ -59,11 +52,13 @@
 
 .images {
     display: grid;
-  grid-template-columns: auto auto auto auto;
-  gap: 10px;
+    grid-template-columns: auto auto auto auto;
+    gap: 10px;
 }
+
 .images img {
     display: block;
+    margin: 0 auto;
 }
 
 .uslugi,
@@ -78,20 +73,24 @@
     text-align: center;
     font: 500 16px/24px 'Rubil', sans-serif;
 }
+
 .around__masters {
     background-color: #ECEEFD;
     color: #3D4EEA;
-    
+
 }
+
 .info {
     display: block;
     color: #3D4EEA;
     font: 400 16px/28px 'Rubik', sans-serif;
 }
+
 .section h3 {
     font: 500 16px/26px 'Rubik', sans-serif;
     margin-bottom: 20px;
 }
+
 .agreement {
     font: 400 10px/15px 'Rubik', sans-serif;
     margin: 26px 0 50px;

@@ -14,6 +14,19 @@
     flex-wrap: wrap;
     padding: 10px;
 }
+.model {
+    height: 80px;
+    width: 100%;
+    text-align: center;
+    border-radius: 8px;
+    display: block;
+    padding: 10px;
+    margin: 20px 0;
+    position: relative;
+    color: #fff;
+
+}
+
 .selector {
     font: 600 14px/17px 'Rubik', sans-serif;
     display: flex;
@@ -46,4 +59,8 @@
     display: block;
     font: 900 26px/30px 'Dela Gothic One', sans-serif;
     text-align: left;
+}
+.events a:first-of-type {
+    height: 80px;
+    margin-top: 20px;
 }
