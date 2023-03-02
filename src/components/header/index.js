@@ -3,19 +3,23 @@ import Link from 'next/link'
 import styles from './header.module.css'
 import logo from '../../../public/logo.svg'
 import menu from '../../../public/sort.svg'
+import arrow from '../../../public/arrow_back.svg'
 
 
 
-export default function Header() {
-    return (
-        <main className={styles.main}>
-        <header className={styles.header}>
-          <Image alt="Picture of the author" src={logo} width={36} height={40} style={{ background: 'none' }} />
-          <span>masters.</span><span>place</span>
-          <Link href='/' className={styles.left__arrow}>
-            <Image alt="Picture of the author" src={menu} className={styles.left__arrow} width={20} height={20} />
-          </Link>
-        </header>
-        </main>
-    )
+export default function Header({sel}) {
+  return (
+    <main className={styles.main}>
+      <header className={styles.header}>
+        {sel?<Link href='/catalog' className={styles.arrow} style={{float: 'left'}}>
+          <Image alt="Picture of the author"  src={arrow} className={styles.arrow} width={20} height={20} />
+        </Link>:null}
+        <Image alt="Picture of the author" src={logo} width={36} height={40} style={{ background: 'none' }} />
+        <span>masters.</span><span>place</span>
+        <Link href='/' className={styles.left__arrow}>
+          <Image alt="Picture of the author" src={menu} className={styles.left__arrow} width={20} height={20} />
+        </Link>
+      </header>
+    </main>
+  )
 }

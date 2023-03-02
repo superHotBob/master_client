@@ -7,13 +7,31 @@ import position from '../../public/position.svg'
 import close from '../../public/close.svg'
 import Navi from '@/components/navi'
 import arrow from '../../public/chevron right-small.svg'
-import one from '../../public/image/one.jpg'
-import two from '../../public/image/two.jpg'
 import Header from '@/components/header'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
+
+const style ={
+  color: '#fff',
+  padding: '0 10px',
+  backgroundColor: '#3D4EEA',  
+  border: '1.5px solid #3D4EEA'
+}
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  const router = useRouter()
+  const [viewFilter, setViewFilter] = useState(false)
+  const [filter, SetFilter] = useState()
+  const handleClick = (e) => {
+    e.preventDefault()
+    router.push('/')
+  }
+
+  function setFilter(e) {
+    SetFilter(e.target.id)
+  }
   return (
     <>
       <Head>
@@ -22,11 +40,11 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>        
+      <main className={styles.main}>
         <Header />
         <section className={styles.section}>
           <div className={styles.message} >
-            <Image alt="Picture of the author" src={close} height={10} width={10} />
+            <Image alt="picture" src={close} height={10} width={10} />
             Masters.place показывает самые крутые и <br />
             актуальные работы мастеров в вашем городе. Вы <br />
             можете выбрать понравившуюся работу и написать<br />
@@ -38,22 +56,29 @@ export default function Home() {
           </div>
           <div className={styles.main__filter}>
             <span>
-              Ноготочки,макияж,мас.......
+              Ноготочки,макияж,мас...
             </span>
-            <span>
+            <span onClick={()=>setViewFilter(true)}>
               фильтр по услугам
+              <Image src={arrow} alt='arrow'/>
             </span>
-            <Link href="/">
-              <Image src={arrow} />
-            </Link>
+            {viewFilter ? <div className={styles.all__filter}>
+              <span>фильтр по услугам
+              <Image alt="close" src={close} height={10} width={10} onClick={()=>setViewFilter(false)}/>
+              </span>
+              <div className={styles.all__filter__data} onClick={setFilter}>
+                {['Ноготочки', 'Прически', 'Макияж', 'Масаж', 'Барбер', 'Ресницы', 'Брови', 'Депиляция'].map(i =>
+                  <b key={i} id={i} style={filter===i ? style : null}>{i}</b>)}
+              </div>
+            </div>:null}
+
+
           </div>
           <div className={styles.images}>
-            <Image src={one}  height="auto"/>
-            <Image src={two}   height="auto"/>
-            <Image src={one}  height="auto"/>
-            <Image src={two}   height="auto"/>
-            <Image src={one}   height="auto"/>
-            <Image src={two}   height="auto"/>
+            {['one', 'two', 'three', 'one', 'two', 'three'].map(i => <Link href="/" >
+              <Image  src={`/image/${i}.jpg`} alt={i} fill />
+            </Link>)}
+
 
           </div>
 
@@ -63,7 +88,7 @@ export default function Home() {
 
 
 
-        <Navi page="home"/>
+        <Navi page="home" />
 
 
 

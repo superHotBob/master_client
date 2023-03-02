@@ -31,7 +31,7 @@ export default function Catalog() {
                     <div className={styles.images}>
                         {images.map(i => <Image key={i} alt="image" src={'/' + i + '.svg'} width="80" height='90' />)}
                     </div>
-                    <Link href="/" className={styles.uslugi}>
+                    <Link href="/catalog/services" className={styles.uslugi}>
                         Все услуги
                     </Link>
                     <Link href="/" className={styles.around__masters}>

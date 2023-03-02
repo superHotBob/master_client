@@ -29,13 +29,14 @@
   }
   .header a {
     vertical-align: middle;
-    height: 40px;
+    height: 38px;
     float: right;
     display: flex;
-    margin-top: 17px;
+    margin-top: 19px;
     width: 40px;
     padding: 10px;
     background: #ECEEFD;
     border-radius: 100%;
   }
+  
   
