@@ -64,22 +64,18 @@ export default function Home() {
             </span>
             {viewFilter ? <div className={styles.all__filter}>
               <span>фильтр по услугам
-              <Image alt="close" src={close} height={10} width={10} onClick={()=>setViewFilter(false)}/>
+              <Image alt="close" style={{margin: '8px 0 0 10px'}} src={close} height={10} width={10} onClick={()=>setViewFilter(false)}/>
               </span>
               <div className={styles.all__filter__data} onClick={setFilter}>
                 {['Ноготочки', 'Прически', 'Макияж', 'Масаж', 'Барбер', 'Ресницы', 'Брови', 'Депиляция'].map(i =>
                   <b key={i} id={i} style={filter===i ? style : null}>{i}</b>)}
               </div>
             </div>:null}
-
-
           </div>
           <div className={styles.images}>
             {['one', 'two', 'three', 'four', 'five', 'six'].map(i => <Link href="/" key={i}>
               <Image  src={`/image/${i}.jpg`} alt={i} fill />
             </Link>)}
-
-
           </div>
 
 

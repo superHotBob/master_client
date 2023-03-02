@@ -1,14 +1,3 @@
-.main {
-  align-items: center;
-  min-height: 100vh;
-  max-width: 500px;
-  background-color: #fff;
-  width: 100%;
-  margin: 0 auto;
-  position: relative;
-}
-
-
 .section {
   padding: 16px;
 }
@@ -55,20 +44,19 @@
 
 .main__filter span {
   display: inline-block;
-  width: 45%;
+  width: 50%;
   color: #8B95F2;
   overflow: hidden;
   font: 500 14px/24px 'Rubik', sans-serif;
 }
 
 .main__filter span:last-of-type {
-  width: 47%;
+  width: 43%;
   color: #3D4EEA;
 }
 
 .main__filter span:last-of-type img {
-  vertical-align: middle;
-  margin-left: 10px;
+  float: right
 }
 
 .all__filter {
