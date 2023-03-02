@@ -1,3 +1,12 @@
+.main {
+  align-items: center;   
+  height: 100vh;
+  max-width: 400px;
+  background-color: #fff;
+  width: 100%;
+  margin: 0 auto;
+  overflow: auto;
+}
 .section {
   padding: 16px;
 }
@@ -51,7 +60,7 @@
 }
 
 .main__filter span:last-of-type {
-  width: 43%;
+  width: 45%;
   color: #3D4EEA;
 }
 
@@ -107,11 +116,20 @@
 .images a {
   width: 49%;
   margin-bottom: 5px;
-  height: calc(49vw + 50px);
+  height: calc(49vw + 30px);
   position: relative;
   max-height: 300px;
 }
 
 .images a img {
   border-radius: 8px;
+}
+@media screen and (min-width: 500px) {
+  .main {
+    height: auto;
+  }
+  .images a {
+    height: 37vw;
+  }
+  
 }
