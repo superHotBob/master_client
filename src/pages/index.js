@@ -75,8 +75,8 @@ export default function Home() {
 
           </div>
           <div className={styles.images}>
-            {['one', 'two', 'three', 'one', 'two', 'three'].map((i,index) => <Link href="/" >
-              <Image key={index} src={`/image/${i}.jpg`} alt={i} fill />
+            {['one', 'two', 'three', 'four', 'five', 'six'].map(i => <Link href="/" key={i}>
+              <Image  src={`/image/${i}.jpg`} alt={i} fill />
             </Link>)}
 
 
