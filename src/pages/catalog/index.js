@@ -29,8 +29,8 @@ export default function Catalog() {
                         СТАТЬ МАСТЕРОМ
                     </Link>
                     <div className={styles.images}>
-                        {images.map(i => <Link href={'/catalog/service/' + i } >
-                        <Image key={i} alt="image" src={'/' + i + '.svg'} width="80" height='90' />
+                        {images.map(i => <Link href={'/catalog/service/' + i } key={i}>
+                        <Image  alt="image" src={'/' + i + '.svg'} width="80" height='90' />
                         </Link>)}
                     </div>
                     <Link href="/catalog/services" className={styles.uslugi}>
