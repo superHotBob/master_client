@@ -6,7 +6,6 @@ import styles from '@/styles/Home.module.css'
 import position from '../../public/position.svg'
 import close from '../../public/close.svg'
 import Navi from '@/components/navi'
-import arrow from '../../public/chevron right-small.svg'
 import Header from '@/components/header'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
@@ -43,8 +42,7 @@ export default function Home() {
       <main className={styles.main}>
         <Header />
         <section className={styles.section}>
-          <div className={styles.message} >
-            <Image alt="picture" src={close} height={10} width={10} />
+          <div className={styles.message} style={{backgroundImage: 'url(close.svg)'}}>           
             Masters.place показывает самые крутые и <br />
             актуальные работы мастеров в вашем городе. Вы <br />
             можете выбрать понравившуюся работу и написать<br />
@@ -55,12 +53,9 @@ export default function Home() {
             <Image alt="Picture of the author" src={position} width={20} height={20} />
           </div>
           <div className={styles.main__filter}>
-            <span>
-              Ноготочки,макияж,мас...
-            </span>
-            <span onClick={()=>setViewFilter(true)}>
-              фильтр по услугам
-              <Image src={arrow} alt='arrow'/>
+            <span>Ноготочки,макияж,мас...</span>
+            <span onClick={()=>setViewFilter(true)} style={{backgroundImage: 'url(arrow_right.svg)'}}>
+              фильтр по услугам             
             </span>
             {viewFilter ? <div className={styles.all__filter}>
               <span>фильтр по услугам
@@ -73,12 +68,9 @@ export default function Home() {
             </div>:null}
           </div>
           <div className={styles.images}>
-            {['one', 'two', 'three', 'four', 'five', 'six'].map(i => <Link href="/" key={i}>
-              <Image  src={`/image/${i}.jpg`} alt={i} fill />
-            </Link>)}
+            {['one', 'two', 'three', 'four', 'five', 'six'].map((i,index) => 
+            <Link href="/" key={i} style={{backgroundImage: `url(/image/${i}.jpg)`}} />)}           
           </div>
-
-
         </section>
 
 

@@ -7,7 +7,7 @@ import { useState } from 'react'
 import styles from './service.module.css'
 import close from '../../../../public/close.svg'
 import position from '../../../../public/position.svg'
-import arrow from '../../../../public/chevron right-small.svg'
+import arrow from '../../../../public/arrow_right.svg'
 import star from '../../../../public/star-small.svg'
 import location from '../../../../public/location.svg'
 

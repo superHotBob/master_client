@@ -21,7 +21,7 @@ export default function Services() {
     const [selector, setSelector] = useState(1)
     return (
         <div className={styles.main}>
-            <Header sel="10" />
+            <Header sel="/catalog" />
             <div className={styles.selector}>
                 <span onClick={() => setSelector(1)} style={selector ? sel : null}>Каталог услуг</span>
                 <span onClick={() => setSelector(0)} style={selector ? null : sel}>Мероприятия</span>
@@ -33,7 +33,7 @@ export default function Services() {
                     </Link>
                 )}
             </div> : <div className={styles.events}>
-                <Link href="/" className={styles.model}>
+                <Link href="/event" className={styles.model}>
                     <Image alt="master" src="/image/model.jpg" fill />
                 </Link>
                 {events.map(i => <Link href={i.link} key={i.image} style={{ backgroundImage: "url(" + i.image + ")" }} >{i.text}</Link>)}

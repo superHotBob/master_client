@@ -7,19 +7,17 @@ import arrow from '../../../public/arrow_back.svg'
 
 
 
-export default function Header({sel,text}) {
+export default function Header({ sel, text }) {
   return (
-    <main className={styles.main}>
-      <header className={styles.header}>
-        {sel?<Link href='/catalog' className={styles.arrow} style={{float: 'left'}}>
-          <Image alt="Picture of the author"  src={arrow} className={styles.arrow} width={20} height={20} />
-        </Link>:null}
-        {text? <span style={{color: "#000"}}>{text}</span>:<><Image alt="Picture of the author" src={logo} width={36} height={40} style={{ background: 'none' }} />
+    <header className={styles.header}>
+      {sel ? <Link href={sel} className={styles.arrow} style={{ float: 'left' }}>
+        <Image alt="Picture of the author" src={arrow} className={styles.arrow} width={20} height={20} />
+      </Link> : null}
+      {text ? <span style={{ color: "#000" }}>{text}</span> : <><Image alt="Picture of the author" src={logo} width={36} height={40} style={{ background: 'none' }} />
         <span>masters.</span><span>place</span></>}
-        <Link href='/' className={styles.left__arrow}>
-          <Image alt="Picture of the author" src={menu} className={styles.left__arrow} width={20} height={20} />
-        </Link>
-      </header>
-    </main>
+      <Link href='/' className={styles.left__arrow}>
+        <Image alt="Picture of the author" src={menu} className={styles.left__arrow} width={20} height={20} />
+      </Link>
+    </header>
   )
 }

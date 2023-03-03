@@ -1,7 +1,7 @@
 .main {
   align-items: center;   
   height: 100vh;
-  max-width: 400px;
+  max-width: 500px;
   background-color: #fff;
   width: 100%;
   margin: 0 auto;
@@ -24,7 +24,9 @@
   margin: 0 auto 16px;
   height: 84px;
   font: 400 12px/16px 'Rubik', sans-serif;
-  /* Сolor accent/Accent status/Light */
+  background-position: 96% 10px;
+  background-repeat: no-repeat;
+  background-size: 3%;
 }
 
 .message img {
@@ -62,7 +64,11 @@
 .main__filter span:last-of-type {
   width: 45%;
   color: #3D4EEA;
+  background-position: right center;
+  background-repeat: no-repeat;
+  background-size: 18%;
 }
+
 
 .main__filter span:last-of-type img {
   float: right
@@ -119,17 +125,19 @@
   height: calc(49vw + 30px);
   position: relative;
   max-height: 300px;
-}
-
-.images a img {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   border-radius: 8px;
 }
+
+
 @media screen and (min-width: 500px) {
   .main {
     height: auto;
   }
   .images a {
-    height: 37vw;
+    height: 38vw;
   }
   
 }
