@@ -1,0 +1,73 @@
+.main {
+    align-items: center;
+    min-height: 100vh;
+    max-width: 500px;
+    background-color: #fff;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.section {
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: center 40px;
+    background-image: url('/logo-main.svg');
+    background-size: 20%;
+    height: 80vh;
+}
+
+.section::before {
+    content: 'Войти по номеру телефона';
+    text-align: center;
+    color: black;
+    display: block;
+    transform: translateY(128px);
+    font: 600 18px/18px 'Rubik', sans-serif;
+}
+
+.inputs {
+    margin: 180px auto;
+    width: 300px;
+}
+.inputs span {
+    color:#3D4EEA;
+    display: block;
+    transform: translate(10px,20px);
+    
+}
+.inputs p {
+    text-align: center;   
+    font: 400 12px/18px 'Rubik', sans-serif;
+    width: 300px;
+    margin: 0 auto;
+}
+.inputs h4 {
+    text-align: center;   
+    font: 400 14px/17px 'Rubik', sans-serif;
+    width: 300px;
+    margin: 0 auto 20px;
+}
+.inputs input {
+    height: 46px;
+    width: 300px;
+    display: block;
+    margin: 0 auto;
+    outline: none;
+    border-radius: 6px;
+    padding: 17px 8px 0 24px;
+    border: 1px solid #3D4EEA;
+
+}
+
+.inputs button {
+    height: 46px;
+    width: 300px;
+    display: block;
+    border-radius: 6px;
+    padding: 11px 8px 11px 8px;
+    background-color: #3D4EEA;
+    color: #fff;
+    border: none;
+    margin: 24px auto;
+}

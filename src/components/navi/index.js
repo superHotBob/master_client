@@ -15,7 +15,7 @@ export default function Navi({page}) {
             <Link href="/catalog" className={page === 'catalog' ? styles.home : styles.dashboard }>
                 <Image alt="catalog" src={page === 'catalog' ? dashboard_bl: dashboard} height={20} width={20} />
             </Link>
-            <Link href="/" className={styles.enter}>
+            <Link href="/enter" className={styles.enter}>
                 Вход                
             </Link>
 

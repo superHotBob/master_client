@@ -26,12 +26,14 @@
 
 }
 
-.section input[type=text] {
+.section input[type=search] {
     display: block;
     height: 48px;
+    accent-color: #3D4EEA;
     width: 300px;
     background-color: #fff;
     border-radius: 4px;
+    outline: none;
     padding: 0px 8px 0px 8px;
     border: 1px solid #3D4EEA;
     margin-bottom: 20px;
@@ -55,4 +57,5 @@
     height: 20px;
     width: 20px;
     background-color: #fff;
+    accent-color: #3D4EEA;
 }

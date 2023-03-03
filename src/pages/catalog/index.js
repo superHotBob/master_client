@@ -22,7 +22,7 @@ export default function Catalog() {
                         <Link href="/city"> Выбрать ваш город</Link>
                         <Image alt="Picture of the author" src={position} width={20} height={20} />
                     </div>
-                    <Link href="/" className={styles.model}>
+                    <Link href="/event" className={styles.model}>
                         <Image alt="master" src="/image/model.jpg" fill />
                     </Link>
                     <Link href="/" className={styles.model}>
@@ -36,7 +36,7 @@ export default function Catalog() {
                     <Link href="/catalog/services" className={styles.uslugi}>
                         Все услуги
                     </Link>
-                    <Link href="/" className={styles.around__masters}>
+                    <Link href="/masternear" className={styles.around__masters}>
                         Мастера рядом
                     </Link>
                     <h3>Информация</h3>

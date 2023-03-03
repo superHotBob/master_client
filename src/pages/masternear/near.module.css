@@ -1,0 +1,33 @@
+.main {
+    align-items: center;
+    min-height: 800px;
+    max-width: 500px;
+    background-color: #fff;
+    width: 100%;
+    margin: 0 auto;
+    padding-bottom: 50px;
+}
+.main h2 {
+    text-align: center; 
+    color: #3D4EEA;
+    margin-top: 20px;
+}
+.selector {
+    font: 600 14px/17px 'Rubik', sans-serif;
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0 ;
+    align-items: center;
+    padding: 10px;
+    height: 27px;
+}
+.selector span {
+    width: 45%;
+    display: inline-block;
+    padding: 5px 0;
+    text-align: center;
+    color: #000;
+    border-radius: 4px;
+    padding: 5px;
+    text-align: center;
+}
