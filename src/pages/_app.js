@@ -9,13 +9,11 @@ const rubik = Rubik({
   subsets: ['latin'],
 })
 
+
 export default function MyApp({ Component, pageProps }) {
   return (
     <Provider store={store}>
-      <main className={rubik.className}>
-        <Head >
-          <script src="https://api-maps.yandex.ru/3.0/?apikey=89caab37-749d-4e30-8fdf-e8045542f060&lang=ru_RU"></script>
-        </Head>
+      <main className={rubik.className}>       
         <Component {...pageProps} />
       </main>
     </Provider>

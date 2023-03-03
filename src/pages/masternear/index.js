@@ -5,6 +5,7 @@ import styles from './near.module.css'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps'
+import Script from 'next/script'
 
 const sel = {
     background: 'linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)',
@@ -23,6 +24,7 @@ export default function MasterNear() {
 
     return (
         <div className={styles.main}>
+            <Script src="https://api-maps.yandex.ru/3.0/?apikey=89caab37-749d-4e30-8fdf-e8045542f060&lang=ru_RU" />
             <Header sel="/catalog" text="Мастера рядом " />
             <h2>{my_city}</h2>
             <div className={styles.selector}>
