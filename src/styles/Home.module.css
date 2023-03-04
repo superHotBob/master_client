@@ -39,12 +39,14 @@
   font: 500 16px/46px 'Rubik', sans-serif;
   letter-spacing: 0px;
   text-align: center;
+  display: block;
+  background-position: 80% center;
+  background-repeat: no-repeat;
+  background-size: 5%;
+  background-image: url('/position.svg');
 }
 
-.city img {
-  vertical-align: middle;
-  margin-left: 10px;
-}
+
 
 .main__filter {
   margin: 16px 0;
@@ -67,13 +69,8 @@
   background-position: right center;
   background-repeat: no-repeat;
   background-size: 18%;
+  background-image: url('/arrow_right.svg');
 }
-
-
-.main__filter span:last-of-type img {
-  float: right
-}
-
 .all__filter {
   position: absolute;
   top: 86px;
@@ -87,10 +84,15 @@
   box-shadow: 0px -4px 30px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
 }
-.all__filter span {
-  width: 95% !important;
-  margin: 5px;
+.all__filter h6{   
+  margin: 15px;
   text-align: right;
+  padding-right: 30px;
+  background-image: url('/close.svg');
+  background-repeat: no-repeat;
+  background-position: 100% center;
+  background-size: 4%;
+  color:#3D4EEA;
 }
 
 .all__filter__data {

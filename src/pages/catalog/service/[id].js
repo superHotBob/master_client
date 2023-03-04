@@ -69,7 +69,7 @@ export default function Service() {
                     <p>
                         <b>Виктория  Ченг</b>
                         <span className={styles.pro}>PRO</span>
-                        <span>4.7 <Image alt="star" src={star} width={20} height={20} /> </span>
+                        <span className={styles.stars}>4.7</span>
                     </p>
                     <h4><Image alt="loc" src={location} width={15} height={15} /> Метро Красный октябрь</h4>
                     <h5>Макияж, Ноготочки, Прическа</h5>
@@ -84,7 +84,7 @@ export default function Service() {
                     <p>
                         <b>Виктория  Ченг</b>
                         <span className={styles.pro}>PRO</span>
-                        <span>4.7 <Image alt="star" src={star} width={20} height={20} /> </span>
+                        <span className={styles.stars}>4.7 </span>
                     </p>
                     <h4><Image alt="loc" src={location} width={15} height={15} /> Метро Красный октябрь</h4>
                     <h5>Макияж, Ноготочки, Прическа</h5>

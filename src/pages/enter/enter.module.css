@@ -11,7 +11,7 @@
 .section {
     background-color: #fff;
     background-repeat: no-repeat;
-    background-position: center 40px;
+    background-position: center 30px;
     background-image: url('/logo-main.svg');
     background-size: 20%;
     height: 80vh;
@@ -22,12 +22,12 @@
     text-align: center;
     color: black;
     display: block;
-    transform: translateY(128px);
+    transform: translateY(115px);
     font: 600 18px/18px 'Rubik', sans-serif;
 }
 
 .inputs {
-    margin: 180px auto;
+    margin: 150px auto;
     width: 300px;
 }
 .inputs span {

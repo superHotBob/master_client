@@ -138,12 +138,22 @@
     padding: 2px 8px;
     color: #fff;
 }
-.master p span:last-of-type {
-    background: #ECEEFD;
-    border-radius: 4px;
+.stars {
+    background-image: url('/star-small.svg');
+    background-repeat: no-repeat;
+    background-position: 85% center;
+    background-size: 35%;
+    height: 21px;
+    width: 50px;
+    font: 600 12px/17px 'Rubik', sans-serif;
     color: #3D4EEA;
-    padding: 2px ;
+    background-color: #ECEEFD;
+    border-radius: 4px;
+    display: inline-block;
+    padding: 2px 4px 2px 8px;
+
 }
+
 .master p img {
     vertical-align: sub;
 }

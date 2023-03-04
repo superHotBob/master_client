@@ -8,7 +8,7 @@ const ev = {
     backgroundColor: '#3D4EEA',
     backgroundImage: 'url(check_double.svg)',
     backgroundRepeat: 'no-repeat',
-    backgroundPosition: '75% center',
+    backgroundPosition: '85% center',
     backgroundSize: '8%',
    
 }
