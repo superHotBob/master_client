@@ -63,7 +63,8 @@
     border-radius: 6px;
     padding: 8px;
     border: 1px solid #3D4EEA;
-    color: #3D4EEA
+    color: #3D4EEA;
+    background-color: #fff;
 }
 
 .section button {

@@ -18,7 +18,7 @@ const style = {
     border: '1.5px solid #3D4EEA'
 }
 export default function Service() {
-    const router = useRouter()    
+    const router = useRouter()
     const handleClick = (e) => {
         e.preventDefault()
         router.push('/')
@@ -44,13 +44,15 @@ export default function Service() {
                     <Link href="/city"> Выбрать ваш город</Link>
                     <Image alt="Picture of the author" src={position} width={20} height={20} />
                 </div>
-                <FilterServices/>
+                <FilterServices />
                 <div className={styles.master} style={{ backgroundImage: 'url(/image/profile1.jpg' }}>
-                    <p>
-                        <b>Виктория  Ченг</b>
-                        <span className={styles.pro}>PRO</span>
-                        <span className={styles.stars}>4.7</span>
-                    </p>
+                    <Link href="/master/Виктория  Ченг">
+                        <p>
+                            <b>Виктория  Ченг</b>
+                            <span className={styles.pro}>PRO</span>
+                            <span className={styles.stars}>4.7</span>
+                        </p>
+                    </Link>
                     <h4><Image alt="loc" src={location} width={15} height={15} /> Метро Красный октябрь</h4>
                     <h5>Макияж, Ноготочки, Прическа</h5>
                     <div className={styles.images}>
@@ -61,11 +63,13 @@ export default function Service() {
 
                 </div>
                 <div className={styles.master} style={{ backgroundImage: 'url(/image/profile1.jpg' }}>
-                    <p>
-                        <b>Виктория  Ченг</b>
-                        <span className={styles.pro}>PRO</span>
-                        <span className={styles.stars}>4.7 </span>
-                    </p>
+                    <Link href="/master/Виктория  Ченг">
+                        <p>
+                            <b>Виктория  Ченг</b>
+                            <span className={styles.pro}>PRO</span>
+                            <span className={styles.stars}>4.7 </span>
+                        </p>
+                    </Link>
                     <h4><Image alt="loc" src={location} width={15} height={15} /> Метро Красный октябрь</h4>
                     <h5>Макияж, Ноготочки, Прическа</h5>
                     <div className={styles.images}>

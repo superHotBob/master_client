@@ -5,9 +5,10 @@ import styles from './near.module.css'
 import arrow_down from '../../../public/arrow_down.svg'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
-import { YMaps, Map, Placemark,redraw } from '@pbe/react-yandex-maps'
+import { YMaps, Map, Placemark, redraw } from '@pbe/react-yandex-maps'
 import Script from 'next/script'
 import FilterServices from '@/components/filterServices'
+
 
 const sel = {
     background: 'linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)',
@@ -21,7 +22,7 @@ const styleSelService = {
 }
 const masters = [{
     id: 1,
-    name: 'Я мастер по имени Виктория Ченг',
+    name: 'Виктория Ченг',
     address: 'Метро грушевка',
     image: 'profile1',
     status: 'PRO',
@@ -31,7 +32,7 @@ const masters = [{
 },
 {
     id: 2,
-    name: 'Я мастер по имени Клава',
+    name: 'Клава',
     address: 'Метро немига',
     image: 'profile2',
     status: 'PRO',
@@ -40,7 +41,7 @@ const masters = [{
     coordenates: [53.90624, 27.553048]
 }, {
     id: 3,
-    name: 'Я мастер по имени Зина',
+    name: 'Зина',
     address: 'Проспект независимости',
     image: 'profile3',
     status: 'MASTER',
@@ -55,7 +56,7 @@ export default function MasterNear() {
     const [viewFilter, setViewFilter] = useState(false)
     const [filter, setFilter] = useState(10)
     const [master, selectMaster] = useState()
-   
+
     const defaultState = {
         center: [53.904430, 27.554895],
         zoom: filter * 1.2,
@@ -63,7 +64,7 @@ export default function MasterNear() {
         behaviors: ["default", "scrollZoom", "onclick"]
     };
     function ViewMaster(a) {
-        selectMaster(a)      
+        selectMaster(a)
     }
     console.log(50 / filter)
     return (
@@ -78,8 +79,8 @@ export default function MasterNear() {
             {selector ?
                 <section className={styles.section}>
                     <FilterServices />
-                    {masters.map(i => <div key={i.id} className={styles.master}
-                        style={{ backgroundImage: `url(/image/${i.image}.jpg` }}                    >
+                    {masters.map(i => <Link key={i.id} className={styles.master}
+                        style={{ backgroundImage: `url(/image/${i.image}.jpg` }}       href={`/master/${i.name}`}             >
                         <p style={{ width: '75%' }}>
                             <b>{i.name}</b><br />
                             <span className={styles.pro}>{i.status}</span>
@@ -87,32 +88,33 @@ export default function MasterNear() {
                         </p>
                         <h4>{i.address}</h4>
                         <h5>{i.servises}</h5>
-                    </div>)}
+                    </Link>)}
                 </section>
                 :
                 <section>
-                    {master  ? null : <div className={styles.main__filter}>
+                    {master ? null : <div className={styles.main__filter}>
                         <span>Мастера в радиусе {filter} км</span>
                         <span onClick={() => setViewFilter(true)}>
                             радиус поиска
                         </span>
                         {viewFilter ? <div className={styles.all__filter}>
-                            <h6 onClick={() => setViewFilter(false)}>фильтр по радиусу</h6>
+                            <h6 onClick={() => setViewFilter(false)}>радиус поиска</h6>
                             <div className={styles.all__filter__data}>
                                 {[1, 3, 5, 10].map(i =>
                                     <b onClick={()=>setFilter(i)} key={i} id={i} style={filter === +i ? styleSelService : null}>{i}км</b>)}
                             </div>
+                            
                         </div> : null}
                     </div>}
                     <YMaps>
                         <Map id="mymap"
-                            options={{set: defaultState}} 
+                            options={{ set: defaultState }}
                             state={{
-                            center: master ? masters.filter(i=>i.name === master)[0].coordenates : [53.904430, 27.554895],
-                            zoom: master ? 14 : 10 + 10 / filter*0.8,
-                            controls: [],
-                            behaviors: ["default", "scrollZoom"]
-                        }} width="100%" height={master ? "30vh":"75vh"} >
+                                center: master ? masters.filter(i => i.name === master)[0].coordenates : [53.904430, 27.554895],
+                                zoom: master ? 14 : 10 + 10 / filter * 0.8,
+                                controls: [],
+                                behaviors: ["default", "scrollZoom"]
+                            }} width="100%" height={master ? "30vh" : "75vh"} >
                             {masters.map(i => <Placemark geometry={i.coordenates} key={i.id}
                                 properties={{
                                     hintContent: i.name,
@@ -121,27 +123,27 @@ export default function MasterNear() {
                                 }}
                                 options={{
                                     iconLayout: 'default#image',
-                                    iconImageHref: `image/${i.image}.jpg`,
-                                    iconImageSize: [40, 40],                                   
+                                    iconImageHref: filter < 5 ? `image/${i.image}.jpg` : '/master1.svg',
+                                    iconImageSize: [40, 40],
                                 }}
                                 onClick={() => ViewMaster(i.name)}
                             />)}
                         </Map>
                     </YMaps>
                 </section>}
-                {master && !selector ? <section className={styles.section}> 
-                    <Image alt="close" className={styles.close} src={arrow_down} width={25} height={25} onClick={()=>selectMaster()} />                  
-                    {masters.filter(i=>i.name === master).map(i => <div key={i.id} className={styles.master}
-                        style={{ backgroundImage: `url(/image/${i.image}.jpg` }}                    >
-                        <p style={{ width: '75%' }}>
-                            <b>{i.name}</b><br />
-                            <span className={styles.pro}>{i.status}</span>
-                            <span className={styles.stars}>{i.stars}</span>
-                        </p>
-                        <h4>{i.address}</h4>
-                        <h5>{i.servises}</h5>
-                    </div>)}
-                </section>: null}
+            {master && !selector ? <section className={styles.section}>
+                <Image alt="close" className={styles.close} src={arrow_down} width={25} height={25} onClick={() => selectMaster()} />
+                {masters.filter(i => i.name === master).map(i => <Link key={i.id} className={styles.master}
+                    style={{ backgroundImage: `url(/image/${i.image}.jpg` }} href={`/master/${i.name}`}                  >
+                    <p style={{ width: '75%' }}>
+                        <b>{i.name}</b><br />
+                        <span className={styles.pro}>{i.status}</span>
+                        <span className={styles.stars}>{i.stars}</span>
+                    </p>
+                    <h4>{i.address}</h4>
+                    <h5>{i.servises}</h5>
+                </Link>)}
+            </section> : null}
 
         </div >
     )

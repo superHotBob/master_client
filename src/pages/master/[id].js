@@ -4,27 +4,29 @@ import Image from 'next/image'
 import stroke from '../../../public/stroke.svg'
 import sort from '../../../public/sort.svg'
 import Link from 'next/link'
+import Header from '@/components/header'
 
 const Master = () => {
     const router = useRouter()
     const { id } = router.query
-    console.log(id)
-
     return (
         <div className={styles.main}>
-            <header className={styles.header}>
-               
-                    <Link href='/' className={styles.left__arrow}>
-                        <Image alt="Picture of the author" src={stroke} width={20} height={20} className={styles.left__arrow} />
-                    </Link>  <span>Мой профиль</span>
-                    <Link href='/' className={styles.left__arrow}>
-                        <Image alt="Picture of the author" src={sort} className={styles.left__arrow} height={20} width={20}/>
-                    </Link>
-                    
-            </header>
+            <Header text={id} sel="/masternear" />
             <section className={styles.section}>
-                <p>{id}</p>
-              
+                <div className={styles.image}>
+                    <Image src='/image/profile1.jpg' alt="profile" height={105} width={105} />
+                </div>
+                <p>
+                    <b>{id}</b>
+                    <span className={styles.pro}>MASTER</span>
+                    <span className={styles.stars}>4.7</span>
+                </p> 
+                <span className={styles.text}>Мастер миникюра с 2022 года. Обучалась в УЦ Оле Хаус, 
+                    Пластек, Beautix, Luxio. Прошла курсы. Мастер 
+                    миникюра с 2022 года. 
+                    Обучалась в УЦ Оле Хаус, Пластек, 
+                    Beautix, Luxio. Прошла курсы
+                </span>       
 
             </section>
 
