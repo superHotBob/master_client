@@ -2,10 +2,12 @@ import Header from '@/components/header'
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from './near.module.css'
+import arrow_down from '../../../public/arrow_down.svg'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
-import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps'
+import { YMaps, Map, Placemark,redraw } from '@pbe/react-yandex-maps'
 import Script from 'next/script'
+import FilterServices from '@/components/filterServices'
 
 const sel = {
     background: 'linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)',
@@ -51,18 +53,19 @@ export default function MasterNear() {
     const my_city = useSelector((state) => state.counter.city)
     const [selector, setSelector] = useState(1)
     const [viewFilter, setViewFilter] = useState(false)
-    const [filter, SetFilter] = useState()
-    function setFilter(e) {
-        SetFilter(e.target.id)
-    }
+    const [filter, setFilter] = useState(10)
+    const [master, selectMaster] = useState()
+   
     const defaultState = {
         center: [53.904430, 27.554895],
-        zoom: 12,
+        zoom: filter * 1.2,
         controls: [],
-        behaviors: ["default", "scrollZoom", "click"]
+        behaviors: ["default", "scrollZoom", "onclick"]
     };
-
-
+    function ViewMaster(a) {
+        selectMaster(a)      
+    }
+    console.log(50 / filter)
     return (
         <div className={styles.main}>
             <Script src="https://api-maps.yandex.ru/3.0/?apikey=89caab37-749d-4e30-8fdf-e8045542f060&lang=ru_RU" />
@@ -74,19 +77,7 @@ export default function MasterNear() {
             </div>
             {selector ?
                 <section className={styles.section}>
-                    <div className={styles.main__filter}>
-                        <span>Ноготочки,макияж,мас...</span>
-                        <span onClick={() => setViewFilter(true)}>
-                            фильтр по услугам
-                        </span>
-                        {viewFilter ? <div className={styles.all__filter}>
-                            <h6 onClick={() => setViewFilter(false)}>фильтр по услугам</h6>
-                            <div className={styles.all__filter__data} onClick={setFilter}>
-                                {['Ноготочки', 'Прически', 'Макияж', 'Масаж', 'Барбер', 'Ресницы', 'Брови', 'Депиляция'].map(i =>
-                                    <b key={i} id={i} style={filter === i ? styleSelService : null}>{i}</b>)}
-                            </div>
-                        </div> : null}
-                    </div>
+                    <FilterServices />
                     {masters.map(i => <div key={i.id} className={styles.master}
                         style={{ backgroundImage: `url(/image/${i.image}.jpg` }}                    >
                         <p style={{ width: '75%' }}>
@@ -100,36 +91,58 @@ export default function MasterNear() {
                 </section>
                 :
                 <section>
-                    <div className={styles.main__filter}>
-                        <span>Мастера в радиусе 10 км</span>
+                    {master  ? null : <div className={styles.main__filter}>
+                        <span>Мастера в радиусе {filter} км</span>
                         <span onClick={() => setViewFilter(true)}>
                             радиус поиска
                         </span>
                         {viewFilter ? <div className={styles.all__filter}>
-                            <h6 onClick={() => setViewFilter(false)}>фильтр по услугам</h6>
-                            <div className={styles.all__filter__data} onClick={setFilter}>
-                                {['Ноготочки', 'Прически', 'Макияж', 'Масаж', 'Барбер', 'Ресницы', 'Брови', 'Депиляция'].map(i =>
-                                    <b key={i} id={i} style={filter === i ? styleSelService : null}>{i}</b>)}
+                            <h6 onClick={() => setViewFilter(false)}>фильтр по радиусу</h6>
+                            <div className={styles.all__filter__data}>
+                                {[1, 3, 5, 10].map(i =>
+                                    <b onClick={()=>setFilter(i)} key={i} id={i} style={filter === +i ? styleSelService : null}>{i}км</b>)}
                             </div>
                         </div> : null}
-
-                    </div>
+                    </div>}
                     <YMaps>
-                        <Map defaultState={defaultState} width="100%" height="75vh">                           
+                        <Map id="mymap"
+                            options={{set: defaultState}} 
+                            state={{
+                            center: master ? masters.filter(i=>i.name === master)[0].coordenates : [53.904430, 27.554895],
+                            zoom: master ? 14 : 10 + 10 / filter*0.8,
+                            controls: [],
+                            behaviors: ["default", "scrollZoom"]
+                        }} width="100%" height={master ? "30vh":"75vh"} >
                             {masters.map(i => <Placemark geometry={i.coordenates} key={i.id}
                                 properties={{
                                     hintContent: i.name,
-                                    balloonContent: 'Это красивая метка'
+                                    balloonContent: 'Это красивая метка',
+                                    iconColor: 'green'
                                 }}
                                 options={{
                                     iconLayout: 'default#image',
                                     iconImageHref: `image/${i.image}.jpg`,
-                                    iconImageSize: [40, 40],
-                                }} />)}
+                                    iconImageSize: [40, 40],                                   
+                                }}
+                                onClick={() => ViewMaster(i.name)}
+                            />)}
                         </Map>
                     </YMaps>
                 </section>}
+                {master && !selector ? <section className={styles.section}> 
+                    <Image alt="close" className={styles.close} src={arrow_down} width={25} height={25} onClick={()=>selectMaster()} />                  
+                    {masters.filter(i=>i.name === master).map(i => <div key={i.id} className={styles.master}
+                        style={{ backgroundImage: `url(/image/${i.image}.jpg` }}                    >
+                        <p style={{ width: '75%' }}>
+                            <b>{i.name}</b><br />
+                            <span className={styles.pro}>{i.status}</span>
+                            <span className={styles.stars}>{i.stars}</span>
+                        </p>
+                        <h4>{i.address}</h4>
+                        <h5>{i.servises}</h5>
+                    </div>)}
+                </section>: null}
 
-        </div>
+        </div >
     )
 }

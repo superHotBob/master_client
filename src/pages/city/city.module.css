@@ -7,7 +7,7 @@
     margin: 0 auto;
 }
 
-.headers {
+.header {
     display: flex;
     justify-content: space-between;
     height: 46px;
@@ -16,27 +16,31 @@
     font: 500 16px/17px 'Rubik', sans-serif;
 }
 
-.headers span:last-child {
+.header span:last-child {
     color: #3D4EEA;
+    cursor: pointer;
 }
-
+.header img {
+    cursor: pointer;
+}
 .section {
     width: 300px;
     margin: 30px auto;
+    height: 80vh;
+    overflow-y: auto;
 
 }
 
-.section input[type=search] {
+.seachcity {
     display: block;
-    height: 48px;
-    accent-color: #3D4EEA;
+    height: 48px;    
     width: 300px;
     background-color: #fff;
     border-radius: 4px;
     outline: none;
     padding: 0px 8px 0px 8px;
     border: 1px solid #3D4EEA;
-    margin-bottom: 20px;
+    margin: 20px auto;
 }
 .section input::placeholder {
     color: #8B95F2;
@@ -49,13 +53,15 @@
     font: 700 14px/17px 'Rubik', sans-serif;
     height: 48px;
     color: #000;
+    background-color: #fff;
 }
 .city span {
     color: #000;
 }
 .city input {
-    height: 20px;
-    width: 20px;
+    height: 16px;
+    width: 16px;
     background-color: #fff;
     accent-color: #3D4EEA;
+    margin-right: 15px;
 }

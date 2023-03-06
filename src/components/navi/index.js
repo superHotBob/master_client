@@ -18,7 +18,6 @@ export default function Navi({page}) {
             <Link href="/enter" className={styles.enter}>
                 Вход                
             </Link>
-
         </div>
     )
 }

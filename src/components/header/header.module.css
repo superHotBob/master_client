@@ -5,20 +5,22 @@
     border-bottom: 1px solid #ECEEFD;
     color: #282828;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 22px;
+    font-family: Rubik , sans-serif;
     line-height: 72px;
     padding: 0 16px;
   }
   
-  .header span:last-of-type {
+  .header h3:last-of-type {
     color: #3D4EEA;
     display: inline-block;
     
   }
   
-  .header span:first-of-type {
+  .header h3:first-of-type {
     margin-left: 10px;
+    display: inline-block;
   }
   
   .header a img {

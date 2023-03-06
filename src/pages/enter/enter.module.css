@@ -9,8 +9,7 @@
 }
 
 .section {
-    background-color: #fff;
-    background-repeat: no-repeat;
+    background-color: #fff;    
     background-position: center 30px;
     background-image: url('/logo-main.svg');
     background-size: 20%;
@@ -33,8 +32,13 @@
 .inputs span {
     color:#3D4EEA;
     display: block;
-    transform: translate(10px,20px);
-    
+    transform: translate(3px,20px);    
+}
+.inputs span::before {
+    content: '+';
+    transform: translate(8px,21px);
+    display: inline-block;
+    color: #000;
 }
 .inputs p {
     text-align: center;   

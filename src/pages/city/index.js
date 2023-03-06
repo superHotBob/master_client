@@ -7,7 +7,8 @@ import { useRouter } from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
 import { setcity } from '../../reduser.js'
 
-const citys = ['Москва','Минск','Брест','Гродно','Саратов','Новосибирск']
+const citys = ['Москва', 'Минск', 'Брест', 'Гродно', 'Саратов',
+    'Новосибирск', 'Улан-Уде', 'Вокута', 'Сочи', 'Рязань', 'Витебск', 'Барнаул']
 
 export default function City() {
     const [myCitys, setMyCitys] = useState(citys)
@@ -26,29 +27,33 @@ export default function City() {
     function selectCity(e) {
         console.log(e.target.value);
         if (e.target.value) {
-            let cc = myCitys.filter(i => i.toLowerCase().includes(e.target.value)?i : null)
+            let cc = myCitys.filter(i => i.toLowerCase().includes(e.target.value) ? i : null)
 
             setMyCitys(cc)
         } else {
             setMyCitys(citys)
         }
-        
-       
-        
+
+
+
     }
     return (
         <div className={styles.main}>
-            <header className={styles.headers}>                
-                <Image src={arrow} alt="back" onClick={()=>router.back()}/>               
+            <header className={styles.header}>
+                <Image src={arrow} alt="back" onClick={() => router.back()} />
                 <span>Выбор города</span>
                 <span onClick={setMyCity}>Принять</span>
-            </header>           
+            </header>
+            <input className={styles.seachcity} type="search" ref={ref} placeholder='Ваш город' defaultValue={selCity} value={city} onChange={selectCity} />
             <section className={styles.section}>
-                <input type="search" ref={ref} placeholder='Ваш город' defaultValue={selCity} value={city} onChange={selectCity}/>
-                {myCitys.map(i=><div className={styles.city} key={i}>
-                    <span>{i}</span>
-                    <input type="radio" value={i} name="city" onClick={(e)=>setSelCity(e.target.value)} />
-                </div>)}
+                
+               
+                {myCitys.sort().map(i =>
+                    <label className={styles.city} key={i}>
+                        {i}
+                        <input type="radio" value={i} name="city" onClick={(e) => setSelCity(e.target.value)} />
+                    </label>
+                )}
             </section>
         </div>
     )

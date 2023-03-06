@@ -6,8 +6,7 @@ import styles from './event.module.css'
 const ev = {
     color: '#fff',
     backgroundColor: '#3D4EEA',
-    backgroundImage: 'url(check_double.svg)',
-    backgroundRepeat: 'no-repeat',
+    backgroundImage: 'url(check_double.svg)',    
     backgroundPosition: '85% center',
     backgroundSize: '8%',
    
@@ -29,13 +28,13 @@ export default function Event() {
                     Бесплатно!
                 </h3>
                 <h4>Метро Красный октябрь</h4>
-                <h5>Макияж, Ноготочки, Прическа</h5>
+                <h5>Макияж, Маникюр, Прическа</h5>
                 <div className={styles.images}>
                     {['master1', 'master2', 'master3'].map(i =>
                         <Image alt={i} key={i} src={'/image/' + i + '.jpg'} width={105} height={105} />)}
 
                 </div>
-                <Link href="/" >Подать заявку</Link>
+                <Link href="/apply_to_event" >Подать заявку</Link>
             </section>
             <section className={styles.event} style={{ backgroundImage: 'url(/image/profile1.jpg' }}>
                 <p>
@@ -44,9 +43,7 @@ export default function Event() {
                     <span className={styles.stars}>4.7</span>
                 </p>
                 <br/>
-                <h3>
-                    Описание мероприятия
-                </h3>
+                <h3>Описание мероприятия</h3>
                
                 <h4>Метро Красный октябрь</h4>
                 <h5>Макияж, Ноготочки, Прическа</h5>

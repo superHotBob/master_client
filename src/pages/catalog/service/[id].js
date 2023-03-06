@@ -7,9 +7,8 @@ import { useState } from 'react'
 import styles from './service.module.css'
 import close from '../../../../public/close.svg'
 import position from '../../../../public/position.svg'
-import arrow from '../../../../public/arrow_right.svg'
-import star from '../../../../public/star-small.svg'
 import location from '../../../../public/location.svg'
+import FilterServices from '@/components/filterServices'
 
 
 const style = {
@@ -19,9 +18,7 @@ const style = {
     border: '1.5px solid #3D4EEA'
 }
 export default function Service() {
-    const router = useRouter()
-    const [viewFilter, setViewFilter] = useState(false)
-    const [filter, SetFilter] = useState()
+    const router = useRouter()    
     const handleClick = (e) => {
         e.preventDefault()
         router.push('/')
@@ -34,7 +31,7 @@ export default function Service() {
     console.log(id)
     return (
         <div className={styles.main}>
-            <Header sel="1" text="Мастера рядом" />
+            <Header sel="/catalog" text="Мастера рядом" />
             <section className={styles.section}>
                 <div className={styles.message} >
                     <Image alt="picture" src={close} height={10} width={10} />
@@ -47,24 +44,7 @@ export default function Service() {
                     <Link href="/city"> Выбрать ваш город</Link>
                     <Image alt="Picture of the author" src={position} width={20} height={20} />
                 </div>
-                <div className={styles.main__filter}>
-                    <span>
-                        Ноготочки,макияж,мас...
-                    </span>
-                    <span onClick={() => setViewFilter(true)}>
-                        фильтр по услугам
-                        <Image src={arrow} alt='arrow' />
-                    </span>
-                    {viewFilter ? <div className={styles.all__filter}>
-                        <span>фильтр по услугам
-                            <Image alt="close" style={{ margin: '8px 0 0 10px' }} src={close} height={10} width={10} onClick={() => setViewFilter(false)} />
-                        </span>
-                        <div className={styles.all__filter__data} onClick={setFilter}>
-                            {['Ноготочки', 'Прически', 'Макияж', 'Масаж', 'Барбер', 'Ресницы', 'Брови', 'Депиляция'].map(i =>
-                                <b key={i} id={i} style={filter === i ? style : null}>{i}</b>)}
-                        </div>
-                    </div> : null}
-                </div>
+                <FilterServices/>
                 <div className={styles.master} style={{ backgroundImage: 'url(/image/profile1.jpg' }}>
                     <p>
                         <b>Виктория  Ченг</b>
