@@ -5,7 +5,7 @@ import styles from './near.module.css'
 import arrow_down from '../../../public/arrow_down.svg'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
-import { YMaps, Map, Placemark, redraw } from '@pbe/react-yandex-maps'
+import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps'
 import Script from 'next/script'
 import FilterServices from '@/components/filterServices'
 
@@ -51,6 +51,7 @@ const masters = [{
 }
 ]
 export default function MasterNear() {
+  
     const my_city = useSelector((state) => state.counter.city)
     const [selector, setSelector] = useState(1)
     const [viewFilter, setViewFilter] = useState(false)
@@ -109,6 +110,7 @@ export default function MasterNear() {
                     <YMaps>
                         <Map id="mymap"
                             options={{ set: defaultState }}
+                           
                             state={{
                                 center: master ? masters.filter(i => i.name === master)[0].coordenates : [53.904430, 27.554895],
                                 zoom: master ? 14 : 10 + 10 / filter * 0.8,
@@ -126,7 +128,7 @@ export default function MasterNear() {
                                     iconImageHref: filter < 5 ? `image/${i.image}.jpg` : '/master1.svg',
                                     iconImageSize: [40, 40],
                                 }}
-                                onClick={() => ViewMaster(i.name)}
+                                onClick={(e) =>( ViewMaster(i.name),console.log('this is coords',e.getZoom()))}
                             />)}
                         </Map>
                     </YMaps>

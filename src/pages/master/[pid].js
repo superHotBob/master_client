@@ -9,6 +9,7 @@ import { useState } from 'react'
 import Navi from '@/components/navi'
 import Reviews from '@/components/reviews'
 import Services from '@/components/services'
+import Lenta from '@/components/lenta'
 
 const nav_active = {
     backgroundColor: '#3D4EEA',
@@ -53,6 +54,7 @@ const Master = () => {
             <main>
                {nav_view === 'Отзывы' ? <Reviews name={pid} /> : null}
                {nav_view === 'Услуги' ? <Services name={pid} /> : null}
+               {nav_view === 'Лента' ? <Lenta name={pid} /> : null}
             </main>
             <Navi page="master"/>
 

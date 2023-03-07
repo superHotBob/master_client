@@ -6,7 +6,7 @@ import styles from '@/styles/Home.module.css'
 import Navi from '@/components/navi'
 import Header from '@/components/header'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import FilterServices from '@/components/filterServices'
 
 
@@ -14,18 +14,7 @@ import FilterServices from '@/components/filterServices'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  
-
- 
-
-  const router = useRouter()
-  
-  const handleClick = (e) => {
-    e.preventDefault()
-    router.push('/')
-  }
-
-  
+  const router = useRouter()  
   return (
     <>
       <Head>
