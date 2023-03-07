@@ -71,7 +71,9 @@
   background-repeat: no-repeat;
 }
 
-
+input[type='text'], input[type='tel'], input[type='radio'], input[type='search'] {
+  background-color: #fff;
+}
 
 html,
 body {

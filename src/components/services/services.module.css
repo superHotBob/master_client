@@ -1,0 +1,29 @@
+.main {
+    padding: 0 16px;
+}
+.data {    
+    padding: 10px 0;
+}
+.type {
+    text-align: center;
+    font: 600 16px/26px 'Rubil', sans-serif;
+}
+.data span:last-of-type {
+    font: 600 16px/26px 'Rubil', sans-serif;
+}
+.service {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;    
+    background: #F8F8F8;
+    border-radius: 4px;
+    margin: 8px 0;
+    padding: 5px 10px;
+}
+.service span:first-of-type {
+    display: inline-block;
+    width: 65%;
+    margin: 10px 0;
+    font: 600 14px/16px 'Rubil', sans-serif;
+}
+

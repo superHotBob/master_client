@@ -25,7 +25,7 @@ export default function Reviews(props) {
                     </span>
                 </div>
                 <p className={styles.service}>{i.service}</p>
-                {view !== i.name ?<p className={styles.message}>{i.message.slice(0,190)}...</p>:
+                {view !== i.name ?<p className={styles.message}>{i.message.slice(0,145)}...</p>:
                 <p className={styles.message} >{i.message}</p>}
                 <span onClick={()=>setView(view === i.name ? null : i.name)}>{view === i.name ?'скрыть' : 'подробнее'}</span>
             </div>)}
