@@ -1,13 +1,18 @@
-.main {
+.total {
     position: fixed;
     top: 90vh;
-    left: calc(50% - 94px);
+    width: 100%;
+    max-width: 500px;
+}
+.main {
+    margin: 0 auto;
     background: linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%);
     border-radius: 30px;
     height: 58px;
-    width: 188px;
+    display: block;
+    width: fit-content;
     border-radius: 30px;
-    padding: 6px;
+    padding: 6px 3px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -22,19 +27,31 @@
     font: 500 16px/29px 'Rubik', sans-serif;
     border-radius: 39px;
     padding: 7px 16px 7px 16px;
-    background: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.2);
     text-align: center;
     color: #fff;
+    margin: 0 3px;
 
 
 }
+.message {
+    background-image: url('/message.svg');   
+}
 
-.dashboard, .home {
+
+.dashboard, .home , .message, .stroke {
     height: 46px;
     width: 46px;
-    background: rgba(255, 255, 255, 0.2);
+    background-size: 50%;
+    background-position: center;
+    background-color: rgba(255, 255, 255, 0.2);
     border-radius: 46px;
     text-align: center;
+    margin: 0 3px;
+}
+.stroke {
+    background-image: url('/stroke.svg');  
+    background-size: 30%; 
 }
 .home {
     background-color: #fff;

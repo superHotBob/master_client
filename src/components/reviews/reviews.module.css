@@ -1,0 +1,33 @@
+.main {
+    padding: 0 16px;
+}
+.data {
+    border-bottom: 1px solid #D0D0D0;
+    padding: 10px 0;
+}
+.data span:last-of-type {
+    color: #3D4EEA;
+
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header span:first-of-type {
+    display: inline-block;
+    width: 20%;
+    font: 600 16px/26px 'Rubik', sans-serif;
+    color: #000;
+}
+.service {
+    color: #D0D0D0;
+    margin: 10px auto;
+    font: 600 14px/16px 'Rubil', sans-serif;
+}
+.message {
+    height: fit-content;
+    overflow: hidden;
+    font: 400 14px/17px 'Rubil', sans-serif;
+    transition: all 0.5s;
+}
