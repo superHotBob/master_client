@@ -66,8 +66,7 @@ export default function MasterNear() {
     };
     function ViewMaster(a) {
         selectMaster(a)
-    }
-    console.log(50 / filter)
+    }   
     return (
         <div className={styles.main}>
             <Script src="https://api-maps.yandex.ru/3.0/?apikey=89caab37-749d-4e30-8fdf-e8045542f060&lang=ru_RU" />

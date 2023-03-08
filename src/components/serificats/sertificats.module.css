@@ -1,0 +1,14 @@
+.main {
+    display: flex;
+    justify-content: space-between; 
+    flex-wrap: wrap;
+    padding: 16px;
+}
+.image {
+    width: 48%;
+    height: 180px;
+    background-position: center;
+    background-size: 100% 100%;
+    margin-bottom: 16px;
+    border-radius: 8px;
+}

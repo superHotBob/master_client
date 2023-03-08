@@ -21,5 +21,8 @@
     "react-dom": "18.2.0",
     "react-range": "^1.8.14",
     "react-redux": "^8.0.5"
+  },
+  "devDependencies": {
+    "@types/next-pwa": "^5.6.2"
   }
 }

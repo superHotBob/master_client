@@ -10,6 +10,7 @@ import Navi from '@/components/navi'
 import Reviews from '@/components/reviews'
 import Services from '@/components/services'
 import Lenta from '@/components/lenta'
+import Sertificats from '@/components/serificats'
 
 const nav_active = {
     backgroundColor: '#3D4EEA',
@@ -47,16 +48,15 @@ const Master = () => {
                     <button>Запись к мастеру</button>
                 </div>
                 <nav className={styles.navigation}>
-                    {['Лента','Услуги','Сертификаты','Отзывы']
-                    .map(i=><span key={i} onClick={()=>setNavView(i)} style={nav_view === i ? nav_active:null}>{i}</span>)}
+                    {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
+                        .map(i => <span key={i} onClick={() => setNavView(i)} style={nav_view === i ? nav_active : null}>{i}</span>)}
                 </nav>
             </section>
-            <main>
-               {nav_view === 'Отзывы' ? <Reviews name={pid} /> : null}
-               {nav_view === 'Услуги' ? <Services name={pid} /> : null}
-               {nav_view === 'Лента' ? <Lenta name={pid} /> : null}
-            </main>
-            <Navi page="master"/>
+            {nav_view === 'Отзывы' ? <Reviews name={pid} /> : null}
+            {nav_view === 'Услуги' ? <Services name={pid} /> : null}
+            {nav_view === 'Лента' ? <Lenta name={pid} /> : null}
+            {nav_view === 'Сертификаты' ? <Sertificats name={pid} /> : null}
+            <Navi page="master" />
 
         </div>
     )
