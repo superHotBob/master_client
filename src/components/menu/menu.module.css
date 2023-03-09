@@ -1,0 +1,71 @@
+.main_menu {
+    position: absolute;
+    height: 454px;
+    width: 250px;
+    left: 109px;
+    top: 72px;
+    border-radius: 16px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0px 4px 51px rgba(40, 40, 40, 0.4);
+    backdrop-filter: blur(25px);
+    z-index: 1000;
+    padding: 0 16px;
+}
+.main_menu h6 {
+    text-align: center;
+    color: #3D4EEA;
+    line-height: 20px;
+    margin: 15px 0;
+}
+.main_menu p {
+    text-align: left;
+    font: 400 16px/31px 'Rubik', sans-serif;
+    background-position: right center;
+    
+}
+.main_menu p:first-of-type {
+    background-image: url('/message_menu.svg');
+}
+.seans {
+    background-image: url('/ticket.svg'); 
+}
+.edit_profile {
+    background-image: url('/edit_profile.svg'); 
+}
+p.copy {
+    background-image: url('/url.svg'); 
+    line-height: 18px;
+    margin: 5px 0;
+}
+.shedule {
+    background-image: url('/calendar.svg'); 
+}
+.seans span {
+    margin-left: 5px;
+    color: #fff;
+    display: inline-block;
+    height: 16px;
+    text-align: center;
+    width: 16px;
+    background-color: red;
+    border-radius: 100%;
+    font: 600 10px/18px 'Rubik', sans-serif;
+    vertical-align: text-bottom;
+}
+.chat {
+    background-image: url('/chat.svg'); 
+}
+.add {
+    background-image: url('/edit.svg'); 
+}
+.about {
+    background-image: url('/about.svg'); 
+}
+.collections {
+    background-image: url('/collections.svg'); 
+}
+.main_menu p:last-of-type {
+    background-image: url('/logout.svg');
+    margin-top: 10px;
+}    

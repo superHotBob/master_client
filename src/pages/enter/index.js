@@ -1,11 +1,16 @@
 import Header from '@/components/header'
 import styles from './enter.module.css'
+import { useRouter } from 'next/router'
 import { FormEvent, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { setmaster } from '@/reduser'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 
 export default function Enter() {
     const [phone, setPhone] = useState()
+    const dispatch = useDispatch()
+    const router = useRouter()
     const handleSubmit = async (event) => {
         // Stop the form from submitting and refreshing the page.
         event.preventDefault()
@@ -33,7 +38,15 @@ export default function Enter() {
         // Get the response data from server as JSON.
         // If server returns the name submitted, that means the form works.
         const result = await response.json()
-        console.log(result.tel)
+        if(result.name) {
+            dispatch(setmaster(result.name))
+            router.push(`/master/${result.name}`)
+            console.log(result.name)
+        } else {
+            console.log("Error")
+        }
+        
+        
     }
     return (
         <div className={styles.main}>

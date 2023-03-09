@@ -29,7 +29,7 @@ const text = (` Ищу модель, что бы протестировать к
 const my_images = ['/image/lenta2.jpg', '/image/lenta1.jpg', '/image/lenta1.jpg', '/image/lenta2.jpg']
 export default function Lenta() {
     const [width, setWidth] = useState()
-    const [model, setViewText] = useState(true)
+    const [model, setViewText] = useState(false)
     useEffect(() => setWidth(window.innerWidth > 500 ? 500 : window.innerWidth),)
     return (
         <main className={styles.main}>

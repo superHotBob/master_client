@@ -27,7 +27,7 @@
   .header img {
     vertical-align: middle;
   }
-  .header a {
+  .header img:last-of-type {
     vertical-align: middle;
     height: 38px;
     float: right;
