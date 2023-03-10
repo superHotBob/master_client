@@ -24,7 +24,7 @@
   .header a img {
     line-height: 40px;
   }
-  .header img {
+  .header .icon {
     vertical-align: middle;
     transform: translate(5px, -2px);
   }

@@ -52,12 +52,14 @@
     margin: 5px auto;
     border-radius: 8px;
     background-position: center;   
-    background-size: cover;    
+    background-size: cover; 
+    background-image: url('/image/background1.jpg');   
     height: 120px;
-    padding: 20px;
+    padding: 10px 11px;
     display: block;
     font: 900 26px/30px 'Dela Gothic One', sans-serif;
     text-align: left;
+
 }
 .events a:first-of-type {
     height: 80px;

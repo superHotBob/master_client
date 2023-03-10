@@ -34,7 +34,7 @@ export default function Services() {
                 )}
             </div> : <div className={styles.events}>
                 <Link href="/event" className={styles.model}>
-                    <Image alt="master" src="/image/model.jpg" fill />
+                    СТАТЬ МОДЕЛЬЮ <br/>БЕСПЛАТНО
                 </Link>
                 {events.map(i => <Link href={i.link} key={i.image} style={{ backgroundImage: "url(" + i.image + ")" }} >{i.text}</Link>)}
 
