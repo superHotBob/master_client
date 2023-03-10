@@ -1,7 +1,7 @@
 .main {
     align-items: center;
-    min-height: 100vh;
-    max-width: 400px;
+    min-height: 100vh; 
+    max-width: 500px;   
     background-color: #fff;
     width: 100%;
     margin: 0 auto;
@@ -30,11 +30,7 @@
     line-height: 17px;
 }
 
-.image {
-    height: 100px;
-    background: linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%);
-    border-radius: 20px;
-}
+
 
 .image img {
     border-radius: 100%;
@@ -80,7 +76,8 @@
 
 .text {
     text-align: center;
-    font: 400 12px/17px 'Rubik', sans-serif;
+    font: 500 12px/17px 'Rubik', sans-serif;
+    color: #282828;
 }
 
 .view_text {
@@ -104,19 +101,34 @@
     border-radius: 6px;
     height: 36px;
     border: none;
-    width: 43%;
-    background-position: 92% center;
-    background-size: 16px 16px;
-    background-image: url('/chat-small.svg');
+    width: 43%;   
+}
+.buttons button span {
+    color: #3D4EEA;
+    font-weight: 600;
+}
+.buttons button span::after {
+    content: url('/chat-small.svg');
+    display: inline-block;
+    transform: translate(6px, 3px);
 }
 .buttons button:last-of-type {
-    width: 55%;
-    background-image: url('/edit-small.svg');
+    width: 55%;    
+}
+
+.buttons button:last-of-type span::after {   
+   content:  url('/edit-small.svg');
 }
 .navigation {
     display: flex;
     margin: 16px 0 0;
     justify-content: space-between;
+}
+.section h4 {
+    margin: 5px 0;
+    color: #282828;
+    font: 600 12px/22px 'Rubik', sans-serif;
+    text-align: center;
 }
 .navigation span {
     display: inline-block;
@@ -126,7 +138,18 @@
     border-radius: 6px;
     
     font: 400 14px/27px 'Rubik', sans-serif;
+    
+    
 }
+.image {
+    height: 100px;
+    background: linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%);
+    border-radius: 20px;
+    
+}
+
+  
+  
 @media screen and (min-width: 500px) {
     .main {
       max-width: 500px;

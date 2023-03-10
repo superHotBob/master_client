@@ -32,7 +32,7 @@
 }
 
 .city {
-  font: 500 16px/46px 'Rubik', sans-serif;
+  font: 600 16px/46px 'Rubik', sans-serif;
   letter-spacing: 0px;
   text-align: center;
   display: block;
@@ -47,8 +47,8 @@
   flex-wrap: wrap;
 }
 .images a {
-  width: 49%;
-  margin-bottom: 5px;
+  width: calc(50% - 5.5px);
+  margin-bottom: 11px;
   height: calc(49vw + 30px);
   position: relative;
   max-height: 300px;

@@ -23,10 +23,7 @@ export default function Service() {
         e.preventDefault()
         router.push('/')
     }
-
-    function setFilter(e) {
-        SetFilter(e.target.id)
-    }
+    
     const { id } = router.query
     console.log(id)
     return (
@@ -48,35 +45,26 @@ export default function Service() {
                 <div className={styles.master} style={{ backgroundImage: 'url(/image/profile1.jpg' }}>
                     <Link href="/master/Виктория  Ченг">
                         <p>
-                            <b>Виктория  Ченг</b>
-                            <span className={styles.pro}>PRO</span>
-                            <span className={styles.stars}>4.7</span>
+                            Виктория  Ченг
+                            <span className={styles.pro}>MASTER</span>
+                            <span className={styles.stars}>4.9</span>
                         </p>
                     </Link>
                     <h4><Image alt="loc" src={location} width={15} height={15} /> Метро Красный октябрь</h4>
-                    <h5>Макияж, Ноготочки, Прическа</h5>
-                    <div className={styles.images}>
-                        {['master1', 'master2', 'master3'].map(i =>
-                            <Image alt={i} key={i} src={'/image/' + i + '.jpg'} width={105} height={105} />)}
-
-                    </div>
-
+                    <h5>Макияж Ноготочки Прическа</h5>
+                   
                 </div>
                 <div className={styles.master} style={{ backgroundImage: 'url(/image/profile1.jpg' }}>
                     <Link href="/master/Виктория  Ченг">
                         <p>
-                            <b>Виктория  Ченг</b>
-                            <span className={styles.pro}>PRO</span>
+                            Клава Иванова
+                            <span className={styles.pro}>MASTER</span>
                             <span className={styles.stars}>4.7 </span>
                         </p>
                     </Link>
                     <h4><Image alt="loc" src={location} width={15} height={15} /> Метро Красный октябрь</h4>
-                    <h5>Макияж, Ноготочки, Прическа</h5>
-                    <div className={styles.images}>
-                        {['master1', 'master2', 'master3'].map(i =>
-                            <Image alt={i} key={i} src={'/image/' + i + '.jpg'} width={105} height={105} />)}
-
-                    </div>
+                    <h5>Макияж Ноготочки Прическа</h5>
+                   
 
                 </div>
             </section>

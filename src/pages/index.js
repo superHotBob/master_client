@@ -6,7 +6,7 @@ import styles from '@/styles/Home.module.css'
 import Navi from '@/components/navi'
 import Header from '@/components/header'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import FilterServices from '@/components/filterServices'
 
 
@@ -14,7 +14,9 @@ import FilterServices from '@/components/filterServices'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  const router = useRouter()  
+  useEffect(() => console.log(ref.current.clientHeight),[])
+  const router = useRouter()
+  const ref = useRef(null)  
   return (
     <>
       <Head>
@@ -22,8 +24,9 @@ export default function Home() {
         <meta name="description" content="Master app" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
+        {/* <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Rubik:wght@500&display=swap" rel="stylesheet"></link> */}
       </Head>
-      <main className={styles.main}>
+      <main className={styles.main} ref={ref}>
         <Header />
         <section className={styles.section}>
           <div className={styles.message} >

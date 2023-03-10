@@ -11,8 +11,8 @@
 
 .main h2 {
   text-align: center;
-  color: #3D4EEA;
-  margin-top: 20px;
+  color: hsl(234, 80%, 58%);
+  margin: 16px 0 24px;
 }
 
 .section {
@@ -22,8 +22,7 @@
 .selector {
   font: 600 14px/17px 'Rubik', sans-serif;
   display: flex;
-  justify-content: space-around;
-  margin: 20px 0;
+  justify-content: space-around;  
   align-items: center;
   padding: 10px;
   height: 27px;
@@ -48,30 +47,36 @@
   background-color: #FFFFFF;
   padding: 10px;
   display: block;
-  background-position: 97% 14%; 
-  background-size: 20%;
+  background-position: 97% center; 
+  background-size: 60px 60px;
   box-shadow: 0px 0px 20px #C5C5C5;
   border-radius: 12px;
   margin: 10px 0;
 }
 
-.master p b {
-  font: 600 16px/26px 'Rubik', sans-serif;
+.master p  {
+  font-family: "Rubik", sans-serif;
+  font-weight: 600;
   color: #000;
+  line-height: 25px;
 }
-
-.images {
-  height: 100px;
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
+.my_map {
+  margin-top: 20px;
+  filter: grayscale(1);
+}
+.ymaps-2-1-79-map  {
+	filter: grayscale(1) !important;
+	-ms-filter: grayscale(1);
+	-webkit-filter: grayscale(1);
+	-moz-filter: grayscale(1);
+	-o-filter: grayscale(1);
 }
 
 .pro {
   margin: 0 5px 0 0;
   background: linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%);
   border-radius: 4px;
-  font: 600 14px/20px 'Rubik', sans-serif;
+  font: 600 12px/17px 'Rubik', sans-serif;
   padding: 2px 8px;
   color: #fff;
   display: inline-block;
@@ -81,10 +86,10 @@
   background-image: url('/star-small.svg'); 
   background-position: 85% center;
   background-size: 35%;
-  height: 25px;
+  height: 21px;
   width: 50px;
   vertical-align: middle;
-  font: 600 14px/21px 'Rubik', sans-serif;
+  font: 600 12px/18px 'Rubik', sans-serif;
   color: #3D4EEA;
   background-color: #ECEEFD;
   border-radius: 4px;
@@ -98,7 +103,7 @@
 }
 
 .master h4 {
-  margin: 20px 0 10px;
+  margin: 5px 0;
   color: #282828;
   padding-left: 20px;
   font: 400 12px/12px 'Rubik', sans-serif;
@@ -132,6 +137,7 @@
   color: #3D4EEA;
   background-position: right center;    
   background-size: 18%;
+  font-weight: 600 !important;
   background-image: url('/arrow_right.svg');
   cursor: pointer;
 }
@@ -152,6 +158,7 @@
   margin: 15px;
   text-align: right;
   padding-right: 30px;
+  font-weight: 500;
   background-image: url('/close.svg');    
   background-position: 100% center;
   background-size: 4%;

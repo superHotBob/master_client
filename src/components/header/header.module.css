@@ -26,6 +26,7 @@
   }
   .header img {
     vertical-align: middle;
+    transform: translate(5px, -2px);
   }
   .header img:last-of-type {
     vertical-align: middle;
@@ -38,5 +39,4 @@
     background: #ECEEFD;
     border-radius: 100%;
   }
-  
   

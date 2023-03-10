@@ -11,6 +11,7 @@ import Reviews from '@/components/reviews'
 import Services from '@/components/services'
 import Lenta from '@/components/lenta'
 import Sertificats from '@/components/serificats'
+import location from '../../../public/location.svg'
 
 const nav_active = {
     backgroundColor: '#3D4EEA',
@@ -32,21 +33,23 @@ const Master = () => {
                     <Image src='/image/profile1.jpg' alt="profile" height={105} width={105} />
                 </div>
                 <p>
-                    <b>{pid}</b>
+                    {pid}
                     <span className={styles.pro}>MASTER</span>
                     <span className={styles.stars}>4.7</span>
                 </p>
-                {viewText ? <span className={styles.text}>Мастер миникюра с 2022 года. Обучалась в УЦ Оле Хаус,
+                <h4><Image alt="loc" src={location} width={15} height={15} /> Метро Красный октябрь</h4>
+                {viewText ? <h5 className={styles.text}>Мастер миникюра с 2022 года. Обучалась в УЦ Оле Хаус,
                     Пластек, Beautix, Luxio. Прошла курсы. Мастер
                     миникюра с 2022 года.
                     Обучалась в УЦ Оле Хаус, Пластек,
                     Beautix, Luxio. Прошла курсы
-                </span> : null}
+                </h5> : null}
                 <span className={styles.view_text} onClick={() => setViewText(!viewText)}>{viewText ? 'Скрыть описание' : 'Описание'}</span>
                 <div className={styles.buttons}>
-                    <button>Сообщения</button>
-                    <button>Запись к мастеру</button>
+                    <button><span>Сообщения</span></button>
+                    <button><span>Запись к мастеру</span></button>
                 </div>
+               
                 <nav className={styles.navigation}>
                     {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
                         .map(i => <span key={i} onClick={() => setNavView(i)} style={nav_view === i ? nav_active : null}>{i}</span>)}
