@@ -14,13 +14,15 @@
   }
   
   .main__filter span:last-of-type {
-    width: 45%;
+    width: 46%;
     color: #3D4EEA;
-    font-weight: 600;
-    background-position: right center;    
-    background-size: 18%;
-    background-image: url('/arrow_right.svg');
+    font-weight: 600;   
     cursor: pointer;
+  }
+  .main__filter span:last-of-type::after {
+    content: url('/arrow_right.svg');
+    display: inline-block;
+    transform: translate(15px, 0);
   }
   .all__filter {
     position: absolute;

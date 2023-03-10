@@ -35,11 +35,12 @@
   font: 600 16px/46px 'Rubik', sans-serif;
   letter-spacing: 0px;
   text-align: center;
-  display: block;
-  background-position: 80% center; 
-  background-size: 5%;
-  background-repeat: no-repeat;
-  background-image: url('/position.svg');
+  display: block;  
+}
+.city::after {
+  content: url('/position.svg');
+  display: inline-block;  
+  transform: translate(10px,5px);
 }
 .images {
   display: flex;

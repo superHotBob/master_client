@@ -14,7 +14,7 @@ import FilterServices from '@/components/filterServices'
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-  useEffect(() => console.log(ref.current.clientHeight),[])
+  
   const router = useRouter()
   const ref = useRef(null)  
   return (
@@ -23,8 +23,7 @@ export default function Home() {
         <title>master</title>
         <meta name="description" content="Master app" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-        {/* <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Rubik:wght@500&display=swap" rel="stylesheet"></link> */}
+        <link rel="icon" href="/favicon.ico" />       
       </Head>
       <main className={styles.main} ref={ref}>
         <Header />

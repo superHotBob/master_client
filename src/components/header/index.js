@@ -32,15 +32,15 @@ export default function Header({ sel, text }) {
 
 
       <Image
-        src={menu && master ? close : img_menu}
+        src={menu ? close : img_menu}
         alt="menu"
         onClick={() => menuView(!menu)}
         className={styles.left__arrow}
         width={20} height={20}
-        style={menu && master?close_menu:null}
+        style={menu ? close_menu : null}
       />
 
-      {master && menu ? <Menu name={master} /> : null}
+      {menu ? <Menu /> : null}
     </header>
   )
 }
