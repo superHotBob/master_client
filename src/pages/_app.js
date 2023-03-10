@@ -6,8 +6,8 @@ import Head from 'next/head'
 
 
 const rubik = Rubik({
-  weight: ['400', '500'],
-  subsets: ['latin'],
+  weight: ['400', '500','600'],
+  subsets: ['latin','cyrillic'],
 })
 
 

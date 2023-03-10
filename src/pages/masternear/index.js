@@ -95,7 +95,7 @@ export default function MasterNear() {
                     </Link>)}
                 </section>
                 :
-                <section className={styles.my_map}>
+                <section >
                     {master ? null : <div className={styles.main__filter}>
                         <span>Мастера в радиусе {filter} км</span>
                         <span onClick={() => setViewFilter(true)}>
@@ -103,14 +103,18 @@ export default function MasterNear() {
                         </span>
                         {viewFilter ? <div className={styles.all__filter}>
                             <h6 onClick={() => setViewFilter(false)}>радиус поиска</h6>
-                            <div className={styles.all__filter__data}>
+                            {/* <div className={styles.all__filter__data}>
                                 {[1, 3, 5, 10].map(i =>
                                     <b onClick={() => setFilter(i)} key={i} id={i} style={filter === +i ? styleSelService : null}>{i}км</b>)}
-                            </div>
-
+                            </div> */}
+                           
+                              <p>{filter} км</p>  
+                            <input className={styles.range} step="1" type="range" min="1" max="10"  value={filter} onChange={e=>setFilter(e.target.value)} ></input>
+                            
                         </div> : null}
                     </div>}
-                    <YMaps>
+                    <div className={styles.my_map}>
+                    <YMaps >
                         <Map id="mymap"
                             options={{ set: defaultState }}
 
@@ -136,6 +140,7 @@ export default function MasterNear() {
                             />)}
                         </Map>
                     </YMaps>
+                    </div>
                 </section>}
             {master && !selector ? <section className={styles.section}>
                 <Image alt="close" className={styles.close} src={arrow_down} width={25} height={25} onClick={() => selectMaster()} />

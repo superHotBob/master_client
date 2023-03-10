@@ -3,7 +3,7 @@ import styles from './enter.module.css'
 import { useRouter } from 'next/router'
 import { FormEvent, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { setmaster } from '@/reduser'
+import { setmaster, setclient } from '@/reduser'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 
@@ -38,12 +38,16 @@ export default function Enter() {
         // Get the response data from server as JSON.
         // If server returns the name submitted, that means the form works.
         const result = await response.json()
-        if(result.name) {
+        if(result.status==='master') {
             dispatch(setmaster(result.name))
             router.push(`/master/${result.name}`)
             console.log(result.name)
+        } else if (result.status === 'client') {
+            dispatch(setclient(result.name))
+            router.push(`/master/${result.name}`)
+            console.log(result.name)
         } else {
-            console.log("Error")
+             console.log("Error")
         }
         
         
