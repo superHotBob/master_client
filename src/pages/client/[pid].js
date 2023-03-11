@@ -20,11 +20,17 @@ export default function Client() {
     useEffect(() => client ? console.log('Bob') : ()=> router.push('/enter') ,[])
     return (
         <main className={styles.main}>
-            <Header text={pid} />
+            <Header text={pid + 1254} />
+            <div className={styles.profile} style={{backgroundImage:"url(/camera_bl.svg"}}>
+                <h2>{pid}</h2>
+                <Link href="/editprofile">Редактировать профиль</Link>
+
+            </div>
             <div className={styles.selector}>
                 <span onClick={() => setSelector(1)} style={selector ? sel : null}>Сохранённое</span>
                 <span onClick={() => setSelector(0)} style={selector ? null : sel}>Заказы</span>
             </div>
+            {selector ? <>
             <div className={styles.message} >
                 Здесь будут храниться ваши сохраненные работы <br />
                 мастеров, что бы не терять понравившееся из виду. <br />
@@ -32,7 +38,12 @@ export default function Client() {
             </div>
             <Link href="/masternear" className={styles.uslugi}>
                 Мастера рядом
-            </Link>
+            </Link></> 
+            : <>
+            <div className={styles.message} >
+                Здесь будет храниться история ваши заказы.
+            </div>
+            </> }
             <Navi page={pid} />
 
         </main>

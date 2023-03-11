@@ -11,6 +11,19 @@
   padding: 10px;
   height: 27px;
 }
+.profile {
+  padding: 20px 0 20px 28%;
+  background-position: 10% center;
+  background-size: 10%;
+
+}
+.profile h2 {
+  font-weight: 500;
+}
+.profile a {
+  color: #3D4EEA;
+  font: 500 12px/17px 'Rubik', sans-serif;
+}
 .selector span {
   width: 45%;
   display: inline-block;
