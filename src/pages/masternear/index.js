@@ -84,13 +84,13 @@ export default function MasterNear() {
                         style={{ backgroundImage: `url(/image/${i.image}.jpg` }}
                         href={`/master/${i.name}`}
                     >
-                        <p style={{ width: '75%' }}>
+                        <div style={{ width: '75%' }}>
                             {i.name}{'  '}
                             <div style={{display: 'inline-block'}}>
                                 <span className={styles.pro}>{i.status}</span>
                                 <span className={styles.stars}>{i.stars}</span>
                             </div>
-                        </p>
+                        </div>
                         <h4>{i.address}</h4>
                         <h5>{i.servises}</h5>
                     </Link>)}
@@ -118,7 +118,6 @@ export default function MasterNear() {
                     <YMaps >
                         <Map id="mymap"
                             options={{ set: defaultState }}
-
                             state={{
                                 // type:'yandex#hybrid',
                                 center: master ? masters.filter(i => i.name === master)[0].coordenates : [53.904430, 27.554895],
