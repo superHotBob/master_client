@@ -4,8 +4,9 @@ import { useState } from 'react'
 const style = {
     color: '#fff',
     padding: '0 10px',
-    backgroundColor: '#3D4EEA',
-    border: '1.5px solid #3D4EEA'
+    backgroundColor: '#3D4EEA',    
+    border: '1.5px solid #3D4EEA',    
+   
 }
 const services = ['Маникюр', 'Прически', 'Макияж', 'Масаж', 'Барбер', 'Ресницы', 'Брови', 'Депиляция']
 export default function FilterServices() {
