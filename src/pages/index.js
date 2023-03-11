@@ -41,18 +41,7 @@ export default function Home() {
               <Link href="/" key={i} style={{ backgroundImage: `url(/image/${i}.jpg)` }} />)}
           </div>
         </section>
-
-
-
-
         <Navi page="home" />
-
-
-
-
-
-
-
       </main>
     </>
   )

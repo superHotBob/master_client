@@ -39,13 +39,15 @@ export default function Enter() {
         // If server returns the name submitted, that means the form works.
         const result = await response.json()
         if(result.status==='master') {
+            console.log(result.name)
             dispatch(setmaster(result.name))
             router.push(`/master/${result.name}`)
-            console.log(result.name)
+            
         } else if (result.status === 'client') {
+            console.log(result.name)
             dispatch(setclient(result.name))
             router.push(`/master/${result.name}`)
-            console.log(result.name)
+            
         } else {
              console.log("Error")
         }

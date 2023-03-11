@@ -37,7 +37,7 @@ const Master = () => {
                     <span className={styles.pro}>MASTER</span>
                     <span className={styles.stars}>4.7</span>
                 </p>
-                <h4><Image alt="loc" src={location} width={15} height={15} /> Метро Красный октябрь</h4>
+                <h4>Метро Красный октябрь</h4>
                 {viewText ? <h5 className={styles.text}>Мастер миникюра с 2022 года. Обучалась в УЦ Оле Хаус,
                     Пластек, Beautix, Luxio. Прошла курсы. Мастер
                     миникюра с 2022 года.
@@ -60,7 +60,6 @@ const Master = () => {
             {nav_view === 'Лента' ? <Lenta name={pid} /> : null}
             {nav_view === 'Сертификаты' ? <Sertificats name={pid} /> : null}
             <Navi page="master" />
-
         </div>
     )
 

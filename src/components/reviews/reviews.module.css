@@ -7,7 +7,10 @@
 }
 .data span:last-of-type {
     color: #3D4EEA;
-
+}
+.data span img {
+    
+    transform: translateY(2px);
 }
 .header {
     display: flex;

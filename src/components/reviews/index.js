@@ -19,7 +19,7 @@ export default function Reviews(props) {
             {reviews.map(i => <div className={styles.data} key={i.name}>
                 <div className={styles.header}>
                     <span>{i.name}</span>
-                    <span style={{textAlign: 'right',width: '48%'}}>{i.date}</span>
+                    <span style={{textAlign: 'right',width: '55%'}}>{i.date}</span>
                     <span>
                     {[1,2,3,4,5].map(i=><Image key={i} alt="star" src={star} width={15} height={14} />)}
                     </span>

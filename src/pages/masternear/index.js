@@ -12,7 +12,8 @@ import FilterServices from '@/components/filterServices'
 
 const sel = {
     background: 'linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)',
-    color: '#fff'
+    color: '#fff',
+    fontWeight: 600
 }
 const styleSelService = {
     color: '#fff',

@@ -5,7 +5,7 @@
     background-color: #fff;
     width: 100%;
     margin: 0 auto;
-    position: relative;   
+    overflow: auto;
 }
 
 .header {
@@ -30,7 +30,11 @@
     line-height: 17px;
 }
 
-
+.section h4::before {
+    content: url('/location.svg');
+    display: inline-block;
+    transform: translate(-7px,2px);
+}
 
 .image img {
     border-radius: 100%;

@@ -1,6 +1,5 @@
 .total {
-    position: fixed;
-    top: 85vh;
+    position: fixed;    
     width: 100%;
     max-width: 500px;
 }

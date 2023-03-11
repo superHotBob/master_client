@@ -1,12 +1,12 @@
 .main {
     align-items: center;
-    min-height: 800px;
+    height: 100vh;
     max-width: 500px;
     background-color: #fff;
     width: 100%;
     margin: 0 auto;
-    padding-bottom: 50px;
-}
+    overflow: auto;
+  }
 
 .section {
     padding: 16px;
@@ -66,7 +66,7 @@
 .images {
     display: grid;
     grid-template-columns: auto auto auto auto;
-    gap: 10px;
+    gap: 0 10px;
 }
 
 .images img {
@@ -84,7 +84,7 @@
     margin: 20px 0 8px;
     background-color: #3D4EEA;
     text-align: center;
-    font: 500 16px/24px 'Rubik', sans-serif;
+    font: 600 16px/24px 'Rubik', sans-serif;
 }
 
 .around__masters {
@@ -101,7 +101,7 @@
 
 .section h3 {
     font: 500 16px/26px 'Rubik', sans-serif;
-    margin-bottom: 20px;
+    margin-bottom: 26px;
 }
 
 .agreement {
