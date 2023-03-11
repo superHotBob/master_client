@@ -18,8 +18,9 @@
     line-height: 20px;
     margin: 15px 0;
 }
-.main_menu p {
+.main_menu p, .main_menu a {
     text-align: left;
+    display: block;
     font: 400 16px/31px 'Rubik', sans-serif;
     background-position: right center;
     

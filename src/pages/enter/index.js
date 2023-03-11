@@ -46,7 +46,7 @@ export default function Enter() {
         } else if (result.status === 'client') {
             console.log(result.name)
             dispatch(setclient(result.name))
-            router.push(`/master/${result.name}`)
+            router.push(`/client/${result.name}`)
             
         } else {
              console.log("Error")

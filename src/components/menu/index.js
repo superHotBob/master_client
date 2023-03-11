@@ -1,8 +1,9 @@
-import Image from "next/image"
 import styles from './menu.module.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { setmaster, setclient } from "@/reduser"
 import { useRouter } from "next/router"
+import Link from 'next/link'
+
 const style = {
     backdropFilter: 'none',
     background: 'rgba(255, 255, 255, 1)'
@@ -30,18 +31,18 @@ export default function Menu() {
             <p className={styles.copy}>Скопировать ссылку профиля</p>
             <p className={styles.chat}>Техническая поддержка</p>
             <p className={styles.about}>О сервисе</p>
-            <p onClick={() => dispatch(setmaster())}>Выйти из аккаунта</p>
+            <p onClick={() => dispatch(setmaster(''))}>Выйти из аккаунта</p>
         </main>
             : client ? <main className={styles.main_menu}>
                 <h6>Меню профиля</h6>
                 <p>Сообщения</p>              
                 <p className={styles.collections}>Мои заказы</p>
                 <h6>Общее</h6>
-                <p className={styles.edit_profile}>Настройки профиля</p>
+                <Link href={`/client/${client}`} className={styles.edit_profile}>Настройки профиля</Link>
                 <p className={styles.copy}>Скопировать ссылку профиля</p>
                 <p className={styles.chat}>Техническая поддержка</p>
                 <p className={styles.about}>О сервисе</p>
-                <p onClick={() => dispatch(setclient())}>Выйти из аккаунта</p>
+                <p onClick={() => dispatch(setclient(''))}>Выйти из аккаунта</p>
             </main> :
                 <main className={styles.main_menu} style={style}>
                     <h6>Общее</h6>

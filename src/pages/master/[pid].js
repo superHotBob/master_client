@@ -1,9 +1,6 @@
 import { useRouter } from 'next/router'
 import styles from './master.module.css'
 import Image from 'next/image'
-import stroke from '../../../public/stroke.svg'
-import sort from '../../../public/sort.svg'
-import Link from 'next/link'
 import Header from '@/components/header'
 import { useState } from 'react'
 import Navi from '@/components/navi'
@@ -11,7 +8,6 @@ import Reviews from '@/components/reviews'
 import Services from '@/components/services'
 import Lenta from '@/components/lenta'
 import Sertificats from '@/components/serificats'
-import location from '../../../public/location.svg'
 
 const nav_active = {
     backgroundColor: '#3D4EEA',

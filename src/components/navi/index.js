@@ -6,9 +6,21 @@ import dashboard_bl from '../../../public/dashboard_bl.svg'
 import home from '../../../public/home_bl.svg'
 import home_wh from '../../../public/home_wh.svg'
 import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+
+
+const active = {
+    backgroundColor: '#fff',
+    backgroundImage: 'url("/profile_blue.svg")',
+    width: '46px',
+    backgroundPosition: 'center',
+    fontSize: 0
+}
 
 export default function Navi({page}) {
     const [height, setHeight] = useState(0)
+    const master = useSelector((state) => state.counter.master)
+    const client = useSelector((state) => state.counter.client)
     useEffect(() => {
        
         setHeight(window.innerHeight);
@@ -22,11 +34,11 @@ export default function Navi({page}) {
             <Link href="/catalog" className={page === 'catalog' ? styles.home : styles.dashboard }>
                 <Image alt="catalog" src={page === 'catalog' ? dashboard_bl: dashboard} height={20} width={20} />
             </Link>
-            {page === 'master' ? <>
+            {master || client ? <>
             <Link href="/enter" className={styles.message} />            
             <Link href="/enter" className={styles.stroke} />  
             </>: null}         
-            <Link href="/enter" className={styles.enter}>
+            <Link href="/enter" disabled className={styles.enter} style={master||client ? active : null}>
                 Вход                
             </Link>
         </div>
