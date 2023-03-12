@@ -2,6 +2,9 @@ import Header from '@/components/header'
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from './event.module.css'
+import localFont from 'next/font/local'
+
+// const myFont = localFont({ src: './fonts/DelaGothicOne-Regular.ttf' })
 
 const ev = {
     color: '#fff',

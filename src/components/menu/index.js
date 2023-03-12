@@ -17,7 +17,12 @@ export default function Menu() {
     const router = useRouter()
     const master = useSelector((state) => state.counter.master)
     const client = useSelector((state) => state.counter.client)
-    console.log('This is master', master, 'This is client', client)
+    console.log(window.location.host + router.asPath)
+    function CopyProfile() {
+        navigator.clipboard.writeText(window.location.host + router.asPath)
+        alert("Copied the text: " + window.location.host);
+    }
+    
     return (<>
         {master ? <main className={styles.main_menu}>
             <h6>Меню профиля</h6>
@@ -28,7 +33,7 @@ export default function Menu() {
             <p className={styles.collections}>Мои заказы</p>
             <h6>Общее</h6>
             <p className={styles.edit_profile}>Редактировать профиль</p>
-            <p className={styles.copy}>Скопировать ссылку профиля</p>
+            <p className={styles.copy} onClick={CopyProfile}>Скопировать ссылку профиля</p>
             <p className={styles.chat}>Техническая поддержка</p>
             <p className={styles.about}>О сервисе</p>
             <p onClick={() => dispatch(setmaster(''))}>Выйти из аккаунта</p>
@@ -39,7 +44,7 @@ export default function Menu() {
                 <p className={styles.collections}>Мои заказы</p>
                 <h6>Общее</h6>
                 <Link href={`/client/${client}`} className={styles.edit_profile}>Настройки профиля</Link>
-                <p className={styles.copy}>Скопировать ссылку профиля</p>
+                <p className={styles.copy} onClick={CopyProfile}>Скопировать ссылку профиля</p>
                 <p className={styles.chat}>Техническая поддержка</p>
                 <p className={styles.about}>О сервисе</p>
                 <p onClick={() => dispatch(setclient(''))}>Выйти из аккаунта</p>

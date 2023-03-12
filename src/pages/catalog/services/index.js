@@ -4,6 +4,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import styles from './services.module.css'
+import localFont from 'next/font/local'
+const Dela = localFont({ src: '../fonts/DelaGothicOne-Regular.ttf' })
 
 const images = ['manicur', 'pedicur', 'makiash', 'resnici', 'chistka',
     'brovi', 'depil', 'massage', 'strishka', 'colored', 'pricheska', 'barber']
@@ -33,9 +35,12 @@ export default function Services() {
                     </Link>
                 )}
             </div> : <div className={styles.events}>
-                <Link href="/event" className={styles.model}>
-                    СТАТЬ МОДЕЛЬЮ <br/>БЕСПЛАТНО
-                </Link>
+                <div className={Dela.className}>
+                    <Link href="/event" className={styles.model}>
+                        СТАТЬ МОДЕЛЬЮ <br />БЕСПЛАТНО
+                    </Link>
+                </div>
+
                 {events.map(i => <Link href={i.link} key={i.image} style={{ backgroundImage: "url(" + i.image + ")" }} >{i.text}</Link>)}
 
 

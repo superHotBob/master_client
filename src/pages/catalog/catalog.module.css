@@ -1,17 +1,6 @@
-.main {
-    align-items: center;
-    height: 100vh;
-    max-width: 500px;
-    background-color: #fff;
-    width: 100%;
-    margin: 0 auto;
-    overflow: auto;
-  }
-
 .section {
     padding: 16px;
 }
-
 .model,
 .master {
     height: 80px;
@@ -19,14 +8,11 @@
     text-align: center;
     border-radius: 8px;
     display: block;
-    padding: 10px;
-    font-family: 'Dela Gothic One', sans-serif;
-    font-size: 27px;
-    font-weight: 800;
+    padding: 10px;   
+    font-size: 27px;    
     line-height: 30px;    
     text-align: left;
-    margin: 8px 0;
-    position: relative;
+    margin: 8px 0;   
     color: #fff;
     background-position: center;
     background-size: 100%;
@@ -38,21 +24,10 @@
     text-align: center;
     line-height: 55px;
 }
-
-
-
-
-
-
 .city {
     color: #3D4EEA;
     background: #ECEEFD;
     border-radius: 6px;
-}
-
-
-
-.city {
     font: 600 16px/46px 'Rubik', sans-serif;
     letter-spacing: 0px;
     text-align: center;

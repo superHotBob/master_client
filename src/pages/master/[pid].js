@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import Head from 'next/head'
 import styles from './master.module.css'
 import Image from 'next/image'
 import Header from '@/components/header'
@@ -23,6 +24,9 @@ const Master = () => {
     const { pid } = router.query
     return (
         <div className={styles.main}>
+            <Head>
+                <title>{pid}</title>
+            </Head>
             <Header text={pid} sel="/masternear" />
             <section className={styles.section}>
                 <div className={styles.image}>

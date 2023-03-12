@@ -1,5 +1,4 @@
-.main {
-    align-items: center;
+.main {    
     min-height: 100vh; 
     max-width: 500px;   
     background-color: #fff;
@@ -149,10 +148,22 @@
     height: 100px;
     background: linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%);
     border-radius: 20px;
+    background-size: 400% 400%;
+    animation: gradient 25s ease infinite;
     
 }
 
-  
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+} 
   
 @media screen and (min-width: 500px) {
     .main {
