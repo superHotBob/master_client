@@ -11,23 +11,14 @@ export default function Enter() {
     const [phone, setPhone] = useState()
     const dispatch = useDispatch()
     const router = useRouter()
-    const handleSubmit = async (event) => {
-        // Stop the form from submitting and refreshing the page.
-        event.preventDefault()
-
-        // Cast the event target to an html form
-        const form = event.target
-
-        // Get data from the form.
-        const data = {
-            tel: phone
-        }
-
-        // Send the form data to our API and get a response.
+    const handleSubmit = async (event) => {        
+        event.preventDefault()             
+        const data = {tel: phone}
+       
         const response = await fetch('/api/enter_phone', {
-            // Body of the request is the JSON data we created above.
+            
             body: JSON.stringify(data),
-            // Tell the server we're sending JSON.
+           
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -39,7 +30,7 @@ export default function Enter() {
         // If server returns the name submitted, that means the form works.
         const result = await response.json()
         if(result.status==='master') {
-            console.log(result.name)
+            console.log(result)
             dispatch(setmaster(result.name))
             router.push(`/masterprofile/${result.name}`)
             

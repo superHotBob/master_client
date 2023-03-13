@@ -3,7 +3,10 @@ import { Rubik } from 'next/font/google'
 import { store } from '../store'
 import { Provider } from 'react-redux'
 import Head from 'next/head'
+import localFont from 'next/font/local'
 
+
+const myFont = localFont({ src: [{path: '../../fonts/DelaGothicOne-Regular.ttf',display: 'block'}] })
 
 
 
@@ -20,6 +23,8 @@ export default function MyApp({ Component, pageProps }) {
       <main className={rubik.className}>
         <Head>
         <title>masters.place</title>
+        <meta name="theme-color" content="#317EFB"/>
+        <link rel="apple-touch-icon" href="icons/android-chrome-192x192.png"></link>
         <meta name="application-name" content="PWA App" />
         <meta name="mobile-web-app-capable" content="yes" />
           <meta
@@ -28,7 +33,7 @@ export default function MyApp({ Component, pageProps }) {
           />
         </Head>
         
-        <Component {...pageProps} />
+        <Component {...pageProps} className={myFont.className}/>
       </main>
     </Provider>
   )

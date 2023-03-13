@@ -23,7 +23,7 @@ const Master = () => {
     const router = useRouter()
     const { pid } = router.query
     return (
-        <div className={styles.main}>
+        <main className={styles.main}>
             <Head>
                 <title>{pid}</title>
             </Head>
@@ -60,7 +60,7 @@ const Master = () => {
             {nav_view === 'Лента' ? <Lenta name={pid} /> : null}
             {nav_view === 'Сертификаты' ? <Sertificats name={pid} /> : null}
             <Navi page="master" />
-        </div>
+        </main>
     )
 
 }
