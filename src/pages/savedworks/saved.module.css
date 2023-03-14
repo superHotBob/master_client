@@ -1,0 +1,34 @@
+.main {
+    align-items: center;
+    height: 100vh;
+    max-width: 500px;
+    background-color: #fff;
+    width: 100%; 
+    overflow: auto; 
+}
+
+.images {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 16px;
+  }
+  .images div {
+    width: calc(50% - 5.5px);
+    margin-bottom: 11px;
+    height: calc(49vw + 30px);
+    position: relative;
+    max-height: 300px;
+    background-position: center;  
+    background-size: cover;
+    border-radius: 8px;
+  }
+  .images div::after {
+    content: url('/save_active.svg');
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    padding: 2px 3px 0;
+    background-color: #3D4EEA;
+    border-radius: 5px;
+  }

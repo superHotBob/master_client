@@ -27,7 +27,7 @@ export default function Header({ sel, text }) {
       {sel ? <Link href={sel} className={styles.arrow} style={{ float: 'left' }}>
         <Image alt="Picture of the author" src={arrow} className={styles.arrow} width={20} height={20} />
       </Link> : null}
-      {text ? <h3 style={new_text}>{master ? 'Мой профиль' : text}</h3> : <><Image className={styles.icon} alt="Picture of the author" src={logo} width={36} height={30} style={{ background: 'none' }} />
+      {text ? <h3 style={new_text}>{text}</h3> : <><Image className={styles.icon} alt="Picture of the author" src={logo} width={36} height={30} style={{ background: 'none' }} />
         <h3>masters.</h3><h3>place</h3></>}
 
 

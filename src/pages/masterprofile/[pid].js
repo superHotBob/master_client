@@ -5,7 +5,7 @@ import Head from 'next/head'
 import Navi from '@/components/navi'
 import Link from 'next/link'
 import { useSelector } from 'react-redux'
-import { useEffect, useLayoutEffect, useState } from 'react'
+import { useEffect,  useState } from 'react'
 
 
 const nav_active = {
@@ -17,17 +17,17 @@ const nav_active = {
 export default function Client() {
     const router = useRouter()
     const { pid } = router.query
-    const master = useSelector((state) => state.counter.master)
+    const profile = useSelector((state) => state.counter.profile)
     const [nav_view, setNavView] = useState('Лента')
-    useEffect(() => master ? console.log('Bob') : () => router.push('/enter'), [])
+    useEffect(() => profile.status === 'master' ? console.log('Bob') : () => router.push('/enter'), [])
     return (
         <main className={styles.main}>
              <Head>
                 <title>{pid}</title>
             </Head>
-            <Header text={pid + 1254} />
+            <Header text={pid} />
             <div className={styles.profile} style={{ backgroundImage: "url(/camera_bl.svg" }}>
-                {pid}
+                {profile.username}
                 <Link href="/editprofile">Написать о себе</Link>
             </div>
             <nav className={styles.navigation}>

@@ -20,7 +20,7 @@ export default function Apply() {
                         данных</b>  и <b style={{ color: "#3D4EEA" }}>Пользовательским соглашением</b>
                 </h4>
                 <h3>У вас уже есть аккаунт?</h3>
-                <Link href='/' className={styles.enter}>Войти</Link>
+                <Link href='/enter' className={styles.enter}>Войти</Link>
 
             </section>
             <Navi page="catalog"/>

@@ -9,6 +9,7 @@ import Reviews from '@/components/reviews'
 import Services from '@/components/services'
 import Lenta from '@/components/lenta'
 import Sertificats from '@/components/serificats'
+import { useSelector } from 'react-redux'
 
 const nav_active = {
     backgroundColor: '#3D4EEA',
@@ -19,9 +20,19 @@ const nav_active = {
 
 const Master = () => {
     const [viewText, setViewText] = useState(true)
-    const [nav_view, setNavView] = useState('Лента')
+    const [nav_view, setNavView] = useState('Лента')    
     const router = useRouter()
     const { pid } = router.query
+    const client = useSelector(state=>state.counter.client)
+    const profile = useSelector(state=>state.counter.profile)
+
+    function EnterToMessanger(a){
+        if(client) {
+          
+        }else{
+            router.push('/error')
+        }
+    }
     return (
         <main className={styles.main}>
             <Head>
@@ -46,8 +57,8 @@ const Master = () => {
                 </h5> : null}
                 <span className={styles.view_text} onClick={() => setViewText(!viewText)}>{viewText ? 'Скрыть описание' : 'Описание'}</span>
                 <div className={styles.buttons}>
-                    <button><span>Сообщения</span></button>
-                    <button><span>Запись к мастеру</span></button>
+                    <button onClick={()=>EnterToMessanger(1)}><span>Сообщения</span></button>
+                    <button onClick={()=>EnterToMessanger(0)}><span>Запись к мастеру</span></button>
                 </div>
                
                 <nav className={styles.navigation}>
@@ -59,7 +70,7 @@ const Master = () => {
             {nav_view === 'Услуги' ? <Services name={pid} /> : null}
             {nav_view === 'Лента' ? <Lenta name={pid} /> : null}
             {nav_view === 'Сертификаты' ? <Sertificats name={pid} /> : null}
-            <Navi page="master" />
+            <Navi page="master" />           
         </main>
     )
 

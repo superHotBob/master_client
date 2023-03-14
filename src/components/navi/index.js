@@ -16,15 +16,17 @@ const active = {
     backgroundPosition: 'center',
     fontSize: 0
 }
+const saved = {
+    backgroundColor: '#fff',
+    backgroundImage: 'url("/bookmark_bl.svg")',
+    width: '46px',
+    backgroundPosition: 'center',
+}
 
-export default function Navi({page}) {
-    const [height, setHeight] = useState(0)
-    const master = useSelector((state) => state.counter.master)
-    const client = useSelector((state) => state.counter.client)
-    useEffect(() => {
-       
-        setHeight(window.innerHeight);
-        console.log(document.documentElement.scrollHeight)},[])
+export default function Navi({page,save}) {
+    const [height, setHeight] = useState(0)   
+    const prof = useSelector(state=>state.counter.profile)   
+    useEffect(() => setHeight(window.innerHeight),[])
     return (
         <div className={styles.total} style={{top: (height - 70) + 'px'}}>
         <div className={styles.main}>
@@ -34,11 +36,11 @@ export default function Navi({page}) {
             <Link href="/catalog" className={page === 'catalog' ? styles.home : styles.dashboard }>
                 <Image alt="catalog" src={page === 'catalog' ? dashboard_bl: dashboard} height={20} width={20} />
             </Link>
-            {master || client ? <>
+            {prof.status ? <>
             <Link href="/enter" className={styles.message} />            
-            <Link href="/enter" className={styles.stroke} />  
+            <Link href={'/savedworks/' + prof.nikname} className={styles.stroke}  style={save ? saved: null}/>  
             </>: null}         
-            <Link href="/enter" disabled className={styles.enter} style={master||client ? active : null}>
+            <Link href="/enter" disabled className={styles.enter} style={prof.status ? active : null}>
                 Вход                
             </Link>
         </div>

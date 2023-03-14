@@ -3,7 +3,7 @@ import styles from './enter.module.css'
 import { useRouter } from 'next/router'
 import { FormEvent, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { setmaster, setclient } from '@/reduser'
+import { setmaster, setclient, setnikname } from '@/reduser'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 
@@ -29,15 +29,17 @@ export default function Enter() {
         // Get the response data from server as JSON.
         // If server returns the name submitted, that means the form works.
         const result = await response.json()
+        localStorage.setItem("profile", JSON.stringify(result));
         if(result.status==='master') {
-            console.log(result)
-            dispatch(setmaster(result.name))
-            router.push(`/masterprofile/${result.name}`)
+            console.log('This is result',result)
+            dispatch(setmaster(result.username))
+            dispatch(setnikname(result.nikname))
+            router.push(`/masterprofile/${result.username}`)
             
         } else if (result.status === 'client') {
-            console.log(result.name)
-            dispatch(setclient(result.name))
-            router.push(`/client/${result.name}`)
+            console.log(result.username)
+            dispatch(setclient(result.username))
+            router.push(`/client/${result.username}`)
             
         } else {
              console.log("Error")

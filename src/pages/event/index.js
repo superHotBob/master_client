@@ -9,10 +9,10 @@ import localFont from 'next/font/local'
 const ev = {
     color: '#fff',
     backgroundColor: '#3D4EEA',
-    backgroundImage: 'url(check_double.svg)',    
+    backgroundImage: 'url(check_double.svg)',
     backgroundPosition: '85% center',
     backgroundSize: '8%',
-   
+
 }
 
 export default function Event() {
@@ -21,7 +21,7 @@ export default function Event() {
             <Header text="Мероприятия" sel="/catalog/services" />
             <section className={styles.event} style={{ backgroundImage: 'url(/image/profile1.jpg' }}>
                 <p>
-                    Анжела Солнцепек<br />
+                    Серафима Солнцепек<br />
                     <span className={styles.pro}>MASTER</span>
                     <span className={styles.stars}>4.7</span>
                 </p>
@@ -37,17 +37,45 @@ export default function Event() {
                         <Image alt={i} key={i} src={'/image/' + i + '.jpg'} width={105} height={105} />)}
 
                 </div> */}
-                <Link href="/apply_to_event" >Подать заявку</Link>
+                <Link href="/apply_to_event" >
+                    <span>
+                        Подать заявку
+                    </span>
+                </Link>
             </section>
             <section className={styles.event} style={{ backgroundImage: 'url(/image/profile1.jpg' }}>
                 <p>
-                    Анжела Куш <br/>
+                    Василиса <br />
                     <span className={styles.pro}>MASTER</span>
                     <span className={styles.stars}>4.7</span>
                 </p>
-                
+                <h3>
+                    Описание мероприятия, которое<br />
+                    зарегал мастер на своем аккаунте.<br />
+                    Бесплатно!
+                </h3>
+                <h4>Метро Грушевка</h4>
+                <h5>Макияж Маникюр Прическа</h5>
+                {/* <div className={styles.images}>
+                    {['master1', 'master2', 'master3'].map(i =>
+                        <Image alt={i} key={i} src={'/image/' + i + '.jpg'} width={105} height={105} />)}
+
+                </div> */}
+                <Link href="/apply_to_event" >
+                    <span>
+                        Подать заявку
+                    </span>
+                </Link>
+            </section>
+            <section className={styles.event} style={{ backgroundImage: 'url(/image/profile1.jpg' }}>
+                <p>
+                    Анжела Куш <br />
+                    <span className={styles.pro}>MASTER</span>
+                    <span className={styles.stars}>4.7</span>
+                </p>
+
                 <h3>Описание мероприятия</h3>
-               
+
                 <h4>Метро Красный октябрь</h4>
                 <h5>Макияж Ноготочки Прическа</h5>
                 {/* <div className={styles.images}>

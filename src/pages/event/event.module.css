@@ -47,15 +47,22 @@
 
 .event a {
     height: 46px;
-    border-radius: 6px;
-    background-position: 75% center;   
+    border-radius: 6px;  
     background-color: #ECEEFD;
-    color: #3D4EEA;
+   
     display: block;
     margin-top: 20px;
     text-align: center;
     font: 600 18px/46px 'Rubik', sans-serif;
-    background-image: url('/camera.svg');
+   
+}
+.event a span {
+    color: #3D4EEA;
+}
+.event a span::after {
+    content:  url('/camera.svg');
+    transform: translate(10px,5px);
+    
 }
 
 .pro {
