@@ -1,5 +1,5 @@
 import styles from './filter.module.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const style = {
     color: '#fff',
@@ -12,6 +12,18 @@ const services = ['Маникюр', 'Прически', 'Макияж', 'Мас�
 export default function FilterServices() {
     const [viewFilter, setViewFilter] = useState(false)
     const [filter, SetFilter] = useState()
+    // const [services, setServices] = useState()
+
+    // useEffect(()=>{
+    //     async function Result() {
+    //       const response = await(fetch('/api/all_services'))
+    //       const result = await response.json()
+    //       setServices([...new Set(result.map(i=>i.services).flat())])
+    //     }
+    //     Result()
+        
+    // },[])
+
     function setFilter(e) {
         SetFilter(e.target.id)
     }
@@ -24,9 +36,9 @@ export default function FilterServices() {
             </span>
             {viewFilter ? <div className={styles.all__filter}>
                 <h6 onClick={() => setViewFilter(false)}>фильтр по услугам</h6>
-                <div className={styles.all__filter__data} onClick={setFilter}>
+                {services ? <div className={styles.all__filter__data} onClick={setFilter}>
                     {services.map(i =><b key={i} id={i} style={filter === i ? style : null}>{i}</b>)}
-                </div>
+                </div>:null}
             </div> : null}
         </div>
     )

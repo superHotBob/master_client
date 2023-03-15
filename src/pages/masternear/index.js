@@ -27,6 +27,7 @@ const masters = [{
     address: 'Метро грушевка',
     image: 'profile1',
     status: 'MASTER',
+    nikname: 'Mercedec',
     stars: 4,
     servises: 'Ноготочки макияж массаж прически',
     coordenates: [53.88659, 27.51397]
@@ -38,6 +39,7 @@ const masters = [{
     image: 'profile2',
     status: 'MASTER',
     stars: 4.7,
+    nikname: 'Super1234',
     servises: 'Ноготочки макияж массаж прически',
     coordenates: [53.90624, 27.553048]
 }, {
@@ -46,6 +48,7 @@ const masters = [{
     address: 'Проспект независимости',
     image: 'profile3',
     status: 'MASTER',
+    nikname:'RedBull',
     stars: 4.9,
     servises: 'Ноготочки макияж массаж прически',
     coordenates: [53.93085, 27.63899]
@@ -82,7 +85,7 @@ export default function MasterNear() {
                     <FilterServices />
                     {masters.map(i => <Link key={i.id} className={styles.master}
                         style={{ backgroundImage: `url(/image/${i.image}.jpg` }}
-                        href={`/master/${i.name}`}
+                        href={`/master/${i.nikname}`}
                     >
                         <div style={{ width: '75%' }}>
                             {i.name}{'  '}

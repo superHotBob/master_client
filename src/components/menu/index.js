@@ -1,6 +1,6 @@
 import styles from './menu.module.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { setmaster, setclient } from "@/reduser"
+import { setmaster, setclient, setprofile } from "@/reduser"
 import { useRouter } from "next/router"
 import Link from 'next/link'
 import { useEffect } from 'react'
@@ -26,13 +26,17 @@ export default function Menu() {
         navigator.clipboard.writeText(window.location.host + '/master/' + profile.nikname)
         alert("Copied the text: " + window.location.host);
     }
+    function ExitFromAccount() {
+        dispatch(setprofile({}))
+        localStorage.clear()
+    }
     
     return (<>
         {profile.status === 'master' ? <main className={styles.main_menu}>
             <h6>Меню профиля</h6>
             <p>Сообщения</p>
             <p className={styles.seans}>Записи на сеанс<span>5</span></p>
-            <p className={styles.shedule}>Календарь работы</p>
+            <p className={styles.shedule} onClick={()=>router.push('/calendar')}>Календарь работы</p>
             <p className={styles.add}>Добавить запись</p>
             <p className={styles.collections}>Мои заказы</p>
             <h6>Общее</h6>
@@ -42,7 +46,7 @@ export default function Menu() {
             <p className={styles.copy} onClick={CopyProfile}>Скопировать ссылку профиля</p>
             <p className={styles.chat}>Техническая поддержка</p>
             <p className={styles.about}>О сервисе</p>
-            <p onClick={() => dispatch(setmaster(''))}>Выйти из аккаунта</p>
+            <p onClick={ExitFromAccount}>Выйти из аккаунта</p>
         </main>
             : profile.status === 'client' ? <main className={styles.main_menu}>
                 <h6>Меню профиля</h6>

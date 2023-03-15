@@ -1,0 +1,98 @@
+.main {
+    align-items: center;
+    height: 100vh;
+    position: relative;
+    max-width: 500px;
+    background-color: #fff;
+    width: 100%;
+    overflow: auto;
+    z-index: 110;
+}
+
+.section {
+    padding: 16px;
+}
+.section p {
+    text-align: center;
+    font: 600 16px/36px 'Rbik', sans-serif;
+}
+.message {
+    color: #3D4EEA;
+    background: #ECEEFD;
+    border-radius: 6px;
+    padding: 8px;
+    gap: 4px;
+    margin: 0 auto 16px;
+    height: 84px;
+    font: 400 12px/16px 'Rubik', sans-serif;
+}
+
+.message img {
+    float: right;
+    cursor: pointer;
+    margin: 3px 6px;
+}
+
+.mounth {
+    overflow: scroll;
+    white-space: nowrap;
+    margin-bottom: -10px;
+}
+
+.mounth::-webkit-scrollbar,.days::-webkit-scrollbar {
+    width: 0;
+}
+
+.mounth span {
+    display: inline-block;
+    width: fit-content;
+    padding: 5px 15px;
+    font: 400 'Rubik', sans-serif;
+    color: #d0d0d0;
+}
+.days {
+    display: grid;
+    grid-template-columns: 24% 24% 24% 24% 24%;    
+    justify-content: space-between;
+    overflow: auto;
+    margin-bottom: -16px;
+}
+.days span, .time span {
+    color: #fff;
+    padding: 10px;    
+    text-align: center;
+    margin: 4px;
+    height: 40px;
+    display: inline-block;
+    background: #3D4EEA;
+    border-radius: 4px;
+    font-size: 14px;
+}
+.time {
+    display: grid;
+    width: 90%;
+    margin: 0 auto;
+    grid-template-columns: 33% 33% 33%;    
+    justify-content: space-between;
+}
+.section button {
+    background: #ECEEFD;
+    border-radius: 6px;
+    display: block;
+    height: 46px;
+    width: 90%;
+    font-weight: 600;
+    font-size: 16px;
+    margin: 24px auto;
+    border: none;
+    cursor: pointer;
+   
+}
+.section button span {
+    color:#3D4EEA;
+}
+.section button span::after {
+    content: url('/plus.svg');
+    margin-left: 5px;
+
+}

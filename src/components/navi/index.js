@@ -7,7 +7,7 @@ import home from '../../../public/home_bl.svg'
 import home_wh from '../../../public/home_wh.svg'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-
+import { useRouter } from 'next/router'
 
 const active = {
     backgroundColor: '#fff',
@@ -23,22 +23,23 @@ const saved = {
     backgroundPosition: 'center',
 }
 
-export default function Navi({page,save}) {
+export default function Navi({save}) {
     const [height, setHeight] = useState(0)   
-    const prof = useSelector(state=>state.counter.profile)   
+    const prof = useSelector(state=>state.counter.profile)  
+    const router= useRouter()   
     useEffect(() => setHeight(window.innerHeight),[])
     return (
         <div className={styles.total} style={{top: (height - 70) + 'px'}}>
         <div className={styles.main}>
-            <Link href="/" className={page === 'home' ? styles.home: styles.dashboard}>
-                <Image alt="home" src={page === 'home' ? home : home_wh} height={20} width={20} />
+            <Link href="/" className={router.asPath === '/' ? styles.home: styles.dashboard}>
+                <Image alt="home" src={router.asPath === '/' ? home : home_wh} height={20} width={20} />
             </Link>
-            <Link href="/catalog" className={page === 'catalog' ? styles.home : styles.dashboard }>
-                <Image alt="catalog" src={page === 'catalog' ? dashboard_bl: dashboard} height={20} width={20} />
+            <Link href="/catalog" className={router.asPath.includes('catalog') ? styles.home : styles.dashboard }>
+                <Image alt="catalog" src={router.asPath.includes('catalog') ? dashboard_bl: dashboard} height={20} width={20} />
             </Link>
             {prof.status ? <>
             <Link href="/enter" className={styles.message} />            
-            <Link href={'/savedworks/' + prof.nikname} className={styles.stroke}  style={save ? saved: null}/>  
+            <Link href={'/savedworks/' + prof.nikname} className={styles.stroke}  style={router.asPath.includes('save') ? saved: null}/>  
             </>: null}         
             <Link href="/enter" disabled className={styles.enter} style={prof.status ? active : null}>
                 Вход                

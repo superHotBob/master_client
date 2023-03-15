@@ -24,11 +24,11 @@ export default function Home() {
   }, [])
   
   useEffect(() => {
-    let profile = JSON.parse(localStorage.getItem("profile"));
-    dispatch(setprofile(profile))
-    console.log('profile',profile)
-    console.log('prof', prof)
-  }, [])
+    let profile = JSON.parse(localStorage.getItem("profile"))
+    if(!prof.status) {
+      dispatch(setprofile(profile))   
+    }    
+  }, []) 
 
   const router = useRouter()
   const ref = useRef(null)
@@ -56,7 +56,7 @@ export default function Home() {
               <Link href="/" key={i} style={{ backgroundImage: `url(/image/${i}.jpg)` }} />)}
           </div>
         </section>
-        <Navi page="home" />
+        
       </main>
     </>
   )

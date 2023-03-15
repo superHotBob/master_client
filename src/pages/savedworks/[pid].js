@@ -13,8 +13,7 @@ export default function Saved() {
             <div className={styles.images}>
             {['one', 'two', 'three', 'four', 'five'].map((i, index) =>
               <div key={i} style={{ backgroundImage: `url(/image/${i}.jpg)` }} />)}
-          </div>
-            <Navi save="one"/>
+          </div>            
         </main>
     )
 }

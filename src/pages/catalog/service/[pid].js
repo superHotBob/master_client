@@ -62,16 +62,15 @@ export default function Service() {
                                     <span className={styles.stars}>{i.stars}</span>
                                 </p>
                             </Link>
-                            <h4><Image alt="loc" src={location} width={15} height={15} /> Метро Красный октябрь</h4>
-                            <h5>Макияж Ноготочки Прическа</h5>
+                            <h4><Image alt="loc" src={location} width={15} height={15} /> {i.address}</h4>
+                            <h5>{i.services.map(m=><span key={m}>{m}</span>)}</h5>
 
                         </div>
                     )}
                     </> : null}
 
             </section>
-            <Navi />
-
+           
         </div>
 
 

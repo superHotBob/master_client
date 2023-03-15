@@ -26,9 +26,12 @@ export default function Client() {
                 <title>{pid}</title>
             </Head>
             <Header text={pid} />
-            <div className={styles.profile} style={{ backgroundImage: "url(/camera_bl.svg" }}>
+            <div 
+                className={styles.profile} 
+                style={{ backgroundImage:  profile.image ? "url(/image/" + profile.nikname.toLowerCase() + ".jpg)" : null }}
+            >
                 {profile.username}
-                <Link href="/editprofile">Написать о себе</Link>
+                <Link href="/editprofile">{profile.text || 'Написать о себе'}</Link>
             </div>
             <nav className={styles.navigation}>
                 {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']

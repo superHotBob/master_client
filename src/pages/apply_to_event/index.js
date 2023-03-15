@@ -12,7 +12,9 @@ export default function Apply() {
                 </div>
                 <input type="text" placeholder='Ваше имя' />
                 <input type="text" placeholder='Номер телефона' />
-                <Link href="/" className={styles.add_photo}>Добавить фото профиля</Link>
+                <Link href="/" className={styles.add_photo}>
+                   <span> Добавить фото профиля</span>
+                </Link>
                 <button>Принять участие</button>
                 <h4>
                     Нажмая на кнопку, вы соглашаетесь с<br />

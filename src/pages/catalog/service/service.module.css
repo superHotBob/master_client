@@ -82,7 +82,8 @@
     color: #282828;
     font: 400 12px/12px 'Rubik', sans-serif;
 }
-.master h5 {
+.master h5 span {
     color: #8B95F2;
     font: 400 12px/12px 'Rubik', sans-serif;
+    margin-right: 10px;
 }

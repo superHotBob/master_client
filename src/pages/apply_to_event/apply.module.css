@@ -15,15 +15,22 @@
 }
 .add_photo {
     height: 46px;
-    border-radius: 6px;
-    background-position: 85% center;   
+    border-radius: 6px;   
     background-color: #ECEEFD;
-    color: #3D4EEA;
+   
     display: block;
-    padding-left: 40px;
-    text-align: left;
+    
+    text-align: center;
     font: 500 16px/46px 'Rubik', sans-serif;
-    background-image: url('/camera.svg');
+   
+}
+.add_photo span {
+    color: #3D4EEA;
+}
+.add_photo span::after {
+    content: url('/camera.svg');
+    transform: translate(5px, 5px);
+   
 }
 .message {
     padding: 8px;

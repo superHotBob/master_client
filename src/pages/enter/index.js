@@ -3,7 +3,7 @@ import styles from './enter.module.css'
 import { useRouter } from 'next/router'
 import { FormEvent, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { setmaster, setclient, setnikname } from '@/reduser'
+import { setmaster, setclient, setnikname,setprofile } from '@/reduser'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 
@@ -31,13 +31,13 @@ export default function Enter() {
         const result = await response.json()
         localStorage.setItem("profile", JSON.stringify(result));
         if(result.status==='master') {
-            console.log('This is result',result)
+            dispatch(setprofile(result))
             dispatch(setmaster(result.username))
             dispatch(setnikname(result.nikname))
             router.push(`/masterprofile/${result.username}`)
             
         } else if (result.status === 'client') {
-            console.log(result.username)
+            dispatch(setprofile(result))
             dispatch(setclient(result.username))
             router.push(`/client/${result.username}`)
             

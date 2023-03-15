@@ -1,5 +1,4 @@
 import Header from '@/components/header'
-import Navi from '@/components/navi'
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from './catalog.module.css'
@@ -41,7 +40,7 @@ export default function Catalog() {
                     )}
                 <h6 className={styles.agreement}>© 2022 – 2023 Некоммерческая организация. Все права защищены.</h6>
             </section>
-            <Navi page="catalog" />
+           
         </div>
 
     )

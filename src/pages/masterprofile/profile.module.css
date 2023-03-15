@@ -16,10 +16,13 @@
   background-position: 10% center;
   background-size: 10%;
   font-weight: 500;
-}
+  background-image: url('/camera_bl.svg');
+}  
 .profile a {
   color: #3D4EEA;
   display: block;
+  width: 90%;
+  margin: 10px 0;
   font: 500 12px/17px 'Rubik', sans-serif;
 }
 
