@@ -46,16 +46,21 @@
 }
 
 .master p  {
-    font: 600 16px/26px 'Rubik', sans-serif;
+    font: 600 16px/22px 'Rubik', sans-serif;
     color: #000;
-    width: calc(100% - 100px);
+    width: calc(100% - 76px);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+
 }
 
 .pro {
     margin: 0 5px 0 10px;
     background: linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%);
     border-radius: 4px;
-    font: 600 12px/26px 'Rubik', sans-serif;
+    font: 600 12px/16px 'Rubik', sans-serif;
     padding: 2px 8px;
     color: #fff;
 }
@@ -81,6 +86,12 @@
     margin: 5px 0;
     color: #282828;
     font: 400 12px/12px 'Rubik', sans-serif;
+}
+.master h4::before {
+    content: url('/location.svg');
+    margin-right: 5px;
+    transform: translateY(3px);
+    display: inline-block;
 }
 .master h5 span {
     color: #8B95F2;

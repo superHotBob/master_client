@@ -14,7 +14,7 @@
 }
 .section p {
     text-align: center;
-    font: 600 16px/36px 'Rbik', sans-serif;
+    font: 600 16px/56px 'Rbik', sans-serif;
 }
 .message {
     color: #3D4EEA;
@@ -33,13 +33,13 @@
     margin: 3px 6px;
 }
 
-.mounth {
-    overflow: scroll;
-    white-space: nowrap;
-    margin-bottom: -10px;
+.mounth {    
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
 }
 
-.mounth::-webkit-scrollbar,.days::-webkit-scrollbar {
+.days::-webkit-scrollbar {
     width: 0;
 }
 
@@ -50,12 +50,13 @@
     font: 400 'Rubik', sans-serif;
     color: #d0d0d0;
 }
+
 .days {
     display: grid;
     grid-template-columns: 24% 24% 24% 24% 24%;    
-    justify-content: space-between;
-    overflow: auto;
+    justify-content: space-between;   
     margin-bottom: -16px;
+    overflow-x: auto;
 }
 .days span, .time span {
     color: #fff;
@@ -95,4 +96,11 @@
     content: url('/plus.svg');
     margin-left: 5px;
 
+}
+@media screen and (min-width: 500px) {
+    
+    .days {
+        display: grid;
+        grid-template-columns: 19% 19% 19% 19% 19%;  
+    }      
 }

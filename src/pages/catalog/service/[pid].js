@@ -54,15 +54,19 @@ export default function Service() {
                 <FilterServices />
                 {masters ? <>
                     {masters.map(i =>
-                        <div key={i.email} className={styles.master} style={{ backgroundImage: "url('data:image/jpg;base64," + img + "')" }}>
-                            <Link href="/master/Виктория  Ченг">
+                        <div 
+                            key={i.email} 
+                            className={styles.master} 
+                            style={{ backgroundImage: "url(/image/" + i.image + ".jpg)" }}
+                        >
+                            <Link href={"/master/" + i.nikname}>
                                 <p>
-                                    {i.username}
+                                    <span>{i.username}</span>
                                     <span className={styles.pro}>MASTER</span>
                                     <span className={styles.stars}>{i.stars}</span>
                                 </p>
                             </Link>
-                            <h4><Image alt="loc" src={location} width={15} height={15} /> {i.address}</h4>
+                            <h4>{i.address}</h4>
                             <h5>{i.services.map(m=><span key={m}>{m}</span>)}</h5>
 
                         </div>

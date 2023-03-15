@@ -1,9 +1,6 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import Link from 'next/link'
-import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
-import Navi from '@/components/navi'
 import Header from '@/components/header'
 import { useRouter } from 'next/router'
 import { useEffect, useState, useRef } from 'react'
@@ -13,15 +10,15 @@ import FilterServices from '@/components/filterServices'
 
 
 
-const inter = Inter({ subsets: ['latin'] })
+
 
 export default function Home() {
   const dispatch = useDispatch()
   const prof = useSelector(state=>state.counter.profile)
-  useEffect(() => {
-    const audio = new Audio('/sound/new_message.mp3');
-    audio.play();
-  }, [])
+  // useEffect(() => {
+  //   const audio = new Audio('/sound/new_message.mp3');
+  //   audio.play();
+  // }, [])
   
   useEffect(() => {
     let profile = JSON.parse(localStorage.getItem("profile"))
@@ -30,7 +27,7 @@ export default function Home() {
     }    
   }, []) 
 
-  const router = useRouter()
+  
   const ref = useRef(null)
   return (
     <>

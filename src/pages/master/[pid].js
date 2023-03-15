@@ -41,10 +41,10 @@ const Master = () => {
             <Header text={pid} sel="/masternear" />
             <section className={styles.section}>
                 <div className={styles.image}>
-                    <Image src='/image/profile1.jpg' alt="profile" height={105} width={105} />
+                    <Image src={'/image/' + profile.image + '.jpg'} alt="profile" height={105} width={105} />
                 </div>
                 <p>
-                    {pid}
+                    {profile.username}
                     <span className={styles.pro}>MASTER</span>
                     <span className={styles.stars}>4.7</span>
                 </p>

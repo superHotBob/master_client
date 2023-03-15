@@ -45,6 +45,11 @@
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+  height: calc(100vh - 309px);
+  overflow: auto;
+}
+.images::-webkit-scrollbar {
+  width: 0;
 }
 .images a {
   width: calc(50% - 5.5px);

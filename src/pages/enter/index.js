@@ -34,12 +34,12 @@ export default function Enter() {
             dispatch(setprofile(result))
             dispatch(setmaster(result.username))
             dispatch(setnikname(result.nikname))
-            router.push(`/masterprofile/${result.username}`)
+            router.push('/')
             
         } else if (result.status === 'client') {
             dispatch(setprofile(result))
             dispatch(setclient(result.username))
-            router.push(`/client/${result.username}`)
+            router.push('/')
             
         } else {
              console.log("Error")
