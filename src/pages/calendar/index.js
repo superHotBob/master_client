@@ -49,14 +49,14 @@ export default function Calendar() {
                 </div>
                 <div className={styles.days}>
                 {Array.from({length:all_days.getDate()},(v,i)=>i+1).map(i=>
-                <span style={false_days.includes(i) ? false_day:null}>{MyDate(i)}</span>
+                <span key={i} style={false_days.includes(i) ? false_day:null}>{MyDate(i)}</span>
                 )}
 
                 </div>
                 <p>Время для записи</p>
                 <div className={styles.time}>
                     {Array.from({length:13},(v,i)=>i+10).map((i)=>
-                    <span style={false_times.includes(i) ? false_time:null}>{i}{' '}:{' '} 00</span>
+                    <span key={i} style={false_times.includes(i) ? false_time:null}>{i}{' '}:{' '} 00</span>
                 )}
 
                 </div>
