@@ -1,0 +1,104 @@
+.main {
+    height: 100vh;
+    max-width: 500px;
+    background-color: #fff;
+    width: 100%;
+    margin: 0 auto;
+    overflow: auto;
+    position: relative;
+    padding: 0 16px;
+    z-index: 102;
+
+}
+
+.main header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    height: 46px;
+    margin-bottom: 12px;
+
+}
+
+.main header span,
+.main header a {
+    color: #3D4EEA;
+    width: 30%;
+}
+
+.main header span:last-of-type {
+    text-align: right;
+}
+
+.main header span:first-of-type::before {
+    content: "Заказ";
+    color: #282828;
+    transform: translate(-5px, -1px);
+}
+
+.main header a::after {
+    content: url('/array_left.svg');
+}
+
+.data h5,
+.data span {
+    display: block;
+    font-size: 16px;
+    margin: 16px 0 0;
+}
+
+.data button {
+    position: absolute;
+    height: 46px;
+    bottom: 26px;
+    left: 16px;
+    display: block;
+    max-width: calc(500px - 32px);
+    width: calc(100vw - 32px);
+    color: #fff;
+    background-color: #FD4D4D;
+    border-radius: 6px;
+    border: none;
+    font-weight: 500;
+}
+
+.data button b {
+    color: #fff;
+}
+
+.data button b::after {
+    content: url('/trash.svg');
+    transform: translate(11px, 2px);
+}
+
+.new_review {
+    position: absolute;
+    top: 46px;
+    left: 0;
+    height: 70vh;
+    background-color: #fff;
+    z-index: 200;
+    width: 100vw;
+    padding: 16px;
+    max-width: 500px;
+}
+
+.new_review textarea {
+    display: block;
+    margin: 6px 0 24px;
+    background: #FFFFFF;
+    border: 1px solid #D0D0D0;
+    border-radius: 4px;
+    width: 100%;
+    max-width: calc(500px - 32px);
+    padding: 12px 6px;
+    outline: none;
+}
+.new_review img {
+    margin: 5px;
+}
+.new_review h3 {
+    text-align: center;
+    max-width: calc(500px - 32px);
+}

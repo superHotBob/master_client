@@ -39,9 +39,13 @@ export default function Navi({save}) {
             </Link>
             {prof.status ? <>
             <Link href="/enter" className={styles.message} />            
-            <Link href={'/savedworks/' + prof.nikname} className={styles.stroke}  style={router.asPath.includes('save') ? saved: null}/>  
+            <Link 
+                href={prof.status==='client' ? '/client/' + prof.nikname : '/savedworks/' + prof.nikname} 
+                className={styles.stroke}  
+                style={router.asPath.includes('save') ? saved: null}
+            />  
             </>: null}         
-            <Link href="/enter" disabled className={styles.enter} style={prof.status ? active : null}>
+            <Link href={prof.status? "": "/enter"} className={styles.enter} style={prof.status ? active : null}>
                 Вход                
             </Link>
         </div>

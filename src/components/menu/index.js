@@ -1,6 +1,6 @@
 import styles from './menu.module.css'
 import { useDispatch, useSelector } from 'react-redux'
-import { setmaster, setclient, setprofile } from "@/reduser"
+import {  setclient, setprofile } from "@/reduser"
 import { useRouter } from "next/router"
 import Link from 'next/link'
 import { useEffect } from 'react'
@@ -48,16 +48,22 @@ export default function Menu() {
             <p className={styles.about}>О сервисе</p>
             <p onClick={ExitFromAccount}>Выйти из аккаунта</p>
         </main>
-            : profile.status === 'client' ? <main className={styles.main_menu}>
+            : profile.status === 'client' ? 
+            <main className={styles.main_menu}>
                 <h6>Меню профиля</h6>
                 <p>Сообщения</p>              
-                <p className={styles.collections}>Мои заказы</p>
+                <Link href={{
+                    pathname:`/client/${profile.nikname}`,
+                    query: {
+                        order: false
+                    }
+                }} className={styles.collections}>Мои заказы</Link>
                 <h6>Общее</h6>
-                <Link href={`/client/${client}`} className={styles.edit_profile}>Настройки профиля</Link>
+                <Link href={`/client/${profile.nikname}`} className={styles.edit_profile}>Настройки профиля</Link>
                 <p className={styles.copy} onClick={CopyProfile}>Скопировать ссылку профиля</p>
                 <p className={styles.chat}>Техническая поддержка</p>
                 <p className={styles.about}>О сервисе</p>
-                <p onClick={() => dispatch(setclient(''))}>Выйти из аккаунта</p>
+                <p onClick={ExitFromAccount}>Выйти из аккаунта</p>
             </main> :
                 <main className={styles.main_menu} style={style}>
                     <h6>Общее</h6>
