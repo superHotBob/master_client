@@ -25,7 +25,7 @@
     background-position: right center;
     
 }
-.main_menu p:first-of-type {
+.main_menu a:first-of-type {
     background-image: url('/message_menu.svg');
 }
 .seans {

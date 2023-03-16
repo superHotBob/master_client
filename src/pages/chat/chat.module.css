@@ -1,0 +1,41 @@
+.main {
+    align-items: center;
+    height: 100vh;
+    max-width: 500px;
+    background-color: #fff;
+    width: 100%;
+    overflow: auto;
+    position: relative;
+    z-index: 120;
+}
+
+.chat {
+    padding-left: 22%;
+    margin: 10px 16px 10px 0;
+    background-position: 16px top;
+    background-size: 15%;
+    display: block;
+    min-height: 80px;
+}
+
+.chat p {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    position: relative;
+}
+
+.chat span {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0px;
+    color: #D0D0D0;
+   
+}
+p.new::after {
+    content: url('/red.svg');
+    position: absolute;
+    top: 25px;
+    right: 0;
+}

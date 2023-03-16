@@ -34,7 +34,7 @@ export default function Menu() {
     return (<>
         {profile.status === 'master' ? <main className={styles.main_menu}>
             <h6>Меню профиля</h6>
-            <p>Сообщения</p>
+            <Link href='/chat'>Сообщения</Link>   
             <p className={styles.seans}>Записи на сеанс<span>5</span></p>
             <p className={styles.shedule} onClick={()=>router.push('/calendar')}>Календарь работы</p>
             <p className={styles.add}>Добавить запись</p>
@@ -51,7 +51,7 @@ export default function Menu() {
             : profile.status === 'client' ? 
             <main className={styles.main_menu}>
                 <h6>Меню профиля</h6>
-                <p>Сообщения</p>              
+                <Link href='/chat'>Сообщения</Link>              
                 <Link href={{
                     pathname:`/client/${profile.nikname}`,
                     query: {

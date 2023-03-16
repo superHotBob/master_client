@@ -101,9 +101,6 @@ body {
   background-color: #fff;
   position: relative;
 }
-::after {
-  display: inline-block;
-}
 a {
   color: inherit;
   text-decoration: none;
