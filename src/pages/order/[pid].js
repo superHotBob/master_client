@@ -37,7 +37,7 @@ export default function Order() {
                     ref={ref}
                 />
                 <h3>
-                    {[1, 2, 3, 4, 5].map(i => <Image onClick={()=>setStars(i)} src='/star_bl.svg' alt='star' width={25} height={24} />)}
+                    {[1, 2, 3, 4, 5].map(i => <Image key={i} onClick={()=>setStars(i)} src='/star_bl.svg' alt='star' width={25} height={24} />)}
                 </h3>
             </div> : null}
             <section className={styles.data}>
