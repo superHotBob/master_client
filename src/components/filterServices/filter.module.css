@@ -22,7 +22,7 @@
   .main__filter span:last-of-type::after {
     content: url('/arrow_right.svg');
     display: inline-block;
-    transform: translate(15px, 0);
+    transform: translate(15px, 2px);
   }
   .all__filter {
     position: absolute;

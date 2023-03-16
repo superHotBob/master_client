@@ -10,7 +10,8 @@
 }
 
 .chat {
-    padding-left: 22%;
+    padding: 0  10px 0 22%;
+
     margin: 10px 16px 10px 0;
     background-position: 16px top;
     background-size: 15%;

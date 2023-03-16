@@ -38,7 +38,7 @@ export default function Navi({save}) {
                 <Image alt="catalog" src={router.asPath.includes('catalog') ? dashboard_bl: dashboard} height={20} width={20} />
             </Link>
             {prof.status ? <>
-            <Link href="/enter" className={styles.message} />            
+            <Link href="/chat" className={styles.message} />            
             <Link 
                 href={prof.status==='client' ? '/client/' + prof.nikname : '/savedworks/' + prof.nikname} 
                 className={styles.stroke}  
