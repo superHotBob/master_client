@@ -51,8 +51,8 @@ export default function Messages() {
             <Header sel='/chat' text={profile.username} mes="1"/>
             <section className={styles.section} id="section">
                 {messages.map(i =>
-                    <div style={{ backgroundImage: i.name === 'Виктория Ченг' ? "url(/image/redbull.jpg" : null }}>
-                        <div key={i.id}
+                    <div key={i.id} style={{ backgroundImage: i.name === 'Виктория Ченг' ? "url(/image/redbull.jpg" : null }}>
+                        <div 
                             className={i.name === 'Виктория Ченг' ? styles.master :
                                 i.name === 'admin' ? styles.admin :
                                     styles.client}
