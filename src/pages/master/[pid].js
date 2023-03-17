@@ -70,7 +70,7 @@ const Master = () => {
             {nav_view === 'Услуги' ? <Services name={pid} /> : null}
             {nav_view === 'Лента' ? <Lenta name={pid} /> : null}
             {nav_view === 'Сертификаты' ? <Sertificats name={pid} /> : null}
-            <Navi page="master" />           
+                  
         </main>
     )
 

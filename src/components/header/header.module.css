@@ -19,8 +19,7 @@
     
   }
   
-  .header h3:first-of-type {
-    margin-left: 10px;
+  .header h3:first-of-type {   
     display: inline-block;
   }
   
@@ -46,7 +45,7 @@
   }
   .logo::before {
     content: url('/logo.svg');
-    transform: translate(6px,6px);
+    transform: translate(-4px,6px);
   }
   .header img:last-of-type {
     float: right;
@@ -59,6 +58,6 @@
   .image_master {  
     padding: 0 !important;
     float: none !important;
-    margin-right: 10px;
+    margin-right: 5px;
   }
   

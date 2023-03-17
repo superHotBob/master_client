@@ -17,6 +17,13 @@ const new_text = {
   display: 'inline-block',
   fontWeight: 'bold',
 }
+const new_text_mes = {
+  color: '#000',
+  font: '500 16px/26px Rubik, sans-serif',
+  display: 'inline-block',
+  fontWeight: 'bold',
+  marginLeft: '-35px' 
+}
 const close_menu = {
   backgroundColor: '#3D4EEA'
 }
@@ -43,13 +50,12 @@ export default function Header({ sel, text, mes }) {
 
 
       {text ?
-        <h3 style={new_text}>
+        <h3 style={mes ? new_text_mes : new_text}>
           {mes ? <Image
             src="/image/redbull.jpg"
-            alt="menu"
-            style={{ transform: 'transitionX(20px)' }}
+            alt="menu"           
             className={styles.image_master}
-            width={40} height={40}
+            width={39} height={40}
           /> : null}
 
           {text}

@@ -56,7 +56,7 @@
   }
 .section > div {
     background-position: left bottom;
-    background-size: 12%;   
+    background-size: 40px 40px;   
 }  
 .client {
     background: linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%);
@@ -72,7 +72,7 @@
     background: #ECEEFD;
     border-radius: 8px;
     margin: 16px auto;
-    width: 67%;
+    width: calc(100% - 100px);
     padding: 10px;
     min-height: 60px;
 }
