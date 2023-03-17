@@ -23,12 +23,7 @@ export default function Home() {
   // }, [])
 
   useEffect(() => {
-    setWidth(window.innerWidth > 500 ? 230 : (window.innerWidth - 40)/2) 
-    
-    let profile = JSON.parse(localStorage.getItem("profile"))
-    if (!prof.status) {
-      dispatch(setprofile(profile))
-    }
+    setWidth(window.innerWidth > 500 ? 230 : (window.innerWidth - 40)/2)   
   }, [])
  
 
