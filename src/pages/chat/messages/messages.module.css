@@ -71,8 +71,8 @@
 .master {
     background: #ECEEFD;
     border-radius: 8px;
-    margin: 16px auto;
-    width: calc(100% - 100px);
+    margin-left: 48px;
+    width: 70%;
     padding: 10px;
     min-height: 60px;
 }
@@ -85,7 +85,7 @@
 }
 .admin {
     width: 100%;
-    text-align: center;
+    
     color: #D0D0D0;
-    margin: 16px auto;
+    margin: 16px 0  16px 48px;
 }
