@@ -1,6 +1,4 @@
 import Header from "@/components/header"
-import Image from "next/image"
-import { useRouter } from "next/router"
 import { useEffect, useRef, useState } from "react"
 import styles from './messages.module.css'
 import { useSelector } from "react-redux"
@@ -26,8 +24,7 @@ const all_messages = [
         `}
 ]
 
-export default function Messages() {
-    const router = useRouter()
+export default function Messages() {   
     const ref = useRef()
     const [messages, addMessage] = useState(all_messages)
     const profile = useSelector(state => state.counter.profile)

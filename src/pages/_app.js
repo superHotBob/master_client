@@ -5,23 +5,13 @@ import { Provider } from 'react-redux'
 import Head from 'next/head'
 import localFont from 'next/font/local'
 import Navi from '@/components/navi'
-import { useRouter } from 'next/router'
-
 
 const myFont = localFont({ src: [{path: '../../fonts/DelaGothicOne-Regular.ttf',display: 'block'}] })
-
-
-
 const rubik = Rubik({
   weight: ['400', '500','600'],
   subsets: ['cyrillic'],
 })
-
-
-export default function MyApp({ Component, pageProps }) {
-
- 
-  
+export default function MyApp({ Component, pageProps }) {  
   return (
     <Provider store={store}>
       <main className={rubik.className}>
@@ -35,8 +25,7 @@ export default function MyApp({ Component, pageProps }) {
             name='viewport'
             content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover'
           />
-        </Head>
-        
+        </Head>        
         <Component {...pageProps} className={myFont.className}/>
         <Navi />
       </main>

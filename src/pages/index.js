@@ -16,6 +16,7 @@ const images = ['one', 'two', 'three', 'four', 'five', 'six']
 export default function Home() {
   const dispatch = useDispatch()
   const [width, setWidth] = useState(0)
+  const [image, setImage] = useState()
   const prof = useSelector(state => state.counter.profile)
   // useEffect(() => {
   //   const audio = new Audio('/sound/new_message.mp3');
@@ -31,8 +32,7 @@ export default function Home() {
   const ref = useRef(null)
   return (
     <>
-      <Head>
-        <title>master</title>
+      <Head>       
         <meta name="description" content="Master app" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
@@ -50,21 +50,47 @@ export default function Home() {
           <FilterServices />
           <div className={styles.images}>
             <div className={styles.images_one}>
-              {['two', 'three', 'four', 'six'].map((i, index) =>
-                <Link href="/" key={i} style={{width: width, height: 'auto'}} >
-                  <img alt={i} src={'image/' + i + '.jpg'} id={i} width={width} height="auto" />
-                </Link>
+              {[{image:'two', name:'bob1234',date:'12.03.2021'},
+                {image:'three',name: 'Mercedec',date:'12.03.2021'},
+                {image:'four', name:'Super1234',date:'12.03.2021'},
+                {image:'six', name:"Mercedec",date:'12.03.2021'}].map(i =>
+                <div onClick={()=>setImage(i)} key={i.image} style={{width: width, height: 'auto'}} >
+                  <img alt={i.image} src={'image/' + i.image + '.jpg'} id={i} width={width} height="auto" />
+                </div>
               )}
             </div>
             <div className={styles.images_two}>
-              {['one', 'four', 'five', 'six'].map((i, index) =>
-                <Link href="/" key={i} style={{width: width, height: 'auto'}}>
-                 <img alt={i} src={'image/' + i + '.jpg'} id={i}  width={width} height="auto"/>
-               </Link>
+              {[{image:'one', name:'bob1234',date:'12.03.2021'},
+                {image:'four',name: 'Mercedec',date:'12.03.2021'},
+                {image:'five', name:'Super1234',date:'12.03.2021'},
+                {image:'six', name:"Mercedec",date:'12.03.2021'}].map(i =>
+                <div key={i.image} onClick={()=>setImage(i)}   style={{width: width, height: 'auto'}}>
+                 <img alt={i.image} src={'image/' + i.image + '.jpg'} id={i}  width={width} height="auto"/>
+               </div>
               )}
             </div>
           </div>
         </section>
+        {image ?
+        <div className={styles.main__detail}>
+          <div className={styles.detail}>
+            <Image className={styles.close} src="/chevron_up.svg" onClick={()=>setImage()} alt="img" width={24} height={24}/>           
+            <img alt={image.image} src={'image/' + image.image + '.jpg'} id={image.image}  width="100%" height="auto"/>
+            <div className={styles.master}>
+              <Image alt="image" src={'image/' + image.name + '.jpg'} width={26} height={26}/>
+              <span>{image.name}</span>
+              <span>{image.date}</span>
+            </div>
+            <h5>Пилинг, шугаринг, наращивание</h5>
+            <h6>
+            {`Каждый из нас понимает очевидную вещь: граница
+            обучения кадров требует анализа поэтапного и
+            последовательного развития общества.`}
+            </h6>
+            <Link className={styles.toprofilemaster} href={'/master/' + image.name} >Перейти в профиль мастера</Link>
+          </div>
+
+        </div>: null}
 
       </main>
     </>
