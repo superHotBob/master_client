@@ -4,11 +4,12 @@ import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 import Header from '@/components/header'
 import { useRouter } from 'next/router'
+import AliceCarousel from 'react-alice-carousel'
+import 'react-alice-carousel/lib/alice-carousel.css'
 import { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setprofile } from '@/reduser'
 import FilterServices from '@/components/filterServices'
-
 const images = ['one', 'two', 'three', 'four', 'five', 'six']
 
 
@@ -74,8 +75,19 @@ export default function Home() {
         {image ?
         <div className={styles.main__detail}>
           <div className={styles.detail}>
+         
             <Image className={styles.close} src="/chevron_up.svg" onClick={()=>setImage()} alt="img" width={24} height={24}/>           
+            <AliceCarousel
+             mouseTracking
+             autoHeight
+             infinite
+                     
+             disableButtonsControls
+             >
             <img alt={image.image} src={'image/' + image.image + '.jpg'} id={image.image}  width="100%" height="auto"/>
+            <img alt={image.image} src={'image/lenta1.jpg'} id={image.image}  width="100%" height="auto"/>
+            <img alt={image.image} src={'image/lenta3.jpg'} id={image.image}  width="100%" height="auto"/>
+            </AliceCarousel>
             <div className={styles.master}>
               <Image alt="image" src={'image/' + image.name + '.jpg'} width={26} height={26}/>
               <span>{image.name}</span>

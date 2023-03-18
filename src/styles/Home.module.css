@@ -112,8 +112,10 @@
 .detail img {
   border-radius: 0;
 }
+
+
 .master {
-  margin: 20px 16px 10px;
+  margin: -35px 16px 10px;
 }
 .master span:last-of-type {
   float: right;
