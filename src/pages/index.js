@@ -84,7 +84,7 @@ export default function Home() {
                      
              disableButtonsControls
              >
-            <img alt={image.image} src={'image/' + image.image + '.jpg'} id={image.image}  width="100%" height="auto"/>
+            <img alt={image.image} src={'image/' + image.image + '.jpg'}   width="100%" height="auto"/>
             <img alt={image.image} src={'image/lenta1.jpg'} id={image.image}  width="100%" height="auto"/>
             <img alt={image.image} src={'image/lenta3.jpg'} id={image.image}  width="100%" height="auto"/>
             </AliceCarousel>
