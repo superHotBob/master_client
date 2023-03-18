@@ -3,13 +3,11 @@ import Link from 'next/link'
 import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
 import Header from '@/components/header'
-import { useRouter } from 'next/router'
-import AliceCarousel from 'react-alice-carousel'
-import 'react-alice-carousel/lib/alice-carousel.css'
 import { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setprofile } from '@/reduser'
 import FilterServices from '@/components/filterServices'
+import Carousel from 'nuka-carousel/lib/carousel'
 const images = ['one', 'two', 'three', 'four', 'five', 'six']
 
 
@@ -77,17 +75,29 @@ export default function Home() {
           <div className={styles.detail}>
          
             <Image className={styles.close} src="/chevron_up.svg" onClick={()=>setImage()} alt="img" width={24} height={24}/>           
-            <AliceCarousel
-             mouseTracking
-             autoHeight
-             infinite
-                     
-             disableButtonsControls
-             >
-            <img alt={image.image} src={'image/' + image.image + '.jpg'}   width="100%" height="auto"/>
+           <Carousel 
+           adaptiveHeight 
+           defaultControlsConfig={{
+            nextButtonStyle: {display: 'none'},
+            prevButtonStyle: {display: 'none'},
+            pagingDotsClassName: styles.carousel,
+            pagingDotsStyle: {
+              img: {
+                display: 'none'
+              },
+              margin: '10px',              
+              display: 'inline-block',
+              width: '50px',
+              borderRadius: 0,
+              backgroundColor: '#3D4EEA',
+              height: 5,              
+            }
+           }}
+           >
+            <img alt={image.image} src={'image/' + image.image + '.jpg'}   width="100%" />
             <img alt={image.image} src={'image/lenta1.jpg'} id={image.image}  width="100%" height="auto"/>
             <img alt={image.image} src={'image/lenta3.jpg'} id={image.image}  width="100%" height="auto"/>
-            </AliceCarousel>
+            </Carousel>
             <div className={styles.master}>
               <Image alt="image" src={'image/' + image.name + '.jpg'} width={26} height={26}/>
               <span>{image.name}</span>

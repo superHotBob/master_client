@@ -112,7 +112,13 @@
 .detail img {
   border-radius: 0;
 }
+.carousel {
+  margin: 1px;
 
+}
+.carousel svg {
+  display: none;
+}
 
 .master {
   margin: 20px 16px 10px;
