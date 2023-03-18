@@ -1,0 +1,102 @@
+.main {
+    align-items: center;
+    height: 100vh;
+    position: relative;
+    max-width: 500px;
+    background-color: #fff;
+    width: 100%;
+    overflow: auto;
+    z-index: 110;
+}
+.selector {
+    font: 400 14px/17px 'Rubik', sans-serif;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 16px;
+    height: 27px;
+  }
+  .selector span {
+    width: 50%;
+    display: inline-block;
+    padding: 5px 0;
+    text-align: center;
+    color: #000;
+    border-radius: 4px;
+    padding: 5px;
+    text-align: center;
+  }
+
+.section {
+    padding: 0 16px;
+}
+.section p {
+    text-align: left;
+    font: 600 16px/26px 'Rbik', sans-serif;
+    
+}
+
+.mounth {    
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.days::-webkit-scrollbar {
+    width: 0;
+}
+
+.mounth span {
+    display: inline-block;
+    width: fit-content;
+    padding: 5px 15px;
+    font: 400 'Rubik', sans-serif;
+    color: #d0d0d0;
+}
+
+.days {
+    display: grid;
+    grid-template-columns: 24% 24% 24% 24% 24%;    
+    justify-content: space-between;   
+    overflow-x: auto;
+}
+.days span, .time span {
+    color: #fff;
+    padding: 10px;    
+    text-align: center;
+    margin: 4px;
+    height: 40px;
+    display: inline-block;
+    background: #3D4EEA;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.section button {
+    background: #ECEEFD;
+    border-radius: 6px;
+    display: block;
+    height: 46px;
+    width: 100%;
+    font-weight: 600;
+    font-size: 16px;
+    margin: 16px auto;
+    border: none;
+    cursor: pointer;
+   
+}
+.section button span {
+    color:#3D4EEA;
+}
+.section button span::after {
+    content: url('/plus.svg');
+    margin-left: 5px;
+
+}
+@media screen and (min-width: 500px) {
+    
+    .days {
+        display: grid;
+        grid-template-columns: 19% 19% 19% 19% 19%;  
+    }      
+}

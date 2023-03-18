@@ -50,21 +50,21 @@ export default function Home() {
           <div className={styles.images}>
             <div className={styles.images_one}>
               {[{image:'two', name:'bob1234',date:'12.03.2021'},
-                {image:'three',name: 'Mercedec',date:'12.03.2021'},
+                {image:'five',name: 'Mercedec',date:'12.03.2021'},
                 {image:'four', name:'Super1234',date:'12.03.2021'},
                 {image:'six', name:"Mercedec",date:'12.03.2021'}].map(i =>
                 <div onClick={()=>setImage(i)} key={i.image} style={{width: width, height: 'auto'}} >
-                  <img alt={i.image} src={'image/' + i.image + '.jpg'} id={i} width={width} height="auto" />
+                  <img alt={i.image} src={'image/' + i.image + '.jpg'} id={i} width="100%" height="auto" />
                 </div>
               )}
             </div>
             <div className={styles.images_two}>
-              {[{image:'one', name:'bob1234',date:'12.03.2021'},
+              {[{image:'one', name:'Super1234',date:'12.03.2021'},
                 {image:'four',name: 'Mercedec',date:'12.03.2021'},
-                {image:'five', name:'Super1234',date:'12.03.2021'},
+                {image:'three', name:'Super1234',date:'12.03.2021'},
                 {image:'six', name:"Mercedec",date:'12.03.2021'}].map(i =>
                 <div key={i.image} onClick={()=>setImage(i)}   style={{width: width, height: 'auto'}}>
-                 <img alt={i.image} src={'image/' + i.image + '.jpg'} id={i}  width={width} height="auto"/>
+                 <img alt={i.image} src={'image/' + i.image + '.jpg'} id={i}  width="100%" height="auto"/>
                </div>
               )}
             </div>
@@ -72,8 +72,7 @@ export default function Home() {
         </section>
         {image ?
         <div className={styles.main__detail}>
-          <div className={styles.detail}>
-         
+          <div className={styles.detail}>         
             <Image className={styles.close} src="/chevron_up.svg" onClick={()=>setImage()} alt="img" width={24} height={24}/>           
            <Carousel 
            adaptiveHeight 
@@ -81,22 +80,23 @@ export default function Home() {
             nextButtonStyle: {display: 'none'},
             prevButtonStyle: {display: 'none'},
             pagingDotsClassName: styles.carousel,
-            pagingDotsStyle: {
-              img: {
-                display: 'none'
-              },
-              margin: '10px',              
+            pagingDotsStyle: {            
+              margin: '10px 5px',              
               display: 'inline-block',
-              width: '50px',
-              borderRadius: 0,
+              width: '20vw',
+              maxWidth: '100px',
+              borderRadius: 4,
               backgroundColor: '#3D4EEA',
-              height: 5,              
+              height: 5,
+              
+                           
             }
            }}
            >
-            <img alt={image.image} src={'image/' + image.image + '.jpg'}   width="100%" />
+            <img alt={image.image} src={'image/' + image.image + '.jpg'}   width="100%" height="auto"/>
             <img alt={image.image} src={'image/lenta1.jpg'} id={image.image}  width="100%" height="auto"/>
             <img alt={image.image} src={'image/lenta3.jpg'} id={image.image}  width="100%" height="auto"/>
+            <img alt={image.image} src={'image/master1.jpg'} id={image.image}  width="100%" height="auto"/>
             </Carousel>
             <div className={styles.master}>
               <Image alt="image" src={'image/' + image.name + '.jpg'} width={26} height={26}/>

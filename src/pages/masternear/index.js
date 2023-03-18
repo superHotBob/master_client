@@ -46,7 +46,7 @@ const masters = [{
     id: 3,
     name: 'Зина Стрельцова',
     address: 'Проспект независимости',
-    image: 'RedBull',
+    image: 'redbull',
     status: 'MASTER',
     nikname:'RedBull',
     stars: 4.9,

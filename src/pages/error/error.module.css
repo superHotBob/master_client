@@ -1,5 +1,6 @@
 .dialog {
     width: 100vw;
+    max-width: 500px;
     height: 100vh;
     position: absolute;
     top: 0;

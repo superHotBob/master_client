@@ -1,10 +1,11 @@
 .main {
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   max-width: 500px;
   background-color: #fff;
   width: 100%;
-  overflow: auto;
+  height: auto;
+ 
 }
 
 .section {
@@ -46,9 +47,7 @@
 .images {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
-  height: calc(100vh - 309px);
-  overflow: auto;
+  flex-wrap: wrap; 
 }
 
 .images_one,
@@ -78,8 +77,8 @@
 
 .main__detail {
   width: 100%;
-  max-width: 500;
-  min-height: 100vh;
+  max-width: 500px;
+  min-height: 150vh;
   position: absolute;
   z-index: 120;
   top: 0;
@@ -87,7 +86,7 @@
 }
 
 .detail {
-  min-height: calc(100vh - 144px);  
+  min-height: 100vh;  
   position: absolute;
   top: 144px;
   background-color: #fff;
@@ -104,7 +103,7 @@
   text-align: center;
   width: calc(100% - 32px);
   top: 590px;
-  margin: 26px auto 32px;
+  margin: 26px auto 2rem;
   line-height: 46px;
   background: #3D4EEA;
   border-radius: 6px;
@@ -112,16 +111,13 @@
 .detail img {
   border-radius: 0;
 }
-.carousel {
-  margin: 1px;
 
-}
 .carousel svg {
   display: none;
 }
 
 .master {
-  margin: 20px 16px 10px;
+  margin: 20px 1rem 10px;
 }
 .master span:last-of-type {
   float: right;
@@ -133,7 +129,7 @@
   margin-left: 12px;
 }
 .detail h5 {
-  padding: 0 16px;
+  padding: 0 1rem;
 }
 .close {
   margin: 1px auto;
@@ -145,7 +141,7 @@
   font-size: 12px;
   line-height: 17px;
   color: #282828;
-  padding: 4px 16px 0;
+  padding: 4px 1rem 0;
 }
 
 @media screen and (min-width: 500px) {

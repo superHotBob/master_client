@@ -27,8 +27,8 @@ const Master = () => {
     const profile = useSelector(state=>state.counter.profile)
 
     function EnterToMessanger(a){
-        if(client) {
-          
+        if(profile.status) {
+            router.push('/chat')
         }else{
             router.push('/error')
         }

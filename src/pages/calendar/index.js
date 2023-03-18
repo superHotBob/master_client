@@ -26,12 +26,12 @@ export default function Calendar() {
     const d = new Date()
     const mon = d.getMonth()
     const [month, setMonth] = useState(mon)
-    const all_days = new Date(2023, month + 1, 0)
+    const all_days = new Date(2023, month + 3, 0)
 
     const [active_day, setActive_Day] = useState()
 
     function MyDate(a) {
-        const day = new Date(2023, month + 1, a)
+        const day = new Date(2023, month + 3, a)
         return a + ' ' + days[day.getDay()]
     }
 

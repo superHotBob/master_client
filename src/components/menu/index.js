@@ -37,7 +37,7 @@ export default function Menu() {
             <p className={styles.seans}>Записи на сеанс<span>5</span></p>
             <p className={styles.shedule} onClick={() => router.push('/calendar')}>Календарь работы</p>
             <p className={styles.add}>Добавить запись</p>
-            <p className={styles.collections}>Мои заказы</p>
+            <Link href="/records" className={styles.collections}>Мои заказы</Link>
             <h6>Общее</h6>
             <p className={styles.edit_profile} onClick={() => router.push('/masterprofile/' + profile.nikname)} >
                 Редактировать профиль
