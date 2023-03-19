@@ -25,8 +25,9 @@ export default function Client() {
     const dispatch = useDispatch()
     const  pid  = router.query.order  
     const profile = useSelector((state) => state.counter.profile)
+    console.log(profile)
     const [selector, setSelector] = useState(!pid)
-    useEffect(() => profile.status ? console.log('Bob') : () => router.push('/enter'), [])
+    useEffect(() => profile.status ? console.log('Bob') : () => router.push('/'), [])
 
     function viewOrder(a,b) {
         dispatch(setorder(orders[a]))
