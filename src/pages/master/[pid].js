@@ -44,7 +44,7 @@ const Master = () => {
                     <Image src={'/image/' + profile.image + '.jpg'} alt="profile" height={105} width={105} />
                 </div>
                 <p>
-                    {profile.username}
+                    <span>{profile.username}</span>
                     <span className={styles.pro}>MASTER</span>
                     <span className={styles.stars}>4.7</span>
                 </p>

@@ -14,9 +14,11 @@ const sel = {
 }
 
 
-const orders = [{active: 1,name: 'Вика Цыганова', nikname:'victoria1245',cost: 2500, date: '17 Сентября в 17: 00',number: 4588, text:'Маникюр, педикюр, пилинг, шмилинг, чай + тортик, пирожки домашние, прическа.'},
-{active: 0,name: 'Клава Шниперсон', nikname:'klava1245',cost: 2500, date: '17 Сентября в 17: 00',number: 4587, text:'Маникюр, педикюр, пилинг, шмилинг, чай + тортик, пирожки домашние, прическа.'},
-{active: 0,name: 'Эльвира', nikname:'Super1245',cost: 2500, date: '17 Сентября в 17: 00',number: 4589, text:'Маникюр, педикюр, пилинг, шмилинг, чай + тортик, пирожки домашние, прическа.'}]
+const orders = [
+    {active: 1,master: 'Вика Цыганова', nikname:'Mercedec',cost: 4500, date: '17 Сентября в 17: 00',order: 4588, text:'Маникюр, педикюр, пилинг, шмилинг, чай + тортик, пирожки домашние, прическа.'},
+    {active: 0,master: 'Клава Шниперсон', nikname:'RedBull',cost: 2500, date: '17 Сентября в 17: 00',order: 4587, text:'Маникюр, педикюр, пилинг, шмилинг, чай + тортик, пирожки домашние, прическа.'},
+    {active: 0,master: 'Эльвира', nikname:'Super1245',cost: 5800, date: '17 Сентября в 17: 00',order: 4589, text:'Маникюр, педикюр, пилинг, шмилинг, чай + тортик, пирожки домашние, прическа.'}
+]
 
 export default function Client() {
     const router = useRouter()
@@ -49,29 +51,30 @@ export default function Client() {
                     Хотите что-то присмотреть?
                 </div> */}
                 <div className={styles.images}>
-                    {['one', 'two', 'three', 'four', 'five'].map((i, index) =>
+                    {['one', 'two', 'three', 'four', 'five'].map(i =>
                         <div key={i} style={{ backgroundImage: `url(/image/${i}.jpg)` }} />)}
                 </div>
-                <Link href="/masternear" className={styles.uslugi}>
-                    Мастера рядом
-                </Link></>
+                <Link href="/masternear" className={styles.uslugi}>Мастера рядом</Link>
+                    
+                </>
                 : <>
                     {/* <div className={styles.message} >
                         Здесь будет храниться история ваши заказы.
                     </div> */}
                     {orders.map((i,index)=>
                         <div 
-                            onClick={()=>viewOrder(index,i.number)}
-                            key={i.number} 
+                            onClick={()=>viewOrder(index,i.order)}
+                            key={i.order} 
                             className={styles.order}    
                         >
-                            <p><span className={i.active?styles.active:null}>{i.date}</span><span>#{i.number}</span></p>
-                            <h3><span>{i.name}</span><span>{i.cost} ₽</span></h3>
+                            <p><span className={i.active?styles.active:null}>{i.date}</span><span>#{i.order}</span></p>
+                            <h3><span>{i.master}</span><span>{i.cost} ₽</span></h3>
                             <h6>{i.text}</h6>
                         </div>
                     )}
-
-                </>}           
+                </>
+            }
+                          
 
         </main>
     )

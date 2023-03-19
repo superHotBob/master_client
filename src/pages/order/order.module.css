@@ -22,7 +22,7 @@
 }
 
 .main header span,
-.main header a {
+.main header b {
     color: #3D4EEA;
     width: 30%;
 }
@@ -37,7 +37,7 @@
     transform: translate(-5px, -1px);
 }
 
-.main header a::after {
+.main header b::after {
     content: url('/array_left.svg');
 }
 

@@ -12,9 +12,9 @@
   height: 27px;
 }
 .profile {
-  padding: 20px 0 20px 28%;
-  background-position: 10% center;
-  background-size: 10%;
+  padding: 20px 0 20px 104px;
+  background-position: 16px 22px;
+  background-size: 72px;
   font-weight: 500;
   background-image: url('/camera_bl.svg');
 }  

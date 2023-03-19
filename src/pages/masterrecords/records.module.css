@@ -93,6 +93,60 @@
     margin-left: 5px;
 
 }
+.order {
+    padding: 10px;
+    gap: 6px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 117px;
+    margin: 8px 0;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 9px #E6E6E6;
+    border-radius: 6px;
+  }
+  
+  .order h3 {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    line-height: 26px;
+  }
+  
+  .order h6 {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 17px;
+    color: #282828;
+  }
+  
+  .order p {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .order p span {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 25px;
+    color: #3D4EEA;
+  }
+  
+  .order p span:last-of-type::before {
+    content: 'Заказ';
+    color: #282828;
+    padding-right: 5px;
+  }
+  
+  .active::before {
+    content: 'Новый';
+    color: #fff;
+    background: #FD4D4D;
+    border-radius: 4px;
+    padding: 0 6px;
+    margin: 0 5px 0 0;
+    transform: translateY(-1px);
+  }
 @media screen and (min-width: 500px) {
     
     .days {
