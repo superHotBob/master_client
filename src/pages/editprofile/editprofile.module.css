@@ -1,8 +1,160 @@
 .main {
-    height: 100vh;
-    max-width: 500px;
-    background-color: #fff;
-    width: 100%;
-    margin: 0 auto;
-    overflow: auto;
-  }
+  height: 100vh;
+  max-width: 500px;
+  background-color: #fff;
+  width: 100%;
+  margin: 0 auto;
+  overflow: auto;
+}
+
+.image .profile_image {
+  border-radius: 100%;
+  height: 110px;
+  width: 110px;
+  display: inline-block;
+  transform: translateY(50px);
+  border: 3px solid #fff;
+  line-height: 140px;
+  background-color: #3D6DEA;
+
+}
+
+.image input {
+  transform: translate(-40px, -150px);
+  opacity: 0;
+  display: block;
+  height: 100px;
+}
+
+
+.inputs {
+  margin: 24px 16px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: auto;
+}
+
+.inputs div,
+.inputs input,
+.submitProfile input,
+.inputs textarea {
+  width: 100%;
+  border-radius: 4px;
+  padding: 0 8px;
+  margin: 6px 0 15px;
+  height: 48px;
+  border: 1px solid #d0d0d0;
+}
+
+.inputs h6 {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.inputs h6 span:last-of-type {
+  color: #3D4EEA;
+  padding-right: 15px;
+}
+
+.inputs h6 span:last-of-type::after {
+  content: url('/arrow_right.svg');
+  height: 15px;
+  transform: translate(10px, 2px);
+}
+
+.inputs textarea {
+  height: 84px;
+  padding: 12px 6px;
+}
+
+.image {
+  height: 100px;
+  background: linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%);
+  margin: 0 16px;
+  background-size: 400% 400%;
+  animation: gradient 22s ease infinite;
+  text-align: center;
+
+
+}
+
+.nikname {
+  line-height: 40px;
+}
+
+.nikname span:last-of-type {
+  color: #3D4EEA;
+}
+
+.name {
+  text-align: center;
+  margin-top: 79px;
+  font-size: 22px;
+  font-weight: 500;
+}
+
+.connect_master {
+  background: #8B95F2;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1em;
+  font-weight: 500;
+  display: flex;
+  padding: 8px;
+  height: 54px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.connect_master button {
+  height: 34px;
+  width: 112px;
+  border-radius: 6px;
+  padding: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(25px);
+  border: none;
+  color: #fff;
+
+}
+.submitProfile {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  height: 100vh;
+  width: 100lvw;
+  max-width: 500px;
+ 
+  z-index: 101;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  height: 46px;
+  padding: 11px;
+  align-items: center;
+  font: 500 16px/17px 'Rubik', sans-serif;
+}
+
+.header span:last-child {
+  color: #3D4EEA;
+  cursor: pointer;
+}
+.header img {
+  cursor: pointer;
+}
+.submitProfile p {
+  font-size: 12px;
+  line-height: 17px;
+  margin: 16px;
+}
+.submitProfile input {
+  margin: 0 auto 24px;
+  display: block;
+  width: calc(100% - 32px);
+  color: #3D4EEA;
+}

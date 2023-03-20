@@ -36,7 +36,7 @@ export default async function handler(req, res) {
   } else if (result[0].status === 'client') {
     const result = await sql`
     select 
-    status,nikname
+    status,nikname,image,name,text
     from clients
     where phone = ${+req.body.tel}
   `

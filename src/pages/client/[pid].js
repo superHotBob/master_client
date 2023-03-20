@@ -24,8 +24,7 @@ export default function Client() {
     const router = useRouter()
     const dispatch = useDispatch()
     const  pid  = router.query.order  
-    const profile = useSelector((state) => state.counter.profile)
-    console.log(profile)
+    const profile = useSelector((state) => state.counter.profile)   
     const [selector, setSelector] = useState(!pid)
     useEffect(() => profile.status ? console.log('Bob') : () => router.push('/'), [])
 
@@ -36,8 +35,8 @@ export default function Client() {
     return (
         <main className={styles.main}>
             <Header text={profile.nikname} />
-            <div className={styles.profile} style={{ backgroundImage: "url(/camera_bl.svg" }}>
-                <h2>{profile.username}</h2>
+            <div className={styles.profile} style={{ backgroundImage: profile.image ? `url(${profile.image})` :"url(/camera_bl.svg" }}>
+                <h2>{profile.name}</h2>
                 <Link href="/editprofile">Редактировать профиль</Link>
 
             </div>
