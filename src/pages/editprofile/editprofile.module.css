@@ -18,7 +18,13 @@
   background-color: #3D6DEA;
 
 }
-
+.image {
+  height: 100px;
+  background: linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%); 
+  background-size: 400% 400%;
+  animation: gradient 22s ease infinite;
+  text-align: center;
+}
 .image input {
   transform: translate(-40px, -150px);
   opacity: 0;
@@ -33,6 +39,7 @@
   flex-direction: column;
   justify-content: space-between;
   height: auto;
+  font-size: 12px;
 }
 
 .inputs div,
@@ -68,18 +75,10 @@
 .inputs textarea {
   height: 84px;
   padding: 12px 6px;
+  background-color: #fff;
 }
 
-.image {
-  height: 100px;
-  background: linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%);
-  margin: 0 16px;
-  background-size: 400% 400%;
-  animation: gradient 22s ease infinite;
-  text-align: center;
 
-
-}
 
 .nikname {
   line-height: 40px;
@@ -91,16 +90,19 @@
 
 .name {
   text-align: center;
-  margin-top: 79px;
+  margin-top: 70px;
   font-size: 22px;
   font-weight: 500;
 }
 
-.connect_master {
+div.connect_master, 
+div.currency,
+div.tema {
   background: #8B95F2;
   border-radius: 8px;
   color: #fff;
   font-size: 1em;
+  margin: 8px 0 0;
   font-weight: 500;
   display: flex;
   padding: 8px;
@@ -108,8 +110,16 @@
   justify-content: space-between;
   align-items: center;
 }
+div.currency {
+  background: #D0D0D0;
+}
+div.tema {
+  background: linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%);
+}
 
-.connect_master button {
+.connect_master button, 
+.currency button,
+.tema button {
   height: 34px;
   width: 112px;
   border-radius: 6px;
@@ -118,7 +128,12 @@
   backdrop-filter: blur(25px);
   border: none;
   color: #fff;
-
+}
+.currency button {
+  width: 135px;
+}
+.tema button {
+  background: rgba(255, 255, 255, 0.2);
 }
 .submitProfile {
   position: absolute;

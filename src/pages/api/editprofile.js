@@ -12,19 +12,30 @@ export default async function handler(req, res) {
     old_nikname: req.body.old_nikname
   }
 
-
-  const result = await sql`
-        update clients set ${sql(client, 'name', 'image', 'text','nikname')
+  if(req.body.status = 'master') {
+    const result = await sql`
+      update users set ${sql(client, 'name', 'image', 'text','nikname')}    
+      where nikname =  ${client.old_nikname}
+      returning *
+    `    
+    if( result.length>0 ) {        
+      res.status(200).json(result[0])
+    }  else {
+      throw new Error('Not found')
     }
+    
+  } else {
+      const result = await sql`
+        update clients set ${sql(client, 'name', 'image', 'text','nikname')}    
         where nikname =  ${client.old_nikname}
         returning *
-    `
-  if( result.length>0 ) {
-    
-    res.status(200).json(result[0])
-  }  else {
-    throw new Error('Not found')
-  }
+      `    
+      if( result.length>0 ) {        
+        res.status(200).json(result[0])
+      }  else {
+        throw new Error('Not found')
+      }
+  }   
  
 
 }

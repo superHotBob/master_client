@@ -62,15 +62,9 @@
 }
 .my_map {
   margin-top: 20px;
-  filter: grayscale(1);
+  filter: grayscale(100%);
 }
-.ymaps-2-1-79-map  {
-	filter: grayscale(1) !important;
-	-ms-filter: grayscale(1);
-	-webkit-filter: grayscale(1);
-	-moz-filter: grayscale(1);
-	-o-filter: grayscale(1);
-}
+
 
 .pro {
   margin: 0 5px 0 0;

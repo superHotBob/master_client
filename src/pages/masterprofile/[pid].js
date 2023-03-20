@@ -30,7 +30,7 @@ export default function Client() {
                 className={styles.profile} 
                 style={{ backgroundImage:  profile.image ? "url(/image/" + profile.nikname.toLowerCase() + ".jpg)" : null }}
             >
-                {profile.username}
+                {profile.name}
                 <Link href="/editprofile">{profile.text || 'Написать о себе'}</Link>
             </div>
             <nav className={styles.navigation}>

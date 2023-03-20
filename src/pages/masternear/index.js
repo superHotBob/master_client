@@ -122,7 +122,6 @@ export default function MasterNear() {
                         <Map id="mymap"
                             options={{ set: defaultState }}
                             state={{
-                                // type:'yandex#hybrid',
                                 center: master ? masters.filter(i => i.name === master)[0].coordenates : [53.904430, 27.554895],
                                 zoom: master ? 14 : 10 + 10 / filter * 0.8,
                                 controls: [],
@@ -132,12 +131,12 @@ export default function MasterNear() {
                                 properties={{
                                     hintContent: i.name,
                                     balloonContent: 'Это красивая метка',
-                                    iconColor: 'green'
+                                    iconColor: 'green',                                    
                                 }}
                                 options={{
                                     iconLayout: 'default#image',
                                     iconImageHref: filter < 5 ? `image/${i.image}.jpg` : '/master1.svg',
-                                    iconImageSize: [40, 40],
+                                    iconImageSize: [40, 40],                                    
                                 }}
                                 onClick={() => ViewMaster(i.name)}
                             />)}
