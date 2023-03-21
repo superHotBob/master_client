@@ -36,7 +36,7 @@ export default function Header({ sel, text, mes }) {
     if (!profile.status) {
       dispatch(setprofile(pro))
     }
-  }, [profile.status])
+  }, [profile.status,dispatch])
   const [menu, menuView] = useState(false)
   return (
     <header className={styles.header}>

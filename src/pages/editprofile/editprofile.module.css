@@ -63,36 +63,35 @@
   font-size: 12px;
 }
 
-/* .inputs h6 span:last-of-type {
+.change {
   color: #3D4EEA;
   padding-right: 15px;
-} */
+}
 
-/* .inputs h6 span:last-of-type::after {
+.change::after {
   content: url('/arrow_right.svg');
   height: 15px;
   transform: translate(10px, 2px);
-} */
+}
 
 .inputs textarea {
   height: 84px;
   padding: 12px 6px;
   background-color: #fff;
   outline: none;
+  font: 500 14px/17px 'Rubil', sans-serif;
+}
+
+
+
+div.nikname, .address {
+  line-height: 40px;
   font-size: 14px;
 }
-
-
-
-div.nikname {
-  line-height: 40px;
-  font-size: 17px;
-
-}
-
-.nikname span:first-of-type {
+.nikname span {
   color: gray;
 }
+
 
 .nikname input {
   display: inline-block !important;
@@ -103,7 +102,7 @@ div.nikname {
   height: 20px;
   vertical-align: revert;
   padding: 0;
-  font-size: 17px;
+  font-size: 14px;
 }
 
 .name {
@@ -194,9 +193,7 @@ div.tema {
   font-weight: 400;
 }
 
-.header img {
-  cursor: pointer;
-}
+
 
 .submitProfile p {
   font-size: 12px;

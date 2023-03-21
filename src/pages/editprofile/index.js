@@ -127,15 +127,15 @@ export default function EditProfile() {
                 </div>
                 <label>
                     Имя и фамилия
-                    <input type="text" value={name} placeholder='Ваше имя' onChange={(e) => setName(e.target.value)} />
+                    <input style={{fontSize: 14}} type="text" value={name} placeholder='Ваше имя' onChange={(e) => setName(e.target.value)} />
                 </label>
                 {profile.status === 'master' ?
                     <>
                         <h6>
                             <span>Место приема клиентов</span>
-                            <span onClick={() => setAccept(true)}>изменить</span>
+                            <span className={styles.change} onClick={() => setAccept()}>изменить</span>
                         </h6>
-                        <div className={styles.nikname}>
+                        <div className={styles.address}>
                             <span>{profile.address}</span>
                         </div></> : null}
                 <label>
