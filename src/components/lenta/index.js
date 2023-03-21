@@ -30,7 +30,7 @@ const my_images = ['/image/lenta2.jpg', '/image/lenta1.jpg', '/image/lenta1.jpg'
 export default function Lenta() {
     const [width, setWidth] = useState()
     const [model, setViewText] = useState(false)
-    useEffect(() => setWidth(window.innerWidth > 500 ? 500 : window.innerWidth),)
+    useEffect(() => setWidth(window.innerWidth > 500 ? 500 : window.innerWidth),[])
     return (
         <main className={styles.main}>
             <FilterServices />
