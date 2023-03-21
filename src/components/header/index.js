@@ -31,13 +31,12 @@ const close_menu = {
 export default function Header({ sel, text, mes }) {
   const profile = useSelector((state) => state.counter.profile)
   const dispatch = useDispatch()
-  useEffect(() => {
-   
+  useEffect(() => {   
     let pro = JSON.parse(localStorage.getItem("profile"))
     if (!profile.status) {
       dispatch(setprofile(pro))
     }
-  }, [])
+  }, [profile.status])
   const [menu, menuView] = useState(false)
   return (
     <header className={styles.header}>
