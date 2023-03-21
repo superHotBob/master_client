@@ -21,14 +21,14 @@ export default async function handler(req, res) {
           ${+req.body.tel}, 'client', ${nikname}
         )
 
-        returning *
+        returning status, nikname
     `
     console.log(result)
     res.status(200).json(result[0])
   } else if (result[0].status === 'master') {
     const result = await sql`
       select 
-      name,status,city,stars,locations,nikname,image,text
+      name,status,city,stars,locations,nikname,image,text,address
       from users
       where phone = ${+req.body.tel}
     `

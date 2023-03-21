@@ -50,7 +50,7 @@ export default function Messages() {
     }
     return (
         <main className={styles.main}>
-            <Header sel='/chat' text={profile.username} mes="1"/>
+            <Header sel='/chat' text={profile.name} mes="1"/>
             <section className={styles.section} id="section">
                 {messages.map(i =>
                     <div key={i.id} style={{ backgroundImage: i.name === 'Виктория Ченг' ? "url(/image/redbull.jpg" : null }}>

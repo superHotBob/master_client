@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setprofile } from '@/reduser'
 import FilterServices from '@/components/filterServices'
 import Carousel from 'nuka-carousel/lib/carousel'
+import Message from '@/components/message'
 const images = ['one', 'two', 'three', 'four', 'five', 'six']
 
 
@@ -39,12 +40,11 @@ export default function Home() {
       <main className={styles.main} ref={ref}>
         <Header />
         <section className={styles.section}>
-          <div className={styles.message} >
-            Masters.place показывает самые крутые и <br />
-            актуальные работы мастеров в вашем городе. Вы <br />
-            можете выбрать понравившуюся работу и написать<br />
-            мастеру!
-          </div>
+          <Message text={` Masters.place показывает самые крутые и 
+            актуальные работы мастеров в вашем городе. Вы 
+            можете выбрать понравившуюся работу и написать
+            мастеру!` }
+          />        
           <Link className={styles.city} href="/city"> Выбрать ваш город</Link>
           <FilterServices />
           <div className={styles.images}>

@@ -39,7 +39,7 @@ export default function Menu() {
             <p className={styles.add}>Добавить запись</p>
             <Link href="/masterrecords" className={styles.collections}>Мои заказы</Link>
             <h6>Общее</h6>
-            <p className={styles.edit_profile} onClick={() => router.push('/masterprofile/' + profile.nikname)} >
+            <p className={styles.edit_profile} onClick={() => router.push('/editprofile')} >
                 Редактировать профиль
             </p>
             <p className={styles.copy} onClick={CopyProfile}>Скопировать ссылку профиля</p>
@@ -58,7 +58,7 @@ export default function Menu() {
                         }
                     }} className={styles.collections}>Мои заказы</Link>
                     <h6>Общее</h6>
-                    <Link href={`/client/${profile.nikname}`} className={styles.edit_profile}>Настройки профиля</Link>
+                    <Link href="/editprofile" className={styles.edit_profile}>Настройки профиля</Link>
                     <p className={styles.copy} onClick={CopyProfile}>Скопировать ссылку профиля</p>
                     <p className={styles.chat}>Техническая поддержка</p>
                     <p className={styles.about}>О сервисе</p>

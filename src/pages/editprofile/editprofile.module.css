@@ -18,13 +18,15 @@
   background-color: #3D6DEA;
 
 }
+
 .image {
   height: 100px;
-  background: linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%); 
+  background: linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%);
   background-size: 400% 400%;
   animation: gradient 22s ease infinite;
   text-align: center;
 }
+
 .image input {
   transform: translate(-40px, -150px);
   opacity: 0;
@@ -61,31 +63,47 @@
   font-size: 12px;
 }
 
-.inputs h6 span:last-of-type {
+/* .inputs h6 span:last-of-type {
   color: #3D4EEA;
   padding-right: 15px;
-}
+} */
 
-.inputs h6 span:last-of-type::after {
+/* .inputs h6 span:last-of-type::after {
   content: url('/arrow_right.svg');
   height: 15px;
   transform: translate(10px, 2px);
-}
+} */
 
 .inputs textarea {
   height: 84px;
   padding: 12px 6px;
   background-color: #fff;
+  outline: none;
+  font-size: 14px;
 }
 
 
 
-.nikname {
+div.nikname {
   line-height: 40px;
+  font-size: 17px;
+
 }
 
-.nikname span:last-of-type {
+.nikname span:first-of-type {
+  color: gray;
+}
+
+.nikname input {
+  display: inline-block !important;
   color: #3D4EEA;
+  width: 50%;
+  border: none;
+  font-weight: 600;
+  height: 20px;
+  vertical-align: revert;
+  padding: 0;
+  font-size: 17px;
 }
 
 .name {
@@ -95,7 +113,7 @@
   font-weight: 500;
 }
 
-div.connect_master, 
+div.connect_master,
 div.currency,
 div.tema {
   background: #8B95F2;
@@ -110,14 +128,16 @@ div.tema {
   justify-content: space-between;
   align-items: center;
 }
+
 div.currency {
   background: #D0D0D0;
 }
+
 div.tema {
   background: linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%);
 }
 
-.connect_master button, 
+.connect_master button,
 .currency button,
 .tema button {
   height: 34px;
@@ -129,12 +149,15 @@ div.tema {
   border: none;
   color: #fff;
 }
+
 .currency button {
   width: 135px;
 }
+
 .tema button {
   background: rgba(255, 255, 255, 0.2);
 }
+
 .submitProfile {
   position: absolute;
   top: 0;
@@ -143,30 +166,44 @@ div.tema {
   height: 100vh;
   width: 100lvw;
   max-width: 500px;
- 
+
   z-index: 101;
 }
+
 .header {
   display: flex;
   justify-content: space-between;
   height: 46px;
   padding: 11px;
   align-items: center;
-  font: 500 16px/17px 'Rubik', sans-serif;
+  font: 600 16px/17px 'Rubik', sans-serif;
 }
 
-.header span:last-child {
-  color: #3D4EEA;
+.header span {
+  color: #282828;
   cursor: pointer;
+  font-size: 1em;
 }
+
+.header span:first-of-type,
+.header span:last-of-type {
+  color: #3D4EEA;
+}
+
+.header span:first-of-type {
+  font-weight: 400;
+}
+
 .header img {
   cursor: pointer;
 }
+
 .submitProfile p {
   font-size: 12px;
   line-height: 17px;
   margin: 16px;
 }
+
 .submitProfile input {
   margin: 0 auto 24px;
   display: block;

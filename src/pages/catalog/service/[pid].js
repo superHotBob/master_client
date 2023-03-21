@@ -55,13 +55,13 @@ export default function Service() {
                 {masters ? <>
                     {masters.map(i =>
                         <div 
-                            key={i.email} 
+                            key={i.name} 
                             className={styles.master} 
                             style={{ backgroundImage: "url(/image/" + i.image + ".jpg)" }}
                         >
                             <Link href={"/master/" + i.nikname}>
                                 <p>
-                                    <span>{i.username}</span>
+                                    <span>{i.name}</span>
                                     <span className={styles.pro}>MASTER</span>
                                     <span className={styles.stars}>{i.stars}</span>
                                 </p>

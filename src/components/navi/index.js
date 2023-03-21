@@ -12,8 +12,13 @@ import { useRouter } from 'next/router'
 const active = {
     backgroundColor: '#fff',
     backgroundImage: 'url("/profile_blue.svg")',
-    width: '46px',
-    backgroundPosition: 'center',
+    width: '46px',   
+    fontSize: 0
+}
+const active_two = {
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundImage: 'url("/profile.svg")',
+    width: '46px',   
     fontSize: 0
 }
 const saved = {
@@ -45,7 +50,12 @@ export default function Navi({save}) {
                 style={router.asPath.includes('save') ? saved: null}
             />  
             </>: null}         
-            <Link href={prof.status? "": "/enter"} className={styles.enter} style={prof.status ? active : null}>
+            <Link 
+                href={prof.status ? "/" + prof.status + "/" + prof.nikname : "/enter"} 
+                className={styles.enter} 
+                style={ prof.status ? 
+                    (router.asPath.includes('client') || router.asPath.includes('master') ? active : active_two) : null }
+            >
                 Вход                
             </Link>
         </div>

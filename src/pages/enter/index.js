@@ -30,21 +30,14 @@ export default function Enter() {
         // If server returns the name submitted, that means the form works.
         const result = await response.json()
         localStorage.setItem("profile", JSON.stringify(result));
-        if(result.status==='master') {
-            dispatch(setprofile(result))
-            dispatch(setmaster(result.username))
-            dispatch(setnikname(result.nikname))
-            router.push('/')
+        dispatch(setprofile(result))                      
+        router.push('/')    
+          
+           
             
-        } else if (result.status === 'client') {
-            dispatch(setprofile(result))
-            dispatch(setclient(result.username))
-            router.push('/')
             
-        } else {
-             console.log("Error")
-        }
-        
+       
+            
         
     }
     return (
