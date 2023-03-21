@@ -5,11 +5,10 @@ import styles from '@/styles/Home.module.css'
 import Header from '@/components/header'
 import { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setprofile } from '@/reduser'
 import FilterServices from '@/components/filterServices'
 import Carousel from 'nuka-carousel/lib/carousel'
 import Message from '@/components/message'
-const images = ['one', 'two', 'three', 'four', 'five', 'six']
+
 
 
 
@@ -17,7 +16,7 @@ export default function Home() {
   const dispatch = useDispatch()
   const [width, setWidth] = useState(0)
   const [image, setImage] = useState()
-  const prof = useSelector(state => state.counter.profile)
+  
   // useEffect(() => {
   //   const audio = new Audio('/sound/new_message.mp3');
   //   audio.play();
