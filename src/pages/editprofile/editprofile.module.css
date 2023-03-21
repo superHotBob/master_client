@@ -4,6 +4,7 @@
   background-color: #fff;
   width: 100%;
   margin: 0 auto;
+  padding-bottom: 50px;
   overflow: auto;
 }
 
@@ -20,11 +21,27 @@
 }
 
 .image {
-  height: 100px;
-  background: linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%);
+  height: 100px; 
   background-size: 400% 400%;
   animation: gradient 22s ease infinite;
   text-align: center;
+  position: relative;
+}
+
+.image span {
+  position: absolute;
+  color: #fff;
+  top: 14px;
+  left: 16px;
+  font-size: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 1px 8px 5px 10px;
+  border-radius: 4px;
+}
+
+.image span::before {
+  content: url('/camera_min.svg');
+  transform: translate(-4px, 2px);
 }
 
 .image input {
@@ -84,10 +101,12 @@
 
 
 
-div.nikname, .address {
+div.nikname,
+.address {
   line-height: 40px;
   font-size: 14px;
 }
+
 .nikname span {
   color: gray;
 }
@@ -150,7 +169,7 @@ div.tema {
 }
 
 .currency button {
-  width: 135px;
+  width: fit-content;
 }
 
 .tema button {
@@ -181,7 +200,7 @@ div.tema {
 .header span {
   color: #282828;
   cursor: pointer;
-  font-size: 1em;
+
 }
 
 .header span:first-of-type,
@@ -206,4 +225,54 @@ div.tema {
   display: block;
   width: calc(100% - 32px);
   color: #3D4EEA;
+}
+
+.main_tema {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  background: rgb(40, 40, 40, 0.6);  
+  top: 0;
+  z-index: 101;
+}
+
+.select_tema {
+  position: absolute;
+  top: 156px;
+  left: 10px;
+  background-color: #fff;
+  box-shadow: 0px -4px 30px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  padding: 14px 12px 0;
+  width: calc(100% - 20px);
+}
+
+.select_tema div {
+  font-weight: 500;
+  font-size: 14px;  
+  height: 46px;
+  line-height: 40px;  
+  margin-bottom: 10px; 
+  border-radius: 4px;
+  padding: 4px 6px 4px 6px;
+}
+.select_tema div span {
+  color: #fff;
+}
+.select_tema h6 {
+  margin: 0 12px 14px 0;
+  text-align: right;
+  padding-right: 15px;
+  font-weight: 500;
+  color: #3D4EEA;
+}
+
+.select_tema h6::after {
+  content: url('/close.svg');
+  display: inline-block;
+  transform: translate(10px, 2px);
+}
+.selected_tema::before {
+  content: url('/check.svg');
+  margin-right: 10px;
 }

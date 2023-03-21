@@ -5,8 +5,8 @@
   padding: 8px;
   gap: 4px;
   margin: 0 auto 16px;
-  height: 84px;
-  font: 400 12px/16px 'Rubik', sans-serif;
+  height: auto;
+  font: 400 12px/17px 'Rubik', sans-serif;
   background-position: 96% 10px;
   background-size: 3%;
   background-repeat: no-repeat;

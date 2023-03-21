@@ -9,6 +9,7 @@ import close from '../../../../public/close.svg'
 import position from '../../../../public/position.svg'
 import location from '../../../../public/location.svg'
 import FilterServices from '@/components/filterServices'
+import Message from '@/components/message'
 
 const style = {
     color: '#fff',
@@ -40,13 +41,11 @@ export default function Service() {
         <div className={styles.main}>
             <Header sel="/catalog" text="Мастера рядом" />
             <section className={styles.section}>
-                <div className={styles.message} >
-                    <Image alt="picture" src={close} height={10} width={10} />
-                    Masters.place показывает самые крутые и <br />
-                    актуальные работы мастеров в вашем городе. Вы <br />
-                    можете выбрать понравившуюся работу и написать<br />
+                <Message text={` Masters.place показывает самые крутые и 
+                    актуальные работы мастеров в вашем городе. Вы 
+                    можете выбрать понравившуюся работу и написать
                     мастеру!
-                </div>
+                `} />               
                 <div className={styles.city}>
                     <Link href="/city"> Выбрать ваш город</Link>
                     <Image alt="Picture of the author" src={position} width={20} height={20} />

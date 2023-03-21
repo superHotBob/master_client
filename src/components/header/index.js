@@ -13,15 +13,15 @@ import { setprofile } from '@/reduser'
 
 const new_text = {
   color: '#000',
-  font: '500 16px/26px Rubik, sans-serif',
+  font: '600 16px/26px Rubik, sans-serif',
   display: 'inline-block',
-  fontWeight: 'bold',
+  
 }
 const new_text_mes = {
   color: '#000',
-  font: '500 16px/26px Rubik, sans-serif',
+  font: '600 16px/26px Rubik, sans-serif',
   display: 'inline-block',
-  fontWeight: 'bold',
+  
   marginLeft: '-35px' 
 }
 const close_menu = {

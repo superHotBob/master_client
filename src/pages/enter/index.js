@@ -54,7 +54,9 @@ export default function Enter() {
                             maxlength="13"
                         /> */}
                         <PhoneInput
-                            onlyCountries={['by', 'ru', 'kz']}
+                            country={'by'}
+                            onlyCountries={['by','ru']}
+                           
                            
                             value={phone}
                            
@@ -67,8 +69,8 @@ export default function Enter() {
                     </form>
                     <h4>
                         Нажмая на кнопку, вы соглашаетесь с<br />
-                        <b style={{ color: "#3D4EEA" }}>Условиями обработки персональных <br />
-                            данных</b>  и <b style={{ color: "#3D4EEA" }}>Пользовательским соглашением</b>
+                        <span style={{ color: "#3D4EEA" }}>Условиями обработки персональных <br />
+                            данных</span>  и <span style={{ color: "#3D4EEA" }}>Пользовательским соглашением</span>
                     </h4>
                 </div>
             </section>

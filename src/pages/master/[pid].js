@@ -74,7 +74,7 @@ const Master = () => {
             <Header text={pid} sel="/masternear" />
             {profile ? 
             <section className={styles.section}>
-                <div className={styles.image}>
+                <div className={styles.image} style={{background: profile.color}}>
                     {profile.image ? <Image src={profile.image} alt="profile" height={105} width={105} /> : null}
                 </div>
                 <p>

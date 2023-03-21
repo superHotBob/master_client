@@ -9,13 +9,14 @@ export default async function handler(req, res) {
         name: req.body.name,
         image: req.body.image,
         text: req.body.text,
-        currency: req.body.text || 'руб',
-        old_nikname: req.body.old_nikname
+        currency: req.body.text || 'BYN',
+        old_nikname: req.body.old_nikname,
+        color: req.body.color
     }
 
 
     const result = await sql`
-      update users set ${sql(master, 'name', 'image', 'text', 'nikname','currency')}    
+      update users set ${sql(master, 'name', 'image', 'text', 'nikname','currency','color')}    
       where nikname =  ${master.old_nikname}
       returning *
     `

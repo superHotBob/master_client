@@ -30,7 +30,7 @@ export default function FilterServices() {
     
     return (
         <div className={styles.main__filter}>
-            <span>Ноготочки,макияж,мас...</span>
+            <span>{filter || 'Ноготочки,макияж,мас...'}</span>
             <span onClick={() => setViewFilter(true)}>
                 фильтр по услугам
             </span>
