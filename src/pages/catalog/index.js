@@ -36,7 +36,7 @@ export default function Catalog() {
                 </Link>
                 <div className={styles.images}>
                     {images.map(i =>
-                        <Image  onClick={()=>ToService(i)} alt="image" src={'/' + i + '.svg'} width="80" height='90' />
+                        <Image key={i} onClick={()=>ToService(i)} alt="image" src={'/' + i + '.svg'} width="80" height='90' />
                    )}
                 </div>
                 <Link href="/catalog/services" className={styles.uslugi}>
