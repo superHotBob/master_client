@@ -10,5 +10,6 @@
   background-position: 96% 10px;
   background-size: 3%;
   background-repeat: no-repeat;
-  background-image: url('/close.svg')
+  background-image: url('/close.svg');
+  cursor: pointer;
 }

@@ -79,6 +79,17 @@
   font-weight: 400;
   font-size: 12px;
 }
+.inputs label input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  display: inline;
+  float: right;
+}
+.radio {
+  height: 31px;
+  margin: 6px 0;  
+  font: 600 14px/31px 'Rubik', sans-serif;
+}
 
 .change {
   color: #3D4EEA;
@@ -194,24 +205,21 @@ div.tema {
   height: 46px;
   padding: 11px;
   align-items: center;
-  font: 600 16px/17px 'Rubik', sans-serif;
+  font: 400 16px/17px 'Rubik', sans-serif;
 }
 
 .header span {
-  color: #282828;
-  cursor: pointer;
-
+  color: #282828; 
+  font-weight: 600; 
 }
-
 .header span:first-of-type,
 .header span:last-of-type {
   color: #3D4EEA;
+  cursor: pointer;  
 }
-
 .header span:first-of-type {
   font-weight: 400;
 }
-
 
 
 .submitProfile p {
@@ -219,14 +227,11 @@ div.tema {
   line-height: 17px;
   margin: 16px;
 }
-
 .submitProfile input {
-  margin: 0 auto 24px;
+  margin: 6px auto 8px;
   display: block;
-  width: calc(100% - 32px);
-  color: #3D4EEA;
+  width: 100% ;  
 }
-
 .main_tema {
   position: absolute;
   width: 100%;
@@ -235,7 +240,6 @@ div.tema {
   top: 0;
   z-index: 101;
 }
-
 .select_tema {
   position: absolute;
   top: 156px;
@@ -251,10 +255,11 @@ div.tema {
   font-weight: 500;
   font-size: 14px;  
   height: 46px;
-  line-height: 40px;  
+  line-height: 37px;  
   margin-bottom: 10px; 
   border-radius: 4px;
   padding: 4px 6px 4px 6px;
+  position: relative;
 }
 .select_tema div span {
   color: #fff;
@@ -275,4 +280,10 @@ div.tema {
 .selected_tema::before {
   content: url('/check.svg');
   margin-right: 10px;
+}
+.img_currency { 
+  position: absolute;
+  top: 5px;
+  right: 5%;
+  text-align: right;
 }

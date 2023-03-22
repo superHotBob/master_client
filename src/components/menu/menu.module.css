@@ -21,9 +21,14 @@
 .main_menu p, .main_menu a {
     text-align: left;
     display: block;
+    cursor: pointer;
     font: 400 16px/31px 'Rubik', sans-serif;
     background-position: right center;
     
+}
+.main_menu p:hover {
+    transform: scale(1.03);
+    transition: all 0.5s;
 }
 .main_menu a:first-of-type {
     background-image: url('/message_menu.svg');

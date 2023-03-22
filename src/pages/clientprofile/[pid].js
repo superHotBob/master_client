@@ -37,7 +37,7 @@ export default function Client() {
             <Header text={profile.nikname} />
             <div className={styles.profile} style={{ backgroundImage: profile.image ? `url(${profile.image})` :"url(/camera_bl.svg" }}>
                 <h2>{profile.name}</h2>
-                {/* <Link href="/editprofile">Редактировать профиль</Link> */}
+                <p>{profile.text}</p>
 
             </div>
             <div className={styles.selector}>
