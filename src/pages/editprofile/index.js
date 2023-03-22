@@ -63,6 +63,7 @@ export default function EditProfile() {
             setText(profile.text),
             setCurrency('Белорусский рубль')
             setSelectedFile(profile.image),
+            setAddress(profile.address),
             setNikname(profile.nikname),
             setColor(profile.color || 'linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%)')
     }
@@ -71,6 +72,7 @@ export default function EditProfile() {
             status: profile.status,
             name: name,
             new_nikname: nikname,
+
             image: file,
             text: text,
             old_nikname: profile.nikname
@@ -95,6 +97,8 @@ export default function EditProfile() {
             text: text,
             old_nikname: profile.nikname,
             currency: currency,
+            address: address,
+            city: city,
             color: color,
             address_full: address_full
         }
@@ -108,6 +112,23 @@ export default function EditProfile() {
         const result = await response.json()
         localStorage.setItem("profile", JSON.stringify(result));
         dispatch(setprofile(result))
+    }
+    async function CreateMaster() {
+        const data = {           
+            name: name,
+            nikname: nikname,
+            image: file,
+            text: text,           
+        }
+        const response = await fetch('/api/create_master', {
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+        })
+        const result = await response.json()
+        console.log(result)
     }
 
     const toBase64 = file => new Promise((resolve, reject) => {
@@ -189,7 +210,7 @@ export default function EditProfile() {
                     </div></> : null}
                 <div className={styles.connect_master}>
                     Аккаунт мастера
-                    <button>{profile.status === 'master' ? "Подключен" : "Подключить"}</button>
+                    <button onClick={()=>CreateMaster()}>{profile.status === 'master' ? "Подключен" : "Подключить"}</button>
                 </div>
             </section>
             {accept ? <div className={styles.submitProfile}>

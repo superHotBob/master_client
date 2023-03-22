@@ -6,13 +6,17 @@ const initialState = {
   client: '',
   nikname:'',
   profile: {},
-  order: {}
+  order: {},
+  service: ''
 }
 
 export const counterSlice = createSlice({
   name: 'counter',
   initialState,
   reducers: {
+    setservice: (state,action) => {
+      state.service = action.payload
+    },
     setprofile: (state,action) => {
       state.profile = Object.assign({},action.payload)
     },
@@ -35,6 +39,6 @@ export const counterSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setclient, setmaster, setcity, setnikname, setprofile,setorder } = counterSlice.actions
+export const { setclient, setmaster, setcity, setnikname, setprofile,setorder,setservice } = counterSlice.actions
 
 export default counterSlice.reducer

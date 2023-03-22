@@ -1,5 +1,7 @@
 import styles from './filter.module.css'
 import { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { setservice } from '../../reduser.js'
 
 const style = {
     color: '#fff',
@@ -8,10 +10,11 @@ const style = {
     border: '1.5px solid #3D4EEA',    
    
 }
-const services = ['Маникюр', 'Прически', 'Макияж', 'Масаж', 'Барбер', 'Ресницы', 'Брови', 'Депиляция']
-export default function FilterServices() {
+const services = ['Маникюр', 'Прически', 'Макияж', 'Массаж', 'Барбер', 'Ресницы', 'Брови', 'Депиляция']
+export default function FilterServices({service}) {
     const [viewFilter, setViewFilter] = useState(false)
     const [filter, SetFilter] = useState()
+    const dispatch = useDispatch()
     // const [services, setServices] = useState()
 
     // useEffect(()=>{
@@ -23,9 +26,11 @@ export default function FilterServices() {
     //     Result()
         
     // },[])
+    useEffect(()=>SetFilter(service),[service])
 
     function setFilter(e) {
-        SetFilter(e.target.id)
+        SetFilter(e.target.id.toLowerCase())
+        dispatch(setservice(e.target.id.toLowerCase()))
     }
     
     return (
@@ -37,7 +42,7 @@ export default function FilterServices() {
             {viewFilter ? <div className={styles.all__filter}>
                 <h6 onClick={() => setViewFilter(false)}>фильтр по услугам</h6>
                 {services ? <div className={styles.all__filter__data} onClick={setFilter}>
-                    {services.map(i =><b key={i} id={i} style={filter === i ? style : null}>{i}</b>)}
+                    {services.map(i =><b key={i} id={i} style={filter === i.toLowerCase() ? style : null}>{i}</b>)}
                 </div>:null}
             </div> : null}
         </div>

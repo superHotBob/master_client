@@ -3,11 +3,23 @@ import Image from 'next/image'
 import Link from 'next/link'
 import styles from './catalog.module.css'
 import position from '../../../public/position.svg'
+import { useDispatch } from 'react-redux'
+import { setservice } from '../../reduser.js'
+import { useRouter } from 'next/router'
 
 
-const images = ['manicur', 'pedicur', 'makiash', 'resnici', 'chistka',
-    'brovi', 'depil', 'massage', 'strishka', 'colored', 'pricheska', 'barber']
+const images = ['маникюр', 'педикюр', 'макияш', 'ресницы', 'chistka',
+    'брови', 'depil', 'массаж', 'стрижка', 'colored', 'прическа', 'барбер']
 export default function Catalog() {
+    const dispatch = useDispatch()
+    const router = useRouter()
+
+    function ToService(a) {
+        dispatch(setservice(a))
+        router.push('/catalog/service/' + a)
+
+    }
+
     return (
         <div className={styles.main}>
             <Header />
@@ -23,9 +35,9 @@ export default function Catalog() {
                     СТАНЬ МАСТЕРОМ
                 </Link>
                 <div className={styles.images}>
-                    {images.map(i => <Link href={'/catalog/service/' + i} key={i}>
-                        <Image alt="image" src={'/' + i + '.svg'} width="80" height='90' />
-                    </Link>)}
+                    {images.map(i =>
+                        <Image  onClick={()=>ToService(i)} alt="image" src={'/' + i + '.svg'} width="80" height='90' />
+                   )}
                 </div>
                 <Link href="/catalog/services" className={styles.uslugi}>
                     Все услуги

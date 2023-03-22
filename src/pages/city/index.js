@@ -15,8 +15,7 @@ export default function City() {
     const [city, setCity] = useState()
     const [selCity, setSelCity] = useState()
     const router = useRouter()
-    const ref = useRef()
-    const my_city = useSelector((state) => state.counter.city)
+    const ref = useRef()    
     const dispatch = useDispatch()
 
 

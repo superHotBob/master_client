@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   const result = await sql`
   select nikname, name,image,stars,address, services
   from users
-  where status = 'master' 
+  where ${req.query.service} = ANY (services) 
   `
  
   
