@@ -18,6 +18,7 @@ export default function Client() {
     const router = useRouter()
     const { pid } = router.query
     const profile = useSelector((state) => state.counter.profile)
+    console.log(profile)
     const [nav_view, setNavView] = useState('Лента')
     useEffect(() => profile.status === 'master' ? console.log('Bob') : () => router.push('/enter'), [])
     return (
@@ -28,7 +29,7 @@ export default function Client() {
             <Header text={pid} />
             <div
                 className={styles.profile}
-                style={{ backgroundImage: profile.image ? "url(/image/" + profile.nikname.toLowerCase() + ".jpg)" : null }}
+                style={{ backgroundImage: profile.image ?  'url('+ profile.image +')' : null }}
             >
                 {profile.name}
                 <Link href="/editprofile">{profile.text || 'Написать о себе'}</Link>
