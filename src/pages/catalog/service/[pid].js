@@ -29,7 +29,7 @@ export default function Service() {
     useEffect(() => {
         setMasters()
         async function GetMasters() {
-            const response = await fetch('/api/all_masters?'+ new URLSearchParams({
+            const response = await fetch('/api/all_masters_service?'+ new URLSearchParams({
                 service: service                
             }))           
             const result = await response.json()

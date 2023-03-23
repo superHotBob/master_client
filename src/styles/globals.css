@@ -70,8 +70,7 @@
   background-repeat: no-repeat;
 }
 body .pro {
-  margin: 0 5px;
-  background: linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%);
+  margin: 0 5px;  
   border-radius: 4px;
   font: 600 12px/17px 'Rubik', sans-serif;
   padding: 2px 8px;

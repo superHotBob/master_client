@@ -4,9 +4,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import styles from './services.module.css'
+import { useDispatch } from 'react-redux'
+import { setservice } from '@/reduser'
 
-const images = ['manicur', 'pedicur', 'makiash', 'resnici', 'chistka',
-    'brovi', 'depil', 'massage', 'strishka', 'colored', 'pricheska', 'barber']
+const images = ['маникюр', 'педикюр', 'макияш', 'ресницы', 'chistka',
+    'брови', 'depil', 'массаж', 'стрижка', 'colored', 'прическа', 'барбер']
 
 const events = [
     { text: '', link: '/', image: '/image/event1.jpg' },
@@ -19,6 +21,12 @@ const sel = {
 }
 export default function Services() {
     const [selector, setSelector] = useState(1)
+    const dispatch = useDispatch()
+    function ToService(a) {
+        dispatch(setservice(a))
+        router.push('/catalog/service/' + a)
+
+    }
     return (
         <div className={styles.main}>
             <Header sel="/catalog" />
@@ -28,9 +36,9 @@ export default function Services() {
             </div>
             {selector ? <div className={styles.images}>
                 {images.map(i =>
-                    <Link href={'/catalog/service/' + i} key={i}>
-                        <Image alt="image" src={'/' + i + '.svg'} width="100" height='120' />
-                    </Link>
+                   
+                    <Image key={i} onClick={()=>ToService(i)} alt="image" src={'/' + i + '.svg'} width="100" height='120' />
+                   
                 )}
             </div> : <div className={styles.events}>
 

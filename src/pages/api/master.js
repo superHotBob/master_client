@@ -7,10 +7,7 @@ export default async function handler(req, res) {
   select *
   from users
   where nikname = ${req.query.nikname} 
-  `
- 
-  
-  
+  `  
   if (result.length) {
     res.status(200).json(result) 
   } else {

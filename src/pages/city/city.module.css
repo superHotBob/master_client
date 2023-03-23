@@ -13,7 +13,7 @@
     height: 46px;
     padding: 11px;
     align-items: center;
-    font: 500 16px/17px 'Rubik', sans-serif;
+    font: 600 16px/17px 'Rubik', sans-serif;
 }
 
 .header span:last-child {
@@ -39,6 +39,7 @@
     border-radius: 4px;
     outline: none;
     padding: 0px 8px 0px 8px;
+    color: #3D4EEA;
     border: 1px solid #3D4EEA;
     margin: 20px auto;
 }

@@ -10,7 +10,7 @@ const style = {
     border: '1.5px solid #3D4EEA',    
    
 }
-const services = ['Маникюр', 'Прически', 'Макияж', 'Массаж', 'Барбер', 'Ресницы', 'Брови', 'Депиляция']
+const services = ['Маникюр', 'Прически','Педикюр', 'Макияж', 'Массаж', 'Барбер', 'Ресницы', 'Брови', 'Депиляция']
 export default function FilterServices({service}) {
     const [viewFilter, setViewFilter] = useState(false)
     const [filter, SetFilter] = useState()
@@ -40,7 +40,7 @@ export default function FilterServices({service}) {
                 фильтр по услугам
             </span>
             {viewFilter ? <div className={styles.all__filter}>
-                <h6 onClick={() => setViewFilter(false)}>фильтр по услугам</h6>
+                <h6 onClick={() => setViewFilter(false)}/>
                 {services ? <div className={styles.all__filter__data} onClick={setFilter}>
                     {services.map(i =><b key={i} id={i} style={filter === i.toLowerCase() ? style : null}>{i}</b>)}
                 </div>:null}

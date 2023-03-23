@@ -19,13 +19,13 @@ const passive_currency = {
 }
 
 const my_tema = [
-    { name: 'Оригинальный', color: 'linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)' },
-    { name: 'Розовый фламинго', color: 'linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%)' },
-    { name: 'Сияние озера', color: 'linear-gradient(93.46deg, #C6FFDD 2.85%, #FBD786 49.02%, #F7797D 97.15%)' },
-    { name: 'Жаркие барханы', color: 'linear-gradient(94.86deg, #F12711 0%, #F5AF19 100%)' },
-    { name: 'Зеленый чай', color: 'linear-gradient(94.86deg, #11998E 0%, #78FFD6 100%, #38EF7D 100%)' },
-    { name: 'Темная ночь', color: 'linear-gradient(94.86deg, #0F0C29 0%, #302B63 48.96%, #24243E 100%)' },
-    { name: 'Лесной массив', color: 'linear-gradient(94.86deg, #0F2027 0%, #203A43 48.96%, #222222 100%)' }
+    { name: 'Оригинальный', color: ['linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)','#3D4EEA','#ECEEFD']},
+    { name: 'Розовый фламинго', color: ['linear-gradient(90deg, #EA3DC4 0%, #F02A5A 100%)','#F47BC3','#FDECF6' ]},
+    { name: 'Сияние озера', color: ['linear-gradient(93.46deg, #7AB7D9 2.85%, #F4FCFF 50%, #BBD7E0 97.15%)'] },
+    { name: 'Жаркие барханы', color: ['linear-gradient(94.86deg, #F12711 0%, #F5AF19 100%)','#ED965B','#FDF5EC'] },
+    { name: 'Зеленый чай', color: ['linear-gradient(94.86deg, #11998E 0%, #78FFD6 100%, #38EF7D 100%)'] },
+    { name: 'Темная ночь', color: ['linear-gradient(94.86deg, #534E9B 0%, #7D78BF 100%)','#534E9B','#E5E7F0'] },
+    { name: 'Лесной массив', color: ['linear-gradient(94.86deg, #305F53 0%, #71978E 48.96%, #456A61 100%)','#456A61','#E1F3EB']}
 ]
 const my_currency = ['Белорусcкий рубль', 'Российский рубль', 'Казахстанский тенге']
 
@@ -40,7 +40,7 @@ export default function EditProfile() {
     const [accept, setAccept] = useState(false)
     const [tema, viewTema] = useState(false)
     const [cur, setCur] = useState(false)
-    const [color, setColor] = useState('linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%)')
+    const [color, setColor] = useState(['linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%)'])
     const [currency, setCurrency] = useState('Белорусский рубль')
     const [city, setCity] = useState('')
     const [address, setAddress] = useState('')
@@ -147,6 +147,7 @@ export default function EditProfile() {
         }
 
     }
+    console.log(color[0])
     return (
         <main className={styles.main}>
             {/* <Header sel={"/" + profile.status + "/" + profile.nikname} text={profile.nikname} /> */}
@@ -156,7 +157,7 @@ export default function EditProfile() {
                 <span>{profile.nikname}</span>
                 <span onClick={profile.status === 'client' ? EditClient : EditMaster}>Принять</span>
             </header>
-            <div className={styles.image} style={{ background: color }}>
+            <div className={styles.image} style={{ background: color[0] }}>
                 {profile.status === 'master' ? <span onClick={() => viewTema(true)}>Изменить обложку</span> : null}
                 <div className={styles.profile_image}>
                     <Image
@@ -204,7 +205,7 @@ export default function EditProfile() {
                         Основная валюта
                         <button onClick={() => setCur(true)}>{currency}</button>
                     </div>
-                    <div className={styles.tema} style={{ background: color }}>
+                    <div className={styles.tema} style={{ background: color[0] }}>
                         Тема профиля
                         <button onClick={() => viewTema(true)}>Изменить</button>
                     </div></> : null}
@@ -285,9 +286,9 @@ export default function EditProfile() {
                             <div
                                 key={i.name}
                                 onClick={() => setColor(i.color)}
-                                style={{ background: i.color }}
+                                style={{ background: i.color[0] }}
                             >
-                                <span style={{ color: index === 2 ? 'black' : 'white' }} className={i.color === color ? styles.selected_tema : null}>
+                                <span style={{ color: index === 2 ? 'black' : 'white' }} className={i.color[0] === color[0] ? styles.selected_tema : null}>
                                     {i.name}
                                 </span>
                             </div>

@@ -28,14 +28,15 @@ const saved = {
     backgroundPosition: 'center',
 }
 
-export default function Navi({save}) {
+export default function Navi({save,color}) {
     const [height, setHeight] = useState(0)   
-    const prof = useSelector(state=>state.counter.profile)  
-    const router= useRouter()   
+    const prof = useSelector(state=>state.counter.profile)     
+    const router= useRouter()
+    
     useEffect(() => setHeight(window.innerHeight),[])
     return (
         <div className={styles.total} style={{top: (height - 70) + 'px'}}>
-        <div className={styles.main}>
+        <div className={styles.main} style={{background: color ? color : null}}>
             <Link href="/" className={router.asPath === '/' ? styles.home: styles.dashboard}>
                 <Image alt="home" src={router.asPath === '/' ? home : home_wh} height={20} width={20} />
             </Link>

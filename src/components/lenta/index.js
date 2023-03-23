@@ -27,14 +27,14 @@ const text = (` Ищу модель, что бы протестировать к
 
     Пишите, девачки :*:*:*:*`)
 const my_images = ['/image/lenta2.jpg', '/image/lenta1.jpg', '/image/lenta1.jpg', '/image/lenta2.jpg']
-export default function Lenta() {
+export default function Lenta({color={}}) {
     const [width, setWidth] = useState()
     const [model, setViewText] = useState(false)
     useEffect(() => setWidth(window.innerWidth > 500 ? 500 : window.innerWidth),[])
     return (
         <main className={styles.main}>
             <FilterServices />
-            <div onClick={() => setViewText(true)} className={styles.model}>
+            <div onClick={() => setViewText(true)} className={styles.model} style={{background: color[0] }}>
                 <h3>Нужна модель</h3>
                 <p>15 сентября, бесплатно</p>
             </div>

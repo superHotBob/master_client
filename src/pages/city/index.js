@@ -7,8 +7,7 @@ import { useRouter } from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
 import { setcity } from '../../reduser.js'
 
-const citys = ['Москва', 'Минск', 'Брест', 'Гродно', 'Саратов',
-    'Новосибирск', 'Улан-Уде', 'Вокута', 'Сочи', 'Рязань', 'Витебск', 'Барнаул']
+const citys = ['Минск', 'Брест']
 
 export default function City() {
     const [myCitys, setMyCitys] = useState(citys)

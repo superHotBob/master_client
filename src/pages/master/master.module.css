@@ -53,12 +53,10 @@
     height: 21px;
     width: 65px;
     margin: 0 10px;
-    font: 600 12px/15px 'Rubik', sans-serif;
-    background: linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%);
+    font: 600 12px/15px 'Rubik', sans-serif;   
     border-radius: 4px;
     color: #fff;
     padding: 4px 8px;
-
 }
 
 .stars {
@@ -68,9 +66,7 @@
     height: 21px;
     width: 58px;
     text-align: left;
-    font: 600 12px/16px 'Rubik', sans-serif;
-    color: #3D4EEA;
-    background-color: #ECEEFD;
+    font: 400 12px/16px 'Rubik', sans-serif;;
     border-radius: 4px;
     display: inline-block;
     padding: 2px 4px 2px 10px;
@@ -97,17 +93,14 @@
 }
 
 .buttons button {
-    color: #3D4EEA;
     font: 500 16px/26px 'Rubik', sans-serif;
-    color: #3D4EEA;
-    background-color: #ECEEFD;
     border-radius: 6px;
     height: 36px;
     border: none;
     width: 43%;   
 }
 .buttons button span {
-    color: #3D4EEA;
+
     font-weight: 600;
 }
 .buttons button span::after {

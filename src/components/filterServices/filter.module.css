@@ -40,11 +40,12 @@
 }
 
 .all__filter h6 {
-  margin: 12px;
+  margin: 10px;
   text-align: right;
   padding-right: 15px;
   font-weight: 500;
   color: #3D4EEA;
+  cursor: pointer;
 }
 
 .all__filter h6::after {
@@ -54,16 +55,14 @@
 }
 
 .all__filter__data {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto auto;
   padding: 0 5px 5px;
-  justify-content: space-between;
-  flex-wrap: wrap;
-
 }
 
 .all__filter__data b {
   text-align: center;
-  width: 31%;
+
   color: #000;
   margin: 3px;
   font: 700 14px/27px 'Rubik', sans-serif;
@@ -71,9 +70,7 @@
   border-radius: 5px;
 }
 
-.all__filter__data b:last-of-type {
-  width: 65%;
-}
+
 
 @media screen and (min-width: 500px) {
   .main__filter span:last-of-type {
