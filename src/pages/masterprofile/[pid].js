@@ -24,11 +24,11 @@ export default function Client() {
     const [one, two, three] = profile.color
 
     useEffect(() => profile.status === 'master' ? setNavActive({
-        backgroundColor: profile.color[1],
+        backgroundColor: two,
         color: "#fff",
         padding: '0 20px',
         fontWeight: 600
-    }) : () => router.push('/enter'), [])
+    }) : () => router.push('/enter'), [two, router,profile.status])
     return (
         <main className={styles.main}>
             <Head>

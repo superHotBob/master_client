@@ -26,7 +26,7 @@ export default function Client() {
     const  pid  = router.query.order  
     const profile = useSelector((state) => state.counter.profile)   
     const [selector, setSelector] = useState(!pid)
-    useEffect(() => profile.status ? console.log('Bob') : () => router.push('/'), [])
+    useEffect(() => profile.status ? console.log('Bob') : () => router.push('/'), [profile.status,router])
 
     function viewOrder(a,b) {
         dispatch(setorder(orders[a]))
@@ -38,7 +38,6 @@ export default function Client() {
             <div className={styles.profile} style={{ backgroundImage: profile.image ? `url(${profile.image})` :"url(/camera_bl.svg" }}>
                 <h2>{profile.name}</h2>
                 <p>{profile.text}</p>
-
             </div>
             <div className={styles.selector}>
                 <span onClick={() => setSelector(1)} style={selector ? sel : null}>Сохранённое</span>

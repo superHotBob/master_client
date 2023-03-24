@@ -31,16 +31,13 @@ export default function MasterNear() {
         setFilterMasters(masters)
         if(masters) {
             let mast = masters.filter(i=>i.services.includes(service)?i:null)
-            setFilterMasters(mast)
-            console.log(filter_masters)
+            setFilterMasters(mast)            
         } else if (masters) {
             setFilterMasters(masters)
         } else {
 
-        }
-       
-        
-    },[service])
+        }        
+    },[service,masters])
    
 
     const defaultState = {
