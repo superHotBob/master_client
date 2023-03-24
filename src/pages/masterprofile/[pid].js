@@ -58,7 +58,7 @@ export default function Client() {
                     <Message color={profile.color} text={`Здесь будут отображаться ваши слуги  прайс лиcт 
                     по категориям. Вы сможете редактировать его в
                     любое время, дополняя и редактируя его.`} />
-                    <Link href="/masternear" className={styles.uslugi} style={{backgroundColor: two }}>
+                    <Link href="/addservice" className={styles.uslugi} style={{backgroundColor: two }}>
                         <span style={{ color: '#fff'}}> Добавить услугу</span>
                     </Link>
                 </> : null}

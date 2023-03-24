@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 export default function AddService() {
     const profile = useSelector(state=>state.counter.profile)
     return (
-        <main>
+        <main className={styles.main}>
 
         </main>
     )
