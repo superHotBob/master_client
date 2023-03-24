@@ -59,7 +59,16 @@ export default function EditProfile() {
                 setColor(profile.color || 'linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%)')
         }
         SetData()
-    }, [])
+    }, [profile.name,
+        profile.text,
+        profile.city,
+        profile.currency,
+        profile.address,
+        profile.image,
+        profile.nikname,
+        profile.color,
+        profile.address_full
+    ])
 
     function Return() {
         setName(profile.name),
