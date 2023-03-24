@@ -12,8 +12,6 @@ import Sertificats from '@/components/serificats'
 import { useSelector } from 'react-redux'
 import Menu_icon from '@/components/icons/menu'
 
-
-
 const Master = () => {
     const [viewText, setViewText] = useState(true)
     const [nav_view, setNavView] = useState('Лента')
@@ -22,10 +20,7 @@ const Master = () => {
     const router = useRouter()
     const { pid } = router.query
     const my_profile = useSelector(state => state.counter.profile)
-
-
-
-
+    const [one,two,three] = profile.color
     useEffect(() => {
         async function GetMaster() {
             const response = await fetch(`/api/master?nikname=${pid}`, {
@@ -40,8 +35,7 @@ const Master = () => {
             // Get the response data from server as JSON.
             // If server returns the name submitted, that means the form works.
             const result = await response.json()
-            setProfile(result[0])
-            console.log('This is result', result[0])
+            setProfile(result[0])           
             setNav_active({
                 backgroundColor: result[0].color[1],
                 color: "#fff",
@@ -73,33 +67,32 @@ const Master = () => {
                 <title>{pid}</title>
             </Head>
             <Header text={pid} sel="/masternear" color={profile.color} />
-
             <section className={styles.section}>
-                <div className={styles.image} style={{ background: profile.color[0] }}>
+                <div className={styles.image} style={{ background: one }}>
                     {profile.image ? <Image src={profile.image} alt="profile" height={105} width={105} /> : null}
                 </div>
                 <p>
                     <span style={{width: 'fit-content'}}>{profile.name}</span>
-                    <span className={styles.pro} style={{ background: profile.color[0] }}>MASTER</span>
+                    <span className={styles.pro} style={{ background: one }}>MASTER</span>
                     <span
                         className={styles.stars}
-                        style={{ color: profile.color[1], backgroundColor: profile.color[2] }}
+                        style={{ color: two, backgroundColor: three }}
                     >4.7</span>
                 </p>
                 <h4>{profile.address}</h4>
                 {viewText ? <h5 className={styles.text}>{profile.text}</h5> : null}
-                <span style={{ color: profile.color[1] }} className={styles.view_text} onClick={() => setViewText(!viewText)}>{viewText ? 'Скрыть описание' : 'Описание'}</span>
+                <span style={{ color: two }} className={styles.view_text} onClick={() => setViewText(!viewText)}>{viewText ? 'Скрыть описание' : 'Описание'}</span>
                 <div className={styles.buttons}>
-                    <button style={{ backgroundColor: profile.color[2]}} onClick={() => EnterToMessanger(1)}>
-                        <span style={{color: profile.color[1]}}>
+                    <button style={{ backgroundColor: three}} onClick={() => EnterToMessanger(1)}>
+                        <span style={{color: two}}>
                             Сообщения
-                            <Menu_icon type="chat" color={profile.color[1]} />
+                            <Menu_icon type="chat" color={two} />
                         </span>
                     </button>
-                    <button style={{ backgroundColor: profile.color[2]}} onClick={() => EnterToMessanger(0)}>
-                        <span style={{color: profile.color[1]}}>
+                    <button style={{ backgroundColor: three}} onClick={() => EnterToMessanger(0)}>
+                        <span style={{color: two}}>
                             Запись к мастеру
-                            <Menu_icon type="edit" color={profile.color[1]} />
+                            <Menu_icon type="edit" color={two} />
                         </span>
                     </button>
                 </div>
@@ -112,7 +105,7 @@ const Master = () => {
             {nav_view === 'Услуги' ? <Services name={pid} /> : null}
             {nav_view === 'Лента' ? <Lenta name={pid} color={profile?.color} /> : null}
             {nav_view === 'Сертификаты' ? <Sertificats name={pid} /> : null}
-            <Navi color={profile.color[0]}/>
+            <Navi color={two}/>
         </main>
     )
 

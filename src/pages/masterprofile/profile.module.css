@@ -1,6 +1,8 @@
 .main {
     max-width: 500px;
     height: 100vh;
+    position: relative;
+    z-index: 101;
 }
 .selector {
   font: 400 14px/17px 'Rubik', sans-serif;
@@ -73,12 +75,11 @@
     width: 100%;
     background-color: #ECEEFD;
     text-align: center;
-    font: 600 16px/24px 'Rubik', sans-serif;
+    font: 500 16px/24px 'Rubik', sans-serif;
 }
-.uslugi::after {
-    content: url('/plus.svg');
-    transform: translate(10px, 1px);
-    
+.uslugi span::after {
+  content: '+';
+  transform: translate(8px,1px);
 }
 .lenta {
   width: calc(100% - 32px);

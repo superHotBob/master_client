@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import Message from '@/components/message'
+import Navi from '@/components/navi'
 
 
 const nav_active = {
@@ -17,22 +18,29 @@ const nav_active = {
 export default function Client() {
     const router = useRouter()
     const { pid } = router.query
-    const profile = useSelector((state) => state.counter.profile)
-    console.log(profile)
+    const profile = useSelector((state) => state.counter.profile)    
     const [nav_view, setNavView] = useState('Лента')
-    useEffect(() => profile.status === 'master' ? console.log('Bob') : () => router.push('/enter'), [])
+    const [nav_active, setNavActive] = useState()
+    const [one, two, three] = profile.color
+
+    useEffect(() => profile.status === 'master' ? setNavActive({
+        backgroundColor: profile.color[1],
+        color: "#fff",
+        padding: '0 20px',
+        fontWeight: 600
+    }) : () => router.push('/enter'), [])
     return (
         <main className={styles.main}>
             <Head>
                 <title>{pid}</title>
             </Head>
-            <Header text={pid} />
+            <Header text={pid} color={profile.color} />
             <div
                 className={styles.profile}
-                style={{ backgroundImage: profile.image ?  'url('+ profile.image +')' : null }}
+                style={{ backgroundImage: profile.image ? 'url(' + profile.image + ')' : null }}
             >
                 {profile.name}
-                <Link href="/editprofile">{profile.text || 'Написать о себе'}</Link>
+                <Link href="/editprofile" style={{color: two}}>{profile.text || 'Написать о себе'}</Link>
             </div>
             <nav className={styles.navigation}>
                 {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
@@ -42,40 +50,45 @@ export default function Client() {
             <section className={styles.lenta}>
 
                 {nav_view === 'Отзывы' ? <>
-                   <Message text={`Здесь будут отображаться отзывы на выполенные
-                        вами заказы и проведенные мероприятия.`}/>
-                   
+                    <Message color={profile.color} text={`Здесь будут отображаться отзывы на выполенные
+                        вами заказы и проведенные мероприятия.`} />
+
                 </> : null}
                 {nav_view === 'Услуги' ? <>
-                    <Message text={`Здесь будут отображаться ваши слуги  прайс лиcт 
+                    <Message color={profile.color} text={`Здесь будут отображаться ваши слуги  прайс лиcт 
                     по категориям. Вы сможете редактировать его в
                     любое время, дополняя и редактируя его.`} />
-                    <Link href="/masternear" className={styles.uslugi}>
-                        Добавить услугу
+                    <Link href="/masternear" className={styles.uslugi} style={{backgroundColor: two }}>
+                        <span style={{ color: '#fff'}}> Добавить услугу</span>
                     </Link>
                 </> : null}
 
                 {nav_view === 'Лента' ? <>
-                    <Message text={`Здесь будут фотографии ваших работ, которые 
+                    <Message color={profile.color} text={`Здесь будут фотографии ваших работ, которые 
                     будут видны клиентам и другим мастерам. Они
                     смогут их сохранять в закладки, что бы не
                     потерять вас из виду.
             `} />
 
-                    <Link href="/masternear" className={styles.uslugi}>
-                        Добавить публикацию
+                    <Link
+                        href="/masternear"
+                        className={styles.uslugi}
+                        style={{ color: '#fff', backgroundColor: two }}
+                    >
+                        <span style={{ color: '#fff'}}>Добавить публикацию</span>
                     </Link>
                 </> : null}
                 {nav_view === 'Сертификаты' ? <>
-                    <Message text={`Расскажите о своем профессиональном опыте,
+                    <Message color={profile.color} text={`Расскажите о своем профессиональном опыте,
                         продемонстрируйте всем свое мастеркство и
                         продтвердите это сертификатами.                    
                     `} />
-                    <Link href="/masternear" className={styles.uslugi}>
-                        Добавить сетрификат
+                    <Link href="/masternear" className={styles.uslugi} style={{ color: '#fff', backgroundColor: two }}>
+                    <span style={{ color: '#fff'}}>Добавить сетрификат</span>
                     </Link>
                 </> : null}
             </section>
+            <Navi color={two} />
         </main >
     )
 }

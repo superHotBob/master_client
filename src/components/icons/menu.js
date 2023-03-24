@@ -7,8 +7,8 @@ export default function Menu_icon({ color, type }) {
         </svg>
     } else if (type === 'close') {
         return <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 13L13 1" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M13 13L1 1" stroke="white" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M1 13L13 1" stroke="white" stroke-width="1.5" strokeMiterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M13 13L1 1" stroke="white" stroke-width="1.5" strokeMiterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
     } else if (type === 'arrow') {
 
@@ -26,6 +26,11 @@ export default function Menu_icon({ color, type }) {
             <circle cx="10" cy="10.5" r="0.5" fill={color} stroke={color} stroke-width="1.25" />
             <circle cx="14" cy="10.5" r="0.5" fill={color} stroke={color} stroke-width="1.25" />
         </svg>
+    } else if (type === 'close__message'){
+        return <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M1 13L13 1" stroke={color} stroke-width="1.5" strokeMiterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M13 13L1 1" stroke={color} stroke-width="1.5" strokeMiterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
     } else {
         return <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M15 7L10 12L15 17" stroke={color} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
