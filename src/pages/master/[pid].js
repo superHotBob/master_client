@@ -10,6 +10,7 @@ import Services from '@/components/services'
 import Lenta from '@/components/lenta'
 import Sertificats from '@/components/serificats'
 import { useSelector } from 'react-redux'
+import Menu_icon from '@/components/icons/menu'
 
 
 
@@ -71,14 +72,14 @@ const Master = () => {
             <Head>
                 <title>{pid}</title>
             </Head>
-            <Header text={pid} sel="/masternear" />
+            <Header text={pid} sel="/masternear" color={profile.color} />
 
             <section className={styles.section}>
                 <div className={styles.image} style={{ background: profile.color[0] }}>
                     {profile.image ? <Image src={profile.image} alt="profile" height={105} width={105} /> : null}
                 </div>
                 <p>
-                    <span>{profile.name}</span>
+                    <span style={{width: 'fit-content'}}>{profile.name}</span>
                     <span className={styles.pro} style={{ background: profile.color[0] }}>MASTER</span>
                     <span
                         className={styles.stars}
@@ -90,10 +91,16 @@ const Master = () => {
                 <span style={{ color: profile.color[1] }} className={styles.view_text} onClick={() => setViewText(!viewText)}>{viewText ? 'Скрыть описание' : 'Описание'}</span>
                 <div className={styles.buttons}>
                     <button style={{ backgroundColor: profile.color[2]}} onClick={() => EnterToMessanger(1)}>
-                        <span style={{color: profile.color[1]}}>Сообщения</span>
+                        <span style={{color: profile.color[1]}}>
+                            Сообщения
+                            <Menu_icon type="chat" color={profile.color[1]} />
+                        </span>
                     </button>
                     <button style={{ backgroundColor: profile.color[2]}} onClick={() => EnterToMessanger(0)}>
-                        <span style={{color: profile.color[1]}}>Запись к мастеру</span>
+                        <span style={{color: profile.color[1]}}>
+                            Запись к мастеру
+                            <Menu_icon type="edit" color={profile.color[1]} />
+                        </span>
                     </button>
                 </div>
                 <nav className={styles.navigation}>
@@ -105,7 +112,7 @@ const Master = () => {
             {nav_view === 'Услуги' ? <Services name={pid} /> : null}
             {nav_view === 'Лента' ? <Lenta name={pid} color={profile?.color} /> : null}
             {nav_view === 'Сертификаты' ? <Sertificats name={pid} /> : null}
-
+            <Navi color={profile.color[0]}/>
         </main>
     )
 

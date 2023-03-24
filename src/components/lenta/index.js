@@ -33,7 +33,8 @@ export default function Lenta({color={}}) {
     useEffect(() => setWidth(window.innerWidth > 500 ? 500 : window.innerWidth),[])
     return (
         <main className={styles.main}>
-            <FilterServices />
+            {/* <FilterServices /> */}
+            <p style={{margin: 20}}></p>
             <div onClick={() => setViewText(true)} className={styles.model} style={{background: color[0] }}>
                 <h3>Нужна модель</h3>
                 <p>15 сентября, бесплатно</p>

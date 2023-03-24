@@ -25,6 +25,22 @@ export default function MasterNear() {
     const [filter, setFilter] = useState(10)
     const [master, selectMaster] = useState()
     const [masters, setMasters] = useState()
+    const [filter_masters, setFilterMasters] = useState()
+
+    useEffect(()=>{
+        setFilterMasters(masters)
+        if(masters) {
+            let mast = masters.filter(i=>i.services.includes(service)?i:null)
+            setFilterMasters(mast)
+            console.log(filter_masters)
+        } else if (masters) {
+            setFilterMasters(masters)
+        } else {
+
+        }
+       
+        
+    },[service])
    
 
     const defaultState = {
@@ -47,7 +63,8 @@ export default function MasterNear() {
             city: my_city.toLowerCase()
             }))
             const result = await response.json()
-            setMasters(result)            
+            setMasters(result)
+            setFilterMasters(result)            
         }
         GetMasters()
 
@@ -64,7 +81,7 @@ export default function MasterNear() {
             {selector ?
                 <section className={styles.section}>
                     <FilterServices />                  
-                    {masters?.map(i => <Link key={i.name} className={styles.master}
+                    {filter_masters?.map(i => <Link key={i.name} className={styles.master}
                         style={{ backgroundImage: "url(" + i.image + ")" }}
                         href={`/master/${i.nikname}`}
                     >
@@ -81,7 +98,7 @@ export default function MasterNear() {
                 </section>
                 :
                 <section >
-                    {master ? null : <div className={styles.main__filter}>
+                    {masters ? null : <div className={styles.main__filter}>
                         <span>Мастера в радиусе {filter} км</span>
                         <span onClick={() => setViewFilter(true)}>
                             радиус поиска

@@ -4,8 +4,7 @@ import { useDispatch } from 'react-redux'
 import { setservice } from '../../reduser.js'
 
 const style = {
-    color: '#fff',
-    padding: '0 10px',
+    color: '#fff',   
     backgroundColor: '#3D4EEA',    
     border: '1.5px solid #3D4EEA',    
    
