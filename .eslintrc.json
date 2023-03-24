@@ -1,3 +1,5 @@
 {
-  "extends": "next"
+  "extends": "next",
+  "@next/next/no-img-element": "off"
+ 
 }

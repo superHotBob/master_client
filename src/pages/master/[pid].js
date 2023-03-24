@@ -52,7 +52,7 @@ const Master = () => {
         }
 
 
-    }, [pid,local_profile,my_profile,profile])
+    }, [pid,my_profile,profile])
 
     function EnterToMessanger(a) {
         if (profile.status) {
