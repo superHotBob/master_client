@@ -23,9 +23,6 @@ export default function Client() {
     const [nav_view, setNavView] = useState('Лента')
     const [nav_active, setNavActive] = useState()
 
-
-
-
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem("profile"))
         setProfile(profile => ({ ...profile, ...pro }))       
