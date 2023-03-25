@@ -1,8 +1,9 @@
 .main {
     max-width: 500px;
-    height: 100vh;
+    min-height: 100vh;
     position: relative;
     z-index: 101;
+    padding-bottom: 50px;
 }
 .selector {
   font: 400 14px/17px 'Rubik', sans-serif;

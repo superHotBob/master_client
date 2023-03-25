@@ -38,7 +38,7 @@ export default function Service() {
         }
         GetMasters()
 
-    }, [service])
+    }, [])
  
    
 

@@ -8,6 +8,7 @@ import { setprofile } from '@/reduser'
 import { useEffect, useState } from 'react'
 import Message from '@/components/message'
 import Navi from '@/components/navi'
+import Services from '@/components/services'
 
 
 const nav_active = {
@@ -22,10 +23,11 @@ export default function Client() {
     const [profile, setProfile] = useState()
     const [nav_view, setNavView] = useState('Лента')
     const [nav_active, setNavActive] = useState()
+    const [services, setServices] = useState()
 
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem("profile"))
-        setProfile(profile => ({ ...profile, ...pro }))       
+        setProfile(profile => ({ ...profile, ...pro }))
         if (pro.status === 'master') {
             setNavActive({
                 backgroundColor: pro.color[1],
@@ -37,6 +39,7 @@ export default function Client() {
             () => router.push('/enter')
         }
     }, [])
+   
     return (
         <main className={styles.main}>
             <Head>
@@ -55,9 +58,7 @@ export default function Client() {
                     {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
                         .map(i => <span key={i} onClick={() => setNavView(i)} style={nav_view === i ? nav_active : null}>{i}</span>)}
                 </nav>
-
                 <section className={styles.lenta}>
-
                     {nav_view === 'Отзывы' ? <>
                         <Message color={profile.color} text={`Здесь будут отображаться отзывы на выполенные
                         вами заказы и проведенные мероприятия.`} />
@@ -65,11 +66,14 @@ export default function Client() {
                     </> : null}
                     {nav_view === 'Услуги' ? <>
                         <Message color={profile.color} text={`Здесь будут отображаться ваши слуги  прайс лиcт 
-                    по категориям. Вы сможете редактировать его в
-                    любое время, дополняя и редактируя его.`} />
+                            по категориям. Вы сможете редактировать его в
+                            любое время, дополняя и редактируя его.`} 
+                        />
                         <Link href="/addservice" className={styles.uslugi} style={{ backgroundColor: profile.color[1] }}>
                             <span style={{ color: '#fff' }}> Добавить услугу</span>
                         </Link>
+                        <Services color={profile.color}/>
+
                     </> : null}
 
                     {nav_view === 'Лента' ? <>

@@ -34,10 +34,10 @@ export default function Lenta({color={}}) {
     return (
         <main className={styles.main}>
             {/* <FilterServices /> */}
-            <p style={{margin: 20}}></p>
-            <div onClick={() => setViewText(true)} className={styles.model} style={{background: color[1] }}>
+           
+            <div onClick={() => setViewText(true)} className={styles.model} style={{background: color[1]}}>
                 <h3>Нужна модель</h3>
-                <p>15 сентября, бесплатно</p>
+                <h6>15 сентября, бесплатно</h6>
             </div>
             {width ? <div className={styles.images}>
                 <div className={styles.part_images}>

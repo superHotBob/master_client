@@ -14,6 +14,8 @@ const style = {
 }
 const services = ['Маникюр', 'Прически','Педикюр', 'Макияж', 'Массаж', 'Барбер', 'Ресницы', 'Брови', 'Депиляция']
 export default function AddService() {
+
+    // const service = {'барбер':['стрижка бороды: 1000']}
   
     const router = useRouter()
     const [profile, setProfile] = useState()
@@ -22,15 +24,16 @@ export default function AddService() {
 
     useEffect(()=>{
         let pro = JSON.parse(localStorage.getItem("profile"))
-        setProfile(profile=>(pro))
+        setProfile(pro)
        
     },[])
 
     const SaveServices = async () => {
         const data = {           
-            nikname: profile.nikname
+            nikname: profile.nikname,
+            массаж: '{"массаж тела ногами: 1000"}'
         }
-        const response = await fetch('/api/addservices', {
+        const response = await fetch('/api/edit_master_service', {
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
@@ -38,6 +41,7 @@ export default function AddService() {
             method: 'POST',
         })
         const result = await response.json()
+        console.log(result)
       
     }
     function AddCategory(e) {

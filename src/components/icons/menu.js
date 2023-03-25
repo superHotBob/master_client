@@ -21,10 +21,10 @@ export default function Menu_icon({ color, type }) {
 
     } else if (type === 'chat') {
         return <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 10C1 15 5 19 10 19C12.1 19 14.1 18.2 15.6 17H19.6988C19.8418 17 19.9386 16.8542 19.8831 16.7224L18.4 13.2C18.8 12.2 19 11.1 19 10C19 5 15 1 10 1C5 1 1 5 1 10Z" stroke={color} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-            <circle cx="6" cy="10.5" r="0.5" fill={color} stroke={color} stroke-width="1.25" />
-            <circle cx="10" cy="10.5" r="0.5" fill={color} stroke={color} stroke-width="1.25" />
-            <circle cx="14" cy="10.5" r="0.5" fill={color} stroke={color} stroke-width="1.25" />
+            <path d="M1 10C1 15 5 19 10 19C12.1 19 14.1 18.2 15.6 17H19.6988C19.8418 17 19.9386 16.8542 19.8831 16.7224L18.4 13.2C18.8 12.2 19 11.1 19 10C19 5 15 1 10 1C5 1 1 5 1 10Z" stroke={color} strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <circle cx="6" cy="10.5" r="0.5" fill={color} stroke={color} strokeWidth="1.25" />
+            <circle cx="10" cy="10.5" r="0.5" fill={color} stroke={color} strokeWidth="1.25" />
+            <circle cx="14" cy="10.5" r="0.5" fill={color} stroke={color} strokeWidth="1.25" />
         </svg>
     } else if (type === 'close__message'){
         return <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -33,7 +33,7 @@ export default function Menu_icon({ color, type }) {
     </svg>
     } else {
         return <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15 7L10 12L15 17" stroke={color} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M15 7L10 12L15 17" stroke={color} strokeWidth="1.5" stroke-linecap="round" stroke-linejoin="round" />
         </svg>
     }
 

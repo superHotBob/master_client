@@ -52,7 +52,7 @@ const Master = () => {
         }
 
 
-    }, [pid,my_profile,profile])
+    }, [])
 
     function EnterToMessanger(a) {
         if (profile.status) {
@@ -100,11 +100,11 @@ const Master = () => {
                     {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
                         .map(i => <span key={i} onClick={() => setNavView(i)} style={nav_view === i ? nav_active : null}>{i}</span>)}
                 </nav>
-            </section>
             {nav_view === 'Отзывы' ? <Reviews name={pid} /> : null}
-            {nav_view === 'Услуги' ? <Services name={pid} /> : null}
+            {nav_view === 'Услуги' ? <Services name={pid} color={profile.color}/> : null}
             {nav_view === 'Лента' ? <Lenta name={pid} color={profile?.color} /> : null}
             {nav_view === 'Сертификаты' ? <Sertificats name={pid} /> : null}
+            </section>
             <Navi color={two}/>
         </main>
     )

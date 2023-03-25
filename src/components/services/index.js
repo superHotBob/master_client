@@ -1,30 +1,54 @@
 import styles from './services.module.css'
-const services = [
-    {id: 1, type: 'Маникюр', service: 'Аппаратный маникюр', price: '1000', currenсy: '₽' },
-    {id: 12, type: 'Маникюр', service: 'Маникюр + покрытие однотон', price: '5000', currenсy: '₽' },
-    {id: 14, type: 'Маникюр', service: 'Маникюр + покрытие + френч/укрепление гелем', price: '1500', currenсy: '₽' },
-    {id: 15, type: 'Маникюр', service: 'Снятие покрытия', price: '1000', currenсy: '₽' },
-    {id: 2, type: 'Маникюр', service: 'Дизайн 1 ноготь', price: '1200', currenсy: '₽' },
-    {id: 5, type: 'Педикюр', service: 'Аппаратный педикюр', price: '1000', currenсy: '₽' },
-    {id: 9, type: 'Педикюр', service: 'педикюр + покрытие однотон', price: '5000', currenсy: '₽' },
-    {id: 8, type: 'Педикюр', service: 'педикюр + покрытие + френч/укрепление гелем', price: '1500', currenсy: '₽' },
-    {id: 7, type: 'Педикюр', service: 'Снятие покрытия', price: '1000', currenсy: '₽' },
-    {id: 6, type: 'Педикюр', service: 'Дизайн 1 ноготь', price: '1200', currenсy: '₽' },
-]
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+ 
+
+export default function Services({color}) {  
+    const router = useRouter()
+    const { pid } = router.query
+    const [services, setServices] = useState()
+    
+    useEffect(() => {
+        async function GetServices() {
+            const response = await fetch(`/api/master_service?nikname=${pid}`, {
+
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                // The method is POST because we are sending data.
+                method: 'get',
+            })
+
+            // Get the response data from server as JSON.
+            // If server returns the name submitted, that means the form works.
+            const result = await response.json()
+            console.log(result)
+            let new_serv = Object.entries(result[0])
+            console.log(new_serv)
+            setServices(new_serv)
+        }
+       
+        GetServices() 
+
+    }, [])
 
 
-
-export default function Services(props) {   
-    return (
-        <main className={styles.main}>
-            {services.map((i,index) => <div className={styles.data} key={i.id}>
-                {services[index-1] ? <>
-                {services[index-1].type!==services[index].type ? <h3 className={styles.type}>{i.type}</h3>:null}</>:<h3 className={styles.type}>{i.type}</h3>}
-                <p className={styles.service} >
-                    <span>{i.service}</span>
-                    <span>{i.price} {i.currenсy}</span>
-                </p>
-            </div>)}
-        </main>
+    return (<>
+      
+            {services?<>
+            {services.map((i) => 
+                <div className={styles.data} key={i[0]}>                
+                    {i[1]?<h3 className={styles.type} style={{color:color[1]}}>{i[0]}</h3>:null}
+                    {i[1] ? <>
+                    {i[1].map((a,index)=><div key={index} style={{background: color[2]}}>
+                        {a.split(',').map((s,index)=><h5 className={styles.service} key={index}>
+                        <span style={{color:color[1]}}>{s.split(':')[0]}</span>
+                        <span style={{color:color[1]}}>{s.split(':')[1]} BYN</span>
+                        </h5>)}
+                    </div>)}</>:null}
+               
+                </div>
+            )}</>:null}
+        </>
     )
 }
