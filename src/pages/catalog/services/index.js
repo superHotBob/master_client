@@ -6,6 +6,7 @@ import { useState } from 'react'
 import styles from './services.module.css'
 import { useDispatch } from 'react-redux'
 import { setservice } from '@/reduser'
+import { useRouter } from 'next/router'
 
 const images = ['маникюр', 'педикюр', 'макияш', 'ресницы', 'chistka',
     'брови', 'depil', 'массаж', 'стрижка', 'colored', 'прическа', 'барбер']
@@ -22,6 +23,7 @@ const sel = {
 export default function Services() {
     const [selector, setSelector] = useState(1)
     const dispatch = useDispatch()
+    const router = useRouter()
     function ToService(a) {
         dispatch(setservice(a))
         router.push('/catalog/service/' + a)

@@ -10,7 +10,7 @@
   width: 50%;
   color: #8B95F2;
   overflow: hidden;
-  font-weight: 500;
+  font-weight: 400;
   font-size:  14px;
   
 }
@@ -18,7 +18,7 @@
 .main__filter span:last-of-type {
   width: 46%;
   color: #3D4EEA;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
 }
 
@@ -64,10 +64,9 @@
 
 .all__filter__data b {
   text-align: center;
-
   color: #000;
   margin: 3px;
-  font-weight: 700;
+  font-weight: 500;
   font-size:  14px;
   line-height: 27px;
   border: 1.5px solid #000;

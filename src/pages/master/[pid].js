@@ -19,6 +19,7 @@ const Master = () => {
     const [nav_active, setNav_active] = useState({})
     const router = useRouter()
     const { pid } = router.query
+    console.log(pid)
     const my_profile = useSelector(state => state.counter.profile)
     const [one,two,three] = profile.color
     useEffect(() => {
@@ -52,7 +53,7 @@ const Master = () => {
         }
 
 
-    }, [])
+    }, [pid])
 
     function EnterToMessanger(a) {
         if (profile.status) {

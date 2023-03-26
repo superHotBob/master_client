@@ -3,11 +3,12 @@ import Image from 'next/image'
 import Link from 'next/link'
 import styles from './near.module.css'
 import arrow_down from '../../../public/arrow_down.svg'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react'
 import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps'
 import Script from 'next/script'
 import FilterServices from '@/components/filterServices'
+import { setservice } from '@/reduser'
 
 
 const sel = {
@@ -20,6 +21,8 @@ const sel = {
 export default function MasterNear() {
     const my_city = useSelector((state) => state.counter.city)
     const service = useSelector((state) => state.counter.service)
+    const dispatch = useDispatch()
+    
     const [selector, setSelector] = useState(1)
     const [viewFilter, setViewFilter] = useState(false)
     const [filter, setFilter] = useState(10)
@@ -27,44 +30,47 @@ export default function MasterNear() {
     const [masters, setMasters] = useState()
     const [filter_masters, setFilterMasters] = useState()
 
-    useEffect(()=>{
+    useEffect(() => {
         setFilterMasters(masters)
-        if(masters) {
-            let mast = masters.filter(i=>i.services.includes(service)?i:null)
-            setFilterMasters(mast)            
+        if (masters) {
+            let mast = masters.filter(i => i.services.includes(service) ? i : null)
+            setFilterMasters(mast)
         } else if (masters) {
             setFilterMasters(masters)
         } else {
 
-        }        
-    },[service,masters])
-   
+        }
+       
+    }, [service])
+
 
     const defaultState = {
         center: [
-            {name: 'минск', location: [53.904430, 27.554895]},
-            {name: 'брест', location: [52.098208, 23.760049]}]
-            .filter(i=>i.name === my_city.toLowerCase())
-            .map(i=>i.location),
+            { name: 'минск', location: [53.904430, 27.554895] },
+            { name: 'брест', location: [52.098208, 23.760049] }]
+            .filter(i => i.name === my_city.toLowerCase())
+            .map(i => i.location),
         zoom: filter * 1.2,
         controls: [],
         behaviors: ["default", "scrollZoom", "onclick"]
     };
     function ViewMaster(a) {
         selectMaster(a)
-    } 
+    }
     useEffect(() => {
         setMasters()
         async function GetMasters() {
             const response = await fetch('/api/all_masters_city?' + new URLSearchParams({
-            city: my_city.toLowerCase()
+                city: my_city.toLowerCase()
             }))
             const result = await response.json()
             setMasters(result)
-            setFilterMasters(result)            
+            setFilterMasters(result)
         }
         GetMasters()
-
+        return ()=> {
+           dispatch(setservice())
+        }
     }, [my_city])
     return (
         <div className={styles.main}>
@@ -77,20 +83,18 @@ export default function MasterNear() {
             </div>
             {selector ?
                 <section className={styles.section}>
-                    <FilterServices />                  
+                    <FilterServices />
                     {filter_masters?.map(i => <Link key={i.name} className={styles.master}
                         style={{ backgroundImage: "url(" + i.image + ")" }}
                         href={`/master/${i.nikname}`}
                     >
-                        <div style={{ width: '75%' }}>
-                            {i.name}{'  '}
-                            <div style={{ display: 'inline-block' }}>
-                                <span className={styles.pro}>MASTER</span>
-                                {i.stars?<span className={styles.stars}>{i.stars}</span>:null}
-                            </div>
-                        </div>
+                        <p style={{ width: '75%' }} className={styles.name_stars}>
+                            <span>{i.name}</span>
+                            <span className={styles.pro}>MASTER</span>
+                            {i.stars ? <span className={styles.stars}>{i.stars}</span> : null}
+                        </p>
                         <h4>{i.address}</h4>
-                        <h5>{i.services.map(a=><span key={a} className={styles.service}>{a}</span>)}</h5>
+                        <h5>{i.services.map(a => <span key={a} className={styles.service}>{a}</span>)}</h5>
                     </Link>)}
                 </section>
                 :
@@ -148,7 +152,7 @@ export default function MasterNear() {
                         <span className={styles.stars}>{i.stars}</span>
                     </p>
                     <h4>{i.address}</h4>
-                    <h5>{i.services.map(a=><span key={a} className={styles.service}>{a}</span>)}</h5>
+                    <h5>{i.services.map(a => <span key={a} className={styles.service}>{a}</span>)}</h5>
                 </Link>)}
             </section> : null}
 
