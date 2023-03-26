@@ -16,7 +16,8 @@ export default function Reviews(props) {
     const [view, setView] = useState(true)
     return (
         <main className={styles.main}>
-            {reviews.map(i => <div className={styles.data} key={i.name}>
+            {reviews.map(i => 
+            <div className={styles.data} key={i.name}>
                 <div className={styles.header}>
                     <span>{i.name}</span>
                     <span style={{textAlign: 'right',width: '55%'}}>{i.date}</span>

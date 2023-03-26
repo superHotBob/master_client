@@ -18,7 +18,8 @@
   margin: 16px auto 24px;
   display: block;
   width: fit-content;
-  font: 600 22px/17px 'Rubik', sans-serif;
+  font-weight: 600;
+  font-size:  22px;
 }
 
 .section {
@@ -26,7 +27,9 @@
 }
 
 .selector {
-  font: 500 14px/17px 'Rubik', sans-serif;
+  font-weight: 500;
+  font-size:  14px;
+  line-height: 17px;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -56,9 +59,7 @@
   margin: 10px 0;
 }
 
-.master div {
-  font-family: "Rubik", sans-serif;
-  font-weight: 600;
+.master div {  
   color: #000;
   line-height: 25px;
 }
@@ -75,8 +76,7 @@
 .pro {
   margin: 0 5px 0 0;
   background: linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%);
-  border-radius: 4px;
-  font: 600 12px/17px 'Rubik', sans-serif;
+  border-radius: 4px;  
   padding: 2px 8px;
   color: #fff;
   display: inline-block;
@@ -88,8 +88,7 @@
   background-size: 35%;
   height: 21px;
   width: 50px;
-  vertical-align: middle;
-  font: 600 12px/18px 'Rubik', sans-serif;
+  vertical-align: middle;  
   color: #3D4EEA;
   background-color: #ECEEFD;
   border-radius: 4px;

@@ -71,7 +71,7 @@ const Master = () => {
                 <div className={styles.image} style={{ background: one }}>
                     {profile.image ? <Image src={profile.image} alt="profile" height={105} width={105} /> : null}
                 </div>
-                <p>
+                <p className={styles.name_stars}>
                     <span style={{width: 'fit-content'}}>{profile.name}</span>
                     <span className={styles.pro} style={{ background: one }}>MASTER</span>
                     <span

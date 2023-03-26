@@ -4,6 +4,7 @@ import { setprofile } from '@/reduser'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import arrow from '../../../public/arrow_back.svg'
+import Navi from '@/components/navi'
 
 
 const filestyle = { borderRadius: '100%' }
@@ -331,6 +332,7 @@ export default function EditProfile() {
                             )}
                         </div>
                     </div> : null}
+                    <Navi color={color[1]} />
         </main>
     )
 }

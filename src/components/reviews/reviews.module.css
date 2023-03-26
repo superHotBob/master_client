@@ -1,12 +1,13 @@
-.main {
-    padding: 0 16px;
-}
 .data {
     border-bottom: 1px solid #D0D0D0;
     padding: 10px 0;
+    text-align: left;
 }
 .data span:last-of-type {
     color: #3D4EEA;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 17px;
 }
 .data span img {
     
@@ -20,7 +21,9 @@
 .header span:first-of-type {
     display: inline-block;
     width: 20%;
-    font: 600 16px/26px 'Rubik', sans-serif;
+    font-weight: 500;
+    font-size:  16px;
+    line-height: 26px;
     color: #000;
 }
 .service {
@@ -31,6 +34,8 @@
 .message {
     height: fit-content;
     overflow: hidden;
-    font: 400 14px/17px 'Rubil', sans-serif;
+    font-weight: 400;
+    font-size:  14px;
+    font-weight: 17px;
     transition: all 0.5s;
 }

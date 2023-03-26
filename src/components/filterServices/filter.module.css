@@ -10,7 +10,9 @@
   width: 50%;
   color: #8B95F2;
   overflow: hidden;
-  font: 500 14px/24px 'Rubik', sans-serif;
+  font-weight: 500;
+  font-size:  14px;
+  
 }
 
 .main__filter span:last-of-type {
@@ -65,7 +67,9 @@
 
   color: #000;
   margin: 3px;
-  font: 700 14px/27px 'Rubik', sans-serif;
+  font-weight: 700;
+  font-size:  14px;
+  line-height: 27px;
   border: 1.5px solid #000;
   border-radius: 5px;
 }

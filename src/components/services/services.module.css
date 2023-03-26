@@ -6,11 +6,11 @@
 }
 .type {
     text-align: center;
-    font: 600 16px/26px 'Rubik', sans-serif;
+    font-size: 16px;
     margin: 16px 0 12px;
 }
 .data span:last-of-type {
-    font: 500 16px/26px 'Rubik', sans-serif;
+    font-size: 16px;
 }
 .service {
     display: flex;
@@ -25,6 +25,6 @@
     display: inline-block;
    
     margin: 10px 0;
-    font: 500 14px/16px 'Rubik', sans-serif;
+    font-size: 14px;
 }
 

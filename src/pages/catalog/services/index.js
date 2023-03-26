@@ -51,7 +51,7 @@ export default function Services() {
 
 
             </div>}
-            <Navi page="catalog" />
+            {/* <Navi page="catalog" /> */}
         </div>
     )
 

@@ -6,7 +6,8 @@
   gap: 4px;
   margin: 0 auto 16px;
   height: auto;
-  font: 400 12px/17px 'Rubik', sans-serif; 
+  font-size: 12px;
+  line-height: 17px; 
   position: relative;
 }
 .message svg {

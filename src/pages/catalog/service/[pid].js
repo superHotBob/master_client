@@ -66,7 +66,7 @@ export default function Service() {
                         >
                             <Link href={"/master/" + i.nikname}>
                                 <p>
-                                    <span>{i.name}</span>
+                                    <span className={styles.name}>{i.name}</span>
                                     <span className={styles.pro}>MASTER</span>
                                     <span className={styles.stars}>{i.stars}</span>
                                 </p>

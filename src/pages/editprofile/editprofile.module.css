@@ -3,9 +3,11 @@
   max-width: 500px;
   background-color: #fff;
   width: 100%;
+  position: relative;
   margin: 0 auto;
   padding-bottom: 50px;
   overflow: auto;
+  z-index: 101;
 }
 
 .image .profile_image {
