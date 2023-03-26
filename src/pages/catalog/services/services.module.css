@@ -29,7 +29,9 @@
 }
 
 .selector {
-    font: 400 14px/17px 'Rubik', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
     display: flex;
     justify-content: space-around;
     margin: 16px 0 0;

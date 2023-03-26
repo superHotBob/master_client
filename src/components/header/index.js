@@ -15,13 +15,17 @@ import Menu_icon from '../../components/icons/menu.js'
 
 const new_text = {
   color: '#000',
-  font: '600 16px/26px Rubik, sans-serif',
+  fontWeight: '500',
+  fontSize: '16px',
+  lineHeight: '26px',
   display: 'inline-block',
 
 }
 const new_text_mes = {
   color: '#000',
-  font: '600 16px/26px Rubik, sans-serif',
+  fontWeyght: '600',
+  fontSize:  '16px',
+  lineHeight: '26px',
   display: 'inline-block',
 
   marginLeft: '-35px'
@@ -55,7 +59,6 @@ export default function Header({ sel, text, mes, color = {} }) {
 
       }
 
-
       {text ?
         <h3 style={mes ? new_text_mes : new_text}>
           {mes ? <Image
@@ -73,7 +76,6 @@ export default function Header({ sel, text, mes, color = {} }) {
           <h3>place</h3>
         </div>
       }
-
       {mes ? <Image
         src={call}
         alt="menu"
@@ -81,7 +83,6 @@ export default function Header({ sel, text, mes, color = {} }) {
         className={styles.call}
         width={20} height={20}
       /> : null}
-
       {/* <Image
         src={menu ? close : img_menu}
         alt="menu"
@@ -97,9 +98,6 @@ export default function Header({ sel, text, mes, color = {} }) {
       >
         <Menu_icon color={menu ? color[2] || '#3D4EEA' : color[1] || '#3D4EEA'} type={menu ? 'close' : 'menu'} />
       </div>
-
-
-
       {menu ? <Menu /> : null}
     </header>
   )

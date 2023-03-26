@@ -11,25 +11,17 @@ export default function Services({color}) {
     useEffect(() => {
         async function GetServices() {
             const response = await fetch(`/api/master_service?nikname=${pid}`, {
-
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 // The method is POST because we are sending data.
                 method: 'get',
-            })
-
-            // Get the response data from server as JSON.
-            // If server returns the name submitted, that means the form works.
-            const result = await response.json()
-            console.log(result)
-            let new_serv = Object.entries(result[0])
-            console.log(new_serv)
+            })           
+            const result = await response.json()           
+            let new_serv = Object.entries(result[0])           
             setServices(new_serv)
-        }
-       
-        GetServices() 
-
+        }       
+        GetServices()
     }, [])
 
 

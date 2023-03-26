@@ -23,7 +23,9 @@
     color: black;
     display: block;
     transform: translateY(115px);
-    font: 600 18px/18px 'Rubik', sans-serif;
+    font-weight: 500;
+    font-size:  18px;
+    line-height: 18px;
 }
 
 .inputs {
@@ -43,13 +45,17 @@
 } */
 .inputs p {
     text-align: center;   
-    font: 400 12px/18px 'Rubik', sans-serif;
+    font-weight: 400;
+    font-size:  12px;
+    line-height: 18px;
     width: 300px;
     margin: 0 auto 15px;
 }
-.inputs h4 {
+.colaboration {
     text-align: center;   
-    font: 400 14px/17px 'Rubik', sans-serif;
+    font-weight: 400;
+    font-size:  14px;
+    line-height: 17px;
     width: 300px;
     margin: 0 auto 20px;
 }
@@ -57,18 +63,21 @@
     height: 46px !important;
     width: 300px;
     display: block;
+    font-family: 'Rubik', sans-serif;
     margin: 0 auto;
     outline: none;    
-    border-radius: 6px;
-    
+    border-radius: 6px;    
     border: 1px solid #3D4EEA !important;
 
 }
 
-.inputs button {
+.button {
     height: 46px;
     width: 300px;
     display: block;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;    
     border-radius: 6px;
     padding: 11px 8px 11px 8px;
     background-color: #3D4EEA;

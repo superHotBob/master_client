@@ -23,6 +23,7 @@ const Master = () => {
     const my_profile = useSelector(state => state.counter.profile)
     const [one,two,three] = profile.color
     useEffect(() => {
+        let local_profile = localStorage.getItem(profile);
         async function GetMaster() {
             const response = await fetch(`/api/master?nikname=${pid}`, {
 
@@ -44,7 +45,7 @@ const Master = () => {
                 fontWeight: 600
             })
         }
-        let local_profile = localStorage.getItem(profile);
+        
         if (local_profile) {
             setProfile(my_profile);
         } else {

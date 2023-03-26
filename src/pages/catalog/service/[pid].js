@@ -54,7 +54,7 @@ export default function Service() {
                          
                 <div className={styles.city}>
                     <Link href="/city"> Выбрать ваш город</Link>
-                    <Image alt="Picture of the author" src={position} width={20} height={20} />
+                    
                 </div>
                 <FilterServices  service={pid}/>
                 {masters ? <>

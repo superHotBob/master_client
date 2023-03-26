@@ -2,7 +2,7 @@
   --max-width: 1100px;
   --border-radius: 12px;
   --font-mono: 
-    'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro','Rubik';
+    'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro';
     
 
   --foreground-rgb: 0, 0, 0;
@@ -97,6 +97,7 @@ body {
 } 
 body button {
   cursor: pointer;
+  font-family: 'Rubik', sans-serif;
 } 
 ::after, ::before {
   display: inline-block;

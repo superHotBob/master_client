@@ -47,7 +47,7 @@ export default function Enter() {
                 <div className={styles.inputs}>
                     <p>Используйте свой номер телефона как логин для входа на сайт.</p>
                     {/* <span>номер телефона</span> */}
-                    <form onSubmit={handleSubmit} >
+                   
                         {/* <input type="tel" name="tel" pattern="[\+()]*(?:\d[\s\-\.()xX]*){10,14}"
                             required
                             minlength="11"
@@ -65,13 +65,16 @@ export default function Enter() {
                             placeholder='номер телефона'
                             onChange={phone => setPhone(phone)}
                         />
-                        <button type="submit">Войти</button>
-                    </form>
-                    <h4>
+                        <div className={styles.button} onClick={handleSubmit}>
+                            Войти
+                            
+                        </div>
+                   
+                    <div className={styles.colaboration}>
                         Нажмая на кнопку, вы соглашаетесь с<br />
                         <span style={{ color: "#3D4EEA" }}>Условиями обработки персональных <br />
                             данных</span>  и <span style={{ color: "#3D4EEA" }}>Пользовательским соглашением</span>
-                    </h4>
+                    </div>
                 </div>
             </section>
 

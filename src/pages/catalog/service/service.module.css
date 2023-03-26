@@ -7,27 +7,13 @@
 .section {
     padding: 16px;   
 }
-.message,
+
 .city {
     color: #3D4EEA;
     background: #ECEEFD;
     border-radius: 6px;
 }
-.message {
-    padding: 8px;
-    gap: 4px;
-    margin: 0 auto 16px;
-    height: 84px;
-    font-weight: 400;
-    font-size:  12px;
-    line-height: 16px;   
-}
 
-.message img {
-    float: right;
-    cursor: pointer;
-    margin: 3px 6px;
-}
 .city {
     font-weight: 600;
     font-size:  16px;
@@ -36,9 +22,9 @@
     text-align: center;
 }
 
-.city img {
-    vertical-align: middle;
-    margin-left: 10px;
+.city::after {
+    content: url('/position.svg');
+    transform: translate(6px, 6px);
 }
 .master {
     background-color: #FFFFFF;
@@ -49,16 +35,20 @@
     border-radius: 12px;
     margin: 8px 0 0;
 }
+.master p {
+    width: 78%;
+}
 
 .name {
     font-weight: 500;
     font-size:  16px;
     line-height: 22px;
     color: #000;
+    margin-right: 5px;
 }
 
 .pro {
-    margin: 0 5px 0 10px;
+    margin: 0 5px 0 0;
     background: linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%);
     border-radius: 4px;   
     padding: 2px 8px;

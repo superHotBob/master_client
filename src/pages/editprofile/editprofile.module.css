@@ -90,7 +90,9 @@
 .radio {
   height: 31px;
   margin: 6px 0;  
-  font: 600 14px/31px 'Rubik', sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 31px;
 }
 
 .change {
@@ -109,7 +111,9 @@
   padding: 12px 6px;
   background-color: #fff;
   outline: none;
-  font: 500 14px/17px 'Rubil', sans-serif;
+  font-weight: 500;
+  font-size:  14px;
+  line-height: 17px;
 }
 
 
@@ -207,7 +211,9 @@ div.tema {
   height: 46px;
   padding: 11px;
   align-items: center;
-  font: 400 16px/17px 'Rubik', sans-serif;
+  font-weight: 400;
+  font-size:  16px;
+  line-height: 17px;
 }
 
 .header span {
