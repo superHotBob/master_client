@@ -32,13 +32,13 @@ export default function Menu() {
 
     return (<>
         {profile.status === 'master' ? <main className={styles.main_menu}>
-            <h6>Меню профиля</h6>
+            <p className={styles.menu_prof}>Меню профиля</p>
             <Link href='/chat'>Сообщения</Link>
             <p className={styles.seans}>Записи на сеанс<span>5</span></p>
             <p className={styles.shedule} onClick={() => router.push('/calendar')}>Календарь работы</p>
             <p className={styles.add}>Добавить запись</p>
             <Link href="/masterrecords" className={styles.collections}>Мои заказы</Link>
-            <h6>Общее</h6>
+            <p className={styles.menu_prof}>Общее</p>
             <p className={styles.edit_profile} onClick={() => router.push('/editprofile')} >
                 Редактировать профиль
             </p>
@@ -49,7 +49,7 @@ export default function Menu() {
         </main>
             : profile.status === 'client' ?
                 <main className={styles.main_menu}>
-                    <h6>Меню профиля</h6>
+                   <p className={styles.menu_prof}>Меню профиля</p>
                     <Link href='/chat'>Сообщения</Link>
                     <Link href={{
                         pathname: `/client/${profile.nikname}`,
@@ -57,7 +57,7 @@ export default function Menu() {
                             order: false
                         }
                     }} className={styles.collections}>Мои заказы</Link>
-                    <h6>Общее</h6>
+                     <p className={styles.menu_prof}>Общее</p>
                     <Link href="/editprofile" className={styles.edit_profile}>Настройки профиля</Link>
                     <p className={styles.copy} onClick={CopyProfile}>Скопировать ссылку профиля</p>
                     <p className={styles.chat}>Техническая поддержка</p>
@@ -65,7 +65,7 @@ export default function Menu() {
                     <p onClick={ExitFromAccount}>Выйти из аккаунта</p>
                 </main> :
                 <main className={styles.main_menu} style={style}>
-                    <h6>Общее</h6>
+                    <p className={styles.menu_prof}>Общее</p>
                     <p className={styles.chat}>Техническая поддержка</p>
                     <p className={styles.about}>О сервисе</p>
                     <p onClick={() => router.push("/enter")} style={login}>Войти в аккаунт</p>

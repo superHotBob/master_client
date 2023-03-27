@@ -54,6 +54,7 @@
     padding: 2px 8px;
     color: #fff;
     font-size: 12px;
+    font-weight: 500;
 }
 .stars {
     background-image: url('/star-small.svg');    

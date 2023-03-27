@@ -3,7 +3,7 @@
     border-bottom: 1px solid #ECEEFD;
     color: #282828;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 22px;   
     height: 72px;
     padding: 0 16px;
@@ -11,12 +11,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
-  
+  }  
   .header h3:last-of-type {
     color: #3D4EEA;
-    display: inline-block;
-    
+    display: inline-block;    
   }
   
   .header h3:first-of-type {   

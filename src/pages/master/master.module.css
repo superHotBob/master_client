@@ -153,9 +153,11 @@
     background: linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%);
     border-radius: 20px;
     background-size: 400% 400%;
-    animation: gradient 22s ease infinite;
-    
-    
+    animation: gradient 22s ease infinite;    
+}
+.await {
+    text-align: center;
+    padding-top: 50px;
 }
 
 @keyframes gradient {

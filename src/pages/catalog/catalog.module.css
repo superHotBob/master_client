@@ -37,7 +37,9 @@
     color: #3D4EEA;
     background: #ECEEFD;
     border-radius: 6px;
-    font: 600 16px/46px 'Rubik', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 46px;
     letter-spacing: 0px;
     text-align: center;
     margin-bottom: 16px;
@@ -69,7 +71,9 @@
     margin: 8px 0;
     background-color: #3D4EEA;
     text-align: center;
-    font: 600 16px/24px 'Rubik', sans-serif;
+    font-weight: 500;
+    font-size:  16px;
+    line-height: 24px;
 }
 
 .around__masters {

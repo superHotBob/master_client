@@ -70,8 +70,7 @@ export default function Header({ sel, text, mes, color = {} }) {
 
           {text}
         </h3>
-        : <div className={styles.logo}>
-          {/* <Image className={styles.icon} alt="Picture" src={logo} width={36} height={30} style={{ background: 'none' }} /> */}
+        : <div className={styles.logo}>         
           <h3>masters.</h3>
           <h3>place</h3>
         </div>

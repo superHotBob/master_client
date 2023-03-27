@@ -21,10 +21,10 @@
 
 .enter {
     height: 46px;
-    width: 72px;
-    left: 104px;
-    top: 0px;
-    font: 500 16px/29px 'Rubik', sans-serif;
+    width: 72px;   
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 29px;
     border-radius: 39px;
     padding: 7px 16px 7px 16px;
     background-color: rgba(255, 255, 255, 0.2);

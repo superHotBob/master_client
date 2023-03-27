@@ -12,12 +12,12 @@
 .city {
   
   color: hsl(234, 80%, 58%);
-  margin: 16px 0 24px;
+  margin: 16px auto 24px;
   cursor: pointer;
   display: inline;
   margin: 16px auto 24px;
   display: block;
-  width: fit-content;
+  width: calc(100% - 32px);
   font-weight: 600;
   font-size:  22px;
 }
@@ -228,7 +228,24 @@
   margin: 15px auto 30px;
   display: block;
 }
+.city {
+  color: #3D4EEA;
+  background: #ECEEFD;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 16px;
+  
+  line-height: 46px;
+  letter-spacing: 0px;
+  text-align: center;
+  display: block;
+}
 
+.city::after {
+  content: url('/position.svg');
+  display: inline-block;
+  transform: translate(10px, 5px);
+}
 @media screen and (min-width: 500px) {
   .main__filter span:last-of-type {
     width: 35%;

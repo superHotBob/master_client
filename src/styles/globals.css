@@ -69,7 +69,7 @@
   color: #000;
   background-repeat: no-repeat;
 }
-body .pro {
+.pro {
   margin: 0 5px;  
   border-radius: 4px;  
   font: 500;
@@ -79,11 +79,7 @@ body .pro {
   color: #fff;
   display: inline-block;
 }
-body .star {
-  font-weight: 600;
-  font-size:  12px;
-  line-height: 18px;
-}
+
 input[type='text'], input[type='tel'], input[type='radio'], input[type='search'] {
   background-color: #fff;
   outline: none;
@@ -95,6 +91,11 @@ body {
   background-color: #ddd;
   white-space: pre-line;
 } 
+.star {
+  font-weight: 600;
+  font-size:  12px;
+  line-height: 18px;
+}
 body button {
   cursor: pointer;
   font-family: 'Rubik', sans-serif;
@@ -102,8 +103,11 @@ body button {
 ::after, ::before {
   display: inline-block;
 }
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&display=swap');
-
+/* @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&display=swap'); */
+.await {
+  text-align: center;
+  padding-top: 50px;
+}
 body {
   color: #000;
   max-width: 500px;

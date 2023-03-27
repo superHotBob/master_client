@@ -30,18 +30,7 @@ export default function MasterNear() {
     const [masters, setMasters] = useState()
     const [filter_masters, setFilterMasters] = useState()
 
-    useEffect(() => {
-        setFilterMasters(masters)
-        if (masters) {
-            let mast = masters.filter(i => i.services.includes(service) ? i : null)
-            setFilterMasters(mast)
-        } else if (masters) {
-            setFilterMasters(masters)
-        } else {
-
-        }
-       
-    }, [service])
+   
 
 
     const defaultState = {
@@ -72,11 +61,25 @@ export default function MasterNear() {
            dispatch(setservice())
         }
     }, [my_city])
+    useEffect(() => {
+        setFilterMasters(masters)
+        console.log(service)
+        if (masters) {
+            let mast = masters.filter(i => i.services.includes(service.toLowerCase()) ? i : null)
+            setFilterMasters(mast)
+        } else if (masters) {
+            setFilterMasters(masters)
+        } else {
+
+        }
+       
+    }, [service])
     return (
         <div className={styles.main}>
             <Script src="https://api-maps.yandex.ru/3.0/?apikey=89caab37-749d-4e30-8fdf-e8045542f060&lang=ru_RU" />
             <Header sel="/catalog" text="Мастера рядом " />
-            <Link className={styles.city} href='/city'>{my_city}</Link>
+            <Link className={styles.city} href='/city'>Ваш город {my_city}</Link>
+           
             <div className={styles.selector}>
                 <span onClick={() => setSelector(1)} style={selector ? sel : null}>Список</span>
                 <span onClick={() => setSelector(0)} style={selector ? null : sel}>На карте</span>

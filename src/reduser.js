@@ -7,7 +7,7 @@ const initialState = {
   nikname:'',
   profile: {},
   order: {},
-  service: ''
+  service: 'Маникюр'
 }
 
 export const counterSlice = createSlice({

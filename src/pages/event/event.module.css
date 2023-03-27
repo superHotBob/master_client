@@ -23,7 +23,9 @@
 }
 
 .event h3 {
-    font: 400 16px/18px 'Rubik', sans-serif;
+    font-weight: 400;
+    font-size:  16px;
+    line-height: 18px;
     color: #282828;
     margin-bottom: 8px;
 }
@@ -32,12 +34,16 @@
     background-image: url('/location.svg');
     background-position: left center;    
     padding-left: 20px;
-    font: 500 12px/27px 'Rubik', sans-serif;
+    font-weight: 500;
+    font-size:  12px;
+    line-height: 27px;
 }
 
 .event h5 {
     color: #8B95F2;
-    font: 500 12px/17px 'Rubik', sans-serif;
+    font-weight: 500;
+    font-size:  12px;
+    line-height: 17px;
 }
 
 .event p {
@@ -52,7 +58,9 @@
     display: block;
     margin-top: 20px;
     text-align: center;
-    font: 600 18px/46px 'Rubik', sans-serif;
+    font-weight: 500;
+    font-size:  18px;
+    line-height: 46px;
    
 }
 .event a span {
@@ -67,13 +75,13 @@
 .pro {
     height: 21px;
     width: 65px;
-    margin: 0 10px 0 0;
-    font: 600 12px/36px 'Rubik', sans-serif;
+    margin: 5px 10px 0 0;   
     background: linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%);
     border-radius: 4px;
     color: #fff;
     padding: 4px 8px;
-
+    font-size: 12px;
+    display: inline-block;
 }
 
 .stars {
@@ -81,12 +89,12 @@
     background-position: 85% center;
     background-size: 35%;
     height: 22px;
-    width: 58px;
-    font: 600 12px/17px 'Rubik', sans-serif;
+    width: 58px;    
     color: #3D4EEA;
     background-color: #ECEEFD;
     border-radius: 4px;
     display: inline-block;
     padding: 2px 4px 2px 8px;
-
+    font-size: 12px;
+    line-height: 19px;
 }

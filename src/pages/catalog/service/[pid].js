@@ -20,7 +20,8 @@ const style = {
 }
 export default function Service() {
     const router = useRouter() 
-    const service = useSelector(state=>state.counter.service)   
+    const service = useSelector(state=>state.counter.service)
+    const city = useSelector(state=>state.counter.city)   
     const { pid } = router.query
     
    
@@ -28,17 +29,21 @@ export default function Service() {
 
     useEffect(() => {
         setMasters()
+        // const controller = new AbortController();
+        // const signal = controller.signal;
         async function GetMasters() {
             const response = await fetch('/api/all_masters_service?'+ new URLSearchParams({
-                service: service                
+                service: service,
+                city: city                
             }))           
             const result = await response.json()
             setMasters(result)
             console.log(result)
         }
+        // return () => controller.abort();
         GetMasters()
 
-    }, [])
+    }, [service])
  
    
 
@@ -53,7 +58,7 @@ export default function Service() {
                 `} /> 
                          
                 <div className={styles.city}>
-                    <Link href="/city"> Выбрать ваш город</Link>
+                    <Link href="/city"> Ваш город {city}</Link>
                     
                 </div>
                 <FilterServices  service={pid}/>
