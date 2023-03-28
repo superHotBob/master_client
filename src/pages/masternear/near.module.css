@@ -57,10 +57,11 @@
   border-radius: 12px;
   margin: 10px 0;
 }
-.my_map {
+.my_map canvas {
   margin-top: 20px;
-  filter: grayscale(100%);
+  filter: grayscale(100%) !important;
 }
+
 
 .my_map div.ymaps-2-1-79-map-copyrights-promo {
   height: 0;
@@ -180,19 +181,19 @@
 }
 
 .all__filter h6 {
-  margin: 15px;
+  margin: 10px 15px 0;
   text-align: right;
-  padding-right: 30px;
-  font: 500 14px/17px 'Rubik', sans-serif;
-  color: #3D4EEA;
+  
 }
-
 .all__filter h6::after {
   content: url('/close.svg');
-  transform: translate(15px, 1px);
+  transform: translate(-8px, 1px);
   display: inline-block;
-  height: 20px;
-  width: 10px;
+ 
+  cursor: pointer;
+}
+.all__filter h6::after:hover {
+  border: 1px solid #3D4EEA;
 }
 
 .all__filter__data {
@@ -245,9 +246,4 @@
   content: url('/position.svg');
   display: inline-block;
   transform: translate(10px, 5px);
-}
-@media screen and (min-width: 500px) {
-  .main__filter span:last-of-type {
-    width: 35%;
-  }
 }

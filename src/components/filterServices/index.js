@@ -15,6 +15,7 @@ export default function FilterServices({service}) {
     const [filter, SetFilter] = useState()
     const dispatch = useDispatch()
     const my_service = useSelector(state=>state.counter.service)
+    console.log(my_service)
     // const [services, setServices] = useState()
 
     // useEffect(()=>{
@@ -29,6 +30,7 @@ export default function FilterServices({service}) {
     useEffect(()=>SetFilter(service),[service])
 
     function setFilter(e) {
+        console.log(e.target.value)
         SetFilter(e.target.id)
         dispatch(setservice(e.target.id))
         setViewFilter(false)
