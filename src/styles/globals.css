@@ -97,8 +97,9 @@ body {
   line-height: 18px;
 }
 body button {
-  cursor: pointer;
-  font-family: 'Rubik', sans-serif;
+  cursor: pointer; 
+  border: none;
+  font-weight: 500;
 } 
 ::after, ::before {
   display: inline-block;

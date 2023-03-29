@@ -11,7 +11,7 @@ export default async function handler(req, res) {
     барбер: req.body.барбер || null,
     брови: req.body.брови|| null,
     прически: req.body.прически|| null,
-    ресницы: req.body.ресницы|| null,
+    ресницы: req.body.ресницы || null,
     стрижка: req.body.стрижка|| null,
     депиляция: req.body.депиляция|| null,
   }

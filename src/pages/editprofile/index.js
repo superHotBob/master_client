@@ -164,11 +164,10 @@ export default function EditProfile() {
     return (
         <main className={styles.main}>
             {/* <Header sel={"/" + profile.status + "/" + profile.nikname} text={profile.nikname} /> */}
-            <header className={styles.header}>
-                {/* <Image src={arrow} alt="back" onClick={() => setAccept(false)} /> */}
-                <span onClick={Return}>Отмена</span>
+            <header className={styles.header}>                
+                <span onClick={Return} style={{color: color[1]}}>Отмена</span>
                 <span>{profile.nikname}</span>
-                <span onClick={profile.status === 'client' ? EditClient : EditMaster}>Принять</span>
+                <span onClick={profile.status === 'client' ? EditClient : EditMaster} style={{color: color[1]}}>Принять</span>
             </header>
             <div className={styles.image} style={{ background: color[0] }}>
                 {profile.status === 'master' ? <span onClick={() => viewTema(true)}>Изменить обложку</span> : null}

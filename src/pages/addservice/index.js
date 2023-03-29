@@ -4,6 +4,7 @@ import arrow from '../../../public/arrow_back.svg'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect, useState, useRef } from 'react'
+import Menu_icon from '@/components/icons/menu'
 
 
 const style = {
@@ -132,8 +133,11 @@ export default function AddService() {
     return (
         <main className={styles.main}>
             {profile ?
-            <header className={styles.header}>
-                <Image src={arrow} alt="back"  onClick={()=>router.back()} />
+            <header className={styles.header}>                
+                <span  onClick={()=>router.back()}>
+                     <Menu_icon type="arrow" color={profile.color[1]} />
+                </span>
+               
                 <h4>Добавить услугу</h4>
                 <span onClick={SaveServices} style={{color:profile.color[1]}}>Сохранить</span>
             </header>: null}
@@ -169,7 +173,7 @@ export default function AddService() {
                             <h5 className={styles.service} key={index} >
                                 <span style={{color:profile.color[1]}}>{s.split(':')[0]}</span>
                                 <span style={{color:profile.color[1]}} onClick={()=>DeleteService(b,index)}>del</span>
-                                <span style={{color:profile.color[1]}}>{s.split(':')[1]} </span>
+                                <span style={{color:profile.color[1]}}>{s.split(':')[1]} BYN</span>
                                
                             </h5>)}
                             </>

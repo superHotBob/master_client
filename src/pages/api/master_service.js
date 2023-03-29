@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   select 
   маникюр, брови,стрижка,массаж,педикюр,стрижка,ресницы,депиляция,прически
   from services
-  where master = ${req.query.nikname} 
+  where master = ${req.query.nikname}  
   `
  
   

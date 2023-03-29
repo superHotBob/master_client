@@ -83,16 +83,9 @@
     margin: 16px auto;
     border: none;
     cursor: pointer;
-   
+   color: #fff;
 }
-.section button span {
-    color:#3D4EEA;
-}
-.section button span::after {
-    content: url('/plus.svg');
-    margin-left: 5px;
 
-}
 .order {
     padding: 10px;
     gap: 6px;

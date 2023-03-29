@@ -62,7 +62,9 @@
   filter: grayscale(100%) !important;
 }
 
-
+.my_map div div {
+  filter: grayscale(100%) !important;
+}
 .my_map div.ymaps-2-1-79-map-copyrights-promo {
   height: 0;
 }
@@ -83,6 +85,7 @@
   background: linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%);
   border-radius: 4px; 
   font-size: 12px; 
+  font-weight: 500;
   padding: 2px 8px;
   color: #fff;
   display: inline-block;
@@ -95,6 +98,7 @@
   height: 18px;
   width: 50px;
   font-size: 12px;
+  font-weight: 500;
   line-height: 15px;
   vertical-align: middle;  
   color: #3D4EEA;

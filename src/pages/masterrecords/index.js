@@ -1,7 +1,7 @@
 import Header from '@/components/header'
 import styles from './records.module.css'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { setorder } from '@/reduser'
 
@@ -52,6 +52,7 @@ export default function Records() {
     const router = useRouter()
     const [selector, setSelector] = useState(1)
     const [active_day, setActive_Day] = useState()
+    const [profile, setProfile] = useState()
 
     function viewOrder(a,b) {
         dispatch(setorder(orders[a]))
@@ -63,18 +64,27 @@ export default function Records() {
     }
 
     function SetMonth(a) {
-        let m = my_months.findIndex(i=>i===a)
-        console.log(m)
-        setMonth(m)
-       
+        let m = my_months.findIndex(i=>i===a)        
+        setMonth(m)       
     }
+    useEffect(() => {
+        let pro = JSON.parse(localStorage.getItem("profile"))
+        setProfile(pro)
+    }, [])
 
     return (
         <main className={styles.main}>
-            <Header sel="/" text="Записи на сеанс" />
+            {profile ? <>
+            <Header sel="/" text="Записи на сеанс" color={profile.color}/>
             <div className={styles.selector}>
-                <span onClick={() => setSelector(1)} style={selector ? sel : null}>Записи на сеанс</span>
-                <span onClick={() => setSelector(0)} style={selector ? null : sel}>История записей</span>
+                <span 
+                    onClick={() => setSelector(1)} 
+                    style={selector ? {backgroundColor: profile.color[1],color:'#fff',fontWeight:600} : null}
+                >Записи на сеанс</span>
+                <span 
+                    onClick={() => setSelector(0)} 
+                    style={selector ? null : {backgroundColor: profile.color[1],color:'#fff',fontWeight:600}}
+                >История записей</span>
             </div>
             {selector ?
                 <section className={styles.section}>
@@ -89,16 +99,14 @@ export default function Records() {
                                 <span
                                     onClick={() => setActive_Day(i)}
                                     key={i}
-                                    style={!false_days.includes(i) ? false_mo : active_day === i ? active : null}
+                                    style={!false_days.includes(i) ? false_mo : active_day === i ? {backgroundColor: profile.color[1],color:'#fff',fontWeight:600} : {backgroundColor: profile.color[1],color:'#fff',fontWeight:600}}
                                 >{MyDate(i)}</span>
                             )}
 
                     </div>
                     <p>Все записи на сеансы</p>
-                    <button>
-                        <span>
-                            Добавить запись
-                        </span>
+                    <button style={{backgroundColor: profile.color[1]}}>                      
+                        Добавить запись +                      
                     </button>
                     {orders.map((i,index)=>
                         <div 
@@ -107,8 +115,11 @@ export default function Records() {
                             className={styles.order}    
                         >
                             <p><span className={i.active?styles.active:null}>{i.date}</span><span>#{i.order}</span></p>
-                            <h3><span>{i.client}</span><span>{i.cost} ₽</span></h3>
-                            <h6>{i.text}</h6>
+                            <h3>
+                                <span style={{color: profile.color[1]}}>{i.client}</span>
+                                <span style={{color: profile.color[1]}}>{i.cost} ₽</span>
+                            </h3>
+                            <h6 style={{color: profile.color[1]}}>{i.text}</h6>
                         </div>
                     )}
                 </section> :
@@ -120,11 +131,12 @@ export default function Records() {
                             className={styles.order}    
                         >
                             <p><span>{i.date}</span><span>#{i.order}</span></p>
-                            <h3><span>{i.client}</span><span>{i.cost} ₽</span></h3>
-                            <h6>{i.text}</h6>
+                            <h3 ><span style={{color: profile.color[1]}}>{i.client}</span><span style={{color: profile.color[1]}}>{i.cost} ₽</span></h3>
+                            <h6 style={{color: profile.color[1]}}>{i.text}</h6>
                         </div>
                     )}
                 </section> }
+                </>:null}
         </main>
     )
 }

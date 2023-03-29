@@ -47,7 +47,9 @@ export default function MasterNear() {
             }))
             const result = await response.json()
             setMasters(result)
-            setFilterMasters(result)
+           
+            let mast = result.filter(i => i.services.includes(service.toLowerCase()) ? i : null)
+            setFilterMasters(mast)
         }
         GetMasters()
 
@@ -57,6 +59,7 @@ export default function MasterNear() {
         if (masters) {
             let mast = masters.filter(i => i.services.includes(service.toLowerCase()) ? i : null)
             setFilterMasters(mast)
+            console.log('Mast',mast)
         } else if (masters) {
             setFilterMasters(masters)
         } else {
@@ -64,6 +67,12 @@ export default function MasterNear() {
         }
 
     }, [service])
+
+    function Clic() {
+        console.log('sdsa')
+        document.getElementsByTagName('svg')[0].style.opacity = 0
+    }
+
     return (
         <div className={styles.main}>
             <Script src="https://api-maps.yandex.ru/3.0/?apikey=89caab37-749d-4e30-8fdf-e8045542f060&lang=ru_RU" />
@@ -110,7 +119,7 @@ export default function MasterNear() {
 
                         </div> : null}
                     </div> : null}
-                    <div className={styles.my_map}>
+                    <div className={styles.my_map} >
                         <YMaps >
                             <Map id="mymap"
                                 options={{ set: defaultState }}
@@ -123,10 +132,10 @@ export default function MasterNear() {
                                 {masters.map(i => <Placemark geometry={i.locations} key={i.id}
                                     properties={{
                                         hintContent: i.name,
-                                        iconColor: 'green',
-                                        preset: "twirl#blueStretchyIcon",
-                                        fillColor: 'ff0000',
-                                        strokeColor: 'ff0000'
+                                        // iconColor: 'green',
+                                        // preset: "twirl#blueStretchyIcon",
+                                        // fillColor: 'ff0000',
+                                        // strokeColor: 'ff0000'
                                     }}
                                     options={{
                                         iconLayout: 'default#image',

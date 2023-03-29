@@ -101,25 +101,24 @@
 
 .buttons {
     display: flex;
-    justify-content: space-between;
-
+    justify-content: space-between;    
 }
 
-.buttons button {   
+.buttons a {   
     font-size:  16px;
-    line-height: 26px;
+    line-height: 37px;
     border-radius: 6px;
     height: 36px;
     border: none;
     width: 43%;   
 }
-.buttons button span {
+.buttons a span {
     font-weight: 600;
 }
-.buttons button span svg {
+.buttons a span svg {
     transform: translate(4px,4px);
 }
-.buttons button:last-of-type {
+.buttons a:last-of-type {
     width: 55%;    
 }
 

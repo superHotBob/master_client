@@ -92,11 +92,11 @@
 .section button span {
     color:#3D4EEA;
 }
-.section button span::after {
+/* .section button span::after {
     content: url('/plus.svg');
     margin-left: 5px;
 
-}
+} */
 @media screen and (min-width: 500px) {
     
     .days {

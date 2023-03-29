@@ -11,15 +11,17 @@ import Lenta from '@/components/lenta'
 import Sertificats from '@/components/serificats'
 import { useSelector } from 'react-redux'
 import Menu_icon from '@/components/icons/menu'
+import Link from 'next/link'
 
 const Master = () => {
     const [viewText, setViewText] = useState(true)
     const [nav_view, setNavView] = useState('Лента')
-    const [profile, setProfile] = useState()
+    const [profile, setProfile] = useState(null)
     const [nav_active, setNav_active] = useState({})
     const router = useRouter()
     const { pid } = router.query
     const my_profile = useSelector(state => state.counter.profile)
+    
 
     useEffect(() => {
         let local_profile = localStorage.getItem(profile);
@@ -86,18 +88,25 @@ const Master = () => {
                     {viewText ? <h5 className={styles.text}>{profile.text}</h5> : null}
                     <span style={{ color: profile.color[1] }} className={styles.view_text} onClick={() => setViewText(!viewText)}>{viewText ? 'Скрыть описание' : 'Описание'}</span>
                     <div className={styles.buttons}>
-                        <button style={{ backgroundColor: profile.color[2] }} onClick={() => EnterToMessanger(1)}>
+                        <Link href="/#" style={{ backgroundColor: profile.color[2] }} onClick={() => EnterToMessanger(1)}>
                             <span style={{ color: profile.color[1] }}>
                                 Сообщения
                                 <Menu_icon type="chat" color={profile.color[1]} />
                             </span>
-                        </button>
-                        <button style={{ backgroundColor: profile.color[2] }} onClick={() => EnterToMessanger(0)}>
+                        </Link>
+                        <Link 
+                             href={{
+                                pathname: my_profile.status ? '/recordingtomaster' : '/error',
+                                query: { name: pid },
+                              }}
+                            style={{ backgroundColor: profile.color[2] }} 
+                            
+                        >
                             <span style={{ color: profile.color[1] }}>
                                 Запись к мастеру
                                 <Menu_icon type="edit" color={profile.color[1]} />
                             </span>
-                        </button>
+                        </Link>
                     </div>
                     <nav className={styles.navigation}>
                         {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']

@@ -1,0 +1,120 @@
+.main {
+    min-height: 100vh;
+    width: 100vw;
+    max-width: 500px;
+    position: relative;
+    background-color: #fff;
+}
+
+.category {
+    overflow-x: auto;
+    height: 40px;
+    width: calc(100% - 32px);
+    margin: 10px auto 24px;
+}
+
+.category span {
+    display: inline-block;
+    width: fit-content;
+    height: 27px;
+    padding: 0 5px;
+    text-align: center;
+    border-radius: 4px;
+    line-height: 23px;
+    margin: 0 1px;
+}
+.category span b {
+    font-weight: 500;
+    font-size: 10px;
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    border: 1px solid #000;
+    border-radius: 100%;
+    margin: 0 5px;
+    line-height: 15px;
+    vertical-align: middle;
+}
+
+.category span .active_count {
+    color: #fff;
+    border: 1px solid #fff;
+}
+.service, .active_service {
+    width: calc(100% - 32px);
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    margin: 8px auto;
+    height: 46px;
+    box-shadow: 0px 0px 9px #E6E6E6;
+    border-radius: 4px;
+    font-weight: 500;
+}
+.active_service {    
+    background-color: #3D4EEA;
+}
+.active_service span {
+    color: #fff;
+    line-height: 24px;
+    
+}
+.active_service span:first-of-type::before {
+    content: url('/check.svg');
+    margin-right: 10px;
+    
+}
+
+.service span {   
+    font-size: 14px;
+    line-height: 24px;
+}
+.order {
+    width: 100%;
+    margin-top: 116px;
+    background-color: rgba(236, 238, 253, 0.8);
+    padding: 26px;
+}
+.order a {
+    font-size: 10px;
+    color: #3D4EEA;
+}
+.order div{
+    text-align: center;
+    color: #fff;
+    width: 100%;
+    background-color: #3D4EEA;
+    border-radius: 6px;
+    display: block;
+    line-height: 44px;
+    font-size: 1em;   
+    height: 44px;
+    font-weight: 500;
+}
+.order h4, .order h3 {
+    line-height: 26px;
+    color: #282828;
+    font-weight: 500;
+    margin: 0 0 16px;
+    display: flex;
+    justify-content: space-between;
+}
+.order h3 {
+    line-height: 17px;
+    margin: 16px 0;
+    
+   
+}
+.order p {
+    font-size: 14px;
+    line-height: 17px;
+    margin: 6px 0;
+    display: flex;
+    justify-content: space-between;
+}
+.order p span {
+    font-weight: 500;
+}
+.discount {
+    color: #fd4d4d;
+}

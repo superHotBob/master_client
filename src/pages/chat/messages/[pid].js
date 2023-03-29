@@ -27,12 +27,20 @@ const all_messages = [
 export default function Messages() {   
     const ref = useRef()
     const [messages, addMessage] = useState(all_messages)
+    const [color, setColor] = useState()
     const profile = useSelector(state => state.counter.profile)
     useEffect(() => {
+        async function Bob() {
+            let pro = await JSON.parse(localStorage.getItem("profile"))
+            setColor(pro)
+            Movie()            
+        }       
+      Bob()        
+    },)  
+    function Movie() {
         const objDiv = document.getElementById("section");
         objDiv.scrollTop = objDiv.scrollHeight;
-    },)
-
+    } 
     function SendMessage() {
         const d = new Date()
         let message = {id: messages[messages.length-1].id + 1, name: 'Виктория Ченг', date: d.getHours() + ':' + d.getMinutes(), message: ref.current.value }
@@ -50,7 +58,9 @@ export default function Messages() {
     }
     return (
         <main className={styles.main}>
-            <Header sel='/chat' text={profile.name} mes="1"/>
+           
+            <Header sel='/chat' text={profile.name} mes="1" color={color}/>
+           
             <section className={styles.section} id="section">
                 {messages.map(i =>
                     <div key={i.id} style={{ backgroundImage: i.name === 'Виктория Ченг' ? "url(/image/redbull.jpg" : null }}>
@@ -65,13 +75,13 @@ export default function Messages() {
                     </div>
                 )}
 
-            </section>
+            </section> 
 
             <div className={styles.input}>
                 <input type="text" placeholder="Сообщение" ref={ref} />
                 <div onClick={SendMessage} />
             </div>
-
+                   
         </main>
     )
 }
