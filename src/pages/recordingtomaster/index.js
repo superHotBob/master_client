@@ -33,10 +33,10 @@ export default function Recording() {
             let new_cat = Object.entries(result[0])
             setServices(new_cat.filter(i => i[1] ? (i[1].length>0 ? 1 : 0) : 0))           
             let all_category = new_cat.map(i => i[1] && i[1].length > 0 ? i[0] : null)           
-            addCategory(all_category)
+            addCategory(all_category.filter(i=>i?1:0))           
         }
         if(services) {
-            let new_services = services.filter(i=>i[0] === active_category)[0][1]           
+            let new_services = services.filter(i=>i[0] === active_category)[0][1]                   
             setFilterServices(new_services)
         } else {
             GetServices()
@@ -74,13 +74,13 @@ export default function Recording() {
                 <div className={styles.category}>
                     <div>
                     {category.map((i,index) =>
-                        <span key={index} onClick={() => set_Active_Category(i)} style={active_category === i ?
+                        <span key={i} 
+                            onClick={() => set_Active_Category(i)} style={active_category === i ?
                             {color: '#fff', 
                             fontWeight:500, 
                             backgroundColor: '#3D4EEA', 
-                            display: i ? 'inline-block' : 'none' }:
-                            { display: i ? 'inline-block' : 'none' }
-                        }>
+                             }: null }
+                        >
                             {i}
                             <b 
                                 className={active_category == i ? styles.active_count: null}
@@ -91,8 +91,8 @@ export default function Recording() {
                     </div>
                 </div> : null}
            {filterServices ? <section>
-                {filterServices.map(i=>
-                <div 
+                {filterServices.map((i,index)=>
+                <div key={index}
                     className={orders.includes(i) ? styles.active_service:  styles.service} 
                     onClick={()=>AddOrder(i)}
                 >
