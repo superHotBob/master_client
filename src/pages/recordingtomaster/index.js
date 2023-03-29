@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import styles from './recording.module.css'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import SelectDate from '@/components/selectdate'
 
 const active = {
     backgroundColor: '#3D4EEA',
@@ -13,102 +14,120 @@ const active = {
 export default function Recording() {
 
     const router = useRouter()
-    const { name } = router.query 
-
+    const { name } = router.query
+    const [view, setView] = useState(true)
     const [services, setServices] = useState()
     const [filterServices, setFilterServices] = useState()
     const [category, addCategory] = useState()
     const [active_category, set_Active_Category] = useState()
     const [orders, addOrder] = useState([])
     const [count, setCount] = useState([])
-    
+
     useEffect(() => {
         async function GetServices() {
             const response = await fetch(`/api/master_service?nikname=${name}`, {
-                headers: {'Content-Type': 'application/json'},                             
+                headers: { 'Content-Type': 'application/json' },
                 method: 'get',
             })
             const result = await response.json()
             let new_serv = Object.values(result[0])
             let new_cat = Object.entries(result[0])
-            setServices(new_cat.filter(i => i[1] ? (i[1].length>0 ? 1 : 0) : 0))           
-            let all_category = new_cat.map(i => i[1] && i[1].length > 0 ? i[0] : null)           
-            addCategory(all_category.filter(i=>i?1:0))           
+            setServices(new_cat.filter(i => i[1] ? (i[1].length > 0 ? 1 : 0) : 0))
+            let all_category = new_cat.map(i => i[1] && i[1].length > 0 ? i[0] : null)
+            addCategory(all_category.filter(i => i ? 1 : 0))
         }
-        if(services) {
-            let new_services = services.filter(i=>i[0] === active_category)[0][1]                   
+        if (services) {
+            let new_services = services.filter(i => i[0] === active_category)[0][1]
             setFilterServices(new_services)
         } else {
             GetServices()
-        }       
+        }
     }, [active_category])
+
     function Cost(a) {
-        if(a.length === 0 ) {
+        if (a.length === 0) {
             return 0
         } else {
-            let cost = orders.map(i=> +i.split(':')[1])
-            let sum = cost.reduce((i,a)=>a+i)
+            let cost = orders.map(i => +i.split(':')[1])
+            let sum = cost.reduce((i, a) => a + i)
             return sum
         }
     }
-    function AddOrder(a) {   
-       
-        if(orders.includes(a)){
-            let ord = orders.filter(i=>i==a?0:1)
+
+    function AddOrder(a) {
+        if (orders.includes(a)) {
+            let ord = orders.filter(i => i == a ? 0 : 1)
             addOrder(ord)
-            let ind =  count.indexOf(active_category)           
+            let ind = count.indexOf(active_category)
             count[ind] = ''
-           
         } else {
-            addOrder(orders=>([...orders,a]))
-            setCount(count=>([...count,active_category]))            
-        }       
+            addOrder(orders => ([...orders, a]))
+            setCount(count => ([...count, active_category]))
+        }
     }
+
     function CountCategory(a) {
-        return count.filter(i=>i===a).length>0 ? count.filter(i=>i===a).length : ''
+        return count.filter(i => i === a).length > 0 ? count.filter(i => i === a).length : ''
     }
+
     return (
         <main className={styles.main}>
             <Header text="Запись к мастеру" sel={"/master/" + name} />
-            {category ?
-                <div className={styles.category}>
-                    <div>
-                    {category.map((i,index) =>
-                        <span key={i} 
-                            onClick={() => set_Active_Category(i)} style={active_category === i ?
-                            {color: '#fff', 
-                            fontWeight:500, 
-                            backgroundColor: '#3D4EEA', 
-                             }: null }
-                        >
-                            {i}
-                            <b 
-                                className={active_category == i ? styles.active_count: null}
-                                style={{display:CountCategory(i) === ''?'none':'inline-block'}}
-                            >{CountCategory(i)}</b>
-                        </span>
-                    )}
-                    </div>
-                </div> : null}
-           {filterServices ? <section>
-                {filterServices.map((i,index)=>
-                <div key={index}
-                    className={orders.includes(i) ? styles.active_service:  styles.service} 
-                    onClick={()=>AddOrder(i)}
-                >
-                    {i.split(':').map((a,index)=><span key={index}>{a}{' '}{index?'BYN':""}</span>)}
-                </div>
-                )}
+            {view ? <>
 
-            </section>: null}
+                {category ?
+                    <div className={styles.category}>
+                        <div className={styles.all_cat}>
+                            {category.map((i, index) =>
+                                <span key={i}
+                                    onClick={() => set_Active_Category(i)} style={active_category === i ?
+                                        {
+                                            color: '#fff',
+                                            fontWeight: 500,
+                                            backgroundColor: '#3D4EEA',
+                                        } : null}
+                                >
+                                    {i}
+                                    <b
+                                        className={active_category == i ? styles.active_count : null}
+                                        style={{ display: CountCategory(i) === '' ? 'none' : 'inline-block' }}
+                                    >{CountCategory(i)}</b>
+                                </span>
+                            )}
+                        </div>
+                    </div> : null
+                }
+                {filterServices ?
+                    <section>
+                        {filterServices.map((i, index) =>
+                            <div key={index}
+                                className={orders.includes(i) ? styles.active_service : styles.service}
+                                onClick={() => AddOrder(i)}
+                            >
+                                {i.split(':').map((a, index) => <span key={index}>{a}{' '}{index ? 'BYN' : ""}</span>)}
+                            </div>
+                        )}
+
+                    </section> : null
+                }
+            </>
+                :
+                <SelectDate name={name} order={orders} />
+            }
             <div className={styles.order}>
                 <h4>Ваш заказ</h4>
                 <p>Услуги и товары ({orders.length})<span>{Cost(orders)} BYN</span></p>
                 <p>Скидка<span className={styles.discount}>-50 BYN</span></p>
                 <Link href="/#">Скидка</Link>
-                <h3>Общая стоимость<span>{Cost(orders) - 50 > 0 ? Cost(orders) - 50 : 0 } BYN</span></h3>
-                <div>Выбрать дату</div>
-            </div>        
+                <h3>Общая стоимость<span>{Cost(orders) - 50 > 0 ? Cost(orders) - 50 : 0} BYN</span></h3>
+                <div onClick={() => setView(false)}>Выбрать дату</div>
+                <span>Нажмая на кнопку, вы соглашаетесь с <br/>
+                    Условиями обработки персональных данных и <br/>
+                    Пользовательским соглашением
+                </span>
+                  
+            </div>
+
         </main>
     )
 }

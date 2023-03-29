@@ -18,20 +18,22 @@ const false_mo = {
 }
 
 export default function Calendar() {
+
+    const false_days = [10, 16, 30]
+    const false_times = [13, 15, 18, 20]
+
     const days = ["вс", "пн", "вт", "ср", "чт", "пт", "суб"]
     const months = ['Декабрь', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сетнябрь',
         'Октябрь', 'Ноябрь', 'Декабрь']
-
-    const false_days = [10, 16, 30]
-
-    const false_times = [13, 15, 18, 20]
+    
     const d = new Date()
-    const mon = d.getMonth() + 1
-    const [profile, setProfile] = useState()
+    const mon = d.getMonth() + 1   
     const [month, setMonth] = useState(mon)
     const my_months = [...months]
     const [active_day, setActive_Day] = useState()
     const all_days = new Date(2023, month, 0)
+
+    const [profile, setProfile] = useState()
 
     function MyDate(a) {
         const day = new Date(2023, month + 3, a)

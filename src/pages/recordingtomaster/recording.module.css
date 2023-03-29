@@ -4,6 +4,7 @@
     max-width: 500px;
     position: relative;
     background-color: #fff;
+    z-index: 101;
 }
 
 .category {
@@ -12,33 +13,39 @@
     width: calc(100% - 32px);
     margin: 10px auto 24px;
 }
+.all_cat {
+    width: fit-content;
+    margin: 0 auto;
+}
 
 .category span {
     display: inline-block;
     width: fit-content;
     height: 27px;
-    padding: 0 5px;
+    padding: 0 10px;
     text-align: center;
     border-radius: 4px;
-    line-height: 23px;
+    line-height: 24px;
     margin: 0 1px;
 }
 .category span b {
     font-weight: 500;
     font-size: 10px;
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 18px;
     display: inline-block;
     border: 1px solid #000;
     border-radius: 100%;
     margin: 0 5px;
-    line-height: 15px;
-    vertical-align: middle;
+    padding-right: 2px;
+    line-height: 17.5px;
+    
 }
 
 .category span .active_count {
     color: #fff;
-    border: 1px solid #fff;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
 }
 .service, .active_service {
     width: calc(100% - 32px);
@@ -70,8 +77,7 @@
     line-height: 24px;
 }
 .order {
-    width: 100%;
-    margin-top: 116px;
+    width: 100%;   
     background-color: rgba(236, 238, 253, 0.8);
     padding: 26px;
 }
@@ -90,6 +96,7 @@
     font-size: 1em;   
     height: 44px;
     font-weight: 500;
+    margin-bottom: 16px;
 }
 .order h4, .order h3 {
     line-height: 26px;
@@ -117,4 +124,7 @@
 }
 .discount {
     color: #fd4d4d;
+}
+.order span {
+    font-size: 14px;
 }
