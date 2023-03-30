@@ -52,7 +52,7 @@ export default function SelectDate({name,price,order,close}) {
             const data = {           
                 client: profile.nikname,
                 master: name,
-                price: 1200,
+                price: price,
                 order: order,
                 date: `${active_day},${months[month]},${active_time}`,            
             }

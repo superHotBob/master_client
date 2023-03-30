@@ -91,7 +91,7 @@ const Master = () => {
                         </Link>
                         <Link 
                              href={{
-                                pathname: my_profile.status ? '/recordingtomaster' : '/error',
+                                pathname: my_profile.status === 'client' ? '/recordingtomaster' : '/error',
                                 query: { name: pid },
                               }}
                             style={{ backgroundColor: profile.color[2] }} 

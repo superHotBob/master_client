@@ -14,7 +14,7 @@
     margin: 10px auto 24px;
 }
 .all_cat {
-    width: fit-content;
+    width: max-content;
     margin: 0 auto;
 }
 

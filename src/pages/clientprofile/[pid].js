@@ -78,9 +78,14 @@ export default function Client() {
                             key={i.order} 
                             className={styles.order}    
                         >
-                            <p><span className={i.active?styles.active:null}>{i.date_order.replace(',', " ").replace(',', " в ") + ':00'}</span><span>#{i.id}</span></p>
+                            <p>
+                                <span className={i.active?styles.active:null}>
+                                    {i.date_order.replace(',', " ").replace(',', " в ") + ':00'}
+                                </span>
+                                <span>#{i.id}</span>
+                            </p>
                             <h3><span>{i.master}</span><span>{i.price} BYN</span></h3>
-                            <h6>{i.neworder.split(',').map((i,index)=><span key={index}>{(i.split(':')[0] + (index > 0 ? '':' , '))}</span>)}</h6>
+                            <h6>{i.neworder.split(',').map((i,index)=><span key={index}>{((index > 0 ? ' , ':' ') + i.split(':')[0])}</span>)}</h6>
                         </div>
                     )}
                 </>

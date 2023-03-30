@@ -23,7 +23,8 @@ export default function AddService() {
     const [viewFilter, setViewFilter] = useState(false)
     const [category, addCategory] = useState([])
     const [services, setServices] = useState()
-
+    const [ message, viewMessage ] = useState('')
+ 
     useEffect(()=>{
         let pro = JSON.parse(localStorage.getItem("profile"))
         setProfile(pro)
@@ -53,10 +54,15 @@ export default function AddService() {
     const SaveServices = async () => {
         const data = {           
             nikname: profile.nikname,
-            массаж: `{${services[3][1]}}`,
-            педикюр: `{${services[4][1]}}`,
-            маникюр: `{${services[0][1]}}`,
-            прически: `{${services[7][1]}}`,
+            массаж: services[3][1],
+            педикюр: services[4][1],
+            маникюр: services[0][1],
+            брови: services[1][1],
+            стрижка: services[2][1],
+            ресницы: services[5][1],
+            депиляция: services[6][1],
+            прически: services[7][1],
+            макияж: services[8][1],
         }
         const response = await fetch('/api/edit_master_service', {
             body: JSON.stringify(data),
@@ -65,8 +71,14 @@ export default function AddService() {
             },
             method: 'POST',
         })
-        const result = await response.json()
-        console.log('Save result',result)
+       
+        if(response) {
+            viewMessage('Услуги добавлены')
+            setTimeout(()=>viewMessage(),3000)
+        } else {
+            viewMessage('Ошибка записи')
+            setTimeout(()=>viewMessage(),3000)
+        }
       
     }
     function AddCategory(e) {
@@ -94,7 +106,7 @@ export default function AddService() {
     function AddService(a) {
         let new_service = services
         new_service[a][1].push('')
-        setServices([...services])
+        setServices([...new_service])
 
     }
     function SaveNewService(a,index) {
@@ -109,7 +121,7 @@ export default function AddService() {
         let new_service = services
         new_service[a][1].splice(b,1)
         setServices(new_service)
-        console.log(services)
+        console.log(new_service)
         setServices([...services])
     }
     function DeleteNewService(a){
@@ -157,13 +169,13 @@ export default function AddService() {
             {services?<>
             {services.map((i,b) => 
                 <div className={styles.data} key={i[0]}>                
-                    {i[1] && i[1].length>0 ? <h3 onClick={()=>AddService(b)} id={i} className={styles.type} style={{color:profile.color[1]}}>{i[0]} +</h3>:null}
-                    {Array.isArray(i[1]) ? <>
+                    {i[1] && i[1].length > 0 ? <h3 onClick={()=>AddService(b)} id={i} className={styles.type} style={{color:profile.color[1]}}>{i[0]} +</h3>:null}
+                    {Array.isArray(i[1])   ? <>
                         {i[1].map((a,index)=>
                         <div key={index} style={{background: profile.color[2]}} >
                             {a.length === 0 ? 
                             <h5 className={styles.inputs}>
-                                <input ref={serv} type="text" placeholder='ваша услуга'/> 
+                                <input ref={serv} type="text" maxLength={30} placeholder='ваша услуга'/> 
                                 <input ref={cost} type="text" placeholder='стоимость' />  
                                 <span onClick={()=>SaveNewService(b,index)}>+</span>
                                 <span style={{color:profile.color[1]}} onClick={()=>DeleteNewService(b)}>x</span>
@@ -185,6 +197,7 @@ export default function AddService() {
                
                 </div>
             )}</>:null}
+            {message ? <p className={styles.message}>{message}</p>:null}
 
         </main>
     )

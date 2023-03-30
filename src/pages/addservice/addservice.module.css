@@ -100,7 +100,7 @@
 .type {
     text-align: center;
     font-size: 16px;
-    margin: 16px 0 12px;
+    margin: 12px 0;
 }
 .data span:last-of-type {
     font-size: 16px;
@@ -143,6 +143,13 @@
   text-align: center;
   cursor: pointer;
   margin: 0 5px 0 0;
+}
+.message {
+  margin: 30px auto;
+  text-align: center;
+  font-size: 25px;
+  font-weight: 500;
+  color: red;
 }
   
   

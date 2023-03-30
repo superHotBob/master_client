@@ -113,7 +113,7 @@ export default function Recording() {
                 }
             </>
                 :
-                <SelectDate name={name} order={orders} close={setView} />
+                <SelectDate name={name} order={orders} close={setView} price={Cost(orders) - 50} />
             }
             <div className={styles.order}>
                 <h4>Ваш заказ</h4>
