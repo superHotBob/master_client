@@ -125,6 +125,10 @@
 .discount {
     color: #fd4d4d;
 }
-.order span {
+.order h6 {
+    font-weight: 400;
+    font-size: 14px;
+}
+.order h6 a {
     font-size: 14px;
 }

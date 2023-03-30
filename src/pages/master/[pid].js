@@ -27,16 +27,11 @@ const Master = () => {
         let local_profile = localStorage.getItem(profile);
         async function GetMaster() {
             const response = await fetch(`/api/master?nikname=${pid}`, {
-
                 headers: {
                     'Content-Type': 'application/json',
-                },
-                // The method is POST because we are sending data.
+                },                
                 method: 'get',
-            })
-
-            // Get the response data from server as JSON.
-            // If server returns the name submitted, that means the form works.
+            })           
             const result = await response.json()
             setProfile(result[0])
             setNav_active({

@@ -72,8 +72,9 @@ export default function Recording() {
 
     return (
         <main className={styles.main}>
-            <Header text="Запись к мастеру" sel={"/master/" + name} />
             {view ? <>
+                <Header text="Запись к мастеру" sel={"/master/" + name} />
+
 
                 {category ?
                     <div className={styles.category}>
@@ -112,7 +113,7 @@ export default function Recording() {
                 }
             </>
                 :
-                <SelectDate name={name} order={orders} />
+                <SelectDate name={name} order={orders} close={setView} />
             }
             <div className={styles.order}>
                 <h4>Ваш заказ</h4>
@@ -120,12 +121,15 @@ export default function Recording() {
                 <p>Скидка<span className={styles.discount}>-50 BYN</span></p>
                 <Link href="/#">Скидка</Link>
                 <h3>Общая стоимость<span>{Cost(orders) - 50 > 0 ? Cost(orders) - 50 : 0} BYN</span></h3>
-                <div onClick={() => setView(false)}>Выбрать дату</div>
-                <span>Нажмая на кнопку, вы соглашаетесь с <br/>
-                    Условиями обработки персональных данных и <br/>
-                    Пользовательским соглашением
-                </span>
-                  
+                {view ?
+                    <div onClick={() => setView(orders.length > 0 ? false : true)}>Выбрать дату</div> :
+                    <div onClick={() => addOrder([...orders])}>Записаться</div>
+                }
+                <h6>Нажмая на кнопку, вы соглашаетесь с <br />
+                    <Link href="/#">Условиями обработки персональных данных</Link> и <br />
+                    <Link href="/#">Пользовательским соглашением</Link>
+                </h6>
+
             </div>
 
         </main>

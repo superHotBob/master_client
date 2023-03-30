@@ -23,11 +23,25 @@ const orders = [
 export default function Client() {
     const router = useRouter()
     const dispatch = useDispatch()
-    const  pid  = router.query.order  
+    const { pid }   = router.query  
     const profile = useSelector((state) => state.counter.profile)   
     const [selector, setSelector] = useState(!pid)
+    const [orders, setOrders] = useState([])
     useEffect(() => profile.status ? console.log('Bob') : () => router.push('/'), [profile.status,router])
-
+    useEffect(() => {        
+        async function GetMaster() {
+            const response = await fetch(`/api/get_orders_client?nikname=${pid}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },                
+                method: 'get',
+            })           
+            const result = await response.json() 
+            setOrders(result)
+            console.log(result)       
+        }
+        GetMaster()
+    }, [])
     function viewOrder(a,b) {
         dispatch(setorder(orders[a]))
         router.push('/order/' + b)
@@ -57,23 +71,20 @@ export default function Client() {
                     
                 </>
                 : <>
-                    {/* <div className={styles.message} >
-                        Здесь будет храниться история ваши заказы.
-                    </div> */}
-                    {orders.map((i,index)=>
+                    
+                    {orders?.map((i,index)=>
                         <div 
                             onClick={()=>viewOrder(index,i.order)}
                             key={i.order} 
                             className={styles.order}    
                         >
-                            <p><span className={i.active?styles.active:null}>{i.date}</span><span>#{i.order}</span></p>
-                            <h3><span>{i.master}</span><span>{i.cost} ₽</span></h3>
-                            <h6>{i.text}</h6>
+                            <p><span className={i.active?styles.active:null}>{i.date_order.replace(',', " ").replace(',', " в ") + ':00'}</span><span>#{i.id}</span></p>
+                            <h3><span>{i.master}</span><span>{i.price} BYN</span></h3>
+                            <h6>{i.neworder.split(',').map((i,index)=><span key={index}>{(i.split(':')[0] + (index > 0 ? '':' , '))}</span>)}</h6>
                         </div>
                     )}
                 </>
-            }
-                          
+            }                      
 
         </main>
     )

@@ -52,7 +52,7 @@ export default function Menu() {
                    <p className={styles.menu_prof}>Меню профиля</p>
                     <Link href='/chat'>Сообщения</Link>
                     <Link href={{
-                        pathname: `/client/${profile.nikname}`,
+                        pathname: `/clientprofile/${profile.nikname}`,
                         query: {
                             order: false
                         }

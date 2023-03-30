@@ -1,71 +1,83 @@
 .main {
     height: auto;
-    
+
 }
-.main h3, .main h4 {
+
+.main h3,
+.main h4 {
     text-align: center;
     font-size: 18px;
     font-weight: 500;
     margin: 26px 0 24px;
 }
+
 .main h4 {
     margin: 24px 0;
     font-weight: 400;
     font-size: 1em;
     line-height: 18px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
 }
+
 .all_days {
     display: flex;
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    padding: 0 16px;    
+    padding: 0 16px;
 }
-.left, .right {
+
+.left,
+.right {
     width: 24px;
     height: 24px;
     background-color: #3D4EEA;
     border-radius: 20px;
 }
-.left::after, .right::after {
+
+.left::after,
+.right::after {
     content: url('/arrow_left_wh.svg');
     text-align: center;
-    width: 22px;   
+    width: 22px;
     line-height: 22px
 }
+
 .right::after {
     transform: rotate(180deg);
     width: 24px;
     line-height: 25px;
 }
+
 .days {
-    width: 100%;
+    width: 86%;
     display: grid;
-    grid-template-columns: 20% 20% 20% 20% 20%;    
-    justify-content: space-between;   
+    grid-template-columns: 24% 24% 24% 24%;
+    justify-content: space-between;
     overflow-x: auto;
 }
-.days span, .time span {
+
+.days span,
+.time span {
     color: #3D4EEA;
-    padding: 5px;    
+    padding: 5px;
     text-align: center;
     margin: 4px;
     height: 27px;
+    font-weight: 500;
     display: inline-block;
     background: #ECEEFD;
     border-radius: 4px;
     font-size: 14px;
 }
+
 .time {
     display: grid;
     width: 80%;
     margin: 20px auto;
-    grid-template-columns: 24% 24% 24% 24%;    
+    grid-template-columns: 33% 33% 33%;
     justify-content: space-between;
 }
+
 .submit {
     text-align: center;
     color: #fff;
@@ -76,8 +88,45 @@
     line-height: 44px;
     position: absolute;
     bottom: 101px;
-    font-size: 1em; 
+    font-size: 1em;
     left: 26px;
     height: 44px;
     font-weight: 500;
+}
+
+.head {
+    text-align: center;
+    border-bottom: 1px solid #ECEEFD;
+    color: #282828;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    height: 72px;
+    padding: 26px 0;
+    position: relative;
+}
+.head span:first-of-type {
+    position: absolute;
+    top: 14px;
+    left: 16px;
+    background-color: #ECEEFD;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+}
+.head span:first-of-type::before {
+    content: url('/array_left.svg');
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+.await {
+    text-align: center;
+    padding-top: 50px;
+    position: absolute;
+    top: 20%;
+    left: calc(50% - 70px);
+
 }
