@@ -92,7 +92,7 @@ const Master = () => {
                         <Link 
                              href={{
                                 pathname: my_profile.status === 'client' ? '/recordingtomaster' : '/error',
-                                query: { name: pid },
+                                query: { nikname: pid, name: profile.name },
                               }}
                             style={{ backgroundColor: profile.color[2] }} 
                             

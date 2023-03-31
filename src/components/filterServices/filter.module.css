@@ -14,6 +14,9 @@
   font-size:  14px;
   
 }
+.main__filter span:first-of-type::first-letter {
+  text-transform: uppercase;
+}
 
 .main__filter span:last-of-type {
   width: 46%;

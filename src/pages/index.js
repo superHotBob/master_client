@@ -30,12 +30,7 @@ export default function Home() {
   
   const ref = useRef(null)
   return (
-    <>
-      <Head>       
-        <meta name="description" content="Master app" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <>     
       <main className={styles.main} ref={ref}>
         <Header />
         <section className={styles.section}>

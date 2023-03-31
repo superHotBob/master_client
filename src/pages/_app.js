@@ -13,9 +13,11 @@ const rubik = Rubik({
 })
 export default function MyApp({ Component, pageProps }) {  
   return (
-    <Provider store={store}>
-      <main className={rubik.className}>
+    <Provider store={store}>      
         <Head>
+        <meta name="description" content="Master app" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
         <title>masters.place</title>
         <meta name="theme-color" content="#317EFB"/>
         <link rel="apple-touch-icon" href="icons/android-chrome-192x192.png"></link>
@@ -25,7 +27,8 @@ export default function MyApp({ Component, pageProps }) {
             name='viewport'
             content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover'
           />
-        </Head>     
+        </Head>
+        <main className={rubik.className}>     
         <Component {...pageProps} className={myFont.className}/>
         <Navi />
       </main>

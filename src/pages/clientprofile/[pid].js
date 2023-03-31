@@ -27,7 +27,7 @@ export default function Client() {
     const profile = useSelector((state) => state.counter.profile)   
     const [selector, setSelector] = useState(!pid)
     const [orders, setOrders] = useState([])
-    useEffect(() => profile.status ? console.log('Bob') : () => router.push('/'), [profile.status,router])
+       
     useEffect(() => {        
         async function GetMaster() {
             const response = await fetch(`/api/get_orders_client?nikname=${pid}`, {
@@ -40,7 +40,12 @@ export default function Client() {
             setOrders(result)
             console.log(result)       
         }
-        GetMaster()
+        if(profile.status) {
+            GetMaster()
+        } else {
+            () => router.push('/')
+        }
+       
     }, [])
     function viewOrder(a,b) {
         dispatch(setorder(orders[a]))
@@ -84,7 +89,7 @@ export default function Client() {
                                 </span>
                                 <span>#{i.id}</span>
                             </p>
-                            <h3><span>{i.master}</span><span>{i.price} BYN</span></h3>
+                            <h3><span>{i.master_name||i.master}</span><span>{i.price} BYN</span></h3>
                             <h6>{i.neworder.split(',').map((i,index)=><span key={index}>{((index > 0 ? ' , ':' ') + i.split(':')[0])}</span>)}</h6>
                         </div>
                     )}

@@ -1,5 +1,4 @@
 import Header from '@/components/header'
-import Navi from '@/components/navi'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -8,8 +7,7 @@ import { useDispatch } from 'react-redux'
 import { setservice } from '@/reduser'
 import { useRouter } from 'next/router'
 
-const images = ['маникюр', 'педикюр', 'макияш', 'ресницы', 'chistka',
-    'брови', 'depil', 'массаж', 'стрижка', 'colored', 'прическа', 'барбер']
+const images = ['маникюр', 'педикюр', 'макияж', 'ресницы','брови', 'депиляция', 'массаж', 'стрижка', 'окрашивание', 'прическа', 'барбер','чистка']
 
 const events = [
     { text: '', link: '/', image: '/image/event1.jpg' },
@@ -37,18 +35,14 @@ export default function Services() {
                 <span onClick={() => setSelector(0)} style={selector ? null : sel}>Мероприятия</span>
             </div>
             {selector ? <div className={styles.images}>
-                {images.map(i =>
-                   
+                {images.map(i =>                   
                     <Image key={i} onClick={()=>ToService(i)} alt="image" src={'/' + i + '.svg'} width="100" height='120' />
                    
                 )}
             </div> : <div className={styles.events}>
-
                 <Link href="/event" className={styles.model}>
                     СТАТЬ МОДЕЛЬЮ <br />БЕСПЛАТНО
                 </Link>
-
-
                 {events.map(i => <Link href={i.link} key={i.image} style={{ backgroundImage: "url(" + i.image + ")" }} >{i.text}</Link>)}
 
 

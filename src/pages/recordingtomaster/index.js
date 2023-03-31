@@ -14,7 +14,7 @@ const active = {
 export default function Recording() {
 
     const router = useRouter()
-    const { name } = router.query
+    const { name, nikname } = router.query
     const [view, setView] = useState(true)
     const [services, setServices] = useState()
     const [filterServices, setFilterServices] = useState()
@@ -25,7 +25,7 @@ export default function Recording() {
 
     useEffect(() => {
         async function GetServices() {
-            const response = await fetch(`/api/master_service?nikname=${name}`, {
+            const response = await fetch(`/api/master_service?nikname=${nikname}`, {
                 headers: { 'Content-Type': 'application/json' },
                 method: 'get',
             })
@@ -74,12 +74,10 @@ export default function Recording() {
         <main className={styles.main}>
             {view ? <>
                 <Header text="Запись к мастеру" sel={"/master/" + name} />
-
-
                 {category ?
                     <div className={styles.category}>
                         <div className={styles.all_cat}>
-                            {category.map((i, index) =>
+                            {category.map(i =>
                                 <span key={i}
                                     onClick={() => set_Active_Category(i)} style={active_category === i ?
                                         {
@@ -113,7 +111,13 @@ export default function Recording() {
                 }
             </>
                 :
-                <SelectDate name={name} order={orders} close={setView} price={Cost(orders) - 50} />
+                <SelectDate 
+                    name={name} 
+                    nikname={nikname} 
+                    order={orders} 
+                    close={setView} 
+                    price={Cost(orders) - 50} 
+                />
             }
             <div className={styles.order}>
                 <h4>Ваш заказ</h4>

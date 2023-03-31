@@ -8,8 +8,8 @@ import { setservice } from '../../reduser.js'
 import { useRouter } from 'next/router'
 
 
-const images = ['маникюр', 'педикюр', 'макияш', 'ресницы', 'chistka',
-    'брови', 'depil', 'массаж', 'стрижка', 'colored', 'прическа', 'барбер']
+const images = ['маникюр', 'педикюр', 'макияж', 'ресницы', 'чистка',
+    'брови', 'депиляция', 'массаж', 'стрижка', 'окрашивание', 'прическа', 'барбер']
 export default function Catalog() {
     const dispatch = useDispatch()
     const router = useRouter()

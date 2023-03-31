@@ -68,8 +68,7 @@ export default function MasterNear() {
 
     }, [service])
 
-    function Clic() {
-        console.log('sdsa')
+    function Clic() {        
         document.getElementsByTagName('svg')[0].style.opacity = 0
     }
 

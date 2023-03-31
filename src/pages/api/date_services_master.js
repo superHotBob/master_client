@@ -5,10 +5,11 @@ export default async function handler(req, res) {
     const sql = postgres('postgres://bobozeranski:ZdxF36OgaSAK@ep-yellow-mountain-679652.eu-central-1.aws.neon.tech/neondb?sslmode=require&options=project%3Dep-yellow-mountain-679652')
 
     const result = await sql`
-        select nikname, name,image,stars,address, services, locations
-        from users
-        where city =  ${req.query.city}
+        select date_order
+        from orders
+        where master =  ${req.query.master}
    `
+   console.log(result)
     if (result.length>0) {
         res.status(200).json(result)
     } else {
