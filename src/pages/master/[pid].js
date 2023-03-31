@@ -53,7 +53,7 @@ const Master = () => {
     }, [pid])
 
     function EnterToMessanger(a) {
-        if (profile.status) {
+        if (profile.status==='client') {
             router.push('/chat')
         } else {
             router.push('/error')
@@ -83,14 +83,14 @@ const Master = () => {
                     {viewText ? <h5 className={styles.text}>{profile.text}</h5> : null}
                     <span style={{ color: profile.color[1] }} className={styles.view_text} onClick={() => setViewText(!viewText)}>{viewText ? 'Скрыть описание' : 'Описание'}</span>
                     <div className={styles.buttons}>
-                        <Link href="/#" style={{ backgroundColor: profile.color[2] }} onClick={() => EnterToMessanger(1)}>
+                        <Link href={my_profile.status === 'client' ? '/chat' : '/error'} style={{ backgroundColor: profile.color[2] }} >
                             <span style={{ color: profile.color[1] }}>
                                 Сообщения
                                 <Menu_icon type="chat" color={profile.color[1]} />
                             </span>
                         </Link>
                         <Link 
-                             href={{
+                            href={{
                                 pathname: my_profile.status === 'client' ? '/recordingtomaster' : '/error',
                                 query: { nikname: pid, name: profile.name },
                               }}

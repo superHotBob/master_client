@@ -21,7 +21,7 @@ export default function Catalog() {
     }
 
     return (
-        <div className={styles.main}>
+        <>
             <Header />
             <section className={styles.section}>
                 <div className={styles.city}>
@@ -53,7 +53,7 @@ export default function Catalog() {
                 <h6 className={styles.agreement}>© 2022 – 2023 Некоммерческая организация. Все права защищены.</h6>
             </section>
            
-        </div>
+        </>
 
     )
 

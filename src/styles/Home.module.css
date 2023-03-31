@@ -1,9 +1,6 @@
 .main {
   align-items: center;
-  min-height: 100vh;
-  max-width: 500px;
-  background-color: #fff;
-  width: 100%;
+  min-height: 100vh;    
   height: auto;
  
 }

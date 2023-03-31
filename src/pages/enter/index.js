@@ -11,39 +11,31 @@ export default function Enter() {
     const [phone, setPhone] = useState()
     const dispatch = useDispatch()
     const router = useRouter()
+    const [back, setBack] = useState('logo-main.svg')
     const handleSubmit = async (event) => {        
         event.preventDefault()             
-        const data = {tel: phone}
-       
-        const response = await fetch('/api/enter_phone', {
-            
-            body: JSON.stringify(data),
-           
+        const data = {tel: phone} 
+        setBack("await.gif")      
+        const response = await fetch('/api/enter_phone', {            
+            body: JSON.stringify(data),           
             headers: {
                 'Content-Type': 'application/json',
-            },
-            // The method is POST because we are sending data.
+            },           
             method: 'POST',
-        })
-
-        // Get the response data from server as JSON.
-        // If server returns the name submitted, that means the form works.
+        })        
         const result = await response.json()
-        localStorage.setItem("profile", JSON.stringify(result));
+        localStorage.setItem("profile", JSON.stringify(result))
         dispatch(setprofile(result))                      
-        router.push('/')    
-          
-           
-            
-            
+        router.push('/')
+               
        
             
         
     }
     return (
-        <div className={styles.main}>
+        <>
             <Header text="Вход" sel="/" />
-            <section className={styles.section}>
+            <section className={styles.section} style={{ backgroundImage: `url(${back})`}}>
                 <div className={styles.inputs}>
                     <p>Используйте свой номер телефона как логин для входа на сайт.</p>
                     {/* <span>номер телефона</span> */}
@@ -55,8 +47,7 @@ export default function Enter() {
                         /> */}
                         <PhoneInput
                             country={'by'}
-                            onlyCountries={['by','ru']}
-                           
+                            onlyCountries={['by','ru']}                      
                            
                             value={phone}
                            
@@ -66,10 +57,8 @@ export default function Enter() {
                             onChange={phone => setPhone(phone)}
                         />
                         <div className={styles.button} onClick={handleSubmit}>
-                            Войти
-                            
-                        </div>
-                   
+                            Войти                            
+                        </div>                   
                     <div className={styles.colaboration}>
                         Нажмая на кнопку, вы соглашаетесь с<br />
                         <span style={{ color: "#3D4EEA" }}>Условиями обработки персональных <br />
@@ -77,8 +66,6 @@ export default function Enter() {
                     </div>
                 </div>
             </section>
-
-
-        </div>
+        </>
     )
 }

@@ -1,20 +1,10 @@
-.main {
-    align-items: center;
-    min-height: 100vh;
-    max-width: 500px;
-    background-color: #fff;
-    width: 100%;
-    margin: 0 auto;
-    position: relative;
-    z-index: 101;
-}
-
 .section {
     background-color: #fff;    
-    background-position: center 30px;
-    background-image: url('/logo-main.svg');
+    background-position: center 30px;   
     background-size: 20%;
-    height: 80vh;
+    height: calc(100vh - 72px);
+    position: relative;
+    z-index: 101;
 }
 
 .section::before {
