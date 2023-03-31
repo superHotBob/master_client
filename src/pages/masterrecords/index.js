@@ -101,7 +101,7 @@ export default function Records() {
     }, [])
 
     return (
-        <>
+        <main className={styles.main}>
             {profile ? <>
                 <Header sel="/" text="Записи на сеанс" color={profile.color} />
                 <div className={styles.selector}>
@@ -137,7 +137,7 @@ export default function Records() {
                         </div>
                         <p>Все записи на сеансы</p>
                         <button style={{ backgroundColor: profile.color[1] }}>
-                            Добавить запись +
+                            Добавить запись <span>+</span>
                         </button>
                         {orders?.map((i, index) =>
                             <div
@@ -153,7 +153,7 @@ export default function Records() {
                                 <h6 style={{ color: profile.color[1] }}>{i.neworder.replace(/:\d+/g,' ')}</h6>
                             </div>
                         )}
-                        <Navi color={profile.color[1]} />
+                        
                     </section> :
                     <section className={styles.section}>
                         {first_orders.map(i =>
@@ -167,10 +167,11 @@ export default function Records() {
                                 <h6 style={{ color: profile.color[1] }}>{i.neworder.replace(/:\d+/g,'  ')}</h6>
                             </div>
                         )}
-                    <Navi color={profile.color[1]} />
+                   
                     </section>}
-                    
+                    <Navi color={profile.color[1]} />        
             </> : null}
-        </>
+           
+        </main>
     )
 }

@@ -34,7 +34,7 @@
     min-height: 87vh;
     position: relative;
     background-color: #fff;
-    z-index: 101;
+   
 }
 .section p {
     text-align: left;
@@ -93,7 +93,11 @@
     cursor: pointer;
    color: #fff;
 }
-
+.section button span {
+  color: #fff;
+  display: inline-block;
+  transform: translate(3px, 1.5px);
+}
 .order {
     padding: 10px;
     gap: 6px;
