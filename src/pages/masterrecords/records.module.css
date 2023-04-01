@@ -1,9 +1,8 @@
 .main {
     align-items: center;
     height: 100vh;
-    position: relative;
-    max-width: 500px;
-    background-color: #fff;
+   
+    max-width: 500px;    
     width: 100%;
     overflow: auto;
     z-index: 110;
@@ -64,15 +63,17 @@
 
 .days {
     display: grid;
-    grid-template-columns: 24% 24% 24% 24% 24%;    
+    column-gap: 8px;
+    row-gap: 8px;
+    grid-template-columns: 20% 20% 20% 20% 20%;    
     justify-content: space-between;   
     overflow-x: auto;
+    margin-bottom: 16px;
 }
 .days span, .time span {
     color: #fff;
     line-height: 38px; 
-    text-align: center;
-    margin: 4px;
+    text-align: center;   
     height: 40px;
     display: inline-block;
     background: #3D4EEA;
@@ -88,7 +89,7 @@
     width: 100%;
     font-weight: 600;
     font-size: 16px;
-    margin: 16px auto;
+    margin: 16px auto 8px;
     border: none;
     cursor: pointer;
    color: #fff;
@@ -99,8 +100,7 @@
   transform: translate(3px, 1.5px);
 }
 .order {
-    padding: 10px;
-    gap: 6px;
+    padding: 10px;   
     display: flex;
     justify-content: space-between;
     flex-direction: column;
@@ -166,6 +166,6 @@
     
     .days {
         display: grid;
-        grid-template-columns: 19% 19% 19% 19% 19%;  
+        grid-template-columns: 18% 18% 18% 18% 18%;  
     }      
 }

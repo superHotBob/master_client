@@ -15,7 +15,7 @@ const chat = [
 export default function Chat() {
     const [new_message, setNew_Message] = useState(['Новикова Ева'])
     return (
-        <main className={styles.main}>
+        <>
             <Header sel="/" text="Чаты" />
             <section>
                 {chat.map(i=>
@@ -27,7 +27,7 @@ export default function Chat() {
             </section>
 
 
-        </main>
+        </>
     )
 }
 

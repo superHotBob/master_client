@@ -41,7 +41,7 @@ export default function Calendar() {
     }
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem("profile"))
-        setProfile(pro)
+        setProfile(pro.color)
     }, [])
 
     function SetMonth(a) {
@@ -49,16 +49,16 @@ export default function Calendar() {
         setMonth(m)
     }
     return (
-        <main className={styles.main}>
+        <>
             {profile ? <>
-                <Header sel="/" text="Календарь работы" color={profile.color} />
+                <Header sel="/" text="Календарь работы" color={profile} />
                 <section className={styles.section}>
                     <Message text={`
                     Выбирайте дни и время, вы которые вы готовы
                     принимать клиентов. При записи елиен  сможет
                     выбрать только те дни и время, которые 
                     вы указали рабочим.
-                    `} color={profile.color}
+                    `} color={profile}
                     />
                     <div className={styles.mounth}>
                         {months.splice(month ? month - 1 : 0, 3).map((i, index) =>
@@ -71,23 +71,23 @@ export default function Calendar() {
                                 <span
                                     onClick={() => setActive_Day(i)}
                                     key={i}
-                                    style={false_days.includes(i) ? false_mo : active_day === i ? { backgroundColor: profile.color[2] } : { backgroundColor: profile.color[1] }}
+                                    style={false_days.includes(i) ? false_mo : active_day === i ? { backgroundColor: profile[2],color: profile[1] } : { backgroundColor: profile[1] }}
                                 >{MyDate(i)}</span>
                             )}
                     </div>
                     <p>Время для записи</p>
                     <div className={styles.time}>
-                        {Array.from({ length: 13 }, (v, i) => i + 10).map((i) =>
-                            <span key={i} style={false_times.includes(i) ? false_mo : { backgroundColor: profile.color[1] }}>{i}{' '}:{' '} 00</span>
+                        {Array.from({ length: 13 }, (v,i) => i + 10).map((i) =>
+                            <span key={i} style={false_times.includes(i) ? false_mo : { backgroundColor: profile[1] }}>{i}{' '}:{' '} 00</span>
                         )}
                     </div>
-                    <button style={{ backgroundColor: profile.color[2] }}>
-                        <span style={{ color: profile.color[1] }}>
+                    <button style={{ backgroundColor: profile[2] }}>
+                        <span style={{ color: profile[1] }}>
                             Редактировать шаблон времени +
                         </span>
                     </button>
                 </section>
             </> : null}
-        </main>
+        </>
     )
 }

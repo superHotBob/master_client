@@ -2,12 +2,11 @@ import Image from 'next/image'
 import Link from 'next/link'
 import styles from './header.module.css'
 import call from '../../../public/call.svg'
-import close from '../../../public/close_wh.svg'
-import img_menu from '../../../public/sort.svg'
 import arrow from '../../../public/arrow_back.svg'
 import { useSelector, useDispatch } from 'react-redux'
 import Menu from '../menu'
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import { setprofile } from '@/reduser'
 import Menu_icon from '../../components/icons/menu.js'
 
@@ -27,28 +26,36 @@ const new_text_mes = {
   fontSize:  '16px',
   lineHeight: '26px',
   display: 'inline-block',
-
   marginLeft: '-35px'
 }
-const close_menu = {
-  backgroundColor: '#3D4EEA'
-}
+
 
 export default function Header({ sel, text, mes, color = {} }) {
   const profile = useSelector((state) => state.counter.profile)
   const dispatch = useDispatch()
+  const router = useRouter()
   useEffect(() => {
     let pro = JSON.parse(localStorage.getItem("profile"))
     if (!profile.status) {
       dispatch(setprofile(pro))
     }
   }, [profile.status, dispatch])
+
   const [menu, menuView] = useState(false)
+
+  function MenuView(e){   
+    menuView(!menu)
+  }
+  function ToBack(e) {
+    e.stopPropagation()
+    router.push(sel)
+  }
   return (
-    <header className={styles.header}>
+    <header className={styles.header} onClick={MenuView}>
       {sel ? 
       <Link 
-        href={sel} 
+        href="/#" 
+        onClick={ToBack}
         className={styles.left__arrow} 
         style={{ backgroundColor: color[2] }}
       >

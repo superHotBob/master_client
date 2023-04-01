@@ -73,7 +73,7 @@ export default function Recording() {
     return (
         <main className={styles.main}>
             {view ? <>
-                <Header text="Запись к мастеру" sel={"/master/" + name} />
+                <Header text="Запись к мастеру" sel={"/master/" + nikname} />
                 {category ?
                     <div className={styles.category}>
                         <div className={styles.all_cat}>

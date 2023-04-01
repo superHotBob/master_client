@@ -30,7 +30,8 @@ export default function Menu() {
         router.push('/')
     }
 
-    return (<>
+    return (
+    <>
         {profile.status === 'master' ? <main className={styles.main_menu}>
             <p className={styles.menu_prof}>Меню профиля</p>
             <Link href='/chat'>Сообщения</Link>

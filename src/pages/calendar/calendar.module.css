@@ -3,7 +3,7 @@
     height: 100vh;
     position: relative;
     max-width: 500px;
-    background-color: #fff;
+   
     width: 100%;
     overflow: auto;
     z-index: 110;
@@ -11,6 +11,9 @@
 
 .section {
     padding: 16px;
+    position: relative;
+    background-color: #fff;
+    z-index: 101;
 }
 .section p {
     text-align: center;

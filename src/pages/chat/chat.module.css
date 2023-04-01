@@ -1,13 +1,4 @@
-.main {
-    align-items: center;
-    height: 100vh;
-    max-width: 500px;
-    background-color: #fff;
-    width: 100%;
-    overflow: auto;
-    position: relative;
-    z-index: 120;
-}
+
 
 .chat {
     padding: 0  10px 0 22%;

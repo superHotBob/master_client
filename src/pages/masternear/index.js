@@ -47,7 +47,7 @@ export default function MasterNear() {
             }))
             const result = await response.json()
             setMasters(result)
-           
+
             let mast = result.filter(i => i.services.includes(service.toLowerCase()) ? i : null)
             setFilterMasters(mast)
         }
@@ -59,18 +59,21 @@ export default function MasterNear() {
         if (masters) {
             let mast = masters.filter(i => i.services.includes(service.toLowerCase()) ? i : null)
             setFilterMasters(mast)
-            console.log('Mast',mast)
+            console.log('Mast', mast)
         } else if (masters) {
             setFilterMasters(masters)
         } else {
 
         }
+        if (!selector) {
+            setTimeout(() => {
+                document.getElementsByClassName('ymaps-2-1-79-ground-pane ')[0].style.filter = 'grayscale(1)'
+            }, 2000)
+        }
 
     }, [service])
 
-    function Clic() {        
-        document.getElementsByTagName('svg')[0].style.opacity = 0
-    }
+
 
     return (
         <div className={styles.main}>

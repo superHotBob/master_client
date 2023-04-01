@@ -85,8 +85,7 @@ export default function Records() {
         let s = false_days.filter(i=>i===a).length
         return s
     }
-    function SetMonth(a) {
-        console.log(first_orders) 
+    function SetMonth(a) {        
         let m = my_months.findIndex(i => i === a)
         setMonth(m)
         let month_result = first_orders.filter(i=>i.date_order.includes(a))
@@ -122,7 +121,7 @@ export default function Records() {
                             )}
                         </div>
                         <div className={styles.days}>
-                            {Array.from({ length: all_days.getDate() }, (v, i) => i + 1)
+                            {Array.from({ length: all_days.getDate() }, (v,i) => i + 1)
                                 .map(i =>
                                     <span
                                         onClick={() => FilterDay(i)}
@@ -139,7 +138,7 @@ export default function Records() {
                         <button style={{ backgroundColor: profile.color[1] }}>
                             Добавить запись <span>+</span>
                         </button>
-                        {orders?.map((i, index) =>
+                        {orders?.map(i =>
                             <div
                                 onClick={() => viewOrder(i.id)}
                                 key={i.order}
@@ -148,9 +147,9 @@ export default function Records() {
                                 <p><span className={i.active ? styles.active : null}>{i.date_order.replace(/,/g, ' ')}:00</span><span>#{i.id}</span></p>
                                 <h3>
                                     <span style={{ color: profile.color[1] }}>{i.client}</span>
-                                    <span style={{ color: profile.color[1] }}>{i.price} ₽</span>
+                                    <span style={{ color: profile.color[1] }}>{i.price} BYN</span>
                                 </h3>
-                                <h6 style={{ color: profile.color[1] }}>{i.neworder.replace(/:\d+/g,' ')}</h6>
+                                <h6 style={{ color: profile.color[1] }}>{i.neworder.replace(/[0-9]/g,' ').replace(/:/g,' ')}</h6>
                             </div>
                         )}
                         
@@ -163,8 +162,8 @@ export default function Records() {
                                 className={styles.order}
                             >
                                <p><span className={i.active ? styles.active : null}>{i.date_order.replace(/,/g, ' ')}:00</span><span>#{i.id}</span></p>
-                                <h3 ><span style={{ color: profile.color[1] }}>{i.client}</span><span style={{ color: profile.color[1] }}>{i.price} ₽</span></h3>
-                                <h6 style={{ color: profile.color[1] }}>{i.neworder.replace(/:\d+/g,'  ')}</h6>
+                                <h3 ><span style={{ color: profile.color[1] }}>{i.client}</span><span style={{ color: profile.color[1] }}>{i.price} BYN</span></h3>
+                                <h6 style={{ color: profile.color[1] }}>{i.neworder.replace(/[0-9]/g,'  ').replace(/:/g,' ')}</h6>
                             </div>
                         )}
                    
