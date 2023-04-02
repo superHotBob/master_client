@@ -19,7 +19,7 @@ export default function MasterNear() {
     const my_city = useSelector((state) => state.counter.city)
     const service = useSelector((state) => state.counter.service)
     const dispatch = useDispatch()
-    const [selector, setSelector] = useState(1)
+    const [selector, setSelector] = useState(true)
     const [viewFilter, setViewFilter] = useState(false)
     const [filter, setFilter] = useState(10)
     const [master, selectMaster] = useState()
@@ -66,12 +66,14 @@ export default function MasterNear() {
 
         }
         if (!selector) {
-            setTimeout(() => {
-                document.getElementsByClassName('ymaps-2-1-79-ground-pane ')[0].style.filter = 'grayscale(1)'
+            setTimeout(() => {                
+                document.getElementsByClassName('ymaps-2-1-79-ground-pane')[0].style.filter = 'grayscale(1)'
+                document.getElementsByClassName('ymaps-2-1-79-copyright')[0].style.display = 'none'
+                document.getElementsByClassName('ymaps-2-1-79-gotoymaps')[0].style.display = 'none'
             }, 2000)
         }
 
-    }, [service])
+    }, [selector])
 
 
 
@@ -82,8 +84,8 @@ export default function MasterNear() {
             <Link className={styles.city} href='/city'>Ваш город {my_city}</Link>
 
             <div className={styles.selector}>
-                <span onClick={() => setSelector(1)} style={selector ? sel : null}>Список</span>
-                <span onClick={() => setSelector(0)} style={selector ? null : sel}>На карте</span>
+                <span onClick={() => setSelector(true)} style={selector ? sel : null}>Список</span>
+                <span onClick={() => setSelector(false)} style={selector ? null : sel}>На карте</span>
             </div>
 
             {selector ?
@@ -110,11 +112,7 @@ export default function MasterNear() {
                             радиус поиска
                         </span>
                         {viewFilter ? <div className={styles.all__filter}>
-                            <h6 onClick={() => setViewFilter(false)} />
-                            {/* <div className={styles.all__filter__data}>
-                                {[1, 3, 5, 10].map(i =>
-                                    <b onClick={() => setFilter(i)} key={i} id={i} >{i}км</b>)}
-                            </div> */}
+                            <h6 onClick={() => setViewFilter(false)} />          
 
                             <p>{filter} км</p>
                             <input className={styles.range} step="1" type="range" min="1" max="10" value={filter} onChange={e => setFilter(e.target.value)} ></input>

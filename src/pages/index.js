@@ -28,10 +28,10 @@ export default function Home() {
  
 
   
-  const ref = useRef(null)
+  
   return (
     <>     
-      <main className={styles.main} ref={ref}>
+      
         <Header />
         <section className={styles.section}>
           <Message text={` Masters.place показывает самые крутые и 
@@ -108,7 +108,7 @@ export default function Home() {
 
         </div>: null}
 
-      </main>
+     
     </>
   )
 }

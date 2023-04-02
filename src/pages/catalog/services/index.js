@@ -22,13 +22,14 @@ export default function Services() {
     const [selector, setSelector] = useState(1)
     const dispatch = useDispatch()
     const router = useRouter()
+
     function ToService(a) {
         dispatch(setservice(a))
         router.push('/catalog/service/' + a)
 
     }
     return (
-        <div className={styles.main}>
+        <>
             <Header sel="/catalog" />
             <div className={styles.selector}>
                 <span onClick={() => setSelector(1)} style={selector ? sel : null}>Каталог услуг</span>
@@ -48,7 +49,7 @@ export default function Services() {
 
             </div>}
             {/* <Navi page="catalog" /> */}
-        </div>
+        </>
     )
 
 }  

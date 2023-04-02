@@ -15,7 +15,7 @@ export default function FilterServices({service}) {
     const [filter, SetFilter] = useState()
     const dispatch = useDispatch()
     const my_service = useSelector(state=>state.counter.service)
-    console.log(my_service)
+   
     // const [services, setServices] = useState()
 
     // useEffect(()=>{
@@ -27,10 +27,9 @@ export default function FilterServices({service}) {
     //     Result()
         
     // },[])
-    useEffect(()=>SetFilter(service),[service])
+    useEffect(()=>SetFilter(my_service),[service])
 
-    function setFilter(e) {
-        console.log(e.target.value)
+    function setFilter(e) {       
         SetFilter(e.target.id)
         dispatch(setservice(e.target.id))
         setViewFilter(false)
@@ -42,8 +41,7 @@ export default function FilterServices({service}) {
             <span onClick={() => setViewFilter(true)}>
                 фильтр по услугам
             </span>
-            {viewFilter ? <div className={styles.all__filter}>
-                {/* <h6 onClick={() => setViewFilter(false)}/> */}
+            {viewFilter ? <div className={styles.all__filter}>              
                 {services ? <div className={styles.all__filter__data} onClick={setFilter}>
                     {services.map(i =><b key={i} id={i} style={my_service === i ? style : null}>{i}</b>)}
                 </div>:null}

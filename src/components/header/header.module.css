@@ -47,7 +47,7 @@
   }
   .logo::before {
     content: url('/logo.svg');
-    transform: translate(-4px,6px);
+    transform: translate(-6px,6px);
   }
   .header img:last-of-type {
     float: right;

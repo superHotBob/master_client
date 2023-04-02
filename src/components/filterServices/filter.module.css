@@ -1,8 +1,5 @@
 .main__filter {
-  margin: 16px 0;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  margin: 16px 0;  
 }
 
 .main__filter span {
@@ -12,6 +9,7 @@
   overflow: hidden;
   font-weight: 400;
   font-size:  14px;
+  padding-left: 10px;
   
 }
 .main__filter span:first-of-type::first-letter {
@@ -19,16 +17,17 @@
 }
 
 .main__filter span:last-of-type {
-  width: 46%;
+  width: 50%;
   color: #3D4EEA;
   font-weight: 500;
   cursor: pointer;
+  text-align: center;
 }
 
 .main__filter span:last-of-type::after {
   content: url('/arrow_right.svg');
   display: inline-block;
-  transform: translate(15px, 2px);
+  transform: translate(13px, 1px);
 }
 
 .all__filter {

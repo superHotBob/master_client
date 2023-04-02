@@ -13,7 +13,7 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    padding: 10px;
+    padding: 0 10px;
 }
 .model {
     height: 80px;
@@ -34,7 +34,7 @@
     line-height: 17px;
     display: flex;
     justify-content: space-around;
-    margin: 16px 0 0;
+    margin: 16px 0 24px;
     align-items: center;
     padding: 10px;
     height: 27px;
