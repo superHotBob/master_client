@@ -98,6 +98,14 @@ body {
   min-height: 100vh;
   background-color: #ddd;
   white-space: pre-line;
+}
+.name_stars{
+  margin: 60px auto 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;  
+  line-height: 35px;
 } 
 .star {
   font-weight: 600;

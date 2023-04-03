@@ -5,7 +5,7 @@ import styles from './near.module.css'
 import arrow_down from '../../../public/arrow_down.svg'
 import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react'
-import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps'
+import { YMaps, Map, Placemark, hintLayout } from '@pbe/react-yandex-maps'
 import Script from 'next/script'
 import FilterServices from '@/components/filterServices'
 
@@ -47,7 +47,6 @@ export default function MasterNear() {
             }))
             const result = await response.json()
             setMasters(result)
-
             let mast = result.filter(i => i.services.includes(service.toLowerCase()) ? i : null)
             setFilterMasters(mast)
         }
@@ -128,14 +127,22 @@ export default function MasterNear() {
                                     zoom: master ? 14 : 10 + 10 / filter * 0.8,
                                     controls: [],
                                     behaviors: ["default", "scrollZoom"]
-                                }} width="100%" height={master ? "30vh" : "75vh"}  >
-                                {masters.map(i => <Placemark geometry={i.locations} key={i.id}
+                                }} width="100%" height={master ? "30vh" : "75vh"}
+                                hintLayout={{
+                                    color:'red'
+                                }}
+                               
+                            >
+                                {masters?.map(i => <Placemark geometry={i.locations} key={i.id}
+                                 modules= {
+                                    ['geoObject.addon.balloon', 'geoObject.addon.hint']
+                                }
                                     properties={{
                                         hintContent: i.name,
-                                        // iconColor: 'green',
-                                        // preset: "twirl#blueStretchyIcon",
-                                        // fillColor: 'ff0000',
-                                        // strokeColor: 'ff0000'
+                                        hintLayout: '<p>asdasdasd</p>',
+                                         preset: "twirl#blueStretchyIcon",
+                                        fillColor: 'red',
+                                        strokeColor: 'blue'
                                     }}
                                     options={{
                                         iconLayout: 'default#image',

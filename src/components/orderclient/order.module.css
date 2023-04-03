@@ -1,0 +1,86 @@
+.data {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    width: 100vw;
+    max-width: 500px;
+    height: 100vh;
+    padding: 0 16px;
+    z-index: 200;
+}
+.data header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+    height: 46px;
+    margin-bottom: 12px;
+
+}
+
+.data header span,
+.data header b {
+    color: #3D4EEA;
+    width: 30%;
+    margin: 16px 0 0;
+}
+
+.data header span:last-of-type {
+    text-align: right;
+}
+
+.data header span:first-of-type::before {
+    content: "Заказ";
+    color: #282828;
+    transform: translate(-5px, -1px);
+}
+
+.data header b::after {
+    content: url('/array_left.svg');
+}
+.data h5,
+.data span {
+    display: block;
+    font-size: 16px;
+    margin: 16px 0 0;
+}
+
+.data button {
+    position: absolute;
+    height: 46px;
+    bottom: 26px;
+    left: 16px;
+    display: block;
+    max-width: calc(500px - 32px);
+    width: calc(100vw - 32px);
+    color: #fff;
+    background-color: #FD4D4D;
+    border-radius: 6px;
+    border: none;
+    font-weight: 500;
+}
+
+.data button b {
+    color: #fff;
+}
+
+.data button b::after {
+    content: url('/trash.svg');
+    transform: translate(11px, 2px);
+}
+.my_text {
+    width: 100%;
+    display: block;
+    
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    padding: 12px 6px 0px;
+    outline: none;
+    margin: 6px 0 20px;
+    font-size: 14px;
+}
+.res {
+    margin: 30px 0;
+    color: red
+}

@@ -99,7 +99,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
- 
+  
   width: fit-content;
 }
 .section p span:first-of-type {
@@ -118,7 +118,7 @@
 
 .stars {   
   height: 21px;
-  width: 59px;
+  width: 50px;
   text-align: left;  
   font-size: 12px;
   line-height: 14px; 

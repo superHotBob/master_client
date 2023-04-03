@@ -48,20 +48,19 @@ export default function Header({ sel, text, mes, color = {} }) {
   }
   function ToBack(e) {
     e.stopPropagation()
-    router.push(sel)
+    router.back()
   }
   return (
     <header className={styles.header} onClick={MenuView}>
       {sel ? 
-      <Link 
-        href="/#" 
+      <div       
         onClick={ToBack}
         className={styles.left__arrow} 
         style={{ backgroundColor: color[2] }}
       >
       <Menu_icon color={color[1] || '#3D4EEA'}  />
         {/* <Image alt="Picture" src={arrow} className={styles.arrow} width={20} height={20} style={{ backgroundColor: color[2] }} /> */}
-      </Link> :
+      </div> :
         <Image alt="Picture" src={arrow} className={styles.arrow} style={{ opacity: 0 }} width={20} height={20} />
 
       }
@@ -100,7 +99,7 @@ export default function Header({ sel, text, mes, color = {} }) {
       <div
         className={styles.left__arrow}
         onClick={() => menuView(!menu)}
-        style={{ backgroundColor: menu ? color[1] || '#3D4EEA' : color[2] }}
+        style={{ backgroundColor: menu ? color[1] || '#3D4EEA' : color[2] ,paddingTop:10}}
       >
         <Menu_icon color={menu ? color[2] || '#3D4EEA' : color[1] || '#3D4EEA'} type={menu ? 'close' : 'menu'} />
       </div>

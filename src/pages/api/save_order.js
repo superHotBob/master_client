@@ -7,9 +7,15 @@ export default async function handler(req, res) {
   console.log('body',req.body)
   const result = await sql`
   insert into orders (
-    master, client,neworder,price,date_order,master_name
+    master, client,neworder,price,date_order,master_name,client_name
   ) values (
-    ${req.body.master}, ${req.body.client},${req.body.order},${req.body.price},${req.body.date},${req.body.master_name}
+    ${req.body.master}, 
+    ${req.body.client},
+    ${req.body.order},
+    ${req.body.price},
+    ${req.body.date},
+    ${req.body.master_name},
+    ${req.body.client_name}
   )
   returning *
   `

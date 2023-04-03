@@ -12,14 +12,17 @@ import Sertificats from '@/components/serificats'
 import { useSelector } from 'react-redux'
 import Menu_icon from '@/components/icons/menu'
 import Link from 'next/link'
+import Location from '@/components/location'
 
 const Master = () => {
     const [viewText, setViewText] = useState(true)
     const [nav_view, setNavView] = useState('Лента')
     const [profile, setProfile] = useState(null)
     const [nav_active, setNav_active] = useState({})
+    const [mapview, setmapview] = useState(false)
     const router = useRouter()
     const { pid } = router.query
+    
     const my_profile = useSelector(state => state.counter.profile)
     
 
@@ -65,8 +68,7 @@ const Master = () => {
                 <title>{pid}</title>
             </Head>
             {profile ? <>
-                <Header text={pid} sel="/masternear" color={profile.color} />
-
+                <Header text={pid} sel='back' color={profile.color} />
                 <section className={styles.section}>
                     <div className={styles.image} style={{ background: profile.color[1] }}>
                         {profile.image ? <Image src={profile.image} alt="profile" height={105} width={105} /> : null}
@@ -79,7 +81,7 @@ const Master = () => {
                             style={{ color: profile.color[1], backgroundColor: profile.color[2] }}
                         >4.7</span>
                     </p>
-                    <h4>{profile.address}</h4>
+                    <h4 onClick={()=>setmapview(true)}>{profile.address}</h4>
                     {viewText ? <h5 className={styles.text}>{profile.text}</h5> : null}
                     <span style={{ color: profile.color[1] }} className={styles.view_text} onClick={() => setViewText(!viewText)}>{viewText ? 'Скрыть описание' : 'Описание'}</span>
                     <div className={styles.buttons}>
@@ -107,10 +109,11 @@ const Master = () => {
                         {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
                             .map(i => <span key={i} onClick={() => setNavView(i)} style={nav_view === i ? nav_active : null}>{i}</span>)}
                     </nav>
-                    {nav_view === 'Отзывы' ? <Reviews name={pid} /> : null}
+                    {nav_view === 'Отзывы' ? <Reviews nikname={profile.nikname} /> : null}
                     {nav_view === 'Услуги' ? <Services name={pid} color={profile.color} /> : null}
                     {nav_view === 'Лента' ? <Lenta name={pid} color={profile?.color} /> : null}
                     {nav_view === 'Сертификаты' ? <Sertificats name={pid} /> : null}
+                    {mapview ? <Location  locations={profile.locations} close={setmapview}/>: null}
                 </section>
                 <Navi color={profile.color[1]} /></> :
                 <div className={styles.await}>

@@ -80,6 +80,7 @@ export default function SelectDate({ name, price, order, close, nikname }) {
         const SaveOrder = async () => {
             const data = {
                 client: profile.nikname,
+                client_name: profile.name,
                 master: nikname,
                 master_name: name,
                 price: price,

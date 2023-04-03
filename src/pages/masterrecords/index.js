@@ -146,7 +146,7 @@ export default function Records() {
                             >
                                 <p><span className={i.active ? styles.active : null}>{i.date_order.replace(/,/g, ' ')}:00</span><span>#{i.id}</span></p>
                                 <h3>
-                                    <span style={{ color: profile.color[1] }}>{i.client}</span>
+                                    <span style={{ color: profile.color[1] }}>{i.client_name || i.client}</span>
                                     <span style={{ color: profile.color[1] }}>{i.price} BYN</span>
                                 </h3>
                                 <h6 style={{ color: profile.color[1] }}>{i.neworder.replace(/[0-9]/g,' ').replace(/:/g,' ')}</h6>
@@ -162,7 +162,7 @@ export default function Records() {
                                 className={styles.order}
                             >
                                <p><span className={i.active ? styles.active : null}>{i.date_order.replace(/,/g, ' ')}:00</span><span>#{i.id}</span></p>
-                                <h3 ><span style={{ color: profile.color[1] }}>{i.client}</span><span style={{ color: profile.color[1] }}>{i.price} BYN</span></h3>
+                                <h3 ><span style={{ color: profile.color[1] }}>{i.client_name || i.client}</span><span style={{ color: profile.color[1] }}>{i.price} BYN</span></h3>
                                 <h6 style={{ color: profile.color[1] }}>{i.neworder.replace(/[0-9]/g,'  ').replace(/:/g,' ')}</h6>
                             </div>
                         )}

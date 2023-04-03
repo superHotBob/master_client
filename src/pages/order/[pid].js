@@ -9,6 +9,8 @@ const review = {
     backgroundColor: '#3D4EEA'
 }
 
+
+
 export default function Order() {
     const router = useRouter()
     const order = useSelector(state => state.counter.order)   
@@ -17,6 +19,7 @@ export default function Order() {
     const [color, setColor] = useState()
     const ref = useRef(null)
     const [stars, setStars] = useState()
+    
     function SendReview() {
         if (viewReview) {
             console.log('review', ref.current.value, 'stars:',stars)

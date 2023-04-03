@@ -21,7 +21,7 @@
     display: inline-block;
   }
   
-  .header a img {
+  .header div img {
     line-height: 40px;
   }
   .header .icon {
