@@ -40,8 +40,7 @@ export default function Client() {
                 method: 'get',
             })
             const result = await response.json()
-            setOrders(result.sort((a,b)=>b.id - a.id))
-            console.log(result)
+            setOrders(result)            
         }
         if (profile.status) {
             GetMaster()

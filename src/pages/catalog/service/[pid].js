@@ -67,7 +67,7 @@ export default function Service() {
                         <div 
                             key={i.name} 
                             className={styles.master} 
-                            style={{ backgroundImage: "url(" + i.image + ")" }}
+                           
                         >
                             <Link href={"/master/" + i.nikname}>
                                 <p>
@@ -77,7 +77,8 @@ export default function Service() {
                                 </p>
                             </Link>
                             <h4>{i.address}</h4>
-                            {i.services?.length ? <h5>{i.services.map(m=><span key={m}>{m}</span>)}</h5> :null}
+                            {i.services ? <h5>{i.services.map(m=><span key={m}>{m}</span>)}</h5> :null}
+                            <Image src={i.image} width={70} height={70} />
 
                         </div>
                     )}

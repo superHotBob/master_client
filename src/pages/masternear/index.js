@@ -66,9 +66,10 @@ export default function MasterNear() {
         }
         if (!selector) {
             setTimeout(() => {                
-                document.getElementsByClassName('ymaps-2-1-79-ground-pane')[0].style.filter = 'grayscale(1)'
-                document.getElementsByClassName('ymaps-2-1-79-copyright')[0].style.display = 'none'
-                document.getElementsByClassName('ymaps-2-1-79-gotoymaps')[0].style.display = 'none'
+                document.getElementsByClassName('ymaps-2-1-79-ground-pane')[0].style.filter = 'grayscale(1)';
+                document.getElementsByClassName('ymaps-2-1-79-copyright')[0].style.display = 'none';
+                document.getElementsByClassName('ymaps-2-1-79-gotoymaps')[0].style.display = 'none';
+                document.getElementsByClassName('ymaps-2-1-79-gototech')[0].style.display = 'none';
             }, 2000)
         }
 
@@ -90,8 +91,7 @@ export default function MasterNear() {
             {selector ?
                 <section className={styles.section}>
                     <FilterServices />
-                    {filter_masters?.map(i => <Link key={i.name} className={styles.master}
-                        style={{ backgroundImage: "url(" + i.image + ")" }}
+                    {filter_masters?.map(i => <Link key={i.name} className={styles.master}                       
                         href={`/master/${i.nikname}`}
                     >
                         <p style={{ width: '75%' }} className={styles.name_stars}>
@@ -101,6 +101,7 @@ export default function MasterNear() {
                         </p>
                         <h4>{i.address}</h4>
                         <h5>{i.services.map(a => <span key={a} className={styles.service}>{a}</span>)}</h5>
+                        <Image src={i.image} width={60} height={60} alt="image" />
                     </Link>)}
                 </section>
                 :
@@ -123,7 +124,7 @@ export default function MasterNear() {
                             <Map id="mymap"
                                 options={{ set: defaultState }}
                                 state={{
-                                    center: master ? masters.filter(i => i.nikname === master)[0].locations : defaultState.center[0],
+                                    center: master ? masters?.filter(i => i.nikname === master)[0].locations : defaultState.center[0],
                                     zoom: master ? 14 : 10 + 10 / filter * 0.8,
                                     controls: [],
                                     behaviors: ["default", "scrollZoom"]
@@ -158,8 +159,8 @@ export default function MasterNear() {
                 </section>}
             {master && !selector ? <section className={styles.section}>
                 <Image alt="close" className={styles.close} src={arrow_down} width={25} height={25} onClick={() => selectMaster()} />
-                {masters.filter(i => i.nikname === master).map(i => <Link key={i.nikname} className={styles.master}
-                    style={{ backgroundImage: "url(" + i.image + ")" }} href={`/master/${i.nikname}`}                  >
+                {masters?.filter(i => i.nikname === master).map(i => <Link key={i.nikname} className={styles.master}
+                    href={`/master/${i.nikname}`}                  >
                     <p style={{ width: '75%' }}>
                         <b>{i.name}</b> {'  '}
                         <span className={styles.pro}>MASTER</span>
@@ -167,6 +168,7 @@ export default function MasterNear() {
                     </p>
                     <h4>{i.address}</h4>
                     <h5>{i.services.map(a => <span key={a} className={styles.service}>{a}</span>)}</h5>
+                    <Image src={i.image} width={60} height={60} alt="image" />
                 </Link>)}
             </section> : null}
 

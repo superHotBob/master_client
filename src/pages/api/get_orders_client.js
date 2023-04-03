@@ -7,6 +7,7 @@ export default async function handler(req, res) {
   select *
   from orders
   where client = ${req.query.nikname} 
+  ${sql`order by id desc` }
   `
   if (result.length) {
     res.status(200).json(result)

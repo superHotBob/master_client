@@ -56,7 +56,7 @@ export default function Header({ sel, text, mes, color = {} }) {
       <div       
         onClick={ToBack}
         className={styles.left__arrow} 
-        style={{ backgroundColor: color[2] }}
+        style={{ backgroundColor: color[2],padding:'7px 2px' }}
       >
       <Menu_icon color={color[1] || '#3D4EEA'}  />
         {/* <Image alt="Picture" src={arrow} className={styles.arrow} width={20} height={20} style={{ backgroundColor: color[2] }} /> */}

@@ -28,15 +28,15 @@
 }
 .master {
     background-color: #FFFFFF;
-    padding: 10px;
-    background-position: 97% center;    
-    background-size: 70px 70px;
+    padding: 10px;   
     box-shadow: 0px 0px 20px #C5C5C5;
     border-radius: 12px;
     margin: 8px 0 0;
+    position: relative;
 }
 .master p {
     width: 78%;
+
 }
 
 .name {
@@ -73,8 +73,11 @@
 
 }
 
-.master p img {
-    vertical-align: sub;
+.master  img {
+    position: absolute;
+    top: 9px;
+    right: 9px;
+    border-radius: 50%;
 }
 .master h4 {
     margin: 5px 0;
@@ -95,6 +98,10 @@
     font-size:  12px;
     line-height: 12px;
     margin-right: 10px;
+    display: inline-block;
+}
+.master h5 span:first-letter {    
+    text-transform: uppercase;
 }
 .await {
     text-align: center;

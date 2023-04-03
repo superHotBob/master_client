@@ -31,8 +31,7 @@ const saved = {
 export default function Navi({ save, color }) {
     const [height, setHeight] = useState(0)
     const prof = useSelector(state => state.counter.profile)
-    const router = useRouter()
-    console.log(router.asPath)
+    const router = useRouter()  
 
     useEffect(() => setHeight(window.innerHeight), [])
     

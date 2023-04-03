@@ -180,7 +180,7 @@ export default function EditProfile() {
                         height={file ? 106 : 50}
                         width={file ? 106 : 50}
                     />
-                    <input type="file" onChange={(e) => onSelectFile(e.target.files[0])} accept=".jpg,.png" />
+                    <input type="file" onChange={(e) => onSelectFile(e.target.files[0])} accept=".jpg,.png,.webp" />
                 </div>
             </div>
             <p className={styles.name}>{profile.name || name || 'Ваше имя'}</p>

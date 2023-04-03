@@ -51,8 +51,7 @@
   background-color: #FFFFFF;
   padding: 10px;
   display: block;
-  background-position: 97% center;
-  background-size: 60px 60px;
+  position: relative;
   box-shadow: 0px 0px 20px #C5C5C5;
   border-radius: 12px;
   margin: 10px 0;
@@ -113,8 +112,11 @@
   margin-right: 5px;
 }
 
-.master p img {
-  vertical-align: sub;
+.master img {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  border-radius: 50%;
 }
 
 .master h4 {
@@ -134,6 +136,12 @@
   font-weight: 400;
   font-size: 12px;
   line-height: 12px;
+}
+.master h5 span {
+  display: inline-block;
+}
+.master h5 span::first-letter {
+  text-transform: uppercase;
 }
 
 .main__filter {
