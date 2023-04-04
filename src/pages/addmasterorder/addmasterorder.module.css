@@ -1,0 +1,68 @@
+.main {
+    padding: 16px;
+}
+
+.main input[type=text] {
+    padding: 10px;
+    margin: 22px 0;
+    width: 100%;
+    display: block;
+    border: 1px solid #3D4EEA;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #3D4EEA;
+}
+
+.main span {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 17px;
+    letter-spacing: 0px;
+    text-align: left;
+}
+
+.main p {
+    font-weight: 500;
+    line-height: 26px;
+}
+
+.main p:first-of-type {
+    font-weight: 400;
+    letter-spacing: -0.5 px;
+
+}
+
+.client {
+    height: 58px;
+    background: #FFFFFF;
+    margin: 8px 0 22px;
+    padding: 10px 62px;
+    box-shadow: 0px 0px 9px #E6E6E6;
+    border-radius: 6px;
+}
+.client h4 {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 36px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    height: 46px;
+    padding: 11px;
+    align-items: center;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 17px;
+}
+
+.header span:last-child {
+    color: #3D4EEA;
+    cursor: pointer;
+}
+
+.header img {
+    cursor: pointer;
+}

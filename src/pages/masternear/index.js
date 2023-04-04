@@ -1,11 +1,12 @@
 import Header from '@/components/header'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import styles from './near.module.css'
 import arrow_down from '../../../public/arrow_down.svg'
 import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react'
-import { YMaps, Map, Placemark, hintLayout } from '@pbe/react-yandex-maps'
+import { YMaps, Map, Placemark, coordSystem , SearchControl} from '@pbe/react-yandex-maps'
 import Script from 'next/script'
 import FilterServices from '@/components/filterServices'
 
@@ -16,12 +17,14 @@ const sel = {
 }
 
 export default function MasterNear() {
+    const router = useRouter()
+    const my_sel = router.query
     const my_city = useSelector((state) => state.counter.city)
     const service = useSelector((state) => state.counter.service)
     const dispatch = useDispatch()
     const [selector, setSelector] = useState(true)
     const [viewFilter, setViewFilter] = useState(false)
-    const [filter, setFilter] = useState(10)
+    const [filter, setFilter] = useState(12)
     const [master, selectMaster] = useState()
     const [masters, setMasters] = useState()
     const [filter_masters, setFilterMasters] = useState()
@@ -32,14 +35,15 @@ export default function MasterNear() {
             { name: 'брест', location: [52.098208, 23.760049] }]
             .filter(i => i.name === my_city.toLowerCase())
             .map(i => i.location),
-        zoom: filter * 1.2,
+        zoom: filter,
         controls: [],
-        behaviors: ["default", "scrollZoom", "onclick"]
+        behaviors: ["default", "scrollZoom", "onclick","onWheel"]
     };
     function ViewMaster(a) {
         selectMaster(a)
     }
     useEffect(() => {
+        setSelector(false)
         setMasters()
         async function GetMasters() {
             const response = await fetch('/api/all_masters_city?' + new URLSearchParams({
@@ -50,7 +54,8 @@ export default function MasterNear() {
             let mast = result.filter(i => i.services.includes(service.toLowerCase()) ? i : null)
             setFilterMasters(mast)
         }
-        GetMasters()
+
+       GetMasters()
 
     }, [])
     useEffect(() => {
@@ -65,17 +70,32 @@ export default function MasterNear() {
 
         }
         if (!selector) {
-            setTimeout(() => {                
+            setTimeout(() => {
                 document.getElementsByClassName('ymaps-2-1-79-ground-pane')[0].style.filter = 'grayscale(1)';
                 document.getElementsByClassName('ymaps-2-1-79-copyright')[0].style.display = 'none';
                 document.getElementsByClassName('ymaps-2-1-79-gotoymaps')[0].style.display = 'none';
                 document.getElementsByClassName('ymaps-2-1-79-gototech')[0].style.display = 'none';
-            }, 2000)
+                document.getElementById('my_map').style.opacity = '1';
+            }, 1000)
         }
 
     }, [selector])
 
-
+    const getZoom = () => {
+        if (Map.current) {
+            const bounds = Map.current.getBounds()
+            const center = Map.current.getCenter()
+            const rightPoint = [center[0], bounds[1][1]];
+            // const radius = Map.current.getDistance(
+            //     center,
+            //     rightPoint
+            //   );
+            // console.log("currRadius", radius);
+            
+            setFilter(Map.current.getZoom());
+            console.log(Map.current.getZoom())
+        }
+    }
 
     return (
         <div className={styles.main}>
@@ -91,7 +111,7 @@ export default function MasterNear() {
             {selector ?
                 <section className={styles.section}>
                     <FilterServices />
-                    {filter_masters?.map(i => <Link key={i.name} className={styles.master}                       
+                    {filter_masters?.map(i => <Link key={i.name} className={styles.master}
                         href={`/master/${i.nikname}`}
                     >
                         <p style={{ width: '75%' }} className={styles.name_stars}>
@@ -106,42 +126,55 @@ export default function MasterNear() {
                 </section>
                 :
                 <section>
-                    {masters ? <div className={styles.main__filter}>
-                        <span>Мастера в радиусе {filter} км</span>
+                    <div className={styles.main__filter}>
+                        <span>Мастера в радиусе {Math.ceil(16/filter) + 1} км</span>
                         <span onClick={() => setViewFilter(true)}>
                             радиус поиска
                         </span>
                         {viewFilter ? <div className={styles.all__filter}>
-                            <h6 onClick={() => setViewFilter(false)} />          
-
-                            <p>{filter} км</p>
-                            <input className={styles.range} step="1" type="range" min="1" max="10" value={filter} onChange={e => setFilter(e.target.value)} ></input>
+                            <h6 onClick={() => setViewFilter(false)} />
+                            <p>{Math.ceil(16/filter) + 1} км</p>
+                            <input className={styles.range} step="1" type="range" min="10" max="16" value={filter} onChange={e => setFilter(e.target.value)} />
 
                         </div> : null}
-                    </div> : null}
-                    <div className={styles.my_map} >
+                    </div>
+                    <div className={styles.my_map} id="my_map">
                         <YMaps >
+
                             <Map id="mymap"
-                                options={{ set: defaultState }}
+                                options={{
+                                    set: defaultState,
+
+                                }}
                                 state={{
                                     center: master ? masters?.filter(i => i.nikname === master)[0].locations : defaultState.center[0],
-                                    zoom: master ? 14 : 10 + 10 / filter * 0.8,
+                                    zoom:  filter ,
                                     controls: [],
                                     behaviors: ["default", "scrollZoom"]
-                                }} width="100%" height={master ? "30vh" : "75vh"}
-                                hintLayout={{
-                                    color:'red'
                                 }}
-                               
+                                width="100%"
+                                height={master ? "30vh" : "75vh"}
+                                instanceRef={yaMap => {
+                                    if (yaMap) {
+                                        console.log(yaMap.coordSystem)
+                                        Map.current = yaMap;
+                                        console.log(Map.current._zoom)
+
+                                    }
+                                }}
+                                onWheel={() => getZoom()}
+                              
+
                             >
+
                                 {masters?.map(i => <Placemark geometry={i.locations} key={i.id}
-                                 modules= {
-                                    ['geoObject.addon.balloon', 'geoObject.addon.hint']
-                                }
+                                    modules={
+                                        ['geoObject.addon.balloon', 'geoObject.addon.hint']
+                                    }
                                     properties={{
                                         hintContent: i.name,
                                         hintLayout: '<p>asdasdasd</p>',
-                                         preset: "twirl#blueStretchyIcon",
+                                        preset: "twirl#blueStretchyIcon",
                                         fillColor: 'red',
                                         strokeColor: 'blue'
                                     }}
@@ -152,6 +185,7 @@ export default function MasterNear() {
                                     }}
 
                                     onClick={() => ViewMaster(i.nikname)}
+
                                 />)}
                             </Map>
                         </YMaps>

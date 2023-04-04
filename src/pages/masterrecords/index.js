@@ -135,7 +135,7 @@ export default function Records() {
 
                         </div>
                         <p>Все записи на сеансы</p>
-                        <button style={{ backgroundColor: profile.color[1] }}>
+                        <button style={{ backgroundColor: profile.color[1] }} onClick={()=>router.push('/addmasterorder')}>
                             Добавить запись <span>+</span>
                         </button>
                         {orders?.map(i =>

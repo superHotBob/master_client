@@ -8,7 +8,8 @@ import Image from 'next/image'
 
 const review = {
     backgroundColor: '#3D4EEA',
-    fontWeight: 600
+    fontWeight: 600,
+    
 }
 
 export default function ClientOrder({ order, active, close }) {
@@ -59,7 +60,7 @@ export default function ClientOrder({ order, active, close }) {
     return (
         <section className={styles.data} >
             <header>
-                <b onClick={close} /><span>#{order.id}</span><span>Готово</span>
+                <b onClick={close} /><span>#{order.id}</span>
             </header>
             {new_review ?
                 <>

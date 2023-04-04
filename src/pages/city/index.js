@@ -1,5 +1,4 @@
 import Image from 'next/image'
-
 import styles from './city.module.css'
 import arrow from '../../../public/arrow_back.svg'
 import { useState, useRef } from 'react'
@@ -22,8 +21,7 @@ export default function City() {
         ref.current.value = selCity
         dispatch(setcity(selCity))
     }
-    function selectCity(e) {
-        console.log(e.target.value);
+    function selectCity(e) {       
         if (e.target.value) {
             let cc = myCitys.filter(i => i.toLowerCase().includes(e.target.value) ? i : null)
 
@@ -43,9 +41,7 @@ export default function City() {
                 <span onClick={setMyCity}>Принять</span>
             </header>
             <input className={styles.seachcity} type="search" ref={ref} placeholder='Ваш город' defaultValue={selCity} value={city} onChange={selectCity} />
-            <section className={styles.section}>
-                
-               
+            <section className={styles.section}>               
                 {myCitys.sort().map(i =>
                     <label className={styles.city} key={i}>
                         {i}

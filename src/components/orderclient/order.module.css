@@ -12,7 +12,7 @@
 }
 .data header {
     display: flex;
-    justify-content: space-between;
+    justify-content: left;
     align-items: center;
     font-weight: 500;
     height: 46px;
@@ -23,13 +23,11 @@
 .data header span,
 .data header b {
     color: #3D4EEA;
-    width: 30%;
+    width: 45%;
     margin: 16px 0 0;
 }
 
-.data header span:last-of-type {
-    text-align: right;
-}
+
 
 .data header span:first-of-type::before {
     content: "Заказ";
@@ -50,7 +48,7 @@
 .data button {
     position: absolute;
     height: 46px;
-    bottom: 26px;
+    margin-top: 50px;
     left: 16px;
     display: block;
     max-width: calc(500px - 32px);
