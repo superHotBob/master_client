@@ -2,7 +2,7 @@ import styles from './selectdate.module.css'
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import Link from 'next/link'
-import arrow from '../../../public/arrow_back.svg'
+
 import Image from 'next/image'
 const active = {
     backgroundColor: '#3D4EEA',

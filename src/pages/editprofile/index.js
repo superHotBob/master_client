@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import arrow from '../../../public/arrow_back.svg'
 import Navi from '@/components/navi'
+import { indexOf } from 'next-pwa/cache'
 
 
 const filestyle = { borderRadius: '100%' }
@@ -29,6 +30,7 @@ const my_tema = [
     { name: 'Лесной массив', color: ['linear-gradient(94.86deg, #305F53 0%, #71978E 48.96%, #456A61 100%)', '#456A61', '#E1F3EB'] }
 ]
 const my_currency = ['Белорусcкий рубль', 'Российский рубль', 'Казахстанский тенге']
+const current_symbol = ['BYN','₽','₸']
 
 
 export default function EditProfile() {
@@ -52,7 +54,7 @@ export default function EditProfile() {
                 setName(profile.name),
                 setText(profile.text),
                 setCity(profile.city),
-                setCurrency(profile.currency),
+                setCurrency(my_currency[current_symbol.indexOf(profile.currency)]),
                 setAddress(profile.address),
                 setSelectedFile(profile.image),
                 setAddress_full(address_full => ({ ...address_full, ...profile.address_full })),
@@ -85,7 +87,6 @@ export default function EditProfile() {
             status: profile.status,
             name: name,
             new_nikname: nikname,
-
             image: file,
             text: text,
             old_nikname: profile.nikname
@@ -109,7 +110,7 @@ export default function EditProfile() {
             image: file,
             text: text,
             old_nikname: profile.nikname,
-            currency: currency,
+            currency: current_symbol[my_currency.indexOf(currency)],
             address: address,
             city: city,
             color: color,
@@ -310,7 +311,7 @@ export default function EditProfile() {
                 : cur ?
                     <div className={styles.main_tema}>
                         <div className={styles.select_tema}>
-                            <h6 onClick={() => setCur(false)}>{currency}</h6>
+                            <h6 onClick={() => setCur(false)}/>
                             {my_currency.map((i, index) =>
                                 <div
                                     key={i}
@@ -324,8 +325,8 @@ export default function EditProfile() {
                                     </span>
 
                                     {index === 0 && <span className={styles.img_currency} style={{ fontSize: 20, color: currency === i ? '#fff' : '#000' }}>BYN</span>}
-                                    {index === 1 && <span className={styles.img_currency} style={{ fontSize: 20, color: currency === i ? '#fff' : '#000' }}>&#x20BD;</span>}
-                                    {index === 2 && <span className={styles.img_currency} style={{ fontSize: 20, color: currency === i ? '#fff' : '#000' }}>&#8376;</span>}
+                                    {index === 1 && <span className={styles.img_currency} style={{ fontSize: 20, color: currency === i ? '#fff' : '#000' }}>₽</span>}
+                                    {index === 2 && <span className={styles.img_currency} style={{ fontSize: 20, color: currency === i ? '#fff' : '#000' }}>₸</span>}
 
                                 </div>
                             )}

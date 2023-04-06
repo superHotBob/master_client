@@ -10,7 +10,7 @@ import Carousel from 'nuka-carousel/lib/carousel'
 import Message from '@/components/message'
 
 
-
+const url = 'https://masters-client.onrender.com/images/'
 
 export default function Home() {
   const dispatch = useDispatch()
@@ -48,7 +48,7 @@ export default function Home() {
                 {image:'four', name:'Super1234',date:'12.03.2021'},
                 {image:'six', name:"Mercedec",date:'12.03.2021'}].map(i =>
                 <div onClick={()=>setImage(i)} key={i.image} style={{width: width, height: 'auto'}} >
-                  <img alt={i.image} src={'image/' + i.image + '.jpg'} id={i} width="100%" height="auto" />
+                  <img alt={i.image} src={url + i.image + '.jpg'} id={i.image} width="100%" height="auto" />
                 </div>
               )}
             </div>
@@ -58,7 +58,7 @@ export default function Home() {
                 {image:'three', name:'Super1234',date:'12.03.2021'},
                 {image:'six', name:"Mercedec",date:'12.03.2021'}].map(i =>
                 <div key={i.image} onClick={()=>setImage(i)}   style={{width: width, height: 'auto'}}>
-                 <img alt={i.image} src={'image/' + i.image + '.jpg'} id={i}  width="100%" height="auto"/>
+                 <img alt={i.image} src={url + i.image + '.jpg'} id={i.image}  width="100%" height="auto"/>
                </div>
               )}
             </div>
@@ -87,7 +87,7 @@ export default function Home() {
             }
            }}
            >
-            <img alt={image.image} src={'image/' + image.image + '.jpg'}   width="100%" height="auto"/>
+            <img alt={image.image} src={url + image.image + '.jpg'}   width="100%" height="auto"/>
             <img alt={image.image} src={'image/lenta1.jpg'} id={image.image}  width="100%" height="auto"/>
             <img alt={image.image} src={'image/lenta3.jpg'} id={image.image}  width="100%" height="auto"/>
             <img alt={image.image} src={'image/master1.jpg'} id={image.image}  width="100%" height="auto"/>

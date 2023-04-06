@@ -74,49 +74,47 @@ export default function Recording() {
         <main className={styles.main}>
             {view ? <>
                 <Header text="Запись к мастеру" sel={"/master/" + nikname} />
-                {category ?
-                    <div className={styles.category}>
-                        <div className={styles.all_cat}>
-                            {category.map(i =>
-                                <span key={i}
-                                    onClick={() => set_Active_Category(i)} style={active_category === i ?
-                                        {
-                                            color: '#fff',
-                                            fontWeight: 500,
-                                            backgroundColor: '#3D4EEA',
-                                        } : null}
-                                >
-                                    {i}
-                                    <b
-                                        className={active_category == i ? styles.active_count : null}
-                                        style={{ display: CountCategory(i) === '' ? 'none' : 'inline-block' }}
-                                    >{CountCategory(i)}</b>
-                                </span>
-                            )}
-                        </div>
-                    </div> : null
-                }
-                {filterServices ?
-                    <section>
-                        {filterServices.map((i, index) =>
-                            <div key={index}
-                                className={orders.includes(i) ? styles.active_service : styles.service}
-                                onClick={() => AddOrder(i)}
+                <div className={styles.category}>
+                    <div className={styles.all_cat}>
+                        {category?.map(i =>
+                            <span key={i}
+                                onClick={() => set_Active_Category(i)} style={active_category === i ?
+                                    {
+                                        color: '#fff',
+                                        fontWeight: 500,
+                                        backgroundColor: '#3D4EEA',
+                                    } : null}
                             >
-                                {i.split(':').map((a, index) => <span key={index}>{a}{' '}{index ? 'BYN' : ""}</span>)}
-                            </div>
+                                {i}
+                                <b
+                                    className={active_category == i ? styles.active_count : null}
+                                    style={{ display: CountCategory(i) === '' ? 'none' : 'inline-block' }}
+                                >
+                                    {CountCategory(i)}
+                                </b>
+                            </span>
                         )}
+                    </div>
+                </div>
+                <section>
+                    {filterServices?.map((i, index) =>
+                        <div key={index}
+                            className={orders.includes(i) ? styles.active_service : styles.service}
+                            onClick={() => AddOrder(i)}
+                        >
+                            {i.split(':').map((a, index) => <span key={index}>{a}{' '}{index ? 'BYN' : ""}</span>)}
+                        </div>
+                    )}
+                </section>
 
-                    </section> : null
-                }
             </>
                 :
-                <SelectDate 
-                    name={name} 
-                    nikname={nikname} 
-                    order={orders} 
-                    close={setView} 
-                    price={Cost(orders) - 50} 
+                <SelectDate
+                    name={name}
+                    nikname={nikname}
+                    order={orders}
+                    close={setView}
+                    price={Cost(orders) - 50}
                 />
             }
             <div className={styles.order}>

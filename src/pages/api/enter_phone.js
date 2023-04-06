@@ -7,11 +7,11 @@ export default async function handler(req, res) {
 
   const result = await sql`
     select 
-    status
+    status,blocked
     from clients
     where phone = ${+req.body.tel}
   `
- 
+  console.log(result[0])
   const nikname =  'client' + (Math.random() * 10000).toFixed(0)
   if (result.length === 0) {
     const result = await sql`
@@ -25,15 +25,15 @@ export default async function handler(req, res) {
     `
     console.log(result)
     res.status(200).json(result[0])
-  } else if (result[0].status === 'master') {
+  } else if (result[0].status === 'master' && result[0].blocked === 'no') {
     const result = await sql`
       select 
-      name,status,city,stars,locations,nikname,image,text,address,address_full,currency,color
+      name,status,city,stars,locations,nikname,image,text,address,address_full,currency,color,services
       from users
       where phone = ${+req.body.tel}
     `
     res.status(200).json(result[0])
-  } else if (result[0].status === 'client') {
+  } else if (result[0].status === 'client' && result[0].blocked === 'no') {
     const result = await sql`
     select 
     status,nikname,image,name,text
@@ -41,8 +41,13 @@ export default async function handler(req, res) {
     where phone = ${+req.body.tel}
   `
     res.status(200).json(result[0])
+  } else if (result[0].blocked === 'yes'){
+    
+    res.status(200).json(result[0])
   } else {
-    console.log('Error')
+
+    
+    res.end('Ваш аккаунт заблокирован')
   }
 
 }

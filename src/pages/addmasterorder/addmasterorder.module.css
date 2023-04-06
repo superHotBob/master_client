@@ -26,7 +26,21 @@
     font-weight: 500;
     line-height: 26px;
 }
+.main textarea {
+    width: 343px;
+height: 84px;
 
+/* Basic/White 100% */
+
+background: #FFFFFF;
+/* Basic/Gray */
+
+border: 1px solid #D0D0D0;
+border-radius: 4px;
+width: 100%;
+padding: 12px 6px 0px;
+margin: 6px 0 23px;
+}
 .main p:first-of-type {
     font-weight: 400;
     letter-spacing: -0.5 px;
@@ -66,3 +80,104 @@
 .header img {
     cursor: pointer;
 }
+.category {
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 40px;
+    width: calc(100% - 32px);
+    margin: 10px auto 24px;
+}
+.all_cat {    
+    margin: 0 auto;
+    white-space: nowrap;   
+}
+
+.category span {
+    display: inline-block;   
+    height: 27px;   
+    text-align: center;
+    border-radius: 4px;
+    line-height: 24px;    
+}
+.category span b {
+    font-weight: 500;
+    font-size: 10px;
+    width: 20px;
+    height: 18px;
+    display: inline-block;
+    border: 1px solid #000;
+    border-radius: 100%;
+    margin: 0 5px;
+    padding-right: 2px;
+    line-height: 17.5px;
+    
+}
+
+.category span .active_count {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+}
+.service, .active_service {
+    width: calc(100% - 32px);
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    margin: 8px auto;
+    height: 46px;
+    box-shadow: 0px 0px 9px #E6E6E6;
+    border-radius: 4px;
+    font-weight: 500;
+}
+.active_service {    
+    background-color: #3D4EEA;
+}
+.active_service span {
+    color: #fff;
+    line-height: 24px;
+    
+}
+.active_service span:first-of-type::before {
+    content: url('/check.svg');
+    margin-right: 10px;
+    
+}
+
+.service span {   
+    font-size: 14px;
+    line-height: 24px;
+}
+.order {
+    width: 100%;   
+    background-color: rgba(236, 238, 253, 0.8);
+    padding: 26px 16px;
+}
+
+.order div{
+    text-align: center;
+    color: #fff;
+    width: 100%;
+    background-color: #3D4EEA;
+    border-radius: 6px;
+    display: block;
+    line-height: 44px;
+    font-size: 1em;   
+    height: 44px;
+    font-weight: 500;
+   
+}
+.order h4, .order h3 {
+    line-height: 26px;
+    color: #282828;
+    font-weight: 500;
+    margin: 0 0 16px;
+    display: flex;
+    justify-content: space-between;
+}
+.order h3 {
+    line-height: 17px;
+    margin: 16px 0;
+    
+   
+}
+

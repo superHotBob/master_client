@@ -12,7 +12,7 @@ const rubik = Rubik({
   weight: ['400', '500','600'],
   subsets: ['cyrillic'],
 })
-const my_path = ['calendar','master','masterprofile','city','masternear','chat','editprofile']
+const my_path = ['calendar','master','masterprofile','city','masternear','chat','editprofile','addmasterorder']
 export default function MyApp({ Component, pageProps }) {  
   const router = useRouter()
   

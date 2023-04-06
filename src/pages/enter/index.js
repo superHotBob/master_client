@@ -24,9 +24,15 @@ export default function Enter() {
             method: 'POST',
         })        
         const result = await response.json()
-        localStorage.setItem("profile", JSON.stringify(result))
-        dispatch(setprofile(result))                      
-        router.push('/')
+        console.log(result)
+        if(result.blocked !== 'yes') {
+            localStorage.setItem("profile", JSON.stringify(result))
+            dispatch(setprofile(result))                      
+            router.push('/') 
+        } else {
+            router.push('/404')
+        }
+      
                
        
             
