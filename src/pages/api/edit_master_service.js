@@ -38,4 +38,5 @@ export default async function handler(req, res) {
     where nikname = ${nikname}
     returning services
   `
+  
 }

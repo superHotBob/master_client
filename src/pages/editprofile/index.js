@@ -2,11 +2,11 @@ import styles from './editprofile.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { setprofile } from '@/reduser'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import arrow from '../../../public/arrow_back.svg'
 import Navi from '@/components/navi'
-import { indexOf } from 'next-pwa/cache'
-
+import { YMaps, Map, SearchControl, useYMaps } from '@pbe/react-yandex-maps'
+import Script from 'next/script'
 
 const filestyle = { borderRadius: '100%' }
 const active_currency = {
@@ -30,7 +30,7 @@ const my_tema = [
     { name: 'Лесной массив', color: ['linear-gradient(94.86deg, #305F53 0%, #71978E 48.96%, #456A61 100%)', '#456A61', '#E1F3EB'] }
 ]
 const my_currency = ['Белорусcкий рубль', 'Российский рубль', 'Казахстанский тенге']
-const current_symbol = ['BYN','₽','₸']
+const current_symbol = ['BYN', '₽', '₸']
 
 
 export default function EditProfile() {
@@ -51,7 +51,7 @@ export default function EditProfile() {
 
     useEffect(() => {
         function SetData() {
-                setName(profile.name),
+            setName(profile.name),
                 setText(profile.text),
                 setCity(profile.city),
                 setCurrency(my_currency[current_symbol.indexOf(profile.currency)]),
@@ -63,14 +63,14 @@ export default function EditProfile() {
         }
         SetData()
     }, [profile.name,
-        profile.text,
-        profile.city,
-        profile.currency,
-        profile.address,
-        profile.image,
-        profile.nikname,
-        profile.color,
-        profile.address_full
+    profile.text,
+    profile.city,
+    profile.currency,
+    profile.address,
+    profile.image,
+    profile.nikname,
+    profile.color,
+    profile.address_full
     ])
 
     function Return() {
@@ -133,6 +133,10 @@ export default function EditProfile() {
             nikname: nikname,
             image: file,
             text: text,
+            id: profile.id,
+            phone: profile.phone,
+            color: my_tema[0],
+            currency: 'BYN'
         }
         const response = await fetch('/api/create_master', {
             body: JSON.stringify(data),
@@ -142,7 +146,6 @@ export default function EditProfile() {
             method: 'POST',
         })
         const result = await response.json()
-        console.log(result)
     }
 
     const toBase64 = file => new Promise((resolve, reject) => {
@@ -161,14 +164,16 @@ export default function EditProfile() {
         }
 
     }
-    console.log(color[0])
+
+
     return (
         <main className={styles.main}>
-            {/* <Header sel={"/" + profile.status + "/" + profile.nikname} text={profile.nikname} /> */}
-            <header className={styles.header}>                
-                <span onClick={Return} style={{color: color[1]}}>Отмена</span>
+            <Script src="https://api-maps.yandex.ru/3.0/?apikey=89caab37-749d-4e30-8fdf-e8045542f060&lang=ru_RU" />
+
+            <header className={styles.header}>
+                <span onClick={Return} style={{ color: color[1] }}>Отмена</span>
                 <span>{profile.nikname}</span>
-                <span onClick={profile.status === 'client' ? EditClient : EditMaster} style={{color: color[1]}}>Принять</span>
+                <span onClick={profile.status === 'client' ? EditClient : EditMaster} style={{ color: color[1] }}>Принять</span>
             </header>
             <div className={styles.image} style={{ background: color[0] }}>
                 {profile.status === 'master' ? <span onClick={() => viewTema(true)}>Изменить обложку</span> : null}
@@ -224,7 +229,7 @@ export default function EditProfile() {
                     </div></> : null}
                 <div className={styles.connect_master}>
                     Аккаунт мастера
-                    <button onClick={() => CreateMaster()}>{profile.status === 'master' ? "Подключен" : "Подключить"}</button>
+                    <button onClick={CreateMaster}>{profile.status === 'master' ? "Подключен" : "Подключить"}</button>
                 </div>
             </section>
             {accept ? <div className={styles.submitProfile}>
@@ -245,7 +250,11 @@ export default function EditProfile() {
                     </label>
                     <label>
                         Улица
-                        <input style={{ fontSize: 14 }} type="text" value={address} onChange={(e) => setAddress(e.target.value)} />
+                        <input
+                            style={{ fontSize: 14 }}
+                            type="text" value={address}
+                            onChange={(e)=>setAddress(e.target.value)}
+                        />
                     </label>
                     <label>
                         Номер дома
@@ -311,7 +320,7 @@ export default function EditProfile() {
                 : cur ?
                     <div className={styles.main_tema}>
                         <div className={styles.select_tema}>
-                            <h6 onClick={() => setCur(false)}/>
+                            <h6 onClick={() => setCur(false)} />
                             {my_currency.map((i, index) =>
                                 <div
                                     key={i}
@@ -332,7 +341,7 @@ export default function EditProfile() {
                             )}
                         </div>
                     </div> : null}
-                    <Navi color={color[1]} />
+            <Navi color={color[1]} />
         </main>
     )
 }

@@ -6,7 +6,8 @@ import { useEffect, useState } from 'react'
 export default function Services({color}) {  
     const router = useRouter()
     const { pid } = router.query
-    const [services, setServices] = useState()    
+    const [services, setServices] = useState()
+    const [message, setMessage] = useState('One moument')    
     useEffect(() => {
         async function GetServices() {
             const response = await fetch(`/api/master_service?nikname=${pid}`, {
@@ -16,9 +17,15 @@ export default function Services({color}) {
                 // The method is POST because we are sending data.
                 method: 'get',
             })           
-            const result = await response.json()           
-            let new_serv = Object.entries(result[0])           
-            setServices(new_serv)
+            const result = await response.json() 
+            if ( result.length>0) {
+                let new_serv = Object.entries(result[0])           
+                setServices(new_serv)
+                setMessage('У вас пока нет услуг')
+            }  else {
+
+            }        
+           
         }       
         GetServices()
     }, [])
@@ -36,7 +43,7 @@ export default function Services({color}) {
                     </div>)}</>:null}
                
                 </div>
-            )}</>:null}
+            )}</>:<h3 className={styles.no_services} style={{color:color[1]}}>{message}</h3>}
         </>
     )
 }

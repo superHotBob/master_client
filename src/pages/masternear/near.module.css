@@ -60,9 +60,6 @@
   margin-top: 20px;
   filter: grayscale(100%) !important;
 }
-.my_map {
-  opacity: 1;
-}
 
 .my_map div div {
   filter: grayscale(100%) !important;

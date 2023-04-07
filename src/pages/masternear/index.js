@@ -6,9 +6,10 @@ import styles from './near.module.css'
 import arrow_down from '../../../public/arrow_down.svg'
 import { useSelector, useDispatch } from 'react-redux'
 import { useState, useEffect } from 'react'
-import { YMaps, Map, Placemark, coordSystem } from '@pbe/react-yandex-maps'
+import { YMaps, Map, Placemark, useYMaps } from '@pbe/react-yandex-maps'
 import Script from 'next/script'
 import FilterServices from '@/components/filterServices'
+
 
 const sel = {
     background: 'linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)',
@@ -21,6 +22,7 @@ export default function MasterNear() {
     const my_sel = router.query
     const my_city = useSelector((state) => state.counter.city)
     const service = useSelector((state) => state.counter.service)
+    const loc = useSelector((state=>state.counter.location))
     const dispatch = useDispatch()
     const [selector, setSelector] = useState(true)
     const [viewFilter, setViewFilter] = useState(false)
@@ -31,7 +33,7 @@ export default function MasterNear() {
 
     const defaultState = {
         center: [
-            { name: 'минск', location: [53.904430, 27.554895] },
+            { name: 'минск', location: loc },
             { name: 'брест', location: [52.098208, 23.760049] }]
             .filter(i => i.name === my_city.toLowerCase())
             .map(i => i.location),
@@ -45,6 +47,7 @@ export default function MasterNear() {
     }
     useEffect(() => {
         setSelector(false)
+        console.log(loc)
         setMasters()
         async function GetMasters() {
             const response = await fetch('/api/all_masters_city?' + new URLSearchParams({
@@ -77,19 +80,29 @@ export default function MasterNear() {
             const bounds = Map.current.getBounds()
             const center = Map.current.getCenter()
             const rightPoint = [center[0], bounds[1][1]]
-            const radius = Map.current.coordSystem.geo.getDistance(
-                [53.94843972554695, 27.603028939367363],
-                [53.970144032848296, 27.696309659065204]
-            )
-            console.log("currRadius", radius)
-
+            // const radius = ymaps.coordSystem.geo.getDistance(
+            //     [53.94843972554695, 27.603028939367363],
+            //     [53.970144032848296, 27.696309659065204]
+            // )
+            // console.log("currRadius", radius)
+            var suggestView1 = Map.current.SuggestView('suggest1');
+            console.log(suggestView1)
             setFilter(Map.current.getZoom())
 
         }
     }
 
-    function OnLoadMap() {
-        document.getElementsByClassName('ymaps-2-1-79-ground-pane')[0].style.filter = 'grayscale(1)';
+    function OnLoadMap(ymaps) {
+        //  const radius = yMaps.getDistance(
+        //         [53.94843972554695, 27.603028939367363],
+        //         [53.970144032848296, 27.696309659065204]
+        //     )
+        //     console.log("currRadius", radius)
+
+        // var suggestView1 = new ymaps.SuggestView('suggest1');
+
+
+        document.getElementsByClassName('ymaps-2-1-79-ground-pane')[0].style.filter = 'grayscale(100%)';
         document.getElementsByClassName('ymaps-2-1-79-copyright')[0].style.display = 'none';
         document.getElementsByClassName('ymaps-2-1-79-gotoymaps')[0].style.display = 'none';
         document.getElementsByClassName('ymaps-2-1-79-gototech')[0].style.display = 'none';
@@ -120,7 +133,7 @@ export default function MasterNear() {
                             </p>
                             <h4>{i.address}</h4>
                             <h5>{i.services.map(a => <span key={a} className={styles.service}>{a}</span>)}</h5>
-                            <Image src={i.image} width={60} height={60} alt="image" />
+                            <Image src={i.image ? i.image : '/camera_wh.svg'} width={60} height={60} alt="image" />
                         </Link>)}
                 </section>
                 :
@@ -139,13 +152,15 @@ export default function MasterNear() {
 
                         </div> : null}
                     </div>
+                   
                     <div className={styles.my_map} id="my_map">
                         <YMaps>
+
                             <Map id="mymap"
-                                // modules={["coordSystem.geo"]}
+                                // modules={["coordSystem.geo","SuddestView"]}
                                 options={{ set: defaultState }}
                                 state={{
-                                    center: master ? masters?.filter(i => i.nikname === master)[0].locations : defaultState.center[0],
+                                    center: master ? masters?.filter(i => i.nikname === master)[0].locations : loc,
                                     zoom: master ? 14 : filter,
                                     behaviors: ["default", "scrollZoom"]
                                 }}
@@ -156,7 +171,7 @@ export default function MasterNear() {
                                         Map.current = yaMap;
                                     }
                                 }}
-                                onLoad={() => OnLoadMap()}
+                                onLoad={OnLoadMap}
                                 onClick={() => getZoom()}
                                 onWheel={() => setFilter(Map.current.getZoom())}
                             >
@@ -185,8 +200,8 @@ export default function MasterNear() {
                 </section>}
             {master && !selector ? <section className={styles.section}>
                 <Image alt="close" className={styles.close} src={arrow_down} width={25} height={25} onClick={() => ViewMaster('', 11)} />
-                {masters?.filter(i => i.nikname === master).map(i => <Link key={i.nikname} className={styles.master}
-                    href={`/master/${i.nikname}`}                  >
+                {masters?.filter(i => i.nikname === master).map(i => 
+                <Link key={i.nikname} className={styles.master} href={`/master/${i.nikname}`} >                                     
                     <p style={{ width: '75%' }}>
                         <b>{i.name}</b> {'  '}
                         <span className={styles.pro}>MASTER</span>
@@ -194,7 +209,7 @@ export default function MasterNear() {
                     </p>
                     <h4>{i.address}</h4>
                     <h5>{i.services.map(a => <span key={a} className={styles.service}>{a}</span>)}</h5>
-                    <Image src={i.image} width={60} height={60} alt="image" />
+                    <Image src={i.image ? i.image : '/camera_wh.svg'} width={60} height={60} alt="image" />
                 </Link>)}
             </section> : null}
 

@@ -1,9 +1,9 @@
 import Header from '@/components/header'
 import styles from './enter.module.css'
 import { useRouter } from 'next/router'
-import { FormEvent, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { setmaster, setclient, setnikname,setprofile } from '@/reduser'
+import {  useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { setprofile } from '@/reduser'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 

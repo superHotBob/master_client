@@ -76,10 +76,10 @@ const Master = () => {
                     <p className={styles.name_stars}>
                         <span style={{ width: 'fit-content' }}>{profile.name}</span>
                         <span className={styles.pro} style={{ background: profile.color[0] }}>MASTER</span>
-                        <span
+                        {profile.stars?<span
                             className={styles.stars}
                             style={{ color: profile.color[1], backgroundColor: profile.color[2] }}
-                        >4.7</span>
+                        >4.7</span>:null}
                     </p>
                     <h4 onClick={()=>setmapview(true)}>{profile.address}</h4>
                     {viewText ? <h5 className={styles.text}>{profile.text}</h5> : null}

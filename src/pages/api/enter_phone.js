@@ -7,23 +7,23 @@ export default async function handler(req, res) {
 
   const result = await sql`
     select 
-    status,blocked
+    status,blocked,id
     from clients
     where phone = ${+req.body.tel}
   `
-  console.log(result[0])
+  
   const nikname =  'client' + (Math.random() * 10000).toFixed(0)
   if (result.length === 0) {
     const result = await sql`
         insert into clients (
-          phone, status, nikname
+          phone, status, nikname, id, blocked
         ) values (
-          ${+req.body.tel}, 'client', ${nikname}
+          ${+req.body.tel}, 'client', ${nikname}, ${(Math.random()*100000).toFixed(0)}, 'no'
         )
 
-        returning status, nikname
+        returning status, nikname,id
     `
-    console.log(result)
+    console.log(result[0])
     res.status(200).json(result[0])
   } else if (result[0].status === 'master' && result[0].blocked === 'no') {
     const result = await sql`
@@ -36,7 +36,7 @@ export default async function handler(req, res) {
   } else if (result[0].status === 'client' && result[0].blocked === 'no') {
     const result = await sql`
     select 
-    status,nikname,image,name,text
+    status,nikname,image,name,text,id,phone
     from clients
     where phone = ${+req.body.tel}
   `

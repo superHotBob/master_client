@@ -58,16 +58,14 @@ export default function Service() {
                 `} /> 
                          
                 <div className={styles.city}>
-                    <Link href="/city"> Ваш город {city}</Link>
-                    
+                    <Link href="/city"> Ваш город {city}</Link>                    
                 </div>
                 <FilterServices  service={pid}/>
                 {masters ? <>
-                    {masters.map(i =>
+                    {masters?.map(i =>
                         <div 
                             key={i.name} 
-                            className={styles.master} 
-                           
+                            className={styles.master}                            
                         >
                             <Link href={"/master/" + i.nikname}>
                                 <p>
@@ -78,11 +76,11 @@ export default function Service() {
                             </Link>
                             <h4>{i.address}</h4>
                             {i.services ? <h5>{i.services.map(m=><span key={m}>{m}</span>)}</h5> :null}
-                            <Image src={i.image} width={70} height={70} />
+                            <Image src={i.image ? i.image : '/camera_bl.svg'} width={70} height={70} alt="image" />
 
                         </div>
                     )}
-                    </> 
+                </> 
                     : 
                     <div className={styles.await}>                       
                         <Image alt="await" src='/await.gif' width={150} height={150}/>

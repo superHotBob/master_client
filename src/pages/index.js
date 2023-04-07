@@ -5,10 +5,11 @@ import styles from '@/styles/Home.module.css'
 import Header from '@/components/header'
 import { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { setlocation } from '@/reduser'
 import FilterServices from '@/components/filterServices'
 import Carousel from 'nuka-carousel/lib/carousel'
 import Message from '@/components/message'
-
+import { useGeolocated } from "react-geolocated";
 
 const url = 'https://masters-client.onrender.com/images/'
 
@@ -22,12 +23,20 @@ export default function Home() {
   //   audio.play();
   // }, [])
 
-  useEffect(() => {
-    setWidth(window.innerWidth > 500 ? 230 : (window.innerWidth - 40)/2)   
-  }, [])
  
-
-  
+ 
+  const { coords, isGeolocationAvailable, isGeolocationEnabled } =
+  useGeolocated({
+      positionOptions: {
+          enableHighAccuracy: false,
+      },
+      userDecisionTimeout: 5000,
+  });
+  useEffect(() => {
+    setWidth(window.innerWidth > 500 ? 230 : (window.innerWidth - 40)/2) 
+    if ( coords) { dispatch(setlocation([coords.latitude,coords.longitude])) 
+    console.log(coords.latitude,coords.longitude) }
+  }, [coords])
   
   return (
     <>     
@@ -41,6 +50,7 @@ export default function Home() {
           />        
           <Link className={styles.city} href="/city"> Выбрать ваш город</Link>
           <FilterServices />
+          {/* {coords?<span>{coords.latitude},{coords.longitude}</span> : null} */}
           <div className={styles.images}>
             <div className={styles.images_one}>
               {[{image:'two', name:'bob1234',date:'12.03.2021'},
