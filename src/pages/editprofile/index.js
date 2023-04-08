@@ -5,8 +5,6 @@ import Image from 'next/image'
 import { useEffect, useState, useRef } from 'react'
 import arrow from '../../../public/arrow_back.svg'
 import Navi from '@/components/navi'
-import { YMaps, Map, SearchControl, useYMaps } from '@pbe/react-yandex-maps'
-import Script from 'next/script'
 
 const filestyle = { borderRadius: '100%' }
 const active_currency = {
@@ -31,15 +29,25 @@ const my_tema = [
 ]
 const my_currency = ['Белорусcкий рубль', 'Российский рубль', 'Казахстанский тенге']
 const current_symbol = ['BYN', '₽', '₸']
+var url = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/geolocate/address";
+var token = "5ff295eebd78a454b8bd3805b29d1eb6daefe31f";
+var query = { lat: 55.878, lon: 37.653 };
+
+
+
 
 
 export default function EditProfile() {
+    
     const profile = useSelector(state => state.counter.profile)
+    const location = useSelector(state=>state.counter.location)
+    console.log(location)
     const dispatch = useDispatch()
     const [name, setName] = useState('Ваше имя')
     const [nikname, setNikname] = useState()
     const [file, setSelectedFile] = useState()
     const [text, setText] = useState()
+    const [message, setMessage] = useState()
     const [accept, setAccept] = useState(false)
     const [tema, viewTema] = useState(false)
     const [cur, setCur] = useState(false)
@@ -48,8 +56,30 @@ export default function EditProfile() {
     const [city, setCity] = useState('')
     const [address, setAddress] = useState('')
     const [address_full, setAddress_full] = useState()
-
+   
     useEffect(() => {
+        const options = {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": "Token " + token
+            },
+            body: JSON.stringify({ lat: location[0], lon: location[1] })
+        }
+
+        function Location () {
+            fetch(url, options)
+            .then(response => response.json())
+            .then(result => {                
+                setCity(result.suggestions[0].data.city.toLowerCase()())
+                setAddress(result.suggestions[0].data.street)
+                setAddress_full(address_full => ({ ...address_full, ...{ 'дом': result.suggestions[0].data.house } }))
+            })
+            .catch(error => console.log("error", error));
+        }  
+        Location()  
         function SetData() {
             setName(profile.name),
                 setText(profile.text),
@@ -59,25 +89,25 @@ export default function EditProfile() {
                 setSelectedFile(profile.image),
                 setAddress_full(address_full => ({ ...address_full, ...profile.address_full })),
                 setNikname(profile.nikname),
-                setColor(profile.color || 'linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%)')
+                setColor(profile.color ? profile.color : 'linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%)')
         }
         SetData()
     }, [profile.name,
-    profile.text,
-    profile.city,
-    profile.currency,
-    profile.address,
-    profile.image,
-    profile.nikname,
-    profile.color,
-    profile.address_full
+        profile.text,
+        profile.city,
+        profile.currency,
+        profile.address,
+        profile.image,
+        profile.nikname,
+        profile.color,
+        profile.address_full
     ])
 
     function Return() {
         setName(profile.name),
             setText(profile.text),
             setCurrency('Белорусский рубль')
-        setSelectedFile(profile.image),
+            setSelectedFile(profile.image),
             setAddress(profile.address),
             setNikname(profile.nikname),
             setColor(profile.color || 'linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%)')
@@ -111,11 +141,12 @@ export default function EditProfile() {
             text: text,
             old_nikname: profile.nikname,
             currency: current_symbol[my_currency.indexOf(currency)],
-            address: address,
+            address: address ,
             city: city,
             color: color,
+            locations: location,
             address_full: address_full
-        }
+        }       
         const response = await fetch('/api/editprofilemaster', {
             body: JSON.stringify(data),
             headers: {
@@ -126,6 +157,7 @@ export default function EditProfile() {
         const result = await response.json()
         localStorage.setItem("profile", JSON.stringify(result));
         dispatch(setprofile(result))
+        setMessage('Ваш профиль изменён. Выдите и зайдите снова что-бы применить к данному устройству')
     }
     async function CreateMaster() {
         const data = {
@@ -157,7 +189,7 @@ export default function EditProfile() {
 
     async function onSelectFile(a) {
         if (a.size > 50000) {
-            console.log("Size is big")
+            setMessage('Файл больше 50кб')
         } else {
             let result = await toBase64(a)
             setSelectedFile(result)
@@ -168,9 +200,11 @@ export default function EditProfile() {
 
     return (
         <main className={styles.main}>
-            <Script src="https://api-maps.yandex.ru/3.0/?apikey=89caab37-749d-4e30-8fdf-e8045542f060&lang=ru_RU" />
-
             <header className={styles.header}>
+                <dialog open={message? 'open' : false} className={message ? styles.active_dialog:styles.passive_dialog}>
+                    <h6 onClick={() => setMessage()}/>
+                    {message}
+                </dialog>
                 <span onClick={Return} style={{ color: color[1] }}>Отмена</span>
                 <span>{profile.nikname}</span>
                 <span onClick={profile.status === 'client' ? EditClient : EditMaster} style={{ color: color[1] }}>Принять</span>
@@ -192,11 +226,10 @@ export default function EditProfile() {
             <p className={styles.name}>{profile.name || name || 'Ваше имя'}</p>
             <section className={styles.inputs}>
                 <h6>
-                    <span>Публичная ссылка, никнейм</span>
-                    {/* <span onClick={() => setAccept(true)}>изменить</span> */}
+                    <span>Публичная ссылка, никнейм</span>                    
                 </h6>
                 <div className={styles.nikname}>
-                    <span>masters.place/{profile.status}/</span>
+                    <span>masters.place/{profile.status + '/'}</span>
                     <input type="text" value={nikname} onChange={e => setNikname(e.target.value)} />
                     {/* <span>{nikname || profile.nikname}</span> */}
                 </div>
@@ -253,7 +286,7 @@ export default function EditProfile() {
                         <input
                             style={{ fontSize: 14 }}
                             type="text" value={address}
-                            onChange={(e)=>setAddress(e.target.value)}
+                            onChange={(e) => setAddress(e.target.value)}
                         />
                     </label>
                     <label>

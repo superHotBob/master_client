@@ -90,6 +90,8 @@
     font-weight: 400;
     font-size:  12px;
     line-height:  17px;
+    width: 80%;
+    margin: 0 auto;
     color: #282828;
 }
 

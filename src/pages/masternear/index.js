@@ -33,7 +33,7 @@ export default function MasterNear() {
 
     const defaultState = {
         center: [
-            { name: 'минск', location: loc },
+            { name: 'минск', location: [53.904478111637374, 27.556582167586544 ]},
             { name: 'брест', location: [52.098208, 23.760049] }]
             .filter(i => i.name === my_city.toLowerCase())
             .map(i => i.location),
@@ -160,7 +160,7 @@ export default function MasterNear() {
                                 // modules={["coordSystem.geo","SuddestView"]}
                                 options={{ set: defaultState }}
                                 state={{
-                                    center: master ? masters?.filter(i => i.nikname === master)[0].locations : loc,
+                                    center: master ? masters?.filter(i => i.nikname === master)[0].locations : loc   ,
                                     zoom: master ? 14 : filter,
                                     behaviors: ["default", "scrollZoom"]
                                 }}
