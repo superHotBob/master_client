@@ -21,7 +21,7 @@ export default function Menu() {
     const profile = useSelector((state) => state.counter.profile)
 
     function CopyProfile() {
-        navigator.clipboard.writeText(window.location.host + '/master/' + profile.nikname)
+        navigator.clipboard.writeText(window.location.host + '/' +  profile.status + '/' + profile.nikname)
         alert("Copied the text: " + window.location.host);
     }
     function ExitFromAccount() {
@@ -60,7 +60,7 @@ export default function Menu() {
                     }} className={styles.collections}>Мои заказы</Link>
                      <p className={styles.menu_prof}>Общее</p>
                     <Link href="/editprofile" className={styles.edit_profile}>Настройки профиля</Link>
-                    <p className={styles.copy} onClick={CopyProfile}>Скопировать ссылку профиля</p>
+                    {/* <p className={styles.copy} onClick={CopyProfile}>Скопировать ссылку профиля</p> */}
                     <p className={styles.chat}>Техническая поддержка</p>
                     <p className={styles.about}>О сервисе</p>
                     <p onClick={ExitFromAccount}>Выйти из аккаунта</p>

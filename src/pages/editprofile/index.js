@@ -79,7 +79,7 @@ export default function EditProfile() {
             })
             .catch(error => console.log("error", error));
         }  
-        Location()  
+        if (profile.status === 'master') { Location() }  
         function SetData() {
             setName(profile.name),
                 setText(profile.text),
@@ -121,16 +121,20 @@ export default function EditProfile() {
             text: text,
             old_nikname: profile.nikname
         }
-        const response = await fetch('/api/editprofileclient', {
+        fetch('/api/editprofileclient', {
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
             },
             method: 'POST',
         })
-        const result = await response.json()
-        localStorage.setItem("profile", JSON.stringify(result));
-        dispatch(setprofile(result))
+        .then(res => res.json())
+        .then(res =>  {            
+            localStorage.setItem("profile", JSON.stringify(res))
+            dispatch(setprofile(res))
+            setMessage('Ваш профиль изменён')
+        })
+        .catch(err=>setMessage("Ошибка сохранения "))        
     }
     const EditMaster = async () => {
         const data = {
@@ -157,7 +161,7 @@ export default function EditProfile() {
         const result = await response.json()
         localStorage.setItem("profile", JSON.stringify(result));
         dispatch(setprofile(result))
-        setMessage('Ваш профиль изменён. Выдите и зайдите снова что-бы применить к данному устройству')
+        setMessage('Ваш профиль изменён')
     }
     async function CreateMaster() {
         const data = {

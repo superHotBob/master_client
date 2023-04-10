@@ -1,27 +1,33 @@
 .section {
-    background-color: #fff;    
-    background-position: center 30px;   
-    background-size: 20%;
+    background-color: #fff;
+
     height: calc(100vh - 72px);
     position: relative;
     z-index: 101;
 }
 
-.section::before {
+.image {
+    background-position: center;
+    background-size: 20%;
+    height: 120px;
+}
+
+.inputs::before {
     content: 'Войти по номеру телефона';
     text-align: center;
     color: black;
     display: block;
-    transform: translateY(115px);
     font-weight: 500;
-    font-size:  18px;
+    font-size: 18px;
     line-height: 18px;
 }
 
 .inputs {
-    margin: 150px auto;
+    margin: 0 auto;
     width: 300px;
+
 }
+
 /* .inputs span {
     color:#3D4EEA;
     display: block;
@@ -33,30 +39,35 @@
     display: inline-block;
     color: #000;
 } */
-.inputs p {
-    text-align: center;   
+.inputs p,
+.number p {
+    text-align: center;
     font-weight: 400;
-    font-size:  12px;
+    font-size: 12px;
     line-height: 18px;
     width: 300px;
+    margin: 30px auto 15px;
+}
+.number p {
     margin: 0 auto 15px;
 }
 .colaboration {
-    text-align: center;   
+    text-align: center;
     font-weight: 400;
-    font-size:  14px;
+    font-size: 14px;
     line-height: 17px;
     width: 300px;
     margin: 0 auto 20px;
 }
+
 .inputs input {
     height: 46px !important;
     width: 300px;
     display: block;
     font-family: 'Rubik', sans-serif;
     margin: 0 auto;
-    outline: none;    
-    border-radius: 6px;    
+    outline: none;
+    border-radius: 6px;
     border: 1px solid #3D4EEA !important;
 
 }
@@ -67,11 +78,59 @@
     display: block;
     text-align: center;
     font-size: 16px;
-    font-weight: 500;    
+    font-weight: 500;
     border-radius: 6px;
     padding: 11px 8px 11px 8px;
     background-color: #3D4EEA;
     color: #fff;
     border: none;
     margin: 24px auto;
+}
+
+.number h5 {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.number h5 span {
+    color: #3D4EEA;
+    border: 1px solid #3D4EEA;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.numbers input {
+    width: 56px;
+    height: 82px;
+    margin-right: 10px;
+    text-align: center;
+    font-size: 30px;
+    outline: none;
+    background: #ECEEFD;
+    border: none;
+    font-weight: 500;
+    box-shadow: 0px 1px 0px #F5F5F5;
+    border-radius: 8px;
+}
+
+.numbers {
+    display: flex;
+    justify-content: center;
+    margin: 30px 0;
+
+}
+
+.number h4 {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 26px;
+    text-align: center;
+    color: #3D4EEA;
+    margin-bottom: 11px;
+}
+.number h6 {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
 }
