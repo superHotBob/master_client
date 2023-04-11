@@ -14,7 +14,6 @@ export default async function handler(req, res) {
 
   const nikname = 'client' + (Math.random() * 10000).toFixed(0)
 
-  if (req.body.number === 1234) { 
     if (result.length === 0) {
       const result = await sql`
           insert into clients (
@@ -48,8 +47,6 @@ export default async function handler(req, res) {
     } else {
       res.end('Ваш аккаунт заблокирован')
     }
-  } else {
-    res.status(400).json({'message': 'bad'})
-  }
+  
 
 }

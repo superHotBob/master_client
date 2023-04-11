@@ -44,12 +44,10 @@ const Master = () => {
                 fontWeight: 600
             })
         }
-
         if (local_profile) {
             setProfile(my_profile);
         } else {
             GetMaster()
-
         }
 
 
@@ -69,6 +67,9 @@ const Master = () => {
             </Head>
             {profile ? <>
                 <Header text={pid} sel='back' color={profile.color} />
+                {mapview ? 
+                <Location  locations={profile.locations} close={setmapview}/>
+                :
                 <section className={styles.section}>
                     <div className={styles.image} style={{ background: profile.color[0] }}>
                         {profile.image ? <Image src={profile.image} alt="profile" height={105} width={105} /> : null}
@@ -113,8 +114,9 @@ const Master = () => {
                     {nav_view === 'Услуги' ? <Services name={pid} color={profile.color} /> : null}
                     {nav_view === 'Лента' ? <Lenta name={pid} color={profile?.color} /> : null}
                     {nav_view === 'Сертификаты' ? <Sertificats name={pid} /> : null}
-                    {mapview ? <Location  locations={profile.locations} close={setmapview}/>: null}
-                </section>
+                    
+                </section>}
+               
                 <Navi color={profile.color[1]} /></> :
                 <div className={styles.await}>
                     <Image alt="await" src='/await.gif' width={150} height={150} />

@@ -27,7 +27,9 @@
     width: 300px;
 
 }
-
+.number {
+    position: relative;
+}
 /* .inputs span {
     color:#3D4EEA;
     display: block;
@@ -128,9 +130,15 @@
     text-align: center;
     color: #3D4EEA;
     margin-bottom: 11px;
+    cursor: pointer;
 }
 .number h6 {
     text-align: center;
     font-size: 16px;
     font-weight: 400;
+}
+.error {
+    color: red;
+    text-align: center;
+    margin-bottom: 20px;
 }

@@ -1,11 +1,10 @@
 .main {
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
    
     max-width: 500px;    
     width: 100%;
-    overflow: auto;
-    z-index: 110;
+    overflow: auto;    z-index: 110;
 }
 .selector {
     font-weight: 400;
@@ -65,7 +64,7 @@
     display: grid;
     column-gap: 8px;
     row-gap: 8px;
-    grid-template-columns: 20% 20% 20% 20% 20%;    
+    grid-template-columns: 18% 18% 18% 18% 18%;   
     justify-content: space-between;   
     overflow-x: auto;
     margin-bottom: 16px;
@@ -162,10 +161,10 @@
     margin: 0 5px 0 0;
     transform: translateY(-1px);
   }
-@media screen and (min-width: 500px) {
+@media screen and (max-width: 500px) {
     
     .days {
         display: grid;
-        grid-template-columns: 18% 18% 18% 18% 18%;  
+        grid-template-columns: 23% 23% 23% 23% 23%;  
     }      
 }

@@ -1,19 +1,17 @@
 import styles from './location.module.css'
 import Script from 'next/script'
+import Image from 'next/image'
 import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps'
-import { useEffect } from 'react';
+import icon_close from '../../../public/close.svg'
 
 export default function Location({locations,close}) {
 
-    useEffect(()=>{
-        setTimeout(() => {                
-            document.getElementsByClassName('ymaps-2-1-79-ground-pane')[0].style.filter = 'grayscale(1)'
-            document.getElementsByClassName('ymaps-2-1-79-copyright')[0].style.display = 'none'
-            document.getElementsByClassName('ymaps-2-1-79-gotoymaps')[0].style.display = 'none'
-        }, 2000)
-
-    },[])
-
+    function ViewGrayScale() {          
+        document.getElementsByClassName('ymaps-2-1-79-ground-pane')[0].style.filter = 'grayscale(1)'
+        document.getElementsByClassName('ymaps-2-1-79-copyright')[0].style.display = 'none'
+        document.getElementsByClassName('ymaps-2-1-79-gotoymaps')[0].style.display = 'none'
+    }
+    
     const defaultState = {        
         controls: [],
         behaviors: ["default", "scrollZoom", "onclick"]
@@ -22,7 +20,7 @@ export default function Location({locations,close}) {
         <div className={styles.map}>
             <Script src="https://api-maps.yandex.ru/3.0/?apikey=89caab37-749d-4e30-8fdf-e8045542f060&lang=ru_RU" />
             <div className={styles.my_map} >
-                <span onClick={()=>close(false)}>close</span>
+                <Image src={icon_close} onClick={()=>close(false)} alt="close" width={20} height={20}/>
                         <YMaps >
                             <Map id="mymap"
                                 options={{ set: defaultState }}
@@ -31,7 +29,8 @@ export default function Location({locations,close}) {
                                     zoom:  14 ,
                                     controls: [],
                                     behaviors: ["default", "scrollZoom"]
-                                }} width='100%' height= "75vh"                                
+                                }} width='100%' height= "75vh"
+                                                              
                                
                             >
                                 <Placemark geometry={locations} 
@@ -50,7 +49,7 @@ export default function Location({locations,close}) {
                                         iconImageHref: '/master1.svg',
                                         iconImageSize: [40, 40],
                                     }}
-
+                                    onLoad={()=>ViewGrayScale()}  
                                     
                                 />
                             </Map>
