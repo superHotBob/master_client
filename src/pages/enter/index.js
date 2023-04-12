@@ -21,14 +21,15 @@ export default function Enter() {
     const [back, setBack] = useState('logo-main.svg')
     const [select, setSelect] = useState('Вход')
     const [message, setMessage] = useState('')
+    const [t, setT] = useState()
 
     useEffect(() => {
         setNumber([, , ,])
         setSelect('Вход')
         setBack('logo-main.svg')
-        setMessage('')        
+        setMessage('')
     }, [])
-   
+
     function firstCall(event) {
         event.preventDefault()
         const data = { tel: phone }
@@ -40,18 +41,33 @@ export default function Enter() {
             },
             method: 'POST',
         })
-            .then(res => {               
+            .then(res => {
                 if (res.status === 200) {
                     setSelect('Подтвердить'),
                     setBack("logo-main.svg"),
-                    setTimeout(()=> document.getElementById(0).focus(),500)
+                    setTimeout(() => document.getElementById(0).focus(), 500)
                 } else {
-                    setMessage('Повторно запросить звонок можно будет через  1 мин.'),
+                    setT(60)
                     setBack("logo-main.svg")
                 }
             })
 
     }
+    useEffect(() => {
+        if (t > 0) {
+            let timer = setInterval(() => {
+                setT(t - 1)
+                setMessage(t)
+            }, 1000);
+
+            return () => clearInterval(timer)
+        } else {
+            setMessage()
+        }
+
+    }, [t])
+
+
     async function SendCode(event) {
         event.preventDefault()
         const data = { tel: phone, number: +number.join('') }
@@ -62,11 +78,12 @@ export default function Enter() {
             },
             method: 'POST',
         })
-            .then(res => {               
-                if (res.status  === 200) {
+            .then(res => {
+                console.log(res)
+                if (res.status === 200) {
                     handleSubmit()
                 } else {
-                    setMessage('')
+                    setMessage('dfg')
                 }
             })
     }
@@ -97,8 +114,8 @@ export default function Enter() {
         nmb[b] = a
         setNumber(nmb)
         if (b < 3) {
-            document.getElementById(b+1).focus()
-        }       
+            document.getElementById(b + 1).focus()
+        }
     }
     function Reload() {
         setNumber([, , ,])
@@ -121,20 +138,20 @@ export default function Enter() {
                         placeholder='номер телефона'
                         onChange={phone => setPhone(phone)}
                     />
-                    {message ? 
-                    <h3 className={styles.error} >
-                        <br/>
-                        {message}
-                    </h3> :<>
+                    {message ?
+                        <h3 className={styles.error} >                            
+                            Повторно запросить звонок
+                            можно будет через  <b>{t}</b> сек.
+                        </h3> : <>
 
-                    <div className={styles.button} onClick={firstCall}>Войти</div>
+                            <div className={styles.button} onClick={firstCall}>Войти</div>
 
-                    <div className={styles.colaboration}>
-                        Нажмая на кнопку, вы соглашаетесь с<br />
-                        <span style={{ color: "#3D4EEA" }}>Условиями обработки персональных <br />
-                            данных</span>  и <span style={{ color: "#3D4EEA" }}>Пользовательским соглашением</span>
-                    </div>
-                    </>}
+                            <div className={styles.colaboration}>
+                                Нажмая на кнопку, вы соглашаетесь с<br />
+                                <span style={{ color: "#3D4EEA" }}>Условиями обработки персональных <br />
+                                    данных</span>  и <span style={{ color: "#3D4EEA" }}>Пользовательским соглашением</span>
+                            </div>
+                        </>}
                 </div>
                 :
                 <div className={styles.number}>

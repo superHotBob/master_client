@@ -138,7 +138,11 @@
     font-weight: 400;
 }
 .error {
-    color: red;
+    color: #282828;
     text-align: center;
-    margin-bottom: 20px;
+    margin: 20px auto 20px;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 17px;
+    width: 60%;
 }

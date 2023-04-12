@@ -29,9 +29,9 @@ const my_tema = [
 ]
 const my_currency = ['Белорусcкий рубль', 'Российский рубль', 'Казахстанский тенге']
 const current_symbol = ['BYN', '₽', '₸']
-var url = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/geolocate/address";
-var token = "5ff295eebd78a454b8bd3805b29d1eb6daefe31f";
-var query = { lat: 55.878, lon: 37.653 };
+const url = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/geolocate/address"
+const token = "5ff295eebd78a454b8bd3805b29d1eb6daefe31f"
+
 
 
 
@@ -40,12 +40,11 @@ var query = { lat: 55.878, lon: 37.653 };
 export default function EditProfile() {
     
     const profile = useSelector(state => state.counter.profile)
-    const location = useSelector(state=>state.counter.location)
-    console.log(location)
+    const location = useSelector(state=>state.counter.location)   
     const dispatch = useDispatch()
     const [name, setName] = useState('Ваше имя')
     const [nikname, setNikname] = useState()
-    const [file, setSelectedFile] = useState()
+    const [file, setSelectedFile] = useState('/camera_wh.svg')
     const [text, setText] = useState()
     const [message, setMessage] = useState()
     const [accept, setAccept] = useState(false)
@@ -73,7 +72,7 @@ export default function EditProfile() {
             fetch(url, options)
             .then(response => response.json())
             .then(result => {                
-                setCity(result.suggestions[0].data.city.toLowerCase()())
+                setCity(result.suggestions[0].data.city.toLowerCase())
                 setAddress(result.suggestions[0].data.street)
                 setAddress_full(address_full => ({ ...address_full, ...{ 'дом': result.suggestions[0].data.house } }))
             })
@@ -120,6 +119,9 @@ export default function EditProfile() {
             image: file,
             text: text,
             old_nikname: profile.nikname
+        }
+        if (!file) {
+            setMessage('')
         }
         fetch('/api/editprofileclient', {
             body: JSON.stringify(data),
@@ -192,6 +194,7 @@ export default function EditProfile() {
     });
 
     async function onSelectFile(a) {
+        console.log(a)
         if (a.size > 50000) {
             setMessage('Файл больше 50кб')
         } else {
