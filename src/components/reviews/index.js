@@ -50,8 +50,12 @@ export default function Reviews({nikname,color}) {
                     </div>
                 </div>
                 <p className={styles.service}>{i.neworder.replace(/[0-9]/g,'').replace(':','')}, {i.price} BYN</p>
-                {view !== i.name ?<p className={styles.message} style={{color: color[1]}}>{i.review.slice(0,145)}...</p>:
-                <p className={styles.message} >{i.review}</p>}
+                {view !== i.name ?
+                <p className={styles.message} style={{color: color[1]}}>
+                    {i.review.slice(0,145) + '...'}
+                </p>
+                :
+                <p className={styles.message}>{i.review}</p>}
                 <span style={{color: color[2]}} onClick={()=>setView(view === i.name ? null : i.name)}>{view === i.name ?'скрыть' : 'подробнее'}</span>
             </div>)}
 

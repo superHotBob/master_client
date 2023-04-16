@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 
 
 const images = ['маникюр', 'педикюр', 'макияж', 'ресницы', 'чистка',
-    'брови', 'депиляция', 'массаж', 'стрижка', 'окрашивание', 'прическа', 'барбер']
+    'брови', 'депиляция', 'массаж', 'стрижка', 'окрашивание', 'прически', 'барбер']
 export default function Catalog() {
     const dispatch = useDispatch()
     const router = useRouter()

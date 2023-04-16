@@ -37,13 +37,7 @@ export default function Location({locations,close}) {
                                  modules= {
                                     ['geoObject.addon.balloon', 'geoObject.addon.hint']
                                 }
-                                    properties={{
-                                        hintContent: 'i.name',
-                                        hintLayout: '<p>asdasdasd</p>',
-                                        preset: "twirl#blueStretchyIcon",
-                                        fillColor: 'red',
-                                        strokeColor: 'blue'
-                                    }}
+                                   
                                     options={{
                                         iconLayout: 'default#image',
                                         iconImageHref: '/master1.svg',

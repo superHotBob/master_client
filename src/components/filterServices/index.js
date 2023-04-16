@@ -1,5 +1,5 @@
 import styles from './filter.module.css'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useDispatch,useSelector } from 'react-redux'
 import { setservice } from '../../reduser.js'
 
@@ -11,40 +11,24 @@ const style = {
 }
 const services = ['Маникюр', 'Прически','Педикюр', 'Макияж', 'Массаж', 'Барбер', 'Ресницы', 'Брови', 'Депиляция']
 export default function FilterServices({service}) {
-    const [viewFilter, setViewFilter] = useState(false)
-    const [filter, SetFilter] = useState()
+    const [viewFilter, setViewFilter] = useState(false)  
     const dispatch = useDispatch()
-    const my_service = useSelector(state=>state.counter.service)
-   
-    // const [services, setServices] = useState()
+    const my_service = useSelector(state=>state.counter.service)   
 
-    // useEffect(()=>{
-    //     async function Result() {
-    //       const response = await(fetch('/api/all_services'))
-    //       const result = await response.json()
-    //       setServices([...new Set(result.map(i=>i.services).flat())])
-    //     }
-    //     Result()
-        
-    // },[])
-    useEffect(()=>SetFilter(my_service),[service])
-
-    function setFilter(e) {       
-        SetFilter(e.target.id)
+    function setFilter(e) {        
         dispatch(setservice(e.target.id))
         setViewFilter(false)
-    }
-    
+    }    
     return (
         <div className={styles.main__filter}>
             <span>{my_service}</span>
-            <span onClick={() => setViewFilter(true)}>
+            <span onClick={() => setViewFilter(!viewFilter)}>
                 фильтр по услугам
             </span>
             {viewFilter ? <div className={styles.all__filter}>              
-                {services ? <div className={styles.all__filter__data} onClick={setFilter}>
+                <div className={styles.all__filter__data} onClick={setFilter}>
                     {services.map(i =><b key={i} id={i} style={my_service === i ? style : null}>{i}</b>)}
-                </div>:null}
+                </div>
             </div> : null}
         </div>
     )

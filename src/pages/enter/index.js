@@ -1,7 +1,7 @@
 import Header from '@/components/header'
 import styles from './enter.module.css'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { useDispatch } from 'react-redux'
 import { setprofile } from '@/reduser'
 import PhoneInput from 'react-phone-input-2'
@@ -14,6 +14,7 @@ const url = 'https://masters-client.onrender.com'
 
 
 export default function Enter() {
+    const refPhone = useRef()
     const [phone, setPhone] = useState()
     const dispatch = useDispatch()
     const router = useRouter()
@@ -28,6 +29,7 @@ export default function Enter() {
         setSelect('Вход')
         setBack('logo-main.svg')
         setMessage('')
+
     }, [])
 
     function firstCall(event) {
@@ -44,8 +46,8 @@ export default function Enter() {
             .then(res => {
                 if (res.status === 200) {
                     setSelect('Подтвердить'),
-                    setBack("logo-main.svg"),
-                    setTimeout(() => document.getElementById(0).focus(), 500)
+                        setBack("logo-main.svg"),
+                        setTimeout(() => document.getElementById(0).focus(), 500)
                 } else {
                     setT(60)
                     setBack("logo-main.svg")
@@ -132,6 +134,11 @@ export default function Enter() {
                     <p>Используйте свой номер телефона как логин для входа на сайт.</p>
                     <PhoneInput
                         country={'by'}
+                        inputProps={{
+                            name: 'phone',
+                            required: true,
+                            autoFocus: true
+                        }}
                         onlyCountries={['by', 'ru']}
                         value={phone}
                         prefix='+'
@@ -139,7 +146,7 @@ export default function Enter() {
                         onChange={phone => setPhone(phone)}
                     />
                     {message ?
-                        <h3 className={styles.error} >                            
+                        <h3 className={styles.error} >
                             Повторно запросить звонок
                             можно будет через  <b>{t}</b> сек.
                         </h3> : <>

@@ -59,7 +59,7 @@ export default function Menu() {
                         }
                     }} className={styles.collections}>Мои заказы</Link>
                      <p className={styles.menu_prof}>Общее</p>
-                    <Link href="/editprofile" className={styles.edit_profile}>Настройки профиля</Link>
+                    <Link href="/editprofile/client" className={styles.edit_profile}>Настройки профиля</Link>
                     {/* <p className={styles.copy} onClick={CopyProfile}>Скопировать ссылку профиля</p> */}
                     <p className={styles.chat}>Техническая поддержка</p>
                     <p className={styles.about}>О сервисе</p>

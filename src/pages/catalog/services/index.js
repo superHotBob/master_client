@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux'
 import { setservice } from '@/reduser'
 import { useRouter } from 'next/router'
 
-const images = ['маникюр', 'педикюр', 'макияж', 'ресницы','брови', 'депиляция', 'массаж', 'стрижка', 'окрашивание', 'прическа', 'барбер','чистка']
+const images = ['маникюр', 'педикюр', 'макияж', 'ресницы','брови', 'депиляция', 'массаж', 'стрижка', 'окрашивание', 'прически', 'барбер','чистка']
 
 const events = [
     { text: '', link: '/', image: '/image/event1.jpg' },
@@ -22,7 +22,6 @@ export default function Services() {
     const [selector, setSelector] = useState(1)
     const dispatch = useDispatch()
     const router = useRouter()
-
     function ToService(a) {
         dispatch(setservice(a))
         router.push('/catalog/service/' + a)

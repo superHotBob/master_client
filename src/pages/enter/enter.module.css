@@ -78,6 +78,7 @@
     height: 46px;
     width: 300px;
     display: block;
+    cursor: pointer;
     text-align: center;
     font-size: 16px;
     font-weight: 500;
@@ -87,6 +88,11 @@
     color: #fff;
     border: none;
     margin: 24px auto;
+    transition: all 0.5s;
+}
+.button:hover {
+    transform: scale(1.04);
+    transition: all 0.5s;
 }
 
 .number h5 {

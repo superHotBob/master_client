@@ -71,7 +71,7 @@ export default function Service() {
                                 <p>
                                     <span className={styles.name}>{i.name}</span>
                                     <span className={styles.pro}>MASTER</span>
-                                    <span className={styles.stars}>{i.stars}</span>
+                                    {i.stars ? <span className={styles.stars}>{i.stars}</span>: null}
                                 </p>
                             </Link>
                             <h4>{i.address}</h4>

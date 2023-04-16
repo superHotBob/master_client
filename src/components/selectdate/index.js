@@ -112,9 +112,9 @@ export default function SelectDate({ name, price, order, close, nikname }) {
             return
         } else {
             setActive_Day(a)
-            let flsT = false_date.filter(i => i[1] === months[month]).filter(i => +i[0] === a).map(i => +i[2])
-            set_false_time(flsT)
-            console.log(flsT)
+            // let flsT = false_date.filter(i => i[1] === months[month]).filter(i => +i[0] === a).map(i => +i[2])
+            // set_false_time(flsT)
+            // console.log(flsT)
         }
     }
     function Set_Active_Time(a) {

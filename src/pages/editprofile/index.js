@@ -10,12 +10,14 @@ const filestyle = { borderRadius: '100%' }
 const active_currency = {
     backgroundColor: '#3D4EEA',
     color: '#fff',
+    zIindex: 200
 }
 const passive_currency = {
     backgroundColor: '#fff',
     color: '#000',
     border: '1.5px solid #000',
     borderRadius: '4px',
+    zIindex: 200
 }
 
 const my_tema = [
@@ -33,12 +35,7 @@ const url = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/geolocate/addr
 const token = "5ff295eebd78a454b8bd3805b29d1eb6daefe31f"
 
 
-
-
-
-
-export default function EditProfile() {
-    
+export default function EditProfile() {    
     const profile = useSelector(state => state.counter.profile)
     const location = useSelector(state=>state.counter.location)   
     const dispatch = useDispatch()
@@ -50,8 +47,8 @@ export default function EditProfile() {
     const [accept, setAccept] = useState(false)
     const [tema, viewTema] = useState(false)
     const [cur, setCur] = useState(false)
-    const [color, setColor] = useState(['linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%)'])
-    const [currency, setCurrency] = useState('Белорусский рубль')
+    const [color, setColor] = useState(['linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)', '#3D4EEA', '#ECEEFD'])
+    const [currency, setCurrency] = useState('BYN')
     const [city, setCity] = useState('')
     const [address, setAddress] = useState('')
     const [address_full, setAddress_full] = useState()
@@ -78,17 +75,17 @@ export default function EditProfile() {
             })
             .catch(error => console.log("error", error));
         }  
-        if (profile.status === 'master') { Location() }  
+        !profile.address ? Location() : null 
         function SetData() {
             setName(profile.name),
                 setText(profile.text),
                 setCity(profile.city),
-                setCurrency(my_currency[current_symbol.indexOf(profile.currency)]),
-                setAddress(profile.address),
+                setCurrency(my_currency[current_symbol.indexOf(profile.currency)]??'Белорусский рубль'),
+               
                 setSelectedFile(profile.image),
-                setAddress_full(address_full => ({ ...address_full, ...profile.address_full })),
+                // setAddress_full(address_full => ({ ...address_full, ...profile.address_full })),
                 setNikname(profile.nikname),
-                setColor(profile.color ? profile.color : 'linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%)')
+                setColor(profile.color ? profile.color : ['linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)', '#3D4EEA', '#ECEEFD'])
         }
         SetData()
     }, [profile.name,
@@ -111,33 +108,7 @@ export default function EditProfile() {
             setNikname(profile.nikname),
             setColor(profile.color || 'linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%)')
     }
-    const EditClient = async () => {
-        const data = {
-            status: profile.status,
-            name: name,
-            new_nikname: nikname,
-            image: file,
-            text: text,
-            old_nikname: profile.nikname
-        }
-        if (!file) {
-            setMessage('')
-        }
-        fetch('/api/editprofileclient', {
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            method: 'POST',
-        })
-        .then(res => res.json())
-        .then(res =>  {            
-            localStorage.setItem("profile", JSON.stringify(res))
-            dispatch(setprofile(res))
-            setMessage('Ваш профиль изменён')
-        })
-        .catch(err=>setMessage("Ошибка сохранения "))        
-    }
+    
     const EditMaster = async () => {
         const data = {
             status: profile.status,
@@ -165,26 +136,7 @@ export default function EditProfile() {
         dispatch(setprofile(result))
         setMessage('Ваш профиль изменён')
     }
-    async function CreateMaster() {
-        const data = {
-            name: name,
-            nikname: nikname,
-            image: file,
-            text: text,
-            id: profile.id,
-            phone: profile.phone,
-            color: my_tema[0],
-            currency: 'BYN'
-        }
-        const response = await fetch('/api/create_master', {
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            method: 'POST',
-        })
-        const result = await response.json()
-    }
+   
 
     const toBase64 = file => new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -208,16 +160,19 @@ export default function EditProfile() {
     return (
         <main className={styles.main}>
             <header className={styles.header}>
-                <dialog open={message? 'open' : false} className={message ? styles.active_dialog:styles.passive_dialog}>
-                    <h6 onClick={() => setMessage()}/>
-                    {message}
+                <dialog 
+                    onClick={() => setMessage()} 
+                    open={message? 'open' : false} 
+                    className={message ? styles.active_dialog:styles.passive_dialog}
+                >                  
+                  {message}
                 </dialog>
                 <span onClick={Return} style={{ color: color[1] }}>Отмена</span>
                 <span>{profile.nikname}</span>
                 <span onClick={profile.status === 'client' ? EditClient : EditMaster} style={{ color: color[1] }}>Принять</span>
             </header>
             <div className={styles.image} style={{ background: color[0] }}>
-                {profile.status === 'master' ? <span onClick={() => viewTema(true)}>Изменить обложку</span> : null}
+                <span onClick={() => viewTema(true)}>Изменить обложку</span> 
                 <div className={styles.profile_image}>
                     <Image
                         src={file ? file : '/camera_wh.svg'}
@@ -243,9 +198,7 @@ export default function EditProfile() {
                 <label>
                     Имя и фамилия
                     <input style={{ fontSize: 14 }} type="text" value={name} placeholder='Ваше имя' onChange={(e) => setName(e.target.value)} />
-                </label>
-                {profile.status === 'master' ?
-                    <>
+                </label>                
                         <h6>
                             <span>Место приема клиентов</span>
                             <span className={styles.change} onClick={() => setAccept(true)}>изменить</span>
@@ -253,12 +206,12 @@ export default function EditProfile() {
                         <div className={styles.address}>
                             <span>{address}</span>
                         </div>
-                    </> : null}
+                  
                 <label>
                     Краткая информация
                     <textarea value={text} placeholder='Расскажите о себе' rows={3} onChange={e => setText(e.target.value)} />
                 </label>
-                {profile.status === 'master' ? <>
+               
                     <div className={styles.currency} >
                         Основная валюта
                         <button onClick={() => setCur(true)}>{currency}</button>
@@ -266,10 +219,10 @@ export default function EditProfile() {
                     <div className={styles.tema} style={{ background: color[0] }}>
                         Тема профиля
                         <button onClick={() => viewTema(true)}>Изменить</button>
-                    </div></> : null}
+                    </div>
                 <div className={styles.connect_master}>
                     Аккаунт мастера
-                    <button onClick={CreateMaster}>{profile.status === 'master' ? "Подключен" : "Подключить"}</button>
+                    <button>Подключен</button>
                 </div>
             </section>
             {accept ? <div className={styles.submitProfile}>

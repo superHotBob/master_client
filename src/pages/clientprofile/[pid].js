@@ -1,11 +1,9 @@
 import styles from './client.module.css'
 import { useRouter } from 'next/router'
 import Header from '@/components/header'
-import Link from 'next/link'
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { setorder } from '@/reduser'
 import ClientOrder from '@/components/orderclient'
 
 const sel = {
@@ -16,7 +14,7 @@ const sel = {
 
 
 const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сетнябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
-const my_months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+
 
 
 export default function Client() {
@@ -74,9 +72,9 @@ export default function Client() {
                 <h2>{profile.name}</h2>
                 <p>{profile.text}</p>
             </div>
-            <div className={styles.selector}>
-                <span onClick={() => setSelector(1)} style={selector ? sel : null}>Сохранённое</span>
-                <span onClick={() => setSelector(0)} style={selector ? null : sel}>Заказы</span>
+            <div className={styles.selector} onClick={(e) => setSelector(+e.target.id)}>
+                <span id="1" style={selector ? sel : null}>Сохранённое</span>
+                <span id="0" style={selector ? null : sel}>Заказы</span>
             </div>
             {selector ? 
                 <>

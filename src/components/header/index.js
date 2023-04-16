@@ -43,7 +43,8 @@ export default function Header({ sel, text, mes, color = {} }) {
 
   const [menu, menuView] = useState(false)
 
-  function MenuView(e){   
+  function MenuView(e){
+    e.stopPropagation()
     menuView(!menu)
   }
   function ToBack(e) {

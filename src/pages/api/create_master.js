@@ -15,32 +15,41 @@ export default async function handler(req, res) {
     color: req.body.color  
   }
 
+  const my_result = await sql`
+    select phone, id from clients
+    where nikname = ${req.body.nikname}
+  `
+ 
 
   const result = await sql`
-    insert into users (name,phone, nikname,id,currency,color,services) 
+    insert into users (name,phone,image,nikname,id,services,color,text) 
     values (
-      ${req.body.name},${master.phone},
-      ${req.body.nikname},${master.id},
-      ${master.currency},${master.color},
-      '{}'
+      ${req.body.name},
+      ${my_result[0].phone},
+      ${master.image},
+      ${req.body.nikname},
+      ${my_result[0].id},      
+      '{}',
+      ${master.color},
+      ${master.text}
     )  
     returning *
   `
-
-  console.log(result)
+console.log(result)
+ 
   if(result.length>0) {
       const result = await sql`
         update clients 
         set status = 'master'
-        where id = ${master.id}
+        where id = ${my_result[0].id}
         returning *
       `
      
 
       const next_result = await sql`
-        insert into services (id,master)
+        insert into services (user_id,master)
         values (
-          ${master.id},
+          ${my_result[0].id},
           ${req.body.nikname}
         )
       `

@@ -39,9 +39,12 @@
     background-color: #fff;
     border: none;
     color: #000;
+    font-weight: 500;
   }
   .button span {
     margin-right: 10px;
+    font-size: 24px;
+    vertical-align: middle;
   }
   .all__filter {
     position: absolute;
@@ -63,14 +66,12 @@
     font-weight: 500;
     color: #3D4EEA;
     cursor: pointer;
-  }
-  
+  }  
   .all__filter h6::after {
     content: url('/close.svg');
     display: inline-block;
     transform: translate(10px, 2px);
-  }
-  
+  }  
   .all__filter__data {
     display: grid;
     grid-template-columns: auto auto auto;
@@ -87,6 +88,9 @@
     border: 1.5px solid #000;
     border-radius: 5px;
   }
+  .all__filter__data b::first-letter {
+    text-transform: uppercase;
+  }
   .category {
     text-align: center;
     font-weight: 500;
@@ -100,8 +104,12 @@
 .type {
     text-align: center;
     font-size: 16px;
-    margin: 12px 0;
+    margin: 12px auto;
+    width: fit-content;
+    cursor: pointer;
+    text-transform: capitalize;
 }
+
 .data span:last-of-type {
     font-size: 16px;
 }
@@ -116,28 +124,42 @@
 }
 .service span:first-of-type {
     display: inline-block;
-   
+    width: 70%;
     margin: 10px 0;
     font-size: 14px;
+    text-transform: capitalize;
 }
-.inputs {
+.service span:last-of-type {
+  display: inline-block; 
+  font-size: 18px;
+  margin: 5px;
+  cursor: pointer;
+  
+}
+.inputs__services {
   padding: 10px 5px;
   display: flex;
+  height: 50px;
+  border-radius: 5px;
   justify-content: space-between;
   align-items: center;
 }
-.inputs input {
+.usluga {
+  border-radius: 5px;
+ 
+}
+.inputs__services input {
   border: 1px solid #ddd;
   margin-right: 5px;
   padding: 5px;
-  font-size: 12px;
+  font-size: 14px;
   width: 15%;
   display: inline-block;
 }
-.inputs input:first-of-type {
+.inputs__services input:first-of-type {
   width: 70%;
 }
-.inputs span {
+.inputs__services span {
   display: inline-block;
  
   text-align: center;

@@ -50,8 +50,7 @@ export default function ClientOrder({ order, active, close }) {
                 'Content-Type': 'application/json',
             },
             method: 'POST',
-        })
-        console.log(response.status)
+        })        
         if (response.status === 200) {
             setresult('Ваш заказ отменён')
         }
@@ -74,9 +73,9 @@ export default function ClientOrder({ order, active, close }) {
                     <span>{order.text}</span>
                     <span>Стоимость {order.price} BYN</span>
                     <h5>Дополнительное описание</h5>
-                    <span>
+                    <div className={styles.review}>
                         {order.neworder.split(',').map((i, index) => <span key={index}>{((index > 0 ? ' , ' : ' ') + i.split(':')[0])}</span>)}
-                    </span>
+                    </div>
                     {active ?
                         <button onClick={DeleteOrder}><b>Отменить заказ</b></button>
                         :

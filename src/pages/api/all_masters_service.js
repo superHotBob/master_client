@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   const result = await sql`
     select nikname, name,image,stars,address, services
     from users
-    where ${req.query.service.toLowerCase()} = ANY (services) and city = ${req.query.city.toLowerCase()}  
+    where ${req.query.service.toLowerCase()} = ANY (services) and city = ${req.query.city.toLowerCase()} and blocked = 'no'
   `
  
   
