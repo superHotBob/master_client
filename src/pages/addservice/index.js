@@ -16,8 +16,8 @@ const style = {
 const my_category = ['маникюр', 'прически', 'педикюр', 'макияж', 'массаж', 'барбер', 'ресницы', 'брови', 'депиляция']
 export default function AddService() {
 
-    const cost = useRef()
-    const serv = useRef()
+    const cost = useRef(null)
+    const serv = useRef(null)
     const router = useRouter()
     const [profile, setProfile] = useState()
     const [viewFilter, setViewFilter] = useState(false)
@@ -160,7 +160,7 @@ export default function AddService() {
                     <span onClick={SaveServices} style={{ color: profile.color[1] }}>Сохранить</span>
                 </header> : null}
             <button className={styles.button} style={{ color: profile?.color[1] }} onClick={() => setViewFilter(true)}>
-                <span>+</span>Добавить(удалить) категорию услуг
+                <span> &#128934;</span>Добавить(удалить) категорию услуг
             </button>
             {viewFilter ?
                 <div className={styles.all__filter}>
@@ -173,24 +173,30 @@ export default function AddService() {
 
             {services?.map((i, b) =>
                 <div className={styles.data} key={i[0]}>
-                    {i[1] && i[1].length > 0 ? <h3 onClick={() => AddService(b)} id={i} className={styles.type} style={{ color: profile.color[1] }}>{i[0]} +</h3> : null}
+                    {i[1] && i[1].length > 0 ? <h3 onClick={() => AddService(b)} id={i} className={styles.type} style={{ color: profile.color[1] }}>
+                        {i[0]}  <span style={{ color: profile.color[1] }}>&#128934;</span>
+                    </h3> : null}
                     {Array.isArray(i[1]) ? <>
                         {i[1].map((a, index) =>
                             <div key={index} style={{ background: profile.color[2] }} className={styles.usluga}>
                                 {a.length === 0 ?
-                                    <h5 className={styles.inputs__services}>
+                                    <h5 className={styles.inputs__new__services}>
                                         <input ref={serv} type="text" maxLength={30} placeholder='Название услуги' />
                                         <input ref={cost} type="text" placeholder='Цена' />
-                                        <span onClick={() => SaveNewService(b, index)}>+</span>
-                                        <span style={{ color: profile.color[1] }} onClick={() => DeleteNewService(b)}>x</span>
+                                        <span 
+                                            style={{ color: profile.color[1] }} 
+                                            onClick={() => SaveNewService(b, index)}>
+                                                &#128934;
+                                        </span>
+                                        {/* <span style={{ color: profile.color[1] }} onClick={() => DeleteNewService(b)}>x</span> */}
                                     </h5>
                                     :
                                     <>
                                         {a.split(',').map((s, index) =>
                                             <h5 className={styles.service} key={index} >
                                                 <span style={{ color: profile.color[1] }}>{s.split(':')[0]}</span>
-                                                <span style={{ color: profile.color[1] }}>{s.split(':')[1]} BYN</span>
-                                                <span style={{ color: profile.color[1] }} onClick={() => DeleteService(b, index)}>&#128465;</span>
+                                                <span style={{ color: profile.color[1] }}>{s.split(':')[1]} BYN</span>                                               
+                                                <span style={{ color: profile.color[1] }} onClick={() => DeleteNewService(b)}>&#128465;</span>
                                             </h5>
                                         )}
                                     </>

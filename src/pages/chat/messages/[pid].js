@@ -24,8 +24,7 @@ const all_messages = [
         70 руб.
         `}
 ]
-const options = {
-   
+const options = {   
     month: '2-digit',
     day: 'numeric',
     hour: '2-digit',
@@ -35,9 +34,7 @@ const options = {
 export default function Messages() {   
     const ref = useRef()
     const router = useRouter()
-    const { pid } = router.query
-    const d = new Date()
-    console.log(d.toLocaleString('en-IN',{ hour12: false }).slice(0,16))
+    const { pid } = router.query     
     const [messages, addMessage] = useState([])
     const [color, setColor] = useState()
     const profile = useSelector(state => state.counter.profile)
@@ -45,12 +42,19 @@ export default function Messages() {
         async function Bob() {
             let pro = await JSON.parse(localStorage.getItem("profile"))
             setColor(pro)
-            Movie()            
+                    
         }
         if(pid === 'Администратор') {
             addMessage([])
         }       
-      Bob()        
+      Bob() 
+        fetch(`/api/get_from_admin?name=${profile.name}`)
+        .then(res=>res.json())       
+        .then(res => {           
+            addMessage(res)
+            Movie()   
+        })
+        .catch(err => console.log(err))     
     },[])  
     function Movie() {
         const objDiv = document.getElementById("section");
@@ -63,10 +67,8 @@ export default function Messages() {
         const data = {
             text: ref.current.value,
             user: profile.name,
-            date: d.toLocaleString('en-IN',{ hour12: false }).slice(0,16)
-        } 
-        addMessage(state => [...state, {name:profile.name,message:ref.current.value,date:d.toLocaleString('ru-RU',options).slice(0,16)}])
-        console.log(messages)
+            date: Date.now()
+        }       
         fetch('/api/send_to_admin', {
             body: JSON.stringify(data),
             headers: {
@@ -74,33 +76,41 @@ export default function Messages() {
             },
             method: 'POST',
         })       
-        .then(res => {           
-            addMessage(state =>([...state, ref.current.value]))
+        .then(res => { 
+            let d = Date.now()
+            addMessage(messages =>([...messages, {ms_user:profile.name,ms_text:ref.current.value,ms_date:d}]))
+            Movie() 
         })
         .catch(err => console.log(err))
     }
     }
-    function ClientMessage() {
-        const d = new Date()
-        let message = { name: 'Bob', date: d.getHours() + ':' + d.getMinutes(), message: 'Hello Виктория. How are You?' }
-
-        addMessage(state => [...state, {name:profile.name,message:ref.current.value}])
-
-    }
+    function My_Date(a) {
+        const d = new Date(+a)
+        return a ? d.toLocaleDateString('ru-RU',options) : null
+      }
     return (
         <main className={styles.main}>           
             <Header sel='/chat' text={profile.name} mes="1" color={color}/>           
             <section className={styles.section} id="section">
-                {messages.map(i =>
-                    <div key={i.id} style={{ backgroundImage: i.name === 'Виктория Ченг' ? "url(/image/redbull.jpg" : null }}>
-                        <div 
-                            className={i.name === 'Виктория Ченг' ? styles.master :
-                                i.name === 'admin' ? styles.admin :
-                                    styles.client}
-                        >
-                            {i.message}
-                            <p>{i.date}</p>
+                {messages.sort((a,b)=> a.id - b.id).map(i =>
+                    <div key={i.id} className={styles.message}>
+                        <div className={styles.client}>                        
+                            {i.ms_text}
+                            <p>{My_Date(+i.ms_date)}</p>
                         </div>
+                        {i.answer ?
+                        <div style={{ backgroundImage: 'url(/chat/администратор.jpg' }} className={styles.wrap_master}>
+
+                       
+                        <div  className={styles.master}> 
+                        {i.answer}
+                        <p>{My_Date(+i.date_answer)}</p>
+                        </div>
+                        </div>
+                        
+                        :null}
+                           
+                       
                     </div>
                 )}
 

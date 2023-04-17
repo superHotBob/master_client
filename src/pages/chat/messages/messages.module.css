@@ -54,38 +54,47 @@
 .section::-webkit-scrollbar {
     width: 0;
   }
-.section > div {
-    background-position: left bottom;
-    background-size: 40px 40px;   
-}  
+
+   
 .client {
     background: linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%);
     border-radius: 8px;
     width: 70%;
-    padding: 10px;
+    padding: 10px 10px 4px 10px;
     color: #fff;
     font-weight: 500;
     margin: 16px 0 16px 30%;
 }
+
+.wrap_master {
+    width: 100%;
+    background-position: left bottom;
+    background-size: 40px 40px;
+    background-repeat: no-repeat;
+    padding: 10px 10px 4px 10px;
+}  
+
 
 .master {
     background: #ECEEFD;
     border-radius: 8px;
     margin-left: 48px;
     width: 70%;
-    padding: 10px;
+    padding: 10px 10px 4px 10px;
     min-height: 60px;
 }
 .client p, .master p {
     color: rgba(255, 255, 255, 0.6);
     text-align: right;
+    font-size: 12px;
+    line-height: 17px;
+    margin-top: 4px;
 }
 .master p {
     color: #bbb;
 }
 .admin {
-    width: 100%;
-    
+    width: 100%;    
     color: #D0D0D0;
     margin: 16px 0  16px 48px;
 }

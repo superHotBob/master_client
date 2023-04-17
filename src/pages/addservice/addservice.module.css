@@ -132,11 +132,11 @@
 .service span:last-of-type {
   display: inline-block; 
   font-size: 18px;
-  margin: 5px;
+ 
   cursor: pointer;
   
 }
-.inputs__services {
+.inputs__new__services {
   padding: 10px 5px;
   display: flex;
   height: 50px;
@@ -148,7 +148,7 @@
   border-radius: 5px;
  
 }
-.inputs__services input {
+.inputs__new__services input {
   border: 1px solid #ddd;
   margin-right: 5px;
   padding: 5px;
@@ -156,12 +156,11 @@
   width: 15%;
   display: inline-block;
 }
-.inputs__services input:first-of-type {
-  width: 70%;
+.inputs__new__services input:first-of-type {
+  width: 75%;
 }
-.inputs__services span {
-  display: inline-block;
- 
+.inputs__new__services span {
+  display: inline-block; 
   text-align: center;
   cursor: pointer;
   margin: 0 5px 0 0;

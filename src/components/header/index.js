@@ -69,7 +69,7 @@ export default function Header({ sel, text, mes, color = {} }) {
       {text ?
         <h3 style={mes ? new_text_mes : new_text}>
           {mes ? <Image
-            src="/image/redbull.jpg"
+            src={profile.image}
             alt="menu"
             className={styles.image_master}
             width={39} height={40}
