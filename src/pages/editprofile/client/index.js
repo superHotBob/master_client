@@ -11,7 +11,7 @@ const url = 'https://masters-client.onrender.com'
 
 export default function EditProfile() {
     const profile = useSelector(state => state.counter.profile)
-    const prof = JSON.parse(localStorage.getItem('profile'))
+   
     const dispatch = useDispatch()
     const [name, setName] = useState('Ваше имя')
     const [nikname, setNikname] = useState()
@@ -21,7 +21,8 @@ export default function EditProfile() {
     const [message, setMessage] = useState()
 
 
-    useEffect(() => {        
+    useEffect(() => {    
+        const prof = JSON.parse(localStorage.getItem('profile'))    
         setName(prof.name)
         setText(prof.text)        
         setSelectedFile(url + '/var/data/' + prof.nikname + '/main.jpg')
