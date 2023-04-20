@@ -31,18 +31,22 @@ const my_tema = [
 ]
 const my_currency = ['Белорусcкий рубль', 'Российский рубль', 'Казахстанский тенге']
 const current_symbol = ['BYN', '₽', '₸']
-const url = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/geolocate/address"
+const url_one = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/geolocate/address"
 const token = "5ff295eebd78a454b8bd3805b29d1eb6daefe31f"
+const url = 'https://masters-client.onrender.com'
+// const url = 'http://localhost:5000'
 
-
-export default function EditProfile() {    
+export default function EditProfile() {
     const profile = useSelector(state => state.counter.profile)
-    const location = useSelector(state=>state.counter.location)   
+    const location = useSelector(state => state.counter.location)
+    
     const dispatch = useDispatch()
     const [name, setName] = useState('Ваше имя')
     const [nikname, setNikname] = useState()
-    const [file, setSelectedFile] = useState('/camera_wh.svg')
     const [text, setText] = useState()
+    const [file, setSelectedFile] = useState('/camera_wh.svg')
+    const [file_for_upload, set_file_for_upload] = useState()
+   
     const [message, setMessage] = useState()
     const [accept, setAccept] = useState(false)
     const [tema, viewTema] = useState(false)
@@ -50,10 +54,13 @@ export default function EditProfile() {
     const [color, setColor] = useState(['linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)', '#3D4EEA', '#ECEEFD'])
     const [currency, setCurrency] = useState('BYN')
     const [city, setCity] = useState('')
-    const [address, setAddress] = useState('')
+    const [address, setAddress] = useState()
     const [address_full, setAddress_full] = useState()
+
    
+
     useEffect(() => {
+        let pro = JSON.parse(localStorage.getItem('profile'))
         const options = {
             method: "POST",
             mode: "cors",
@@ -65,65 +72,53 @@ export default function EditProfile() {
             body: JSON.stringify({ lat: location[0], lon: location[1] })
         }
 
-        function Location () {
-            fetch(url, options)
-            .then(response => response.json())
-            .then(result => {                
-                setCity(result.suggestions[0].data.city.toLowerCase())
-                setAddress(result.suggestions[0].data.street)
-                setAddress_full(address_full => ({ ...address_full, ...{ 'дом': result.suggestions[0].data.house } }))
-            })
-            .catch(error => console.log("error", error));
-        }  
-        !profile.address ? Location() : null 
-        function SetData() {
-            setName(profile.name),
-                setText(profile.text),
-                setCity(profile.city),
-                setCurrency(my_currency[current_symbol.indexOf(profile.currency)]??'Белорусский рубль'),
-               
-                setSelectedFile(profile.image),
-                // setAddress_full(address_full => ({ ...address_full, ...profile.address_full })),
-                setNikname(profile.nikname),
-                setColor(profile.color ? profile.color : ['linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)', '#3D4EEA', '#ECEEFD'])
+        function Location() {
+            fetch(url_one, options)
+                .then(response => response.json())
+                .then(result => {
+                    setCity(result.suggestions[0].data.city.toLowerCase())
+                    setAddress(result.suggestions[0].data.street)
+                    setAddress_full(address_full => ({ ...address_full, ...{ 'дом': result.suggestions[0].data.house } }))
+                })
+                .catch(error => console.log("error", error));
         }
-        SetData()
-    }, [profile.name,
-        profile.text,
-        profile.city,
-        profile.currency,
-        profile.address,
-        profile.image,
-        profile.nikname,
-        profile.color,
-        profile.address_full
-    ])
-
+        !profile.address ? Location() : null
+        
+        setName(pro.name),
+        setText(pro.text),
+        setCity(pro.city),
+        setCurrency(my_currency[current_symbol.indexOf(pro.currency)] ?? 'Белорусский рубль'),
+        setAddress(pro.address)
+        setSelectedFile(url + '/var/data/' + pro.nikname + '/main.jpg')
+        setAddress_full(address_full => ({ ...address_full, ...pro.address_full })),
+        setNikname(pro.nikname),
+        setColor(pro.color ? pro.color : ['linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)', '#3D4EEA', '#ECEEFD'])
+       
+    }, [])
     function Return() {
-        setName(profile.name),
-            setText(profile.text),
+        setName(pro.name),
+            setText(pro.text),
             setCurrency('Белорусский рубль')
-            setSelectedFile(profile.image),
-            setAddress(profile.address),
-            setNikname(profile.nikname),
-            setColor(profile.color || 'linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%)')
+            setSelectedFile(url + '/var/data/' + pro.nikname + '/main.jpg')
+            setAddress(pro.address),
+            setNikname(pro.nikname),
+            setColor(pro.color || 'linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%)')
     }
-    
     const EditMaster = async () => {
         const data = {
             status: profile.status,
             name: name,
             new_nikname: nikname,
-            image: file,
+            image: 'file',
             text: text,
             old_nikname: profile.nikname,
             currency: current_symbol[my_currency.indexOf(currency)],
-            address: address ,
+            address: address,
             city: city,
             color: color,
             locations: location,
             address_full: address_full
-        }       
+        }
         const response = await fetch('/api/editprofilemaster', {
             body: JSON.stringify(data),
             headers: {
@@ -131,64 +126,73 @@ export default function EditProfile() {
             },
             method: 'POST',
         })
+        UploadToServer()
         const result = await response.json()
         localStorage.setItem("profile", JSON.stringify(result));
         dispatch(setprofile(result))
         setMessage('Ваш профиль изменён')
     }
-   
-
-    const toBase64 = file => new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = error => reject(error);
-    });
-
-    async function onSelectFile(a) {
-        console.log(a)
-        if (a.size > 50000) {
-            setMessage('Файл больше 50кб')
-        } else {
-            let result = await toBase64(a)
-            setSelectedFile(result)
-        }
-
+    // const toBase64 = file => new Promise((resolve, reject) => {
+    //     const reader = new FileReader();
+    //     reader.readAsDataURL(file);
+    //     reader.onload = () => resolve(reader.result);
+    //     reader.onerror = error => reject(error);
+    // })
+    function SelectUpload(e) {
+        let url = URL.createObjectURL(e.target.files[0])
+        setSelectedFile(url)
+        set_file_for_upload(e.target.files[0])
     }
 
-
+    function UploadToServer() {
+        let data = new FormData()
+        data.append('file', file_for_upload, 'main.jpg')
+        fetch(`${url}/upl?name=${profile.nikname}`, {
+            body: data,
+            method: 'post',           
+        }).then(res => console.log('file is good'))
+        setSelectedFile(url + '/var/data/' + profile.nikname + '/main.jpg')
+    }
     return (
         <main className={styles.main}>
             <header className={styles.header}>
-                <dialog 
-                    onClick={() => setMessage()} 
-                    open={message? 'open' : false} 
-                    className={message ? styles.active_dialog:styles.passive_dialog}
-                >                  
-                  {message}
+                <dialog
+                    onClick={() => setMessage()}
+                    open={message ? 'open' : false}
+                    className={message ? styles.active_dialog : styles.passive_dialog}
+                >
+                    {message}
                 </dialog>
                 <span onClick={Return} style={{ color: color[1] }}>Отмена</span>
                 <span>{profile.nikname}</span>
-                <span onClick={profile.status === 'client' ? EditClient : EditMaster} style={{ color: color[1] }}>Принять</span>
+                <span onClick={EditMaster} style={{ color: color[1] }}>Принять</span>
             </header>
             <div className={styles.image} style={{ background: color[0] }}>
-                <span onClick={() => viewTema(true)}>Изменить обложку</span> 
+                <span onClick={() => viewTema(true)}>Изменить обложку</span>
                 <div className={styles.profile_image}>
                     <Image
-                        src={file ? file : '/camera_wh.svg'}
-                        alt="profile"
-                        style={file ? filestyle : null}
-                        title='заменить изображение'
-                        height={file ? 106 : 50}
-                        width={file ? 106 : 50}
+                       src={file}
+                       alt="profile"
+                       style={file ? filestyle : null}
+                       title='заменить изображение'
+                       height={file ? 106 : 50}
+                       width={file ? 106 : 50}
                     />
-                    <input type="file" onChange={(e) => onSelectFile(e.target.files[0])} accept=".jpg,.png,.webp" />
+                    <form>
+                        <input
+                            title="Клик для выбора иконки"
+                            type="file"
+                            name="image"                            
+                            onChange={(e)=>SelectUpload(e)}
+                            accept=".jpg,.png,.webp"
+                        />
+                    </form>
                 </div>
             </div>
             <p className={styles.name}>{profile.name || name || 'Ваше имя'}</p>
             <section className={styles.inputs}>
                 <h6>
-                    <span>Публичная ссылка, никнейм</span>                    
+                    <span>Публичная ссылка, никнейм</span>
                 </h6>
                 <div className={styles.nikname}>
                     <span>masters.place/{profile.status + '/'}</span>
@@ -198,28 +202,27 @@ export default function EditProfile() {
                 <label>
                     Имя и фамилия
                     <input style={{ fontSize: 14 }} type="text" value={name} placeholder='Ваше имя' onChange={(e) => setName(e.target.value)} />
-                </label>                
-                        <h6>
-                            <span>Место приема клиентов</span>
-                            <span className={styles.change} onClick={() => setAccept(true)}>изменить</span>
-                        </h6>
-                        <div className={styles.address}>
-                            <span>{address}</span>
-                        </div>
-                  
+                </label>
+                <h6>
+                    <span>Место приема клиентов</span>
+                    <span className={styles.change} onClick={() => setAccept(true)}>изменить</span>
+                </h6>
+                <div className={styles.address}>
+                    <span>{address}{' , '}{address_full?.дом}</span>
+                </div>
                 <label>
                     Краткая информация
                     <textarea value={text} placeholder='Расскажите о себе' rows={3} onChange={e => setText(e.target.value)} />
                 </label>
-               
-                    <div className={styles.currency} >
-                        Основная валюта
-                        <button onClick={() => setCur(true)}>{currency}</button>
-                    </div>
-                    <div className={styles.tema} style={{ background: color[0] }}>
-                        Тема профиля
-                        <button onClick={() => viewTema(true)}>Изменить</button>
-                    </div>
+
+                <div className={styles.currency} >
+                    Основная валюта
+                    <button onClick={() => setCur(true)}>{currency}</button>
+                </div>
+                <div className={styles.tema} style={{ background: color[0] }}>
+                    Тема профиля
+                    <button onClick={() => viewTema(true)}>Изменить</button>
+                </div>
                 <div className={styles.connect_master}>
                     Аккаунт мастера
                     <button>Подключен</button>

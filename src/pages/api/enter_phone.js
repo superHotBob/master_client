@@ -7,7 +7,7 @@ export default async function handler(req, res) {
 
   const result = await sql`
     select 
-    status,blocked,id
+    status,blocked,id,nikname
     from clients
     where phone = ${+req.body.tel}
   `
@@ -23,24 +23,30 @@ export default async function handler(req, res) {
           )
           returning status, nikname,id
       `
-      console.log(result[0])
+     
       res.status(200).json(result[0])
+      fetch(`https://masters-client.onrender.com/create?dir=${nikname}`)
+      .then(res=>console.log('GOOD'))
     } else if (result[0].status === 'master' && result[0].blocked === 'no') {
       const result = await sql`
         select 
-        name,status,city,stars,locations,nikname,image,text,address,address_full,currency,color,services
+        name,status,city,stars,locations,nikname,image,text,address,address_full,currency,color,services,sertificats
         from users
         where phone = ${+req.body.tel}
       `
       res.status(200).json(result[0])
+      fetch(`https://masters-client.onrender.com/create?dir=${result[0].nikname}`)
+      .then(res=>console.log('GOOD'))
     } else if (result[0].status === 'client' && result[0].blocked === 'no') {
       const result = await sql`
-      select 
-      status,nikname,image,name,text,id,phone
-      from clients
-      where phone = ${+req.body.tel}
-    `
+        select 
+        status,nikname,image,name,text,id,phone
+        from clients
+        where phone = ${+req.body.tel}
+      `
       res.status(200).json(result[0])
+      fetch(`https://masters-client.onrender.com/create?dir=${result[0].nikname}`)
+      .then(res=>console.log('GOOD'))
     } else if (result[0].blocked === 'yes') {
 
       res.status(200).json(result[0])

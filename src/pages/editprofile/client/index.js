@@ -6,67 +6,47 @@ import { useEffect, useState, useRef } from 'react'
 import Navi from '@/components/navi'
 
 const filestyle = { borderRadius: '100%' }
-const active_currency = {
-    backgroundColor: '#3D4EEA',
-    color: '#fff',
-}
-const passive_currency = {
-    backgroundColor: '#fff',
-    color: '#000',
-    border: '1.5px solid #000',
-    borderRadius: '4px',
-}
 
-
-
-
-
-
-
-
+const url = 'https://masters-client.onrender.com'
 
 export default function EditProfile() {
-
     const profile = useSelector(state => state.counter.profile)
-
+    const prof = JSON.parse(localStorage.getItem('profile'))
     const dispatch = useDispatch()
     const [name, setName] = useState('Ваше имя')
     const [nikname, setNikname] = useState()
     const [file, setSelectedFile] = useState('/camera_wh.svg')
+    const [file_for_upload, set_file_for_upload] = useState()
     const [text, setText] = useState()
-    const [message, setMessage] = useState()  
-    
-      
+    const [message, setMessage] = useState()
 
-    useEffect(() => {
-        setName(profile.name),
-        setText(profile.text),
-        setSelectedFile(profile.image),
-        setNikname(profile.nikname)          
-    }, [profile.name,
-    profile.text,
-    profile.image,
-    profile.nikname,
-    ])
+
+    useEffect(() => {        
+        setName(prof.name)
+        setText(prof.text)        
+        setSelectedFile(url + '/var/data/' + prof.nikname + '/main.jpg')
+        setNikname(prof.nikname)
+    },[])
 
     function Return() {
-        setName(profile.name),
-        setText(profile.text),
-        setSelectedFile(profile.image),
-        setNikname(profile.nikname)
+        setName(prof.name),
+        setText(prof.text),        
+        setNikname(prof.nikname),
+        setSelectedFile(url + '/var/data/' + prof.nikname + '/main.jpg')
     }
     const EditClient = async () => {
         const data = {
             status: 'client',
             name: name,
             new_nikname: nikname,
-            image: file,
+            image: '',
             text: text,
             old_nikname: profile.nikname
         }
         if (!file) {
             return setMessage('Необходимо добавить иконку')
         }
+        UploadToServer()
         fetch('/api/editprofileclient', {
             body: JSON.stringify(data),
             headers: {
@@ -87,9 +67,9 @@ export default function EditProfile() {
         const data = {
             name: name,
             nikname: nikname,
-            image: file,
+            image: 'main.jpg',
             text: text,
-            color: ['linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)', '#3D4EEA', '#ECEEFD']         
+            color: ['linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)', '#3D4EEA', '#ECEEFD']
         }
         fetch('/api/create_master', {
             body: JSON.stringify(data),
@@ -97,52 +77,74 @@ export default function EditProfile() {
                 'Content-Type': 'application/json',
             },
             method: 'POST',
-        })       
-        .then(res => {           
-            setMessage('Профиль мастера создан')
         })
-        .catch(err => setMessage("Ошибка создания профиля мастера"))
+            .then(res => {
+                setMessage('Профиль мастера создан')
+            })
+            .catch(err => setMessage("Ошибка создания профиля мастера"))
     }
 
-    const toBase64 = file => new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = error => reject(error);
-    });
-
-    async function onSelectFile(a) {        
+    // const toBase64 = file => new Promise((resolve, reject) => {
+    //     const reader = new FileReader();
+    //     reader.readAsDataURL(file);
+    //     reader.onload = () => resolve(reader.result);
+    //     reader.onerror = error => reject(error);
+    // });
+    console.log('file', file)
+    async function onSelectFile(a) {
         if (a.size > 50000) {
             setMessage('Файл больше 50кб')
         } else {
-            let result = await toBase64(a)
-            setSelectedFile(result)
+            // let result = await toBase64(a)
+            setSelectedFile(a)
         }
 
     }
+    function SelectUpload(e) {
+        let url = URL.createObjectURL(e.target.files[0])
+        setSelectedFile(url)
+        set_file_for_upload(e.target.files[0])
+    }
 
+    function UploadToServer() {
+        let data = new FormData()
+        data.append('file', file_for_upload, 'main.jpg')
+        fetch(`${url}/upl?name=${profile.nikname}`, {
+            body: data,
+            method: 'post',           
+        }).then(res => console.log('file is good'))
+        setSelectedFile(url + '/var/data/' + profile.nikname + '/main.jpg')
+    }
 
     return (
         <main className={styles.main}>
             <header className={styles.header}>
-                <dialog onClick={() => setMessage()}  open={message ? 'open' : false} className={message ? styles.active_dialog : styles.passive_dialog}>
+                <dialog onClick={() => setMessage()} open={message ? 'open' : false} className={message ? styles.active_dialog : styles.passive_dialog}>
                     {message}
                 </dialog>
                 <span onClick={Return}>Отмена</span>
                 <span>{profile.nikname}</span>
                 <span onClick={EditClient}>Принять</span>
             </header>
-            <div className={styles.image}>               
+            <div className={styles.image}>
                 <div className={styles.profile_image}>
                     <Image
-                        src={file ? file : '/camera_wh.svg'}
+                        src={file}
                         alt="profile"
                         style={file ? filestyle : null}
                         title='заменить изображение'
                         height={file ? 106 : 50}
                         width={file ? 106 : 50}
                     />
-                    <input title="Клик для выбора иконки" type="file" onChange={(e) => onSelectFile(e.target.files[0])} accept=".jpg,.png,.webp" />
+                    <form>
+                        <input
+                            title="Клик для выбора иконки"
+                            type="file"
+                            name="image"                            
+                            onChange={(e)=>SelectUpload(e)}
+                            accept=".jpg,.png,.webp"
+                        />
+                    </form>
                 </div>
             </div>
             <p className={styles.name}>{profile.name || name || 'Ваше имя'}</p>
@@ -152,22 +154,22 @@ export default function EditProfile() {
                 </h6>
                 <div className={styles.nikname}>
                     <span>masters.place/{profile.status + '/'}</span>
-                    <input type="text" value={nikname} onChange={e => setNikname(e.target.value)} />                   
+                    <input type="text" value={nikname} onChange={e => setNikname(e.target.value)} />
                 </div>
                 <label>
                     Имя и фамилия
                     <input style={{ fontSize: 14 }} type="text" value={name} placeholder='Ваше имя' onChange={(e) => setName(e.target.value)} />
-                </label>                
+                </label>
                 <label>
                     Краткая информация
                     <textarea value={text} placeholder='Расскажите о себе' rows={3} onChange={e => setText(e.target.value)} />
-                </label>                
+                </label>
                 <div className={styles.connect_master}>
                     Аккаунт мастера
                     <button onClick={CreateMaster}>{profile.status === 'master' ? "Подключен" : "Подключить"}</button>
                 </div>
-            </section>          
-            <Navi  />
+            </section>
+            <Navi />
         </main>
     )
 }

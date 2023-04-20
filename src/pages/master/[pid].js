@@ -15,6 +15,7 @@ import Link from 'next/link'
 import Location from '@/components/location'
 
 const Master = () => {
+    
     const [viewText, setViewText] = useState(true)
     const [nav_view, setNavView] = useState('Лента')
     const [profile, setProfile] = useState(null)
@@ -113,7 +114,7 @@ const Master = () => {
                     {nav_view === 'Отзывы' ? <Reviews nikname={profile.nikname} color={profile.color} /> : null}
                     {nav_view === 'Услуги' ? <Services name={pid} color={profile.color} /> : null}
                     {nav_view === 'Лента' ? <Lenta name={pid} color={profile?.color} /> : null}
-                    {nav_view === 'Сертификаты' ? <Sertificats name={pid} /> : null}
+                    {nav_view === 'Сертификаты' ? <Sertificats nikname={pid} /> : null}
                     
                 </section>}
                

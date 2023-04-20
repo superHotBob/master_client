@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import ClientOrder from '@/components/orderclient'
-
+const url = 'http://localhost:5000'
 const sel = {
     background: 'linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)',
     fontWeight: 600,
@@ -68,7 +68,7 @@ export default function Client() {
     return (
         <main className={styles.main}>
             <Header text={profile.nikname} />
-            <div className={styles.profile} style={{ backgroundImage: profile.image ? `url(${profile.image})` : "url(/camera_bl.svg" }}>
+            <div className={styles.profile} style={{ backgroundImage: "url(" + url + '/var/data/' + profile.nikname + '/main.jpg)' ? "url(" +  url + '/var/data/' + profile.nikname + '/main.jpg)' : "url(/camera_bl.svg" }}>
                 <h2>{profile.name}</h2>
                 <p>{profile.text}</p>
             </div>

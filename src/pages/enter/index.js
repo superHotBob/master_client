@@ -29,7 +29,6 @@ export default function Enter() {
         setSelect('Вход')
         setBack('logo-main.svg')
         setMessage('')
-
     }, [])
 
     function firstCall(event) {
@@ -80,8 +79,7 @@ export default function Enter() {
             },
             method: 'POST',
         })
-            .then(res => {
-                console.log(res)
+            .then(res => {                
                 if (res.status === 200) {
                     handleSubmit()
                 } else {
@@ -149,10 +147,9 @@ export default function Enter() {
                         <h3 className={styles.error} >
                             Повторно запросить звонок
                             можно будет через  <b>{t}</b> сек.
-                        </h3> : <>
-
+                        </h3> : 
+                        <>
                             <div className={styles.button} onClick={firstCall}>Войти</div>
-
                             <div className={styles.colaboration}>
                                 Нажмая на кнопку, вы соглашаетесь с<br />
                                 <span style={{ color: "#3D4EEA" }}>Условиями обработки персональных <br />
