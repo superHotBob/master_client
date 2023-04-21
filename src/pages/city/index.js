@@ -4,7 +4,7 @@ import arrow from '../../../public/arrow_back.svg'
 import { useState, useRef } from 'react'
 import { useRouter } from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
-import { setcity } from '../../reduser.js'
+import { setcity, setlocation } from '../../reduser.js'
 
 const citys = ['Минск', 'Брест']
 
@@ -16,10 +16,15 @@ export default function City() {
     const ref = useRef()    
     const dispatch = useDispatch()
 
-
+    const location = {
+        минск: [53.89565757721091, 27.545348010833237 ],
+        брест: [52.09788450736236, 23.732067465489514] 
+    }
+        
     function setMyCity() {
         ref.current.value = selCity
         dispatch(setcity(selCity))
+        dispatch(setlocation(location[selCity.toLowerCase()]))
     }
     function selectCity(e) {       
         if (e.target.value) {

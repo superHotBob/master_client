@@ -45,7 +45,7 @@ export default function EditProfile() {
     const [nikname, setNikname] = useState()
     const [text, setText] = useState()
     const [file, setSelectedFile] = useState('/camera_wh.svg')
-    const [file_for_upload, set_file_for_upload] = useState()
+    const [file_for_upload, set_file_for_upload] = useState(null)
    
     const [message, setMessage] = useState()
     const [accept, setAccept] = useState(false)
@@ -126,7 +126,7 @@ export default function EditProfile() {
             },
             method: 'POST',
         })
-        UploadToServer()
+        if(file_for_upload) { UploadToServer() }
         const result = await response.json()
         localStorage.setItem("profile", JSON.stringify(result));
         dispatch(setprofile(result))
@@ -144,7 +144,7 @@ export default function EditProfile() {
         set_file_for_upload(e.target.files[0])
     }
 
-    function UploadToServer() {
+    function UploadToServer() {       
         let data = new FormData()
         data.append('file', file_for_upload, 'main.jpg')
         fetch(`${url}/upl?name=${profile.nikname}`, {

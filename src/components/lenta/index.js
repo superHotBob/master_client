@@ -26,11 +26,23 @@ const text = (` Ищу модель, что бы протестировать к
     Отсутствие ответсвенности за возможные осложнения в процессе процедур
 
     Пишите, девачки :*:*:*:*`)
-const my_images = ['/image/lenta2.jpg', '/image/lenta1.jpg', '/image/lenta1.jpg', '/image/lenta2.jpg']
-export default function Lenta({color={}}) {
+
+const url = 'https://masters-client.onrender.com/'
+export default function Lenta({color={},nikname}) {
     const [width, setWidth] = useState()
     const [model, setViewText] = useState(false)
     useEffect(() => setWidth(window.innerWidth > 500 ? 500 : window.innerWidth),[])
+    const [lists, setlists] = useState()
+
+    useEffect(() => {
+        const prof = JSON.parse(localStorage.getItem('profile'))
+        async function GetSertificats() {
+            fetch(`${url}getlists?dir=${nikname}`)
+                .then(res => res.json())
+                .then(res => setlists(res))
+        }
+        GetSertificats()
+    }, [])
     return (
         <main className={styles.main}>
             {/* <FilterServices /> */}
@@ -41,17 +53,16 @@ export default function Lenta({color={}}) {
             </div>
             {width ? <div className={styles.images}>
                 <div className={styles.part_images}>
-                    {my_images.filter((i, index) => index % 2 ? i : null).map((i, index) =>
-                        <button key={i} id={index} style={{ height: index % 2 ? width / 1.6 : width / 4 }}>
-                            <Image alt={i} src={i} fill />
-                        </button>
+                    {lists?.filter((i, index) => index % 2 ? i : null).map((i, index) =>                       
+                        <img key={i} alt={i} src={url + 'var/data/' + nikname + '/' + i} width="100%" height="auto" />
+                        
                     )}
                 </div>
                 <div className={styles.part_images}>
-                    {my_images.filter((i, index) => index % 2 ? null : i).map((i, index) =>
-                        <button key={i} style={{ height: index % 2 ? width / 4 : width / 1.6 }}>
-                            <Image alt={i} src={i} fill />
-                        </button>
+                    {lists?.filter((i, index) => index % 2 ? null : i).map((i, index) =>
+                        
+                            <img key={i} alt={i} src={url + 'var/data/' + nikname + '/' + i} width="100%" height="auto" />
+                       
                     )}
                 </div>
 

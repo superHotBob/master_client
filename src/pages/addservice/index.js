@@ -34,10 +34,7 @@ export default function AddService() {
 
     async function GetServices(a, b) {
         const response = await fetch(`/api/master_service?nikname=${a}`, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            method: 'get',
+            headers: {'Content-Type': 'application/json'}
         })
         const result = await response.json()
         console.log('Services', result)
@@ -101,11 +98,11 @@ export default function AddService() {
         } else {
             addCategory(category => ([...category, e.target.id]))
             console.log([...category, e.target.id])
-            const ind = services.findIndex(i => i[0] === e.target.id)           
+            const ind = services.findIndex(i => i[0] === e.target.id)
             let new_serv = services;
             new_serv[ind][1] = ['']
             setServices(services)
-           
+
         }
 
     }
@@ -152,25 +149,19 @@ export default function AddService() {
         <main className={styles.main}>
             {profile ?
                 <header className={styles.header}>
-                    <span onClick={() => router.back()}>
-                        <Menu_icon type="arrow" color={profile.color[1]} />
-                    </span>
-
+                    <Menu_icon type="arrow" color={profile.color[1]} />
                     <h4>Добавить услугу</h4>
                     <span onClick={SaveServices} style={{ color: profile.color[1] }}>Сохранить</span>
                 </header> : null}
-            <button className={styles.button} style={{ color: profile?.color[1] }} onClick={() => setViewFilter(true)}>
-                <span> &#128934;</span>Добавить(удалить) категорию услуг
+            <button className={styles.button} onClick={() => setViewFilter(true)}>
+                <span> &#128930;</span>Добавить(удалить) категорию услуг
             </button>
-            {viewFilter ?
-                <div className={styles.all__filter}>
-                    <h6 onClick={() => setViewFilter(false)} />
-                    <div className={styles.all__filter__data} onClick={AddCategory}>
-                        {my_category?.map(i => <b key={i} id={i} style={category.includes(i) ? style : null}>{i}</b>)}
-                    </div>
+            <div className={styles.all__filter} style={{ display: viewFilter ? 'block' : 'none' }}>
+                <h6 onClick={() => setViewFilter(false)} />
+                <div className={styles.all__filter__data} onClick={AddCategory}>
+                    {my_category?.map(i => <b key={i} id={i} style={category.includes(i) ? style : null}>{i}</b>)}
                 </div>
-                : null}
-
+            </div>
             {services?.map((i, b) =>
                 <div className={styles.data} key={i[0]}>
                     {i[1] && i[1].length > 0 ? <h3 onClick={() => AddService(b)} id={i} className={styles.type} style={{ color: profile.color[1] }}>
@@ -183,10 +174,10 @@ export default function AddService() {
                                     <h5 className={styles.inputs__new__services}>
                                         <input ref={serv} type="text" maxLength={30} placeholder='Название услуги' />
                                         <input ref={cost} type="text" placeholder='Цена' />
-                                        <span 
-                                            style={{ color: profile.color[1] }} 
+                                        <span
+                                            style={{ color: profile.color[1] }}
                                             onClick={() => SaveNewService(b, index)}>
-                                                &#128934;
+                                            &#128934;
                                         </span>
                                         {/* <span style={{ color: profile.color[1] }} onClick={() => DeleteNewService(b)}>x</span> */}
                                     </h5>
@@ -195,7 +186,7 @@ export default function AddService() {
                                         {a.split(',').map((s, index) =>
                                             <h5 className={styles.service} key={index} >
                                                 <span style={{ color: profile.color[1] }}>{s.split(':')[0]}</span>
-                                                <span style={{ color: profile.color[1] }}>{s.split(':')[1]} BYN</span>                                               
+                                                <span style={{ color: profile.color[1] }}>{s.split(':')[1]} BYN</span>
                                                 <span style={{ color: profile.color[1] }} onClick={() => DeleteNewService(b)}>&#128465;</span>
                                             </h5>
                                         )}

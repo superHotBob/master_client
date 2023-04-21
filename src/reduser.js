@@ -8,7 +8,7 @@ const initialState = {
   profile: {},
   order: {},
   service: 'Маникюр',
-  location: [53.904478111637374, 27.556582167586544]
+  location: [53.89565757721091, 27.545348010833237]
 }
 
 export const counterSlice = createSlice({

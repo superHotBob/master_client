@@ -7,12 +7,12 @@ export default async function handler(req, res) {
     const result = await sql`
         select nikname, name,image,stars,address, services, locations
         from users
-        where city =  ${req.query.city} and blocked = 'no'
+        where ${req.query.service.toLowerCase()} = ANY (services) and city = ${req.query.city.toLowerCase()} and blocked = 'no'
    `
     if (result.length>0) {
         res.status(200).json(result)
     } else {
-        console.log("error")
+        res.status(200).json([])
     }
 
 }

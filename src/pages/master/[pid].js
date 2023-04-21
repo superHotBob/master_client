@@ -113,7 +113,7 @@ const Master = () => {
                     </nav>
                     {nav_view === 'Отзывы' ? <Reviews nikname={profile.nikname} color={profile.color} /> : null}
                     {nav_view === 'Услуги' ? <Services name={pid} color={profile.color} /> : null}
-                    {nav_view === 'Лента' ? <Lenta name={pid} color={profile?.color} /> : null}
+                    {nav_view === 'Лента' ? <Lenta nikname={pid} color={profile?.color} /> : null}
                     {nav_view === 'Сертификаты' ? <Sertificats nikname={pid} /> : null}
                     
                 </section>}

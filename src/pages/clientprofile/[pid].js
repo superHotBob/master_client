@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import ClientOrder from '@/components/orderclient'
-const url = 'http://localhost:5000'
+const url = 'https://masters-client.onrender.com'
 const sel = {
     background: 'linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)',
     fontWeight: 600,

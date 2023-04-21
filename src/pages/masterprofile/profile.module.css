@@ -59,20 +59,25 @@
   font-size: 14px;
   line-height: 27px;
 }
-.uslugi {
-  height: 46px;
+.addlist, .uslugi, .uslugi_plus {
+  height: 36px;
   display: block;
-  border-radius: 6px;
-  padding: 11px 8px 11px 8px;
-  margin: 16px auto 8px;
-  width: 100%;
+  border-radius: 6px; 
+  margin: 0 auto 16px;
+  width: 70%;
   background-color: #ECEEFD;
   text-align: center;
   font-weight: 500;
   cursor: pointer;
   color: #fff;
   font-size: 16px;
-  line-height: 24px;
+  line-height: 36px;
+}
+.uslugi {
+  width: 28%;
+}
+.uslugi_plus {
+  width: 100%;
 }
 
 .lenta {
@@ -106,7 +111,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
   width: fit-content;
 }
 
@@ -149,6 +153,8 @@
   font-size: 12px;
   line-height: 17px;
   color: #282828;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .view_text {
@@ -166,4 +172,19 @@
   border-radius: 20px;
   background-size: 400% 400%;
   animation: gradient 22s ease infinite;
+}
+.lenta_images {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.lenta_image {
+  width: 49%;
+  height: 150px;
+  max-height: 200px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 8px;
+  margin-bottom: calc(5% - 10px);
 }

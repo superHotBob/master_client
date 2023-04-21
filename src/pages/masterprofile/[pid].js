@@ -10,22 +10,34 @@ import Services from '@/components/services'
 import Image from 'next/image'
 import Sertificats from '@/components/serificats'
 import AddSertificat from '@/components/addsertificat'
+import Menu_icon from '@/components/icons/menu'
 
 
-const url = 'https://masters-client.onrender.com/var/data/'
+const url = 'https://masters-client.onrender.com/'
 export default function Client() {
     const router = useRouter()
     const { pid } = router.query
-   
+
     const [profile, setProfile] = useState()
     const [nav_view, setNavView] = useState('Лента')
     const [nav_active, setNavActive] = useState()
     const [viewText, setViewText] = useState(true)
     const [newSertificat, AddNewSertificat] = useState(false)
-    const [file, savefile] = useState()
+    const [lists, setlists] = useState()
 
-    useEffect(() => {   
-        let pro = JSON.parse(localStorage.getItem("profile"))    
+    useEffect(() => {
+        const prof = JSON.parse(localStorage.getItem('profile'))
+        async function GetSertificats() {
+            fetch(`${url}getlists?dir=${prof.nikname}`)
+                .then(res => res.json())
+                .then(res => setlists(res))
+        }
+        GetSertificats()
+    }, [])
+
+
+    useEffect(() => {
+        let pro = JSON.parse(localStorage.getItem("profile"))
         setProfile(profile => ({ ...profile, ...pro }))
         if (pro.status === 'master') {
             setNavActive({
@@ -40,7 +52,7 @@ export default function Client() {
     }, [])
 
 
-    
+
     return (
         <main className={styles.main}>
             <Head>
@@ -57,7 +69,7 @@ export default function Client() {
                 </div> */}
                 <section className={styles.section}>
                     <div className={styles.image} style={{ background: profile.color[0] }}>
-                        {profile.image ? <Image src={url + profile.nikname + '/main.jpg'} alt="profile" height={105} width={105} /> : null}
+                        {profile.image ? <Image src={url + 'var/data/' + profile.nikname + '/main.jpg'} alt="profile" height={105} width={105} /> : null}
                     </div>
                     <p className={styles.name_stars}>
                         <span style={{ width: 'fit-content' }}>{profile.name}</span>
@@ -85,7 +97,7 @@ export default function Client() {
                             по категориям. Вы сможете редактировать его в
                             любое время, дополняя и редактируя его.`}
                         />
-                        <Link href="/addservice" className={styles.uslugi} style={{ backgroundColor: profile.color[1] }}>
+                        <Link href="/addservice" className={styles.uslugi_plus} style={{ backgroundColor: profile.color[1] }}>
                             Добавить услугу +
                         </Link>
                         <Services color={profile.color} />
@@ -97,14 +109,30 @@ export default function Client() {
                             будут видны клиентам и другим мастерам. Они
                             смогут их сохранять в закладки, что бы не
                             потерять вас из виду.
-                        `} />
+                            `} 
+                        />
+                        <div className={styles.lenta_images}>
+                            <Link
+                                href="/addlist"
+                                className={styles.addlist}
+                                style={{ color: profile.color[1], backgroundColor: profile.color[2] }}
+                            >Добавить публикацию +</Link>
+                            <Link
+                                href="/addlist"
+                                className={styles.uslugi}
+                                style={{ color: profile.color[1], backgroundColor: profile.color[2] }}
+                            >
+                                Показ
+                                <Menu_icon type="dashboard" color={profile.color[1]} />
+                            </Link>
+                        </div>
+                        <div className={styles.lenta_images}>
+                            {lists?.map(i =>
+                                <div key={i} className={styles.lenta_image} style={{ backgroundImage: "url(" + url + "var/data/" + pid + '/' + i }} />
 
-                        <Link
-                            href="/masternear"
-                            className={styles.uslugi}
-                            style={{ color: '#fff', backgroundColor: profile.color[1] }}
-                        >
-                            Добавить публикацию +</Link>
+
+                            )}
+                        </div>
                     </> : null}
                     {nav_view === 'Сертификаты' ? <>
                         <Message color={profile.color} text={`Расскажите о своем профессиональном опыте,
@@ -112,13 +140,13 @@ export default function Client() {
                             продтвердите это сертификатами.                    
                             `}
                         />
-                       
-                            <button onClick={()=>AddNewSertificat(true)} className={styles.uslugi} style={{ color: '#fff', backgroundColor: profile.color[1] }}>
-                                Добавить сетрификат +
-                            </button>
-                            <Sertificats nikname={pid} />
-                            {newSertificat ? <AddSertificat color={profile.color} nikname={profile.nikname} view={AddNewSertificat} /> : null}           
-                            
+
+                        <button onClick={() => AddNewSertificat(true)} className={styles.uslugi} style={{ color: '#fff', backgroundColor: profile.color[1] }}>
+                            Добавить сетрификат +
+                        </button>
+                        <Sertificats nikname={pid} />
+                        {newSertificat ? <AddSertificat color={profile.color} nikname={profile.nikname} view={AddNewSertificat} /> : null}
+
 
                     </> : null}
                 </section>

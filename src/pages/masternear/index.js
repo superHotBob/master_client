@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react'
 import { YMaps, Map, Placemark, useYMaps } from '@pbe/react-yandex-maps'
 import Script from 'next/script'
 import FilterServices from '@/components/filterServices'
+import Message from '@/components/message'
 
 
 const sel = {
@@ -19,14 +20,15 @@ const sel = {
 
 export default function MasterNear() {
     const router = useRouter()
-    const my_sel = router.query
+    const my_sel = router.query.sel
+    console.log(typeof my_sel)
     const my_city = useSelector((state) => state.counter.city)
     const service = useSelector((state) => state.counter.service)
     const loc = useSelector((state=>state.counter.location))
     const dispatch = useDispatch()
-    const [selector, setSelector] = useState(true)
+    const [selector, setSelector] = useState('true')
     const [viewFilter, setViewFilter] = useState(false)
-    const [filter, setFilter] = useState(12)
+    const [filter, setFilter] = useState(11.4)
     const [master, selectMaster] = useState()
     const [masters, setMasters] = useState()
     const [filter_masters, setFilterMasters] = useState()
@@ -46,12 +48,12 @@ export default function MasterNear() {
         setFilter(b)
     }
     useEffect(() => {
-        setSelector(false)
-        console.log(loc)
+        setSelector(my_sel)        
         setMasters()
         async function GetMasters() {
             const response = await fetch('/api/all_masters_city?' + new URLSearchParams({
-                city: my_city.toLowerCase()
+                city: my_city.toLowerCase(),
+                service: my_sel ? service.toLowerCase() : null
             }))
             const result = await response.json()
             setMasters(result)
@@ -59,7 +61,8 @@ export default function MasterNear() {
             setFilterMasters(mast)
         }
         GetMasters()
-    }, [])
+    }, [service])
+
     useEffect(() => {
         setFilterMasters(masters)
         if (masters) {
@@ -69,11 +72,9 @@ export default function MasterNear() {
         } else if (masters) {
             setFilterMasters(masters)
         } else {
-
         }
-
-
     }, [selector])
+   
 
     const getZoom = () => {
         if (Map.current) {
@@ -114,12 +115,18 @@ export default function MasterNear() {
             <Script src="https://api-maps.yandex.ru/3.0/?apikey=89caab37-749d-4e30-8fdf-e8045542f060&lang=ru_RU" />
 
             <Header sel="/catalog" text="Мастера рядом " />
+            <div className={styles.message}>
+            <Message text={` Masters.place позволяет познакомиться  с 
+                    мастерами вашего города. Для этого нужно выбрать 
+                    ваш город, что бы увидеть список мастеров.
+                `} /> 
+            </div>
             <Link className={styles.city} href='/city'>Ваш город {my_city}</Link>
             <div className={styles.selector}>
-                <span onClick={() => setSelector(true)} style={selector ? sel : null}>Список</span>
-                <span onClick={() => setSelector(false)} style={selector ? null : sel}>На карте</span>
+                <span onClick={() => setSelector('true')} style={selector === 'true' ? sel : null}>Список</span>
+                <span onClick={() => setSelector('false')} style={selector === 'true' ? null : sel}>На карте</span>
             </div>
-            {selector ?
+            {selector === 'true' ?
                 <section className={styles.section}>
                     <FilterServices />
                     {filter_masters?.map(i =>
@@ -158,10 +165,10 @@ export default function MasterNear() {
 
                             <Map id="mymap"
                                 // modules={["coordSystem.geo","SuddestView"]}
-                                options={{ set: defaultState }}
+                                // options={{  center : [52.098208, 23.760049]}}
                                 state={{
                                     center: master ? masters?.filter(i => i.nikname === master)[0].locations : loc   ,
-                                    zoom: master ? 14 : filter,
+                                    zoom: master ? 10 : filter,
                                     behaviors: ["default", "scrollZoom"]
                                 }}
                                 width="100%"

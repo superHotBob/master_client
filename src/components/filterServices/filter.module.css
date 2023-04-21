@@ -74,6 +74,9 @@
   border: 1.5px solid #000;
   border-radius: 5px;
 }
+.all__filter__data b::first-letter {
+  text-transform: capitalize;
+}
 
 
 
