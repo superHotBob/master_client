@@ -21,7 +21,7 @@ const sel = {
 export default function MasterNear() {
     const router = useRouter()
     const my_sel = router.query.sel
-    console.log(typeof my_sel)
+   
     const my_city = useSelector((state) => state.counter.city)
     const service = useSelector((state) => state.counter.service)
     const loc = useSelector((state=>state.counter.location))
@@ -32,6 +32,7 @@ export default function MasterNear() {
     const [master, selectMaster] = useState()
     const [masters, setMasters] = useState()
     const [filter_masters, setFilterMasters] = useState()
+    console.log(loc)
 
     // const defaultState = {
     //     center: [

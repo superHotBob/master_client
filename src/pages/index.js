@@ -34,8 +34,8 @@ export default function Home() {
   });
   useEffect(() => {
     setWidth(window.innerWidth > 500 ? 230 : (window.innerWidth - 40)/2) 
-    if ( coords) { dispatch(setlocation([coords.latitude,coords.longitude])) 
-    console.log(coords.latitude,coords.longitude) }
+    // if ( coords) { dispatch(setlocation([coords.latitude,coords.longitude])) 
+    // console.log(coords.latitude,coords.longitude) }
   }, [coords])
   
   return (
