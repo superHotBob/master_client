@@ -170,7 +170,7 @@ export default function EditProfile() {
             <div className={styles.image} style={{ background: color[0] }}>
                 <span onClick={() => viewTema(true)}>Изменить обложку</span>
                 <div className={styles.profile_image}>
-                    <form>
+                    <form style={{height: '106px'}}>
                         <Image
                             src={file}
                             alt="фото профиля"

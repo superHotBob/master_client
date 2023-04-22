@@ -130,10 +130,10 @@ export default function EditProfile() {
             <div className={styles.image}>
                 <div className={styles.profile_image}>
 
-                    <form>
+                    <form style={{height: '106px'}}>
                          <Image
                             src={file}
-                            alt="фото профиля"
+                            alt="фото"
                             style={file ? filestyle : null}
                             title='заменить изображение'
                             height={file ? 106 : 50}

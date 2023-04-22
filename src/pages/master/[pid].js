@@ -43,7 +43,7 @@ const Master = () => {
             console.log(result)
             setProfile(result[0])
             setNav_active({
-                // backgroundColor: result[0].color[1],
+               backgroundColor: result[0].color[1],
                 color: "#fff",
                 padding: '0 20px',
                 fontWeight: 600

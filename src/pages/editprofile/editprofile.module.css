@@ -72,11 +72,11 @@
   transform: translate(-4px, 2px);
 }
 .image input {
-  transform: translate(0, -138px);
+  transform: translate(0, -169px);
   opacity: 0;
   display: block;
-  height: 100px;
-  width: 100px;
+  height: 106px;
+  width: 106px;
   cursor: pointer;
 }
 
