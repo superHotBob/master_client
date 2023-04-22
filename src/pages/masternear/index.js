@@ -66,6 +66,7 @@ export default function MasterNear() {
 
     useEffect(() => {
         setFilterMasters(masters)
+       
         if (masters) {
             let mast = masters.filter(i => i.services.includes(service.toLowerCase()) ? i : null)
             setFilterMasters(mast)
@@ -87,30 +88,25 @@ export default function MasterNear() {
             //     [53.970144032848296, 27.696309659065204]
             // )
             // console.log("currRadius", radius)
-            var suggestView1 = Map.current.SuggestView('suggest1');
-            console.log(suggestView1)
+            // var suggestView1 = Map.current.SuggestView('suggest1');
+            // console.log(suggestView1)
             setFilter(Map.current.getZoom())
 
         }
     }
 
-    function OnLoadMap(ymaps) {
-        //  const radius = yMaps.getDistance(
-        //         [53.94843972554695, 27.603028939367363],
-        //         [53.970144032848296, 27.696309659065204]
-        //     )
-        //     console.log("currRadius", radius)
-
-        // var suggestView1 = new ymaps.SuggestView('suggest1');
-
-
+    function OnLoadMap() {
         document.getElementsByClassName('ymaps-2-1-79-ground-pane')[0].style.filter = 'grayscale(100%)';
-        document.getElementsByClassName('ymaps-2-1-79-copyright')[0].style.display = 'none';
+        document.getElementsByClassName('ymaps-2-1-79-copyright__link')[0].style.display = 'none';
         document.getElementsByClassName('ymaps-2-1-79-gotoymaps')[0].style.display = 'none';
         document.getElementsByClassName('ymaps-2-1-79-gototech')[0].style.display = 'none';
         document.getElementById('my_map').style.opacity = '1';
     }
-
+    function SetSelector() {
+        setSelector('true')
+        selectMaster()
+        setFilter(11)
+    }
     return (
         <div className={styles.main}>
             <Script src="https://api-maps.yandex.ru/3.0/?apikey=89caab37-749d-4e30-8fdf-e8045542f060&lang=ru_RU" />
@@ -124,7 +120,7 @@ export default function MasterNear() {
             </div>
             <Link className={styles.city} href='/city'>Ваш город {my_city}</Link>
             <div className={styles.selector}>
-                <span onClick={() => setSelector('true')} style={selector === 'true' ? sel : null}>Список</span>
+                <span onClick={() => SetSelector('true')} style={selector === 'true' ? sel : null}>Список</span>
                 <span onClick={() => setSelector('false')} style={selector === 'true' ? null : sel}>На карте</span>
             </div>
             {selector === 'true' ?
@@ -169,7 +165,7 @@ export default function MasterNear() {
                                 // options={{  center : [52.098208, 23.760049]}}
                                 state={{
                                     center: master ? masters?.filter(i => i.nikname === master)[0].locations : loc   ,
-                                    zoom: master ? 10 : filter,
+                                    zoom: master ? 14 : filter,
                                     behaviors: ["default", "scrollZoom"]
                                 }}
                                 width="100%"
@@ -195,8 +191,10 @@ export default function MasterNear() {
                                     }}
                                     options={{
                                         iconLayout: 'default#image',
+                                        iconShape: {type: 'Circle', coordinates: [0, 0], radius: 14},
                                         iconImageHref: filter > 12 ? i.image : '/master1.svg',
                                         iconImageSize: [40, 40],
+                                        style: {border: '2px solid red'}
                                     }}
 
                                     onClick={() => ViewMaster(i.nikname, 14)}
@@ -206,7 +204,7 @@ export default function MasterNear() {
                         </YMaps>
                     </div>
                 </section>}
-            {master && !selector ? <section className={styles.section}>
+            {master ? <section className={styles.section}>
                 <Image alt="close" className={styles.close} src={arrow_down} width={25} height={25} onClick={() => ViewMaster('', 11)} />
                 {masters?.filter(i => i.nikname === master).map(i => 
                 <Link key={i.nikname} className={styles.master} href={`/master/${i.nikname}`} >                                     
