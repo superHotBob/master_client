@@ -17,8 +17,7 @@ const my_category = ['маникюр', 'прически', 'педикюр', 'м
 
 export default function AddService({view,setView}) {
     const cost = useRef(null)
-    const serv = useRef(null)
-    const router = useRouter()
+    const serv = useRef(null)    
     const [profile, setProfile] = useState()
     const [viewFilter, setViewFilter] = useState(false)
     const [category, addCategory] = useState([])
@@ -46,14 +45,7 @@ export default function AddService({view,setView}) {
         } else {
             setServices([])
         }
-
-
-
-
-
     }
-
-
 
     const SaveServices = async () => {
         const data = {
@@ -102,9 +94,7 @@ export default function AddService({view,setView}) {
             let new_serv = services;
             new_serv[ind][1] = ['']
             setServices(services)
-
         }
-
     }
     function AddService(a) {
         let new_service = services

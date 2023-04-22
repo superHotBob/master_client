@@ -1,8 +1,4 @@
 import styles from './addservice.module.css'
-import { useSelector } from 'react-redux'
-import arrow from '../../../public/arrow_back.svg'
-import Image from 'next/image'
-import { useRouter } from 'next/router'
 import { useEffect, useState, useRef } from 'react'
 import Menu_icon from '@/components/icons/menu'
 
@@ -11,14 +7,13 @@ const style = {
     color: '#fff',
     backgroundColor: '#3D4EEA',
     border: '1.5px solid #3D4EEA',
-
 }
+
 const my_category = ['маникюр', 'прически', 'педикюр', 'макияж', 'массаж', 'барбер', 'ресницы', 'брови', 'депиляция']
 export default function AddService() {
 
     const cost = useRef(null)
-    const serv = useRef(null)
-    const router = useRouter()
+    const serv = useRef(null)    
     const [profile, setProfile] = useState()
     const [viewFilter, setViewFilter] = useState(false)
     const [category, addCategory] = useState([])
@@ -46,11 +41,6 @@ export default function AddService() {
         } else {
             setServices([])
         }
-
-
-
-
-
     }
 
 
@@ -146,7 +136,7 @@ export default function AddService() {
     //     console.log(services)
     // }
     return (
-        <main className={view ? styles.mainservice : styles.mainnew}>
+        <main className={styles.mains}>
             {profile ?
                 <header className={styles.header}>
                     <Menu_icon type="arrow" color={profile.color[1]} />
