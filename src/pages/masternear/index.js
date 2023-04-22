@@ -191,11 +191,10 @@ export default function MasterNear() {
                                         strokeColor: 'blue'
                                     }}
                                     options={{
-                                        iconLayout: 'default#image',
-                                        iconShape: {type: 'Circle', coordinates: [0, 0], radius: 14},
+                                        iconLayout: 'default#image',                                        
                                         iconImageHref: filter > 12 ? url + 'var/data/' + i.nikname + '/main.jpg' : '/master1.svg',
                                         iconImageSize: [40, 40],
-                                        style: {border: '2px solid red'}
+                                        
                                     }}
 
                                     onClick={() => ViewMaster(i.nikname, 14)}

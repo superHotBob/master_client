@@ -15,8 +15,8 @@ import Link from 'next/link'
 import Location from '@/components/location'
 
 const url = 'https://masters-client.onrender.com/'
-const Master = () => {
-    
+
+const Master = () => {    
     const [viewText, setViewText] = useState(true)
     const [nav_view, setNavView] = useState('Лента')
     const [profile, setProfile] = useState(null)
@@ -24,12 +24,14 @@ const Master = () => {
     const [mapview, setmapview] = useState(false)
     const router = useRouter()
     const { pid } = router.query
+    console.log(pid)
     
     const my_profile = useSelector(state => state.counter.profile)
     
 
     useEffect(() => {
         let local_profile = localStorage.getItem(profile);
+        
         async function GetMaster() {
             const response = await fetch(`/api/master?nikname=${pid}`, {
                 headers: {
@@ -38,22 +40,23 @@ const Master = () => {
                 method: 'get',
             })           
             const result = await response.json()
+            console.log(result)
             setProfile(result[0])
             setNav_active({
-                backgroundColor: result[0].color[1],
+                // backgroundColor: result[0].color[1],
                 color: "#fff",
                 padding: '0 20px',
                 fontWeight: 600
             })
         }
-        if (local_profile) {
-            setProfile(my_profile);
-        } else {
+        // if (local_profile) {
+        //     setProfile(my_profile);
+        // } else {
             GetMaster()
-        }
+        // }
 
 
-    }, [pid])
+    },[])
 
     function EnterToMessanger(a) {
         if (profile.status==='client') {

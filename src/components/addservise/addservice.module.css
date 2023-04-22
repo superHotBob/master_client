@@ -1,13 +1,19 @@
-.mainservice {
+.mainservice , .mainnew {
   width: 100%;
-  max-width: 500px;  
+  max-width: 500px;
+  height: 0;
   overflow: auto;
   position: absolute;
-  left: 0;
   top: 100vh;
-  height: 0;
+  left: 0;
   background-color: #fff;
   z-index: 101;
+  transition: all 0.5s;
+}
+.mainnew {
+    height: 100%;
+    top: 0;
+    transition: all 0.5s;
 }
 
 .header {

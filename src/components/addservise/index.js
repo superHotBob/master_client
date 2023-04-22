@@ -14,8 +14,8 @@ const style = {
 
 }
 const my_category = ['маникюр', 'прически', 'педикюр', 'макияж', 'массаж', 'барбер', 'ресницы', 'брови', 'депиляция']
-export default function AddService() {
 
+export default function AddService({view,setView}) {
     const cost = useRef(null)
     const serv = useRef(null)
     const router = useRouter()
@@ -149,8 +149,8 @@ export default function AddService() {
         <main className={view ? styles.mainservice : styles.mainnew}>
             {profile ?
                 <header className={styles.header}>
-                    <Menu_icon type="arrow" color={profile.color[1]} />
-                    <h4>Добавить услугу</h4>
+                    <Menu_icon type="arrow_button" color={profile.color[1]} setView={setView}/>
+                    <h4 onClick={()=>setView(true)}>Добавить услугу</h4>
                     <span onClick={SaveServices} style={{ color: profile.color[1] }}>Сохранить</span>
                 </header> : null}
                 <button className={styles.button} onClick={() => setViewFilter(true)}>

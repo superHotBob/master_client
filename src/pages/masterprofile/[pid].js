@@ -11,13 +11,14 @@ import Image from 'next/image'
 import Sertificats from '@/components/serificats'
 import AddSertificat from '@/components/addsertificat'
 import Menu_icon from '@/components/icons/menu'
+import AddService from '@/components/addservise'
 
 
 const url = 'https://masters-client.onrender.com/'
 export default function Client() {
     const router = useRouter()
     const { pid } = router.query
-
+    const [view, setView] = useState(true)
     const [profile, setProfile] = useState()
     const [nav_view, setNavView] = useState('Лента')
     const [nav_active, setNavActive] = useState()
@@ -97,10 +98,11 @@ export default function Client() {
                             по категориям. Вы сможете редактировать его в
                             любое время, дополняя и редактируя его.`}
                         />
-                        <Link href="/addservice" className={styles.uslugi_plus} style={{ backgroundColor: profile.color[1] }}>
+                        <button onClick={()=>setView(false)} className={styles.uslugi_plus} style={{ backgroundColor: profile.color[1] }}>
                             Добавить услугу +
-                        </Link>
+                        </button>
                         <Services color={profile.color} />
+                        <AddService  view={view} setView={setView} />
 
                     </> : null}
 
@@ -145,7 +147,7 @@ export default function Client() {
                             Добавить сетрификат +
                         </button>
                         <Sertificats nikname={pid} />
-                        {newSertificat ? <AddSertificat color={profile.color} nikname={profile.nikname} view={AddNewSertificat} /> : null}
+                        {newSertificat ? <AddSertificat setView={setView} color={profile.color} nikname={profile.nikname} view={AddNewSertificat} /> : null}
 
 
                     </> : null}

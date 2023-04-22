@@ -35,12 +35,9 @@ export default function Lenta({color={},nikname}) {
     const [lists, setlists] = useState()
 
     useEffect(() => {        
-        async function GetSertificats() {
-            fetch(`${url}getlists?dir=${nikname}`)
-            .then(res => res.json())
-            .then(res => setlists(res))
-        }
-        GetSertificats()
+        fetch(`${url}getlists?dir=${nikname}`)
+        .then(res => res.json())
+        .then(res => setlists(res))       
     }, [])
     return (
         <main className={styles.main}>          
