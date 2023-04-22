@@ -11,7 +11,7 @@ export default async function handler(req, res) {
   if (result.length) {
     res.status(200).json(result) 
   } else {
-   console.log("error")
+    res.status(200).json([]) 
   }
   
 }

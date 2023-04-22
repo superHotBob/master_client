@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps'
 import icon_close from '../../../public/close.svg'
 
-export default function Location({locations,close}) {
+export default function Location({loc_master, close}) {
 
     function ViewGrayScale() {          
         document.getElementsByClassName('ymaps-2-1-79-ground-pane')[0].style.filter = 'grayscale(1)'
@@ -14,7 +14,8 @@ export default function Location({locations,close}) {
     
     const defaultState = {        
         controls: [],
-        behaviors: ["default", "scrollZoom", "onclick"]
+        behaviors: ["default", "scrollZoom", "onclick"],
+        
     };
     return (
         <div className={styles.map}>
@@ -25,15 +26,15 @@ export default function Location({locations,close}) {
                             <Map id="mymap"
                                 options={{ set: defaultState }}
                                 state={{
-                                    center: locations ,
-                                    zoom:  14 ,
+                                    center: loc_master ,
+                                    zoom:  12 ,
                                     controls: [],
-                                    behaviors: ["default", "scrollZoom"]
+                                    behaviors: ["default", "scrollZoom","onclick"]
                                 }} width='100%' height= "75vh"
                                                               
                                
                             >
-                                <Placemark geometry={locations} 
+                                <Placemark geometry={loc_master} 
                                  modules= {
                                     ['geoObject.addon.balloon', 'geoObject.addon.hint']
                                 }

@@ -150,7 +150,7 @@ export default function Client() {
 
                     </> : null}
                 </section>
-                <Navi color={profile.color[1]} />
+                <Navi color={profile.color[0]} />
             </> : null}
         </main >
     )

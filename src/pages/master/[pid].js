@@ -14,6 +14,7 @@ import Menu_icon from '@/components/icons/menu'
 import Link from 'next/link'
 import Location from '@/components/location'
 
+const url = 'https://masters-client.onrender.com/'
 const Master = () => {
     
     const [viewText, setViewText] = useState(true)
@@ -69,11 +70,11 @@ const Master = () => {
             {profile ? <>
                 <Header text={pid} sel='back' color={profile.color} />
                 {mapview ? 
-                <Location  locations={profile.locations} close={setmapview}/>
+                <Location  loc_master={profile.locations} close={setmapview}/>
                 :
                 <section className={styles.section}>
                     <div className={styles.image} style={{ background: profile.color[0] }}>
-                        {profile.image ? <Image src={profile.image} alt="profile" height={105} width={105} /> : null}
+                        {profile.image ? <Image src={url + 'var/data/' + pid + '/main.jpg'} alt="profile" height={105} width={105} /> : null}
                     </div>
                     <p className={styles.name_stars}>
                         <span style={{ width: 'fit-content' }}>{profile.name}</span>
@@ -113,12 +114,12 @@ const Master = () => {
                     </nav>
                     {nav_view === 'Отзывы' ? <Reviews nikname={profile.nikname} color={profile.color} /> : null}
                     {nav_view === 'Услуги' ? <Services name={pid} color={profile.color} /> : null}
-                    {nav_view === 'Лента' ? <Lenta nikname={pid} color={profile?.color} /> : null}
+                    {nav_view === 'Лента' ? <Lenta nikname={pid} color={profile.color} /> : null}
                     {nav_view === 'Сертификаты' ? <Sertificats nikname={pid} /> : null}
                     
-                </section>}
-               
-                <Navi color={profile.color[1]} /></> :
+                </section>}               
+                <Navi color={profile.color[0]} />
+                </> :
                 <div className={styles.await}>
                     <Image alt="await" src='/await.gif' width={150} height={150} />
                 </div>}

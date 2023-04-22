@@ -29,44 +29,37 @@ const text = (` Ищу модель, что бы протестировать к
 
 const url = 'https://masters-client.onrender.com/'
 export default function Lenta({color={},nikname}) {
-    const [width, setWidth] = useState()
+    
     const [model, setViewText] = useState(false)
-    useEffect(() => setWidth(window.innerWidth > 500 ? 500 : window.innerWidth),[])
+    // useEffect(() => setWidth(window.innerWidth > 500 ? 500 : window.innerWidth),[])
     const [lists, setlists] = useState()
 
-    useEffect(() => {
-        const prof = JSON.parse(localStorage.getItem('profile'))
+    useEffect(() => {        
         async function GetSertificats() {
             fetch(`${url}getlists?dir=${nikname}`)
-                .then(res => res.json())
-                .then(res => setlists(res))
+            .then(res => res.json())
+            .then(res => setlists(res))
         }
         GetSertificats()
     }, [])
     return (
-        <main className={styles.main}>
-            {/* <FilterServices /> */}
-           
-            <div onClick={() => setViewText(true)} className={styles.model} style={{background: color[1]}}>
+        <main className={styles.main}>          
+            <div onClick={() => setViewText(true)} className={styles.model} style={{background: color[0]}}>
                 <h3>Нужна модель</h3>
                 <h6>15 сентября, бесплатно</h6>
             </div>
-            {width ? <div className={styles.images}>
+            <div className={styles.images}>
                 <div className={styles.part_images}>
-                    {lists?.filter((i, index) => index % 2 ? i : null).map((i, index) =>                       
-                        <img key={i} alt={i} src={url + 'var/data/' + nikname + '/' + i} width="100%" height="auto" />
-                        
+                    {lists?.filter((i, index) => index % 2 ? i : null).map(i =>                       
+                        <img key={i} alt={i} src={url + 'var/data/' + nikname + '/' + i} />                        
                     )}
                 </div>
                 <div className={styles.part_images}>
-                    {lists?.filter((i, index) => index % 2 ? null : i).map((i, index) =>
-                        
-                            <img key={i} alt={i} src={url + 'var/data/' + nikname + '/' + i} width="100%" height="auto" />
-                       
+                    {lists?.filter((i, index) => index % 2 ? null : i).map(i =>                        
+                        <img key={i} alt={i} src={url + 'var/data/' + nikname + '/' + i}  />                       
                     )}
                 </div>
-
-            </div> : null}
+            </div>
             {model ? <div className={styles.need_model_main}>
                 <div className={styles.need_model_data}>
                     <Image alt="arrow" src={arrow_down} height={20} width={20} onClick={() => setViewText(false)} />

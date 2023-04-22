@@ -11,6 +11,7 @@ import Script from 'next/script'
 import FilterServices from '@/components/filterServices'
 import Message from '@/components/message'
 
+const url = 'https://masters-client.onrender.com/'
 
 const sel = {
     background: 'linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)',
@@ -137,7 +138,7 @@ export default function MasterNear() {
                             </p>
                             <h4>{i.address}</h4>
                             <h5>{i.services.map(a => <span key={a} className={styles.service}>{a}</span>)}</h5>
-                            <Image src={i.image ? i.image : '/camera_wh.svg'} width={60} height={60} alt="image" />
+                            <Image src={i.image ? url + 'var/data/' + i.nikname + '/main.jpg' : '/camera_wh.svg'} width={60} height={60} alt="image" />
                         </Link>)}
                 </section>
                 :
@@ -192,7 +193,7 @@ export default function MasterNear() {
                                     options={{
                                         iconLayout: 'default#image',
                                         iconShape: {type: 'Circle', coordinates: [0, 0], radius: 14},
-                                        iconImageHref: filter > 12 ? i.image : '/master1.svg',
+                                        iconImageHref: filter > 12 ? url + 'var/data/' + i.nikname + '/main.jpg' : '/master1.svg',
                                         iconImageSize: [40, 40],
                                         style: {border: '2px solid red'}
                                     }}
@@ -211,11 +212,11 @@ export default function MasterNear() {
                     <p style={{ width: '75%' }}>
                         <b>{i.name}</b> {'  '}
                         <span className={styles.pro}>MASTER</span>
-                        <span className={styles.stars}>{i.stars}</span>
+                        {i.stars ? <span className={styles.stars}>{i.stars}</span>:null}
                     </p>
                     <h4>{i.address}</h4>
                     <h5>{i.services.map(a => <span key={a} className={styles.service}>{a}</span>)}</h5>
-                    <Image src={i.image ? i.image : '/camera_wh.svg'} width={60} height={60} alt="image" />
+                    <Image src={i.image ? url + 'var/data/' + i.nikname + '/main.jpg' : '/camera_wh.svg'} width={60} height={60} alt="image" />
                 </Link>)}
             </section> : null}
 

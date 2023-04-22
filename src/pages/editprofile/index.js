@@ -39,14 +39,14 @@ const url = 'https://masters-client.onrender.com'
 export default function EditProfile() {
     const profile = useSelector(state => state.counter.profile)
     const location = useSelector(state => state.counter.location)
-    
+
     const dispatch = useDispatch()
     const [name, setName] = useState('Ваше имя')
     const [nikname, setNikname] = useState()
     const [text, setText] = useState()
     const [file, setSelectedFile] = useState('/camera_wh.svg')
     const [file_for_upload, set_file_for_upload] = useState(null)
-   
+
     const [message, setMessage] = useState()
     const [accept, setAccept] = useState(false)
     const [tema, viewTema] = useState(false)
@@ -57,7 +57,7 @@ export default function EditProfile() {
     const [address, setAddress] = useState()
     const [address_full, setAddress_full] = useState()
 
-   
+
 
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem('profile'))
@@ -83,24 +83,24 @@ export default function EditProfile() {
                 .catch(error => console.log("error", error));
         }
         !profile.address ? Location() : null
-        
+
         setName(pro.name),
-        setText(pro.text),
-        setCity(pro.city),
-        setCurrency(my_currency[current_symbol.indexOf(pro.currency)] ?? 'Белорусский рубль'),
-        setAddress(pro.address)
+            setText(pro.text),
+            setCity(pro.city),
+            setCurrency(my_currency[current_symbol.indexOf(pro.currency)] ?? 'Белорусский рубль'),
+            setAddress(pro.address)
         setSelectedFile(url + '/var/data/' + pro.nikname + '/main.jpg')
         setAddress_full(address_full => ({ ...address_full, ...pro.address_full })),
-        setNikname(pro.nikname),
-        setColor(pro.color ? pro.color : ['linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)', '#3D4EEA', '#ECEEFD'])
-       
+            setNikname(pro.nikname),
+            setColor(pro.color ? pro.color : ['linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)', '#3D4EEA', '#ECEEFD'])
+
     }, [])
     function Return() {
         setName(pro.name),
             setText(pro.text),
             setCurrency('Белорусский рубль')
-            setSelectedFile(url + '/var/data/' + pro.nikname + '/main.jpg')
-            setAddress(pro.address),
+        setSelectedFile(url + '/var/data/' + pro.nikname + '/main.jpg')
+        setAddress(pro.address),
             setNikname(pro.nikname),
             setColor(pro.color || 'linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%)')
     }
@@ -126,7 +126,7 @@ export default function EditProfile() {
             },
             method: 'POST',
         })
-        if(file_for_upload) { UploadToServer() }
+        if (file_for_upload) { UploadToServer() }
         const result = await response.json()
         localStorage.setItem("profile", JSON.stringify(result));
         dispatch(setprofile(result))
@@ -144,12 +144,12 @@ export default function EditProfile() {
         set_file_for_upload(e.target.files[0])
     }
 
-    function UploadToServer() {       
+    function UploadToServer() {
         let data = new FormData()
         data.append('file', file_for_upload, 'main.jpg')
         fetch(`${url}/upl?name=${profile.nikname}`, {
             body: data,
-            method: 'post',           
+            method: 'post',
         }).then(res => console.log('file is good'))
         setSelectedFile(url + '/var/data/' + profile.nikname + '/main.jpg')
     }
@@ -170,20 +170,20 @@ export default function EditProfile() {
             <div className={styles.image} style={{ background: color[0] }}>
                 <span onClick={() => viewTema(true)}>Изменить обложку</span>
                 <div className={styles.profile_image}>
-                    <Image
-                       src={file}
-                       alt="profile"
-                       style={file ? filestyle : null}
-                       title='заменить изображение'
-                       height={file ? 106 : 50}
-                       width={file ? 106 : 50}
-                    />
                     <form>
+                        <Image
+                            src={file}
+                            alt="фото профиля"
+                            style={file ? filestyle : null}
+                            title='заменить изображение'
+                            height={file ? 106 : 50}
+                            width={file ? 106 : 50}
+                        />
                         <input
                             title="Клик для выбора иконки"
                             type="file"
-                            name="image"                            
-                            onChange={(e)=>SelectUpload(e)}
+                            name="image"
+                            onChange={(e) => SelectUpload(e)}
                             accept=".jpg,.png,.webp"
                         />
                     </form>
