@@ -141,7 +141,7 @@ export default function Client() {
                             `}
                         />
 
-                        <button onClick={() => AddNewSertificat(true)} className={styles.uslugi} style={{ color: '#fff', backgroundColor: profile.color[1] }}>
+                        <button onClick={() => AddNewSertificat(true)} className={styles.uslugi_plus} style={{ color: '#fff', backgroundColor: profile.color[1] }}>
                             Добавить сетрификат +
                         </button>
                         <Sertificats nikname={pid} />

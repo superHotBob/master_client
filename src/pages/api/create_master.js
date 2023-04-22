@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   const master = {
     nikname: req.body.nikname,
     name: req.body.name,
-    image: req.body.image,
+    image: 'image',
     text: req.body.text,
     phone: req.body.phone,
     id: req.body.id,
@@ -35,16 +35,16 @@ export default async function handler(req, res) {
     )  
     returning *
   `
-console.log(result)
+  console.log(result)
  
-  if(result.length>0) {
+  if(my_result.length>0) {
       const result = await sql`
         update clients 
         set status = 'master'
         where id = ${my_result[0].id}
         returning *
       `
-     
+    
 
       const next_result = await sql`
         insert into services (user_id,master)

@@ -11,7 +11,7 @@ const url = 'https://masters-client.onrender.com'
 
 export default function EditProfile() {
     const profile = useSelector(state => state.counter.profile)
-   
+
     const dispatch = useDispatch()
     const [name, setName] = useState('Ваше имя')
     const [nikname, setNikname] = useState()
@@ -21,19 +21,19 @@ export default function EditProfile() {
     const [message, setMessage] = useState()
 
 
-    useEffect(() => {    
-        const prof = JSON.parse(localStorage.getItem('profile'))    
+    useEffect(() => {
+        const prof = JSON.parse(localStorage.getItem('profile'))
         setName(prof.name)
-        setText(prof.text)        
+        setText(prof.text)
         setSelectedFile(url + '/var/data/' + prof.nikname + '/main.jpg')
         setNikname(prof.nikname)
-    },[])
+    }, [])
 
     function Return() {
         setName(prof.name),
-        setText(prof.text),        
-        setNikname(prof.nikname),
-        setSelectedFile(url + '/var/data/' + prof.nikname + '/main.jpg')
+            setText(prof.text),
+            setNikname(prof.nikname),
+            setSelectedFile(url + '/var/data/' + prof.nikname + '/main.jpg')
     }
     const EditClient = async () => {
         const data = {
@@ -91,16 +91,16 @@ export default function EditProfile() {
     //     reader.onload = () => resolve(reader.result);
     //     reader.onerror = error => reject(error);
     // });
-    console.log('file', file)
-    async function onSelectFile(a) {
-        if (a.size > 50000) {
-            setMessage('Файл больше 50кб')
-        } else {
-            // let result = await toBase64(a)
-            setSelectedFile(a)
-        }
 
-    }
+    // async function onSelectFile(a) {
+    //     if (a.size > 50000) {
+    //         setMessage('Файл больше 50кб')
+    //     } else {
+    //         // let result = await toBase64(a)
+    //         setSelectedFile(a)
+    //     }
+
+    // }
     function SelectUpload(e) {
         let url = URL.createObjectURL(e.target.files[0])
         setSelectedFile(url)
@@ -112,7 +112,7 @@ export default function EditProfile() {
         data.append('file', file_for_upload, 'main.jpg')
         fetch(`${url}/upl?name=${profile.nikname}`, {
             body: data,
-            method: 'post',           
+            method: 'post',
         }).then(res => console.log('file is good'))
         setSelectedFile(url + '/var/data/' + profile.nikname + '/main.jpg')
     }
@@ -129,20 +129,21 @@ export default function EditProfile() {
             </header>
             <div className={styles.image}>
                 <div className={styles.profile_image}>
-                    <Image
-                        src={file}
-                        alt="profile"
-                        style={file ? filestyle : null}
-                        title='заменить изображение'
-                        height={file ? 106 : 50}
-                        width={file ? 106 : 50}
-                    />
+
                     <form>
+                         <Image
+                            src={file}
+                            alt="фото профиля"
+                            style={file ? filestyle : null}
+                            title='заменить изображение'
+                            height={file ? 106 : 50}
+                            width={file ? 106 : 50}
+                        />
                         <input
                             title="Клик для выбора иконки"
                             type="file"
-                            name="image"                            
-                            onChange={(e)=>SelectUpload(e)}
+                            name="image"
+                            onChange={(e) => SelectUpload(e)}
                             accept=".jpg,.png,.webp"
                         />
                     </form>

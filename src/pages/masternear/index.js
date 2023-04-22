@@ -33,16 +33,16 @@ export default function MasterNear() {
     const [masters, setMasters] = useState()
     const [filter_masters, setFilterMasters] = useState()
 
-    const defaultState = {
-        center: [
-            { name: 'минск', location: [53.904478111637374, 27.556582167586544 ]},
-            { name: 'брест', location: [52.098208, 23.760049] }]
-            .filter(i => i.name === my_city.toLowerCase())
-            .map(i => i.location),
-        zoom: filter,
-        controls: [],
-        behaviors: ["default", "scrollZoom", "onclick", "onWheel"]
-    };
+    // const defaultState = {
+    //     center: [
+    //         { name: 'минск', location: [53.904478111637374, 27.556582167586544 ]},
+    //         { name: 'брест', location: [52.098208, 23.760049] }]
+    //         .filter(i => i.name === my_city.toLowerCase())
+    //         .map(i => i.location),
+    //     zoom: filter,
+    //     controls: [],
+    //     behaviors: ["default", "scrollZoom", "onclick", "onWheel"]
+    // };
     function ViewMaster(a, b) {
         selectMaster(a)
         setFilter(b)
