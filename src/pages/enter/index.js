@@ -171,7 +171,7 @@ export default function Enter() {
                     <h4>+{phone}</h4>
                     <h5>Например +7 XXX XXX  <span>12 34</span></h5>
                     <div className={styles.numbers} >
-                        {[0, 1, 2, 3].map(i => <input id={i} key={i} pattern="[0-9]*" type="text" name="creditcard" required  maxLength={1}  onChange={(e) => Number(e.target.value, i)} />)}
+                        {[0, 1, 2, 3].map(i => <input id={i} key={i} pattern="[0-9]*" type="text" inputMode='numeric' required  maxLength={1}  onChange={(e) => Number(e.target.value, i)} />)}
                     </div>
                     {message ? <h3 className={styles.error} >Не верный код</h3>
                         :
