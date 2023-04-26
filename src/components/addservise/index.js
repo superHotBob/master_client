@@ -1,6 +1,8 @@
 import styles from './addservice.module.css'
 import { useSelector } from 'react-redux'
 import arrow from '../../../public/arrow_back.svg'
+import trash from '../../../public/trash.svg'
+import trash_blk from '../../../public/trash_blk.svg'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect, useState, useRef } from 'react'
@@ -9,17 +11,18 @@ import Menu_icon from '@/components/icons/menu'
 
 const style = {
     color: '#fff',
-    backgroundColor: '#3D4EEA',
-    border: '1.5px solid #3D4EEA',
+    background: '#8B95F2',
+    border: '1.5px solid #8B95F2',
 
 }
 const my_category = ['маникюр', 'прически', 'педикюр', 'макияж', 'массаж', 'барбер', 'ресницы', 'брови', 'депиляция']
 
-export default function AddService({view,setView}) {
+export default function AddService({ view, setView }) {
     const cost = useRef(null)
-    const serv = useRef(null)    
+    const serv = useRef(null)
     const [profile, setProfile] = useState()
     const [viewFilter, setViewFilter] = useState(false)
+    const [new_category, add_new_category] = useState([])
     const [category, addCategory] = useState([])
     const [services, setServices] = useState()
     const [message, viewMessage] = useState('')
@@ -33,7 +36,7 @@ export default function AddService({view,setView}) {
 
     async function GetServices(a, b) {
         const response = await fetch(`/api/master_service?nikname=${a}`, {
-            headers: {'Content-Type': 'application/json'}
+            headers: { 'Content-Type': 'application/json' }
         })
         const result = await response.json()
         console.log('Services', result)
@@ -88,8 +91,8 @@ export default function AddService({view,setView}) {
             console.log(services)
 
         } else {
-            addCategory(category => ([...category, e.target.id]))
-            console.log([...category, e.target.id])
+            add_new_category(new_category => ([...new_category, e.target.id]))
+            console.log([...new_category, e.target.id])
             const ind = services.findIndex(i => i[0] === e.target.id)
             let new_serv = services;
             new_serv[ind][1] = ['']
@@ -139,57 +142,72 @@ export default function AddService({view,setView}) {
         <main className={view ? styles.mainservice : styles.mainnew}>
             {profile ?
                 <header className={styles.header}>
-                    <Menu_icon type="arrow_button" color={profile.color[1]} setView={setView}/>
-                    <h4 onClick={()=>setView(true)}>Добавить услугу</h4>
+                    <Menu_icon type="arrow_button" color={profile.color[1]} setView={setView} />
+                    <h4 onClick={() => setView(true)}>Добавить услугу</h4>
                     <span onClick={SaveServices} style={{ color: profile.color[1] }}>Сохранить</span>
                 </header> : null}
-                <button className={styles.button} onClick={() => setViewFilter(true)}>
-                    <span> &#128930;</span>Добавить(удалить) категорию услуг
-                </button>
+            <div className={styles.button} onClick={() => setViewFilter(true)}>
+                Добавить  категорию +
                 <div className={styles.all__filter} style={{ display: viewFilter ? 'block' : 'none' }}>
-                    <h6 onClick={() => setViewFilter(false)} />
                     <div className={styles.all__filter__data} onClick={AddCategory}>
                         {my_category?.map(i => <b key={i} id={i} style={category.includes(i) ? style : null}>{i}</b>)}
                     </div>
+                    <p onClick={() => setViewFilter(false)}>Выбрать</p>
                 </div>
-                {services?.map((i, b) =>
-                    <div className={styles.data} key={i[0]}>
-                        {i[1] && i[1].length > 0 ? <h3 onClick={() => AddService(b)} id={i} className={styles.type} style={{ color: profile.color[1] }}>
-                            {i[0]}  <span style={{ color: profile.color[1] }}>&#128934;</span>
-                        </h3> : null}
-                        {Array.isArray(i[1]) ? <>
-                            {i[1].map((a, index) =>
-                                <div key={index} style={{ background: profile.color[2] }} className={styles.usluga}>
-                                    {a.length === 0 ?
-                                        <h5 className={styles.inputs__new__services}>
+            </div>
+            {services?.map((i, b) =>
+                <div className={styles.data} key={i[0]}>
+                    {i[1] && i[1].length > 0 ?
+                        <h3
+                            onClick={() => AddService(b)}
+                            id={i}
+                            className={styles.type}
+                            style={{ color: profile.color[51] }}
+                        >
+                            {i[0]}  <Image src={trash} width={26} height={26} alt="trash" />
+                        </h3> : null
+                    }
+                    {Array.isArray(i[1]) ? <>
+                        {i[1].map((a, index) =>
+                            <div key={index} style={{ background: profile.color[21] }} className={styles.usluga}>
+                                <>
+                                    {a.split(',').map((s, index) =>
+                                        <h5 className={styles.service} key={index} >
+                                            <span style={{ color: profile.color[11] }}>{s.split(':')[0]}</span>
+                                            <span style={{ color: profile.color[11] }}>{s.split(':')[1]} BYN</span>
+                                            <Image src={trash_blk} width={29} height={29} alt="trash" onClick={() => DeleteNewService(b)}/>
+                                            
+                                        </h5>
+                                    )}
+                                </>
+                                <div className={styles.button}>
+
+                               Добавить услугу +
+
+                                    {true ?
+                                        <h5 className={styles.inputs__new__services} key={index}>
                                             <input ref={serv} type="text" maxLength={30} placeholder='Название услуги' />
                                             <input ref={cost} type="text" placeholder='Цена' />
+                                            <b>{profile.currency}</b>
                                             <span
-                                                style={{ color: profile.color[1] }}
+                                                style={{ color: profile.color[11] }}
                                                 onClick={() => SaveNewService(b, index)}>
-                                                &#128934;
+                                                Добавить
                                             </span>
                                             {/* <span style={{ color: profile.color[1] }} onClick={() => DeleteNewService(b)}>x</span> */}
                                         </h5>
                                         :
-                                        <>
-                                            {a.split(',').map((s, index) =>
-                                                <h5 className={styles.service} key={index} >
-                                                    <span style={{ color: profile.color[1] }}>{s.split(':')[0]}</span>
-                                                    <span style={{ color: profile.color[1] }}>{s.split(':')[1]} BYN</span>
-                                                    <span style={{ color: profile.color[1] }} onClick={() => DeleteNewService(b)}>&#128465;</span>
-                                                </h5>
-                                            )}
-                                        </>
+                                        null
                                     }
-                                </div>)}
-                        </>
-                            : null
-                        }
+                                </div>
+                            </div>)}
+                    </>
+                        : null
+                    }
 
-                    </div>
-                )}
-                {message ? <p className={styles.message}>{message}</p> : null}
+                </div>
+            )}
+            {message ? <p className={styles.message}>{message}</p> : null}
 
         </main>
     )
