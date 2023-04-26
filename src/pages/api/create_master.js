@@ -11,32 +11,41 @@ export default async function handler(req, res) {
     text: req.body.text,
     phone: req.body.phone,
     id: req.body.id,
-    currency: req.body.currency,
-    color: req.body.color  
+    currency: 'BYN',
+    color: req.body.color
   }
 
   const my_result = await sql`
     select phone, id from clients
     where nikname = ${req.body.nikname}
   `
- 
+  if (!req.body.name) {
+    master['name'] = req.body.nikname
+    master['text'] = 'Немного о себе'
+    master['color'] =  ['linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)', '#3D4EEA', '#ECEEFD']  
+    master['id'] = my_result[0].id
+    master['phone'] = my_result[0].phone
+  }
+
+  
 
   const result = await sql`
-    insert into users (name,phone,image,nikname,id,services,color,text) 
+  
+    insert into users (name, phone, image, nikname, id, services, color, text) 
     values (
-      ${req.body.name},
-      ${my_result[0].phone},
+      ${master.name},
+      ${master.phone},
       ${master.image},
       ${req.body.nikname},
-      ${my_result[0].id},      
+      ${master.id},      
       '{}',
       ${master.color},
       ${master.text}
     )  
     returning *
   `
-  console.log(result)
- 
+  
+ console.log(result)
   if(my_result.length>0) {
       const result = await sql`
         update clients 

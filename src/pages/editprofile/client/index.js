@@ -5,7 +5,6 @@ import Image from 'next/image'
 import { useEffect, useState, useRef } from 'react'
 import Navi from '@/components/navi'
 
-const filestyle = { borderRadius: '100%' }
 
 const url = 'https://masters-client.onrender.com'
 
@@ -70,7 +69,7 @@ export default function EditProfile() {
             nikname: nikname,
             image: 'main.jpg',
             text: text,
-            color: ['linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)', '#3D4EEA', '#ECEEFD']
+            color: ''
         }
         fetch('/api/create_master', {
             body: JSON.stringify(data),
@@ -127,28 +126,22 @@ export default function EditProfile() {
                 <span>{profile.nikname}</span>
                 <span onClick={EditClient}>Принять</span>
             </header>
-            <div className={styles.image}>
-                <div className={styles.profile_image}>
-
-                    <form style={{height: '106px'}}>
-                         <Image
-                            src={file}
-                            alt="фото"
-                            style={file ? filestyle : null}
-                            title='заменить изображение'
-                            height={file ? 106 : 50}
-                            width={file ? 106 : 50}
-                        />
-                        <input
-                            title="Клик для выбора иконки"
-                            type="file"
-                            name="image"
-                            onChange={(e) => SelectUpload(e)}
-                            accept=".jpg,.png,.webp"
-                        />
-                    </form>
-                </div>
-            </div>
+            <form style={{ height: '106px' }} className={styles.image}>
+                <Image
+                    src={file}
+                    alt="фото"
+                    title='заменить изображение'
+                    height={file ? 106 : 50}
+                    width={file ? 106 : 50}
+                />
+                <input
+                    title="Клик для выбора иконки"
+                    type="file"
+                    name="image"
+                    onChange={(e) => SelectUpload(e)}
+                    accept=".jpg,.png,.webp"
+                />
+            </form>
             <p className={styles.name}>{profile.name || name || 'Ваше имя'}</p>
             <section className={styles.inputs}>
                 <h6>

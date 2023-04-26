@@ -30,7 +30,7 @@
   background-color: #fff;
   border: none;
   border-radius: 8px;
-  padding: 20px 10px 0 20px;  
+  padding: 20px 10px;  
   z-index: 200;
   font-size: 18px;
   line-height: 20px;
@@ -48,6 +48,11 @@
 .passive_dialog {
   display: none;
 }
+.header .message {
+  margin-top: 20%;
+  display: block;
+  text-align: center;
+}
 .image {
   height: 100px; 
   background-size: 400% 400%;
@@ -55,6 +60,18 @@
   text-align: center;
   position: relative;    
   background: linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%);
+}
+.image img {
+  height: 105px;
+  width: 105px;
+  display: block;
+  margin: 0 auto;
+  border-radius: 100%;
+  transform: translateY(53px);
+  line-height: 105px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .image span {
@@ -72,7 +89,7 @@
   transform: translate(-4px, 2px);
 }
 .image input {
-  transform: translate(0, -169px);
+  transform: translate(0, -105px);
   opacity: 0;
   display: block;
   height: 106px;

@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
 import styles from '@/styles/Home.module.css'
@@ -17,12 +16,6 @@ export default function Home() {
   const dispatch = useDispatch()
   const [width, setWidth] = useState(0)
   const [image, setImage] = useState()
-  
-  // useEffect(() => {
-  //   const audio = new Audio('/sound/new_message.mp3');
-  //   audio.play();
-  // }, [])
-
  
  
   const { coords, isGeolocationAvailable, isGeolocationEnabled } =

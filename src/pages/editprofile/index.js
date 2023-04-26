@@ -5,8 +5,8 @@ import Image from 'next/image'
 import { useEffect, useState, useRef } from 'react'
 import arrow from '../../../public/arrow_back.svg'
 import Navi from '@/components/navi'
+import { useGeolocated } from "react-geolocated"
 
-const filestyle = { borderRadius: '100%' }
 const active_currency = {
     backgroundColor: '#3D4EEA',
     color: '#fff',
@@ -56,8 +56,18 @@ export default function EditProfile() {
     const [city, setCity] = useState('')
     const [address, setAddress] = useState()
     const [address_full, setAddress_full] = useState()
-
-
+    
+    const { coords, isGeolocationAvailable, isGeolocationEnabled } =
+    useGeolocated({
+        positionOptions: {
+            enableHighAccuracy: false,
+        },
+        userDecisionTimeout: 5000,
+    });
+    useEffect(() => {     
+    //   if ( coords) { dispatch(setlocation([coords.latitude,coords.longitude])) 
+      console.log(coords?.latitude,coords?.longitude) 
+    }, [coords])
 
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem('profile'))
@@ -85,7 +95,7 @@ export default function EditProfile() {
         !profile.address ? Location() : null
 
         setName(pro.name),
-            setText(pro.text),
+        setText(pro.text),
             setCity(pro.city),
             setCurrency(my_currency[current_symbol.indexOf(pro.currency)] ?? 'Белорусский рубль'),
             setAddress(pro.address)
@@ -161,20 +171,19 @@ export default function EditProfile() {
                     open={message ? 'open' : false}
                     className={message ? styles.active_dialog : styles.passive_dialog}
                 >
-                    {message}
+                   <b className={styles.message}>{message}</b> 
                 </dialog>
                 <span onClick={Return} style={{ color: color[1] }}>Отмена</span>
                 <span>{profile.nikname}</span>
                 <span onClick={EditMaster} style={{ color: color[1] }}>Принять</span>
             </header>
             <div className={styles.image} style={{ background: color[0] }}>
-                <span onClick={() => viewTema(true)}>Изменить обложку</span>
-                <div className={styles.profile_image}>
-                    <form style={{height: '106px'}}>
+                <span onClick={() => viewTema(true)}>Изменить обложку</span>               
+                    <form style={{height: '106px'}} className={styles.profile_image}>
                         <Image
                             src={file}
-                            alt="фото профиля"
-                            style={file ? filestyle : null}
+                            alt="фото"
+                            style={{transform: 'translate(0)'}}                           
                             title='заменить изображение'
                             height={file ? 106 : 50}
                             width={file ? 106 : 50}
@@ -187,7 +196,7 @@ export default function EditProfile() {
                             accept=".jpg,.png,.webp"
                         />
                     </form>
-                </div>
+               
             </div>
             <p className={styles.name}>{profile.name || name || 'Ваше имя'}</p>
             <section className={styles.inputs}>
@@ -337,7 +346,7 @@ export default function EditProfile() {
                             )}
                         </div>
                     </div> : null}
-            <Navi color={color[1]} />
+            <Navi color={color[0]} />
         </main>
     )
 }

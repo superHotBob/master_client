@@ -77,7 +77,7 @@ const Master = () => {
                 :
                 <section className={styles.section}>
                     <div className={styles.image} style={{ background: profile.color[0] }}>
-                        {profile.image ? <Image src={url + 'var/data/' + pid + '/main.jpg'} alt="profile" height={105} width={105} /> : null}
+                        {profile.image ? <Image src={url + 'var/data/' + pid + '/main.jpg'} alt="profile img" height={105} width={105} /> : null}
                     </div>
                     <p className={styles.name_stars}>
                         <span style={{ width: 'fit-content' }}>{profile.name}</span>

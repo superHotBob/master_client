@@ -163,6 +163,17 @@
     background-size: 400% 400%;
     animation: gradient 22s ease infinite;    
 }
+.image img {
+    height: 105px;
+    width: 105px;
+    display: block;
+    margin: 0 auto;
+    background-image: url('/logo.svg');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
 .await {
     text-align: center;
     padding-top: 250px;

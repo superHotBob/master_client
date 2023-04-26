@@ -110,16 +110,12 @@ export default function Enter() {
         }
     }
     function Number(a, b) {
-        let nmb = number
-        console.log(typeof a )
-       
-            nmb[b] = a
-            setNumber(nmb)
-            if (b < 3) {
-                document.getElementById(b + 1).focus()
-            }
-       
-       
+        let nmb = number       
+        nmb[b] = a
+        setNumber(nmb)
+        if (b < 3) {
+            document.getElementById(b + 1).focus()
+        }       
     }
     function Reload() {
         setNumber([, , ,])
