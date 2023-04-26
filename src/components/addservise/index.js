@@ -1,4 +1,5 @@
 import styles from './addservice.module.css'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import arrow from '../../../public/arrow_back.svg'
 import trash from '../../../public/trash.svg'
@@ -9,11 +10,15 @@ import { useEffect, useState, useRef } from 'react'
 import Menu_icon from '@/components/icons/menu'
 
 
-const style = {
+const style_one = {
     color: '#fff',
     background: '#8B95F2',
     border: '1.5px solid #8B95F2',
-
+}
+const style_two = {
+    color: '#fff',
+    background: '#3D4EEA',
+    border: '1.5px solid #3D4EEA',
 }
 const my_category = ['маникюр', 'прически', 'педикюр', 'макияж', 'массаж', 'барбер', 'ресницы', 'брови', 'депиляция']
 
@@ -22,6 +27,7 @@ export default function AddService({ view, setView }) {
     const serv = useRef(null)
     const [profile, setProfile] = useState()
     const [viewFilter, setViewFilter] = useState(false)
+    const [addUsluga, setaddUsluga] = useState([])
     const [new_category, add_new_category] = useState([])
     const [category, addCategory] = useState([])
     const [services, setServices] = useState()
@@ -82,13 +88,13 @@ export default function AddService({ view, setView }) {
     }
     function AddCategory(e) {
         if (category.includes(e.target.id)) {
-            let newArray = category.filter(i => i !== e.target.id)
-            addCategory(newArray)
-            let new_serv = services;
-            const ind = services.findIndex(i => i[0] === e.target.id)
-            new_serv[ind][1] = ''
-            setServices(services)
-            console.log(services)
+            // let newArray = category.filter(i => i !== e.target.id)
+            // addCategory(newArray)
+            // let new_serv = services;
+            // const ind = services.findIndex(i => i[0] === e.target.id)
+            // new_serv[ind][1] = ''
+            // setServices(services)
+            // console.log(services)
 
         } else {
             add_new_category(new_category => ([...new_category, e.target.id]))
@@ -97,20 +103,26 @@ export default function AddService({ view, setView }) {
             let new_serv = services;
             new_serv[ind][1] = ['']
             setServices(services)
+            console.log(services)
         }
     }
     function AddService(a) {
         let new_service = services
         new_service[a][1].push('')
         setServices([...new_service])
-
     }
-    function SaveNewService(a, index) {
+    function SetAddUsluga(a) {
+        setaddUsluga([a])
+        console.log(addUsluga)
+    }
+    function SaveNewService(a, b) {
         // console.log(cost.current.value,serv.current.value,a)
-        let new_service = services
-        new_service[a][1][index] = `${serv.current.value}:${cost.current.value}`
-        setServices([...new_service])
-        console.log(new_service)
+        let new_services = services
+        console.log(a[0], b)
+        new_services[b][1] = [...new_services[b][1], `${serv.current.value}:${cost.current.value}`]        // // setServices([...services])
+        setServices([...services])
+        setaddUsluga(false)
+        console.log(services)
     }
     function DeleteService(a, b) {
         console.log(a, b)
@@ -144,19 +156,24 @@ export default function AddService({ view, setView }) {
                 <header className={styles.header}>
                     <Menu_icon type="arrow_button" color={profile.color[1]} setView={setView} />
                     <h4 onClick={() => setView(true)}>Добавить услугу</h4>
-                    <span onClick={SaveServices} style={{ color: profile.color[1] }}>Сохранить</span>
+                    <span onClick={SaveServices} style={{ color: profile.color[11] }}>Сохранить</span>
                 </header> : null}
-            <div className={styles.button} onClick={() => setViewFilter(true)}>
-                Добавить  категорию +
+            <div className={styles.button}>
+                <span onClick={() => setViewFilter(true)}>Добавить  категорию +</span>
                 <div className={styles.all__filter} style={{ display: viewFilter ? 'block' : 'none' }}>
                     <div className={styles.all__filter__data} onClick={AddCategory}>
-                        {my_category?.map(i => <b key={i} id={i} style={category.includes(i) ? style : null}>{i}</b>)}
+                        {my_category?.map(i =>
+                            <b key={i} id={i}
+                                style={category.includes(i) ? style_one : new_category.includes(i) ? style_two : null}
+                            >
+                                {i}
+                            </b>)}
                     </div>
-                    <p onClick={() => setViewFilter(false)}>Выбрать</p>
+                    <p onClick={() => setViewFilter(!viewFilter)}>Выбрать</p>
                 </div>
             </div>
             {services?.map((i, b) =>
-                <div className={styles.data} key={i[0]}>
+                <div className={styles.data} key={i[0]} style={{display: i[1].length > 0 ? 'block': 'none' }}>
                     {i[1] && i[1].length > 0 ?
                         <h3
                             onClick={() => AddService(b)}
@@ -169,41 +186,42 @@ export default function AddService({ view, setView }) {
                     }
                     {Array.isArray(i[1]) ? <>
                         {i[1].map((a, index) =>
-                            <div key={index} style={{ background: profile.color[21] }} className={styles.usluga}>
-                                <>
-                                    {a.split(',').map((s, index) =>
-                                        <h5 className={styles.service} key={index} >
-                                            <span style={{ color: profile.color[11] }}>{s.split(':')[0]}</span>
-                                            <span style={{ color: profile.color[11] }}>{s.split(':')[1]} BYN</span>
-                                            <Image src={trash_blk} width={29} height={29} alt="trash" onClick={() => DeleteNewService(b)}/>
-                                            
-                                        </h5>
-                                    )}
-                                </>
-                                <div className={styles.button}>
+                            < React.Fragment key={index} >
 
-                               Добавить услугу +
+                                {a.split(',').map((s, index) =>
+                                    <h5 className={styles.service} key={index} style={{ display: a.length > 0 ? 'flex' : 'none' }}>
+                                        <span style={{ color: profile.color[11] }}>{s.split(':')[0]}</span>
+                                        <span style={{ color: profile.color[11] }}>{s.split(':')[1]} BYN</span>
+                                        <Image src={trash_blk} width={29} height={29} alt="trash" onClick={() => DeleteNewService(b)} />
 
-                                    {true ?
-                                        <h5 className={styles.inputs__new__services} key={index}>
-                                            <input ref={serv} type="text" maxLength={30} placeholder='Название услуги' />
-                                            <input ref={cost} type="text" placeholder='Цена' />
-                                            <b>{profile.currency}</b>
-                                            <span
-                                                style={{ color: profile.color[11] }}
-                                                onClick={() => SaveNewService(b, index)}>
-                                                Добавить
-                                            </span>
-                                            {/* <span style={{ color: profile.color[1] }} onClick={() => DeleteNewService(b)}>x</span> */}
-                                        </h5>
-                                        :
-                                        null
-                                    }
-                                </div>
-                            </div>)}
-                    </>
+                                    </h5>
+                                )}
+                            </React.Fragment>)}
+                            </> 
                         : null
                     }
+                        <div className={styles.button_add} >
+
+                         <p onClick={() => SetAddUsluga(i[0])}>Добавить услугу +</p> 
+
+                            {addUsluga[0] === i[0] ?
+                                <h5 className={styles.inputs__new__services} >
+                                    <input ref={serv} type="text" maxLength={30} placeholder='Название услуги' />
+                                    <input ref={cost} type="text" placeholder='Цена' />
+                                    <b>{profile.currency}</b>
+                                    <span
+                                        style={{ color: profile.color[11] }}
+                                        onClick={() => SaveNewService(i, b)}>
+                                        Добавить
+                                    </span>
+                                    {/* <span style={{ color: profile.color[1] }} onClick={() => DeleteNewService(b)}>x</span> */}
+                                </h5>
+                                :
+                                null
+                            }
+                        </div>
+
+                   
 
                 </div>
             )}
