@@ -99,10 +99,10 @@ export default function Client() {
                             любое время, дополняя и редактируя его.`}
                         />
                         <button onClick={()=>setView(false)} className={styles.uslugi_plus} style={{ backgroundColor: profile.color[1] }}>
-                            Добавить услугу +
+                        Редактировать категории и услуги
                         </button>
                         <Services color={profile.color} />
-                        <AddService  view={view} setView={setView} />
+                        <AddService  view={view} setView={setView} color={profile.color} />
 
                     </> : null}
 

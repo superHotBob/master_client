@@ -22,7 +22,7 @@ const style_two = {
 }
 const my_category = ['маникюр', 'прически', 'педикюр', 'макияж', 'массаж', 'барбер', 'ресницы', 'брови', 'депиляция']
 
-export default function AddService({ view, setView }) {
+export default function AddService({ view, setView, color }) {
     const cost = useRef(null)
     const serv = useRef(null)
     const [profile, setProfile] = useState()
@@ -48,6 +48,7 @@ export default function AddService({ view, setView }) {
         console.log('Services', result)
         if (result.length > 0) {
             let new_serv = Object.entries(result[0])
+            console.log(result[0])
             setServices(new_serv)
             let all_category = new_serv.map(i => i[1] && i[1].length > 0 ? i[0] : null)
             addCategory(b.services ? b.services : all_category)
@@ -120,12 +121,10 @@ export default function AddService({ view, setView }) {
         console.log(addUsluga)
     }
     function SaveNewService(a, b) {       
-        let new_services = services
-        console.log(a[0], b)
+        let new_services = services       
         new_services[b][1] = [...new_services[b][1], `${serv.current.value}:${cost.current.value}`].filter(i=>i)        // // setServices([...services])
         setServices([...services])
-        setaddUsluga(false)
-        console.log(services)
+        setaddUsluga(false)       
     }
     function DeleteService(a, b, c) {
         console.log(a, b,c)
@@ -155,9 +154,9 @@ export default function AddService({ view, setView }) {
         <main className={view ? styles.mainservice : styles.mainnew}>
             {profile ?
                 <header className={styles.header}>
-                    <Menu_icon type="arrow_button" color={profile.color[1]} setView={setView} />
+                    <Menu_icon type="arrow_button" color={color[1]} setView={setView} />
                     <h4 onClick={() => setView(true)}>Добавить услугу</h4>
-                    <span onClick={SaveServices} style={{ color: profile.color[11] }}>Сохранить</span>
+                    <span onClick={SaveServices} style={{ color: color[11] }}>Сохранить</span>
                 </header> : null}
             <div className={styles.button}>
                 <span onClick={() => setViewFilter(true)}>Добавить  категорию +</span>
@@ -179,25 +178,24 @@ export default function AddService({ view, setView }) {
                         <h3                            
                             id={i}
                             className={styles.type}
-                            style={{ color: profile.color[51] }}
+                            style={{ color: color[51] }}
                         >
                             {i[0]}  <Image src={trash} width={26} height={26} alt="trash" onClick={() => DeleteCat(i[0])}/>
                         </h3> : null
                     }
                     
-                        {i[1].map((a, c) =>
-                            < React.Fragment key={c} >
-                                {a.split(',').map((s, index) =>
-                                    <h5 className={styles.service} key={index} style={{ display: a.length > 0 ? 'flex' : 'none' }}>
-                                        <span style={{ color: profile.color[11] }}>{s.split(':')[0]}</span>
-                                        <span style={{ color: profile.color[11] }}>{s.split(':')[1]} BYN</span>
+                        {i[1].map((services, c) =>
+                            <React.Fragment key={c}>
+                                {services.split(',').map((service, index) =>
+                                    <h5 className={styles.service} key={index} style={{ display: service.length > 0 ?'flex' : 'none' }}>
+                                        <span style={{ color: color[11] }}>{service.split(':')[0]}</span>
+                                        <span style={{ color: color[11] }}>{service.split(':')[1]} BYN</span>
                                         <Image src={trash_blk} width={29} height={29} alt="trash" onClick={() => DeleteService(b,c,i[0])} />
 
                                     </h5>
                                 )}
-                            </React.Fragment>)}
-                           
-                    
+                            </React.Fragment>
+                        )}             
                         <div className={styles.button_add}>
                             <p onClick={() => SetAddUsluga(i[0])}>Добавить услугу +</p>
                             {addUsluga[0] === i[0] ?
@@ -206,7 +204,7 @@ export default function AddService({ view, setView }) {
                                     <input ref={cost} type="text" placeholder='Цена' pattern="[0-9]*"  inputMode='numeric' required/>
                                     <b>{profile.currency}</b>
                                     <span
-                                        style={{ color: profile.color[11] }}
+                                        style={{ color: color[11] }}
                                         onClick={() => SaveNewService(i, b)}>
                                         Добавить
                                     </span>                                   
