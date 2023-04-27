@@ -60,7 +60,7 @@ export default function EditProfile() {
     const { coords, isGeolocationAvailable, isGeolocationEnabled } =
     useGeolocated({
         positionOptions: {
-            enableHighAccuracy: false,
+            enableHighAccuracy: true,
         },
         userDecisionTimeout: 5000,
     });
@@ -88,6 +88,7 @@ export default function EditProfile() {
                 .then(result => {
                     setCity(result.suggestions[0].data.city.toLowerCase())
                     setAddress(result.suggestions[0].data.street)
+                    console.log(result)
                     setAddress_full(address_full => ({ ...address_full, ...{ 'дом': result.suggestions[0].data.house } }))
                 })
                 .catch(error => console.log("error", error));
@@ -96,13 +97,13 @@ export default function EditProfile() {
 
         setName(pro.name),
         setText(pro.text),
-            setCity(pro.city),
-            setCurrency(my_currency[current_symbol.indexOf(pro.currency)] ?? 'Белорусский рубль'),
-            setAddress(pro.address)
+        setCity(pro.city),
+        setCurrency(my_currency[current_symbol.indexOf(pro.currency)] ?? 'Белорусский рубль'),
+        setAddress(pro.address)
         setSelectedFile(url + '/var/data/' + pro.nikname + '/main.jpg')
         setAddress_full(address_full => ({ ...address_full, ...pro.address_full })),
-            setNikname(pro.nikname),
-            setColor(pro.color ? pro.color : ['linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)', '#3D4EEA', '#ECEEFD'])
+        setNikname(pro.nikname),
+        setColor(pro.color ? pro.color : ['linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)', '#3D4EEA', '#ECEEFD'])
 
     }, [])
     function Return() {

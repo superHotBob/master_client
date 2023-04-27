@@ -37,7 +37,7 @@ export default function Services({color}) {
             {category.map((i) => 
                 <div className={styles.data} key={i}>                
                     <h3 className={styles.type} style={{color:color[1]}}>{i}</h3>                    
-                    {services[i].map((a,index)=>
+                    {services[i]?.map((a,index)=>
                         <div key={index} style={{background: color[2],borderRadius: 4}}>
                             {a.split(',').map((s,index)=><h5 className={styles.service} key={index}>
                             <span style={{color:color[1]}}>{s.split(':')[0]}</span>

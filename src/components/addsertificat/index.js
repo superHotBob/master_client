@@ -44,14 +44,14 @@ export default function AddSertificat({ nikname, view, color }) {
                     className={styles.left__arrow}
 
                 >
-                    <Menu_icon color={color[1] || '#3D4EEA'} />
+                    <Menu_icon color={color[1]} />
                 </div>
                 <span>Добавить сертификат</span>
-                <span>Отправить</span>
+                <span style={{color:color[1]}}>Отправить</span>
             </header>
             <form className={styles.main__form}>
-                <label className={styles.sertificat__upload} style={{ color: '#fff' }}>
-
+            <label className={styles.sertificat__upload} style={{color: color[1], backgroundColor: color[2] }}>
+                    +
                     <input
                         type="file"
                         name="image"
@@ -62,7 +62,7 @@ export default function AddSertificat({ nikname, view, color }) {
                 </label>
                 {sertificats?.map(i =>
                     <div key={i} className={styles.sertificats} style={{ backgroundImage: "url(" + url + "/var/data/" + nikname + '/' + i }} >
-                        <span onClick={()=>DeleteSertif(i)}>&#128465;</span>
+                        <span style={{color:color[1],backgroundColor:color[2]}} onClick={()=>DeleteSertif(i)}>&#128465;</span>
                     </div>)}
 
             </form>

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setclient, setprofile } from "@/reduser"
 import { useRouter } from "next/router"
 import Link from 'next/link'
-import { useEffect } from 'react'
+
 
 const style = {
     backdropFilter: 'none',

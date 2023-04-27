@@ -1,11 +1,9 @@
 import styles from './addservice.module.css'
 import React from 'react'
-import { useSelector } from 'react-redux'
-import arrow from '../../../public/arrow_back.svg'
 import trash from '../../../public/trash.svg'
 import trash_blk from '../../../public/trash_blk.svg'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
+
 import { useEffect, useState, useRef } from 'react'
 import Menu_icon from '@/components/icons/menu'
 
@@ -151,10 +149,10 @@ export default function AddService({ view, setView, color }) {
                 <header className={styles.header}>
                     <Menu_icon type="arrow_button" color={color[1]} setView={setView} />
                     <h4 onClick={() => setView(true)}>Добавить услугу</h4>
-                    <span onClick={SaveServices} style={{ color: color[11] }}>Сохранить</span>
+                    <span onClick={SaveServices} style={{ color: color[1] }}>Сохранить</span>
                 </header> : null}
-            <div className={styles.button}>
-                <span onClick={() => setViewFilter(true)}>Добавить  категорию +</span>
+            <div className={styles.button} style={{ color: color[2], background: color[2] }}>
+                <span style={{ color: color[1]}} onClick={() => setViewFilter(true)}>Добавить  категорию +</span>
                 <div className={styles.all__filter} style={{ display: viewFilter ? 'block' : 'none' }}>
                     <div className={styles.all__filter__data} onClick={AddCategory}>
                         {my_category?.map(cat =>
@@ -173,7 +171,7 @@ export default function AddService({ view, setView, color }) {
                         <h3                            
                             id={i}
                             className={styles.type}
-                            style={{ color: color[51] }}
+                            style={{ color: color[2], background: color[1] }}
                         >
                             {i[0]}  <Image src={trash} width={26} height={26} alt="trash" onClick={() => DeleteCat(i[0])}/>
                         </h3> : null
@@ -183,23 +181,23 @@ export default function AddService({ view, setView, color }) {
                             <React.Fragment key={c}>
                                 {services.split(',').map((service, index) =>
                                     <h5 className={styles.service} key={index} style={{ display: service.length > 0 ?'flex' : 'none' }}>
-                                        <span style={{ color: color[11] }}>{service.split(':')[0]}</span>
-                                        <span style={{ color: color[11] }}>{service.split(':')[1]} BYN</span>
+                                        <span style={{ color: color[1] }}>{service.split(':')[0]}</span>
+                                        <span style={{ color: color[1] }}>{service.split(':')[1]} BYN</span>
                                         <Image src={trash_blk} width={29} height={29} alt="trash" onClick={() => DeleteService(b,c,i[0])} />
 
                                     </h5>
                                 )}
                             </React.Fragment>
                         )}             
-                        <div className={styles.button_add}>
-                            <p onClick={() => SetAddUsluga(i[0])}>Добавить услугу +</p>
+                        <div className={styles.button_add} style={{backgroundColor: color[2],color:color[1]}}>
+                            <p onClick={() => SetAddUsluga(i[0])} style={{color:color[1]}}>Добавить услугу +</p>
                             {addUsluga[0] === i[0] ?
                                 <h5 className={styles.inputs__new__services} >
                                     <input ref={serv} type="text" maxLength={30} placeholder='Название услуги' />
                                     <input ref={cost} type="text" placeholder='Цена' pattern="[0-9]*"  inputMode='numeric' required/>
                                     <b>{profile.currency}</b>
                                     <span
-                                        style={{ color: color[11] }}
+                                        style={{ color: color[2], backgroundColor: color[1] }}
                                         onClick={() => SaveNewService(i, b)}>
                                         Добавить
                                     </span>                                   

@@ -181,7 +181,7 @@
 
 .service span:first-of-type {
     display: inline-block;
-    width: 65%;
+    width: 60%;
     margin: 10px 0;
     font-size: 14px;
     text-transform: capitalize;

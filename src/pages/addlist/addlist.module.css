@@ -65,19 +65,16 @@
     margin-bottom: calc(5% - 10px);
 }
 
-.sertificat__upload {
-    
-    color: #3D4EEA;
-    background-image: url('/plus.svg');
-    background-position: center;
-    background-size: 12%;
-    background-repeat: no-repeat;
+.sertificat__upload {    
+    text-align: center;
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
-
 }
 
-.sertificats {
-    
+.sertificats {    
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
