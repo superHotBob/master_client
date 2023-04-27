@@ -69,6 +69,9 @@ export default function AddService({ view, setView }) {
             прически: services[7][1],
             макияж: services[8][1],
         }
+        console.log(data)
+        profile.services = category
+        localStorage.setItem('profile', JSON.stringify(profile))
         const response = await fetch('/api/edit_master_service', {
             body: JSON.stringify(data),
             headers: {
@@ -97,12 +100,13 @@ export default function AddService({ view, setView }) {
             // console.log(services)
 
         } else {
-            add_new_category(new_category => ([...new_category, e.target.id]))
-            console.log([...new_category, e.target.id])
+            // add_new_category(new_category => ([...new_category, e.target.id]))
+            // console.log([...new_category, e.target.id])
             const ind = services.findIndex(i => i[0] === e.target.id)
-            let new_serv = services;
+            let new_serv = services
             new_serv[ind][1] = ['']
             setServices(services)
+            addCategory(category=>([...category,e.target.id]))
             console.log(services)
         }
     }
@@ -115,41 +119,38 @@ export default function AddService({ view, setView }) {
         setaddUsluga([a])
         console.log(addUsluga)
     }
-    function SaveNewService(a, b) {
-        // console.log(cost.current.value,serv.current.value,a)
+    function SaveNewService(a, b) {       
         let new_services = services
         console.log(a[0], b)
-        new_services[b][1] = [...new_services[b][1], `${serv.current.value}:${cost.current.value}`]        // // setServices([...services])
+        new_services[b][1] = [...new_services[b][1], `${serv.current.value}:${cost.current.value}`].filter(i=>i)        // // setServices([...services])
         setServices([...services])
         setaddUsluga(false)
         console.log(services)
     }
-    function DeleteService(a, b) {
-        console.log(a, b)
+    function DeleteService(a, b, c) {
+        console.log(a, b,c)
         let new_service = services
         new_service[a][1].splice(b, 1)
-        setServices(new_service)
+        console.log( new_service[a][1])
+        if(new_service[a][1].splice(b, 1).length === 0) {
+            let new_cat = category.filter(i => i !==c)      
+            addCategory([...new_cat])
+        }
+       
         console.log(new_service)
         setServices([...services])
+    }   
+    function DeleteCat(b) {        
+        const ind = services.findIndex(i=>i[0] === b)
+        console.log(b,services)
+        console.log(ind)
+        let new_serv = services;
+        new_serv[ind][1] = []       
+        setServices([...new_serv])
+        let new_cat = category.filter(i => i !==b)      
+        addCategory([...new_cat])
+        console.log(new_cat)
     }
-    function DeleteNewService(a) {
-        console.log(a)
-        let new_service = services
-        new_service[a][1].pop()
-        setServices(new_service)
-        console.log(services)
-        setServices([...services])
-    }
-    // function DeleteCat(e) {        
-    //     const ind = services.findIndex(i=>i[0] === (e.target.id.toLowerCase()).replace(',',''))
-    //     console.log(e.target.id)
-    //     console.log(ind)
-    //     let new_serv = services;
-    //     new_serv[ind][1] = ''       
-    //     setServices(new_serv)
-    //     addCategory(category=>([]))
-    //     console.log(services)
-    // }
     return (
         <main className={view ? styles.mainservice : styles.mainnew}>
             {profile ?
@@ -162,11 +163,11 @@ export default function AddService({ view, setView }) {
                 <span onClick={() => setViewFilter(true)}>Добавить  категорию +</span>
                 <div className={styles.all__filter} style={{ display: viewFilter ? 'block' : 'none' }}>
                     <div className={styles.all__filter__data} onClick={AddCategory}>
-                        {my_category?.map(i =>
-                            <b key={i} id={i}
-                                style={category.includes(i) ? style_one : new_category.includes(i) ? style_two : null}
+                        {my_category?.map(cat =>
+                            <b key={cat} id={cat}
+                                style={category.includes(cat) ? style_one : new_category.includes(cat) ? style_two : null}
                             >
-                                {i}
+                                {cat}
                             </b>)}
                     </div>
                     <p onClick={() => setViewFilter(!viewFilter)}>Выбрать</p>
@@ -175,46 +176,40 @@ export default function AddService({ view, setView }) {
             {services?.map((i, b) =>
                 <div className={styles.data} key={i[0]} style={{display: i[1].length > 0 ? 'block': 'none' }}>
                     {i[1] && i[1].length > 0 ?
-                        <h3
-                            onClick={() => AddService(b)}
+                        <h3                            
                             id={i}
                             className={styles.type}
                             style={{ color: profile.color[51] }}
                         >
-                            {i[0]}  <Image src={trash} width={26} height={26} alt="trash" />
+                            {i[0]}  <Image src={trash} width={26} height={26} alt="trash" onClick={() => DeleteCat(i[0])}/>
                         </h3> : null
                     }
-                    {Array.isArray(i[1]) ? <>
-                        {i[1].map((a, index) =>
-                            < React.Fragment key={index} >
-
+                    
+                        {i[1].map((a, c) =>
+                            < React.Fragment key={c} >
                                 {a.split(',').map((s, index) =>
                                     <h5 className={styles.service} key={index} style={{ display: a.length > 0 ? 'flex' : 'none' }}>
                                         <span style={{ color: profile.color[11] }}>{s.split(':')[0]}</span>
                                         <span style={{ color: profile.color[11] }}>{s.split(':')[1]} BYN</span>
-                                        <Image src={trash_blk} width={29} height={29} alt="trash" onClick={() => DeleteNewService(b)} />
+                                        <Image src={trash_blk} width={29} height={29} alt="trash" onClick={() => DeleteService(b,c,i[0])} />
 
                                     </h5>
                                 )}
                             </React.Fragment>)}
-                            </> 
-                        : null
-                    }
-                        <div className={styles.button_add} >
-
-                         <p onClick={() => SetAddUsluga(i[0])}>Добавить услугу +</p> 
-
+                           
+                    
+                        <div className={styles.button_add}>
+                            <p onClick={() => SetAddUsluga(i[0])}>Добавить услугу +</p>
                             {addUsluga[0] === i[0] ?
                                 <h5 className={styles.inputs__new__services} >
                                     <input ref={serv} type="text" maxLength={30} placeholder='Название услуги' />
-                                    <input ref={cost} type="text" placeholder='Цена' />
+                                    <input ref={cost} type="text" placeholder='Цена' pattern="[0-9]*"  inputMode='numeric' required/>
                                     <b>{profile.currency}</b>
                                     <span
                                         style={{ color: profile.color[11] }}
                                         onClick={() => SaveNewService(i, b)}>
                                         Добавить
-                                    </span>
-                                    {/* <span style={{ color: profile.color[1] }} onClick={() => DeleteNewService(b)}>x</span> */}
+                                    </span>                                   
                                 </h5>
                                 :
                                 null

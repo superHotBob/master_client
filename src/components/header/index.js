@@ -77,7 +77,8 @@ export default function Header({ sel, text, mes, color = {} }) {
 
           {text}
         </h3>
-        : <div className={styles.logo}>         
+        : 
+        <div className={styles.logo}>         
           <h3>masters.</h3>
           <h3>place</h3>
         </div>
