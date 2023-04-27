@@ -134,21 +134,16 @@ export default function AddService({ view, setView, color }) {
         if(new_service[a][1].splice(b, 1).length === 0) {
             let new_cat = category.filter(i => i !==c)      
             addCategory([...new_cat])
-        }
-       
-        console.log(new_service)
+        }       
         setServices([...services])
     }   
-    function DeleteCat(b) {        
-        const ind = services.findIndex(i=>i[0] === b)
-        console.log(b,services)
-        console.log(ind)
+    function DeleteCat(del_category) {        
+        const ind = services.findIndex(i=>i[0] === del_category)       
         let new_serv = services;
         new_serv[ind][1] = []       
         setServices([...new_serv])
-        let new_cat = category.filter(i => i !==b)      
-        addCategory([...new_cat])
-        console.log(new_cat)
+        let new_cat = category.filter(i => i !==del_category)      
+        addCategory([...new_cat])       
     }
     return (
         <main className={view ? styles.mainservice : styles.mainnew}>

@@ -24,8 +24,7 @@ export default function Services() {
     const router = useRouter()
     function ToService(a) {
         dispatch(setservice(a))
-        router.push('/catalog/service/' + a)
-
+        router.push("/masternear?sel=true")
     }
     return (
         <>

@@ -15,6 +15,13 @@
     flex-wrap: wrap;
     padding: 0 10px;
 }
+.images img {
+    cursor: pointer;
+    transition: all 0.5s ;
+}
+.images img:hover {
+    transform: scale(1.09);
+}
 .model {
     height: 80px;
     width: 100%;
@@ -48,6 +55,7 @@
     border-radius: 4px;
     padding: 5px;   
     text-align: center;
+    cursor: pointer;
 }
 
 .events a {

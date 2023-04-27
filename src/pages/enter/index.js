@@ -109,11 +109,18 @@ export default function Enter() {
             router.push('/404')
         }
     }
+    const handleKeyDown = (e,b) => {      
+        if (e.key === 'Backspace') {       
+            if (!e.target.value > 0 && b > 0) {
+                document.getElementById(b - 1).focus()
+            }
+        }       
+    };
     function Number(a, b) {
         let nmb = number       
         nmb[b] = a
         setNumber(nmb)
-        if (b < 3) {
+       if (a > 0 && b < 3) {
             document.getElementById(b + 1).focus()
         }       
     }
@@ -167,7 +174,16 @@ export default function Enter() {
                     <h4>+{phone}</h4>
                     <h5>Например +7 XXX XXX  <span>12 34</span></h5>
                     <div className={styles.numbers} >
-                        {[0, 1, 2, 3].map(i => <input id={i} key={i} pattern="[0-9]*" type="text" inputMode='numeric' required  maxLength={1}  onChange={(e) => Number(e.target.value, i)} />)}
+                        {[0, 1, 2, 3].map(i => 
+                        <input 
+                        id={i} 
+                        key={i} 
+                        onKeyDown={(e)=>handleKeyDown(e,i)} 
+                        pattern="[0-9]*" 
+                        type="text" 
+                        inputMode='numeric' 
+                        required  maxLength={1}  onChange={(e) => Number(e.target.value, i)} 
+                        />)}
                     </div>
                     {message ? <h3 className={styles.error} >Не верный код</h3>
                         :

@@ -61,6 +61,19 @@
     --card-border-rgb: 200, 200, 200;
   }
 }
+body::-webkit-scrollbar {
+  width: 0;               /* ширина всей полосы прокрутки */
+}
+
+body::-webkit-scrollbar-track {
+  background: #fff;        /* цвет зоны отслеживания */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: blue;    /* цвет бегунка */
+  border-radius: 20px;       /* округлось бегунка */
+  border: 3px solid #ECEEFD;  /* отступ вокруг бегунка */
+}
 
 * {
   box-sizing: border-box;
