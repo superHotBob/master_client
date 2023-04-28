@@ -15,10 +15,11 @@ export default async function handler(req, res) {
     ресницы: req.body.ресницы || [],
     стрижка: req.body.стрижка || [],
     депиляция: req.body.депиляция || [],
+    чистка: req.body.чистка || [],
   }
   const nikname = user.user 
   const result = await sql`
-    update services set ${sql(user, 'макияж','массаж', 'маникюр', 'педикюр', 'барбер', 'брови', 'прически', 'ресницы', 'стрижка', 'депиляция')
+    update services set ${sql(user, 'макияж','массаж', 'маникюр', 'педикюр', 'барбер', 'брови', 'прически', 'ресницы', 'стрижка', 'депиляция','чистка')
     }
     where master = ${user.user} 
 

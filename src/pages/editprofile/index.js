@@ -64,6 +64,9 @@ export default function EditProfile() {
         },
         userDecisionTimeout: 5000,
     });
+
+
+    
     useEffect(() => {     
     //   if ( coords) { dispatch(setlocation([coords.latitude,coords.longitude])) 
       console.log(coords?.latitude,coords?.longitude) 

@@ -32,7 +32,7 @@ export default function AddService() {
             headers: {'Content-Type': 'application/json'}
         })
         const result = await response.json()
-        console.log('Services', result)
+        console.log('My services', result[0])
         if (result.length > 0) {
             let new_serv = Object.entries(result[0])
             setServices(new_serv)
@@ -42,37 +42,41 @@ export default function AddService() {
             setServices([])
         }
     }
-
-
-
     const SaveServices = async () => {
+        // const data = {
+        //     nikname: profile.nikname,
+        //     массаж: services[3][1],
+        //     педикюр: services[4][1],
+        //     маникюр: services[0][1],
+        //     брови: services[1][1],
+        //     стрижка: services[2][1],
+        //     ресницы: services[5][1],
+        //     депиляция: services[6][1],
+        //     прически: services[7][1],
+        //     макияж: services[8][1],
+        //     барбер: services[9][1],
+        //     чистка: services[10][1]
+        // }
         const data = {
             nikname: profile.nikname,
-            массаж: services[3][1],
-            педикюр: services[4][1],
-            маникюр: services[0][1],
-            брови: services[1][1],
-            стрижка: services[2][1],
-            ресницы: services[5][1],
-            депиляция: services[6][1],
-            прически: services[7][1],
-            макияж: services[8][1],
         }
-        const response = await fetch('/api/edit_master_service', {
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            method: 'POST',
-        })
+        services.forEach(element => data[element[0]] = element[1]);
+        console.log('Data',data)
+        // const response = await fetch('/api/edit_master_service', {
+        //     body: JSON.stringify(data),
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     method: 'POST',
+        // })
 
-        if (response) {
-            viewMessage('Услуги добавлены')
-            setTimeout(() => viewMessage(), 3000)
-        } else {
-            viewMessage('Ошибка записи')
-            setTimeout(() => viewMessage(), 3000)
-        }
+        // if (response) {
+        //     viewMessage('Услуги добавлены')
+        //     setTimeout(() => viewMessage(), 3000)
+        // } else {
+        //     viewMessage('Ошибка записи')
+        //     setTimeout(() => viewMessage(), 3000)
+        // }
 
     }
     function AddCategory(e) {

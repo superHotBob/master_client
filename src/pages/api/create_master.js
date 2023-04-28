@@ -56,10 +56,11 @@ export default async function handler(req, res) {
     
 
       const next_result = await sql`
-        insert into services (user_id,master)
+        insert into services (user_id,master,маникюр,чистка,брови,массаж,педикюр,стрижка,ресницы,депиляция,прически,макияж,барбер)
         values (
           ${my_result[0].id},
-          ${req.body.nikname}
+          ${req.body.nikname},
+          '{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}'
         )
       `
       res.status(200).end('Профиль мастера создан')
