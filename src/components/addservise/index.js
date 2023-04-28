@@ -80,18 +80,21 @@ export default function AddService({ view, setView, color }) {
         }
     }
     function AddCategory(e) {
-        // add_new_category(new_category => ([...new_category, e.target.id]))
-        // console.log([...new_category, e.target.id])
-        const ind = services.findIndex(i => i[0] === e.target.id)
-        let new_serv = services
-        new_serv[ind][1] = ['']
-        setServices(services)
-        addCategory(category => ([...category, e.target.id]))
+        if (category.includes(e.target.id)) {
+
+        } else {
+            // add_new_category(new_category => ([...new_category, e.target.id]))
+            // console.log([...new_category, e.target.id])
+            const ind = services.findIndex(i => i[0] === e.target.id)
+            let new_serv = services
+            new_serv[ind][1] = ['']
+            setServices(services)
+            addCategory(category => ([...category, e.target.id]))
+        }
     }
-    function AddService(a) {
-        let new_service = services
-        new_service[a][1].push('')
-        setServices([...new_service])
+    function DeleteMessage(a, b) {
+        console.log(a)
+        document.getElementById(a).style.left = b
     }
     function SetAddUsluga(a) {
         setaddUsluga([a])
@@ -157,8 +160,18 @@ export default function AddService({ view, setView, color }) {
                             className={styles.type}
                             style={{ color: color[2], background: color[1] }}
                         >
-                            {i[0]}  <Image src={trash} width={26} height={26} alt="trash" onClick={() => DeleteCat(i[0])} />
-                        </h3> : null
+                            {i[0]}  <Image src={trash} width={26} height={26} alt="trash" onClick={() => DeleteMessage(i[0] + 'del', 0)} />
+                            <p id={i[0] + 'del'} className={styles.delete__message}>
+                                <span>Удалить категорию?</span>
+                                <button onClick={() => DeleteCat(i[0])}>Удалить</button>
+                                <button onClick={() => DeleteMessage(i[0] + 'del', '100%')}>Отмена</button>
+
+                            </p>
+
+                        </h3>
+
+
+                        : null
                     }
 
                     {i[1]?.map((services, c) =>
@@ -167,8 +180,13 @@ export default function AddService({ view, setView, color }) {
                                 <h5 className={styles.service} key={index} style={{ display: service.length > 0 ? 'flex' : 'none' }}>
                                     <span style={{ color: color[1] }}>{service.split(':')[0]}</span>
                                     <span style={{ color: color[1] }}>{service.split(':')[1]} BYN</span>
-                                    <Image src={trash_blk} width={29} height={29} alt="trash" onClick={() => DeleteService(b, c, i[0])} />
+                                    <Image src={trash_blk} width={29} height={29} alt="trash" onClick={() => DeleteMessage(service + 'del', 0)} />
+                                    <p id={service + 'del'} className={styles.delete__message}>
+                                        <b>Удалить услугу?</b>
+                                        <button onClick={() => DeleteService(b, c, i[0])}>Удалить</button>
+                                        <button onClick={() => DeleteMessage(service + 'del', '100%')}>Отмена</button>
 
+                                    </p>
                                 </h5>
                             )}
                         </React.Fragment>
