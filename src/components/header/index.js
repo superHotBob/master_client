@@ -39,7 +39,7 @@ export default function Header({ sel, text, mes, color = {} }) {
     if (!profile.status) {
       dispatch(setprofile(pro))
     }
-    if (pro.status === 'master') {
+    if (pro?.status === 'master') {
       async function GetMasterOrders() {
         const response = await fetch(`/api/get_orders_master?nikname=${pro.nikname}`, {
             headers: {

@@ -9,7 +9,7 @@ const style = {
     border: '1.5px solid #3D4EEA',    
    
 }
-const services = ['маникюр', 'прически','педикюр', 'макияж', 'массаж', 'барбер', 'ресницы', 'брови', 'депиляция']
+const services = ['маникюр', 'прически','педикюр', 'макияж', 'массаж', 'барбер', 'ресницы', 'брови', 'депиляция','окрашивание','чистка','стрижка']
 export default function FilterServices({service}) {
     const [viewFilter, setViewFilter] = useState(false)  
     const dispatch = useDispatch()

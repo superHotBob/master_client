@@ -172,13 +172,14 @@
     font-size: 14px;
     line-height: 17px;
     float: right;
-    margin-left: 10px;
+    
     background-color: #D0D0D0;
     transform: translateY(9px);
 }
 .delete__message button:first-of-type {
     background-color: #FD4D4D;
     color: #fff;
+    margin-left: 10px;
 }
 
 .data span:last-of-type {
