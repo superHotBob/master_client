@@ -15,7 +15,6 @@ const login = {
 
 export default function Menu() {
 
-
     const dispatch = useDispatch()
     const router = useRouter()
     const profile = useSelector((state) => state.counter.profile)
@@ -29,13 +28,14 @@ export default function Menu() {
         localStorage.clear()
         router.push('/')
     }
+   
 
     return (
     <>
         {profile.status === 'master' ? <main className={styles.main_menu}>
             <p className={styles.menu_prof}>Меню профиля</p>
             <Link href='/chat'>Сообщения</Link>
-            <p className={styles.seans}>Записи на сеанс<span>5</span></p>
+            <Link href="/masterrecords" className={styles.seans}>Записи на сеанс<span>5</span></Link>
             <p className={styles.shedule} onClick={() => router.push('/calendar')}>Календарь работы</p>
             <p className={styles.add}>Добавить запись</p>
             <Link href="/masterrecords" className={styles.collections}>Мои заказы</Link>

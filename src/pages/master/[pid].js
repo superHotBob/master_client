@@ -16,22 +16,26 @@ import Location from '@/components/location'
 
 const url = 'https://masters-client.onrender.com/'
 
+const active = { 
+    color: "#fff",
+    padding: '0 20px',
+    fontWeight: 600
+       
+}
+
 const Master = () => {    
     const [viewText, setViewText] = useState(true)
     const [nav_view, setNavView] = useState('Лента')
-    const [profile, setProfile] = useState(null)
-    const [nav_active, setNav_active] = useState({})
+    const [profile, setProfile] = useState(null)    
     const [mapview, setmapview] = useState(false)
     const router = useRouter()
     const { pid } = router.query
-    console.log(pid)
     
     const my_profile = useSelector(state => state.counter.profile)
     
 
     useEffect(() => {
-        let local_profile = localStorage.getItem(profile);
-        
+        let local_profile = localStorage.getItem('profile')        
         async function GetMaster() {
             const response = await fetch(`/api/master?nikname=${pid}`, {
                 headers: {
@@ -39,15 +43,9 @@ const Master = () => {
                 },                
                 method: 'get',
             })           
-            const result = await response.json()
-            console.log(result)
+            const result = await response.json()           
             setProfile(result[0])
-            setNav_active({
-               backgroundColor: result[0].color[1],
-                color: "#fff",
-                padding: '0 20px',
-                fontWeight: 600
-            })
+          
         }
         // if (local_profile) {
         //     setProfile(my_profile);
@@ -113,7 +111,7 @@ const Master = () => {
                     </div>
                     <nav className={styles.navigation}>
                         {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
-                            .map(i => <span key={i} onClick={() => setNavView(i)} style={nav_view === i ? nav_active : null}>{i}</span>)}
+                            .map(i => <span key={i} onClick={() => setNavView(i)} style={nav_view === i ? {...active,backgroundColor: profile.color[1]} : null}>{i}</span>)}
                     </nav>
                     {nav_view === 'Отзывы' ? <Reviews nikname={profile.nikname} color={profile.color} /> : null}
                     {nav_view === 'Услуги' ? <Services name={pid} color={profile.color} /> : null}
