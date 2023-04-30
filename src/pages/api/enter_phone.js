@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     where phone = ${+req.body.tel}
   `
 
-  const nikname = 'client' + (Math.random() * 10000).toFixed(0)
+  const nikname = 'client' + (Math.random() * 100000).toFixed(0)
 
     if (result.length === 0) {
       const result = await sql`

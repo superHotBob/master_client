@@ -29,10 +29,10 @@ export default async function handler(req, res) {
 
   
 
-  const result = await sql`
-  
+  const result = await sql`  
     insert into users (name, phone, image, nikname, id, services, color, text) 
     values (
+      
       ${master.name},
       ${master.phone},
       ${master.image},
@@ -49,7 +49,7 @@ export default async function handler(req, res) {
   if(my_result.length>0) {
       const result = await sql`
         update clients 
-        set status = 'master'
+        set status = 'master',       
         where id = ${my_result[0].id}
         returning *
       `
@@ -59,7 +59,7 @@ export default async function handler(req, res) {
         insert into services (user_id,master,маникюр,чистка,брови,массаж,педикюр,стрижка,ресницы,депиляция,прически,макияж,барбер)
         values (
           ${my_result[0].id},
-          ${req.body.nikname},
+          ${master.nikname},
           '{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}'
         )
       `

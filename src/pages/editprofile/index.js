@@ -196,8 +196,9 @@ export default function EditProfile() {
                             title="Клик для выбора иконки"
                             type="file"
                             name="image"
+                            style={{transform:'translateY(-106px)'}}
                             onChange={(e) => SelectUpload(e)}
-                            accept=".jpg,.png,.webp"
+                            accept=".jpg"
                         />
                     </form>
                

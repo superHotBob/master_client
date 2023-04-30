@@ -14,9 +14,8 @@ const url = 'https://masters-client.onrender.com/images/'
 const url_two = 'https://masters-client.onrender.com/'
 
 export default function Home() {
-  const dispatch = useDispatch()
-  const [width, setWidth] = useState(0)
-  const [image, setImage] = useState()
+  const dispatch = useDispatch() 
+  const [image, viewImage] = useState()
 
 
   const { coords, isGeolocationAvailable, isGeolocationEnabled } =
@@ -26,14 +25,11 @@ export default function Home() {
       },
       userDecisionTimeout: 5000,
     });
-  useEffect(() => {
-    setWidth(window.innerWidth > 500 ? 230 : (window.innerWidth - 40) / 2)
+  useEffect(() => {    
     if (coords) {
-      dispatch(setlocation([coords.latitude, coords.longitude]))
-      console.log(coords.latitude, coords.longitude)
+      dispatch(setlocation([coords.latitude, coords.longitude]))      
     }
-  }, [coords])
-
+  }, [coords]) 
   return (
     <>
       <Header />
@@ -51,7 +47,7 @@ export default function Home() {
             { image: 'five', name: 'dubochit', date: '12.03.2021' },
             { image: 'four', name: 'lalala', date: '12.03.2021' },
             { image: 'six', name: "dubochit", date: '12.03.2021' }].map(i =>
-              <div onClick={() => setImage(i)} key={i.image} style={{ width: width, height: 'auto' }} >
+              <div onClick={() => viewImage(i)} key={i.image} style={{ width: '100%', height: 'auto' }} >
                 <img alt={i.image} src={url + i.image + '.jpg'} id={i.image} width="100%" height="auto" />
               </div>
             )}
@@ -61,7 +57,7 @@ export default function Home() {
             { image: 'four', name: 'octopus', date: '12.03.2021' },
             { image: 'three', name: 'lalala', date: '12.03.2021' },
             { image: 'six', name: "octopus", date: '12.03.2021' }].map(i =>
-              <div key={i.image} onClick={() => setImage(i)} style={{ width: width, height: 'auto' }}>
+              <div key={i.image} onClick={() => viewImage(i)} style={{ width: '100%', height: 'auto' }}>
                 <img alt={i.image} src={url + i.image + '.jpg'} id={i.image} width="100%" height="auto" />
               </div>
             )}
@@ -71,7 +67,7 @@ export default function Home() {
       {image ?
         <div className={styles.main__detail}>
           <div className={styles.detail}>
-            <Image className={styles.close} src="/chevron_up.svg" onClick={() => setImage()} alt="img" width={24} height={24} />
+            <Image className={styles.close} src="/chevron_up.svg" onClick={() => viewImage()} alt="img" width={24} height={24} />
             {/* <Carousel
               adaptiveHeight
               defaultControlsConfig={{

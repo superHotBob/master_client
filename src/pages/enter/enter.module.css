@@ -87,7 +87,7 @@
     background-color: #3D4EEA;
     color: #fff;
     border: none;
-    margin: 24px auto;
+    margin: 24px auto 40px;
     transition: all 0.5s;
 }
 .button:hover {
@@ -127,7 +127,7 @@
 .numbers {
     display: flex;
     justify-content: space-between;
-    margin: 30px auto;
+    margin: 34px auto 32px;
     width: 264px;
 
 }

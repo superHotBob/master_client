@@ -14,9 +14,9 @@ export default function EditProfile() {
     const dispatch = useDispatch()
     const [name, setName] = useState('Ваше имя')
     const [nikname, setNikname] = useState()
-    const [file, setSelectedFile] = useState('/camera_wh.svg')
+    const [file, setSelectedFile] = useState('')
     const [file_for_upload, set_file_for_upload] = useState()
-    const [text, setText] = useState()
+    const [text, setText] = useState('Немного о себе')
     const [message, setMessage] = useState()
 
 
@@ -24,6 +24,7 @@ export default function EditProfile() {
         const prof = JSON.parse(localStorage.getItem('profile'))
         setName(prof.name)
         setText(prof.text)
+        setprofile(prof)
         setSelectedFile(url + '/var/data/' + prof.nikname + '/main.jpg')
         setNikname(prof.nikname)
     }, [])
@@ -43,8 +44,8 @@ export default function EditProfile() {
             text: text,
             old_nikname: profile.nikname
         }
-        if (!file) {
-            return setMessage('Необходимо добавить иконку')
+        if (!file_for_upload) {
+            return setMessage('Необходимо добавить иконку в формате jpg размером не более 20кб. ')
         }
         UploadToServer()
         fetch('/api/editprofileclient', {
@@ -54,13 +55,13 @@ export default function EditProfile() {
             },
             method: 'POST',
         })
-            .then(res => res.json())
-            .then(res => {
+        .then(res => res.json())
+        .then(res => {
                 localStorage.setItem("profile", JSON.stringify(res))
                 dispatch(setprofile(res))
                 setMessage('Ваш профиль изменён')
-            })
-            .catch(err => setMessage("Ошибка сохранения "))
+        })
+        .catch(err => setMessage("Ошибка сохранения "))
     }
 
     async function CreateMaster() {
@@ -107,13 +108,16 @@ export default function EditProfile() {
     }
 
     function UploadToServer() {
-        let data = new FormData()
-        data.append('file', file_for_upload, 'main.jpg')
-        fetch(`${url}/upl?name=${profile.nikname}`, {
-            body: data,
-            method: 'post',
-        }).then(res => console.log('file is good'))
-        setSelectedFile(url + '/var/data/' + profile.nikname + '/main.jpg')
+        let data = new FormData()       
+            data.append('file', file_for_upload, 'main.jpg')
+            fetch(`${url}/upl?name=${profile.nikname}`, {
+                body: data,
+                method: 'post',
+            }).then(res => console.log('file is good'))
+            setSelectedFile(url + '/var/data/' + profile.nikname + '/main.jpg')
+
+       
+       
     }
 
     return (
