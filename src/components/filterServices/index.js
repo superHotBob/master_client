@@ -10,7 +10,7 @@ const style = {
    
 }
 const services = ['маникюр', 'прически','педикюр', 'макияж', 'массаж', 'барбер', 'ресницы', 'брови', 'депиляция','окрашивание','чистка','стрижка']
-export default function FilterServices({service}) {
+export default function FilterServices() {
     const [viewFilter, setViewFilter] = useState(false)  
     const dispatch = useDispatch()
     const my_service = useSelector(state=>state.counter.service)   

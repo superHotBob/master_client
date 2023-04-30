@@ -1,19 +1,19 @@
 .main__filter {
-  margin: 16px 0;  
+  margin: 21px 0;  
 }
 
 .main__filter span {
   display: inline-block;
   width: 50%;
-  color: #8B95F2;
-  overflow: hidden;
+  color: #8B95F2; 
   font-weight: 400;
   font-size:  14px;
-  padding-left: 15px;
-  
+  line-height: 17px; 
+  vertical-align: middle;
 }
 .main__filter span:first-of-type::first-letter {
   text-transform: uppercase;
+  padding-left: 15px;
 }
 
 .main__filter span:last-of-type {
@@ -27,7 +27,7 @@
 .main__filter span:last-of-type::after {
   content: url('/arrow_right.svg');
   display: inline-block;
-  transform: translate(8px, 1px);
+  transform: translate(6px, 1.5px);
 }
 
 .all__filter {

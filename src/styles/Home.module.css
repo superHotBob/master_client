@@ -28,15 +28,12 @@
 .images_one,
 .images_two {
   display: inline-block;
-  width: calc(50% - 4px);
+  width: calc(50% - 10px);
   display: flex;
   flex-direction: column;
   cursor: pointer;
 }
 
-.images div img { 
-  margin-bottom: 4px;
-}
 
 .images::-webkit-scrollbar {
   width: 0;
@@ -44,11 +41,17 @@
 
 .image {
   width: 100%;
-  margin-bottom: 8px;
+  margin-bottom: 11px;
   position: relative;
   background-position: center;
   background-size: cover;
   border-radius: 8px;
+}
+.images_one div, .images_two div {
+  margin-bottom: 10px;
+}
+.images_one div img , .images_two div img {
+  border-radius: 12px;
 }
 
 .main__detail {
