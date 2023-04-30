@@ -30,6 +30,7 @@ export default function Home() {
       dispatch(setlocation([coords.latitude, coords.longitude]))      
     }
   }, [coords]) 
+  console.log('client' + (Math.random() * 100000).toFixed(0))
   return (
     <>
       <Header />

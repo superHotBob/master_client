@@ -16,13 +16,15 @@ export default function Services({color}) {
             const response = await fetch(`/api/master_service?nikname=${pid}`, {
                 headers: {
                     'Content-Type': 'application/json',
-                },
-                // The method is POST because we are sending data.
+                },                
                 method: 'get',
             })           
             const result = await response.json() 
-            if ( result.length>0) {
-                let new_serv = result[0]         
+            console.log(result[0])
+            if ( result.length > 0) {
+                let new_serv = result[0]  
+                let new_category = Object.entries(result[0]).map(i=>i[1].length>0?i[0]:null).filter(i=>i)  
+                setCategory(new_category)     
                 setServices(new_serv)                
                 setMessage('У вас пока нет услуг')
             }  else {

@@ -31,8 +31,7 @@ export default async function handler(req, res) {
 
   const result = await sql`  
     insert into users (name, phone, image, nikname, id, services, color, text) 
-    values (
-      
+    values (      
       ${master.name},
       ${master.phone},
       ${master.image},
@@ -45,15 +44,18 @@ export default async function handler(req, res) {
     returning *
   `
   
- console.log(result)
+ 
   if(my_result.length>0) {
+    console.log("Запись мастера создана")
       const result = await sql`
         update clients 
-        set status = 'master',       
+        set status = 'master'
         where id = ${my_result[0].id}
         returning *
       `
-    
+    if(result.length>0) {
+      console.log("Статус изменён")
+    }
 
       const next_result = await sql`
         insert into services (user_id,master,маникюр,чистка,брови,массаж,педикюр,стрижка,ресницы,депиляция,прически,макияж,барбер)

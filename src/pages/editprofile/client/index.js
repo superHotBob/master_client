@@ -132,7 +132,7 @@ export default function EditProfile() {
             </header>
             <form style={{ height: '106px' }} className={styles.image}>
                 <Image
-                    src={file}
+                    src={file ? file : url + '/var/data/' + profile.nikname + '/main.jpg'}
                     alt="фото"
                     title='заменить изображение'
                     height={file ? 106 : 50}
