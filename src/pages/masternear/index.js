@@ -96,9 +96,9 @@ export default function MasterNear() {
         }
     }
 
-    function ViewNewMaster(e) {       
-        router.push(`/master/${e.target.id}`)
-        let master = masters.filter(i=>i.nikname === e.target.id)
+    function ViewNewMaster(a) {       
+        router.push(`/master/${a}`)
+        let master = masters.filter(i=>i.nikname === a)
         dispatch(setmaster(master))
     }
 
@@ -131,11 +131,11 @@ export default function MasterNear() {
                 <span onClick={() => setSelector('map')} style={selector === 'list' ? null : sel}>На карте</span>
             </div>
             {selector === 'list' ?
-                <section className={styles.section} onClick={ViewNewMaster}>
+                <section className={styles.section} >
                     <FilterServices />
                     {filter_masters?.map(i =>
-                        <div key={i.name} className={styles.master} >
-                            <p className={styles.name_stars} id={i.nikname}>
+                        <div key={i.name} className={styles.master} onClick={()=>ViewNewMaster(i.nikname)}>
+                            <p className={styles.name_stars} >
                                 <span>{i.name}</span>
                                 <span className={styles.pro}>MASTER</span>
                                 {i.stars ? <span className={styles.stars}>{i.stars}</span> : null}
