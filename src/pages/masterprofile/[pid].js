@@ -13,7 +13,11 @@ import AddSertificat from '@/components/addsertificat'
 import Menu_icon from '@/components/icons/menu'
 import AddService from '@/components/addservise'
 
-
+const nav_active =  ({  
+    color: "#fff",
+    padding: '0 20px',
+    fontWeight: 600
+})
 const url = 'https://masters-client.onrender.com/'
 export default function Client() {
     const router = useRouter()
@@ -21,36 +25,28 @@ export default function Client() {
     const [view, setView] = useState(true)
     const [profile, setProfile] = useState()
     const [nav_view, setNavView] = useState('Лента')
-    const [nav_active, setNavActive] = useState()
+   
     const [viewText, setViewText] = useState(true)
     const [newSertificat, AddNewSertificat] = useState(false)
     const [lists, setlists] = useState()
 
     useEffect(() => {
-        const prof = JSON.parse(localStorage.getItem('profile'))
+        const pro = JSON.parse(localStorage.getItem('profile'))
         async function GetSertificats() {
-            fetch(`${url}getlists?dir=${prof.nikname}`)
+            fetch(`${url}getlists?dir=${pro.nikname}`)
                 .then(res => res.json())
                 .then(res => setlists(res))
         }
         GetSertificats()
-    }, [])
-
-
-    useEffect(() => {
-        let pro = JSON.parse(localStorage.getItem("profile"))
-        setProfile(profile => ({ ...profile, ...pro }))
-        if (pro.status === 'master') {
-            setNavActive({
-                backgroundColor: pro.color[1],
-                color: "#fff",
-                padding: '0 20px',
-                fontWeight: 600
-            })
+        setProfile(pro)
+        if (pro.status === 'master') {           
         } else {
             () => router.push('/enter')
         }
     }, [])
+
+
+  
 
 
 
@@ -86,7 +82,7 @@ export default function Client() {
                 </section>
                 <nav className={styles.navigation}>
                     {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
-                        .map(i => <span key={i} onClick={() => setNavView(i)} style={nav_view === i ? nav_active : null}>{i}</span>)}
+                        .map(i => <span key={i} onClick={() => setNavView(i)} style={nav_view === i ? {...nav_active,background: profile.color[1]} : null}>{i}</span>)}
                 </nav>
                 <section className={styles.lenta}>
                     {nav_view === 'Отзывы' ?

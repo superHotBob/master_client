@@ -25,11 +25,11 @@ export default function Home() {
       },
       userDecisionTimeout: 5000,
     });
-  useEffect(() => {    
-    if (coords) {
-      dispatch(setlocation([coords.latitude, coords.longitude]))      
-    }
-  }, [coords]) 
+  // useEffect(() => {    
+  //   if (coords) {
+  //     dispatch(setlocation([coords.latitude, coords.longitude]))      
+  //   }
+  // }, [coords]) 
   console.log('client' + (Math.random() * 100000).toFixed(0))
   return (
     <>

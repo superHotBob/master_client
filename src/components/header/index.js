@@ -39,25 +39,25 @@ export default function Header({ sel, text, mes, color = {} }) {
     if (!profile.status) {
       dispatch(setprofile(pro))
     }
-    if (pro?.status === 'master') {
-      async function GetMasterOrders() {
-        const response = await fetch(`/api/get_orders_master?nikname=${pro.nikname}`, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            method: 'get',
-        })
-        const result = await response.json()
-        const new_result = [...result]
-        console.log(new_result)
-        // let month_result = new_result.filter(i => i.date_order.includes(months[month]))
-        // let flsd = month_result.map(i => +i.date_order.split(',')[0])
-        // set_false_days(flsd)
-        // setOrders(month_result)
-      }
-      GetMasterOrders()
+    // if (pro?.status === 'master') {
+    //   async function GetMasterOrders() {
+    //     const response = await fetch(`/api/get_orders_master?nikname=${pro.nikname}`, {
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         method: 'get',
+    //     })
+    //     const result = await response.json()
+    //     const new_result = [...result]
+    //     console.log(new_result)
+    //     // let month_result = new_result.filter(i => i.date_order.includes(months[month]))
+    //     // let flsd = month_result.map(i => +i.date_order.split(',')[0])
+    //     // set_false_days(flsd)
+    //     // setOrders(month_result)
+    //   }
+    //   GetMasterOrders()
 
-    }
+    // }
   }, [profile.status, dispatch])
 
   const [menu, menuView] = useState(false)

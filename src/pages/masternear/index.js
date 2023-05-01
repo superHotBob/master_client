@@ -29,7 +29,7 @@ export default function MasterNear() {
     const dispatch = useDispatch()
     const [selector, setSelector] = useState('true')
     const [viewFilter, setViewFilter] = useState(false)
-    const [filter, setFilter] = useState(11.4)
+    const [filter, setFilter] = useState(10.8)
     const [master, selectMaster] = useState()
     const [masters, setMasters] = useState()
     const [filter_masters, setFilterMasters] = useState()
@@ -158,9 +158,8 @@ export default function MasterNear() {
                         </div> : null}
                     </div>
                    
-                    <div className={styles.my_map} id="my_map">
+                    <div className={styles.my_map} id="my_map" style={{maxHeight: '500px',width: '100vw',maxWidth: '500px'}}>
                         <YMaps>
-
                             <Map id="mymap"
                                 // modules={["coordSystem.geo","SuddestView"]}
                                 // options={{  center : [52.098208, 23.760049]}}
@@ -170,7 +169,7 @@ export default function MasterNear() {
                                     behaviors: ["default", "scrollZoom"]
                                 }}
                                 width="100%"
-                                height={master ? "30vh" : "75vh"}
+                                height={master ? "30vh" : "500px"}
                                 instanceRef={yaMap => {
                                     if (yaMap) {
                                         Map.current = yaMap;
