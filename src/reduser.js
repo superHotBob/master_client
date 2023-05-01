@@ -7,7 +7,7 @@ const initialState = {
   nikname:'',
   profile: {},
   order: {},
-  service: 'Маникюр',
+  service: 'маникюр',
   location: [53.902735522030426, 27.561771682326416]
 }
 
@@ -43,6 +43,6 @@ export const counterSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setclient, setlocation, setcity, setnikname, setprofile,setorder,setservice } = counterSlice.actions
+export const { setclient, setlocation,setmaster, setcity, setnikname, setprofile,setorder,setservice } = counterSlice.actions
 
 export default counterSlice.reducer

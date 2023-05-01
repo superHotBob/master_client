@@ -4,6 +4,8 @@ import styles from './master.module.css'
 import Image from 'next/image'
 import Header from '@/components/header'
 import { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { setmaster } from '@/reduser'
 import Navi from '@/components/navi'
 import Reviews from '@/components/reviews'
 import Services from '@/components/services'
@@ -30,14 +32,21 @@ const Master = () => {
     const [mapview, setmapview] = useState(false)
     const router = useRouter()
     const { pid } = router.query
-
+    const dispatch = useDispatch()
     const my_profile = useSelector(state => state.counter.profile)
-
+    const master = useSelector(state => state.counter.master)
+    
 
     useEffect(() => {
-        fetch(`/api/master?nikname=${pid}`)
-        .then(res => res.json())
-        .then(res => setProfile(res[0]))
+        console.log('Master', master[0])
+        if(master) {
+            setProfile(master[0])
+        } else {
+            fetch(`/api/master?nikname=${pid}`)
+            .then(res => res.json())
+            .then(res => setProfile(res[0]))
+        }
+        return ()=>dispatch(setmaster(''))
     }, [])
 
     function EnterToMessanger(a) {
@@ -59,10 +68,10 @@ const Master = () => {
                     :
                     <section className={styles.section}>
                         <div className={styles.image} style={{ background: profile.color[0] }}>
-                            {profile.image ? <Image src={url + 'var/data/' + pid + '/main.jpg'} alt="profile img" height={105} width={105} /> : null}
+                            <Image src={url + 'var/data/' + pid + '/main.jpg'} alt="profile img" height={105} width={105} /> 
                         </div>
                         <p className={styles.name_stars}>
-                            <span style={{ width: 'fit-content' }}>{profile.name}</span>
+                            <span>{profile.name}</span>
                             <span className={styles.pro} style={{ background: profile.color[0] }}>MASTER</span>
                             {profile.stars ? <span
                                 className={styles.stars}

@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import styles from './near.module.css'
 import arrow_down from '../../../public/arrow_down.svg'
 import { useSelector, useDispatch } from 'react-redux'
+import { setmaster } from '@/reduser'
 import { useState, useEffect } from 'react'
 import { YMaps, Map, Placemark, useYMaps } from '@pbe/react-yandex-maps'
 import Script from 'next/script'
@@ -21,19 +22,18 @@ const sel = {
 
 export default function MasterNear() {
     const router = useRouter()
-    const my_sel = router.query.sel
-   
+    const my_sel = router.query.sel   
     const my_city = useSelector((state) => state.counter.city)
     const service = useSelector((state) => state.counter.service)
     const loc = useSelector((state=>state.counter.location))
     const dispatch = useDispatch()
-    const [selector, setSelector] = useState('true')
+    const [selector, setSelector] = useState('list')
     const [viewFilter, setViewFilter] = useState(false)
     const [filter, setFilter] = useState(10.8)
     const [master, selectMaster] = useState()
     const [masters, setMasters] = useState()
     const [filter_masters, setFilterMasters] = useState()
-    console.log(loc)
+   
 
     // const defaultState = {
     //     center: [
@@ -96,6 +96,12 @@ export default function MasterNear() {
         }
     }
 
+    function ViewNewMaster(e) {       
+        router.push(`/master/${e.target.id}`)
+        let master = masters.filter(i=>i.nikname === e.target.id)
+        dispatch(setmaster(master))
+    }
+
     function OnLoadMap() {
         document.getElementsByClassName('ymaps-2-1-79-ground-pane')[0].style.filter = 'grayscale(100%)';
         document.getElementsByClassName('ymaps-2-1-79-copyright__link')[0].style.display = 'none';
@@ -104,7 +110,7 @@ export default function MasterNear() {
         document.getElementById('my_map').style.opacity = '1';
     }
     function SetSelector() {
-        setSelector('true')
+        setSelector('list')
         selectMaster()
         setFilter(11)
     }
@@ -121,25 +127,23 @@ export default function MasterNear() {
             </div>
             <Link className={styles.city} href='/city'>Ваш город {my_city}</Link>
             <div className={styles.selector}>
-                <span onClick={() => SetSelector('true')} style={selector === 'true' ? sel : null}>Список</span>
-                <span onClick={() => setSelector('false')} style={selector === 'true' ? null : sel}>На карте</span>
+                <span onClick={() => SetSelector('list')} style={selector === 'list' ? sel : null}>Список</span>
+                <span onClick={() => setSelector('map')} style={selector === 'list' ? null : sel}>На карте</span>
             </div>
-            {selector === 'true' ?
-                <section className={styles.section}>
+            {selector === 'list' ?
+                <section className={styles.section} onClick={ViewNewMaster}>
                     <FilterServices />
                     {filter_masters?.map(i =>
-                        <Link key={i.name} className={styles.master}
-                            href={`/master/${i.nikname}`}
-                        >
-                            <p className={styles.name_stars}>
+                        <div key={i.name} className={styles.master} >
+                            <p className={styles.name_stars} id={i.nikname}>
                                 <span>{i.name}</span>
                                 <span className={styles.pro}>MASTER</span>
                                 {i.stars ? <span className={styles.stars}>{i.stars}</span> : null}
                             </p>
                             <h4>{i.address}</h4>
                             <h5>{i.services.map(a => <span key={a} className={styles.service}>{a}</span>)}</h5>
-                            <Image src={i.image ? url + 'var/data/' + i.nikname + '/main.jpg' : '/camera_wh.svg'} width={60} height={60} alt="image" />
-                        </Link>)}
+                            <Image src={url + 'var/data/' + i.nikname + '/main.jpg'} width={60} height={60} alt="image" />
+                        </div>)}
                 </section>
                 :
                 <section>
