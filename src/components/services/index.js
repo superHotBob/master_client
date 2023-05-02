@@ -23,7 +23,7 @@ export default function Services({color}) {
             console.log(result[0])
             if ( result.length > 0) {
                 let new_serv = result[0]  
-                let new_category = Object.entries(result[0]).map(i=>i[1].length>0?i[0]:null).filter(i=>i)  
+                let new_category = Object.entries(result[0]).map(i=>i[1]?.length > 0 ? i[0]:null).filter(i=>i)  
                 setCategory(new_category)     
                 setServices(new_serv)                
                 setMessage('У вас пока нет услуг')

@@ -16,7 +16,7 @@ export default function Catalog() {
 
     function ToService(a) {
         dispatch(setservice(a))
-        router.push("/masternear?sel=list")
+        router.push(`/masternear?sel=list&service=${a}`)
     }
 
     return (

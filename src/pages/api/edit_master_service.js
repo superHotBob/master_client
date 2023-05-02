@@ -21,7 +21,7 @@ export default async function handler(req, res) {
   const result = await sql`
     update services set ${sql(user, 'макияж','массаж', 'маникюр', 'педикюр', 'барбер', 'брови', 'прически', 'ресницы', 'стрижка', 'депиляция','чистка')
     }
-    where master = ${user.user} 
+    where nikname = ${user.user} 
 
     returning *
   `

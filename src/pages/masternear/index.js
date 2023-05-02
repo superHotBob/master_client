@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import styles from './near.module.css'
 import arrow_down from '../../../public/arrow_down.svg'
 import { useSelector, useDispatch } from 'react-redux'
-import { setmaster } from '@/reduser'
+import { setmaster, setservice } from '@/reduser'
 import { useState, useEffect } from 'react'
 import { YMaps, Map, Placemark, useYMaps } from '@pbe/react-yandex-maps'
 import Script from 'next/script'
@@ -33,6 +33,7 @@ export default function MasterNear() {
     const [master, selectMaster] = useState()
     const [masters, setMasters] = useState()
     const [filter_masters, setFilterMasters] = useState()
+    const  serv = router.query.service
    
 
     // const defaultState = {
@@ -50,13 +51,14 @@ export default function MasterNear() {
         setFilter(b)
     }
     useEffect(() => {
-        setSelector(my_sel)        
+        setSelector(my_sel) 
+            
         setMasters()
         async function GetMasters() {
             const response = await fetch('/api/all_masters_city?' + new URLSearchParams({
                 city: my_city.toLowerCase(),
                 service: my_sel ? service.toLowerCase() : null
-            }))
+            }),{ next: { revalidate: 100 } })
             const result = await response.json()
             setMasters(result)
             let mast = result.filter(i => i.services.includes(service.toLowerCase()) ? i : null)
