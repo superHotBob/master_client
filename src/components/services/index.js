@@ -10,8 +10,8 @@ export default function Services({color}) {
     const [message, setMessage] = useState('One moument')
     const [category, setCategory] = useState()    
     useEffect(() => {
-        const category = JSON.parse(localStorage.getItem('profile'))
-        setCategory(category.services)
+        // const category = JSON.parse(localStorage.getItem('profile'))
+        // setCategory(category.services)
         async function GetServices() {
             const response = await fetch(`/api/master_service?nikname=${pid}`, {
                 headers: {

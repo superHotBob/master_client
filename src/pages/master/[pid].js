@@ -36,14 +36,16 @@ const Master = () => {
     const dispatch = useDispatch()
     const my_profile = useSelector(state => state.counter.profile)
     const master = useSelector(state => state.counter.master)
-    
+      
    
     useEffect(() => {
+        const { pathname } = window.location
         
+        console.log('Master',pid, master[0],pathname.replace('/master/',''))
         if(master) {
             setProfile(master[0])
         } else {
-            fetch(`/api/master?nikname=${router.asPath.replace('/master/','')}`)
+            fetch(`/api/master?nikname=${pathname.replace('/master/','')}`)
             .then(res => res.json())
             .then(res => setProfile(res[0]))
         }
