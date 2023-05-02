@@ -39,9 +39,8 @@ const Master = () => {
       
    
     useEffect(() => {
-        const { pathname } = window.location
-        
-        console.log('Master',pid, master[0],pathname.replace('/master/',''))
+        const { pathname } = window.location       
+        console.log('Master', pid, pathname.replace('/master/',''))
         if(master) {
             setProfile(master[0])
         } else {
@@ -64,15 +63,16 @@ const Master = () => {
             <Head>
                 <title>{pid}</title>
             </Head>
+           
             {profile ? <>
-                <Header text={pid} sel='back' color={profile.color} />
+                <Header text={pid} sel='back' color={profile?.color} />
                 {mapview ?
                     <Location loc_master={profile.locations} close={setmapview} />
                     :
                     <section className={styles.section}>
                         <div className={styles.image} style={{ background: profile.color[0] }}>
                             <Image src={url + 'var/data/' + pid + '/main.jpg'} alt="profile img" height={105} width={105} /> 
-                        </div>
+                        </div>                      
                         <p className={styles.name_stars}>
                             <span>{profile.name}</span>
                             <span className={styles.pro} style={{ background: profile.color[0] }}>MASTER</span>

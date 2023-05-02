@@ -4,8 +4,7 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import Message from '@/components/message'
 
-const activ_month = {
-    width: '55%',
+const activ_month = {   
     color: '#282828',
 }
 const active = {
@@ -22,7 +21,7 @@ export default function Calendar() {
     const false_days = [10, 16, 30]
     const false_times = [13, 15, 18, 20]
 
-    const days = ["вс", "пн", "вт", "ср", "чт", "пт", "суб"]
+    const days = ["пн", "вт", "ср", "чт", "пт", "суб","вс"]
     const months = ['Декабрь', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сетнябрь',
         'Октябрь', 'Ноябрь', 'Декабрь']
     
@@ -35,9 +34,14 @@ export default function Calendar() {
 
     const [profile, setProfile] = useState()
 
+    const day = new Date(2023, month - 1, 1)
+    const day_b = new Date(2023, month + 3, 1)
+    let v = days.indexOf(days[day.getDay()-1])
+    console.log(day,days[v])
+
     function MyDate(a) {
-        const day = new Date(2023, month + 3, a)
-        return a + ' ' + days[day.getDay()]
+        
+        return a 
     }
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem("profile"))
@@ -65,14 +69,19 @@ export default function Calendar() {
                             <span onClick={() => SetMonth(i)} style={i === my_months[month] ? activ_month : null} key={i}>{i}</span>
                         )}
                     </div>
+                    <div className={styles.week}>
+                    {['Пн','Вт','Ср','Чт','Пт','Сб','Вс'].map(i=><span key={i}>{i}</span>)}
+                    </div>
+                   
                     <div className={styles.days}>
+                    {Array.from({ length: v}, (v,i)=> i + 1).map(i=><span key={i} style={{opacity: 0}}>{i}</span>)}
                         {Array.from({ length: all_days.getDate() }, (v, i) => i + 1)
-                            .map(i =>
+                            .map(i =>                               
                                 <span
                                     onClick={() => setActive_Day(i)}
                                     key={i}
                                     style={false_days.includes(i) ? false_mo : active_day === i ? { backgroundColor: profile[2],color: profile[1] } : { backgroundColor: profile[1] }}
-                                >{MyDate(i)}</span>
+                                >{i}</span>                                
                             )}
                     </div>
                     <p>Время для записи</p>

@@ -51,8 +51,7 @@ export default function MasterNear() {
         setFilter(b)
     }
     useEffect(() => {
-        setSelector(my_sel) 
-            
+        setSelector(my_sel)            
         setMasters()
         async function GetMasters() {
             const response = await fetch('/api/all_masters_city?' + new URLSearchParams({

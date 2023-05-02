@@ -48,29 +48,44 @@
 
 .mounth span {
     display: inline-block;
-    width: fit-content;
-    padding: 5px 15px;
+    width: fit-content;   
     font-weight: 400;
     color: #d0d0d0;
+}
+.week {
+    display: flex;
+    justify-content: space-between;
+}
+.week span {
+    padding: 10px 0;
+    display: inline-block;
+    width: 42px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .days {
     display: grid;
-    grid-template-columns: 24% 24% 24% 24% 24%;    
+    grid-template-columns: 14% 14% 14% 14% 14% 14% 14%;    
     justify-content: space-between;   
-    margin-bottom: -16px;
+   
     overflow-x: auto;
 }
 .days span, .time span {
     color: #fff;
-    padding: 10px;    
+   
+    height: 42px;
     text-align: center;
     margin: 4px;
-    height: 40px;
+    line-height: 42px;
+    font-weight: 500;
     display: inline-block;
     background: #3D4EEA;
     border-radius: 4px;
     font-size: 14px;
+}
+.days span {
+    width: 42px;
 }
 .time {
     display: grid;
@@ -104,6 +119,6 @@
     
     .days {
         display: grid;
-        grid-template-columns: 19% 19% 19% 19% 19%;  
+        grid-template-columns: 14% 14% 14% 14% 14% 14% 14%;  
     }      
 }
