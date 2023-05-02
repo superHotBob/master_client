@@ -3,11 +3,10 @@ import postgres from "postgres"
 
 export default async function handler(req, res) {
   const sql = postgres(`postgres://bobozeranski:${process.env.DATABASE_API}@ep-yellow-mountain-679652.eu-central-1.aws.neon.tech/neondb?sslmode=require&options=project%3Dep-yellow-mountain-679652`)
-  
+
   const master = {
     nikname: req.body.nikname,
     name: req.body.name,
-    image: 'image',
     text: req.body.text,
     phone: req.body.phone,
     id: req.body.id,
@@ -19,22 +18,18 @@ export default async function handler(req, res) {
     select phone, id from clients
     where nikname = ${req.body.nikname}
   `
-  if (!req.body.name) {
-    master['name'] = req.body.nikname
-    master['text'] = 'Немного о себе'
-    master['color'] =  ['linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)', '#3D4EEA', '#ECEEFD']  
-    master['id'] = my_result[0].id
-    master['phone'] = my_result[0].phone
-  }
 
-  
+  master['name'] = req.body.nikname
+  master['text'] = req.body.text ? 'Немного о себе' : req.body.text
+  master['color'] = ['linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)', '#3D4EEA', '#ECEEFD']
+  master['id'] = my_result[0].id
+  master['phone'] = my_result[0].phone
 
-  const result = await sql`  
-    insert into users (name, phone, image, nikname, id, services, color, text) 
+  const result = await sql`   
+    insert into users (name, phone, nikname, id, services, color, text) 
     values (      
       ${master.name},
-      ${master.phone},
-      ${master.image},
+      ${master.phone},      
       ${req.body.nikname},
       ${master.id},      
       '{}',
@@ -43,29 +38,29 @@ export default async function handler(req, res) {
     )  
     returning *
   `
-  
  
-  if(my_result.length>0) {
+
+  if (my_result.length > 0) {
     console.log("Запись мастера создана")
-      const result = await sql`
+    const result = await sql`
         update clients 
         set status = 'master'
         where id = ${my_result[0].id}
         returning *
       `
-    if(result.length>0) {
+    if (result.length > 0) {
       console.log("Статус изменён")
     }
 
-      const next_result = await sql`
-        insert into services (user_id,master,маникюр,чистка,брови,массаж,педикюр,стрижка,ресницы,депиляция,прически,макияж,барбер)
+    const next_result = await sql`
+        insert into services (user_id,nikname,маникюр,чистка,брови,массаж,педикюр,стрижка,ресницы,депиляция,прически,макияж,барбер)
         values (
           ${my_result[0].id},
           ${master.nikname},
           '{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}'
         )
       `
-      res.status(200).end('Профиль мастера создан')
+    res.status(200).end('Профиль мастера создан')
   } else {
     res.status(400).end('Error')
   }
