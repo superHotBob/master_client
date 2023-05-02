@@ -32,17 +32,18 @@ const Master = () => {
     const [mapview, setmapview] = useState(false)
     const router = useRouter()
     const { pid } = router.query
+
     const dispatch = useDispatch()
     const my_profile = useSelector(state => state.counter.profile)
     const master = useSelector(state => state.counter.master)
     
-
+   
     useEffect(() => {
-        console.log('Master', master[0])
+        
         if(master) {
             setProfile(master[0])
         } else {
-            fetch(`/api/master?nikname=${pid}`)
+            fetch(`/api/master?nikname=${router.asPath.replace('/master/','')}`)
             .then(res => res.json())
             .then(res => setProfile(res[0]))
         }
