@@ -71,7 +71,7 @@ export default function EditPatern({view,color,setView,old_patern}) {
                 color={color}
                 />
                 <section className={styles.paterns}>
-                    {patern?.map(i=><span key={i} style={{backgroundColor: color[2]}}>{i} <Image src={trash_blk} width={29} height={29} alt="trash" onClick={() => DeletePatern(i)} /></span>)}
+                    {patern?.sort().map(i=><span key={i} style={{backgroundColor: color[2]}}>{i} <Image src={trash_blk} width={29} height={29} alt="trash" onClick={() => DeletePatern(i)} /></span>)}
                     <span style={!viewForm ? {backgroundColor: color[2]}:{backgroundColor: color[1],color: '#fff'}}>
                         <b>Добавить</b> 
                         <b onClick={()=>setViewForm(true)}>+</b>
@@ -108,7 +108,9 @@ export default function EditPatern({view,color,setView,old_patern}) {
                             inputMode='numeric' 
                             required  maxLength={1}  onChange={(e) => Number(e.target.value,3)} 
                         />
-                        <button style={{backgroundColor: color[1]}} onClick={SetPatern}>Добавить время для записей</button>
+                        <button style={{backgroundColor: color[1]}} onClick={SetPatern}>
+                            <span>Добавить время для записей</span>
+                        </button>
                     </div>
                 : null}
                

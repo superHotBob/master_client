@@ -6,15 +6,14 @@ export default async function handler(req, res) {
   const data = {
     nikname: req.body.nikname,
     month: req.body.month,
-    'май': req.body.schedule   
+    schedule: req.body.schedule   
   }
-
+  const table = 'schedule'
+  , column = data.month
 
   const result = await sql`
-        update schedule set ${
-          
-          sql(data, 'май'  )  
-        }
+        update ${ sql(table) }  
+        set ${ sql(column) } = ${data.schedule}
         where nikname =  ${data.nikname}
         returning *
       `

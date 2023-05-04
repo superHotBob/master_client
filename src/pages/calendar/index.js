@@ -72,32 +72,34 @@ export default function Calendar() {
 
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem("profile"))
-        setProfile(pro.color)
-        fetch(`/api/get_schedule?month=май&nikname=client5143`)
-        .then(res => res.json())
-        .then(res => {
-            setMnt(res)
-            console.log(res)
-        })
+        setProfile(pro.color)       
         fetch(`/api/get_patern?nikname=client5143`)
         .then(res => res.json())
         .then(res => {
-            setPatern(res)
-            console.log(res)
+            setPatern(res)           
         })
     }, [])
     useEffect(() => {
-        let new_arr = Array.from({ length: all_days.getDate() }, (v, i) => '')
-        setMnt(new_arr)
+        let current_month = my_months[month].toLocaleLowerCase()
+        fetch(`/api/get_schedule?month=${current_month}&nikname=client5143`)
+        .then(res => res.json())
+        .then(res => {
+            if(res.length === 0 ) {
+                let new_arr = Array.from({ length: all_days.getDate() }, (v, i) =>'')
+                setMnt(new_arr)
+            } else {
+                setMnt(res)
+            }    
+           
+        })       
         setActive_Day()
         setActive_Num()
     }, [month])
 
-    function SaveSchedule() {
-        console.log(mnt)
+    function SaveSchedule() {       
         const data = {
             nikname: 'client5143',
-            month: 'май',
+            month: my_months[month].toLocaleLowerCase(),
             schedule: mnt
         }
         fetch('/api/edit_schedule', {
@@ -113,7 +115,10 @@ export default function Calendar() {
         setActive_Num(a)
         console.log(mnt[a - 1])
     }
-    function SetActiveTime(a) {
+    function SetActiveTime(a) {        
+        if (!active_num) {            
+            return 0
+        }
         let act_day = mnt[active_num - 1]
         if (!act_day) {
             act_day = a

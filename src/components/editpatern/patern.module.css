@@ -114,8 +114,11 @@
     margin: 10px 10px 10px 0;
     height: 80px;
     outline: none;
-    /* Basic/White 100% */
-
     background: #FFFFFF;
     border-radius: 8px;
+}
+.time button span {
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
 }
