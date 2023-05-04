@@ -73,6 +73,12 @@ export default function Calendar() {
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem("profile"))
         setProfile(pro.color)
+        fetch(`/api/get_schedule?month=май&nikname=client5143`)
+        .then(res => res.json())
+        .then(res => {
+            setMnt(res)
+            console.log(res)
+        })
         fetch(`/api/get_patern?nikname=client5143`)
         .then(res => res.json())
         .then(res => {
@@ -144,7 +150,7 @@ export default function Calendar() {
     return <>
         {profile ? 
         <header className={styles.header}>
-            <Menu_icon type="arrow_button" color={profile[1]}  />
+            <Menu_icon type="arrow" color={profile[1]}  />
             <h4>Календарь работы</h4>
             <span onClick={SaveSchedule} style={{ color: profile[1] }}>Сохранить</span>
         </header>:null}
