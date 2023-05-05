@@ -15,11 +15,11 @@ export default async function handler(req, res) {
   }
 
   const my_result = await sql`
-    select phone, id from clients
+    select phone, id, name, text from clients
     where nikname = ${req.body.nikname}
   `
 
-  master['name'] = req.body.nikname
+  master['name'] = my_result[0].name
   master['text'] = req.body.text ? 'Немного о себе' : req.body.text
   master['color'] = ['linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)', '#3D4EEA', '#ECEEFD']
   master['id'] = my_result[0].id
@@ -49,7 +49,7 @@ export default async function handler(req, res) {
         returning *
       `
     if (result.length > 0) {
-      console.log("Статус изменён")
+      console.log("Статус изменён на master")
     }
 
     const services = await sql`
@@ -60,6 +60,7 @@ export default async function handler(req, res) {
           '{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}'
         )
       `
+
     const schedule = await sql`
           insert into schedule (nikname,patern,апрель,май,июнь,июль,август, сентябрь)
           values (

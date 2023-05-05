@@ -1,6 +1,4 @@
-.main {   
-    margin-top: -20px;
-}
+
 
 .model {
     height: 80px;
@@ -8,7 +6,7 @@
     border-radius: 8px;
     padding: 20px 16px 22px;
     display: flex;
-    margin: 30px 0 10px;
+    margin: 0 0 10px;
     align-items: flex-start;
     justify-content: space-between;
     flex-direction: column;
@@ -24,7 +22,7 @@
 .model h6 {    
     font-size: 12px;
     font-weight: 400;
-    line-height: 19px;
+    line-height: 25px;
     letter-spacing: 0em;
     text-align: left;
 
