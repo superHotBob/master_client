@@ -1,170 +1,202 @@
 .main {
-    align-items: center;
-    min-height: 100vh;
-   
-    max-width: 500px;    
-    width: 100%;
-    overflow: auto;    z-index: 110;
+  align-items: center;
+  min-height: 100vh;
+
+  max-width: 500px;
+  width: 100%;
+  overflow: auto;
+  z-index: 110;
 }
+
 .selector {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 16px;
-    height: 27px;
-  }
-  .selector span {
-    width: 50%;
-    display: inline-block;
-    padding: 5px 0;
-    text-align: center;
-    color: #000;
-    border-radius: 4px;
-    padding: 5px;
-    text-align: center;
-  }
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 16px;
+  height: 27px;
+}
+
+.selector span {
+  width: 50%;
+  display: inline-block;
+  padding: 5px 0;
+  text-align: center;
+  color: #000;
+  border-radius: 4px;
+  padding: 5px;
+  text-align: center;
+}
 
 .section {
-    padding: 0 16px 20px;
-    min-height: 87vh;
-    position: relative;
-    background-color: #fff;
-   
-}
-.section p {
-    text-align: left;
-    font-weight: 500;
-    font-size:  16px;
-    line-height:  26px;
-    
+  padding: 0 16px 20px;
+  min-height: 87vh;
+  position: relative;
+  background-color: #fff;
+
 }
 
-.mounth {    
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
+.all_records {
+  text-align: left;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 16px;
+  margin: 26px 0 12px;
+}
+
+.mounth {
+  display: flex;
+  justify-content: space-between;
 }
 
 .days::-webkit-scrollbar {
-    width: 0;
+  width: 0;
 }
 
 .mounth span {
-    display: inline-block;
-    width: fit-content;
-    padding: 5px 15px;
-    font-weight: 400;
-    color: #d0d0d0;
+  display: inline-block;
+  width: fit-content;
+  padding: 5px 15px;
+  font-weight: 400;
+  color: #d0d0d0;
+}
+
+.week span {
+  padding: 15px 0;
+  display: inline-block;
+  width: 4.5vw;
+  font-weight: 500;
+  max-width: 50px;
+  margin: 0 13px;
+  text-align: center;
+}
+.week span::first-letter {
+  text-transform: capitalize;
+}
+.week {
+  display: flex;
+  justify-content: space-between;
 }
 
 .days {
-    display: grid;
-    column-gap: 8px;
-    row-gap: 8px;
-    grid-template-columns: 18% 18% 18% 18% 18%;   
-    justify-content: space-between;   
-    overflow-x: auto;
-    margin-bottom: 16px;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto;
+  justify-content: space-between;
+  gap: 8px;
 }
-.days span, .time span {
-    color: #fff;
-    line-height: 38px; 
-    text-align: center;   
-    height: 40px;
-    display: inline-block;
-    background: #3D4EEA;
-    border-radius: 4px;
-    font-size: 14px;
+
+.days span {
+  color: #fff;
+  cursor: pointer;
+  height: 11vw;
+  max-height: 60px;
+  text-align: center;
+  width: 29vw;
+  max-width: 150px;
+  justify-content: center;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  background: #3D4EEA;
+  border-radius: 8px;
+  font-size: 14px;
+  width: 11vw;
+  max-width: 60px;
+  position: relative;
+
 }
 
 .section button {
-    background: #ECEEFD;
-    border-radius: 6px;
-    display: block;
-    height: 46px;
-    width: 100%;
-    font-weight: 600;
-    font-size: 16px;
-    margin: 16px auto 8px;
-    border: none;
-    cursor: pointer;
-   color: #fff;
+  background: #ECEEFD;
+  border-radius: 6px;
+  display: block;
+  height: 46px;
+  width: 100%;
+  font-weight: 600;
+  font-size: 16px;
+  margin: 16px auto 8px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
 }
+
 .section button span {
   color: #fff;
   display: inline-block;
   transform: translate(3px, 1.5px);
 }
+
 .order {
-    padding: 10px;   
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-    height: 100px;
-    margin: 8px 0;
-    background: #FFFFFF;
-    box-shadow: 0px 0px 9px #E6E6E6;
-    border-radius: 6px;
-  }
-  
-  .order h3 {
-    display: flex;
-    justify-content: space-between;
-    font-size: 16px;
-    line-height: 26px;
-  }
-  
-  .order h6 {
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 17px;
-    color: #282828;
-  }
-  
-  .order p {
-    display: flex;
-    justify-content: space-between;
-  }
-  .count {
-    color: #fff;
-    width: 20px;
-    margin-left: 8px;
-    height: 20px;
-    border-radius: 50%;
-    line-height: 20px;
-    display: inline-block;
-    
-  }
-  
-  .order p span {
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 25px;
-    color: #3D4EEA;
-  }
-  
-  .order p span:last-of-type::before {
-    content: 'Заказ';
-    color: #282828;
-    padding-right: 5px;
-  }
-  
-  .active::before {
-    content: 'Новый';
-    color: #fff;
-    background: #FD4D4D;
-    border-radius: 4px;
-    padding: 0 6px;
-    margin: 0 5px 0 0;
-    transform: translateY(-1px);
-  }
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100px;
+  margin: 8px 0;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 9px #E6E6E6;
+  border-radius: 6px;
+}
+
+.order h3 {
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  line-height: 26px;
+}
+
+.order h6 {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 17px;
+  color: #282828;
+}
+
+.order p {
+  display: flex;
+  justify-content: space-between;
+}
+
+.count {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  color: #fff;
+  font-weight: 400;
+  font-size: 12px;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  border-radius: 100%;
+
+}
+
+.order p span {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 25px;
+  color: #3D4EEA;
+}
+
+.order p span:last-of-type::before {
+  content: 'Заказ';
+  color: #282828;
+  padding-right: 5px;
+}
+
+.active::before {
+  content: 'Новый';
+  color: #fff;
+  background: #FD4D4D;
+  border-radius: 4px;
+  padding: 0 6px;
+  margin: 0 5px 0 0;
+  transform: translateY(-1px);
+}
+
 @media screen and (max-width: 500px) {
-    
-    .days {
-        display: grid;
-        grid-template-columns: 23% 23% 23% 23% 23%;  
-    }      
+
+  
 }

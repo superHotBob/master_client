@@ -9,11 +9,5 @@ export default async function handler(req, res) {
         from orders
         where master =  ${req.query.master}
    `
-   console.log(result)
-    if (result.length>0) {
-        res.status(200).json(result)
-    } else {
-        console.log("error")
-    }
-
+    res.status(200).json(result)
 }

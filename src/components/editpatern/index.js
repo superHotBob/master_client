@@ -72,10 +72,10 @@ export default function EditPatern({view,color,setView,old_patern,nikname}) {
     return (
         <main className={!view ? styles.mainpatern : styles.mainnew}>
             
-                <header className={styles.header}>
+                <header className={styles.header} style={{ color: color[1] }}>
                     <Menu_icon type="arrow_button" color={color[1]} setView={()=>setView(false)} />
                     <h4>Шаблон времени</h4>
-                    <span onClick={SavePatern} style={{ color: color[1] }}>Сохранить</span>
+                    <span onClick={SavePatern} >Сохранить</span>
                 </header> 
                 <Message text={`Вы можете создавать и удалять до двенадцати
                  временых окон для записи.
@@ -92,10 +92,13 @@ export default function EditPatern({view,color,setView,old_patern,nikname}) {
                         <Image src={trash_blk} width={29} height={29} alt="trash" onClick={() => setDel(i)} />
                         {del === i ? <span className={styles.delete} onClick={() => DeletePatern(i)}>Удалить</span>:null}
                     </div>)}
-                    <div style={!viewForm ? {backgroundColor: color[2]}:{backgroundColor: color[1],color: '#fff'}}>
+                    {patern?.length<12?<div style={!viewForm ? {backgroundColor: color[2]}:{backgroundColor: color[1],color: '#fff'}}>
                         <b>Добавить</b> 
                         <b onClick={()=>setViewForm(true)}>+</b>
-                    </div>
+                    </div>:null}
+                    {Array.from({length: 11 - patern?.length}, (v,i)=>'').map(i=>
+                        <div style={{backgroundColor: color[2]}}></div>
+                    )}
                 </section>
                 {viewForm ? 
                     <div className={styles.time} style={{backgroundColor: color[2], color: '#000' }}>

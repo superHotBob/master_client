@@ -29,19 +29,11 @@
     font-weight: 400;
     font-size: 16px;
 }
+
 .header span {
-    color: #282828;
-    font-weight: 600;
-}
-
-.header span:first-of-type,
-.header span:last-of-type {
-    color: #3D4EEA;
+    color: inherit;
     cursor: pointer;
-}
-
-.header span:first-of-type {
-    font-weight: 400;
+    font-weight: 500;
 }
 
 .paterns {
@@ -87,7 +79,7 @@
 }
 .paterns div b:last-of-type {
     cursor: pointer;
-    margin-right: 10px;
+    margin-right: 6px;
     font-size: 25px;
 }
 

@@ -15,8 +15,7 @@ const false_day = {
 }
 
 export default function SelectDate({ name, price, order, close, nikname }) {
-    // const false_days = [2, 6, 10, 16, 25, 30]
-    // const false_times = [13, 15, 18, 20]
+   
     const days = ["вс", "пн", "вт", "ср", "чт", "пт", "суб"]
     const months = ['Декабрь', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сетнябрь',
         'Октябрь', 'Ноябрь']
@@ -33,6 +32,8 @@ export default function SelectDate({ name, price, order, close, nikname }) {
 
     const [saved, setSaved] = useState(false)
     const [goodorder, setgoodorder] = useState(false)
+
+    const [patern, setPatern] = useState()
 
     const all_days = new Date(2023, month, 0)
     const profile = useSelector(state => state.counter.profile)
@@ -53,6 +54,12 @@ export default function SelectDate({ name, price, order, close, nikname }) {
         let new_result = result.map(i => i.date_order.split(','))
         set_false_date(new_result)
     }
+
+    useEffect(()=>{
+        fetch(`/api/get_patern?nikname=${nikname}`)
+        .then(res => res.json())
+        .then(res => setPatern(res))
+    },[])
 
 
     function Next(a) {
@@ -142,19 +149,19 @@ export default function SelectDate({ name, price, order, close, nikname }) {
                                 key={i}
                                 style={active_day === i ? active : (false_days.includes(i) ? false_day : null)}
 
-                            >{MyDate(i)}</span>
+                            >{i}</span>
                         )}
                 </div>
                 <div className={styles.right} onClick={() => Next(1)}></div>
             </div>
             <h3 className={styles.date}>Свободное время</h3>
             <div className={styles.time}>
-                {Array.from({ length: 13 }, (v, i) => i + 10)
-                    .map((i) =>
+                {patern?.map((i) =>
                         <span
                             onClick={() => Set_Active_Time(i)}
                             key={i}
-                            style={active_time === i ? active : (false_times.includes(i) ? false_day : { backgroundColor: '#ECEEFD' })}>{i}{' '}:{' '} 00
+                            style={active_time === i ? active : (false_times.includes(i) ? false_day : { backgroundColor: '#ECEEFD' })}>
+                                {i}
                         </span>
                     )}
             </div>

@@ -12,7 +12,7 @@ const activ_month = {
 
 
 
-export default function Calendar() {    
+export default function Calendar() {
 
     const days = ["пн", "вт", "ср", "чт", "пт", "суб", "вс"]
     const months = ['Декабрь', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сетнябрь',
@@ -31,17 +31,16 @@ export default function Calendar() {
     const [message, setMessage] = useState(false)
     const [profile, setProfile] = useState()
     const year = new Date().getFullYear()
-    const day = new Date(year, month - 1, 1)
-    // const day_b = new Date(2023, month + 3, 1)
+    const day = new Date(year, month - 1, 1)    
     let v = days.indexOf(days[day.getDay() - 1])
 
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem("profile"))
-        setProfile(pro)       
+        setProfile(pro)
         fetch(`/api/get_patern?nikname=${pro.nikname}`)
-        .then(res => res.json())
-        .then(res => setPatern(res))           
-        
+            .then(res => res.json())
+            .then(res => setPatern(res))
+
     }, [])
     useEffect(() => {
         let current_month = my_months[month].toLocaleLowerCase()
@@ -49,21 +48,21 @@ export default function Calendar() {
         setActive_Day()
         setActive_Num()
         fetch(`/api/get_schedule?month=${current_month}&nikname=${pro.nikname}`)
-        .then(res => res.json())
-        .then(res => {
-            if(res.length === 0 ) {
-                let new_arr = Array.from({ length: all_days.getDate() }, (v, i) =>'')
-                setMnt(new_arr)
-            } else {
-                setMnt(res)
-            }    
-           
-        })       
-        
+            .then(res => res.json())
+            .then(res => {
+                if (res.length === 0) {
+                    let new_arr = Array.from({ length: all_days.getDate() }, (v, i) => '')
+                    setMnt(new_arr)
+                } else {
+                    setMnt(res)
+                }
+
+            })
+
     }, [month])
 
-    function SaveSchedule() {  
-        let pro = JSON.parse(localStorage.getItem("profile"))     
+    function SaveSchedule() {
+        let pro = JSON.parse(localStorage.getItem("profile"))
         const data = {
             nikname: pro.nikname,
             month: my_months[month].toLocaleLowerCase(),
@@ -75,9 +74,9 @@ export default function Calendar() {
                 'Content-Type': 'application/json',
             },
             method: 'POST',
-        }).then(res=> {
+        }).then(res => {
             setMessage(true)
-            setTimeout(()=>setMessage(false),3000)
+            setTimeout(() => setMessage(false), 3000)
         })
 
     }
@@ -86,10 +85,10 @@ export default function Calendar() {
         setActive_Num(a)
         console.log(mnt[a - 1])
     }
-    function SetActiveTime(a) {        
-        if (!active_num) {   return 0   }
-           
-        
+    function SetActiveTime(a) {
+        if (!active_num) { return 0 }
+
+
         let act_day = mnt[active_num - 1]
         if (!act_day) {
             act_day = a
@@ -124,12 +123,12 @@ export default function Calendar() {
     }
 
     return <>
-        {profile ? 
-        <header className={styles.header}>
-            <Menu_icon type="arrow" color={profile.color[1]}  />
-            <h4>Календарь работы</h4>
-            <span onClick={SaveSchedule} style={{ color: profile.color[1] }}>Сохранить</span>
-        </header>:null}
+        {profile ?
+            <header className={styles.header} style={{ color: profile.color[1] }}>
+                <Menu_icon type="arrow" color={profile.color[1]} />
+                <h4>Календарь работы</h4>
+                <span onClick={SaveSchedule}>Сохранить</span>
+            </header> : null}
         <section className={styles.section}>
             <Message text={`Выбирайте дни и время, вы которые вы готовы
                         принимать клиентов. При записи елиен  сможет
@@ -143,15 +142,15 @@ export default function Calendar() {
                 )}
             </div>
             <div className={styles.week}>
-                {['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'].map(i => <span key={i}>{i}</span>)}
+                {days.map(i => <span key={i}>{i}</span>)}
             </div>
             <dialog open={message} className={styles.message}>
-                    Календарь  сохранен
-                </dialog>
+                Календарь  сохранен
+            </dialog>
             <div className={styles.days}>
                 {Array.from({ length: v }, (v, i) => i + 1).map(i => <span key={i} style={{ opacity: 0 }}>{i}</span>)}
                 {mnt ? <>
-                    {Array.from({ length: all_days.getDate() }, (v, i) => i+1)
+                    {Array.from({ length: all_days.getDate() }, (v, i) => i + 1)
                         .map((i, index) =>
                             <span
                                 onClick={() => SetActiveDay(i)}
@@ -181,21 +180,21 @@ export default function Calendar() {
                     </span>
                 )}
             </div>
-            <button style={{ backgroundColor: profile?.color[2] }} onClick={() => setView(true)}>
-                <span style={{ color: profile?.color[1] }}>
-                    Редактировать шаблон времени +
-                </span>
-            </button>
-            
+            <div className={styles.button} style={{ backgroundColor: profile?.color[2], color: profile?.color[1] }} onClick={() => setView(true)}>
+
+                Редактировать шаблон времени +
+
+            </div>
+
         </section>
-        {view ? 
-        <EditPatern 
-            view={view} 
-            setView={setView} 
-            color={profile.color} 
-            old_patern={patern} 
-            nikname={profile.nikname}
-        /> : null}
+        {view ?
+            <EditPatern
+                view={view}
+                setView={setView}
+                color={profile.color}
+                old_patern={patern}
+                nikname={profile.nikname}
+            /> : null}
         <div>
 
         </div>
