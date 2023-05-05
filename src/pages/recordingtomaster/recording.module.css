@@ -8,10 +8,9 @@
 }
 
 .category {
-    overflow-x: auto;
-    height: 40px;
+    overflow-x: auto;   
     width: calc(100% - 32px);
-    margin: 10px auto 24px;
+    margin: 24px auto;
 }
 .all_cat {
     width: max-content;
@@ -28,18 +27,20 @@
     line-height: 24px;
     margin: 0 1px;
 }
+.category span::first-letter {
+    text-transform: capitalize;
+}
 .category span b {
     font-weight: 500;
     font-size: 10px;
     width: 20px;
-    height: 18px;
+    height: 20px;
     display: inline-block;
     border: 1px solid #000;
     border-radius: 100%;
-    margin: 0 5px;
-    padding-right: 2px;
-    line-height: 17.5px;
-    
+    margin-left: 9px;   
+    line-height: 20px;
+    font-size: 13px;
 }
 
 .category span .active_count {
@@ -97,6 +98,7 @@
     height: 44px;
     font-weight: 500;
     margin-bottom: 16px;
+    cursor: pointer;
 }
 .order h4, .order h3 {
     line-height: 26px;

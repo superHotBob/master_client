@@ -22,10 +22,13 @@ export default function Recording() {
     const [active_category, set_Active_Category] = useState()
     const [orders, addOrder] = useState([])
     const [count, setCount] = useState([])
-
+   
+   
     useEffect(() => {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString)
         async function GetServices() {
-            const response = await fetch(`/api/master_service?nikname=${nikname}`, {
+            const response = await fetch(`/api/master_service?nikname=${urlParams.get('nikname')}`, {
                 headers: { 'Content-Type': 'application/json' },
                 method: 'get',
             })

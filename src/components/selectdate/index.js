@@ -25,7 +25,7 @@ export default function SelectDate({ name, price, order, close, nikname }) {
     const [month, setMonth] = useState(mon)
     const [month_one, set_month_one] = useState(0)
     const [false_times, set_false_time] = useState([])
-    const [false_days, set_false_days] = useState([5,19])
+    const [false_days, set_false_days] = useState([])
     const [false_date, set_false_date] = useState()
     const [active_day, setActive_Day] = useState()
     const [active_time, setActive_Time] = useState()
@@ -42,7 +42,7 @@ export default function SelectDate({ name, price, order, close, nikname }) {
         const day = new Date(2023, month - 1, a)
         return a + ' ' + days[day.getDay()]
     }
-
+   
     async function GetDate() {
         const response = await fetch(`/api/date_services_master?master=${nikname}`, {
             headers: {
@@ -56,6 +56,9 @@ export default function SelectDate({ name, price, order, close, nikname }) {
     }
 
     useEffect(()=>{
+        let day = d.getDay()
+        let all_day = Array.from({length: day}, (v,i)=>i+1)        
+        set_false_days(all_day)
         fetch(`/api/get_patern?nikname=${nikname}`)
         .then(res => res.json())
         .then(res => setPatern(res))
@@ -63,7 +66,9 @@ export default function SelectDate({ name, price, order, close, nikname }) {
 
 
     function Next(a) {
-
+        // const mon = d.getMonth()
+        // console.log(months[mon+1])
+        // if (months[month] === months[mon+1] && a === -1) {return 0} 
         if (month_one === 0 && a === 1) {
             set_month_one(1)
         } else if (month_one === 1 && a === 1) {
@@ -94,14 +99,13 @@ export default function SelectDate({ name, price, order, close, nikname }) {
                 order: order,
                 date: `${active_day},${months[month]},${active_time}`,
             }
-            const response = await fetch('/api/save_order', {
+            await fetch('/api/save_order', {
                 body: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 method: 'POST',
-            })
-            const result = await response.json()
+            })            
             setSaved(false)
             setgoodorder(true)
 

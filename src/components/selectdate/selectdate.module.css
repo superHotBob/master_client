@@ -39,7 +39,8 @@
     content: url('/arrow_left_wh.svg');
     text-align: center;
     width: 22px;
-    line-height: 22px
+    line-height: 22px;
+    cursor: pointer;
 }
 
 .right::after {
@@ -68,6 +69,7 @@
     background: #ECEEFD;
     border-radius: 4px;
     font-size: 14px;
+    cursor: pointer;
 }
 
 .time {
@@ -92,6 +94,7 @@
     left: 26px;
     height: 44px;
     font-weight: 500;
+    cursor: pointer;
 }
 
 .head {
