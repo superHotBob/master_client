@@ -12,42 +12,7 @@ const activ_month = {
 
 
 
-export default function Calendar() {
-
-    const new_patern = ['10:00', '12:00', '14:00']
-
-    const mnt_may = [
-        "10:00",
-        "10:00,12:00,14:00",
-        "10:00,12:00,14:00",
-        "10:00,12:00,14:00",
-        "10:00,14:00",
-        "10:00,12:00,14:00",
-        "10:00,12:00,14:00",
-        "10:00,12:00,14:00",
-        "14:00",
-        "10:00,12:00,14:00",
-        "14:00",
-        "",
-        "",
-        "10:00,12:00",
-        "",
-        "12:00,14:00",
-        "10:00,12:00,14:00",
-        "10:00,12:00",
-        "10:00,14:00",
-        "10:00,12:00,14:00",
-        "10:00,12:00,14:00",
-        "10:00,12:00,14:00",
-        "10:00,12:00,14:00",
-        "10:00,12:00",
-        "",
-        "10:00,14:00",
-        "10:00,12:00,14:00",
-        "10:00,12:00,14:00",
-        "12:00,14:00",
-        "10:00,14:00",
-        ""]
+export default function Calendar() {    
 
     const days = ["пн", "вт", "ср", "чт", "пт", "суб", "вс"]
     const months = ['Декабрь', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сетнябрь',
@@ -57,14 +22,14 @@ export default function Calendar() {
     const mon = d.getMonth() + 1
     const [month, setMonth] = useState(mon)
     const my_months = [...months]
-    const [active_day, setActive_Day] = useState(null)
+    const [active_day, setActive_Day] = useState()
     const [active_num, setActive_Num] = useState()
     const all_days = new Date(2023, month, 0)
     const [mnt, setMnt] = useState()
     const [patern, setPatern] = useState([])
     const [view, setView] = useState(false)
-
-    const [profile, setProfile] = useState([])
+    const [message, setMessage] = useState(false)
+    const [profile, setProfile] = useState()
     const year = new Date().getFullYear()
     const day = new Date(year, month - 1, 1)
     // const day_b = new Date(2023, month + 3, 1)
@@ -72,16 +37,18 @@ export default function Calendar() {
 
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem("profile"))
-        setProfile(pro.color)       
-        fetch(`/api/get_patern?nikname=client5143`)
+        setProfile(pro)       
+        fetch(`/api/get_patern?nikname=${pro.nikname}`)
         .then(res => res.json())
-        .then(res => {
-            setPatern(res)           
-        })
+        .then(res => setPatern(res))           
+        
     }, [])
     useEffect(() => {
         let current_month = my_months[month].toLocaleLowerCase()
-        fetch(`/api/get_schedule?month=${current_month}&nikname=client5143`)
+        let pro = JSON.parse(localStorage.getItem("profile"))
+        setActive_Day()
+        setActive_Num()
+        fetch(`/api/get_schedule?month=${current_month}&nikname=${pro.nikname}`)
         .then(res => res.json())
         .then(res => {
             if(res.length === 0 ) {
@@ -92,13 +59,13 @@ export default function Calendar() {
             }    
            
         })       
-        setActive_Day()
-        setActive_Num()
+        
     }, [month])
 
-    function SaveSchedule() {       
+    function SaveSchedule() {  
+        let pro = JSON.parse(localStorage.getItem("profile"))     
         const data = {
-            nikname: 'client5143',
+            nikname: pro.nikname,
             month: my_months[month].toLocaleLowerCase(),
             schedule: mnt
         }
@@ -108,7 +75,11 @@ export default function Calendar() {
                 'Content-Type': 'application/json',
             },
             method: 'POST',
+        }).then(res=> {
+            setMessage(true)
+            setTimeout(()=>setMessage(false),3000)
         })
+
     }
     function SetActiveDay(a) {
         setActive_Day(mnt[a - 1])
@@ -116,9 +87,9 @@ export default function Calendar() {
         console.log(mnt[a - 1])
     }
     function SetActiveTime(a) {        
-        if (!active_num) {            
-            return 0
-        }
+        if (!active_num) {   return 0   }
+           
+        
         let act_day = mnt[active_num - 1]
         if (!act_day) {
             act_day = a
@@ -155,16 +126,16 @@ export default function Calendar() {
     return <>
         {profile ? 
         <header className={styles.header}>
-            <Menu_icon type="arrow" color={profile[1]}  />
+            <Menu_icon type="arrow" color={profile.color[1]}  />
             <h4>Календарь работы</h4>
-            <span onClick={SaveSchedule} style={{ color: profile[1] }}>Сохранить</span>
+            <span onClick={SaveSchedule} style={{ color: profile.color[1] }}>Сохранить</span>
         </header>:null}
         <section className={styles.section}>
             <Message text={`Выбирайте дни и время, вы которые вы готовы
                         принимать клиентов. При записи елиен  сможет
                         выбрать только те дни и время, которые 
                         вы указали рабочим.
-                    `} color={profile}
+                    `} color={profile?.color}
             />
             <div className={styles.mounth}>
                 {months.splice(month ? month - 1 : 0, 3).map(i =>
@@ -174,7 +145,9 @@ export default function Calendar() {
             <div className={styles.week}>
                 {['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'].map(i => <span key={i}>{i}</span>)}
             </div>
-
+            <dialog open={message} className={styles.message}>
+                    Календарь  сохранен
+                </dialog>
             <div className={styles.days}>
                 {Array.from({ length: v }, (v, i) => i + 1).map(i => <span key={i} style={{ opacity: 0 }}>{i}</span>)}
                 {mnt ? <>
@@ -184,11 +157,11 @@ export default function Calendar() {
                                 onClick={() => SetActiveDay(i)}
                                 key={i}
                                 id={i}
-                                style={active_num == i ? { backgroundColor: profile[1], color: '#fff' } : { backgroundColor: profile[2], color: profile[1] }}
+                                style={active_num == i ? { backgroundColor: profile.color[1], color: '#fff' } : { backgroundColor: profile.color[2], color: profile.color[1] }}
                             >{i}
                                 <b
                                     className={styles.count}
-                                    style={{ backgroundColor: profile[1], color: profile[2], display: Count(index) ? 'inline-block' : 'none' }}
+                                    style={{ backgroundColor: profile.color[1], color: profile.color[2], display: Count(index) ? 'inline-block' : 'none' }}
                                 >{Count(index)}</b>
 
                             </span>
@@ -200,22 +173,29 @@ export default function Calendar() {
                     <span
                         key={i}
                         style={active_day?.split(',').some(a => a === i) ?
-                            { backgroundColor: profile[1] } :
-                            { backgroundColor: profile[2], color: profile[1] }}
+                            { backgroundColor: profile.color[1] } :
+                            { backgroundColor: profile.color[2], color: profile.color[1] }}
                         onClick={() => SetActiveTime(i)}
                     >
                         {i}
                     </span>
                 )}
             </div>
-            <button style={{ backgroundColor: profile[2] }} onClick={() => setView(true)}>
-                <span style={{ color: profile[1] }}>
+            <button style={{ backgroundColor: profile?.color[2] }} onClick={() => setView(true)}>
+                <span style={{ color: profile?.color[1] }}>
                     Редактировать шаблон времени +
                 </span>
             </button>
             
         </section>
-        {view ? <EditPatern view={view} setView={setView} color={profile} old_patern={patern} /> : null}
+        {view ? 
+        <EditPatern 
+            view={view} 
+            setView={setView} 
+            color={profile.color} 
+            old_patern={patern} 
+            nikname={profile.nikname}
+        /> : null}
         <div>
 
         </div>

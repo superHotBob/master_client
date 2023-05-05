@@ -8,15 +8,18 @@ import Menu_icon from '@/components/icons/menu'
 import Message from '../message'
 
 
-export default function EditPatern({view,color,setView,old_patern}) {
+export default function EditPatern({view,color,setView,old_patern,nikname}) {
     const [patern, setPatern] = useState()
     const [viewForm, setViewForm] = useState(false)
+    const [message, setMessage] = useState(false)
+    const [del, setDel] = useState(false)
 
     useEffect(()=>setPatern([...old_patern]),[])
 
     function DeletePatern(a) {
         let new_patern =  patern.filter(i=>i!==a)
-        setPatern([...new_patern])       
+        setPatern([...new_patern])
+        setDel(false)       
     }
     function SetPatern() {
         let one = document.getElementsByTagName('input')[0].value
@@ -33,7 +36,7 @@ export default function EditPatern({view,color,setView,old_patern}) {
     function SavePatern() {        
         let data = {
             patern: patern,
-            nikname: 'client5143'
+            nikname: nikname
         }
         fetch('/api/edit_patern', {
             body: JSON.stringify(data),
@@ -41,6 +44,9 @@ export default function EditPatern({view,color,setView,old_patern}) {
                 'Content-Type': 'application/json',
             },
             method: 'POST',
+        }).then(res=>{
+            setMessage(true)
+            setTimeout(()=>setMessage(false),3000)
         })
 
     }
@@ -52,10 +58,16 @@ export default function EditPatern({view,color,setView,old_patern}) {
             }
         }       
     };
-    function Number(a, b) {       
-       if (a !=='' && b < 3) {
-            document.getElementsByTagName('input')[b + 1].focus()
-        }       
+    function Number(a, b) {
+       
+       if(!isNaN(a)) {        
+            if (a !=='' && b < 3) {
+                    document.getElementsByTagName('input')[b + 1].focus()
+            }
+        } else {
+            document.getElementsByTagName('input')[b].value = '' 
+        }
+                 
     }
     return (
         <main className={!view ? styles.mainpatern : styles.mainnew}>
@@ -70,12 +82,20 @@ export default function EditPatern({view,color,setView,old_patern}) {
                 `}
                 color={color}
                 />
+                <dialog open={message} className={styles.message}>
+                    Шаблон  сохранен
+                </dialog>
                 <section className={styles.paterns}>
-                    {patern?.sort().map(i=><span key={i} style={{backgroundColor: color[2]}}>{i} <Image src={trash_blk} width={29} height={29} alt="trash" onClick={() => DeletePatern(i)} /></span>)}
-                    <span style={!viewForm ? {backgroundColor: color[2]}:{backgroundColor: color[1],color: '#fff'}}>
+                 {patern?.sort().map(i =>
+                    <div key={i} style={{backgroundColor: color[2]}}>
+                        {i} 
+                        <Image src={trash_blk} width={29} height={29} alt="trash" onClick={() => setDel(i)} />
+                        {del === i ? <span className={styles.delete} onClick={() => DeletePatern(i)}>Удалить</span>:null}
+                    </div>)}
+                    <div style={!viewForm ? {backgroundColor: color[2]}:{backgroundColor: color[1],color: '#fff'}}>
                         <b>Добавить</b> 
                         <b onClick={()=>setViewForm(true)}>+</b>
-                    </span>
+                    </div>
                 </section>
                 {viewForm ? 
                     <div className={styles.time} style={{backgroundColor: color[2], color: '#000' }}>
@@ -108,9 +128,9 @@ export default function EditPatern({view,color,setView,old_patern}) {
                             inputMode='numeric' 
                             required  maxLength={1}  onChange={(e) => Number(e.target.value,3)} 
                         />
-                        <button style={{backgroundColor: color[1]}} onClick={SetPatern}>
-                            <span>Добавить время для записей</span>
-                        </button>
+                        <div style={{backgroundColor: color[1]}} onClick={SetPatern}>
+                            Добавить время для записей
+                        </div>
                     </div>
                 : null}
                

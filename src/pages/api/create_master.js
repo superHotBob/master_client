@@ -38,7 +38,7 @@ export default async function handler(req, res) {
     )  
     returning *
   `
- 
+
 
   if (my_result.length > 0) {
     console.log("Запись мастера создана")
@@ -52,7 +52,7 @@ export default async function handler(req, res) {
       console.log("Статус изменён")
     }
 
-    const next_result = await sql`
+    const services = await sql`
         insert into services (user_id,nikname,маникюр,чистка,брови,массаж,педикюр,стрижка,ресницы,депиляция,прически,макияж,барбер)
         values (
           ${my_result[0].id},
@@ -60,6 +60,14 @@ export default async function handler(req, res) {
           '{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}'
         )
       `
+    const schedule = await sql`
+          insert into schedule (nikname,patern,апрель,май,июнь,июль,август, сентябрь)
+          values (
+            ${master.nikname},
+            '{}','{}','{}','{}','{}','{}','{}'
+          )
+    
+    `
     res.status(200).end('Профиль мастера создан')
   } else {
     res.status(400).end('Error')
