@@ -35,7 +35,7 @@ export default function Order() {
         <main className={styles.main}>
             {color ? <>
             <header>
-                <b onClick={()=>router.back()} /><span>#{order.order}</span><span style={{color: color[1]}}>Готово</span>
+                <b onClick={()=>router.back()} /><span>#{order.id}</span><span style={{color: color[1]}}>Готово</span>
             </header>
             {viewReview ? <div className={styles.new_review}>
                 <p>Отзыв</p>
@@ -48,28 +48,28 @@ export default function Order() {
                     {[1, 2, 3, 4, 5].map(i => <Image key={i} onClick={()=>setStars(i)} src='/star_bl.svg' alt='star' width={25} height={24} />)}
                 </h3>
             </div> : null}
-            <section className={styles.data}>
+            <section className={styles.data} style={{color: color[1]}}>
                 {order['client']  ?
                 <>
-                <h5 style={{color: color[1]}}>Клиент</h5>
+                <h5>Клиент</h5>
                 <h5 style={{ fontWeight: 400 }}>
-                    <b style={{ color: '#3D4EEA' }}>{order.client}</b>
+                    <b style={{ color: '#3D4EEA' }}>{order.client}</b>{' '}({order.client_name})
                 </h5>
                 </>
                 :
                 <>
                 <h5>Мастер</h5>
                 <h5 style={{ fontWeight: 400 }}>
-                    <b style={{ color: '#3D4EEA' }}>{order.name}</b>{' '}({order.nikname})
+                    <b style={{ color: '#3D4EEA' }}>{order.name}</b>{' '}({order.client_name})
                 </h5>
                 </>}
-                <h5 style={{color: color[1]}}>Дата и время</h5>
-                <span style={{color: color[1]}}>{order.date}</span>
-                <h5 style={{color: color[1]}}>Услуги и стоимость</h5>
-                <span style={{color: color[1]}}>{order.text}</span>
-                <span style={{color: color[1]}}>Стоимость {order.cost} ₽</span>
-                <h5 style={{color: color[1]}}>Дополнительное описание</h5>
-                <span >{order.text}</span>
+                <h5>Дата и время</h5>
+                <span>{order.date_order.replace(/,/g, ' ')}</span>
+                <h5>Услуги и стоимость</h5>
+                <span>{order.new_order}</span>
+                <span>Стоимость {order.price} BYN</span>
+                <h5>Дополнительное описание</h5>
+                <span>{order.neworder.replace(/[0-9]/g, '  ').replace(/:/g, ' ')}</span>
                 {order.active ?
                     <button><b>Отменить заказ</b></button>
                     :

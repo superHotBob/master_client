@@ -36,19 +36,19 @@ const Master = () => {
     const dispatch = useDispatch()
     const my_profile = useSelector(state => state.counter.profile)
     const master = useSelector(state => state.counter.master)
-      
-   
+
+
     useEffect(() => {
-        const { pathname } = window.location       
-        console.log('Master', pid, pathname.replace('/master/',''))
-        if(master) {
+        const { pathname } = window.location
+        console.log('Master', pid, pathname.replace('/master/', ''))
+        if (master) {
             setProfile(master[0])
         } else {
-            fetch(`/api/master?nikname=${pathname.replace('/master/','')}`)
-            .then(res => res.json())
-            .then(res => setProfile(res[0]))
+            fetch(`/api/master?nikname=${pathname.replace('/master/', '')}`)
+                .then(res => res.json())
+                .then(res => setProfile(res[0]))
         }
-        return ()=>dispatch(setmaster(''))
+        return () => dispatch(setmaster(''))
     }, [])
 
     function EnterToMessanger(a) {
@@ -60,61 +60,55 @@ const Master = () => {
     }
     return (
         <main className={styles.main}>
-            <Head>
-                <title>{pid}</title>
-            </Head>
-           
+            <Head><title>{pid}</title></Head>
             {profile ? <>
                 <Header text={pid} sel='back' color={profile?.color} />
-                {mapview ?
-                    <Location loc_master={profile.locations} close={setmapview} />
-                    :
-                    <section className={styles.section}>
-                        <div className={styles.image} style={{ background: profile.color[0] }}>
-                            <Image src={url + 'var/data/' + pid + '/main.jpg'} alt="profile img" height={105} width={105} /> 
-                        </div>                      
-                        <p className={styles.name_stars}>
-                            <span>{profile.name}</span>
-                            <span className={styles.pro} style={{ background: profile.color[0] }}>MASTER</span>
-                            {profile.stars ? <span
-                                className={styles.stars}
-                                style={{ color: profile.color[1], backgroundColor: profile.color[2] }}
-                            >4.7</span> : null}
-                        </p>
-                        <h4 onClick={() => setmapview(true)}>{profile.address}</h4>
-                        {viewText ? <h5 className={styles.text}>{profile.text}</h5> : null}
-                        <span style={{ color: profile.color[1] }} className={styles.view_text} onClick={() => setViewText(!viewText)}>{viewText ? 'Скрыть описание' : 'Описание'}</span>
-                        <div className={styles.buttons}>
-                            <Link href={my_profile.status === 'client' ? '/chat' : '/error'} style={{ backgroundColor: profile.color[2] }} >
-                                <span style={{ color: profile.color[1] }}>
-                                    Сообщения
-                                    <Menu_icon type="chat" color={profile.color[1]} />
-                                </span>
-                            </Link>
-                            <Link
-                                href={{
-                                    pathname: my_profile.status === 'client' ? '/recordingtomaster' : '/error',
-                                    query: { nikname: pid, name: profile.name },
-                                }}
-                                style={{ backgroundColor: profile.color[2] }}
+                <section className={styles.section}>
+                    <div className={styles.image} style={{ background: profile.color[0] }}>
+                        <Image src={url + 'var/data/' + pid + '/main.jpg'} alt="profile img" height={105} width={105} />
+                    </div>
+                    <p className={styles.name_stars}>
+                        <span>{profile.name}</span>
+                        <span className={styles.pro} style={{ background: profile.color[0] }}>MASTER</span>
+                        {profile.stars ? <span
+                            className={styles.stars}
+                            style={{ color: profile.color[1], backgroundColor: profile.color[2] }}
+                        >4.7</span> : null}
+                    </p>
+                    <h4 onClick={() => setmapview(true)}>{profile.address}</h4>
+                    {viewText ? <h5 className={styles.text}>{profile.text}</h5> : null}
+                    <span style={{ color: profile.color[1] }} className={styles.view_text} onClick={() => setViewText(!viewText)}>{viewText ? 'Скрыть описание' : 'Описание'}</span>
+                    <div className={styles.buttons}>
+                        <Link href={my_profile.status === 'client' ? '/chat' : '/error'} style={{ backgroundColor: profile.color[2] }} >
+                            <span style={{ color: profile.color[1] }}>
+                                Сообщения
+                                <Menu_icon type="chat" color={profile.color[1]} />
+                            </span>
+                        </Link>
+                        <Link
+                            href={{
+                                pathname: my_profile.status === 'client' ? '/recordingtomaster' : '/error',
+                                query: { nikname: pid, name: profile.name },
+                            }}
+                            style={{ backgroundColor: profile.color[2] }}
 
-                            >
-                                <span style={{ color: profile.color[1] }}>
-                                    Запись к мастеру
-                                    <Menu_icon type="edit" color={profile.color[1]} />
-                                </span>
-                            </Link>
-                        </div>
-                        <nav className={styles.navigation}>
-                            {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
-                                .map(i => <span key={i} onClick={() => setNavView(i)} style={nav_view === i ? { ...active, backgroundColor: profile.color[1] } : null}>{i}</span>)}
-                        </nav>
-                        {nav_view === 'Отзывы' ? <Reviews nikname={profile.nikname} color={profile.color} /> : null}
-                        {nav_view === 'Услуги' ? <Services name={pid} color={profile.color} /> : null}
-                        {nav_view === 'Лента' ? <Lenta nikname={pid} color={profile.color} /> : null}
-                        {nav_view === 'Сертификаты' ? <Sertificats nikname={pid} /> : null}
-
-                    </section>}
+                        >
+                            <span style={{ color: profile.color[1] }}>
+                                Запись к мастеру
+                                <Menu_icon type="edit" color={profile.color[1]} />
+                            </span>
+                        </Link>
+                    </div>
+                    <nav className={styles.navigation}>
+                        {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
+                            .map(i => <span key={i} onClick={() => setNavView(i)} style={nav_view === i ? { ...active, backgroundColor: profile.color[1] } : null}>{i}</span>)}
+                    </nav>
+                    {nav_view === 'Отзывы' ? <Reviews nikname={profile.nikname} color={profile.color} /> : null}
+                    {nav_view === 'Услуги' ? <Services name={pid} color={profile.color} /> : null}
+                    {nav_view === 'Лента' ? <Lenta nikname={pid} color={profile.color} /> : null}
+                    {nav_view === 'Сертификаты' ? <Sertificats nikname={pid} /> : null}
+                    {mapview ? <Location loc_master={profile.locations} close={setmapview} /> : null}
+                </section>
                 <Navi color={profile.color[0]} />
             </> :
                 <div className={styles.await}>

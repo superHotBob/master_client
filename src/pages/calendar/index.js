@@ -25,7 +25,7 @@ export default function Calendar() {
     const [active_day, setActive_Day] = useState()
     const [active_num, setActive_Num] = useState()
     const all_days = new Date(2023, month, 0)
-    const [mnt, setMnt] = useState()
+    const [mnt, setMnt] = useState([])
     const [patern, setPatern] = useState([])
     const [view, setView] = useState(false)
     const [message, setMessage] = useState(false)
@@ -149,22 +149,22 @@ export default function Calendar() {
             </dialog>
             <div className={styles.days}>
                 {Array.from({ length: v }, (v, i) => i + 1).map(i => <span key={i} style={{ opacity: 0 }}>{i}</span>)}
-                {mnt ? <>
+               
                     {Array.from({ length: all_days.getDate() }, (v, i) => i + 1)
                         .map((i, index) =>
                             <span
                                 onClick={() => SetActiveDay(i)}
                                 key={i}
                                 id={i}
-                                style={active_num == i ? { backgroundColor: profile.color[1], color: '#fff' } : { backgroundColor: profile.color[2], color: profile.color[1] }}
+                                style={active_num == i ? { backgroundColor: profile?.color[1], color: '#fff' } : { backgroundColor: profile?.color[2], color: profile?.color[1] }}
                             >{i}
                                 <b
                                     className={styles.count}
-                                    style={{ backgroundColor: profile.color[1], color: profile.color[2], display: Count(index) ? 'inline-block' : 'none' }}
+                                    style={{ backgroundColor: profile?.color[1], color: profile?.color[2], display: Count(index) ? 'inline-block' : 'none' }}
                                 >{Count(index)}</b>
 
                             </span>
-                        )}</> : null}
+                        )}
             </div>
             <p>Время для записи</p>
             <div className={styles.time}>

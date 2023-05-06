@@ -65,7 +65,11 @@ export default function Records() {
         let result = first_orders.filter(i => +i.date_order.split(',')[0] === a)
         setOrders(result)
     }
-
+    function viewOrder(a) {
+        let current_order = orders.filter(i=>i.id === a)
+        dispatch(setorder(current_order[0]))
+        router.push('/order/' + a)
+    }
    
     function Count(a) {
         let s = false_days.filter(i => i === a).length
@@ -147,11 +151,11 @@ export default function Records() {
                     <section className={styles.section}>
                         {first_orders.map(i =>
                             <div
-                                onClick={() => router.push('/order/' + b)}
+                                onClick={() => router.push('/order/' + i.id)}
                                 key={i.order}
                                 className={styles.order}
                             >
-                                <p><span className={i.active ? styles.active : null}>{i.date_order.replace(/,/g, ' ')}:00</span><span>#{i.id}</span></p>
+                                <p><span className={i.active ? styles.active : null}>{i.date_order.replace(/,/g, ' ')}</span><span>#{i.id}</span></p>
                                 <h3 ><span style={{ color: profile.color[1] }}>{i.client_name || i.client}</span><span style={{ color: profile.color[1] }}>{i.price} BYN</span></h3>
                                 <h6 style={{ color: profile.color[1] }}>{i.neworder.replace(/[0-9]/g, '  ').replace(/:/g, ' ')}</h6>
                             </div>

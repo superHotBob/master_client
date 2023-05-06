@@ -33,7 +33,7 @@ export default function SelectDate({ name, price, order, close, nikname }) {
     const [saved, setSaved] = useState(false)
     const [goodorder, setgoodorder] = useState(false)
 
-    const [patern, setPatern] = useState()
+    const [patern, setPatern] = useState([])
 
     const all_days = new Date(2023, month, 0)
     const profile = useSelector(state => state.counter.profile)
@@ -144,7 +144,7 @@ export default function SelectDate({ name, price, order, close, nikname }) {
             <h3 className={styles.date}>Ближайшие даты</h3>
             <h4 className={styles.month}>{months[month]}</h4>
             <div className={styles.all_days}>
-                <div className={styles.left} onClick={() => Next(-1)}></div>
+                <div className={styles.left} onClick={() => Next(-1)}/>
                 <div className={styles.days}>
                     {Array.from({ length: Math.ceil(all_days.getDate() / 2) }, (v, i) => i + 1 + month_one * Math.trunc(all_days.getDate() / 2))
                         .map(i =>
@@ -156,18 +156,19 @@ export default function SelectDate({ name, price, order, close, nikname }) {
                             >{i}</span>
                         )}
                 </div>
-                <div className={styles.right} onClick={() => Next(1)}></div>
+                <div className={styles.right} onClick={() => Next(1)}/>
             </div>
             <h3 className={styles.date}>Свободное время</h3>
             <div className={styles.time}>
-                {patern?.map((i) =>
-                        <span
-                            onClick={() => Set_Active_Time(i)}
-                            key={i}
-                            style={active_time === i ? active : (false_times.includes(i) ? false_day : { backgroundColor: '#ECEEFD' })}>
-                                {i}
-                        </span>
-                    )}
+                {patern?.map(i =>
+                    <span
+                        onClick={() => Set_Active_Time(i)}
+                        key={i}
+                        style={active_time === i ? active : (false_times.includes(i) ? false_day : { backgroundColor: '#ECEEFD' })}
+                    >
+                    {i}
+                    </span>
+                )}
             </div>
             {saved ? <div className={styles.await}>
                 <Image alt="await" src='/await.gif' width={150} height={150} />
