@@ -3,7 +3,7 @@
 
 }
 
-.date{
+.date {
     text-align: center;
     font-size: 18px;
     font-weight: 500;
@@ -18,11 +18,7 @@
     text-align: center;
 }
 
-.all_days {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
+.all_days {   
     padding: 0 16px;
 }
 
@@ -49,23 +45,26 @@
     line-height: 25px;
 }
 
-.days {
-    width: 86%;
+.days {   
     display: grid;
-    grid-template-columns: 24% 24% 24% 24%;
+    grid-template-columns: auto auto auto auto auto auto auto;
     justify-content: space-between;
-    overflow-x: auto;
+    gap: 8px;
+
 }
 
 .days span,
 .time span {
-    color: #3D4EEA;
-    padding: 5px;
-    text-align: center;
-    margin: 4px;
-    height: 27px;
+    color: #3D4EEA;   
+    justify-content: center;
+    width: 11vw;
+    max-width: 60px;
+    position: relative;
+    height: 11vw;
+    max-height: 60px;
+    display: flex;
     font-weight: 500;
-    display: inline-block;
+    align-items: center;
     background: #ECEEFD;
     border-radius: 4px;
     font-size: 14px;
@@ -74,10 +73,15 @@
 
 .time {
     display: grid;
-    width: 80%;
+    width: calc(100% - 32px);
     margin: 20px auto;
     grid-template-columns: 33% 33% 33%;
     justify-content: space-between;
+}
+.time span {
+    width: 100%;
+    max-width: 148px;
+
 }
 
 .submit {
@@ -108,6 +112,7 @@
     padding: 26px 0;
     position: relative;
 }
+
 .head span:first-of-type {
     position: absolute;
     top: 14px;
@@ -117,6 +122,7 @@
     height: 40px;
     width: 40px;
 }
+
 .head span:first-of-type::before {
     content: url('/array_left.svg');
     width: 20px;
@@ -125,6 +131,7 @@
     top: 10px;
     left: 10px;
 }
+
 .await {
     text-align: center;
     padding-top: 50px;
@@ -133,12 +140,13 @@
     left: calc(50% - 70px);
 
 }
+
 .goodorder {
     width: 100%;
     text-align: center;
     max-width: 500px;
     position: absolute;
-    top: 0;    
+    top: 0;
     height: 100%;
     color: #fff;
     background-color: #3D4EEA;
@@ -147,33 +155,41 @@
     background-size: 69px 48px;
     padding-top: 104px;
 }
-.goodorder h6, .goodorder h1, .goodorder h4, .goodorder h3 {
+
+.goodorder h6,
+.goodorder h1,
+.goodorder h4,
+.goodorder h3 {
     color: #fff;
     text-align: center;
     line-height: 17px;
 }
+
 .goodorder a {
     width: calc(100% - 64px);
-    height: 46px;   
+    height: 46px;
     display: block;
     line-height: 46px;
     font-weight: 500;
     margin: 16px auto;
     background: #FFFFFF;
     border-radius: 6px;
-    color:#3D4EEA;
+    color: #3D4EEA;
 }
+
 .goodorder h1 {
     font-size: 32px;
     line-height: 41px;
     margin-bottom: 16px;
 }
+
 .goodorder h3 {
     margin: 0 0 160px;
 }
+
 .goodorder h6 {
     position: absolute;
-    top: calc( 100vh - 24px);
+    top: calc(100vh - 24px);
     font-weight: 500;
     width: 100%;
     cursor: pointer;

@@ -11,6 +11,7 @@
     overflow-x: auto;   
     width: calc(100% - 32px);
     margin: 24px auto;
+    height: 27px;
 }
 .all_cat {
     width: max-content;

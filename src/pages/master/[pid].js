@@ -39,8 +39,7 @@ const Master = () => {
 
 
     useEffect(() => {
-        const { pathname } = window.location
-        console.log('Master', pid, pathname.replace('/master/', ''))
+        const { pathname } = window.location        
         if (master) {
             setProfile(master[0])
         } else {
@@ -103,7 +102,7 @@ const Master = () => {
                         {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
                             .map(i => <span key={i} onClick={() => setNavView(i)} style={nav_view === i ? { ...active, backgroundColor: profile.color[1] } : null}>{i}</span>)}
                     </nav>
-                    {nav_view === 'Отзывы' ? <Reviews nikname={profile.nikname} color={profile.color} /> : null}
+                    {nav_view === 'Отзывы' ? <Reviews nikname={pid} color={profile.color} /> : null}
                     {nav_view === 'Услуги' ? <Services name={pid} color={profile.color} /> : null}
                     {nav_view === 'Лента' ? <Lenta nikname={pid} color={profile.color} /> : null}
                     {nav_view === 'Сертификаты' ? <Sertificats nikname={pid} /> : null}

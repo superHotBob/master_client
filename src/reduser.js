@@ -8,13 +8,17 @@ const initialState = {
   profile: {},
   order: {},
   service: 'маникюр',
-  location: [53.902735522030426, 27.561771682326416]
+  location: [53.902735522030426, 27.561771682326416],
+  message: ''
 }
 
 export const counterSlice = createSlice({
   name: 'counter',
   initialState,
   reducers: {
+    setmessage: (state,action) => {
+      state.message = action.payload
+    },
     setservice: (state,action) => {
       state.service = action.payload
     },
@@ -43,6 +47,6 @@ export const counterSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setclient, setlocation,setmaster, setcity, setnikname, setprofile,setorder,setservice } = counterSlice.actions
+export const { setclient, setmessage, setlocation,setmaster, setcity, setnikname, setprofile,setorder,setservice } = counterSlice.actions
 
 export default counterSlice.reducer

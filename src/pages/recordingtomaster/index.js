@@ -22,8 +22,8 @@ export default function Recording() {
     const [active_category, set_Active_Category] = useState()
     const [orders, addOrder] = useState([])
     const [count, setCount] = useState([])
-   
-   
+
+
     useEffect(() => {
         const queryString = window.location.search;
         const urlParams = new URLSearchParams(queryString)
@@ -99,16 +99,15 @@ export default function Recording() {
                         )}
                     </div>
                 </div>
-                <section>
-                    {filterServices?.map((i, index) =>
-                        <div key={index}
-                            className={orders.includes(i) ? styles.active_service : styles.service}
-                            onClick={() => AddOrder(i)}
-                        >
-                            {i.split(':').map((a, index) => <span key={index}>{a}{' '}{index ? 'BYN' : ""}</span>)}
-                        </div>
-                    )}
-                </section>
+                {filterServices?.map((i, index) =>
+                    <div key={index}
+                        className={orders.includes(i) ? styles.active_service : styles.service}
+                        onClick={() => AddOrder(i)}
+                    >
+                        {i.split(':').map((a, index) => <span key={index}>{a}{' '}{index ? 'BYN' : ""}</span>)}
+                    </div>
+                )}
+
 
             </>
                 :

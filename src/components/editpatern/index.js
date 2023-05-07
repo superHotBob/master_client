@@ -44,7 +44,7 @@ export default function EditPatern({view,color,setView,old_patern,nikname}) {
                 'Content-Type': 'application/json',
             },
             method: 'POST',
-        }).then(res=>{
+        }).then(()=>{
             setMessage(true)
             setTimeout(()=>setMessage(false),3000)
         })
@@ -57,7 +57,7 @@ export default function EditPatern({view,color,setView,old_patern,nikname}) {
                 document.getElementsByTagName('input')[b - 1].focus()
             }
         }       
-    };
+    }
     function Number(a, b) {
        
        if(!isNaN(a)) {        
@@ -70,8 +70,7 @@ export default function EditPatern({view,color,setView,old_patern,nikname}) {
                  
     }
     return (
-        <main className={!view ? styles.mainpatern : styles.mainnew}>
-            
+        <main className={!view ? styles.mainpatern : styles.mainnew}>            
                 <header className={styles.header} style={{ color: color[1] }}>
                     <Menu_icon type="arrow_button" color={color[1]} setView={()=>setView(false)} />
                     <h4>Шаблон времени</h4>
@@ -104,6 +103,7 @@ export default function EditPatern({view,color,setView,old_patern,nikname}) {
                     <div className={styles.time} style={{backgroundColor: color[2], color: '#000' }}>
                         <input 
                             type="text" 
+                            autoFocus
                             onKeyDown={(e)=>handleKeyDown(e,0)} 
                             pattern="[0-1]*"                         
                             inputMode='numeric' 

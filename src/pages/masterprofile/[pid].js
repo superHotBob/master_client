@@ -32,10 +32,10 @@ export default function Client() {
 
     useEffect(() => {
         const pro = JSON.parse(localStorage.getItem('profile'))
-        async function GetSertificats() {
+        function GetSertificats() {
             fetch(`${url}getlists?dir=${pro.nikname}`)
-                .then(res => res.json())
-                .then(res => setlists(res))
+            .then(res => res.json())
+            .then(res => setlists(res))
         }
         GetSertificats()
         setProfile(pro)

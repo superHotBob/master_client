@@ -31,7 +31,7 @@ export default function Calendar() {
     const [message, setMessage] = useState(false)
     const [profile, setProfile] = useState()
     const year = new Date().getFullYear()
-    const day = new Date(year, month - 1, 1)    
+    const day = new Date(year, month - 1, 1)
     let v = days.indexOf(days[day.getDay() - 1])
 
     useEffect(() => {
@@ -39,9 +39,9 @@ export default function Calendar() {
         setProfile(pro)
         fetch(`/api/get_patern?nikname=${pro.nikname}`)
             .then(res => res.json())
-            .then(res => setPatern(res))
+            .then(data => setPatern(data))
 
-    }, [])
+    }, [view])
     useEffect(() => {
         let current_month = my_months[month].toLocaleLowerCase()
         let pro = JSON.parse(localStorage.getItem("profile"))
@@ -83,7 +83,6 @@ export default function Calendar() {
     function SetActiveDay(a) {
         setActive_Day(mnt[a - 1])
         setActive_Num(a)
-        console.log(mnt[a - 1])
     }
     function SetActiveTime(a) {
         if (!active_num) { return 0 }
@@ -128,10 +127,11 @@ export default function Calendar() {
                 <Menu_icon type="arrow" color={profile.color[1]} />
                 <h4>Календарь работы</h4>
                 <span onClick={SaveSchedule}>Сохранить</span>
-            </header> : null}
+            </header> : 
+        null}
         <section className={styles.section}>
             <Message text={`Выбирайте дни и время, вы которые вы готовы
-                        принимать клиентов. При записи елиен  сможет
+                        принимать клиентов. При записи клиент  сможет
                         выбрать только те дни и время, которые 
                         вы указали рабочим.
                     `} color={profile?.color}
@@ -149,22 +149,22 @@ export default function Calendar() {
             </dialog>
             <div className={styles.days}>
                 {Array.from({ length: v }, (v, i) => i + 1).map(i => <span key={i} style={{ opacity: 0 }}>{i}</span>)}
-               
-                    {Array.from({ length: all_days.getDate() }, (v, i) => i + 1)
-                        .map((i, index) =>
-                            <span
-                                onClick={() => SetActiveDay(i)}
-                                key={i}
-                                id={i}
-                                style={active_num == i ? { backgroundColor: profile?.color[1], color: '#fff' } : { backgroundColor: profile?.color[2], color: profile?.color[1] }}
-                            >{i}
-                                <b
-                                    className={styles.count}
-                                    style={{ backgroundColor: profile?.color[1], color: profile?.color[2], display: Count(index) ? 'inline-block' : 'none' }}
-                                >{Count(index)}</b>
 
-                            </span>
-                        )}
+                {Array.from({ length: all_days.getDate() }, (v, i) => i + 1)
+                    .map((i, index) =>
+                        <span
+                            onClick={() => SetActiveDay(i)}
+                            key={i}
+                            id={i}
+                            style={active_num == i ? { backgroundColor: profile?.color[1], color: '#fff' } : { backgroundColor: profile?.color[2], color: profile?.color[1] }}
+                        >{i}
+                            <b
+                                className={styles.count}
+                                style={{ backgroundColor: profile?.color[1], color: profile?.color[2], display: Count(index) ? 'inline-block' : 'none' }}
+                            >{Count(index)}</b>
+
+                        </span>
+                    )}
             </div>
             <p>Время для записи</p>
             <div className={styles.time}>
@@ -181,11 +181,8 @@ export default function Calendar() {
                 )}
             </div>
             <div className={styles.button} style={{ backgroundColor: profile?.color[2], color: profile?.color[1] }} onClick={() => setView(true)}>
-
                 Редактировать шаблон времени +
-
             </div>
-
         </section>
         {view ?
             <EditPatern
@@ -194,10 +191,9 @@ export default function Calendar() {
                 color={profile.color}
                 old_patern={patern}
                 nikname={profile.nikname}
-            /> : null}
-        <div>
-
-        </div>
+            /> : null
+        }
+       
 
     </>
 

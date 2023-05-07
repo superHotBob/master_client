@@ -2,11 +2,12 @@
     align-items: center;
     height: 100vh;
     position: relative;
-    max-width: 500px;   
+    max-width: 500px;
     width: 100%;
     overflow: auto;
     z-index: 110;
 }
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -19,6 +20,7 @@
     margin: 0 auto;
     max-width: 500px;
 }
+
 .header span {
     color: inherit;
     font-weight: 500;
@@ -37,18 +39,20 @@
     font: 600 16px/26px 'Rbik', sans-serif;
     margin: 26px 0 12px;
 }
-.mounth {    
+
+.mounth {
     display: flex;
-    justify-content: space-between; 
-    margin: 20px 0 5px;   
+    justify-content: space-between;
+    margin: 20px 0 5px;
 }
 
 
 .mounth span {
     display: inline-block;
-    width: fit-content;   
+    width: fit-content;
     font-weight: 400;
     color: #d0d0d0;
+    cursor: pointer;
 }
 
 .week span {
@@ -60,6 +64,7 @@
     margin: 0 auto;
     text-align: center;
 }
+
 .message {
     position: absolute;
     top: 350px;
@@ -70,27 +75,29 @@
     border: none;
     font-weight: 500;
     background: #FFFFFF;
-/* Shadow laer */
-
-box-shadow: 0px -4px 30px rgba(0, 0, 0, 0.25);
-border-radius: 8px;
+    box-shadow: 0px -4px 30px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
     text-align: center;
 }
+
 .week {
     display: grid;
-    grid-template-columns: auto auto auto auto auto auto auto;    
+    grid-template-columns: auto auto auto auto auto auto auto;
 }
 
 .days {
     display: grid;
-    grid-template-columns: auto auto auto auto auto auto auto;    
+    grid-template-columns: auto auto auto auto auto auto auto;
     justify-content: space-between;
     gap: 8px;
 }
+
 .week span::first-letter {
     text-transform: capitalize;
 }
-.days span, .time span {
+
+.days span,
+.time span {
     color: #fff;
     cursor: pointer;
     height: 11vw;
@@ -106,14 +113,17 @@ border-radius: 8px;
     border-radius: 8px;
     font-size: 14px;
 }
+
 .days span {
     width: 11vw;
     max-width: 60px;
-    position: relative;   
+    position: relative;
 }
+
 .time span {
     height: 40px;
 }
+
 .count {
     position: absolute;
     top: -5px;
@@ -125,14 +135,16 @@ border-radius: 8px;
     height: 18px;
     line-height: 18px;
     border-radius: 100%;
-  
-  }
+
+}
+
 .time {
-    display: grid;   
+    display: grid;
     gap: 8px;
-    grid-template-columns: auto auto auto;    
+    grid-template-columns: auto auto auto;
     justify-content: space-between;
 }
+
 .section .button {
     background: #ECEEFD;
     border-radius: 6px;
@@ -146,7 +158,7 @@ border-radius: 8px;
     margin: 24px auto;
     border: none;
     cursor: pointer;
-   
+
 }
 
 /* .section button span::after {
@@ -155,11 +167,11 @@ border-radius: 8px;
 
 } */
 @media screen and (min-width: 500px) {
-    
+
     .days {
         display: grid;
-        grid-template-columns: auto auto auto auto auto auto auto;    
+        grid-template-columns: auto auto auto auto auto auto auto;
         justify-content: space-between;
-        gap: 8px; 
-    }      
+        gap: 8px;
+    }
 }

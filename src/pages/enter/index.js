@@ -1,7 +1,7 @@
 import Header from '@/components/header'
 import styles from './enter.module.css'
 import { useRouter } from 'next/router'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setprofile } from '@/reduser'
 import PhoneInput from 'react-phone-input-2'
@@ -14,7 +14,7 @@ const url = 'https://masters-client.onrender.com'
 
 
 export default function Enter() {
-    const refPhone = useRef()
+    
     const [phone, setPhone] = useState()
     const dispatch = useDispatch()
     const router = useRouter()

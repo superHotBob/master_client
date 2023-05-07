@@ -144,9 +144,9 @@ export default function SelectDate({ name, price, order, close, nikname }) {
             <h3 className={styles.date}>Ближайшие даты</h3>
             <h4 className={styles.month}>{months[month]}</h4>
             <div className={styles.all_days}>
-                <div className={styles.left} onClick={() => Next(-1)}/>
+                {/* <div className={styles.left} onClick={() => Next(-1)}/> */}
                 <div className={styles.days}>
-                    {Array.from({ length: Math.ceil(all_days.getDate() / 2) }, (v, i) => i + 1 + month_one * Math.trunc(all_days.getDate() / 2))
+                    {Array.from({ length: Math.ceil(all_days.getDate()) }, (v, i) => i + 1 + month_one * Math.trunc(all_days.getDate() / 2))
                         .map(i =>
                             <span
                                 onClick={() => Set_Active_Day(i)}
@@ -156,7 +156,7 @@ export default function SelectDate({ name, price, order, close, nikname }) {
                             >{i}</span>
                         )}
                 </div>
-                <div className={styles.right} onClick={() => Next(1)}/>
+                {/* <div className={styles.right} onClick={() => Next(1)}/> */}
             </div>
             <h3 className={styles.date}>Свободное время</h3>
             <div className={styles.time}>

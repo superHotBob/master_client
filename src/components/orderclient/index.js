@@ -68,7 +68,7 @@ export default function ClientOrder({ order, active, close }) {
                         <Link href={'/master/' + order.master} style={{ color: '#3D4EEA' }}>{order.master_name || order.master}{' '}</Link>({order.master})
                     </h5>
                     <h5>Дата и время</h5>
-                    <span>{order.date_order.replace(',', " ").replace(',', " в ") + ':00'}</span>
+                    <span>{order.date_order.replace(',', " ").replace(',', " в ")}</span>
                     <h5>Услуги и стоимость</h5>
                     <span>{order.text}</span>
                     <span>Стоимость {order.price} BYN</span>

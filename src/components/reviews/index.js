@@ -16,7 +16,7 @@ export default function Reviews({nikname,color}) {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                // The method is POST because we are sending data.
+              
                 method: 'get',
             })           
             const result = await response.json()                

@@ -1,4 +1,5 @@
 import '../styles/globals.css'
+import styles from '../styles/Home.module.css'
 import { Rubik } from 'next/font/google'
 import { store } from '../store'
 import { Provider } from 'react-redux'
@@ -6,6 +7,7 @@ import Head from 'next/head'
 import localFont from 'next/font/local'
 import Navi from '@/components/navi'
 import { useRouter } from 'next/router'
+
 
 const myFont = localFont({ src: [{path: '../../fonts/DelaGothicOne-Regular.ttf',display: 'block'}] })
 const rubik = Rubik({
@@ -15,7 +17,7 @@ const rubik = Rubik({
 const my_path = ['addlist','calendar','master','masterprofile','city','masternear','chat','editprofile','addmasterorder']
 export default function MyApp({ Component, pageProps }) {  
   const router = useRouter()
-  
+ 
   return (
     <Provider store={store}>      
         <Head>
@@ -32,7 +34,7 @@ export default function MyApp({ Component, pageProps }) {
             content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover'
           />
         </Head>
-        <main className={rubik.className}>     
+        <main className={rubik.className}>       
         <Component {...pageProps} className={myFont.className}/>
         {my_path.includes(router.asPath.replace('/','')) ? null : <Navi /> }
       </main>

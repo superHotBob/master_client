@@ -77,6 +77,7 @@
   border-top-left-radius: 8px;
 }
 
+
 .toprofilemaster {
   height: 46px;
   display: block;
@@ -125,7 +126,6 @@
   color: #282828;
   padding: 4px 1rem 0;
 }
-
 @media screen and (min-width: 500px) {
   .main {
     height: auto;
