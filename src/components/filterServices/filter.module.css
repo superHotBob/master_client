@@ -73,6 +73,11 @@
   line-height: 27px;
   border: 1.5px solid #000;
   border-radius: 5px;
+  cursor: pointer;
+}
+.all__filter__data b:hover {
+  background-color: #8B95F2;
+  border: 1.5px solid #8B95F2;
 }
 .all__filter__data b::first-letter {
   text-transform: capitalize;

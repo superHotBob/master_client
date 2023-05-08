@@ -178,6 +178,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 16px;
 }
 .lenta_image {
   width: 49%;

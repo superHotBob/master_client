@@ -7,7 +7,7 @@ import arrow_down from '../../../public/arrow_down.svg'
 import { useSelector, useDispatch } from 'react-redux'
 import { setmaster, setservice } from '@/reduser'
 import { useState, useEffect } from 'react'
-import { YMaps, Map, Placemark, useYMaps } from '@pbe/react-yandex-maps'
+import { YMaps, Map, Placemark, Clusterer } from '@pbe/react-yandex-maps'
 import Script from 'next/script'
 import FilterServices from '@/components/filterServices'
 import Message from '@/components/message'
@@ -22,10 +22,10 @@ const sel = {
 
 export default function MasterNear() {
     const router = useRouter()
-    const my_sel = router.query.sel   
+    const my_sel = router.query.sel
     const my_city = useSelector((state) => state.counter.city)
     const service = useSelector((state) => state.counter.service)
-    const loc = useSelector((state=>state.counter.location))
+    const loc = useSelector((state => state.counter.location))
     const dispatch = useDispatch()
     const [selector, setSelector] = useState('list')
     const [viewFilter, setViewFilter] = useState(false)
@@ -33,33 +33,32 @@ export default function MasterNear() {
     const [master, selectMaster] = useState()
     const [masters, setMasters] = useState()
     const [filter_masters, setFilterMasters] = useState()
-    
-   
 
-   
+
+
+
     function ViewMaster(a, b) {
         selectMaster(a)
         setFilter(b)
     }
     useEffect(() => {
-        setSelector(my_sel)            
+        setSelector(my_sel)
         setMasters()
-        async function GetMasters() {
-            const response = await fetch('/api/all_masters_city?' + new URLSearchParams({
-                city: my_city.toLowerCase(),
-                service: my_sel ? service.toLowerCase() : null
-            }),{ next: { revalidate: 100 } })
-            const result = await response.json()
-            setMasters(result)
-            let mast = result.filter(i => i.services.includes(service.toLowerCase()) ? i : null)
-            setFilterMasters(mast)
-        }
-        GetMasters()
+        fetch('/api/all_masters_city?' + new URLSearchParams({
+            city: my_city.toLowerCase(),
+            service: my_sel ? service.toLowerCase() : null
+        }), { next: { revalidate: 100 } })
+            .then(res => res.json())
+            .then(data => setMasters(data))
+        // let mast = result.filter(i => i.services.includes(service.toLowerCase()) ? i : null)
+        // setFilterMasters(mast)
+
+
     }, [service])
 
     useEffect(() => {
         setFilterMasters(masters)
-       
+
         if (masters) {
             let mast = masters.filter(i => i.services.includes(service.toLowerCase()) ? i : null)
             setFilterMasters(mast)
@@ -69,7 +68,7 @@ export default function MasterNear() {
         } else {
         }
     }, [selector])
-   
+
 
     const getZoom = () => {
         if (Map.current) {
@@ -88,9 +87,9 @@ export default function MasterNear() {
         }
     }
 
-    function ViewNewMaster(a) {       
+    function ViewNewMaster(a) {
         router.push(`/master/${a}`)
-        let master = masters.filter(i=>i.nikname === a)
+        let master = masters.filter(i => i.nikname === a)
         dispatch(setmaster(master))
     }
 
@@ -112,10 +111,10 @@ export default function MasterNear() {
 
             <Header sel="/catalog" text="Мастера рядом " />
             <div className={styles.message}>
-            <Message text={` Masters.place позволяет познакомиться  с 
+                <Message text={` Masters.place позволяет познакомиться  с 
                     мастерами вашего города. Для этого нужно выбрать 
                     ваш город, что бы увидеть список мастеров.
-                `} /> 
+                `} />
             </div>
             <Link className={styles.city} href='/city'>Ваш город {my_city}</Link>
             <div className={styles.selector}>
@@ -125,8 +124,8 @@ export default function MasterNear() {
             {selector === 'list' ?
                 <section className={styles.section} >
                     <FilterServices />
-                    {filter_masters?.map(i =>
-                        <div key={i.name} className={styles.master} onClick={()=>ViewNewMaster(i.nikname)}>
+                    {masters?.filter(i => i.services.includes(service.toLowerCase()) ? i : null).map(i =>
+                        <div key={i.name} className={styles.master} onClick={() => ViewNewMaster(i.nikname)}>
                             <p className={styles.name_stars} >
                                 <span>{i.name}</span>
                                 <span className={styles.pro}>MASTER</span>
@@ -153,14 +152,13 @@ export default function MasterNear() {
 
                         </div> : null}
                     </div>
-                   
-                    <div className={styles.my_map} id="my_map" style={{maxHeight: '500px',width: '100vw',maxWidth: '500px'}}>
+
+                    <div className={styles.my_map} id="my_map" style={{ maxHeight: '500px', width: '100vw', maxWidth: '500px' }}>
                         <YMaps>
                             <Map id="mymap"
-                                // modules={["coordSystem.geo","SuddestView"]}
-                                // options={{  center : [52.098208, 23.760049]}}
+
                                 state={{
-                                    center: master ? masters?.filter(i => i.nikname === master)[0].locations : loc   ,
+                                    center: master ? masters?.filter(i => i.nikname === master)[0].locations : loc,
                                     zoom: master ? 14 : filter,
                                     behaviors: ["default", "scrollZoom"]
                                 }}
@@ -175,43 +173,50 @@ export default function MasterNear() {
                                 onClick={() => getZoom()}
                                 onWheel={() => setFilter(Map.current.getZoom())}
                             >
-
-                                {masters?.map(i => <Placemark geometry={i.locations} key={i.id}
-                                    modules={
-                                        ['geoObject.addon.balloon', 'geoObject.addon.hint']
-                                    }
-                                    properties={{
-                                        hintContent: i.name,
-                                        preset: "twirl#blueStretchyIcon",
-                                        strokeColor: 'blue'
-                                    }}
+                                <Clusterer
                                     options={{
-                                        iconLayout: 'default#image',                                        
-                                        iconImageHref: filter > 12 ? url + 'var/data/' + i.nikname + '/main.jpg' : '/master1.svg',
-                                        iconImageSize: [40, 40],
-                                        
+                                        preset: "islands#invertedVioletClusterIcons",
+                                        groupByCoordinates: false,
                                     }}
+                                >
 
-                                    onClick={() => ViewMaster(i.nikname, 14)}
+                                    {masters?.map(i => <Placemark geometry={i.locations} key={i.id}
+                                        modules={
+                                            ['geoObject.addon.balloon', 'geoObject.addon.hint']
+                                        }
+                                        properties={{
+                                            hintContent: i.name,
+                                            preset: "twirl#blueStretchyIcon",
+                                            strokeColor: 'blue'
+                                        }}
+                                        options={{
+                                            iconLayout: 'default#image',
+                                            iconImageHref: filter > 12 ? url + 'var/data/' + i.nikname + '/main.jpg' : '/master1.svg',
+                                            iconImageSize: [40, 40],
 
-                                />)}
+                                        }}
+
+                                        onClick={() => ViewMaster(i.nikname, 14)}
+
+                                    />)}
+                                </Clusterer>
                             </Map>
                         </YMaps>
                     </div>
                 </section>}
             {master ? <section className={styles.section}>
                 <Image alt="close" className={styles.close} src={arrow_down} width={25} height={25} onClick={() => ViewMaster('', 11)} />
-                {masters?.filter(i => i.nikname === master).map(i => 
-                <Link key={i.nikname} className={styles.master} href={`/master/${i.nikname}`} >                                     
-                    <p style={{ width: '75%' }}>
-                        <b>{i.name}</b> {'  '}
-                        <span className={styles.pro}>MASTER</span>
-                        {i.stars ? <span className={styles.stars}>{i.stars}</span>:null}
-                    </p>
-                    <h4>{i.address}</h4>
-                    <h5>{i.services.map(a => <span key={a} className={styles.service}>{a}</span>)}</h5>
-                    <Image src={i.image ? url + 'var/data/' + i.nikname + '/main.jpg' : '/camera_wh.svg'} width={60} height={60} alt="image" />
-                </Link>)}
+                {masters?.filter(i => i.nikname === master).map(i =>
+                    <Link key={i.nikname} className={styles.master} href={`/master/${i.nikname}`} >
+                        <p style={{ width: '75%' }}>
+                            <b>{i.name}</b> {'  '}
+                            <span className={styles.pro}>MASTER</span>
+                            {i.stars ? <span className={styles.stars}>{i.stars}</span> : null}
+                        </p>
+                        <h4>{i.address}</h4>
+                        <h5>{i.services.map(a => <span key={a} className={styles.service}>{a}</span>)}</h5>
+                        <Image src={i.image ? url + 'var/data/' + i.nikname + '/main.jpg' : '/camera_wh.svg'} width={60} height={60} alt="image" />
+                    </Link>)}
             </section> : null}
 
         </div >

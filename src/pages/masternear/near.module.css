@@ -8,13 +8,14 @@
   min-height: 100vh;
   padding-bottom: 50px;
 }
+
 .message {
   width: calc(100% - 32px);
   margin: 16px auto 0;
 }
 
 .city {
-  
+
   color: hsl(234, 80%, 58%);
   margin: 16px auto 24px;
   cursor: pointer;
@@ -23,7 +24,7 @@
   display: block;
   width: calc(100% - 32px);
   font-weight: 600;
-  font-size:  22px;
+  font-size: 22px;
 }
 
 .section {
@@ -32,7 +33,7 @@
 
 .selector {
   font-weight: 500;
-  font-size:  14px;
+  font-size: 14px;
   line-height: 17px;
   display: flex;
   justify-content: space-around;
@@ -50,7 +51,9 @@
   border-radius: 4px;
   padding: 5px;
   text-align: center;
+  cursor: pointer;
 }
+
 .master {
   background-color: #FFFFFF;
   padding: 10px;
@@ -60,6 +63,7 @@
   border-radius: 12px;
   margin: 8px 0 0;
 }
+
 .my_map canvas {
   margin-top: 20px;
   filter: grayscale(100%) !important;
@@ -68,28 +72,32 @@
 .my_map div div {
   filter: grayscale(100%) !important;
 }
+
 .my_map div.ymaps-2-1-79-map-copyrights-promo {
   height: 0;
 }
-.name_stars{ 
+
+.name_stars {
   display: flex;
   justify-content: left;
-  align-items: center; 
+  align-items: center;
   flex-wrap: wrap;
   padding-right: 70px;
   cursor: pointer;
 }
+
 .name_stars span:first-of-type {
   font-size: 1em;
   line-height: 1.5em;
   font-weight: 500;
-  
+
 }
+
 .pro {
   margin: 0 5px;
   background: linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%);
-  border-radius: 4px; 
-  font-size: 12px; 
+  border-radius: 4px;
+  font-size: 12px;
   font-weight: 500;
   padding: 2px 8px;
   color: #fff;
@@ -99,12 +107,12 @@
 .stars {
   background-image: url('/star-small.svg');
   background-position: 88% center;
-  background-size: 35%; 
+  background-size: 35%;
   width: 47px;
   font-size: 12px;
   font-weight: 400;
   line-height: 16px;
-  vertical-align: middle;  
+  vertical-align: middle;
   color: #3D4EEA;
   background-color: #ECEEFD;
   border-radius: 4px;
@@ -142,9 +150,11 @@
   font-size: 12px;
   line-height: 12px;
 }
+
 .master h5 span {
   display: inline-block;
 }
+
 .master h5 span::first-letter {
   text-transform: uppercase;
 }
@@ -162,8 +172,8 @@
   color: #8B95F2;
   overflow: hidden;
   font-weight: 500;
-  font-size:  14px;
-  line-height:  27px;
+  font-size: 14px;
+  line-height: 27px;
 }
 
 .main__filter span:last-of-type {
@@ -204,15 +214,17 @@
 .all__filter h6 {
   margin: 10px 15px 0;
   text-align: right;
-  
+
 }
+
 .all__filter h6::after {
   content: url('/close.svg');
   transform: translate(-8px, 1px);
   display: inline-block;
- 
+
   cursor: pointer;
 }
+
 .all__filter h6::after:hover {
   border: 1px solid #3D4EEA;
 }
@@ -231,7 +243,7 @@
   color: #000;
   margin: 3px;
   font-weight: 700;
-  font-size:  14px;
+  font-size: 14px;
   line-height: 27px;
   border: 1.5px solid #000;
   border-radius: 5px;
@@ -252,13 +264,40 @@
   margin: 15px auto 30px;
   display: block;
 }
+
+.range::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 15px;
+  background-color: #8B95F2;
+  border-radius: 2px;
+}
+input[type=range].range::-moz-range-thumb {
+  background: #3D4EEA;
+  appearance: none;
+  
+  cursor: pointer;  
+}
+input[type=range].range::-webkit-slider-thumb  {
+  appearance: none;
+  background: #3D4EEA;
+ 
+  cursor: pointer;  
+}
+input[type=range].range::-ms-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+ 
+  cursor: pointer;
+}
+
+
 .city {
   color: #3D4EEA;
   background: #ECEEFD;
   border-radius: 6px;
   font-weight: 500;
   font-size: 16px;
-  
+
   line-height: 46px;
   letter-spacing: 0px;
   text-align: center;
