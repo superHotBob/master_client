@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import { usePathname } from 'next/navigation'
 import Head from 'next/head'
 import styles from './master.module.css'
 import Image from 'next/image'
@@ -31,14 +32,15 @@ const Master = () => {
     const [profile, setProfile] = useState(null)
     const [mapview, setmapview] = useState(false)
     const router = useRouter()
-    const { pid } = router.query
+    const { slug } = router.query
 
     const dispatch = useDispatch()
     const my_profile = useSelector(state => state.counter.profile)
     const master = useSelector(state => state.counter.master)
-
+    
 
     useEffect(() => {
+        console.log('Pid',slug)
         const { pathname } = window.location        
         if (master) {
             setProfile(master[0])
@@ -59,12 +61,12 @@ const Master = () => {
     }
     return (
         <main className={styles.main}>
-            <Head><title>{pid}</title></Head>
+            <Head><title>{slug}</title></Head>
             {profile ? <>
-                <Header text={pid} sel='back' color={profile?.color} />
+                <Header text={slug} sel='back' color={profile?.color} />
                 <section className={styles.section}>
                     <div className={styles.image} style={{ background: profile.color[0] }}>
-                        <Image src={url + 'var/data/' + pid + '/main.jpg'} alt="profile img" height={105} width={105} />
+                        <Image src={url + 'var/data/' + slug + '/main.jpg'} alt="profile img" height={105} width={105} />
                     </div>
                     <p className={styles.name_stars}>
                         <span>{profile.name}</span>
@@ -83,11 +85,11 @@ const Master = () => {
                                 Сообщения
                                 <Menu_icon type="chat" color={profile.color[1]} />
                             </span>
-                        </Link>
+                        </Link>    
                         <Link
                             href={{
                                 pathname: my_profile.status === 'client' ? '/recordingtomaster' : '/error',
-                                query: { nikname: pid, name: profile.name },
+                                query: { nikname: slug, name: profile.name },
                             }}
                             style={{ backgroundColor: profile.color[2] }}
 
@@ -102,10 +104,10 @@ const Master = () => {
                         {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
                             .map(i => <span key={i} onClick={() => setNavView(i)} style={nav_view === i ? { ...active, backgroundColor: profile.color[1] } : null}>{i}</span>)}
                     </nav>
-                    {nav_view === 'Отзывы' ? <Reviews nikname={pid} color={profile.color} /> : null}
-                    {nav_view === 'Услуги' ? <Services name={pid} color={profile.color} /> : null}
-                    {nav_view === 'Лента' ? <Lenta nikname={pid} color={profile.color} /> : null}
-                    {nav_view === 'Сертификаты' ? <Sertificats nikname={pid} /> : null}
+                    {nav_view === 'Отзывы' ? <Reviews nikname={slug} color={profile.color} /> : null}
+                    {nav_view === 'Услуги' ? <Services name={slug} color={profile.color} /> : null}
+                    {nav_view === 'Лента' ? <Lenta nikname={slug} color={profile.color} /> : null}
+                    {nav_view === 'Сертификаты' ? <Sertificats nikname={slug} /> : null}
                     {mapview ? <Location loc_master={profile.locations} close={setmapview} /> : null}
                 </section>
                 <Navi color={profile.color[0]} />

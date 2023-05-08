@@ -194,12 +194,12 @@ export default function AddService({ view, setView, color }) {
                     <div className={styles.button_add} style={{ backgroundColor: color[2], color: color[1] }}>
                         <p onClick={() => SetAddUsluga(i[0])} style={{ cursor: 'pointer', color: color[1] }}>Добавить услугу +</p>
                         {addUsluga[0] === i[0] ?
-                            <h5 className={styles.inputs__new__services} >
-                                <input style={{ borderColor: color[1], color: color[1] }} ref={serv} type="text" maxLength={30} placeholder='Название услуги' />
-                                <input style={{ borderColor: color[1], color: color[1] }} ref={cost} type="text" placeholder='Цена' pattern="[0-9]*" inputMode='numeric' required />
+                            <h5 className={styles.inputs__new__services} style={{color:color[1]}}>
+                                <input autoFocus style={{ borderColor: color[1]}} ref={serv} type="text" maxLength={30} placeholder='Название услуги' />
+                                <input style={{ borderColor: color[1]}} ref={cost} type="text" placeholder='Цена' pattern="[0-9]*" inputMode='numeric' required />
                                 <b style={{ color: color[1] }}>{profile.currency}</b>
                                 <span
-                                    style={{ color: color[2], backgroundColor: color[1] }}
+                                    style={{backgroundColor: color[1] }}
                                     onClick={() => SaveNewService(i, b)}>
                                     Добавить
                                 </span>

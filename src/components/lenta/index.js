@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import arrow_down from '../../../public/arrow_down.svg'
 import { useEffect, useState } from 'react'
+import useSWR from 'swr'
 const text = (` Ищу модель, что бы протестировать китайскую 
     косметику на юнном теле. 
     Есть вероятность, что она низкого качества. 
@@ -31,14 +32,11 @@ const url = 'https://masters-client.onrender.com/'
 export default function Lenta({color={},nikname}) {
     
     const [model, setViewText] = useState(false)
-    // useEffect(() => setWidth(window.innerWidth > 500 ? 500 : window.innerWidth),[])
-    const [lists, setlists] = useState()
-
-    useEffect(() => {        
-        fetch(`${url}getlists?dir=${nikname}`)
-        .then(res => res.json())
-        .then(res => setlists(res))       
-    }, [])
+   
+   
+    const fetcher = (...args) => fetch(...args).then(res => res.json())
+    const { data, error, isLoading } = useSWR(`${url}getlists?dir=${nikname}`, fetcher)
+   
     return (
         <main className={styles.main}>          
             <div onClick={() => setViewText(true)} className={styles.model} style={{background: color[0]}}>
@@ -47,12 +45,12 @@ export default function Lenta({color={},nikname}) {
             </div>
             <div className={styles.images}>
                 <div className={styles.part_images}>
-                    {lists?.filter((i, index) => index % 2 ? i : null).map(i =>                       
+                    {data?.filter((i, index) => index % 2 ? i : null).map(i =>                       
                         <img key={i} alt={i} src={url + 'var/data/' + nikname + '/' + i} />                        
                     )}
                 </div>
                 <div className={styles.part_images}>
-                    {lists?.filter((i, index) => index % 2 ? null : i).map(i =>                        
+                    {data?.filter((i, index) => index % 2 ? null : i).map(i =>                        
                         <img key={i} alt={i} src={url + 'var/data/' + nikname + '/' + i}  />                       
                     )}
                 </div>

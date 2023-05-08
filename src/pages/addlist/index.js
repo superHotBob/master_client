@@ -21,14 +21,10 @@ export default function AddList() {
     useEffect(() => {
         const prof = JSON.parse(localStorage.getItem('profile'))
         setnikname(prof.nikname)
-        setColor([...prof.color])
-       
-        async function GetSertificats() {
-            fetch(`${url}/getlists?dir=${prof.nikname}`)
-                .then(res => res.json())
-                .then(res => setlists(res))
-        }
-        GetSertificats()
+        setColor([...prof.color])       
+        fetch(`${url}/getlists?dir=${prof.nikname}`)
+            .then(res => res.json())
+            .then(res => setlists(res))       
     }, [])
     function DeleteSertif(a) {
         fetch(`${url}/deleteslist?name=${nikname}&list=${a}`)

@@ -255,16 +255,17 @@
     position: relative;
 }
 
-.inputs__new__services input::-webkit-input-placeholder {
-    color: inherit;
+.inputs__new__services input::-webkit-input-placeholder {    
     opacity: 0.5;
+}
+.inputs__new__services input {
+    color: inherit;
 }
 
 .inputs__new__services b {
     position: absolute;
     top: 20px;
-    right: 15px;
-    color: #8B95F2;
+    right: 15px;    
 }
 
 

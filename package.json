@@ -24,7 +24,8 @@
     "react-geolocated": "^4.0.3",
     "react-phone-input-2": "^2.15.1",
     "react-range": "^1.8.14",
-    "react-redux": "^8.0.5"
+    "react-redux": "^8.0.5",
+    "swr": "^2.1.5"
   },
   "devDependencies": {
     "@types/next-pwa": "^5.6.2"

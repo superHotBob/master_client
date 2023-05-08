@@ -1,7 +1,7 @@
 import Header from '@/components/header'
 import styles from './calendar.module.css'
 import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
 import Message from '@/components/message'
 import EditPatern from '@/components/editpatern'
 import Menu_icon from '@/components/icons/menu'
@@ -33,9 +33,12 @@ export default function Calendar() {
     const year = new Date().getFullYear()
     const day = new Date(year, month - 1, 1)
     let v = days.indexOf(days[day.getDay() - 1])
-
+    const router = useRouter()
     useEffect(() => {
-        let pro = JSON.parse(localStorage.getItem("profile"))
+        let pro = JSON.parse(localStorage.getItem('profile'))
+        if (!pro) {
+            return  () => router.push('/enter')
+        }
         setProfile(pro)
         fetch(`/api/get_patern?nikname=${pro.nikname}`)
             .then(res => res.json())
@@ -45,6 +48,9 @@ export default function Calendar() {
     useEffect(() => {
         let current_month = my_months[month].toLocaleLowerCase()
         let pro = JSON.parse(localStorage.getItem("profile"))
+        if (!pro) {
+            return  () => router.push('/enter')
+        }
         setActive_Day()
         setActive_Num()
         fetch(`/api/get_schedule?month=${current_month}&nikname=${pro.nikname}`)

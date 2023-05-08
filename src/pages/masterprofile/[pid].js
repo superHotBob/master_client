@@ -32,14 +32,17 @@ export default function Client() {
 
     useEffect(() => {
         const pro = JSON.parse(localStorage.getItem('profile'))
-        function GetSertificats() {
-            fetch(`${url}getlists?dir=${pro.nikname}`)
-            .then(res => res.json())
-            .then(res => setlists(res))
+        if (!pro) {
+           return  () => router.push('/enter')
         }
-        GetSertificats()
-        setProfile(pro)
-        if (pro.status === 'master') {           
+        if (pro.status === 'master') { 
+            function GetSertificats() {
+                fetch(`${url}getlists?dir=${pro.nikname}`)
+                .then(res => res.json())
+                .then(res => setlists(res))
+            }
+            GetSertificats()
+            setProfile(pro)
         } else {
             () => router.push('/enter')
         }
@@ -97,7 +100,7 @@ export default function Client() {
                         <button onClick={()=>setView(false)} className={styles.uslugi_plus} style={{ backgroundColor: profile.color[1] }}>
                         Редактировать категории и услуги
                         </button>
-                        <Services color={profile.color} />
+                        <Services color={profile.color} name={pid} />
                         <AddService  view={view} setView={setView} color={profile.color} />
 
                     </> : null}

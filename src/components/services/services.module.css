@@ -5,7 +5,7 @@
     text-align: center;
     font-size: 16px;
     margin: 16px 0 12px;
-   
+    color: inherit;
 }
 .type::first-letter {
     text-transform: uppercase;
@@ -21,7 +21,10 @@
     border-radius: 4px;
     margin: 8px 0;
     padding: 5px 10px;
-    
+    color: inherit;
+}
+.data div .service span {
+    color: inherit;
 }
 .service span:first-of-type::first-letter {
     text-transform: uppercase;
@@ -35,5 +38,9 @@
 .no_services {
     text-align: center;
     margin: 20px 0;
+}
+.upload__message {
+    margin: 50px auto;
+    text-align: center;
 }
 

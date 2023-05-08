@@ -2,10 +2,11 @@ import styles from './editprofile.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { setprofile } from '@/reduser'
 import Image from 'next/image'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useLayoutEffect } from 'react'
 import arrow from '../../../public/arrow_back.svg'
 import Navi from '@/components/navi'
 import { useGeolocated } from "react-geolocated"
+import { useRouter } from 'next/router'
 
 const active_currency = {
     backgroundColor: '#3D4EEA',
@@ -39,6 +40,7 @@ const url = 'https://masters-client.onrender.com'
 export default function EditProfile() {
     const profile = useSelector(state => state.counter.profile)
     const location = useSelector(state => state.counter.location)
+    const router = useRouter()
 
     const dispatch = useDispatch()
     const [name, setName] = useState('Ваше имя')
@@ -65,15 +67,22 @@ export default function EditProfile() {
         userDecisionTimeout: 5000,
     });
 
-
-    
-    useEffect(() => {     
-    //   if ( coords) { dispatch(setlocation([coords.latitude,coords.longitude])) 
-      console.log(coords?.latitude,coords?.longitude) 
-    }, [coords])
+    useLayoutEffect(()=>{
+        let pro = JSON.parse(localStorage.getItem('profile'))
+            if (!pro) {
+                return  () => router.push('/enter')
+            }
+    },[])
+    // useEffect(() => {     
+    // //   if ( coords) { dispatch(setlocation([coords.latitude,coords.longitude])) 
+    //   console.log(coords?.latitude,coords?.longitude) 
+    // }, [coords])
 
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem('profile'))
+        if (!pro) {
+            return  () => router.push('/enter')
+        }
         const options = {
             method: "POST",
             mode: "cors",
