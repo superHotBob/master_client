@@ -2,11 +2,11 @@ import postgres from "postgres"
 
 export default async function handler(req, res) {
   const sql = postgres(`postgres://bobozeranski:${process.env.DATABASE_API}@ep-yellow-mountain-679652.eu-central-1.aws.neon.tech/neondb?sslmode=require&options=project%3Dep-yellow-mountain-679652`)
-
+  const mon = '%' + req.query.month + '%'   
   const result = await sql`
-  select *
+  select date_order
   from orders
-  where master = ${req.query.nikname} 
+  where master = ${req.query.nikname} and date_order like ${mon}
   `
   if (result.length) {
     res.status(200).json(result)

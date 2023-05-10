@@ -76,8 +76,8 @@
   cursor: pointer;
 }
 .all__filter__data b:hover {
-  background-color: #8B95F2;
-  border: 1.5px solid #8B95F2;
+  background-color: #ECEEFD;
+  border: 1.5px solid #ECEEFD;
 }
 .all__filter__data b::first-letter {
   text-transform: capitalize;

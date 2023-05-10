@@ -12,6 +12,8 @@ import { useGeolocated } from "react-geolocated";
 
 const url = 'https://masters-client.onrender.com/images/'
 const url_two = 'https://masters-client.onrender.com/'
+const url_one = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/geolocate/address"
+const token = "5ff295eebd78a454b8bd3805b29d1eb6daefe31f"
 
 export default function Home() {
   const dispatch = useDispatch() 
@@ -27,9 +29,35 @@ export default function Home() {
     });
   // useEffect(() => {    
   //   if (coords) {
-  //     dispatch(setlocation([coords.latitude, coords.longitude]))      
+  //     dispatch(setlocation([coords.latitude, coords.latitude))      
   //   }
   // }, [coords]) 
+
+  useEffect(()=>{
+    // console.log([coords.latitude, coords.longitude])
+  const options = {
+    method: "POST",
+    mode: "cors",
+    headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        "Authorization": "Token " + token
+    },
+    body: JSON.stringify({ lat: coords?.latitude, lon: coords?.longitude })
+}
+
+async function Location() {
+    await fetch(url_one, options)
+        .then(response => response.json())
+        .then(result => {
+            console.log(result.suggestions[0].data.city)
+           
+        })
+        .catch(error => console.log("error", error));
+}
+Location()
+  },[coords])
+
   
   return (
     <>

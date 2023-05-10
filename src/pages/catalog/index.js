@@ -16,7 +16,7 @@ export default function Catalog() {
 
     function ToService(a) {
         dispatch(setservice(a))
-        router.push(`/masternear?sel=list&service=${a}`)
+        router.push(`/masternear/${a}`)
     }
 
     return (
@@ -41,7 +41,7 @@ export default function Catalog() {
                 <Link href="/catalog/services" className={styles.uslugi}>
                     Все услуги
                 </Link>
-                <Link href="/masternear?sel=map" className={styles.around__masters}>
+                <Link href="/masternear/map" className={styles.around__masters}>
                     Мастера рядом
                 </Link>
                 <h3>Информация</h3>

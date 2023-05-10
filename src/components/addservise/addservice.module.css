@@ -313,4 +313,15 @@
     font-size: 25px;
     font-weight: 500;
     color: red;
+    position: absolute;
+    top: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    width: 300px;
+    height: 100px;
+    left: calc(50% - 150px);
+    border-radius: 8px;
+    box-shadow: 0px 0px 9px #E6E6E6;
 }

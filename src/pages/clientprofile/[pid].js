@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import Header from '@/components/header'
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
+import useSWR from 'swr'
 import { useDispatch } from 'react-redux'
 import ClientOrder from '@/components/orderclient'
 const url = 'https://masters-client.onrender.com'
@@ -15,7 +16,7 @@ const sel = {
 
 const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сетнябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
 
-
+const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 export default function Client() {
     const router = useRouter()
@@ -28,25 +29,25 @@ export default function Client() {
     const [orderIndex, setOrderIndex] = useState()
 
     const close = () => setviewOrder(false)
+    const { data, error, isLoading } = useSWR(`/api/get_orders_client?nikname=${pid}`, fetcher)
+    // useEffect(() => {
+    //     async function GetClientOrders() {
+    //         const response = await fetch(`/api/get_orders_client?nikname=${pid}`, {
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             method: 'get',
+    //         })
+    //         const result = await response.json()
+    //         setOrders(result)            
+    //     }
+    //     if (profile.status) {
+    //         GetClientOrders()
+    //     } else {
+    //         () => router.push('/')
+    //     }
 
-    useEffect(() => {
-        async function GetMaster() {
-            const response = await fetch(`/api/get_orders_client?nikname=${pid}`, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                method: 'get',
-            })
-            const result = await response.json()
-            setOrders(result)            
-        }
-        if (profile.status) {
-            GetMaster()
-        } else {
-            () => router.push('/')
-        }
-
-    }, [])
+    // }, [])
 
     function SetViewOrder(a) {
         setviewOrder(true)
@@ -65,6 +66,7 @@ export default function Client() {
         }
 
     }
+    
     return (
         <main className={styles.main}>
             <Header text={profile.nikname} />
@@ -92,7 +94,7 @@ export default function Client() {
                 </>
                 : 
                 <>
-                    {orders?.map((i, index) =>
+                    {data?.map((i, index) =>
                         <>
                         <div
                             onClick={() => SetViewOrder(index)}

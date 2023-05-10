@@ -44,10 +44,10 @@ export default function EditProfile() {
             text: text,
             old_nikname: profile.nikname
         }
-        if (!file_for_upload) {
-            return setMessage('Необходимо добавить иконку в формате jpg размером не более 20кб. ')
-        }
-        UploadToServer()
+        // if (!file_for_upload) {
+        //     return setMessage('Необходимо добавить иконку в формате jpg размером не более 20кб. ')
+        // }
+        if (file_for_upload) { UploadToServer() }
         fetch('/api/editprofileclient', {
             body: JSON.stringify(data),
             headers: {

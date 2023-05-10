@@ -40,6 +40,7 @@ const Master = () => {
     
 
     useEffect(() => {
+        
         console.log('Pid',slug)
         const { pathname } = window.location        
         if (master) {
@@ -108,7 +109,7 @@ const Master = () => {
                     {nav_view === 'Услуги' ? <Services name={slug} color={profile.color} /> : null}
                     {nav_view === 'Лента' ? <Lenta nikname={slug} color={profile.color} /> : null}
                     {nav_view === 'Сертификаты' ? <Sertificats nikname={slug} /> : null}
-                    {mapview ? <Location loc_master={profile.locations} close={setmapview} /> : null}
+                    {mapview ? <Location nikname={slug} loc_master={profile.locations} close={setmapview} /> : null}
                 </section>
                 <Navi color={profile.color[0]} />
             </> :

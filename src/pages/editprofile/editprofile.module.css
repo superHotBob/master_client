@@ -291,7 +291,7 @@ div.tema {
 .main_tema {
   position: absolute;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background: rgb(40, 40, 40, 0.6);  
   top: 0;
   z-index: 101;
@@ -316,6 +316,7 @@ div.tema {
   border-radius: 4px;
   padding: 4px 6px 4px 6px;
   position: relative;
+  cursor: pointer;
 }
 .select_tema div span {
   color: #fff;
@@ -332,6 +333,7 @@ div.tema {
   content: url('/close.svg');
   display: inline-block;
   transform: translate(10px, 2px);
+  cursor: pointer;
 }
 .selected_tema::before {
   content: url('/check.svg');

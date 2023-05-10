@@ -27,6 +27,7 @@
     border-radius: 4px;
     line-height: 24px;
     margin: 0 1px;
+    cursor: pointer;
 }
 .category span::first-letter {
     text-transform: capitalize;

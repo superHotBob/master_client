@@ -16,9 +16,9 @@ const false_day = {
 
 export default function SelectDate({ name, price, order, close, nikname }) {
    
-    const days = ["вс", "пн", "вт", "ср", "чт", "пт", "суб"]
-    const months = ['Декабрь', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сетнябрь',
-        'Октябрь', 'Ноябрь']
+    const days = ["пн", "вт", "ср", "чт", "пт", "сб","вс"]
+    const months = ['Декабрь', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август',
+        'Сетнябрь','Октябрь', 'Ноябрь']
 
     const d = new Date()
     const mon = d.getMonth()
@@ -34,34 +34,53 @@ export default function SelectDate({ name, price, order, close, nikname }) {
     const [goodorder, setgoodorder] = useState(false)
 
     const [patern, setPatern] = useState([])
+    const [schedule, setSchedule] = useState([])
+    const [orders, setOrders] = useState([])
 
     const all_days = new Date(2023, month, 0)
     const profile = useSelector(state => state.counter.profile)
-
+   
     function MyDate(a) {
         const day = new Date(2023, month - 1, a)
         return a + ' ' + days[day.getDay()]
     }
    
-    async function GetDate() {
-        const response = await fetch(`/api/date_services_master?master=${nikname}`, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            method: 'get',
-        })
-        const result = await response.json()
-        let new_result = result.map(i => i.date_order.split(','))
-        set_false_date(new_result)
-    }
+    // async function GetDate() {
+    //     const response = await fetch(`/api/date_services_master?master=${nikname}`, {
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         method: 'get',
+    //     })
+    //     const result = await response.json()
+    //     let new_result = result.map(i => i.date_order.split(','))
+    //     set_false_date(new_result)
+    // }
 
     useEffect(()=>{
-        let day = d.getDay()
+        let day = d.getDate()
         let all_day = Array.from({length: day}, (v,i)=>i+1)        
-        set_false_days(all_day)
+        set_false_days(all_day)       
         fetch(`/api/get_patern?nikname=${nikname}`)
         .then(res => res.json())
         .then(res => setPatern(res))
+        fetch(`/api/get_schedule?nikname=${nikname}&month=${months[month+1].toLowerCase()}`)
+        .then(res => res.json())
+        .then(data => {
+              
+            fetch(`/api/get_orders_master_month?nikname=${nikname}&month=${months[month+1]}`)
+            .then(res => res.json())
+            .then(res => {
+                let m = res.map(i=>i.date_order.split(','))
+                console.log(m)
+                let new_schedule = [...data]
+                m.forEach(i=> new_schedule[+i[0]-1] = new_schedule[+i[0]-1].split(',').filter(a=>a!==i[2]).join(','))
+                
+                setSchedule(new_schedule)
+                // setOrders(m)
+                console.log(new_schedule)
+            })
+        })    
     },[])
 
 
@@ -114,15 +133,22 @@ export default function SelectDate({ name, price, order, close, nikname }) {
             SaveOrder()
             setSaved(true)
         } else {
-            GetDate()
+            // GetDate()
         }
     }, [order])
-
-    function Set_Active_Day(a) {
-        if (false_days.includes(a)) {
+    function Count(a) {
+        if (schedule[a-1]) {
+            let l = schedule[a-1].split(',').length
+            return l
+        }
+        return 0
+    }
+    function Set_Active_Day(a,b) {
+        if (false_days.includes(a) || b === 0 ) {
             return
         } else {
             setActive_Day(a)
+            setActive_Time()
             // let flsT = false_date.filter(i => i[1] === months[month]).filter(i => +i[0] === a).map(i => +i[2])
             // set_false_time(flsT)
             // console.log(flsT)
@@ -143,17 +169,26 @@ export default function SelectDate({ name, price, order, close, nikname }) {
             </div>
             <h3 className={styles.date}>Ближайшие даты</h3>
             <h4 className={styles.month}>{months[month]}</h4>
+            <div className={styles.week}>
+                {days.map(i => <span key={i}>{i}</span>)}
+            </div>
             <div className={styles.all_days}>
                 {/* <div className={styles.left} onClick={() => Next(-1)}/> */}
                 <div className={styles.days}>
-                    {Array.from({ length: Math.ceil(all_days.getDate()) }, (v, i) => i + 1 + month_one * Math.trunc(all_days.getDate() / 2))
+                    {Array.from({ length: all_days.getDate() }, (v, i) => i + 1)
                         .map(i =>
                             <span
-                                onClick={() => Set_Active_Day(i)}
+                                onClick={() => Set_Active_Day(i, Count(i))}
                                 key={i}
-                                style={active_day === i ? active : (false_days.includes(i) ? false_day : null)}
+                                style={active_day  === i ? active : ( Count(i) === 0 ? false_day : null)}
 
-                            >{i}</span>
+                            >{i}
+                             <b
+                                className={styles.count}
+                                style={{display: Count(i) ? 'inline-block' : 'none' }}
+                            >{Count(i)}</b>
+
+                            </span>
                         )}
                 </div>
                 {/* <div className={styles.right} onClick={() => Next(1)}/> */}
@@ -164,7 +199,8 @@ export default function SelectDate({ name, price, order, close, nikname }) {
                     <span
                         onClick={() => Set_Active_Time(i)}
                         key={i}
-                        style={active_time === i ? active : (false_times.includes(i) ? false_day : { backgroundColor: '#ECEEFD' })}
+                        style={active_time === i ? active  : schedule[active_day-1]?.split(',').includes(i) ? null  : (false_times.includes(i) ? 
+                            false_day : { backgroundColor: '#fff' , border: '1px solid #d0d0d0'})}
                     >
                     {i}
                     </span>

@@ -4,14 +4,14 @@ export default async function handler(req, res) {
   const sql = postgres(`postgres://bobozeranski:${process.env.DATABASE_API}@ep-yellow-mountain-679652.eu-central-1.aws.neon.tech/neondb?sslmode=require&options=project%3Dep-yellow-mountain-679652`)
 
   const result = await sql`
-  select *
-  from orders
-  where master = ${req.query.nikname} 
-  `
-  if (result.length) {
-    res.status(200).json(result)
+        update users 
+        set locations = ${req.body.locations}    
+        where nikname =  ${req.body.nikname}  
+        returning *      
+      `
+  if (result.length > 0) {
+    res.status(200).json(result[0])
   } else {
-    res.json([])
+    res.status(500).json({message:'Error'})
   }
-
 }

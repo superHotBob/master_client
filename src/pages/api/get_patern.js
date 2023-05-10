@@ -5,10 +5,8 @@ export default async function handler(req, res) {
 
   const result = await sql`
         select (patern) 
-        from  schedule
-       
-        where nikname =  ${req.query.nikname}  
-             
+        from  schedule       
+        where nikname =  ${req.query.nikname}              
       `
   if (result.length > 0) {
     res.status(200).json(result[0].patern)

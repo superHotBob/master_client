@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import styles from './near.module.css'
-import arrow_down from '../../../public/arrow_down.svg'
+import arrow_down from '../../../../public/arrow_down.svg'
 import { useSelector, useDispatch } from 'react-redux'
 import { setmaster, setservice } from '@/reduser'
 import { useState, useEffect } from 'react'
@@ -22,9 +22,9 @@ const sel = {
 
 export default function MasterNear() {
     const router = useRouter()
-    const my_sel = router.query.sel
+    // const my_sel = router.query.sel
     const my_city = useSelector((state) => state.counter.city)
-    const service = useSelector((state) => state.counter.service)
+    const service = useSelector((state) => state.counter.service) 
     const loc = useSelector((state => state.counter.location))
     const dispatch = useDispatch()
     const [selector, setSelector] = useState('list')
@@ -33,8 +33,7 @@ export default function MasterNear() {
     const [master, selectMaster] = useState()
     const [masters, setMasters] = useState()
     const [filter_masters, setFilterMasters] = useState()
-
-
+   
 
 
     function ViewMaster(a, b) {
@@ -42,11 +41,16 @@ export default function MasterNear() {
         setFilter(b)
     }
     useEffect(() => {
-        setSelector(my_sel)
+        const {pid } = router.query       
+        setSelector(pid)
         setMasters()
+        // history.replaceState({}, null, service);
+        // window.location.assign(service)
+        // dispatch(setservice(pid))
+       
         fetch('/api/all_masters_city?' + new URLSearchParams({
             city: my_city.toLowerCase(),
-            service: my_sel ? service.toLowerCase() : null
+            service: service?service:pid 
         }), { next: { revalidate: 100 } })
             .then(res => res.json())
             .then(data => setMasters(data))
@@ -60,13 +64,14 @@ export default function MasterNear() {
         setFilterMasters(masters)
 
         if (masters) {
-            let mast = masters.filter(i => i.services.includes(service.toLowerCase()) ? i : null)
+            let mast = masters.filter(i => i.services.includes(service) ? i : null)
             setFilterMasters(mast)
             console.log('Mast', mast)
         } else if (masters) {
             setFilterMasters(masters)
         } else {
         }
+        console.log(document.getElementById("my_map")?.style.width)
     }, [selector])
 
 
@@ -118,13 +123,13 @@ export default function MasterNear() {
             </div>
             <Link className={styles.city} href='/city'>Ваш город {my_city}</Link>
             <div className={styles.selector}>
-                <span onClick={() => SetSelector('list')} style={selector === 'list' ? sel : null}>Список</span>
-                <span onClick={() => setSelector('map')} style={selector === 'list' ? null : sel}>На карте</span>
+                <span onClick={() => SetSelector('list')} style={selector !== 'map' ? sel : null}>Список</span>
+                <span onClick={() => setSelector('map')} style={selector !== 'map' ? null : sel}>На карте</span>
             </div>
-            {selector === 'list' ?
+            {selector !== 'map' ?
                 <section className={styles.section} >
                     <FilterServices />
-                    {masters?.filter(i => i.services.includes(service.toLowerCase()) ? i : null).map(i =>
+                    {masters?.filter(i => i.services.includes(service) ? i : null).map(i =>
                         <div key={i.name} className={styles.master} onClick={() => ViewNewMaster(i.nikname)}>
                             <p className={styles.name_stars} >
                                 <span>{i.name}</span>
@@ -153,7 +158,7 @@ export default function MasterNear() {
                         </div> : null}
                     </div>
 
-                    <div className={styles.my_map} id="my_map" style={{ maxHeight: '500px', width: '100vw', maxWidth: '500px' }}>
+                    <div className={styles.my_map} id="my_map" style={{height: master ? "30vh" : "430px", maxHeight: '430px', width: '100vw', maxWidth: '500px' }}>
                         <YMaps>
                             <Map id="mymap"
 
@@ -163,7 +168,7 @@ export default function MasterNear() {
                                     behaviors: ["default", "scrollZoom"]
                                 }}
                                 width="100%"
-                                height={master ? "30vh" : "500px"}
+                                height={master ? "30vh" : "430px"}
                                 instanceRef={yaMap => {
                                     if (yaMap) {
                                         Map.current = yaMap;
@@ -185,7 +190,7 @@ export default function MasterNear() {
                                             ['geoObject.addon.balloon', 'geoObject.addon.hint']
                                         }
                                         properties={{
-                                            hintContent: i.name,
+                                            hintContent: `<p style="border: none;color: blue;font-size: 17px;padding: 5px">${i.name}</p>`,
                                             preset: "twirl#blueStretchyIcon",
                                             strokeColor: 'blue'
                                         }}
@@ -203,13 +208,14 @@ export default function MasterNear() {
                             </Map>
                         </YMaps>
                     </div>
-                </section>}
+                </section>
+            }
             {master ? <section className={styles.section}>
                 <Image alt="close" className={styles.close} src={arrow_down} width={25} height={25} onClick={() => ViewMaster('', 11)} />
                 {masters?.filter(i => i.nikname === master).map(i =>
                     <Link key={i.nikname} className={styles.master} href={`/master/${i.nikname}`} >
                         <p style={{ width: '75%' }}>
-                            <b>{i.name}</b> {'  '}
+                            <b>{i.name}</b> 
                             <span className={styles.pro}>MASTER</span>
                             {i.stars ? <span className={styles.stars}>{i.stars}</span> : null}
                         </p>

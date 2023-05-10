@@ -83,16 +83,16 @@ export default function EditProfile() {
         if (!pro) {
             return  () => router.push('/enter')
         }
-        const options = {
-            method: "POST",
-            mode: "cors",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-                "Authorization": "Token " + token
-            },
-            body: JSON.stringify({ lat: location[0], lon: location[1] })
-        }
+        // const options = {
+        //     method: "POST",
+        //     mode: "cors",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //         "Accept": "application/json",
+        //         "Authorization": "Token " + token
+        //     },
+        //     body: JSON.stringify({ lat: pro.locations[0], lon: pro.locations[1] })
+        // }
 
         function Location() {
             fetch(url_one, options)
@@ -105,7 +105,7 @@ export default function EditProfile() {
                 })
                 .catch(error => console.log("error", error));
         }
-        !profile.address ? Location() : null
+        // !profile.address ? Location() : null
 
         setName(pro.name),
         setText(pro.text),
@@ -115,17 +115,17 @@ export default function EditProfile() {
         setSelectedFile(url + '/var/data/' + pro.nikname + '/main.jpg')
         setAddress_full(address_full => ({ ...address_full, ...pro.address_full })),
         setNikname(pro.nikname),
-        setColor(pro.color ? pro.color : ['linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)', '#3D4EEA', '#ECEEFD'])
+        setColor(pro.color ? pro.color : my_tema[0])
 
     }, [])
     function Return() {
         setName(pro.name),
-            setText(pro.text),
-            setCurrency('Белорусский рубль')
+        setText(pro.text),
+        setCurrency('Белорусский рубль')
         setSelectedFile(url + '/var/data/' + pro.nikname + '/main.jpg')
         setAddress(pro.address),
-            setNikname(pro.nikname),
-            setColor(pro.color || 'linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%)')
+        setNikname(pro.nikname),
+        setColor(pro.color || my_tema[0])
     }
     const EditMaster = async () => {
         const data = {
