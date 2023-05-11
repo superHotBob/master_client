@@ -20,7 +20,7 @@ export default async function handler(req, res) {
   `
 
   master['name'] = my_result[0].name
-  master['text'] = req.body.text ? 'Немного о себе' : req.body.text
+  master['text'] = req.body.text ?  req.body.text : 'Немного о себе' 
   master['color'] = ['linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)', '#3D4EEA', '#ECEEFD']
   master['id'] = my_result[0].id
   master['phone'] = my_result[0].phone

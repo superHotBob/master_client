@@ -41,7 +41,7 @@ export default function Catalog() {
                 <Link href="/catalog/services" className={styles.uslugi}>
                     Все услуги
                 </Link>
-                <Link href="/masternear/map" className={styles.around__masters}>
+                <Link href="/masternear/city" className={styles.around__masters}>
                     Мастера рядом
                 </Link>
                 <h3>Информация</h3>

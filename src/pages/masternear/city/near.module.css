@@ -64,6 +64,18 @@
   margin: 8px 0 0;
 }
 
+.my_map canvas {
+  margin-top: 20px;
+  filter: grayscale(100%) !important;
+}
+
+.my_map div div {
+  filter: grayscale(100%) !important;
+}
+
+.my_map div.ymaps-2-1-79-map-copyrights-promo {
+  height: 0;
+}
 
 .name_stars {
   display: flex;
@@ -249,12 +261,46 @@
   display: block;
   cursor: pointer;
 }
+
+.range {
+  width: 90%;
+  margin: 15px auto 30px;
+  display: block;
+}
+
+.range::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 15px;
+  background-color: #8B95F2;
+  border-radius: 2px;
+}
+input[type=range].range::-moz-range-thumb {
+  background: #3D4EEA;
+  appearance: none;
+  
+  cursor: pointer;  
+}
+input[type=range].range::-webkit-slider-thumb  {
+  appearance: none;
+  background: #3D4EEA;
+ 
+  cursor: pointer;  
+}
+input[type=range].range::-ms-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+ 
+  cursor: pointer;
+}
+
+
 .city {
   color: #3D4EEA;
   background: #ECEEFD;
   border-radius: 6px;
   font-weight: 500;
   font-size: 16px;
+
   line-height: 46px;
   letter-spacing: 0px;
   text-align: center;
