@@ -6,8 +6,6 @@ import styles from './near.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { setmaster } from '@/reduser'
 import { useState, useEffect } from 'react'
-
-
 import FilterServices from '@/components/filterServices'
 import Message from '@/components/message'
 
@@ -18,7 +16,6 @@ const sel = {
     color: '#fff',
     fontWeight: 600
 }
-
 export default function MasterNear() {
     const router = useRouter()   
     const my_city = useSelector((state) => state.counter.city)
@@ -26,10 +23,6 @@ export default function MasterNear() {
     const dispatch = useDispatch()
     const [selector, setSelector] = useState()    
     const [masters, setMasters] = useState()
-    
-
-
-
     
     useEffect(() => {
         const { pathname } = window.location
@@ -41,18 +34,13 @@ export default function MasterNear() {
         }), { next: { revalidate: 100 } })
             .then(res => res.json())
             .then(data => setMasters(data))
-    }, [service])
-   
-
-
-   
+    }, [service])   
 
     function ViewNewMaster(a) {
         router.push(`/master/${a}`)
         let master = masters.filter(i => i.nikname === a)
         dispatch(setmaster(master))
-    }
-   
+    }   
    
     return (
         <div className={styles.main}>

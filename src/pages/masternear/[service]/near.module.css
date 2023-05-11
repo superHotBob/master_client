@@ -131,6 +131,7 @@
   background-position: left center;
   background-size: 10px;
 }
+
 .master h4::first-letter {
   text-transform: capitalize;
 }
@@ -249,6 +250,7 @@
   display: block;
   cursor: pointer;
 }
+
 .city {
   color: #3D4EEA;
   background: #ECEEFD;
