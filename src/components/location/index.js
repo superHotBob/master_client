@@ -40,6 +40,9 @@ import icon_close from '../../../public/close.svg'
       "coordSystem.geo"
     ]);
   };
+
+const API_KEY = "05f8d2ae-bd94-4329-b9f9-7351e2ec9627"  
+//const API_KEY = "89caab37-749d-4e30-8fdf-e8045542f060"
 export default function Location({loc_master, close, nikname}) {
 
     function ViewGrayScale() {          
@@ -70,7 +73,7 @@ export default function Location({loc_master, close, nikname}) {
     return (
         <div className={styles.map}>
            
-            <Script src="https://api-maps.yandex.ru/3.0/?apikey=89caab37-749d-4e30-8fdf-e8045542f060&lang=ru_RU" />
+            <Script src={`https://api-maps.yandex.ru/3.0/?apikey=${API_KEY}&lang=ru_RU`} />
             <div className={styles.my_map} >
                 <Image src={icon_close} onClick={()=>close(false)} alt="close" width={20} height={20}/>
                         <YMaps >

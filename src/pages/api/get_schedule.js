@@ -10,9 +10,7 @@ export default async function handler(req, res) {
        select ${ sql(column) } from ${ sql(table) }       
         where nikname =  ${req.query.nikname}             
       `
-  if (result.length > 0) {
+ 
     res.status(200).json(result[0][month])
-  } else {
-    res.status(500).json([])
-  }
+  
 }

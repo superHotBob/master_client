@@ -13,16 +13,21 @@ const false_day = {
     color: '#d0d0d0',
     border: '1px solid #d0d0d0'
 }
+const activ_month = {
+    color: '#282828',
+}
 
 export default function SelectDate({ name, price, order, close, nikname }) {
    
-    const days = ["пн", "вт", "ср", "чт", "пт", "сб","вс"]
-    const months = ['Декабрь', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август',
-        'Сетнябрь','Октябрь', 'Ноябрь']
+    const days = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"]
+    const months = ['Декабрь','Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сетнябрь',
+        'Октябрь', 'Ноябрь', 'Декабрь'
+    ]
 
     const d = new Date()
-    const mon = d.getMonth()
+    const mon = d.getMonth() + 1
     const [month, setMonth] = useState(mon)
+    const my_months = [...months]
     const [month_one, set_month_one] = useState(0)
     const [false_times, set_false_time] = useState([])
     const [false_days, set_false_days] = useState([])
@@ -36,14 +41,13 @@ export default function SelectDate({ name, price, order, close, nikname }) {
     const [patern, setPatern] = useState([])
     const [schedule, setSchedule] = useState([])
     const [orders, setOrders] = useState([])
-
+    
     const all_days = new Date(2023, month, 0)
     const profile = useSelector(state => state.counter.profile)
-   
-    function MyDate(a) {
-        const day = new Date(2023, month - 1, a)
-        return a + ' ' + days[day.getDay()]
-    }
+    const year = new Date().getFullYear()
+    const day = new Date(year, month - 1, 1)
+    let v = days.indexOf(days[day.getDay() - 1])
+    
    
     // async function GetDate() {
     //     const response = await fetch(`/api/date_services_master?master=${nikname}`, {
@@ -58,56 +62,60 @@ export default function SelectDate({ name, price, order, close, nikname }) {
     // }
 
     useEffect(()=>{
+       
         let day = d.getDate()
         let all_day = Array.from({length: day}, (v,i)=>i+1)        
-        set_false_days(all_day)       
+        set_false_days(all_day) 
+           
         fetch(`/api/get_patern?nikname=${nikname}`)
         .then(res => res.json())
         .then(res => setPatern(res))
-        fetch(`/api/get_schedule?nikname=${nikname}&month=${months[month+1].toLowerCase()}`)
+        fetch(`/api/get_schedule?nikname=${nikname}&month=${my_months[month].toLowerCase()}`)
         .then(res => res.json())
         .then(data => {
-              
-            fetch(`/api/get_orders_master_month?nikname=${nikname}&month=${months[month+1]}`)
+            console.log('data',data)  
+            fetch(`/api/get_orders_master_month?nikname=${nikname}&month=${my_months[month]}`)
             .then(res => res.json())
             .then(res => {
                 let m = res.map(i=>i.date_order.split(','))
-                console.log(m)
+               
                 let new_schedule = [...data]
-                m.forEach(i=> new_schedule[+i[0]-1] = new_schedule[+i[0]-1].split(',').filter(a=>a!==i[2]).join(','))
                 
+                if(m.length>0){
+                    m.forEach(i=> new_schedule[+i[0]-1] = new_schedule[+i[0]-1].split(',').filter(a=>a!==i[2]).join(','))
+                }
                 setSchedule(new_schedule)
                 // setOrders(m)
-                console.log(new_schedule)
+                
             })
         })    
-    },[])
+    },[month])
 
 
-    function Next(a) {
-        // const mon = d.getMonth()
-        // console.log(months[mon+1])
-        // if (months[month] === months[mon+1] && a === -1) {return 0} 
-        if (month_one === 0 && a === 1) {
-            set_month_one(1)
-        } else if (month_one === 1 && a === 1) {
-            set_month_one(0)
-            setMonth(month + a)
-            // let fls = false_date.filter(i=>i[1] === months[month + a]).map(i=>+i[0])
-            // set_false_days(fls)
+    // function Next(a) {
+    //     // const mon = d.getMonth()
+    //     // console.log(months[mon+1])
+    //     // if (months[month] === months[mon+1] && a === -1) {return 0} 
+    //     if (month_one === 0 && a === 1) {
+    //         set_month_one(1)
+    //     } else if (month_one === 1 && a === 1) {
+    //         set_month_one(0)
+    //         setMonth(month + a)
+    //         // let fls = false_date.filter(i=>i[1] === months[month + a]).map(i=>+i[0])
+    //         // set_false_days(fls)
 
-        } else if (month_one === 0 && a === -1) {
-            set_month_one(1)
-            setMonth(month + a)
-            // let fls = false_date.filter(i=>i[1] === months[month + a]).map(i=>+i[0])
-            // set_false_days(fls)
+    //     } else if (month_one === 0 && a === -1) {
+    //         set_month_one(1)
+    //         setMonth(month + a)
+    //         // let fls = false_date.filter(i=>i[1] === months[month + a]).map(i=>+i[0])
+    //         // set_false_days(fls)
 
-        } else if (month_one === 1 && a === -1) {
-            set_month_one(0)
-        }
-    }
+    //     } else if (month_one === 1 && a === -1) {
+    //         set_month_one(0)
+    //     }
+    // }
     useEffect(() => {
-        setMonth(mon + 1)
+        // setMonth(mon + 1)
         const SaveOrder = async () => {
             const data = {
                 client: profile.nikname,
@@ -116,7 +124,7 @@ export default function SelectDate({ name, price, order, close, nikname }) {
                 master_name: name,
                 price: price,
                 order: order,
-                date: `${active_day},${months[month]},${active_time}`,
+                date: `${active_day},${my_months[month]},${active_time}`,
             }
             await fetch('/api/save_order', {
                 body: JSON.stringify(data),
@@ -161,6 +169,10 @@ export default function SelectDate({ name, price, order, close, nikname }) {
             setActive_Time(a)
         }
     }
+    function SetMonth(a) {
+        let m = my_months.findIndex(i => i === a)
+        setMonth(m)
+    }
     return (
         <>
             <div className={styles.head}>
@@ -168,13 +180,18 @@ export default function SelectDate({ name, price, order, close, nikname }) {
                 <span>Запись к мастеру</span>
             </div>
             <h3 className={styles.date}>Ближайшие даты</h3>
-            <h4 className={styles.month}>{months[month]}</h4>
+            <div className={styles.mounth}>
+                {months.splice(month ? month - 1 : 0, 3).map(i =>
+                    <span onClick={() => SetMonth(i)} style={i === my_months[month] ? activ_month : null} key={i}>{i}</span>
+                )}
+            </div>
             <div className={styles.week}>
                 {days.map(i => <span key={i}>{i}</span>)}
             </div>
             <div className={styles.all_days}>
-                {/* <div className={styles.left} onClick={() => Next(-1)}/> */}
+               
                 <div className={styles.days}>
+                {Array.from({ length: v }, (v, i) => i + 1).map(i => <span key={i} style={{ opacity: 0 }}>{i}</span>)}
                     {Array.from({ length: all_days.getDate() }, (v, i) => i + 1)
                         .map(i =>
                             <span
@@ -191,7 +208,7 @@ export default function SelectDate({ name, price, order, close, nikname }) {
                             </span>
                         )}
                 </div>
-                {/* <div className={styles.right} onClick={() => Next(1)}/> */}
+               
             </div>
             <h3 className={styles.date}>Свободное время</h3>
             <div className={styles.time}>

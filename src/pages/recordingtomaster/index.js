@@ -116,15 +116,15 @@ export default function Recording() {
                     nikname={nikname}
                     order={orders}
                     close={setView}
-                    price={Cost(orders) - 50}
+                    price={Cost(orders)*0.9}
                 />
             }
             <div className={styles.order}>
                 <h4>Ваш заказ</h4>
                 <p>Услуги и товары ({orders.length})<span>{Cost(orders)} BYN</span></p>
-                <p>Скидка<span className={styles.discount}>-50 BYN</span></p>
-                <Link href="/#">Скидка</Link>
-                <h3>Общая стоимость<span>{Cost(orders) - 50 > 0 ? Cost(orders) - 50 : 0} BYN</span></h3>
+                <p>Скидка<span className={styles.discount}> {Cost(orders)*0.1} BYN</span></p>
+                <Link href="/#" title="Скидка 10% от заказа">Скидка</Link>
+                <h3>Общая стоимость<span>{Cost(orders) - Cost(orders)*0.1 > 0 ? Cost(orders) - Cost(orders)*0.1 : 0} BYN</span></h3>
                 {view ?
                     <div onClick={() => setView(orders.length > 0 ? false : true)}>Выбрать дату</div> :
                     <div onClick={() => addOrder([...orders])}>Записаться</div>

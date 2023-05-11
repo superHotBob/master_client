@@ -9,7 +9,21 @@
     font-weight: 500;
     margin: 26px 0 24px;
 }
+.mounth {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px auto 5px;
+    width: calc(100% - 32px);
+}
 
+
+.mounth span {
+    display: inline-block;
+    width: fit-content;
+    font-weight: 400;
+    color: #d0d0d0;
+    cursor: pointer;
+}
 .month {
     margin: 24px 0 0;
     font-weight: 400;

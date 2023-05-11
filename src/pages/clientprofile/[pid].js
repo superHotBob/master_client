@@ -113,7 +113,7 @@ export default function Client() {
                         </div>                       
                         </>
                     )}
-                    {viewOrder ? <ClientOrder order={orders[orderIndex]} active={ActiveOrder(orders[orderIndex].date_order)} close={close} /> : null }                   
+                    {viewOrder ? <ClientOrder order={data[orderIndex]} active={ActiveOrder(data[orderIndex].date_order)} close={close} /> : null }                   
                 </>
             }
 

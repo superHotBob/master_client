@@ -19,9 +19,9 @@
 }
 
 .profile {
-  padding: 20px 0 20px 28%;
-  background-position: 10% center;
-  background-size: 10%;
+  padding: 20px 0 20px 150px;
+  background-position: 30px center;
+  background-size: 20%;
 
 }
 
@@ -37,6 +37,7 @@
 .selector span {
   width: 45%;
   display: inline-block;
+  cursor: pointer;
   padding: 5px 0;
   text-align: center;
   color: #000;

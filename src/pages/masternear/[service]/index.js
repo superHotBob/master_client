@@ -27,7 +27,7 @@ export default function MasterNear() {
     const service = useSelector((state) => state.counter.service) 
     const loc = useSelector((state => state.counter.location))
     const dispatch = useDispatch()
-    const [selector, setSelector] = useState('list')
+    const [selector, setSelector] = useState()
     const [viewFilter, setViewFilter] = useState(false)
     const [filter, setFilter] = useState(10.8)
     const [master, selectMaster] = useState()
@@ -41,13 +41,9 @@ export default function MasterNear() {
         setFilter(b)
     }
     useEffect(() => {
-        const {pid } = router.query       
-        setSelector(pid)
-        setMasters()
-        // history.replaceState({}, null, service);
-        // window.location.assign(service)
-        // dispatch(setservice(pid))
-       
+        const { pathname } = window.location         
+        setSelector(pathname.replace('/masternear/', ''))
+        setMasters()       
         fetch('/api/all_masters_city?' + new URLSearchParams({
             city: my_city.toLowerCase(),
             service: service?service:pid 
@@ -71,7 +67,7 @@ export default function MasterNear() {
             setFilterMasters(masters)
         } else {
         }
-        console.log(document.getElementById("my_map")?.style.width)
+       
     }, [selector])
 
 
@@ -126,7 +122,7 @@ export default function MasterNear() {
                 <span onClick={() => SetSelector('list')} style={selector !== 'map' ? sel : null}>Список</span>
                 <span onClick={() => setSelector('map')} style={selector !== 'map' ? null : sel}>На карте</span>
             </div>
-            {selector !== 'map' ?
+            {selector  !== 'map' ?
                 <section className={styles.section} >
                     <FilterServices />
                     {masters?.filter(i => i.services.includes(service) ? i : null).map(i =>
@@ -180,8 +176,9 @@ export default function MasterNear() {
                             >
                                 <Clusterer
                                     options={{
-                                        preset: "islands#invertedVioletClusterIcons",
+                                        preset: "islands#blueIcon",
                                         groupByCoordinates: false,
+                                       
                                     }}
                                 >
 
@@ -200,8 +197,7 @@ export default function MasterNear() {
                                             iconImageSize: [40, 40],
 
                                         }}
-
-                                        onClick={() => ViewMaster(i.nikname, 14)}
+                                    onClick={() => ViewMaster(i.nikname, 14)}
 
                                     />)}
                                 </Clusterer>

@@ -56,8 +56,9 @@ export default function Calendar() {
         fetch(`/api/get_schedule?month=${current_month}&nikname=${pro.nikname}`)
             .then(res => res.json())
             .then(res => {
-                if (res.length === 0) {
-                    let new_arr = Array.from({ length: all_days.getDate() }, (v, i) => '')
+                if (res.length===0) {
+                    let new_arr = Array.from({ length: all_days.getDate() }, (v, i) =>"")
+                    console.log(new_arr)
                     setMnt(new_arr)
                 } else {
                     setMnt(res)
