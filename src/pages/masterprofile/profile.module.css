@@ -61,10 +61,10 @@
 }
 .addlist, .uslugi, .uslugi_plus {
   height: 36px;
-  display: block;
+  
   border-radius: 6px; 
-  margin: 0 auto;
-  width: 68%;
+ 
+  width: 70%;
   background-color: #ECEEFD;
   text-align: center;
   font-weight: 500;
@@ -174,20 +174,22 @@
   background-size: 400% 400%;
   animation: gradient 22s ease infinite;
 }
-.lenta_images {
-  width: 100%;
+
+.all__images, .lenta_selector {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 16px;
-  flex-wrap: wrap;
+  margin-top: 10px;
 }
 .lenta_image {
+  width: 100%;
+  height: fit-content; 
+}
+.lenta_images {
   width: 49%;
-  height: 150px;
-  max-height: 200px;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+}
+.lenta_image  {
+  height: auto;
+  width: 100%;
   border-radius: 8px;
-  margin-bottom: calc(5% - 15px);
+  margin-bottom: calc(5% - 8px);
 }

@@ -52,12 +52,12 @@
     color:#3D4EEA;
 }
 .main__form {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 10px;
 }
 .sertificat__upload, .sertificats {
-    width: 31.5%;
+    
     height: 28vw;
     max-height: 145px;
     background: #ECEEFD;
@@ -90,6 +90,30 @@
     background-color: #ECEEFD;
     padding: 0 5px;
     border-top-right-radius: 6px;
+}
+.services {
+    display: flex;
+    justify-content: flex-start;
+}
+.services span {
+    font-size: 14px;
+    font-weight: 500;
+    margin: 20px 10px 0 0;
+    display: inline-block;
+    width: 20%;
+    line-height: 27px;
+    text-align: center;
+    cursor: pointer;
+}
+.services span::first-letter {
+    text-transform: capitalize;
+}
+.active__service {
+    color: #fff;
+    background-color: #3D4EEA;
+    border-radius: 4px;
+    height: 27px;
+
 }
 
 

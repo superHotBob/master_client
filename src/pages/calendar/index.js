@@ -15,8 +15,8 @@ const activ_month = {
 export default function Calendar() {
 
     const days = ["пн", "вт", "ср", "чт", "пт", "суб", "вс"]
-    const months = ['Декабрь', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сетнябрь',
-        'Октябрь', 'Ноябрь', 'Декабрь']
+    const months = ['Декабрь', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 
+        'Июль', 'Август', 'Сетнябрь','Октябрь', 'Ноябрь', 'Декабрь']
 
     const d = new Date()
     const mon = d.getMonth() + 1
@@ -41,8 +41,8 @@ export default function Calendar() {
         }
         setProfile(pro)
         fetch(`/api/get_patern?nikname=${pro.nikname}`)
-            .then(res => res.json())
-            .then(data => setPatern(data))
+        .then(res => res.json())
+        .then(data => setPatern(data))
 
     }, [view])
     useEffect(() => {

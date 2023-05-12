@@ -9,7 +9,7 @@ import { setmaster, setservice } from '@/reduser'
 import { useState, useEffect } from 'react'
 import { YMaps, Map, Placemark, Clusterer } from '@pbe/react-yandex-maps'
 import Script from 'next/script'
-import FilterServices from '@/components/filterServices'
+
 import Message from '@/components/message'
 
 const url = 'https://masters-client.onrender.com/'

@@ -68,6 +68,9 @@ export default function Header({ sel, text, mes, color = {} }) {
   }
   function ToBack(e) {
     e.stopPropagation()
+    if(sel !== 'back') {
+      return router.push(sel)
+    }
     router.back()
   }
   return (

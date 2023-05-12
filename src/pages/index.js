@@ -9,7 +9,7 @@ import FilterServices from '@/components/filterServices'
 import Carousel from 'nuka-carousel/lib/carousel'
 import Message from '@/components/message'
 import { useGeolocated } from "react-geolocated";
-
+import useSWR from 'swr'
 const url = 'https://masters-client.onrender.com/images/'
 const url_two = 'https://masters-client.onrender.com/'
 const url_one = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/geolocate/address"
@@ -18,8 +18,8 @@ const token = "5ff295eebd78a454b8bd3805b29d1eb6daefe31f"
 export default function Home() {
   const dispatch = useDispatch() 
   const [image, viewImage] = useState()
-
-
+  const fetcher = (...args) => fetch(...args).then(res => res.json())
+  const { data, error, isLoading } = useSWR(`/api/all_masters_city_service?service=маникюр&city=минск`, fetcher)
   const { coords, isGeolocationAvailable, isGeolocationEnabled } =
     useGeolocated({
       positionOptions: {

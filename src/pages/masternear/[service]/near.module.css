@@ -228,6 +228,10 @@
   flex-wrap: wrap;
 
 }
+.message__await {
+  text-align: center;
+  margin-top: 100px;
+}
 
 .all__filter__data b {
   text-align: center;

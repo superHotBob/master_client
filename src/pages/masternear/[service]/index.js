@@ -8,7 +8,7 @@ import { setmaster } from '@/reduser'
 import { useState, useEffect } from 'react'
 import FilterServices from '@/components/filterServices'
 import Message from '@/components/message'
-
+import useSWR from 'swr'
 const url = 'https://masters-client.onrender.com/'
 
 const sel = {
@@ -17,28 +17,32 @@ const sel = {
     fontWeight: 600
 }
 export default function MasterNear() {
+    const fetcher = (...args) => fetch(...args).then(res => res.json())
     const router = useRouter()   
     const my_city = useSelector((state) => state.counter.city)
     const service = useSelector((state) => state.counter.service)   
-    const dispatch = useDispatch()
-    const [selector, setSelector] = useState()    
+    const dispatch = useDispatch()      
     const [masters, setMasters] = useState()
+
+    const { data, error, isLoading } = useSWR('/api/all_masters_city?' + new URLSearchParams({
+        city: my_city.toLowerCase(),
+        service: service ? service : pid}), fetcher)
     
-    useEffect(() => {
-        const { pathname } = window.location
-        setSelector(pathname.replace('/masternear/', ''))
-        setMasters()
-        fetch('/api/all_masters_city?' + new URLSearchParams({
-            city: my_city.toLowerCase(),
-            service: service ? service : pid
-        }), { next: { revalidate: 100 } })
-            .then(res => res.json())
-            .then(data => setMasters(data))
-    }, [service])   
+    // useEffect(() => {
+    //     // const { pathname } = window.location
+    //     // setSelector(pathname.replace('/masternear/', ''))
+    //     // setMasters()
+    //     fetch('/api/all_masters_city?' + new URLSearchParams({
+    //         city: my_city.toLowerCase(),
+    //         service: service ? service : pid
+    //     }), { next: { revalidate: 100 } })
+    //         .then(res => res.json())
+    //         .then(data => setMasters(data))
+    // }, [service])   
 
     function ViewNewMaster(a) {
         router.push(`/master/${a}`)
-        let master = masters.filter(i => i.nikname === a)
+        let master = data.filter(i => i.nikname === a)
         dispatch(setmaster(master))
     }   
    
@@ -58,17 +62,20 @@ export default function MasterNear() {
             </div>
             <section className={styles.section} >
                 <FilterServices />
-                {masters?.filter(i => i.services.includes(service) ? i : null).map(i =>
+                {data?.map(i =>
                     <div key={i.name} className={styles.master} onClick={() => ViewNewMaster(i.nikname)}>
                         <p className={styles.name_stars} >
                             <span>{i.name}</span>
                             <span className={styles.pro}>MASTER</span>
-                            {i.stars ? <span className={styles.stars}>{i.stars}</span> : null}
+                            <span className={styles.stars}>{i.stars}</span>
                         </p>
                         <h4>{i.address}</h4>
                         <h5>{i.services.map(a => <span key={a} className={styles.service}>{a}</span>)}</h5>
                         <Image src={url + 'var/data/' + i.nikname + '/main.jpg'} width={60} height={60} alt="image" />
-                    </div>)}
+                    </div>
+                )}
+                {isLoading?<p className={styles.message__await}>Загружаем мастеров...</p>:null}
+                {error?<p className={styles.message__await}>Ошибка загрузки мастеров...</p>:null}
             </section>
         </div >
     )

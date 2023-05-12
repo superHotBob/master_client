@@ -7,10 +7,15 @@ const url = 'https://masters-client.onrender.com'
 const url_loc = 'http://localhost:5000'
 
 const active = {
-    color: "#fff",
-   
+    color: "#fff",   
     borderRadius: "4px",
     fontWeight: 500
+}
+const services__name = {
+    барбер: 'barber',
+    прически: 'pricheski',
+    массаж: 'massaj',
+    маникюр: 'manikur',
 }
 
 export default function AddList() {
@@ -18,16 +23,19 @@ export default function AddList() {
     const [select, setselect] = useState(true)
     const [nikname, setnikname] = useState()
     const [color, setColor] = useState([])
+    const [services, setservices] = useState() 
+    const [tag, settag] = useState()
     useEffect(() => {
         const prof = JSON.parse(localStorage.getItem('profile'))
         setnikname(prof.nikname)
-        setColor([...prof.color])       
+        setColor([...prof.color]) 
+        setservices(prof.services)      
         fetch(`${url}/getlists?dir=${prof.nikname}`)
             .then(res => res.json())
             .then(res => setlists(res))       
     }, [])
     function DeleteSertif(a) {
-        fetch(`${url}/deleteslist?name=${nikname}&list=${a}`)
+        fetch(`${url}/deletelist?name=${nikname}&list=${a}`)
             .then(res => Del_Ser(a))
             .catch(err => console.log(err))
     }
@@ -38,7 +46,7 @@ export default function AddList() {
     function selectUpload(e) {
         e.preventDefault()
         let data = new FormData()        
-        let file_name = 'list' + (Math.random() * 1000).toFixed(0) + '.jpg'
+        let file_name = 'list' + '__' + services__name[tag] + "__" + (Math.random() * 1000).toFixed(0) + '.jpg'
         data.append('file', e.target.files[0], file_name)        
         fetch(`${url}/upl?name=${nikname}`, {
             body: data,
@@ -69,6 +77,7 @@ export default function AddList() {
                     <input
                         type="file"
                         name="image"
+                        disabled={!tag}
                         style={{ display: 'none' }}
                         accept=".jpg"
                         onChange={(e)=>selectUpload(e)}
@@ -77,9 +86,14 @@ export default function AddList() {
                 {lists?.map(i =>
                     <div key={i} className={styles.sertificats} style={{ backgroundImage: "url(" + url + "/var/data/" + nikname + '/' + i }} >
                         <span style={{color: color[1]}} onClick={() => DeleteSertif(i)}>&#128465;</span>
-                    </div>)}
+                    </div>
+                )}
 
             </form>
+            <section className={styles.services}>
+                {services?.map(i=><span className={tag === i ? styles.active__service: null} onClick={()=>settag(i)}>{i}</span>)}
+            </section>
+            
 
         </main>
     )

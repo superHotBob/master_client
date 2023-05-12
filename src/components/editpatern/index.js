@@ -95,8 +95,8 @@ export default function EditPatern({view,color,setView,old_patern,nikname}) {
                         <b>Добавить</b> 
                         <b onClick={()=>setViewForm(true)}>+</b>
                     </div>:null}
-                    {Array.from({length: 11 - patern?.length}, (v,i)=>'').map(i=>
-                        <div key={i} style={{backgroundColor: color[2]}}></div>
+                    {Array.from({length: 11 - patern?.length}, (v,i)=>'').map((i,index)=>
+                        <div key={index} style={{backgroundColor: color[2]}}></div>
                     )}
                 </section>
                 {viewForm ? 

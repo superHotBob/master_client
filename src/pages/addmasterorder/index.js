@@ -30,8 +30,9 @@ export default function AddMasterOrder() {
 
 
     useEffect(() => {
-        if (profile.status === 'master') {
-            setcategory(profile.services)
+        let pro = JSON.parse(localStorage.getItem('profile'))       
+        if (pro.status === 'master') {
+            setcategory(pro.services)
             async function GetServices() {
                 const response = await fetch(`/api/master_service?nikname=${profile.nikname}`, {
                     headers: { 'Content-Type': 'application/json' },
@@ -39,7 +40,7 @@ export default function AddMasterOrder() {
                 })
                 const result = await response.json()
                 setServices(result[0])
-                console.log(result[0])
+                
             }
             GetServices()
         } else {
@@ -65,7 +66,7 @@ export default function AddMasterOrder() {
                 method: 'POST',
             })
             const result = await response.json()
-            console.log(result)
+           
                
     }
     
@@ -118,10 +119,10 @@ export default function AddMasterOrder() {
                 <span>Закрыть</span>
             </header>
             <section className={styles.main}>
-                <p>Клиент</p>
+                {/* <p>Клиент</p>
                 <div className={styles.client}>
                     <h4>Bob</h4>
-                </div>
+                </div> */}
                 <p>Дата и время</p>
                 <span>Выберите дату записи и время.</span>
                 <DatePicker

@@ -13,7 +13,7 @@ import AddSertificat from '@/components/addsertificat'
 import Menu_icon from '@/components/icons/menu'
 import AddService from '@/components/addservise'
 
-const nav_active =  ({  
+const nav_active = ({
     color: "#fff",
     padding: '0 20px',
     fontWeight: 600
@@ -25,7 +25,7 @@ export default function Client() {
     const [view, setView] = useState(true)
     const [profile, setProfile] = useState()
     const [nav_view, setNavView] = useState('Лента')
-   
+
     const [viewText, setViewText] = useState(true)
     const [newSertificat, AddNewSertificat] = useState(false)
     const [lists, setlists] = useState()
@@ -33,13 +33,13 @@ export default function Client() {
     useEffect(() => {
         const pro = JSON.parse(localStorage.getItem('profile'))
         if (!pro) {
-           return  () => router.push('/enter')
+            return () => router.push('/enter')
         }
-        if (pro.status === 'master') { 
+        if (pro.status === 'master') {
             function GetSertificats() {
                 fetch(`${url}getlists?dir=${pro.nikname}`)
-                .then(res => res.json())
-                .then(res => setlists(res))
+                    .then(res => res.json())
+                    .then(res => setlists(res))
             }
             GetSertificats()
             setProfile(pro)
@@ -49,7 +49,7 @@ export default function Client() {
     }, [])
 
 
-  
+
 
 
 
@@ -85,7 +85,7 @@ export default function Client() {
                 </section>
                 <nav className={styles.navigation}>
                     {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
-                        .map(i => <span key={i} onClick={() => setNavView(i)} style={nav_view === i ? {...nav_active,background: profile.color[1]} : null}>{i}</span>)}
+                        .map(i => <span key={i} onClick={() => setNavView(i)} style={nav_view === i ? { ...nav_active, background: profile.color[1] } : null}>{i}</span>)}
                 </nav>
                 <section className={styles.lenta}>
                     {nav_view === 'Отзывы' ?
@@ -97,11 +97,11 @@ export default function Client() {
                             по категориям. Вы сможете редактировать его в
                             любое время, дополняя и редактируя его.`}
                         />
-                        <button onClick={()=>setView(false)} className={styles.uslugi_plus} style={{ backgroundColor: profile.color[1] }}>
-                        Редактировать категории и услуги
+                        <button onClick={() => setView(false)} className={styles.uslugi_plus} style={{ backgroundColor: profile.color[1] }}>
+                            Редактировать категории и услуги
                         </button>
                         <Services color={profile.color} name={pid} />
-                        <AddService  view={view} setView={setView} color={profile.color} />
+                        <AddService view={view} setView={setView} color={profile.color} />
 
                     </> : null}
 
@@ -110,9 +110,9 @@ export default function Client() {
                             будут видны клиентам и другим мастерам. Они
                             смогут их сохранять в закладки, что бы не
                             потерять вас из виду.
-                            `} 
+                            `}
                         />
-                        <div className={styles.lenta_images}>
+                        <div className={styles.lenta_selector}>
                             <Link
                                 href="/addlist"
                                 className={styles.addlist}
@@ -127,12 +127,17 @@ export default function Client() {
                                 <Menu_icon type="dashboard" color={profile.color[1]} />
                             </Link>
                         </div>
-                        <div className={styles.lenta_images}>
-                            {lists?.map(i =>
-                                <div key={i} className={styles.lenta_image} style={{ backgroundImage: "url(" + url + "var/data/" + pid + '/' + i }} />
-
-
-                            )}
+                        <div className={styles.all__images}>
+                            <div className={styles.lenta_images}>
+                                {lists?.filter((i,index)=>index % 2 == 0).map(i =>
+                                    <img key={i} className={styles.lenta_image} src={url + "var/data/" + pid + '/' + i} />
+                                )}
+                            </div>
+                            <div className={styles.lenta_images}>
+                                {lists?.filter((i,index)=>index % 2 !==0).map(i =>
+                                    <img key={i} className={styles.lenta_image} src={url + "var/data/" + pid + '/' + i} />
+                                )}
+                            </div>
                         </div>
                     </> : null}
                     {nav_view === 'Сертификаты' ? <>
