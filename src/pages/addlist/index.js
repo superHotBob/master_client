@@ -91,7 +91,7 @@ export default function AddList() {
 
             </form>
             <section className={styles.services}>
-                {services?.map(i=><span className={tag === i ? styles.active__service: null} onClick={()=>settag(i)}>{i}</span>)}
+                {services?.map(i=><span key={i} className={tag === i ? styles.active__service: null} onClick={()=>settag(i)}>{i}</span>)}
             </section>
             
 
