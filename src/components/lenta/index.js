@@ -45,12 +45,12 @@ export default function Lenta({color={},nikname}) {
             </div>
             <div className={styles.images}>
                 <div className={styles.part_images}>
-                    {data?.filter((i, index) => index % 2 ? i : null).map(i =>                       
+                    {data?.filter((i, index) => index % 2 === 0).map(i =>                       
                         <img key={i} alt={i} src={url + 'var/data/' + nikname + '/' + i} />                        
                     )}
                 </div>
                 <div className={styles.part_images}>
-                    {data?.filter((i, index) => index % 2 ? null : i).map(i =>                        
+                    {data?.filter((i, index) => index % 2 !==0).map(i =>                        
                         <img key={i} alt={i} src={url + 'var/data/' + nikname + '/' + i}  />                       
                     )}
                 </div>

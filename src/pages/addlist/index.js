@@ -16,10 +16,17 @@ const services__name = {
     прически: 'pricheski',
     массаж: 'massaj',
     маникюр: 'manikur',
+    педикюр: 'pedikur',
+    окрашивание: 'okrashivanie',
+    чистка:'chistka',
+    стрижка: 'strijka',
+    брови:'brovi',
+    ресницы: 'resnici',
+    депиляция: 'depiliaciy'
 }
 
 export default function AddList() {
-    const [lists, setlists] = useState()
+    const [lists, setlists] = useState([])
     const [select, setselect] = useState(true)
     const [nikname, setnikname] = useState()
     const [color, setColor] = useState([])
@@ -34,19 +41,23 @@ export default function AddList() {
             .then(res => res.json())
             .then(res => setlists(res))       
     }, [])
-    function DeleteSertif(a) {
+    function Deletefile(a) {
         fetch(`${url}/deletelist?name=${nikname}&list=${a}`)
-            .then(res => Del_Ser(a))
+            .then(res => Del_file(a))
             .catch(err => console.log(err))
     }
-    function Del_Ser(a) {
-        lists.filter(i => i !== a)
-
+    function Del_file(a) {
+        let new_list = lists.filter(i => i !== a)
+        setlists(new_list)
     }
+    
+   
+    
     function selectUpload(e) {
         e.preventDefault()
+        let new_list = lists.filter(i => tag ? i.search(services__name[tag]) !== -1 : i)
         let data = new FormData()        
-        let file_name = 'list' + '__' + services__name[tag] + "__" + (Math.random() * 1000).toFixed(0) + '.jpg'
+        let file_name = 'list' + '__' + services__name[tag] + "__" + new_list.length + '.jpg'
         data.append('file', e.target.files[0], file_name)        
         fetch(`${url}/upl?name=${nikname}`, {
             body: data,
@@ -83,18 +94,20 @@ export default function AddList() {
                         onChange={(e)=>selectUpload(e)}
                     />
                 </label>
-                {lists?.map(i =>
+                {lists?.filter(i => tag ? i.search(services__name[tag]) !== -1 : i).map(i =>
                     <div key={i} className={styles.sertificats} style={{ backgroundImage: "url(" + url + "/var/data/" + nikname + '/' + i }} >
-                        <span style={{color: color[1]}} onClick={() => DeleteSertif(i)}>&#128465;</span>
+                        <span style={{color: color[1]}} onClick={() => Deletefile(i)}>&#128465;</span>
                     </div>
                 )}
 
             </form>
             <section className={styles.services}>
-                {services?.map(i=><span key={i} className={tag === i ? styles.active__service: null} onClick={()=>settag(i)}>{i}</span>)}
+                {services?.map(i=>
+                    <span key={i} className={tag === i ? styles.active__service: null} onClick={()=>settag(i)}>
+                        {i}
+                    </span>
+                )}
             </section>
-            
-
         </main>
     )
 }

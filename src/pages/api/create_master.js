@@ -26,13 +26,14 @@ export default async function handler(req, res) {
   master['phone'] = my_result[0].phone
 
   const result = await sql`   
-    insert into users (name, phone, nikname, id, services, color, text) 
+    insert into users (name, phone, nikname, id, services,stars, color, text) 
     values (      
       ${master.name},
       ${master.phone},      
       ${req.body.nikname},
       ${master.id},      
       '{}',
+      '5.0',
       ${master.color},
       ${master.text}
     )  

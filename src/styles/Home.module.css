@@ -31,7 +31,7 @@
   width: calc(50% - 6px);
   display: flex;
   flex-direction: column;
-  cursor: pointer;
+  
 }
 
 
@@ -49,9 +49,14 @@
 }
 .images_one div, .images_two div {
   margin-bottom: 8px;
+  width: 100%;
+  height: auto;
+  cursor: pointer; 
 }
 .images_one div img , .images_two div img {
   border-radius: 12px;
+  width: 100%;
+  height: auto;
 }
 
 .main__detail {

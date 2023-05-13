@@ -10,7 +10,7 @@ export default async function handler(req, res) {
         where ${req.query.service.toLowerCase()} = ANY (services) and city = ${req.query.city.toLowerCase()} and blocked = 'no'
    `
     if (result.length>0) {
-        res.status(200).json(result)
+        res.status(200).json(result.map(i=>i.nikname))
     } else {
         res.status(200).json([])
     }
