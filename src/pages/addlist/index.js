@@ -22,7 +22,8 @@ const services__name = {
     стрижка: 'strijka',
     брови:'brovi',
     ресницы: 'resnici',
-    депиляция: 'depiliaciy'
+    депиляция: 'depiliaciy',
+    макияж: 'makiaj'
 }
 
 export default function AddList() {

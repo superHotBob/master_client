@@ -34,7 +34,11 @@
   
 }
 
-
+.add__images {
+  width: 100%;
+  height: 100px;
+  font-size: 60px;
+}
 .images::-webkit-scrollbar {
   width: 0;
 }
@@ -72,8 +76,8 @@
 
 .detail {
   min-height: 100vh;  
-  position: absolute;
-  top: 70px;
+  position: fixed;
+  top: 0;
   background-color: #fff;
   width: 100%;
   height: 100%;
