@@ -1,8 +1,8 @@
-import FilterServices from '../filterServices'
 import styles from './lenta.module.css'
 import Link from 'next/link'
 import Image from 'next/image'
 import arrow_down from '../../../public/arrow_down.svg'
+import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import useSWR from 'swr'
 const text = (` Ищу модель, что бы протестировать китайскую 
@@ -32,8 +32,8 @@ const url = 'https://masters-client.onrender.com/'
 export default function Lenta({color={},nikname}) {
     
     const [model, setViewText] = useState(false)
-   
-   
+    const profile = useSelector(state=>state.counter.profile) 
+    console.log(profile.status)
     const fetcher = (...args) => fetch(...args).then(res => res.json())
     const { data, error, isLoading } = useSWR(`${url}getlists?dir=${nikname}`, fetcher)
    
@@ -45,13 +45,19 @@ export default function Lenta({color={},nikname}) {
             </div>
             <div className={styles.images}>
                 <div className={styles.part_images}>
-                    {data?.filter((i, index) => index % 2 === 0).map(i =>                       
-                        <img key={i} alt={i} src={url + 'var/data/' + nikname + '/' + i} />                        
+                    {data?.filter((i, index) => index % 2 === 0).map(i =>
+                        <div key={i}>                      
+                            <img alt={i} src={url + 'var/data/' + nikname + '/' + i} />
+                            { profile.status === 'client'?<span className={styles.save__image} />:null}
+                        </div>                         
                     )}
                 </div>
                 <div className={styles.part_images}>
-                    {data?.filter((i, index) => index % 2 !==0).map(i =>                        
-                        <img key={i} alt={i} src={url + 'var/data/' + nikname + '/' + i}  />                       
+                    {data?.filter((i, index) => index % 2 !==0).map(i =>
+                        <div key={i}>                        
+                            <img  alt={i} src={url + 'var/data/' + nikname + '/' + i}  />  
+                            {profile.status === 'client'?<span className={styles.save__image} />:null}
+                        </div>                     
                     )}
                 </div>
             </div>

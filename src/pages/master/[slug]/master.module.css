@@ -140,13 +140,14 @@
 }
 .navigation span {
     display: inline-block;
-    padding: 0 5px;
+    padding: 0 6px;
     color: #000;
     text-align: center;
     border-radius: 6px;    
     font-weight: 400;
     font-size:  14px;
-    line-height:  27px;    
+    line-height:  27px; 
+    cursor: pointer;   
     
 }
 .image {

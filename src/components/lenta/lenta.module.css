@@ -33,6 +33,27 @@
     justify-content: space-between;
     flex-wrap: wrap;
 }
+.save__image {
+    display: inline-block;
+    width: 82px;
+    height: 20px;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(25px);
+    position: absolute;
+    left: 8px;
+    bottom: 16px;
+    cursor: pointer;
+    background-position: 5px center;
+    background-size: 16%;
+    background-image: url('/archive-add.svg')
+}
+.save__image::after {
+    content: 'Сохранить';
+    font-size: 10px;
+    transform: translateX(7px);
+}
+
 
 .images button {
     display: inline-block;
@@ -49,6 +70,10 @@
     width: calc(50% - 5.5px);
     
 
+}
+.part_images div {
+    position: relative;
+    
 }
 
 .part_images img {

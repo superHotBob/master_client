@@ -67,6 +67,18 @@ export default function AddList() {
         .then(res => setlists(lists => [...lists, file_name]))
         .catch(err => console.log(err))
     }
+    function ReplaceImage(e,a) {
+        e.preventDefault()       
+        let data = new FormData()       
+        data.append('file', e.target.files[0], a)
+        console.log(data)       
+        fetch(`${url}/upl?name=${nikname}`, {
+            body: data,
+            method: 'post',
+        })
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
+    }
     return (
         <main className={styles.main}>
             <header className={styles.header}>
@@ -97,7 +109,18 @@ export default function AddList() {
                 </label>
                 {lists?.filter(i => tag ? i.search(services__name[tag]) !== -1 : i).map(i =>
                     <div key={i} className={styles.sertificats} style={{ backgroundImage: "url(" + url + "/var/data/" + nikname + '/' + i }} >
-                        <span style={{color: color[1]}} onClick={() => Deletefile(i)}>&#128465;</span>
+                    <label className={styles.sertificat__replace} style={{color: color[1], backgroundColor: color[2] }}>
+                        &#128393;
+                    <input
+                        type="file"
+                        name="image"
+                        disabled={!tag}
+                        style={{ display: 'none' }}
+                        accept=".jpg"
+                        onChange={(e)=>ReplaceImage(e,i)}
+                    />
+                    </label>                        
+                    <span title='удалить' style={{color: color[1]}} onClick={() => Deletefile(i)}>&#128465;</span>
                     </div>
                 )}
 

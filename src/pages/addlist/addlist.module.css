@@ -78,18 +78,25 @@
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    cursor: pointer;
+   
     background-color: inherit;
 }
 .sertificats span {
     font-size: 18px;
     font-weight: 600;
     float: right;
+    cursor: pointer;
     transform: scaleX(1.3);
     margin-right: 3px;   
     background-color: #ECEEFD;
     padding: 0 5px;
     border-top-right-radius: 6px;
+}
+.sertificats label {
+    float: left;
+    border-top-left-radius: 6px;
+    transform: scaleX(1.3);
+    cursor: pointer;
 }
 .services {
     display: flex;
