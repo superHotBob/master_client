@@ -33,10 +33,12 @@ const services__name = {
 
 export default function Home() {
   const dispatch = useDispatch()
-  const [view_image, viewImage] = useState({name:'',image:''})
-  const [data, setdata] = useState([])
   const service = useSelector(state => state.counter.service)
   const city = useSelector(state => state.counter.city)
+  const [view_image, viewImage] = useState({name:'',image:''})
+  const [data, setdata] = useState([])
+  const count = useRef(0)
+  
 
   // const fetcher = (...args) => fetch(...args).then(res => res.json())
   // const { data, error, isLoading } = useSWR(`/api/all_masters_city_service?service=${service}&city=${city}`, fetcher)
@@ -50,6 +52,7 @@ export default function Home() {
     });
   useEffect(() => {
     setdata([])
+    count.current = 0
     fetch(`/api/all_masters_city_service?service=${service}&city=${city}`)
       .then(res => res.json())
       .then(data => setdata(data.map((i,index)=>data[index] = {id: index,'name': i, image: url_image + i + '/list__' + services__name[service] + '__0.jpg'})))
@@ -74,26 +77,48 @@ export default function Home() {
         .then(response => response.json())
         .then(result => {
           dispatch(setcity(result.suggestions[0].data.city))
-
         })
         .catch(error => console.log("error", error));
     }
     Location()
   }, [coords])
 
-  const imageOnError = (a) => {  
-    console.log(a)
-    data.filter(i => { return i.name !== a })
-    setdata(data.filter(i => { return i.name !== a }))
-    console.log(data.filter(i => { return i.name !== a }))
+  const imageOnError = (a) => {   
+    let new_data = [...data]
+    const m = new_data.filter(i => i.image !== a )
+    setdata(m) 
+    
   };
   function Plus() {
-    let new_arr = data
-    data.forEach(i => new_arr.push({name:i.name,image:i.image.replace('0.jpg','1.jpg')}))
-    setdata([...new_arr])
-    console.log(new_arr)
+    count.current = count.current + 1    
+    let new_arr = [...data]
+    data.forEach(i => new_arr.push({name:i.name,image: url_image + i.name + '/list__' + services__name[service] + '__'+ count.current + '.jpg'}))
+    setdata([...new_arr])    
   }
-
+  function Height(a,b) {   
+   
+    if (window.screen.width >= 500 && document.getElementById(b)) {
+      document.getElementById(b).style.height = a*240 + 'px'
+    } else if(document.getElementById(b)) {
+      document.getElementById(b).style.height = a*48 + 'vw'
+    } else {
+      
+    }
+    
+  }
+  function View(a,b) {    
+    viewImage({...view_image,name:a,image: b})
+    setTimeout(()=>{
+      document.getElementById(b + a).style.top = window.scrollY + 'px'
+      document.getElementById(b + a).style.opacity = 1
+    },500)
+    
+  }
+  function GetDate(a) {
+    fetch(a)
+    .then(res=>res.json())
+    .then(res=>console.log(res))
+  }
   return (
     <>
       <Header />
@@ -107,25 +132,33 @@ export default function Home() {
         <FilterServices />
         <div className={styles.images}>
           <div className={styles.images_one}>
-            {data?.filter((i, index) => index % 2 === 0).map((i, index) =>
-              <div onClick={() => viewImage({...view_image,name:i.name,image: i.image})}  key={i.index}>
-                <img
+            {data?.filter((i,index) => index % 2 === 0).map(i =>
+              <div  id={i.image}   key={i.index}>
+                <Image
                   alt="abc"
-                  onError={() => imageOnError(i)}
+                  onClick={() => View(i.name,i.image)}
+                  onError={() => imageOnError(i.image)}
+                  onLoadingComplete={(img) => Height(img.naturalHeight/img.naturalWidth ,i.image)}
                   src={i.image}
                   title={i.name}
+                  fill={true}
+                  loading = 'lazy'                 
                 />
               </div>
             )}
           </div>
           <div className={styles.images_two}>
             {data?.filter((i, index) => index % 2 !== 0).map(i =>
-              <div onClick={() => viewImage({...view_image,name:i.name,image: i.image})}  key={i.index}>
-                <img
+              <div id={i.image}   key={i.index}>
+                <Image
                   alt="abc"
-                  onError={() => imageOnError(i.name)}
+                  onClick={() => View(i.name,i.image)}
+                  onError={() => imageOnError(i.image)}
+                  onLoadingComplete={(img) => Height(img.naturalHeight/img.naturalWidth ,i.image)}
                   src={i.image}
                   title={i.name}
+                  fill={true}
+                  loading = 'lazy'
                 />
               </div>
             )}
@@ -134,7 +167,7 @@ export default function Home() {
         </div>
       </section>
       {view_image.name ?
-        <div className={styles.main__detail}>
+        <div className={styles.main__detail} id={view_image.image + view_image.name}>
           <div className={styles.detail}>
             <Image className={styles.close} src="/chevron_up.svg" onClick={() => viewImage({name:'',image:''})} alt="img" width={24} height={24} />
             {/* <Carousel
@@ -156,17 +189,24 @@ export default function Home() {
                 }
               }}
             > */}
-            <img alt={view_image.image} src={view_image.image} width="100%" height="auto" />
+            <img 
+              alt={view_image.name} 
+              src={view_image.image} 
+              width="100%" 
+              id={view_image.image}
+              onLoad={()=>GetDate(view_image.image)}
+              height="auto" 
+            />
             {/* <img alt={image.image} src={'image/lenta1.jpg'} id={image.image} width="100%" height="auto" />
               <img alt={image.image} src={'image/lenta3.jpg'} id={image.image} width="100%" height="auto" />
               <img alt={image.image} src={'image/master1.jpg'} id={image.image} width="100%" height="auto" /> */}
             {/* </Carousel> */}
-            <div className={styles.master}>
+            <div className={styles.master} >
               <Image alt="image" src={url_image + view_image.name + '/main.jpg'} width={26} height={26} />
               <span>{view_image.name}</span>
               <span></span>
             </div>
-            <h5>Пилинг, шугаринг, наращивание</h5>
+            <h5>{service}</h5>
             <h6>
               {`Каждый из нас понимает очевидную вещь: граница
             обучения кадров требует анализа поэтапного и

@@ -46,14 +46,14 @@
 
 .part_images {
     display: inline-block;
-    width: calc(50% - 5px);
+    width: calc(50% - 5.5px);
     
 
 }
 
 .part_images img {
     border-radius: 8px;
-    margin-bottom: 10px;
+    margin-bottom: 6px;
     width: 100%;
     height: auto;
 }

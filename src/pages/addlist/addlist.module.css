@@ -99,8 +99,7 @@
     font-size: 14px;
     font-weight: 500;
     margin: 20px 10px 0 0;
-    display: inline-block;
-    width: 20%;
+    display: inline-block;    
     line-height: 27px;
     text-align: center;
     cursor: pointer;
@@ -113,6 +112,7 @@
     background-color: #3D4EEA;
     border-radius: 4px;
     height: 27px;
+    padding: 0 10px;
 
 }
 
