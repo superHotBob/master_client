@@ -1,4 +1,4 @@
-import styles from '/master.module.css'
+import styles from './masterheader.module.css'
 import { useState } from 'react'
 import Image from 'next/image'
 import Location from '../location'

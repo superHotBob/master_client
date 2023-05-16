@@ -58,7 +58,7 @@ export default function Client() {
     return (
         <main className={styles.main}>
             <Head>
-                <title>Master {pid}</title>
+                <title>{pid}</title>
             </Head>
             {profile ? <>
                 <Header sel='back' text='Мой профиль' color={profile.color} />  
