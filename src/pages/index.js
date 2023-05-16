@@ -80,7 +80,7 @@ export default function Home() {
         })
         .catch(error => console.log("error", error));
     }
-    Location()
+    city ? null : Location()
   }, [coords])
 
   const imageOnError = (a) => {   
@@ -132,8 +132,8 @@ export default function Home() {
         <FilterServices />
         <div className={styles.images}>
           <div className={styles.images_one}>
-            {data?.filter((i,index) => index % 2 === 0).map(i =>
-              <div  id={i.image}   key={i.index}>
+            {data?.filter((i,index) => index % 2 === 0).map((i,index) =>
+              <div  id={i.image}   key={index}>
                 <Image
                   alt="abc"
                   onClick={() => View(i.name,i.image)}
@@ -142,14 +142,15 @@ export default function Home() {
                   src={i.image}
                   title={i.name}
                   fill={true}
-                  loading = 'lazy'                 
+                  loading = 'lazy' 
+                  
                 />
               </div>
             )}
           </div>
           <div className={styles.images_two}>
-            {data?.filter((i, index) => index % 2 !== 0).map(i =>
-              <div id={i.image}   key={i.index}>
+            {data?.filter((i, index) => index % 2 !== 0).map((i,index) =>
+              <div id={i.image}   key={index}>
                 <Image
                   alt="abc"
                   onClick={() => View(i.name,i.image)}

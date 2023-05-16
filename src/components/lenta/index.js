@@ -32,10 +32,29 @@ const url = 'https://masters-client.onrender.com/'
 export default function Lenta({color={},nikname}) {
     
     const [model, setViewText] = useState(false)
+    const [message, setMessage] = useState(false)
     const profile = useSelector(state=>state.counter.profile) 
     console.log(profile.status)
     const fetcher = (...args) => fetch(...args).then(res => res.json())
     const { data, error, isLoading } = useSWR(`${url}getlists?dir=${nikname}`, fetcher)
+
+    function Saved_image(a) {       
+        let pro = JSON.parse(localStorage.getItem('profile'))
+        let new_saved = [...pro.saved_image]
+        const add_image = [...new_saved,a]       
+        fetch('/api/saves_image', {
+            body: JSON.stringify({image: add_image,nikname:profile.nikname}),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+        }).then(res => {
+            setMessage(true)
+            const new_profile = {...profile,saved_image: add_image}
+            localStorage.setItem('profile', JSON.stringify(new_profile))
+            setTimeout(() => setMessage(false), 3000)
+        })
+    }
    
     return (
         <main className={styles.main}>          
@@ -43,12 +62,19 @@ export default function Lenta({color={},nikname}) {
                 <h3>Нужна модель</h3>
                 <h6>15 сентября, бесплатно</h6>
             </div>
+            <dialog open={message} className={styles.message}>
+                Изображение сохранено
+            </dialog>            
             <div className={styles.images}>
                 <div className={styles.part_images}>
                     {data?.filter((i, index) => index % 2 === 0).map(i =>
                         <div key={i}>                      
                             <img alt={i} src={url + 'var/data/' + nikname + '/' + i} />
-                            { profile.status === 'client'?<span className={styles.save__image} />:null}
+                            { profile.status === 'client'?
+                            <span 
+                                className={styles.save__image} 
+                                onClick={()=>Saved_image(nikname + '/' + i)}
+                            />:null}
                         </div>                         
                     )}
                 </div>
@@ -56,7 +82,11 @@ export default function Lenta({color={},nikname}) {
                     {data?.filter((i, index) => index % 2 !==0).map(i =>
                         <div key={i}>                        
                             <img  alt={i} src={url + 'var/data/' + nikname + '/' + i}  />  
-                            {profile.status === 'client'?<span className={styles.save__image} />:null}
+                            { profile.status === 'client'?
+                            <span 
+                                className={styles.save__image} 
+                                onClick={()=>Saved_image(nikname + '/' + i)}
+                            />:null}
                         </div>                     
                     )}
                 </div>
@@ -71,11 +101,8 @@ export default function Lenta({color={},nikname}) {
                         {text}
                     </p>
                     <Link href="/" className={styles.add}>Подать заявку</Link>
-
                 </div>
-
             </div> : null}
-
         </main>
     )
 }
