@@ -23,83 +23,21 @@
     line-height: 72px;
 }
 
-.section {
+.section_main {
     text-align: center;
     padding: 16px;
-    font-weight: 500;   
-    line-height: 17px;
-}
-
-.section h4::before {
-    content: url('/location.svg');
-    display: inline-block;
-    transform: translate(-7px,4px);
-    cursor: pointer;
-}
-
-.image img {
-    border-radius: 100%;
-    transform: translateY(50px);
-    border: 3px solid #fff;
-    background-color: #fff;
-}
-
-.name_stars{
-    margin: 59px auto 7px;
-    
-}
-.section p span:first-of-type {
-    font-size: 22px;
-    vertical-align: middle;    
-}
-
-.pro {   
    
-    margin: 6px 5px 0; 
-    line-height: 17px;  
-    border-radius: 4px;
-    font-weight: 500;
-    font-size: 12px;
-    color: #fff;
-    padding: 3px 8px;
 }
 
-.stars {   
-    height: 21px;
-    width: 50px;
-    margin: 7px 0 0;
-    text-align: left;  
-    font-size: 12px;
-    line-height: 14px; 
-    border-radius: 4px;
-    display: inline-block;
-    padding: 2px 2px 2px 8px;
-}
-.stars::after {
-    content: '\2605';
-    font-size: 16px;
-    margin-left: 5px;
-    font-weight: 600;
-}
 
-.text {
-    text-align: center;
-    font-weight: 400;
-    font-size:  12px;
-    line-height:  17px;
-    width: 80%;
-    margin: 0 auto;
-    color: #282828;
-}
 
-.view_text {
-    color: #3D4EEA;
-    margin: 12px auto;
-    display: block;
-    font-weight: 400;
-    font-size:  12px;
-    line-height:  17px;
-}
+
+
+
+
+
+
+
 
 .buttons {
     display: flex;

@@ -12,6 +12,7 @@ import Sertificats from '@/components/serificats'
 import AddSertificat from '@/components/addsertificat'
 import Menu_icon from '@/components/icons/menu'
 import AddService from '@/components/addservise'
+import MasterHeader from '@/components/masterheader'
 
 const nav_active = ({
     color: "#fff",
@@ -26,13 +27,14 @@ export default function Client() {
     const [profile, setProfile] = useState()
     const [nav_view, setNavView] = useState('Лента')
 
-    const [viewText, setViewText] = useState(true)
+   
     const [newSertificat, AddNewSertificat] = useState(false)
     const [lists, setlists] = useState()
 
     useEffect(() => {
+        const { pathname } = window.location     
         const pro = JSON.parse(localStorage.getItem('profile'))
-        if (!pro) {
+        if (pro.nikname !== pathname.replace('/masterprofile/', '')) {
             return () => router.push('/enter')
         }
         if (pro.status === 'master') {
@@ -56,38 +58,17 @@ export default function Client() {
     return (
         <main className={styles.main}>
             <Head>
-                <title>{pid}</title>
+                <title>Master {pid}</title>
             </Head>
             {profile ? <>
-                <Header text={pid} color={profile.color} />
-                {/* <div
-                    className={styles.profile}
-                    style={{ backgroundImage: profile.image ? 'url(' + profile.image + ')' : null }}
-                >
-                    {profile.name}
-                    <Link href="/editprofile" style={{ color: profile.color[1] }}>{profile.text || 'Написать о себе'}</Link>
-                </div> */}
-                <section className={styles.section}>
-                    <div className={styles.image} style={{ background: profile.color[0] }}>
-                        {profile.image ? <Image src={url + 'var/data/' + profile.nikname + '/main.jpg'} alt="profile" height={105} width={105} /> : null}
-                    </div>
-                    <p className={styles.name_stars}>
-                        <span style={{ width: 'fit-content' }}>{profile.name}</span>
-                        <span className={styles.pro} style={{ background: profile.color[0] }}>MASTER</span>
-                        <span
-                            className={styles.stars}
-                            style={{ color: profile.color[1], backgroundColor: profile.color[2] }}
-                        >4.7</span>
-                    </p>
-                    <h4>{profile.address}</h4>
-                    {viewText ? <h5 className={styles.text}>{profile.text}</h5> : null}
-                    <span style={{ color: profile.color[1] }} className={styles.view_text} onClick={() => setViewText(!viewText)}>{viewText ? 'Скрыть описание' : 'Описание'}</span>
-                </section>
+                <Header sel='back' text='Мой профиль' color={profile.color} />  
+                <section className={styles.lenta}>      
+                <MasterHeader profile={profile} />
                 <nav className={styles.navigation}>
                     {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
                         .map(i => <span key={i} onClick={() => setNavView(i)} style={nav_view === i ? { ...nav_active, background: profile.color[1] } : null}>{i}</span>)}
                 </nav>
-                <section className={styles.lenta}>
+                
                     {nav_view === 'Отзывы' ?
                         <Message color={profile.color} text={`Здесь будут отображаться отзывы на выполенные
                         вами заказы и проведенные мероприятия.`} />

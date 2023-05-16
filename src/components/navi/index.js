@@ -57,7 +57,7 @@ export default function Navi({ save, color }) {
                     href={prof.status ? "/" + prof.status + "profile/" + prof.nikname : "/enter"}
                     className={styles.enter}
                     style={prof.status ?
-                        (router.asPath.includes('client') || router.asPath.includes('masterprofile/') ? active : active_two) : null}
+                        (router.asPath.includes('clientprofile') || router.asPath.includes('masterprofile/') ? active : active_two) : null}
                 >
                     Вход
                 </Link>

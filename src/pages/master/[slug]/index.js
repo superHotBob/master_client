@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux'
 import Menu_icon from '@/components/icons/menu'
 import Link from 'next/link'
 import Location from '@/components/location'
+import MasterHeader from '@/components/masterheader'
 
 const url = 'https://masters-client.onrender.com/'
 
@@ -65,21 +66,8 @@ const Master = () => {
             <Head><title>{slug}</title></Head>
             {profile ? <>
                 <Header text={slug} sel='back' color={profile?.color} />
-                <section className={styles.section}>
-                    <div className={styles.image} style={{ background: profile.color[0] }}>
-                        <Image src={url + 'var/data/' + slug + '/main.jpg'} alt="profile img" height={105} width={105} />
-                    </div>
-                    <p className={styles.name_stars}>
-                        <span>{profile.name}</span>
-                        <span className={styles.pro} style={{ background: profile.color[0] }}>MASTER</span>
-                        <span
-                            className={styles.stars}
-                            style={{ color: profile.color[1], backgroundColor: profile.color[2] }}
-                        >{profile.stars}</span>
-                    </p>
-                    <h4 onClick={() => setmapview(true)}>{profile.address}</h4>
-                    {viewText ? <h5 className={styles.text}>{profile.text}</h5> : null}
-                    <span style={{ color: profile.color[1] }} className={styles.view_text} onClick={() => setViewText(!viewText)}>{viewText ? 'Скрыть описание' : 'Описание'}</span>
+                <section className={styles.section_main}>
+                    <MasterHeader profile={profile}/>
                     <div className={styles.buttons}>
                         <Link href={my_profile.status === 'client' ? '/chat' : '/error'} style={{ backgroundColor: profile.color[2] }} >
                             <span style={{ color: profile.color[1] }}>
@@ -109,7 +97,7 @@ const Master = () => {
                     {nav_view === 'Услуги' ? <Services name={slug} color={profile.color} /> : null}
                     {nav_view === 'Лента' ? <Lenta nikname={slug} color={profile.color} /> : null}
                     {nav_view === 'Сертификаты' ? <Sertificats nikname={slug} /> : null}
-                    {mapview ? <Location nikname={slug} loc_master={profile.locations} close={setmapview} /> : null}
+                    
                 </section>
                 <Navi color={profile.color[0]} />
             </> :

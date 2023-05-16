@@ -1,0 +1,87 @@
+.section {
+    text-align: center;
+    padding: 16px 0 0;
+    font-weight: 500;
+    line-height: 17px;
+  }
+  
+  .section h4::before {
+    content: url('/location.svg');
+    display: inline-block;
+    transform: translate(-7px, 2px);
+  }
+  
+  .image img {
+    border-radius: 100%;
+    transform: translateY(50px);
+    border: 3px solid #fff;
+    background-color: #fff;
+  }
+  
+  .name_stars {
+    margin: 60px auto 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+  }
+  
+  .section p span:first-of-type {
+    font-size: 22px;
+  }
+  
+  .pro {
+    height: 21px;
+    width: 65px;
+    margin: 0 5px;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 12px;
+    color: #fff;
+    padding: 3px 8px;
+  }
+  
+  .stars {
+    height: 21px;
+    width: 50px;
+    text-align: left;
+    font-size: 12px;
+    line-height: 14px;
+    border-radius: 4px;
+    display: inline-block;
+    padding: 2px 2px 2px 8px;
+  }
+  
+  .stars::after {
+    content: '\2605';
+    font-size: 16px;
+    margin-left: 5px;
+    font-weight: 600;
+  }
+  
+  .text {
+    text-align: center;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 17px;
+    color: #282828;
+    width: 100%;
+    margin: 0 auto;
+  }
+  
+  .view_text {
+    color: #3D4EEA;
+    margin: 12px auto;
+    display: block;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 17px;
+  }
+  
+  .image {
+    height: 100px;
+    background: linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%);
+    border-radius: 20px;
+    background-size: 400% 400%;
+    animation: gradient 22s ease infinite;
+  }
