@@ -27,7 +27,7 @@ const services__name = {
 }
 const url_two = 'https://masters-client.onrender.com/'
 export default function AddList() {
-    const ref = useRef(null)
+    const my_ref = useRef(null)
     const [lists, setlists] = useState([])
     const [select, setselect] = useState(true)
     const [nikname, setnikname] = useState()
@@ -55,14 +55,14 @@ export default function AddList() {
         setlists(new_list)
     }
 
-    function SetForTag(a) {
-        ref.current.value = null
-        setActiveImage(a)       
+    function SetForTag(a) {        
+        setActiveImage(a) 
+        console.log(my_ref.current)      
         let new_file = nikname + '/' + a
         fetch(`${url_two}readtext?file=${new_file}`)
         .then(res => res.text())
         .then(res=> {
-            ref.current.value = res
+            my_ref.current.value = res
         })
     }
    
@@ -70,7 +70,7 @@ export default function AddList() {
         fetch(`${url}/createtag?name=${nikname}`, {
             body: JSON.stringify({
                 name: activeImage,
-                text: ref.current.value
+                text: my_ref.current.value
             }),
             headers: {
                 'Content-Type': 'application/json',
@@ -167,7 +167,7 @@ export default function AddList() {
                 <>
                     <label className={styles.addtag}>
                         <textarea
-                            ref={ref}
+                            ref={my_ref}                           
                             maxLength="200"
                             placeholder='Ваш комментарий'
                             rows={10}

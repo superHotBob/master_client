@@ -51,12 +51,11 @@
   background-size: cover;
   border-radius: 8px;
 }
-.images_one div, .images_two div {
-  margin-bottom: 10px;
-  width: 100%;
+.images_one div, .images_two div {  
   position: relative; 
+  height: 0;
   cursor: pointer; 
-  transition: all 0.5s;
+  
 }
 .images_one div img , .images_two div img {
   border-radius: 12px;

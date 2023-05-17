@@ -7,7 +7,8 @@ export default async function handler(req, res) {
     const result = await sql`
         select nikname
         from users
-        where ${req.query.service.toLowerCase()} = ANY (services) and city = ${req.query.city.toLowerCase()} and blocked = 'no'
+        where ${req.query.service.toLowerCase()} = ANY (services) 
+        and city = ${req.query.city.toLowerCase()} and blocked = 'no' and image != '0'
    `
     if (result.length>0) {
         res.status(200).json(result.map(i=>i.nikname))

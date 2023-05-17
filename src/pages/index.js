@@ -57,6 +57,7 @@ export default function Home() {
     fetch(`/api/all_masters_city_service?service=${service}&city=${city}`)
     .then(res => res.json())
     .then(data => setdata(data.map((i,index)=>data[index] = {id: index,'name': i, image: url_image + i + '/list__' + services__name[service] + '__0.jpg'})))
+    return ()=>viewImage({name:'',image:''})
   }, [service])
 
   // useEffect(() => {
@@ -86,31 +87,33 @@ export default function Home() {
   const imageOnError = (a) => {   
     let new_data = [...data]
     const m = new_data.filter(i => i.image !== a )
-    setdata(m)    
+    setdata([...m])    
   };
   function Plus() {
     count.current = count.current + 1    
-    let new_arr = [...data]
+    let new_arr = data
     data.forEach(i => new_arr.push({name:i.name,image: url_image + i.name + '/list__' + services__name[service] + '__'+ count.current + '.jpg'}))
     setdata([...new_arr])    
   }
   function Height(a,b) {   
     if (window.screen.width >= 500 && document.getElementById(b)) {
       document.getElementById(b).style.height = a*210 + 'px'
+      document.getElementById(b).style.marginBottom = '10px'
     } else if(document.getElementById(b)) {
       document.getElementById(b).style.height = a*48.5 + 'vw'
+      document.getElementById(b).style.marginBottom = '10px'
     } else {      
     }    
   }
   function View(a,b) {    
     viewImage({...view_image,name:a,image: b})
+    GetText(b)
     setTimeout(()=>{
       document.getElementById(b + a).style.top = window.scrollY + 'px'
       document.getElementById(b + a).style.opacity = 1
     },500)    
   }
-  function GetDate(a) {
-    console.log(a)
+  function GetText(a) {    
     let new_file = a.replace('https://masters-client.onrender.com/var/data/','')
     fetch(`${url_two}readtext?file=${new_file}`)
     .then(res => res.text())
@@ -138,7 +141,8 @@ export default function Home() {
                   onLoadingComplete={(img) => Height(img.naturalHeight/img.naturalWidth ,i.image)}
                   src={i.image}
                   title={i.name}
-                  fill={true}         
+                  fill={true}  
+                  priority={true}       
                   
                 />
               </div>
@@ -190,7 +194,7 @@ export default function Home() {
               src={view_image.image} 
               width="100%" 
               id={view_image.image}
-              onLoad={()=>GetDate(view_image.image)}
+             
               height="auto" 
             />
             {/* <img alt={image.image} src={'image/lenta1.jpg'} id={image.image} width="100%" height="auto" />
