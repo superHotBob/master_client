@@ -37,6 +37,7 @@ export default function Home() {
   const city = useSelector(state => state.counter.city)
   const [view_image, viewImage] = useState({name:'',image:''})
   const [data, setdata] = useState([])
+  const [tag, setTag] = useState()
   const count = useRef(0)
   
 
@@ -54,40 +55,38 @@ export default function Home() {
     setdata([])
     count.current = 0
     fetch(`/api/all_masters_city_service?service=${service}&city=${city}`)
-      .then(res => res.json())
-      .then(data => setdata(data.map((i,index)=>data[index] = {id: index,'name': i, image: url_image + i + '/list__' + services__name[service] + '__0.jpg'})))
-
+    .then(res => res.json())
+    .then(data => setdata(data.map((i,index)=>data[index] = {id: index,'name': i, image: url_image + i + '/list__' + services__name[service] + '__0.jpg'})))
   }, [service])
 
-  useEffect(() => {
-    // console.log([coords.latitude, coords.longitude])
-    const options = {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json",
-        "Authorization": "Token " + token
-      },
-      body: JSON.stringify({ lat: coords?.latitude, lon: coords?.longitude })
-    }
+  // useEffect(() => {
+  //   // console.log([coords.latitude, coords.longitude])
+  //   const options = {
+  //     method: "POST",
+  //     mode: "cors",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "Accept": "application/json",
+  //       "Authorization": "Token " + token
+  //     },
+  //     body: JSON.stringify({ lat: coords?.latitude, lon: coords?.longitude })
+  //   }
 
-    async function Location() {
-      await fetch(url_one, options)
-        .then(response => response.json())
-        .then(result => {
-          dispatch(setcity(result.suggestions[0].data.city))
-        })
-        .catch(error => console.log("error", error));
-    }
-    city ? null : Location()
-  }, [coords])
+  //   async function Location() {
+  //     await fetch(url_one, options)
+  //       .then(response => response.json())
+  //       .then(result => {
+  //         dispatch(setcity(result.suggestions[0].data.city))
+  //       })
+  //       .catch(error => console.log("error", error));
+  //   }
+  //   city ? null : Location()
+  // }, [coords])
 
   const imageOnError = (a) => {   
     let new_data = [...data]
     const m = new_data.filter(i => i.image !== a )
-    setdata(m) 
-    
+    setdata(m)    
   };
   function Plus() {
     count.current = count.current + 1    
@@ -96,28 +95,26 @@ export default function Home() {
     setdata([...new_arr])    
   }
   function Height(a,b) {   
-   
     if (window.screen.width >= 500 && document.getElementById(b)) {
-      document.getElementById(b).style.height = a*240 + 'px'
+      document.getElementById(b).style.height = a*210 + 'px'
     } else if(document.getElementById(b)) {
-      document.getElementById(b).style.height = a*48 + 'vw'
-    } else {
-      
-    }
-    
+      document.getElementById(b).style.height = a*48.5 + 'vw'
+    } else {      
+    }    
   }
   function View(a,b) {    
     viewImage({...view_image,name:a,image: b})
     setTimeout(()=>{
       document.getElementById(b + a).style.top = window.scrollY + 'px'
       document.getElementById(b + a).style.opacity = 1
-    },500)
-    
+    },500)    
   }
   function GetDate(a) {
-    fetch(a)
-    .then(res=>res.json())
-    .then(res=>console.log(res))
+    console.log(a)
+    let new_file = a.replace('https://masters-client.onrender.com/var/data/','')
+    fetch(`${url_two}readtext?file=${new_file}`)
+    .then(res => res.text())
+    .then(res=>setTag(res))
   }
   return (
     <>
@@ -141,8 +138,7 @@ export default function Home() {
                   onLoadingComplete={(img) => Height(img.naturalHeight/img.naturalWidth ,i.image)}
                   src={i.image}
                   title={i.name}
-                  fill={true}
-                  loading = 'lazy' 
+                  fill={true}         
                   
                 />
               </div>
@@ -158,12 +154,11 @@ export default function Home() {
                   onLoadingComplete={(img) => Height(img.naturalHeight/img.naturalWidth ,i.image)}
                   src={i.image}
                   title={i.name}
-                  fill={true}
-                  loading = 'lazy'
+                  fill={true}                 
                 />
               </div>
             )}
-            <button className={styles.add__images} onClick={Plus}>+</button>
+            {data?<button className={styles.add__images} onClick={Plus}>+</button>:null}
           </div>
         </div>
       </section>
@@ -208,10 +203,10 @@ export default function Home() {
               <span></span>
             </div>
             <h5>{service}</h5>
-            <h6>
-              {`Каждый из нас понимает очевидную вещь: граница
+            <h6>{tag ? tag :
+              `Каждый из нас понимает очевидную вещь: граница
             обучения кадров требует анализа поэтапного и
-            последовательного развития общества.`}
+            последовательного развития общества.` }
             </h6>
             <Link className={styles.toprofilemaster} href={'/master/' + view_image.name} >Перейти в профиль мастера</Link>
           </div>

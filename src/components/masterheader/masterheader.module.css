@@ -10,7 +10,14 @@
     display: inline-block;
     transform: translate(-7px, 2px);
   }
-  
+  .section h4 {
+    margin: 0 0 5px;
+    color: #282828;
+    font-weight: 600;
+    font-size:  12px;
+    line-height: 22px;
+    text-align: center;
+}
   .image img {
     border-radius: 100%;
     transform: translateY(50px);
@@ -19,7 +26,7 @@
   }
   
   .name_stars {
-    margin: 60px auto 20px;
+    margin: 60px auto 17px;
     display: flex;
     justify-content: center;
     align-items: center;

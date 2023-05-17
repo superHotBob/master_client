@@ -82,12 +82,12 @@
 
 .week {
     display: grid;
-    grid-template-columns: auto auto auto auto auto auto auto;
+    grid-template-columns: repeat(7, auto);
 }
 
 .days {
     display: grid;
-    grid-template-columns: auto auto auto auto auto auto auto;
+    grid-template-columns: repeat(7, auto);
     justify-content: space-between;
     gap: 8px;
 }
@@ -141,7 +141,7 @@
 .time {
     display: grid;
     gap: 8px;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: repeat(3, auto);
     justify-content: space-between;
 }
 
@@ -170,7 +170,7 @@
 
     .days {
         display: grid;
-        grid-template-columns: auto auto auto auto auto auto auto;
+        grid-template-columns: repeat(7, auto);
         justify-content: space-between;
         gap: 8px;
     }
