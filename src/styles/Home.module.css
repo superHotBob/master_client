@@ -51,16 +51,13 @@
   background-size: cover;
   border-radius: 8px;
 }
-.images_one div, .images_two div {  
-  position: relative; 
-  height: 0;
-  cursor: pointer; 
-  
-}
-.images_one div img , .images_two div img {
+
+.images_one img {
   border-radius: 12px;
   width: 100%;
   height: auto;
+  cursor: pointer; 
+  
 }
 
 .main__detail {
@@ -87,7 +84,14 @@
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
 }
-
+.detail h3 {
+  cursor: pointer;
+  text-align: center;
+  color: #ccc;
+}
+.detail h3:hover {
+  color:#282828;
+}
 
 .toprofilemaster {
   height: 46px;

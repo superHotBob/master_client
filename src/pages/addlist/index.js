@@ -35,6 +35,7 @@ export default function AddList() {
     const [services, setservices] = useState()
     const [tag, settag] = useState()
     const [activeImage, setActiveImage] = useState()
+    const [message, setmessage] = useState('')
 
     useEffect(() => {
         const prof = JSON.parse(localStorage.getItem('profile'))
@@ -77,7 +78,10 @@ export default function AddList() {
             },
             method: 'post',
         })
-            .then(res => console.log('Добавлено'))
+            .then(res => {
+                setmessage('Тэг сохранён')
+                setTimeout(()=>setmessage(''),2000)
+            })
             .catch(err => console.log(err))
     }
 
@@ -110,7 +114,7 @@ export default function AddList() {
             <header className={styles.header}>
                 <Menu_icon color={color[1]} type="arrow" />
                 <span >Добавить публикацию</span>
-                <span style={{ color: color[1] }}>Отправить</span>
+                <span style={{ color: color[1] }}></span>
             </header>
             <Message text="Вы можете опубликовать работу или создать пост о 
                 поиске моделей, который будет отображаться в 
@@ -121,6 +125,9 @@ export default function AddList() {
                 <span style={select ? { ...active, backgroundColor: color[1] } : null}>Выполненная работа</span>
                 <span style={select ? null : { ...active, backgroundColor: color[1] }}>Поиск моделей</span>
             </div>
+            <dialog open={message} className={styles.message}>
+                {message}
+            </dialog>
             <form className={styles.main__form}>
                 <label className={styles.sertificat__upload} style={{ color: color[1], backgroundColor: color[2] }}>
                     +
@@ -158,7 +165,14 @@ export default function AddList() {
             </form>
             <section className={styles.services}>
                 {services?.map(i =>
-                    <span key={i} className={tag === i ? styles.active__service : null} onClick={() => settag(i)}>
+                    <span 
+                        key={i} 
+                        className={tag === i ? styles.active__service : null} 
+                        onClick={() => {
+                            settag(i)
+                            setActiveImage()
+                        }}
+                    >
                         {i}
                     </span>
                 )}
@@ -168,7 +182,7 @@ export default function AddList() {
                     <label className={styles.addtag}>
                         <textarea
                             ref={my_ref}                           
-                            maxLength="200"
+                            maxLength="500"
                             placeholder='Ваш комментарий'
                             rows={10}
                             style={{ borderColor: color[1] }}

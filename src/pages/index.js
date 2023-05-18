@@ -35,11 +35,11 @@ export default function Home() {
   const dispatch = useDispatch()
   const service = useSelector(state => state.counter.service)
   const city = useSelector(state => state.counter.city)
-  const [view_image, viewImage] = useState({name:'',image:''})
+  const [view_image, viewImage] = useState({ name: '', image: '' })
   const [data, setdata] = useState([])
   const [tag, setTag] = useState()
   const count = useRef(0)
-  
+
 
   // const fetcher = (...args) => fetch(...args).then(res => res.json())
   // const { data, error, isLoading } = useSWR(`/api/all_masters_city_service?service=${service}&city=${city}`, fetcher)
@@ -55,9 +55,9 @@ export default function Home() {
     setdata([])
     count.current = 0
     fetch(`/api/all_masters_city_service?service=${service}&city=${city}`)
-    .then(res => res.json())
-    .then(data => setdata(data.map((i,index)=>data[index] = {id: index,'name': i, image: url_image + i + '/list__' + services__name[service] + '__0.jpg'})))
-    return ()=>viewImage({name:'',image:''})
+      .then(res => res.json())
+      .then(data => setdata(data.map((i, index) => data[index] = { id: index, 'name': i, image: url_image + i + '/list__' + services__name[service] + '__0.jpg' })))
+    return () => viewImage({ name: '', image: '' })
   }, [service])
 
   // useEffect(() => {
@@ -84,40 +84,33 @@ export default function Home() {
   //   city ? null : Location()
   // }, [coords])
 
-  const imageOnError = (a) => {   
+  const imageOnError = (a) => {
     let new_data = [...data]
-    const m = new_data.filter(i => i.image !== a )
-    setdata([...m])    
+    const m = new_data.filter(i => i.image !== a)
+    setdata([...m])
   };
   function Plus() {
-    count.current = count.current + 1    
+    count.current = count.current + 1
     let new_arr = data
-    data.forEach(i => new_arr.push({name:i.name,image: url_image + i.name + '/list__' + services__name[service] + '__'+ count.current + '.jpg'}))
-    setdata([...new_arr])    
+    data.forEach(i => new_arr.push({ name: i.name, image: url_image + i.name + '/list__' + services__name[service] + '__' + count.current + '.jpg' }))
+    setdata([...new_arr])
   }
-  function Height(a,b) {   
-    if (window.screen.width >= 500 && document.getElementById(b)) {
-      document.getElementById(b).style.height = a*210 + 'px'
-      document.getElementById(b).style.marginBottom = '10px'
-    } else if(document.getElementById(b)) {
-      document.getElementById(b).style.height = a*48.5 + 'vw'
-      document.getElementById(b).style.marginBottom = '10px'
-    } else {      
-    }    
+  function Height(b) {
+    document.getElementById(b).style.marginBottom = '10px'
   }
-  function View(a,b) {    
-    viewImage({...view_image,name:a,image: b})
+  function View(a, b) {
+    viewImage({ ...view_image, name: a, image: b })
     GetText(b)
-    setTimeout(()=>{
+    setTimeout(() => {
       document.getElementById(b + a).style.top = window.scrollY + 'px'
       document.getElementById(b + a).style.opacity = 1
-    },500)    
+    }, 500)
   }
-  function GetText(a) {    
-    let new_file = a.replace('https://masters-client.onrender.com/var/data/','')
+  function GetText(a) {
+    let new_file = a.replace('https://masters-client.onrender.com/var/data/', '')
     fetch(`${url_two}readtext?file=${new_file}`)
-    .then(res => res.text())
-    .then(res=>setTag(res))
+      .then(res => res.text())
+      .then(res => setTag(res))
   }
   return (
     <>
@@ -132,44 +125,41 @@ export default function Home() {
         <FilterServices />
         <div className={styles.images}>
           <div className={styles.images_one}>
-            {data?.filter((i,index) => index % 2 === 0).map((i,index) =>
-              <div  id={i.image}   key={index}>
-                <Image
-                  alt="abc"
-                  onClick={() => View(i.name,i.image)}
-                  onError={() => imageOnError(i.image)}
-                  onLoadingComplete={(img) => Height(img.naturalHeight/img.naturalWidth ,i.image)}
-                  src={i.image}
-                  title={i.name}
-                  fill={true}  
-                  priority={true}       
-                  
-                />
-              </div>
+            {data?.filter((i, index) => index % 2 === 0).map((i, index) =>
+              <img
+                alt="abc"
+                key={index}
+                id={i.image}
+                onClick={() => View(i.name, i.image)}
+                onError={() => imageOnError(i.image)}
+                onLoad={(img) => Height(i.image)}
+                src={i.image}
+                title={i.name}
+              />
             )}
           </div>
-          <div className={styles.images_two}>
-            {data?.filter((i, index) => index % 2 !== 0).map((i,index) =>
-              <div id={i.image}   key={index}>
-                <Image
-                  alt="abc"
-                  onClick={() => View(i.name,i.image)}
-                  onError={() => imageOnError(i.image)}
-                  onLoadingComplete={(img) => Height(img.naturalHeight/img.naturalWidth ,i.image)}
-                  src={i.image}
-                  title={i.name}
-                  fill={true}                 
-                />
-              </div>
+          <div className={styles.images_one}>
+            {data?.filter((i, index) => index % 2 !== 0).map((i, index) =>
+              <img
+                alt="abc"
+                key={index}
+                id={i.image}
+                onClick={() => View(i.name, i.image)}
+                onError={() => imageOnError(i.image)}
+                onLoad={(img) => Height(i.image)}
+                src={i.image}
+                title={i.name}
+              />
             )}
-            {data?<button className={styles.add__images} onClick={Plus}>+</button>:null}
+            {data ? <button className={styles.add__images} onClick={Plus}>+</button> : null}
           </div>
         </div>
       </section>
       {view_image.name ?
         <div className={styles.main__detail} id={view_image.image + view_image.name}>
           <div className={styles.detail}>
-            <Image className={styles.close} src="/chevron_up.svg" onClick={() => viewImage({name:'',image:''})} alt="img" width={24} height={24} />
+            <h3 onClick={() => viewImage({ name: '', image: '' })}>&#128473;</h3>
+            {/* <Image className={styles.close} src="/chevron_up.svg" onClick={() => viewImage({name:'',image:''})} alt="img" width={24} height={24} /> */}
             {/* <Carousel
               adaptiveHeight
               defaultControlsConfig={{
@@ -189,13 +179,13 @@ export default function Home() {
                 }
               }}
             > */}
-            <img 
-              alt={view_image.name} 
-              src={view_image.image} 
-              width="100%" 
+            <img
+              alt={view_image.name}
+              src={view_image.image}
+              width="100%"
               id={view_image.image}
-             
-              height="auto" 
+
+              height="auto"
             />
             {/* <img alt={image.image} src={'image/lenta1.jpg'} id={image.image} width="100%" height="auto" />
               <img alt={image.image} src={'image/lenta3.jpg'} id={image.image} width="100%" height="auto" />
