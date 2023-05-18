@@ -45,14 +45,12 @@ export default function Navi({ save, color }) {
                 <Link href="/catalog" className={router.asPath.includes('catalog') ? styles.home : styles.dashboard}>
                     <Image alt="catalog" src={router.asPath.includes('catalog') ? dashboard_bl : dashboard} height={20} width={20} />
                 </Link>
-                {prof.status ? <>
-                    <Link href="/chat" className={styles.message} />
-                    <Link
+                {prof.status  ?<Link href="/chat" className={styles.message} />:null}
+                {prof.status === 'client' ? <Link
                         href={prof.status === 'client' ? '/client/' + prof.nikname : '/savedworks/' + prof.nikname}
                         className={styles.stroke}
                         style={router.asPath.includes('save') ? saved : null}
-                    />
-                </> : null}
+                    />: null}
                 <Link
                     href={prof.status ? "/" + prof.status + "profile/" + prof.nikname : "/enter"}
                     className={styles.enter}

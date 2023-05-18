@@ -7,10 +7,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setcity } from '@/reduser'
 import { setlocation } from '@/reduser'
 import FilterServices from '@/components/filterServices'
-import Carousel from 'nuka-carousel/lib/carousel'
 import Message from '@/components/message'
 import { useGeolocated } from "react-geolocated";
-import useSWR from 'swr'
 const url_image = 'https://masters-client.onrender.com/var/data/'
 const url_two = 'https://masters-client.onrender.com/'
 const url_one = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/geolocate/address"
@@ -121,7 +119,7 @@ export default function Home() {
             можете выбрать понравившуюся работу и написать
             мастеру!` }
         />
-        <Link className={styles.city} href="/city"> Выбрать ваш город</Link>
+        <Link className={styles.city} href="/city"> Ваш город {city}</Link>
         <FilterServices />
         <div className={styles.images}>
           <div className={styles.images_one}>
@@ -146,7 +144,7 @@ export default function Home() {
                 id={i.image}
                 onClick={() => View(i.name, i.image)}
                 onError={() => imageOnError(i.image)}
-                onLoad={(img) => Height(i.image)}
+                onLoad={() => Height(i.image)}
                 src={i.image}
                 title={i.name}
               />
@@ -158,46 +156,21 @@ export default function Home() {
       {view_image.name ?
         <div className={styles.main__detail} id={view_image.image + view_image.name}>
           <div className={styles.detail}>
-            <h3 onClick={() => viewImage({ name: '', image: '' })}>&#128473;</h3>
-            {/* <Image className={styles.close} src="/chevron_up.svg" onClick={() => viewImage({name:'',image:''})} alt="img" width={24} height={24} /> */}
-            {/* <Carousel
-              adaptiveHeight
-              defaultControlsConfig={{
-                nextButtonStyle: { display: 'none' },
-                prevButtonStyle: { display: 'none' },
-                pagingDotsClassName: styles.carousel,
-                pagingDotsStyle: {
-                  margin: '10px 5px',
-                  display: 'inline-block',
-                  width: '20vw',
-                  maxWidth: '100px',
-                  borderRadius: 4,
-                  backgroundColor: '#3D4EEA',
-                  height: 5,
-
-
-                }
-              }}
-            > */}
+            <h3 onClick={() => viewImage({ name: '', image: '' })}>&#128473;</h3>           
             <img
               alt={view_image.name}
               src={view_image.image}
               width="100%"
               id={view_image.image}
-
               height="auto"
-            />
-            {/* <img alt={image.image} src={'image/lenta1.jpg'} id={image.image} width="100%" height="auto" />
-              <img alt={image.image} src={'image/lenta3.jpg'} id={image.image} width="100%" height="auto" />
-              <img alt={image.image} src={'image/master1.jpg'} id={image.image} width="100%" height="auto" /> */}
-            {/* </Carousel> */}
+            />           
             <div className={styles.master} >
               <Image alt="image" src={url_image + view_image.name + '/main.jpg'} width={26} height={26} />
               <span>{view_image.name}</span>
-              <span></span>
+              <span>{tag?.split('\n')[0]}</span>
             </div>
             <h5>{service}</h5>
-            <h6>{tag ? tag :
+            <h6>{tag ? tag.split('\n')[1] :
               `Каждый из нас понимает очевидную вещь: граница
             обучения кадров требует анализа поэтапного и
             последовательного развития общества.` }

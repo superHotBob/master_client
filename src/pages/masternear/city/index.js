@@ -141,11 +141,10 @@ export default function MasterNear() {
                     <div className={styles.my_map} id="my_map" style={{height: master ? "30vh" : "430px", maxHeight: '430px', width: '100vw', maxWidth: '500px' }}>
                         <YMaps>
                             <Map id="mymap"
-
                                 state={{
                                     center: master ? masters?.filter(i => i.nikname === master)[0].locations : loc,
                                     zoom: master ? 14 : filter,
-                                    behaviors: ["default", "scrollZoom"]
+                                    behaviors: ["default", "scrollZoom","multiTouch","drag"]
                                 }}
                                 width="100%"
                                 height={master ? "30vh" : "430px"}

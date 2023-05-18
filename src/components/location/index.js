@@ -85,7 +85,7 @@ export default function Location({loc_master, close, nikname}) {
                                     center: loc_master ,
                                     zoom:  12 ,
                                     controls: [],
-                                    behaviors: ["default", "scrollZoom","onclick"]
+                                    behaviors: ["default", "scrollZoom","multiTouch","drag","onclick"]
                                 }} width='100%' height= "75vh"
                                                               
                                

@@ -57,21 +57,30 @@ export default function AddList() {
     }
 
     function SetForTag(a) {        
-        setActiveImage(a) 
-        console.log(my_ref.current)      
+        setActiveImage(a)              
         let new_file = nikname + '/' + a
         fetch(`${url_two}readtext?file=${new_file}`)
         .then(res => res.text())
         .then(res=> {
+            console.log(res.split('\n')[1])
             my_ref.current.value = res
         })
     }
-   
+    const date = new Date();
+
+    const options = {     
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }
+    
+    let current_date = date.toLocaleString('ru-RU', options)
     function SaveTag() {
+       
         fetch(`${url}/createtag?name=${nikname}`, {
             body: JSON.stringify({
                 name: activeImage,
-                text: my_ref.current.value
+                text: current_date + '\n'+ my_ref.current.value
             }),
             headers: {
                 'Content-Type': 'application/json',
@@ -106,7 +115,10 @@ export default function AddList() {
             body: data,
             method: 'post',
         })
-        .then(res => console.log(res))
+        .then(res => {
+            setmessage('Изображение заменено')
+            setTimeout(()=>setmessage(''),2000)
+        })
         .catch(err => console.log(err))
     }
     return (

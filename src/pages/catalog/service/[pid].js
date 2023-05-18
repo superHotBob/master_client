@@ -28,9 +28,7 @@ export default function Service() {
     const [masters, setMasters] = useState()
 
     useEffect(() => {
-        setMasters()
-        // const controller = new AbortController();
-        // const signal = controller.signal;
+        setMasters()      
         async function GetMasters() {
             const response = await fetch('/api/all_masters_service?'+ new URLSearchParams({
                 service: service,
@@ -39,10 +37,8 @@ export default function Service() {
             const result = await response.json()
             setMasters(result)
             console.log(result)
-        }
-        // return () => controller.abort();
+        }        
         GetMasters()
-
     }, [service])
  
    
