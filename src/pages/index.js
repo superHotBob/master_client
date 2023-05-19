@@ -95,6 +95,7 @@ export default function Home() {
   }
   function Height(b) {
     document.getElementById(b).style.marginBottom = '10px'
+    document.getElementById(b).style.opacity = 1
   }
   function View(a, b) {
     viewImage({ ...view_image, name: a, image: b })

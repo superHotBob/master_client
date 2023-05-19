@@ -88,7 +88,7 @@ export default function AddList() {
             method: 'post',
         })
             .then(res => {
-                setmessage('Тэг сохранён')
+                setmessage('Коментарий сохранён')
                 setTimeout(()=>setmessage(''),2000)
             })
             .catch(err => console.log(err))
@@ -192,6 +192,7 @@ export default function AddList() {
             {activeImage ?
                 <>
                     <label className={styles.addtag}>
+                    Расскажите о проекте подробнее...  
                         <textarea
                             ref={my_ref}                           
                             maxLength="500"

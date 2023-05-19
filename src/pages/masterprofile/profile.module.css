@@ -101,6 +101,10 @@
 .lenta_images {
   width: 49%;
 }
+.lenta_images img {
+  opacity: 0;
+  transition: all 0.5s;
+}
 .lenta_image  {
   height: auto;
   width: 100%;

@@ -51,7 +51,9 @@ export default function Client() {
     }, [])
 
 
-
+    function Load(a) {
+        document.getElementById(a).style.opacity = 1
+    }
 
 
 
@@ -111,12 +113,24 @@ export default function Client() {
                         <div className={styles.all__images}>
                             <div className={styles.lenta_images}>
                                 {lists?.filter((i,index)=>index % 2 == 0).map(i =>
-                                    <img key={i} className={styles.lenta_image} src={url + "var/data/" + pid + '/' + i} />
+                                    <img 
+                                        key={i}
+                                        id={i}
+                                        onLoad={()=>Load(i)} 
+                                        className={styles.lenta_image} 
+                                        src={url + "var/data/" + pid + '/' + i} 
+                                    />
                                 )}
                             </div>
                             <div className={styles.lenta_images}>
                                 {lists?.filter((i,index)=>index % 2 !==0).map(i =>
-                                    <img key={i} className={styles.lenta_image} src={url + "var/data/" + pid + '/' + i} />
+                                    <img 
+                                        key={i}
+                                        onLoad={()=>Load(i)}
+                                        id={i}  
+                                        className={styles.lenta_image} 
+                                        src={url + "var/data/" + pid + '/' + i} 
+                                    />
                                 )}
                             </div>
                         </div>

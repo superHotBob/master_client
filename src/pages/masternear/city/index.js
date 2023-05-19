@@ -6,8 +6,8 @@ import styles from './near.module.css'
 import arrow_down from '../../../../public/arrow_down.svg'
 import { useSelector, useDispatch } from 'react-redux'
 import { setmaster, setservice } from '@/reduser'
-import { useState, useEffect } from 'react'
-import { YMaps, Map, Placemark, Clusterer } from '@pbe/react-yandex-maps'
+import React, { useState, useEffect } from 'react'
+import { YMaps, Map, Placemark, Clusterer, useYMaps, templateLayoutFactory } from '@pbe/react-yandex-maps'
 import Script from 'next/script'
 
 import Message from '@/components/message'
@@ -18,8 +18,9 @@ const sel = {
     background: 'linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)',
     color: '#fff',
     fontWeight: 600
-}
-
+ }
+// const API_KEY = "05f8d2ae-bd94-4329-b9f9-7351e2ec9627"
+const API_KEY ="89caab37-749d-4e30-8fdf-e8045542f060"
 export default function MasterNear() {
     const router = useRouter()
     // const my_sel = router.query.sel
@@ -33,6 +34,7 @@ export default function MasterNear() {
     const [master, selectMaster] = useState()
     const [masters, setMasters] = useState()
     const [filter_masters, setFilterMasters] = useState()
+    const ymaps = React.useRef(null);
    
 
 
@@ -76,23 +78,20 @@ export default function MasterNear() {
             const bounds = Map.current.getBounds()
             const center = Map.current.getCenter()
             const rightPoint = [center[0], bounds[1][1]]
-            // const radius = ymaps.coordSystem.geo.getDistance(
-            //     [53.94843972554695, 27.603028939367363],
-            //     [53.970144032848296, 27.696309659065204]
-            // )
-            // console.log("currRadius", radius)
-            // var suggestView1 = Map.current.SuggestView('suggest1');
+            console.log(bounds,center)
+            const radius = ymaps.current.coordSystem.geo.getDistance(
+                [53.94843972554695, 27.603028939367363],
+                [53.970144032848296, 27.696309659065204]
+            )
+            console.log("currRadius", radius)
+            // var suggestView1 = ymaps.current.SuggestView('suggest1');
             // console.log(suggestView1)
             setFilter(Map.current.getZoom())
 
         }
     }
 
-    function ViewNewMaster(a) {
-        router.push(`/master/${a}`)
-        let master = masters.filter(i => i.nikname === a)
-        dispatch(setmaster(master))
-    }
+   
 
     function OnLoadMap() {
         document.getElementsByClassName('ymaps-2-1-79-ground-pane')[0].style.filter = 'grayscale(100%)';
@@ -101,14 +100,19 @@ export default function MasterNear() {
         document.getElementsByClassName('ymaps-2-1-79-gototech')[0].style.display = 'none';
         document.getElementById('my_map').style.opacity = '1';
     }
-    function SetSelector() {
-        setSelector('list')
-        selectMaster()
-        setFilter(11)
-    }
+    // const layout = ymaps.templateLayoutFactory.createClass(
+    //     '<Тут вёрстка>', 
+    //     {
+    //       build: 
+    //       function() {
+    //        layout.superclass.build.call(this);
+    //     <p></p>
+    //       }
+    //     }
+    //   );
     return (
         <div className={styles.main}>
-            <Script src="https://api-maps.yandex.ru/3.0/?apikey=89caab37-749d-4e30-8fdf-e8045542f060&lang=ru_RU" />
+            <Script src={'https://api-maps.yandex.ru/3.0/?apikey=05f8d2ae-bd94-4329-b9f9-7351e2ec9627&lang=ru_RU'} />
 
             <Header sel="/catalog" text="Мастера рядом " />
             <div className={styles.message}>
@@ -155,12 +159,17 @@ export default function MasterNear() {
                                 }}
                                 onLoad={OnLoadMap}
                                 onClick={() => getZoom()}
-                                onWheel={() => setFilter(Map.current.getZoom())}
+                                onWheel={() => {
+                                    setFilter(Map.current.getZoom())
+                                    console.log(Map.current.getZoom())
+                                }}
+                            
                             >
                                 <Clusterer
                                     options={{
-                                        preset: "islands#blueIcon",
+                                        preset: 'islands#invertedVioletClusterIcons',
                                         groupByCoordinates: false,
+                                        iconLayout: '<div>fsds</div>', 
                                        
                                     }}
                                 >

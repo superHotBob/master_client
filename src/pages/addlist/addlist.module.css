@@ -21,12 +21,15 @@
     font-weight: 500;
     line-height: 26px;
 }
+
 .selector {
     display: flex;
     margin: 24px 0;
     justify-content: space-between;
 }
-.selector span, .addtag button {
+
+.selector span,
+.addtag button {
     font-size: 14px;
     line-height: 17px;
     display: inline-block;
@@ -36,28 +39,32 @@
     cursor: pointer;
 }
 
-.left__arrow {   
+.left__arrow {
     height: 38px;
-    display: inline-block;   
+    display: inline-block;
     padding: 8px 0;
     text-align: center;
-    line-height: 18px;    
+    line-height: 18px;
     border-radius: 100%;
 }
 
 .header a:first-of-type svg {
     transform: translate(-4px, -2px);
 }
+
 .header span:last-of-type {
-    color:#3D4EEA;
+    color: #3D4EEA;
 }
+
 .main__form {
     display: grid;
-    grid-template-columns: repeat(3,1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 10px;
 }
-.sertificat__upload, .sertificats {
-    
+
+.sertificat__upload,
+.sertificats {
+
     height: 28vw;
     max-height: 145px;
     background: #ECEEFD;
@@ -65,7 +72,7 @@
     margin-bottom: calc(5% - 10px);
 }
 
-.sertificat__upload {    
+.sertificat__upload {
     font-size: 25px;
     display: flex;
     justify-content: center;
@@ -73,45 +80,51 @@
     cursor: pointer;
 }
 
-.sertificats {    
+.sertificats {
     background-position: center;
     background-size: cover;
-    background-repeat: no-repeat;   
+    background-repeat: no-repeat;
     background-color: inherit;
 }
+
 .sertificats span {
     font-size: 18px;
     font-weight: 600;
     float: right;
     cursor: pointer;
     transform: scaleX(1.3);
-    margin-right: 3px;   
+    margin-right: 3px;
     background-color: #ECEEFD;
     padding: 0 5px;
     border-top-right-radius: 6px;
 }
+
 .sertificats label {
     float: left;
     border-top-left-radius: 6px;
     font-size: 18px;
     cursor: pointer;
 }
+
 .services {
     display: flex;
     justify-content: flex-start;
 }
+
 .services span {
     font-size: 14px;
     font-weight: 500;
     margin: 20px 10px 0 0;
-    display: inline-block;    
+    display: inline-block;
     line-height: 27px;
     text-align: center;
     cursor: pointer;
 }
+
 .services span::first-letter {
     text-transform: capitalize;
 }
+
 .active__service {
     color: #fff;
     background-color: #3D4EEA;
@@ -119,18 +132,24 @@
     height: 27px;
     padding: 0 10px;
 }
-.addtag textarea{
-    padding: 10px;
+.addtag {
     margin-top: 16px;
+    display: block;
+}
+.addtag textarea {
+    padding: 10px;
+    margin: 16px 0;
     border: 1px solid #3D4EEA;
     width: 100%;
     outline: none;
     border-radius: 8px;
 }
+
 .addtag button {
     display: block;
-    margin-top: 16px;
+   
 }
+
 .message {
     position: absolute;
     top: 350px;
@@ -144,5 +163,4 @@
     box-shadow: 0px -4px 30px rgba(0, 0, 0, 0.25);
     border-radius: 8px;
     text-align: center;
-  }
-
+}

@@ -52,12 +52,7 @@ export default function Menu() {
                 <main className={styles.main_menu}>
                    <p className={styles.menu_prof}>Меню профиля</p>
                     <Link href='/chat'>Сообщения</Link>
-                    <Link href={{
-                        pathname: `/clientprofile/${profile.nikname}`,
-                        query: {
-                            order: false
-                        }
-                    }} className={styles.collections}>Мои заказы</Link>
+                    <Link href={`/clientprofile/${profile.nikname}/orders`} className={styles.collections}>Мои заказы</Link>
                      <p className={styles.menu_prof}>Общее</p>
                     <Link href="/editprofile/client" className={styles.edit_profile}>Настройки профиля</Link>
                     {/* <p className={styles.copy} onClick={CopyProfile}>Скопировать ссылку профиля</p> */}
