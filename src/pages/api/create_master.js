@@ -24,13 +24,13 @@ export default async function handler(req, res) {
   master['color'] = ['linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)', '#3D4EEA', '#ECEEFD']
   master['id'] = my_result[0].id
   master['phone'] = my_result[0].phone
-
+  master['nikname'] = (req.body.nikname).replace('client','master')
   const result = await sql`   
     insert into users (name, phone, nikname, id, services,stars, color, text) 
     values (      
       ${master.name},
       ${master.phone},      
-      ${req.body.nikname},
+      ${master.nikname},
       ${master.id},      
       '{}',
       '5.0',
@@ -45,7 +45,7 @@ export default async function handler(req, res) {
     console.log("Запись мастера создана")
     const result = await sql`
         update clients 
-        set status = 'master'
+        set status = 'master', nikname = ${master.nikname}
         where id = ${my_result[0].id}
         returning *
       `

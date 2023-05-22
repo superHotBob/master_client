@@ -64,7 +64,7 @@ export default function EditProfile() {
         .catch(err => setMessage("Ошибка сохранения "))
     }
 
-    async function CreateMaster() {
+    async function CreateNewMaster() {
         const data = {
             name: name,
             nikname: nikname,
@@ -109,15 +109,12 @@ export default function EditProfile() {
 
     function UploadToServer() {
         let data = new FormData()       
-            data.append('file', file_for_upload, 'main.jpg')
-            fetch(`${url}/upl?name=${profile.nikname}`, {
-                body: data,
-                method: 'post',
-            }).then(res => console.log('file is good'))
-            setSelectedFile(url + '/var/data/' + profile.nikname + '/main.jpg')
-
-       
-       
+        data.append('file', file_for_upload, 'main.jpg')
+        fetch(`${url}/upl?name=${profile.nikname}`, {
+            body: data,
+            method: 'post',
+        }).then(res => console.log('file is good'))
+        setSelectedFile(url + '/var/data/' + profile.nikname + '/main.jpg')      
     }
 
     return (
@@ -143,7 +140,7 @@ export default function EditProfile() {
                     type="file"
                     name="image"
                     onChange={(e) => SelectUpload(e)}
-                    accept=".jpg,.png,.webp"
+                    accept=".jpg"
                 />
             </form>
             <p className={styles.name}>{profile.name || name || 'Ваше имя'}</p>
@@ -165,7 +162,7 @@ export default function EditProfile() {
                 </label>
                 <div className={styles.connect_master}>
                     Аккаунт мастера
-                    <button onClick={CreateMaster}>{profile.status === 'master' ? "Подключен" : "Подключить"}</button>
+                    <button onClick={CreateNewMaster}>{profile.status === 'master' ? "Подключен" : "Подключить"}</button>
                 </div>
             </section>
             <Navi />

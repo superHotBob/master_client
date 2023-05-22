@@ -34,9 +34,9 @@ export default function Client() {
     useEffect(() => {
         const { pathname } = window.location     
         const pro = JSON.parse(localStorage.getItem('profile'))
-        if (pro.nikname !== pathname.replace('/masterprofile/', '')) {
-            return () => router.push('/enter')
-        }
+        // if (pro.nikname.toLowerCase() !== pathname.replace('/masterprofile/', '')) {
+        //     return () => router.push('/enter')
+        // }
         if (pro.status === 'master') {
             function GetSertificats() {
                 fetch(`${url}getlists?dir=${pro.nikname}`)

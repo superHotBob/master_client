@@ -8,7 +8,7 @@
   .section h4::before {
     content: url('/location.svg');
     display: inline-block;
-    transform: translate(-7px, 2px);
+    transform: translate(-7px, 4px);
   }
   .section h4 {
     margin: 0 0 5px;

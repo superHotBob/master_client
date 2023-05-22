@@ -35,14 +35,14 @@ export default function Client() {
 
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem('profile'))
-        fetch(`/api/get_saved_image?nikname=${profile.nikname}`)
+        fetch(`/api/get_saved_image?nikname=${pro.nikname}`)
             .then(res => res.json())
             .then(res => setData(res))
 
 
-        // if (pro.nikname === slug[0]) {
-        //     setSelector(slug[1])
-        // } else { router.push('/') }
+        if (pro.nikname === slug) {
+           
+        } else { router.push('/') }
     }, [])
 
    
@@ -59,7 +59,7 @@ export default function Client() {
         const del_image = new_saved.filter(i => i !== a)
 
         fetch('/api/saves_image', {
-            body: JSON.stringify({ image: del_image, nikname: profile.nikname }),
+            body: JSON.stringify({ image: del_image, nikname: pro.nikname }),
             headers: {
                 'Content-Type': 'application/json',
             },

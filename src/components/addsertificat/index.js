@@ -62,7 +62,9 @@ export default function AddSertificat({ nikname, view, color }) {
                 </label>
                 {sertificats?.map(i =>
                     <div key={i} className={styles.sertificats} style={{ backgroundImage: "url(" + url + "/var/data/" + nikname + '/' + i }} >
-                        <span style={{color:color[1],backgroundColor:color[2]}} onClick={()=>DeleteSertif(i)}>&#128465;</span>
+                        <span style={{color:color[1],backgroundColor:color[2]}} onClick={()=>DeleteSertif(i)}>
+                           <img src='/trash.svg' height={24} width={24} alt="trash" />
+                        </span>
                     </div>)}
 
             </form>

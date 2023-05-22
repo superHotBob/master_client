@@ -38,6 +38,7 @@
   background-color: #ECEEFD;
   color: #fff;
   border-radius: 12px;
+  opacity: 0;
 }
 .images::-webkit-scrollbar {
   width: 0;
@@ -90,11 +91,16 @@
 }
 .detail h3 {
   cursor: pointer;
-  text-align: center;
+  text-align: right;
+  padding-right: 10px;
+  margin-bottom: 5px;
   color: #ccc;
 }
-.detail h3:hover {
-  color:#282828;
+
+.detail h3::after {
+  content: url('/close.svg');
+  font-size: 20px;
+  transform: scale(1.5);
 }
 
 .toprofilemaster {

@@ -34,15 +34,15 @@ export default function Client() {
     const close = () => setviewOrder(false)
 
     useEffect(() => {
-        let pro = JSON.parse(localStorage.getItem('profile'))
+       
+
+
+        if (pro.nikname === slug) {
+            let pro = JSON.parse(localStorage.getItem('profile'))
         fetch(`/api/get_orders_client?nikname=${pro.nikname}`)
             .then(res => res.json())
             .then(res => setData(res))
-
-
-        // if (pro.nikname === slug[0]) {
-        //     setSelector(slug[1])
-        // } else { router.push('/') }
+        } else { router.push('/') }
     }, [])
 
     function SetViewOrder(a) {

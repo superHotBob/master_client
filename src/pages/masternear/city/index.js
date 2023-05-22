@@ -5,7 +5,6 @@ import { useRouter } from 'next/router'
 import styles from './near.module.css'
 import arrow_down from '../../../../public/arrow_down.svg'
 import { useSelector, useDispatch } from 'react-redux'
-import { setmaster, setservice } from '@/reduser'
 import React, { useState, useEffect } from 'react'
 import { YMaps, Map, Placemark, Clusterer, useYMaps, templateLayoutFactory } from '@pbe/react-yandex-maps'
 import Script from 'next/script'
@@ -27,8 +26,7 @@ export default function MasterNear() {
     const my_city = useSelector((state) => state.counter.city)
     const service = useSelector((state) => state.counter.service) 
     const loc = useSelector((state => state.counter.location))
-    const dispatch = useDispatch()
-    const [selector, setSelector] = useState()
+    const dispatch = useDispatch()    
     const [viewFilter, setViewFilter] = useState(false)
     const [filter, setFilter] = useState(10.8)
     const [master, selectMaster] = useState()
@@ -42,9 +40,7 @@ export default function MasterNear() {
         selectMaster(a)
         setFilter(b)
     }
-    useEffect(() => {
-        const { pathname } = window.location         
-        setSelector(pathname.replace('/masternear/', ''))
+    useEffect(() => {     
         setMasters()       
         fetch('/api/all_masters_city?' + new URLSearchParams({
             city: my_city.toLowerCase(),
@@ -60,7 +56,6 @@ export default function MasterNear() {
 
     useEffect(() => {
         setFilterMasters(masters)
-
         if (masters) {
             let mast = masters.filter(i => i.services.includes(service) ? i : null)
             setFilterMasters(mast)
@@ -70,22 +65,25 @@ export default function MasterNear() {
         } else {
         }
        
-    }, [selector])
+    }, [])
 
 
     const getZoom = () => {
+       
         if (Map.current) {
             const bounds = Map.current.getBounds()
             const center = Map.current.getCenter()
             const rightPoint = [center[0], bounds[1][1]]
-            console.log(bounds,center)
-            const radius = ymaps.current.coordSystem.geo.getDistance(
+            console.log(bounds,rightPoint)
+           
+            
+           let radius = ymaps.current.coordSystem.geo.getDistance(
                 [53.94843972554695, 27.603028939367363],
                 [53.970144032848296, 27.696309659065204]
             )
-            console.log("currRadius", radius)
+          
             // var suggestView1 = ymaps.current.SuggestView('suggest1');
-            // console.log(suggestView1)
+            console.log(radius)
             setFilter(Map.current.getZoom())
 
         }
@@ -96,9 +94,10 @@ export default function MasterNear() {
     function OnLoadMap() {
         document.getElementsByClassName('ymaps-2-1-79-ground-pane')[0].style.filter = 'grayscale(100%)';
         document.getElementsByClassName('ymaps-2-1-79-copyright__link')[0].style.display = 'none';
-        document.getElementsByClassName('ymaps-2-1-79-gotoymaps')[0].style.display = 'none';
+        document.getElementsByClassName('ymaps-2-1-79-map-copyrights-promo')[0].style.display = 'none';
         document.getElementsByClassName('ymaps-2-1-79-gototech')[0].style.display = 'none';
         document.getElementById('my_map').style.opacity = '1';
+       
     }
     // const layout = ymaps.templateLayoutFactory.createClass(
     //     '<Тут вёрстка>', 
@@ -136,14 +135,14 @@ export default function MasterNear() {
                         </>}
                         {viewFilter ? <div className={styles.all__filter}>
                             <h6 onClick={() => setViewFilter(false)} />
-                            <p>{Math.trunc(16 * (18 - filter) / filter)} км</p>
+                            <p>{Math.trunc(17 * (17 - filter) / filter)} км</p>
                             <input className={styles.range} step="1" type="range" min="10" max="16" value={filter} onChange={e => setFilter(e.target.value)} />
 
                         </div> : null}
                     </div>
 
                     <div className={styles.my_map} id="my_map" style={{height: master ? "30vh" : "430px", maxHeight: '430px', width: '100vw', maxWidth: '500px' }}>
-                        <YMaps>
+                        <YMaps instanceRef={ymaps}>
                             <Map id="mymap"
                                 state={{
                                     center: master ? masters?.filter(i => i.nikname === master)[0].locations : loc,
@@ -157,7 +156,11 @@ export default function MasterNear() {
                                         Map.current = yaMap;
                                     }
                                 }}
-                                onLoad={OnLoadMap}
+                                onLoad={(e=>{
+                                    ymaps.current = e
+                                    console.log(e.coordSystem)
+                                    OnLoadMap
+                                })}
                                 onClick={() => getZoom()}
                                 onWheel={() => {
                                     setFilter(Map.current.getZoom())
@@ -178,6 +181,7 @@ export default function MasterNear() {
                                         modules={
                                             ['geoObject.addon.balloon', 'geoObject.addon.hint']
                                         }
+                                        
                                         properties={{
                                             hintContent: `<p style="border: none;color: blue;font-size: 17px;padding: 5px">${i.name}</p>`,
                                             preset: "twirl#blueStretchyIcon",

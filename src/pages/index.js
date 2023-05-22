@@ -33,7 +33,7 @@ export default function Home() {
   const dispatch = useDispatch()
   const service = useSelector(state => state.counter.service)
   const city = useSelector(state => state.counter.city)
-  const [view_image, viewImage] = useState({ name: '', image: '' })
+  const [view_image, viewImage] = useState({ name: '', image: '',master_name: '' })
   const [data, setdata] = useState([])
   const [tag, setTag] = useState()
   const count = useRef(0)
@@ -54,8 +54,8 @@ export default function Home() {
     count.current = 0
     fetch(`/api/all_masters_city_service?service=${service}&city=${city}`)
       .then(res => res.json())
-      .then(data => setdata(data.map((i, index) => data[index] = { id: index, 'name': i, image: url_image + i + '/list__' + services__name[service] + '__0.jpg' })))
-    return () => viewImage({ name: '', image: '' })
+      .then(data => setdata(data.map((i, index) => data[index] = { 'id': index + '','master_name': i.name, 'name': i.nikname, image: url_image + i.nikname + '/list__' + services__name[service] + '__0.jpg' })))
+    return () => viewImage({ name: '', image: '', master_name: '' })
   }, [service])
 
   // useEffect(() => {
@@ -89,20 +89,23 @@ export default function Home() {
   };
   function Plus() {
     count.current = count.current + 1
-    let new_arr = data
-    data.forEach(i => new_arr.push({ name: i.name, image: url_image + i.name + '/list__' + services__name[service] + '__' + count.current + '.jpg' }))
-    setdata([...new_arr])
+    let new_arr = []
+    data.filter(i=>i.id<10).forEach(i => new_arr.push({'id': i.id + count.current,'master_name': i.master_name, 'name': i.name, 'image': url_image + i.name + '/list__' + services__name[service] + '__' + count.current + '.jpg' }))
+    setdata(data.concat(new_arr))
+    console.log(data.concat(new_arr))
   }
   function Height(b) {
     document.getElementById(b).style.marginBottom = '10px'
     document.getElementById(b).style.opacity = 1
+    document.getElementById("add__images").style.opacity = 1
   }
-  function View(a, b) {
-    viewImage({ ...view_image, name: a, image: b })
+  function View(a, b,c) {
+    viewImage({ ...view_image, name: a, image: b,master_name: c })
     GetText(b)
     setTimeout(() => {
       document.getElementById(b + a).style.top = window.scrollY + 'px'
       document.getElementById(b + a).style.opacity = 1
+     
     }, 500)
   }
   function GetText(a) {
@@ -124,40 +127,42 @@ export default function Home() {
         <FilterServices />
         <div className={styles.images}>
           <div className={styles.images_one}>
-            {data?.filter((i, index) => index % 2 === 0).map((i, index) =>
+            {data?.filter((i, index) => index % 2 === 0).map(i =>
               <img
                 alt="abc"
-                key={index}
+                key={i.id}
                 id={i.image}
-                onClick={() => View(i.name, i.image)}
+                onClick={() => View(i.name, i.image, i.master_name)}
                 onError={() => imageOnError(i.image)}
                 onLoad={(img) => Height(i.image)}
                 src={i.image}
-                title={i.name}
+                title={i.master_name}
               />
             )}
           </div>
           <div className={styles.images_one}>
-            {data?.filter((i, index) => index % 2 !== 0).map((i, index) =>
+            {data?.filter((i, index) => index % 2 !== 0).map(i =>
               <img
                 alt="abc"
-                key={index}
+                key={i.id}
                 id={i.image}
-                onClick={() => View(i.name, i.image)}
+                onClick={() => View(i.name, i.image,i.master_name)}
                 onError={() => imageOnError(i.image)}
                 onLoad={() => Height(i.image)}
                 src={i.image}
-                title={i.name}
+                title={i.master_name}
               />
             )}
-            {data ? <button className={styles.add__images} onClick={Plus}>+</button> : null}
+           
           </div>
+          
         </div>
+        <button id= "add__images" className={styles.add__images} onClick={Plus}>+</button>
       </section>
       {view_image.name ?
         <div className={styles.main__detail} id={view_image.image + view_image.name}>
           <div className={styles.detail}>
-            <h3 onClick={() => viewImage({ name: '', image: '' })}>&#128473;</h3>           
+            <h3 onClick={() => viewImage({ name: '', image: '' })}/>          
             <img
               alt={view_image.name}
               src={view_image.image}
@@ -167,14 +172,12 @@ export default function Home() {
             />           
             <div className={styles.master} >
               <Image alt="image" src={url_image + view_image.name + '/main.jpg'} width={26} height={26} />
-              <span>{view_image.name}</span>
+              <span>{view_image.master_name}</span>
               <span>{tag?.split('\n')[0]}</span>
             </div>
             <h5>{service}</h5>
             <h6>{tag ? tag.split('\n')[1] :
-              `Каждый из нас понимает очевидную вещь: граница
-            обучения кадров требует анализа поэтапного и
-            последовательного развития общества.` }
+              `Без комментария` }
             </h6>
             <Link className={styles.toprofilemaster} href={'/master/' + view_image.name} >Перейти в профиль мастера</Link>
           </div>

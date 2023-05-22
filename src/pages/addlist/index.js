@@ -56,9 +56,10 @@ export default function AddList() {
         setlists(new_list)
     }
 
-    function SetForTag(a) {        
-        setActiveImage(a)              
-        let new_file = nikname + '/' + a
+    function SetForTag(e) { 
+        e.stopPropagation()     
+        setActiveImage(e.target.id)              
+        let new_file = nikname + '/' + e.target.id       
         fetch(`${url_two}readtext?file=${new_file}`)
         .then(res => res.text())
         .then(res=> {
@@ -104,10 +105,16 @@ export default function AddList() {
             body: data,
             method: 'post',
         })
-        .then(res => setlists(lists => [...lists, file_name]))
+        .then(res => {
+            setlists(lists => [...lists, file_name])
+            setmessage('Публикация отправлена на модерацию')
+            setTimeout(()=>setmessage(''),2000)
+        })
         .catch(err => console.log(err))
     }
     function ReplaceImage(e, a) {
+        e.stopPropagation()
+        console.log('replace') 
         e.preventDefault()
         let data = new FormData()
         data.append('file', e.target.files[0], a)       
@@ -155,22 +162,28 @@ export default function AddList() {
                 {lists?.filter(i => tag ? i.search(services__name[tag]) !== -1 : i).map((i, index) =>
                     <div
                         key={i}
-                        onClick={() => SetForTag(i)}
+                       
                         className={styles.sertificats}
                         style={{ border: i === activeImage ? "2px solid" + color[1] : '', backgroundImage: "url(" + url + "/var/data/" + nikname + '/' + i }}
                     >
-                        <label className={styles.sertificat__replace} style={{ color: color[1], backgroundColor: color[2] }}>
-                            &#128393;
-                            <input
-                                type="file"
-                                name="image"
-                                disabled={!tag}
-                                style={{ display: 'none' }}
-                                accept=".jpg"
-                                onChange={(e) => ReplaceImage(e, i)}
-                            />
-                        </label>
-                        {lists.length === index + 1 ? <span title='удалить' style={{ color: color[1] }} onClick={() => Deletefile(i)}>&#128465;</span> : null}
+                        {lists.length != index + 1 ? 
+                        <span id={i} onClick={SetForTag}>
+                            <label className={styles.sertificat__replace} >                            
+                                <img src='/edit_wh.svg' height={24} width={24} alt="trash" title='заменить'/>                                
+                                <input
+                                    type="file"
+                                    name="image"
+                                    disabled={!tag}
+                                    style={{ display: 'none' }}
+                                    accept=".jpg"
+                                    onChange={(e) => ReplaceImage(e, i)}
+                                />
+                            </label>
+                        </span>:null}
+                        {lists.length === index + 1 ? 
+                        <span id={i} style={{ color: color[1] }} onClick={SetForTag}>
+                            <img src='/trash_del.svg' title='удалить' height={24} width={24} alt="trash" onClick={() => Deletefile(i)}/>
+                        </span> : null}
                     </div>
                 )}
 
