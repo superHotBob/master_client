@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux'
 import { setorder } from '@/reduser'
 import Navi from '@/components/navi'
 
-const activ_month = {   
+const activ_month = {
     color: '#282828',
 }
 
@@ -31,10 +31,9 @@ export default function Records() {
 
     const [month, setMonth] = useState(mon)
     const year = new Date().getFullYear()
-    const day = new Date(year, month - 1, 1)    
+    const day = new Date(year, month - 1, 1)
     let v = days.indexOf(days[day.getDay() - 1])
-    const all_days = new Date(year, month, 0)
-
+    const all_days = new Date(year, month, 0)   
     const dispatch = useDispatch()
     const router = useRouter()
     const [selector, setSelector] = useState(1)
@@ -43,6 +42,12 @@ export default function Records() {
     const [first_orders, set_first_order] = useState([])
     const [orders, setOrders] = useState()
     const [profile, setProfile] = useState()
+
+    useEffect(() => {
+        let pro = JSON.parse(localStorage.getItem("profile"))
+        setProfile(pro)
+        GetMasterOrders(pro)
+    }, [])
 
     async function GetMasterOrders(a) {
         const response = await fetch(`/api/get_orders_master?nikname=${a.nikname}`, {
@@ -66,11 +71,11 @@ export default function Records() {
         setOrders(result)
     }
     function viewOrder(a) {
-        let current_order = orders.filter(i=>i.id === a)
+        let current_order = orders.filter(i => i.id === a)
         dispatch(setorder(current_order[0]))
         router.push('/order/' + a)
     }
-   
+
     function Count(a) {
         let s = false_days.filter(i => i === a).length
         return s
@@ -83,11 +88,17 @@ export default function Records() {
         let flsd = month_result.map(i => +i.date_order.split(',')[0])
         set_false_days(flsd)
     }
-    useEffect(() => {
-        let pro = JSON.parse(localStorage.getItem("profile"))
-        setProfile(pro)
-        GetMasterOrders(pro)
-    }, [])
+   
+    function NewOrder(a) {
+        let date_order = a.split(',')       
+        let mon =  my_months.indexOf(date_order[1])
+        let d = new Date();        
+        if (mon >= d.getMonth() && +date_order[0] >= d.getDate()) {
+            return true
+        } else {
+            return false
+        }
+    }
 
     return (
         <main className={styles.main}>
@@ -107,20 +118,20 @@ export default function Records() {
                     <section className={styles.section}>
                         <div className={styles.mounth}>
                             {months.splice(month ? month - 1 : 0, 3).map((i, index) =>
-                                <span onClick={() => SetMonth(i)} style={i === my_months[month] ? activ_month : null} key={i}>{i}</span>
+                                <span key={i} onClick={() => SetMonth(i)} style={i === my_months[month] ? activ_month : null} >{i}</span>
                             )}
                         </div>
                         <div className={styles.week}>
                             {days.map(i => <span key={i}>{i}</span>)}
                         </div>
                         <div className={styles.days}>
-                        {Array.from({ length: v }, (v, i) => i + 1).map(i => <span key={i} style={{ opacity: 0 }}>{i}</span>)}
+                            {Array.from({ length: v }, (v, i) => i + 1).map(i => <span key={i} style={{ opacity: 0 }}>{i}</span>)}
                             {Array.from({ length: all_days.getDate() }, (v, i) => i + 1)
                                 .map(i =>
                                     <span
                                         onClick={() => FilterDay(i)}
                                         key={i}
-                                        style={active_day === i ? { backgroundColor: profile.color[1], color: '#fff'} : { backgroundColor: profile.color[2], color: profile.color[1]}}
+                                        style={active_day === i ? { backgroundColor: profile.color[1], color: '#fff' } : { backgroundColor: profile.color[2], color: profile.color[1] }}
                                     >
                                         {i}
                                         {Count(i) > 0 ? <b style={{ backgroundColor: profile.color[1], color: profile.color[2], display: Count(i) ? 'inline-block' : 'none' }} className={styles.count}>{Count(i)}</b> : null}
@@ -135,10 +146,15 @@ export default function Records() {
                         {orders?.map(i =>
                             <div
                                 onClick={() => viewOrder(i.id)}
-                                key={i.order}
+                                key={i.id}
                                 className={styles.order}
                             >
-                                <p><span className={i.active ? styles.active : null}>{i.date_order.replace(/,/g, ' ')}</span><span>#{i.id}</span></p>
+                                <p>
+                                    <span className={NewOrder(i.date_order) ? styles.active : null}>
+                                        {i.date_order.replace(',', " ").replace(',', " в ")}
+                                    </span>
+                                    <span>#{i.id}</span>
+                                </p>
                                 <h3>
                                     <span style={{ color: profile.color[1] }}>{i.client_name || i.client}</span>
                                     <span style={{ color: profile.color[1] }}>{i.price} BYN</span>
@@ -152,10 +168,10 @@ export default function Records() {
                         {first_orders.map(i =>
                             <div
                                 onClick={() => router.push('/order/' + i.id)}
-                                key={i.order}
+                                key={i.id}
                                 className={styles.order}
                             >
-                                <p><span className={i.active ? styles.active : null}>{i.date_order.replace(/,/g, ' ')}</span><span>#{i.id}</span></p>
+                                <p><span className={i.active ? styles.active : null}>{i.date_order.replace(/,/, ' ')}</span><span>#{i.id}</span></p>
                                 <h3 ><span style={{ color: profile.color[1] }}>{i.client_name || i.client}</span><span style={{ color: profile.color[1] }}>{i.price} BYN</span></h3>
                                 <h6 style={{ color: profile.color[1] }}>{i.neworder.replace(/[0-9]/g, '  ').replace(/:/g, ' ')}</h6>
                             </div>

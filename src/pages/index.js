@@ -54,7 +54,7 @@ export default function Home() {
     count.current = 0
     fetch(`/api/all_masters_city_service?service=${service}&city=${city}`)
       .then(res => res.json())
-      .then(data => setdata(data.map((i, index) => data[index] = { 'id': index + '','master_name': i.name, 'name': i.nikname, image: url_image + i.nikname + '/list__' + services__name[service] + '__0.jpg' })))
+      .then(data => setdata(data.map((i, index) => data[index] = { 'id': index + 1 + '','master_name': i.name, 'name': i.nikname, image: url_image + i.nikname + '/list__' + services__name[service] + '__0.jpg' })))
     return () => viewImage({ name: '', image: '', master_name: '' })
   }, [service])
 
@@ -84,7 +84,7 @@ export default function Home() {
 
   const imageOnError = (a) => {
     let new_data = [...data]
-    const m = new_data.filter(i => i.image !== a)
+    const m = new_data.filter(i => i.id !== a)
     setdata([...m])
   };
   function Plus() {
@@ -131,10 +131,10 @@ export default function Home() {
               <img
                 alt="abc"
                 key={i.id}
-                id={i.image}
+                id={i.id}
                 onClick={() => View(i.name, i.image, i.master_name)}
-                onError={() => imageOnError(i.image)}
-                onLoad={(img) => Height(i.image)}
+                onError={() => imageOnError(i.id)}
+                onLoad={(img) => Height(i.id)}
                 src={i.image}
                 title={i.master_name}
               />
@@ -145,10 +145,10 @@ export default function Home() {
               <img
                 alt="abc"
                 key={i.id}
-                id={i.image}
+                id={i.id}
                 onClick={() => View(i.name, i.image,i.master_name)}
-                onError={() => imageOnError(i.image)}
-                onLoad={() => Height(i.image)}
+                onError={() => imageOnError(i.id)}
+                onLoad={() => Height(i.id)}
                 src={i.image}
                 title={i.master_name}
               />

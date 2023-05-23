@@ -30,7 +30,7 @@ export default async function handler(req, res) {
     } else if (result[0].status === 'master' && result[0].blocked === 'no') {
       const result = await sql`
         select 
-        name,status,city,stars,locations,nikname,image,text,address,address_full,currency,color,services,sertificats
+        name,status,city,stars,locations,nikname,image,text,address,address_full,currency,color,services
         from users
         where phone = ${+req.body.tel}
       `

@@ -25,6 +25,7 @@
 .main header b {
     color: #3D4EEA;
     width: 30%;
+    cursor: pointer;
 }
 
 .main header span:last-of-type {

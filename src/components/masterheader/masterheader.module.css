@@ -17,7 +17,10 @@
     font-size:  12px;
     line-height: 22px;
     text-align: center;
-}
+  }
+  .section h4::first-letter {
+    text-transform: capitalize;
+  }
   .image img {
     border-radius: 100%;
     transform: translateY(50px);

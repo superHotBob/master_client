@@ -163,11 +163,12 @@ export default function SelectDate({ name, price, order, close, nikname }) {
         }
     }
     function Set_Active_Time(a) {
-        if (false_times.includes(a)) {
-            return
-        } else {
+        if (schedule[active_day-1]?.split(',').includes(a)) {
             setActive_Time(a)
+        } else {
+            return
         }
+        console.log(active_time)
     }
     function SetMonth(a) {
         let m = my_months.findIndex(i => i === a)

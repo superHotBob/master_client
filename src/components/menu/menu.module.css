@@ -36,7 +36,7 @@ p.menu_prof {
 .main_menu a:first-of-type {
     background-image: url('/message_menu.svg');
 }
-.seans {
+.records_on_seans {
     background-image: url('/ticket.svg'); 
 }
 .edit_profile {
@@ -50,8 +50,8 @@ p.copy {
 .shedule {
     background-image: url('/calendar.svg'); 
 }
-.seans span {
-    margin-left: 5px;
+.records_on_seans span {
+    transform: translate(10px,-1px);
     color: #fff;
     display: inline-block;
     height: 16px;

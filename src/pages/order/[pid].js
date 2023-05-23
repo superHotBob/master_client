@@ -19,7 +19,7 @@ export default function Order() {
     const [color, setColor] = useState()
     const ref = useRef(null)
     const [stars, setStars] = useState()
-    
+console.log(order)
     function SendReview() {
         if (viewReview) {
             console.log('review', ref.current.value, 'stars:',stars)

@@ -28,6 +28,7 @@
   border-radius: 4px;
   padding: 5px;
   text-align: center;
+  cursor: pointer;
 }
 
 .section {
@@ -61,6 +62,7 @@
   padding: 5px 15px;
   font-weight: 400;
   color: #d0d0d0;
+  cursor: pointer;
 }
 
 .week span {
@@ -138,6 +140,7 @@
   background: #FFFFFF;
   box-shadow: 0px 0px 9px #E6E6E6;
   border-radius: 6px;
+  cursor: pointer;
 }
 
 .order h3 {
@@ -195,8 +198,13 @@
   margin: 0 5px 0 0;
   transform: translateY(-1px);
 }
-
-@media screen and (max-width: 500px) {
-
-  
+.active::before {
+  content: 'Новый';
+  color: #fff;
+  background: #FD4D4D;
+  border-radius: 4px;
+  padding: 0 6px;
+  margin: 0 5px 0 0;
+  transform: translateY(-1px);
 }
+

@@ -28,30 +28,38 @@ export default function MasterNear() {
     const loc = useSelector((state => state.counter.location))
     const dispatch = useDispatch()    
     const [viewFilter, setViewFilter] = useState(false)
-    const [filter, setFilter] = useState(10.8)
+    const [zoom, setZoom] = useState(11)
     const [master, selectMaster] = useState()
     const [masters, setMasters] = useState()
     const [filter_masters, setFilterMasters] = useState()
+    const [mapHeight, setMapHeight] = useState()
     const ymaps = React.useRef(null);
+    const [cluster_master, setClusterMaster] = useState(false)
    
 
 
     function ViewMaster(a, b) {
+        if(window.innerWidth > 500) {
+            setMapHeight(450)
+        } else {
+            setMapHeight(window.innerWidth - 50)
+        }   
         selectMaster(a)
-        setFilter(b)
+        setZoom(b)
     }
-    useEffect(() => {     
+    useEffect(() => {  
+        if(window.innerWidth > 500) {
+            setMapHeight(450)
+        } else {
+            setMapHeight(window.innerWidth - 50)
+        }   
         setMasters()       
         fetch('/api/all_masters_city?' + new URLSearchParams({
             city: my_city.toLowerCase(),
             service: service?service:pid 
         }), { next: { revalidate: 100 } })
-            .then(res => res.json())
-            .then(data => setMasters(data))
-        // let mast = result.filter(i => i.services.includes(service.toLowerCase()) ? i : null)
-        // setFilterMasters(mast)
-
-
+        .then(res => res.json())
+        .then(data => setMasters(data))
     }, [my_city])
 
     useEffect(() => {
@@ -84,11 +92,33 @@ export default function MasterNear() {
           
             // var suggestView1 = ymaps.current.SuggestView('suggest1');
             console.log(radius)
-            setFilter(Map.current.getZoom())
+            setZoom(Map.current.getZoom())
 
         }
     }
-
+    function SetFilterCluster(a) {
+        console.log(a.getBounds())
+        console.log(a.getGeoObjects())
+        setMapHeight(window.innerWidth/3)
+        setZoom(12)
+        setClusterMaster(true)
+        let filter_masters = masters.filter(i=>i.locations[0] > a[0][0] && i.locations[0] < a[1][0])
+        console.log(filter_masters)
+        // setMasters(filter_masters)
+    }
+    function CloseFilterCluster() {
+        if(window.innerWidth > 500) {
+            setMapHeight(500)
+        } else {
+            setMapHeight(window.innerWidth)
+        }   
+        setZoom(11)
+        selectMaster()
+        console.log(loc)
+        // Map.current.coordSystem.geo.setCenter(my_city)
+        setClusterMaster(false)
+        Map.current.setCenter([53.94843972554695, 27.603028939367363])
+    }
    
 
     function OnLoadMap() {
@@ -99,16 +129,7 @@ export default function MasterNear() {
         document.getElementById('my_map').style.opacity = '1';
        
     }
-    // const layout = ymaps.templateLayoutFactory.createClass(
-    //     '<Тут вёрстка>', 
-    //     {
-    //       build: 
-    //       function() {
-    //        layout.superclass.build.call(this);
-    //     <p></p>
-    //       }
-    //     }
-    //   );
+   
     return (
         <div className={styles.main}>
             <Script src={'https://api-maps.yandex.ru/3.0/?apikey=05f8d2ae-bd94-4329-b9f9-7351e2ec9627&lang=ru_RU'} />
@@ -128,29 +149,29 @@ export default function MasterNear() {
                 <section>
                     <div className={styles.main__filter}>
                         {master ? null : <>
-                            <span>Мастера в радиусе {Math.trunc(16 * (18 - filter) / filter)} км</span>
-                            <span onClick={() => setViewFilter(true)}>
+                            <span>Мастера в радиусе {Math.trunc(16 * (18 - zoom) / zoom)} км</span>
+                            <span onClick={() => setZoom(true)}>
                                 радиус поиска
                             </span>
                         </>}
                         {viewFilter ? <div className={styles.all__filter}>
-                            <h6 onClick={() => setViewFilter(false)} />
+                            <h6 onClick={() => setZoom(false)} />
                             <p>{Math.trunc(17 * (17 - filter) / filter)} км</p>
                             <input className={styles.range} step="1" type="range" min="10" max="16" value={filter} onChange={e => setFilter(e.target.value)} />
 
                         </div> : null}
                     </div>
 
-                    <div className={styles.my_map} id="my_map" style={{height: master ? "30vh" : "430px", maxHeight: '430px', width: '100vw', maxWidth: '500px' }}>
+                    <div className={styles.my_map} id="my_map" style={{height: master ? "30vh" : mapHeight,  width: '100vw', maxWidth: '500px' }}>
                         <YMaps instanceRef={ymaps}>
                             <Map id="mymap"
                                 state={{
                                     center: master ? masters?.filter(i => i.nikname === master)[0].locations : loc,
-                                    zoom: master ? 14 : filter,
+                                    zoom: master ? 15 : zoom,
                                     behaviors: ["default", "scrollZoom","multiTouch","drag"]
                                 }}
                                 width="100%"
-                                height={master ? "30vh" : "430px"}
+                                height={master ? "30vh" : mapHeight}
                                 instanceRef={yaMap => {
                                     if (yaMap) {
                                         Map.current = yaMap;
@@ -163,7 +184,7 @@ export default function MasterNear() {
                                 })}
                                 onClick={() => getZoom()}
                                 onWheel={() => {
-                                    setFilter(Map.current.getZoom())
+                                    setZoom(Map.current.getZoom())
                                     console.log(Map.current.getZoom())
                                 }}
                             
@@ -171,13 +192,20 @@ export default function MasterNear() {
                                 <Clusterer
                                     options={{
                                         preset: 'islands#invertedVioletClusterIcons',
-                                        groupByCoordinates: false,
-                                        iconLayout: '<div>fsds</div>', 
+                                        groupByCoordinates: false,                                       
+                                        zoomMargin: 60 ,
+                                        gridSize: 128
                                        
+                                    }}
+                                    onClick={()=>SetFilterCluster(Clusterer.current)}
+                                    instanceRef={yaMap => {
+                                        if (yaMap) {
+                                            Clusterer.current = yaMap;
+                                        }
                                     }}
                                 >
 
-                                    {masters?.map(i => <Placemark geometry={i.locations} key={i.id}
+                                    {masters?.map(i => <Placemark geometry={i.locations} key={i.nikname}
                                         modules={
                                             ['geoObject.addon.balloon', 'geoObject.addon.hint']
                                         }
@@ -189,7 +217,7 @@ export default function MasterNear() {
                                         }}
                                         options={{
                                             iconLayout: 'default#image',
-                                            iconImageHref: filter > 12 ? url + 'var/data/' + i.nikname + '/main.jpg' : '/master1.svg',
+                                            iconImageHref: zoom > 12 ? url + 'var/data/' + i.nikname + '/main.jpg' : '/master1.svg',
                                             iconImageSize: [40, 40],
 
                                         }}
@@ -215,6 +243,21 @@ export default function MasterNear() {
                         <h5>{i.services.map(a => <span key={a} className={styles.service}>{a}</span>)}</h5>
                         <Image src={i.image ? url + 'var/data/' + i.nikname + '/main.jpg' : '/camera_wh.svg'} width={60} height={60} alt="image" />
                     </Link>)}
+            </section> : null}
+            {cluster_master ? <section className={styles.section}>
+                <Image alt="close" className={styles.close} src={arrow_down} width={25} height={25} onClick={CloseFilterCluster} />
+                {/* {cluster_masters?.map(i =>
+                    <Link key={i.nikname} className={styles.master} href={`/master/${i.nikname}`} >
+                        <p style={{ width: '75%' }}>
+                            <b>{i.name}</b> 
+                            <span className={styles.pro}>MASTER</span>
+                            {i.stars ? <span className={styles.stars}>{i.stars}</span> : null}
+                        </p>
+                        <h4>{i.address}</h4>
+                        <h5>{i.services.map(a => <span key={a} className={styles.service}>{a}</span>)}</h5>
+                        <Image src={i.image ? url + 'var/data/' + i.nikname + '/main.jpg' : '/camera_wh.svg'} width={60} height={60} alt="image" />
+                    </Link>
+                )} */}
             </section> : null}
 
         </div >

@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setclient, setprofile } from "@/reduser"
 import { useRouter } from "next/router"
 import Link from 'next/link'
-
+import { useEffect, useState } from 'react'
+import useSWR from 'swr'
 
 const style = {
     backdropFilter: 'none',
@@ -16,8 +17,13 @@ const login = {
 export default function Menu() {
 
     const dispatch = useDispatch()
+   
     const router = useRouter()
     const profile = useSelector((state) => state.counter.profile)
+    const fetcher = (...args) => fetch(...args).then(res => res.json())
+    const { data, error, isLoading } = useSWR(`/api/get_orders_master?nikname=${profile.nikname}`, fetcher)
+   
+
 
     function CopyProfile() {
         navigator.clipboard.writeText(window.location.host + '/' +  profile.status + '/' + profile.nikname)
@@ -35,7 +41,7 @@ export default function Menu() {
         {profile.status === 'master' ? <main className={styles.main_menu}>
             <p className={styles.menu_prof}>Меню профиля</p>
             <Link href='/chat'>Сообщения</Link>
-            <Link href="/masterrecords" className={styles.seans}>Записи на сеанс<span>5</span></Link>
+            <Link href="/masterrecords" className={styles.records_on_seans}>Записи на сеанс<span>{data?.length}</span></Link>
             <p className={styles.shedule} onClick={() => router.push('/calendar')}>Календарь работы</p>
             <Link href="/addmasterorder" className={styles.add}>Добавить запись</Link>
             <Link href="/masterrecords" className={styles.collections}>Мои заказы</Link>
@@ -52,7 +58,10 @@ export default function Menu() {
                 <main className={styles.main_menu}>
                    <p className={styles.menu_prof}>Меню профиля</p>
                     <Link href='/chat'>Сообщения</Link>
-                    <Link href={`/clientprofile/${profile.nikname}/orders`} className={styles.collections}>Мои заказы</Link>
+                    <Link href={{
+                        pathname: `/clientprofile/${profile.nikname}/orders`,
+                      
+                    }} className={styles.collections}>Мои заказы</Link>
                      <p className={styles.menu_prof}>Общее</p>
                     <Link href="/editprofile/client" className={styles.edit_profile}>Настройки профиля</Link>
                     {/* <p className={styles.copy} onClick={CopyProfile}>Скопировать ссылку профиля</p> */}

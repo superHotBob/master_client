@@ -37,16 +37,16 @@ export default function Client() {
         // if (pro.nikname.toLowerCase() !== pathname.replace('/masterprofile/', '')) {
         //     return () => router.push('/enter')
         // }
-        if (pro.status === 'master') {
-            function GetSertificats() {
+        if (pro) {
+            function GetLists() {
                 fetch(`${url}getlists?dir=${pro.nikname}`)
                     .then(res => res.json())
                     .then(res => setlists(res))
             }
-            GetSertificats()
+            GetLists()
             setProfile(pro)
         } else {
-            () => router.push('/enter')
+           router.push('/enter')
         }
     }, [])
 
