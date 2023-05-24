@@ -113,6 +113,7 @@ export default function Client() {
                                     <img
                                         key={i}
                                         id={i}
+                                        alt="my_image"
                                         onLoad={() => Load(i)}
                                         className={styles.lenta_image}
                                         src={url + "var/data/" + pid + '/' + i}
@@ -125,6 +126,7 @@ export default function Client() {
                                         key={i}
                                         onLoad={() => Load(i)}
                                         id={i}
+                                        alt="my_image"
                                         className={styles.lenta_image}
                                         src={url + "var/data/" + pid + '/' + i}
                                     />
