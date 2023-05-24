@@ -119,17 +119,16 @@
   border-radius: 0;
 }
 
-.carousel svg {
-  display: none;
-}
 
 .master {
   margin: 20px 1rem 10px;
 }
 .master img {
-  border-radius: 50%;
-  vertical-align: middle;
+  border-radius: 50%; 
   margin-right: 12px;
+}
+.master span:first-of-type {
+  vertical-align: super;
 }
 .master span:last-of-type {
   float: right;

@@ -60,7 +60,7 @@ export default function Order() {
                 <section className={styles.data} style={{ color: color[1] }}>
                     <h5>Клиент</h5>
                     <h5 style={{ fontWeight: 400 }}>
-                        <b style={{ color: '#3D4EEA' }}>{data.client}</b>{' '}({data.client_name})
+                        <b style={{fontWeight: 500, color: '#3D4EEA' }}>{data.client}</b>{' '}({data.client_name})
                     </h5>
                     <h5>Дата и время</h5>
                     <span>{data.date_order.replace(/,/g, ' ')}</span>

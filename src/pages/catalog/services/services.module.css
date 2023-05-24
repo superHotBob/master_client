@@ -29,6 +29,8 @@
     border-radius: 8px;
     display: block;
     padding: 10px;
+    font-weight: 800;
+    font-family: 'Rubik', sans-serif;
     margin: 20px 0;
     position: relative;
     color: #fff;
@@ -67,7 +69,7 @@
     background-image: url('/image/background1.jpg');   
     height: 120px;
     padding: 10px 11px;
-    font-family: '__myFont_1c1004';
+    font-weight: 800;
     font-size: 24px;
     line-height: 29px;
     display: block;   

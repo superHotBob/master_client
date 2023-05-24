@@ -9,9 +9,9 @@ import Navi from '@/components/navi'
 import { useRouter } from 'next/router'
 
 
-const myFont = localFont({ src: [{path: '../../fonts/DelaGothicOne-Regular.ttf',display: 'block'}] })
+// const myFont = localFont({ src: [{path: '../../fonts/DelaGothicOne-Regular.ttf',display: 'block'}] })
 const rubik = Rubik({
-  weight: ['400', '500','600'],
+  weight: ['400', '500','600','800'],
   subsets: ['cyrillic'],
 })
 const my_path = ['addlist','calendar','master','masterprofile','city','masternear','chat','editprofile','addmasterorder']
@@ -35,7 +35,7 @@ export default function MyApp({ Component, pageProps }) {
           />
         </Head>
         <main className={rubik.className}>       
-        <Component {...pageProps} className={myFont.className}/>
+        <Component {...pageProps} />
         {my_path.includes(router.asPath.replace('/','')) ? null : <Navi /> }
       </main>
     </Provider>

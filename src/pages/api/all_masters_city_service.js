@@ -7,8 +7,8 @@ export default async function handler(req, res) {
     const result = await sql`
         select nikname, name 
         from users
-        where ${req.query.service.toLowerCase()} = ANY (services) 
-        and city = ${req.query.city.toLowerCase()} and blocked = 'no' and image != '0'
+        where ${req.query.service} = ANY (services) 
+        and city = ${req.query.city} and blocked = 'no' 
    `
    
         res.status(200).json(result)

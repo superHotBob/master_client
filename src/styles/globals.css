@@ -19,6 +19,9 @@ body::-webkit-scrollbar-thumb {
   color: #000;
   background-repeat: no-repeat;
 }
+h4, h1, h2, h3, h5 {
+  font-weight: 500;
+}
 main {
   color: #000;
   width: 100%;

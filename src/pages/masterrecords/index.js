@@ -40,16 +40,21 @@ export default function Records() {
     const [active_day, setActive_Day] = useState()
     const [false_days, set_false_days] = useState([])
     const [first_orders, set_first_order] = useState([])
-    const [orders, setOrders] = useState()
+    const [orders, setOrders] = useState(null)
     const [profile, setProfile] = useState()
 
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem("profile"))
         setProfile(pro)
-        GetMasterOrders(pro)
+        if(orders) {
+            return null
+        } else {
+            GetMasterOrders(pro)
+        }
     }, [])
 
     async function GetMasterOrders(a) {
+       
         const response = await fetch(`/api/get_orders_master?nikname=${a.nikname}`, {
             headers: {
                 'Content-Type': 'application/json',
@@ -57,6 +62,7 @@ export default function Records() {
             method: 'get',
         })
         const result = await response.json()
+        console.log('result')
         const new_result = [...result]
         set_first_order(result)
         let month_result = new_result.filter(i => i.date_order.includes(months[month]))

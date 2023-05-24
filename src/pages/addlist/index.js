@@ -76,8 +76,7 @@ export default function AddList() {
     }
     
     let current_date = date.toLocaleString('ru-RU', options)
-    function SaveTag() {
-       
+    function SaveTag() {       
         fetch(`${url}/createtag?name=${nikname}`, {
             body: JSON.stringify({
                 name: activeImage,
@@ -88,11 +87,11 @@ export default function AddList() {
             },
             method: 'post',
         })
-            .then(res => {
-                setmessage('Коментарий сохранён')
-                setTimeout(()=>setmessage(''),2000)
-            })
-            .catch(err => console.log(err))
+        .then(res => {
+            setmessage('Коментарий сохранён')
+            setTimeout(()=>setmessage(''),2000)
+        })
+        .catch(err => console.log(err))
     }
 
     function selectUpload(e) {
