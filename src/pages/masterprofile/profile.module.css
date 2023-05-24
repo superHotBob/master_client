@@ -49,7 +49,7 @@
 
 .navigation span {
   display: inline-block;
-  padding: 0 5px;
+  padding: 0 9px;
   color: #000;
   width: fit-content;
   text-align: center;
@@ -60,7 +60,7 @@
   line-height: 27px;
 }
 .addlist, .uslugi, .uslugi_plus {
-  height: 36px;
+  height: 46px;
   
   border-radius: 6px; 
  
@@ -71,15 +71,15 @@
   cursor: pointer;
   color: #fff;
   font-size: 16px;
-  line-height: 36px;
+  line-height: 46px;
 }
 .uslugi {
   width: 28%;
 }
 .uslugi_plus {
   width: 100%;
-  font-weight: 600;
-  margin-bottom: 16px;
+  font-weight: 500;
+  margin-bottom: 16px;  
 }
 
 .lenta {

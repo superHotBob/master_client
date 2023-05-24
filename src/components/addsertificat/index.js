@@ -1,10 +1,18 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import Menu_icon from '../icons/menu'
 import styles from './addsert.module.css'
 const url = 'https://masters-client.onrender.com'
-const url_loc = 'http://localhost:5000'
+
+const active_button = {
+    color: "#fff",
+    borderRadius: "4px",
+    fontWeight: 500
+}
+
 export default function AddSertificat({ nikname, view, color }) {
     const [sertificats, setserificats] = useState()
+    const [active, setactive] = useState()
+    const my_ref = useRef()
     useEffect(() => {
         async function GetSertificats() {
             fetch(`${url}/getsertificats?dir=${nikname}`)
@@ -19,7 +27,11 @@ export default function AddSertificat({ nikname, view, color }) {
         .catch(err => console.log(err))
     }
     function Del_Ser(a) {
-        sertificats.filter(i=>i !==a)
+        let new_sertificats = sertificats.filter(i=>i !==a)
+        setserificats([...new_sertificats])
+
+    }
+    function SaveTagSertificate() {
 
     }
     function selectUpload(e) {
@@ -47,10 +59,10 @@ export default function AddSertificat({ nikname, view, color }) {
                     <Menu_icon color={color[1]} />
                 </div>
                 <span>Добавить сертификат</span>
-                <span style={{color:color[1]}}>Отправить</span>
+                <span style={{color:color[1]}}></span>
             </header>
             <form className={styles.main__form}>
-            <label className={styles.sertificat__upload} style={{color: color[1], backgroundColor: color[2] }}>
+            <label title='Добавить сертификат' className={styles.sertificat__upload} style={{color: color[1], backgroundColor: color[2] }}>
                     +
                     <input
                         type="file"
@@ -61,13 +73,39 @@ export default function AddSertificat({ nikname, view, color }) {
                     />
                 </label>
                 {sertificats?.map(i =>
-                    <div key={i} className={styles.sertificats} style={{ backgroundImage: "url(" + url + "/var/data/" + nikname + '/' + i }} >
-                        <span style={{color:color[1],backgroundColor:color[2]}} onClick={()=>DeleteSertif(i)}>
-                           <img src='/trash.svg' height={24} width={24} alt="trash" />
+                    <div 
+                        key={i} 
+                        className={styles.sertificats} 
+                        style={{border: active === i ? `4px solid ${color[1]}`: null, backgroundImage: "url(" + url + "/var/data/" + nikname + '/' + i }} 
+                    >
+                        <span  onClick={()=>setactive(i)} title="Добавить комментарий">
+                           <img 
+                                src='/trash.svg' 
+                                height={24}
+                                title="удалить сертификат"
+                                width={24} 
+                                alt="trash" 
+                                onClick={()=>DeleteSertif(i)}
+                            />
                         </span>
-                    </div>)}
+                    </div>
+                )}
 
             </form>
+            {active ?
+              
+                    <label className={styles.addtag}>
+                        Расскажите о сертификате подробнее...  
+                        <textarea
+                            ref={my_ref}                           
+                            maxLength="500"
+                            placeholder='Ваш комментарий'
+                            rows={10}
+                            style={{ borderColor: color[1] }}
+                        />
+                        <div onClick={SaveTagSertificate} style={{ ...active_button, backgroundColor: color[1] }}>Сохранить</div>
+                    </label>
+                : null}
 
         </main>
     )

@@ -161,8 +161,7 @@ export default function AddList() {
                 </label>
                 {lists?.filter(i => tag ? i.search(services__name[tag]) !== -1 : i).map((i, index) =>
                     <div
-                        key={i}
-                       
+                        key={i}                       
                         className={styles.sertificats}
                         style={{ border: i === activeImage ? "2px solid" + color[1] : '', backgroundImage: "url(" + url + "/var/data/" + nikname + '/' + i }}
                     >

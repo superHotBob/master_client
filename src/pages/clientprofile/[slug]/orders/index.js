@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import useSWR from 'swr'
 import { useDispatch } from 'react-redux'
-import ClientOrder from '@/components/orderclient'
+import ClientOrder from '@/components/clientorder'
 const url = 'https://masters-client.onrender.com'
 const sel = {
     background: 'linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)',
