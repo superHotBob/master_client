@@ -13,6 +13,8 @@ import { useRouter } from 'next/router'
 const rubik = Rubik({
   weight: ['400', '500','600','800'],
   subsets: ['cyrillic'],
+  style: ['normal'],
+  display: 'swap',
 })
 const my_path = ['addlist','calendar','master','masterprofile','city','masternear','chat','editprofile','addmasterorder']
 export default function MyApp({ Component, pageProps }) {  

@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 import { setprofile } from '@/reduser'
 import Menu_icon from '../../components/icons/menu.js'
 
-
+const url = 'https://masters-client.onrender.com/'
 
 const new_text = {
   color: '#000',
@@ -76,22 +76,22 @@ export default function Header({ sel, text, mes, color = {} }) {
   return (
     <header className={styles.header} onClick={MenuView}>
       {sel ? 
-      <div       
-        onClick={ToBack}
-        className={styles.left__arrow} 
-        style={{ backgroundColor: color[2],padding:'7px 2px' }}
-      >
-      <Menu_icon color={color[1] || '#3D4EEA'}  />
-        {/* <Image alt="Picture" src={arrow} className={styles.arrow} width={20} height={20} style={{ backgroundColor: color[2] }} /> */}
-      </div> :
-        <Image alt="Picture" src={arrow} className={styles.arrow} style={{ opacity: 0 }} width={20} height={20} />
+        <div       
+          onClick={ToBack}
+          className={styles.left__arrow} 
+          style={{ backgroundColor: color[2] }}
+        >
+        <Menu_icon color={color[1] || '#3D4EEA'}  />
+          {/* <Image alt="Picture" src={arrow} className={styles.arrow} width={20} height={20} style={{ backgroundColor: color[2] }} /> */}
+        </div> :
+          <Image alt="Picture" src={arrow} className={styles.arrow} style={{ opacity: 0 }} width={20} height={20} />
 
       }
 
       {text ?
         <h3 style={mes ? new_text_mes : new_text}>
           {mes ? <Image
-            src={profile.image}
+            src={url + 'var/data/' + profile.nikname + '/main.jpg'}
             alt="menu"
             className={styles.image_master}
             width={39} height={40}

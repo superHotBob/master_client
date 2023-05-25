@@ -6,12 +6,22 @@ const url = 'https://masters-client.onrender.com'
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 export default function Sertificats({nikname}) { 
-    const { data, error, isLoading } = useSWR(`${url}/getsertificats?dir=${nikname}`, fetcher)
-    const [image, viewImage] = useState()
+     const { data, error, isLoading } = useSWR(`${url}/getsertificats?dir=${nikname}`, fetcher)
+     const [image, viewImage] = useState()
+     const [tag, setTag] = useState()
+  
+   
+    // const [tag, setTag] = useState()
     function ViewImage(a) {            
         viewImage(a)
-        setTimeout(()=> {
-            document.getElementById(a + 'aaa').style.top = window.scrollY + 150 + 'px'},500)
+        // setTimeout(()=> {
+        //     document.getElementById(a + 'aaa').style.top = window.scrollY + 150 + 'px'},500)
+    }
+    function GetText(a) {
+      let new_file = nikname + '/' +  a.replace('https://masters-client.onrender.com/var/data/', '')
+      fetch(`${url}/readtext?file=${new_file}`)
+      .then(res => res.text())
+      .then(res => setTag(res))
     }
 
     if (error) return <div>Сертификатов нет</div>
@@ -23,14 +33,17 @@ export default function Sertificats({nikname}) {
             {data?.map(i => 
                 <div 
                     key={i}
-                    onClick={()=>ViewImage(i)} 
+                    onClick={()=>{
+                      ViewImage(i)
+                      GetText(i)
+                    }} 
                     className={styles.image} 
                     style={{ backgroundImage: "url(" + url + '/var/data/' +  nikname + '/' + i + ")" }}
                 />
             )}
         </main>
         {image  ?
-        <div className={styles.main__detail} >
+        <div className={styles.main__detail} >         
           <div className={styles.detail} id={image + 'aaa'}>
             <h3 onClick={() => viewImage()} />
             <img
@@ -40,9 +53,9 @@ export default function Sertificats({nikname}) {
               id={image}
               height="auto"
             />           
-            {/* <h6>{tag ? tag.split('\n')[1] :
+            <h6>{tag ? tag :
               `Без комментария`}
-            </h6>            */}
+            </h6>           
           </div>
         </div> 
         : null

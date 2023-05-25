@@ -83,26 +83,26 @@ export default function MasterNear() {
             const center = Map.current.getCenter()
             const rightPoint = [center[0], bounds[1][1]]
             console.log(bounds,rightPoint)
-           
+            console.log(Clusterer.current.getGeoObjects())
             
-           let radius = ymaps.current.coordSystem.geo.getDistance(
-                [53.94843972554695, 27.603028939367363],
-                [53.970144032848296, 27.696309659065204]
-            )
+        //    let radius = ymaps.current.coordSystem.geo.getDistance(
+        //         [53.94843972554695, 27.603028939367363],
+        //         [53.970144032848296, 27.696309659065204]
+        //     )
           
-            // var suggestView1 = ymaps.current.SuggestView('suggest1');
-            console.log(radius)
+        //     // var suggestView1 = ymaps.current.SuggestView('suggest1');
+        //     console.log(radius)
             setZoom(Map.current.getZoom())
 
         }
     }
     function SetFilterCluster(a) {
-        console.log(a.getBounds())
-        console.log(a.getGeoObjects())
-        setMapHeight(window.innerWidth/3)
-        setZoom(12)
+        
+        console.log(a.getGeoObjects()[0].geometry._coordinates)
+        setMapHeight(window.innerWidth/2)
+        // setZoom(12)
         setClusterMaster(true)
-        let filter_masters = masters.filter(i=>i.locations[0] > a[0][0] && i.locations[0] < a[1][0])
+        // let filter_masters = masters.filter(i=>i.locations[0] > a[0][0] && i.locations[0] < a[1][0])
         console.log(filter_masters)
         // setMasters(filter_masters)
     }
@@ -191,10 +191,18 @@ export default function MasterNear() {
                             >
                                 <Clusterer
                                     options={{
-                                        preset: 'islands#invertedVioletClusterIcons',
+                                        // preset: 'islands#invertedVioletClusterIcons',
                                         groupByCoordinates: false,                                       
-                                        zoomMargin: 60 ,
-                                        gridSize: 128
+                                        zoomMargin: [60,0,40,0] ,
+                                        gridSize: 128,
+                                        // clusterIconLayout: 10,
+                                        clusterIcons: [{
+                                            href: '/master.svg',
+                                            size: [40, 40],
+                                            // Отступ, чтобы центр картинки совпадал с центром кластера.
+                                            offset: [0, 0]
+                                            
+                                        }] 
                                        
                                     }}
                                     onClick={()=>SetFilterCluster(Clusterer.current)}
