@@ -98,8 +98,8 @@ export default function MasterNear() {
     }
     function SetFilterCluster(a) {
         
-        console.log(a.getGeoObjects()[0].geometry._coordinates)
-        setMapHeight(window.innerWidth/2)
+        
+        setMapHeight(window.innerWidth > 500 ? '350px' : window.innerWidth/2 + 'px')
         // setZoom(12)
         setClusterMaster(true)
         // let filter_masters = masters.filter(i=>i.locations[0] > a[0][0] && i.locations[0] < a[1][0])
@@ -122,12 +122,17 @@ export default function MasterNear() {
    
 
     function OnLoadMap() {
-        document.getElementsByClassName('ymaps-2-1-79-ground-pane')[0].style.filter = 'grayscale(100%)';
-        document.getElementsByClassName('ymaps-2-1-79-copyright__link')[0].style.display = 'none';
-        document.getElementsByClassName('ymaps-2-1-79-map-copyrights-promo')[0].style.display = 'none';
-        document.getElementsByClassName('ymaps-2-1-79-gototech')[0].style.display = 'none';
-        document.getElementById('my_map').style.opacity = '1';
-       
+        setTimeout(()=>{
+            document.getElementsByClassName('ymaps-2-1-79-ground-pane')[0].style.filter = 'grayscale(1)'
+            document.getElementsByClassName('ymaps-2-1-79-copyright')[0].style.display = 'none'
+            document.getElementsByClassName('ymaps-2-1-79-gotoymaps')[0].style.display = 'none'           
+            document.getElementsByClassName('ymaps-2-1-79-copyright__link')[0].style.display = 'none';
+            document.getElementsByClassName('ymaps-2-1-79-map-copyrights-promo')[0].style.display = 'none';
+            document.getElementsByClassName('ymaps-2-1-79-gototech')[0].style.display = 'none';
+            document.getElementById('my_map').style.opacity = '1';
+        },500)
+        
+      
     }
    
     return (
@@ -149,15 +154,15 @@ export default function MasterNear() {
                 <section>
                     <div className={styles.main__filter}>
                         {master ? null : <>
-                            <span>Мастера в радиусе {Math.trunc(16 * (18 - zoom) / zoom)} км</span>
-                            <span onClick={() => setZoom(true)}>
+                            <span>Мастера в радиусе {Math.trunc(17 * (17 - zoom) / zoom)} км</span>
+                            <span onClick={() => setViewFilter(true)}>
                                 радиус поиска
                             </span>
                         </>}
                         {viewFilter ? <div className={styles.all__filter}>
-                            <h6 onClick={() => setZoom(false)} />
-                            <p>{Math.trunc(17 * (17 - filter) / filter)} км</p>
-                            <input className={styles.range} step="1" type="range" min="10" max="16" value={filter} onChange={e => setFilter(e.target.value)} />
+                            <h6 onClick={() => setViewFilter(false)} />
+                            <p>{Math.trunc(17 * (17 - zoom) / zoom)} км</p>
+                            <input className={styles.range} step="1" type="range" min="10" max="16" value={zoom} onChange={e => setZoom(e.target.value)} />
 
                         </div> : null}
                     </div>
@@ -180,7 +185,7 @@ export default function MasterNear() {
                                 onLoad={(e=>{
                                     ymaps.current = e
                                     console.log(e.coordSystem)
-                                    OnLoadMap
+                                    OnLoadMap()
                                 })}
                                 onClick={() => getZoom()}
                                 onWheel={() => {
@@ -191,21 +196,21 @@ export default function MasterNear() {
                             >
                                 <Clusterer
                                     options={{
-                                        // preset: 'islands#invertedVioletClusterIcons',
+                                        preset: 'islands#invertedVioletClusterIcons',
                                         groupByCoordinates: false,                                       
                                         zoomMargin: [60,0,40,0] ,
                                         gridSize: 128,
+                                        // clusterIconLayout: 'default#pieChart',
+                                        // clusterIconContentLayout: '<div style="background: red; width: 50px; color: #FFFFFF; font-weight: bold;">100</div>',
                                         // clusterIconLayout: 10,
                                         clusterIcons: [{
                                             href: '/master.svg',
-                                            size: [40, 40],
-                                            // Отступ, чтобы центр картинки совпадал с центром кластера.
-                                            offset: [0, 0]
-                                            
+                                            size: [40, 40],                                           
+                                            offset: [0, 0]                                            
                                         }] 
                                        
                                     }}
-                                    onClick={()=>SetFilterCluster(Clusterer.current)}
+                                    onClick={()=>SetFilterCluster()}
                                     instanceRef={yaMap => {
                                         if (yaMap) {
                                             Clusterer.current = yaMap;

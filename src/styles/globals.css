@@ -19,7 +19,7 @@ body::-webkit-scrollbar-thumb {
   color: #000;
   background-repeat: no-repeat;
 }
-h4, h1, h2, h3, h5 , h6{
+h4, h1, h2, h3, h5 , h6, b{
   font-weight: 500;
 }
 main {

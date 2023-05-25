@@ -63,6 +63,9 @@
   border-radius: 12px;
   margin: 8px 0 0;
 }
+.my_map {
+  opacity: 0;
+}
 
 .my_map canvas {
   margin-top: 20px;
