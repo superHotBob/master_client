@@ -8,7 +8,7 @@ const initialState = {
   profile: {},
   order: {},
   service: 'маникюр',
-  location: [53.902735522030426, 27.561771682326416],
+  location: [53.902735, 27.561771],
   message: ''
 }
 

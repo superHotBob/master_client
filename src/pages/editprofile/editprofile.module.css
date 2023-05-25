@@ -1,7 +1,7 @@
 .main {
   min-height: 100vh;
   height: 100%;
-  max-width: 500px;  
+  max-width: 500px;
   width: 100%;
   position: relative;
   margin: 0 auto;
@@ -21,6 +21,7 @@
   background-color: #3D6DEA;
 
 }
+
 .active_dialog {
   position: absolute;
   width: 50%;
@@ -30,13 +31,14 @@
   background-color: #fff;
   border: none;
   border-radius: 8px;
-  padding: 20px 10px;  
+  padding: 20px 10px;
   z-index: 200;
   font-size: 18px;
   line-height: 20px;
   height: 200px;
   box-shadow: 0px 4px 51px rgba(40, 40, 40, 0.4);
 }
+
 .active_dialog::after {
   content: url('/close.svg');
   display: inline-block;
@@ -45,22 +47,26 @@
   right: 15px;
   cursor: pointer;
 }
+
 .passive_dialog {
   display: none;
 }
+
 .header .message {
   margin-top: 20%;
   display: block;
   text-align: center;
 }
+
 .image {
-  height: 100px; 
+  height: 100px;
   background-size: 400% 400%;
   animation: gradient 22s ease infinite;
   text-align: center;
-  position: relative;    
+  position: relative;
   background: linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%);
 }
+
 .image img {
   height: 105px;
   width: 105px;
@@ -84,10 +90,12 @@
   padding: 1px 8px 5px 10px;
   border-radius: 4px;
 }
+
 .image span::before {
   content: url('/camera_min.svg');
   transform: translate(-4px, 2px);
 }
+
 .image input {
   transform: translate(0, -50px);
   opacity: 0;
@@ -126,15 +134,17 @@
   font-weight: 400;
   font-size: 12px;
 }
+
 .inputs label input[type="radio"] {
   width: 20px;
   height: 20px;
   display: inline;
   float: right;
 }
+
 .radio {
   height: 31px;
-  margin: 6px 0;  
+  margin: 6px 0;
   font-weight: 500;
   font-size: 14px;
   line-height: 31px;
@@ -157,7 +167,7 @@
   background-color: #fff;
   outline: none;
   font-weight: 500;
-  font-size:  14px;
+  font-size: 14px;
   line-height: 17px;
 }
 
@@ -168,6 +178,7 @@ div.nikname,
   line-height: 40px;
   font-size: 14px;
 }
+
 .address span {
   text-transform: capitalize;
 }
@@ -260,19 +271,21 @@ div.tema {
   padding: 11px;
   align-items: center;
   font-weight: 400;
-  font-size:  16px;
+  font-size: 16px;
   line-height: 17px;
 }
 
 .header span {
-  color: #282828; 
-  font-weight: 600; 
+  color: #282828;
+  font-weight: 600;
 }
+
 .header span:first-of-type,
 .header span:last-of-type {
   color: #3D4EEA;
-  cursor: pointer;  
+  cursor: pointer;
 }
+
 .header span:first-of-type {
   font-weight: 400;
 }
@@ -283,19 +296,23 @@ div.tema {
   line-height: 17px;
   margin: 16px;
 }
+
 .submitProfile input {
   margin: 6px auto 8px;
   display: block;
-  width: 100% ;  
+  font-family: 'Rubik', sans-serif;
+  width: 100%;
 }
+
 .main_tema {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: rgb(40, 40, 40, 0.6);  
+  background: rgb(40, 40, 40, 0.6);
   top: 0;
   z-index: 101;
 }
+
 .select_tema {
   position: absolute;
   top: 156px;
@@ -309,18 +326,20 @@ div.tema {
 
 .select_tema div {
   font-weight: 500;
-  font-size: 14px;  
+  font-size: 14px;
   height: 46px;
-  line-height: 37px;  
-  margin-bottom: 10px; 
+  line-height: 37px;
+  margin-bottom: 10px;
   border-radius: 4px;
   padding: 4px 6px 4px 6px;
   position: relative;
   cursor: pointer;
 }
+
 .select_tema div span {
   color: #fff;
 }
+
 .select_tema h6 {
   margin: 0 12px 14px 0;
   text-align: right;
@@ -335,13 +354,51 @@ div.tema {
   transform: translate(10px, 2px);
   cursor: pointer;
 }
+
 .selected_tema::before {
   content: url('/check.svg');
   margin-right: 10px;
 }
-.img_currency { 
+
+.img_currency {
   position: absolute;
   top: 5px;
   right: 5%;
   text-align: right;
+}
+
+.place img {
+  vertical-align: middle;
+  cursor: pointer;
+  margin: 16px;
+}
+
+.place {
+  padding: 16px;
+
+}
+
+.place h4 {
+  font-weight: 400;
+  width: fit-content;
+  border: 1px solid #ddd;
+  padding: 15px 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.place h4:hover {
+  box-shadow: 0 0 12px 2px #ddd;
+}
+
+.place h4 b {
+  margin: 0 10px;
+  font-weight: 400;
+}
+
+.place h4::before {
+  content: url('/location.svg');
+  display: inline-block;
+  margin-left: 10px;
+  transform: translate(-7px, 2px);
+ 
 }

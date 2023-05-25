@@ -41,11 +41,14 @@ export default function MasterNear() {
     function ViewMaster(a, b) {
         if(window.innerWidth > 500) {
             setMapHeight(450)
+            selectMaster(a)
+            setZoom(b)
         } else {
             setMapHeight(window.innerWidth - 50)
+            selectMaster(a)
+            setZoom(b)
         }   
-        selectMaster(a)
-        setZoom(b)
+       
     }
     useEffect(() => {  
         if(window.innerWidth > 500) {
@@ -243,7 +246,8 @@ export default function MasterNear() {
                     </div>
                 </section>
           
-            {master ? <section className={styles.section}>
+            {master ? 
+            <section className={styles.section}>
                 <Image alt="close" className={styles.close} src={arrow_down} width={25} height={25} onClick={() => ViewMaster('', 11)} />
                 {masters?.filter(i => i.nikname === master).map(i =>
                     <Link key={i.nikname} className={styles.master} href={`/master/${i.nikname}`} >
@@ -254,12 +258,13 @@ export default function MasterNear() {
                         </p>
                         <h4>{i.address}</h4>
                         <h5>{i.services.map(a => <span key={a} className={styles.service}>{a}</span>)}</h5>
-                        <Image src={i.image ? url + 'var/data/' + i.nikname + '/main.jpg' : '/camera_wh.svg'} width={60} height={60} alt="image" />
+                        <Image src={url + 'var/data/' + i.nikname + '/main.jpg'} width={60} height={60} alt="main_image" />
                     </Link>)}
             </section> : null}
-            {cluster_master ? <section className={styles.section}>
+            {/* {cluster_master ? 
+            <section className={styles.section}>
                 <Image alt="close" className={styles.close} src={arrow_down} width={25} height={25} onClick={CloseFilterCluster} />
-                {/* {cluster_masters?.map(i =>
+                {cluster_master?.map(i =>
                     <Link key={i.nikname} className={styles.master} href={`/master/${i.nikname}`} >
                         <p style={{ width: '75%' }}>
                             <b>{i.name}</b> 
@@ -270,8 +275,8 @@ export default function MasterNear() {
                         <h5>{i.services.map(a => <span key={a} className={styles.service}>{a}</span>)}</h5>
                         <Image src={i.image ? url + 'var/data/' + i.nikname + '/main.jpg' : '/camera_wh.svg'} width={60} height={60} alt="image" />
                     </Link>
-                )} */}
-            </section> : null}
+                )}
+            </section> : null} */}
 
         </div >
     )

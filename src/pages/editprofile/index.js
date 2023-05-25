@@ -7,6 +7,7 @@ import arrow from '../../../public/arrow_back.svg'
 import Navi from '@/components/navi'
 import { useGeolocated } from "react-geolocated"
 import { useRouter } from 'next/router'
+import Location from '@/components/location'
 
 const active_currency = {
     backgroundColor: '#3D4EEA',
@@ -59,6 +60,7 @@ export default function EditProfile() {
     const [city, setCity] = useState('')
     const [address, setAddress] = useState()
     const [address_full, setAddress_full] = useState()
+    const [loc, selectLoc] = useState(false)
 
     const { coords, isGeolocationAvailable, isGeolocationEnabled } =
         useGeolocated({
@@ -112,8 +114,8 @@ export default function EditProfile() {
             setCity(pro.city),
             setCurrency(my_currency[current_symbol.indexOf(pro.currency)] ?? 'Белорусский рубль'),
             setAddress(pro.address)
-            setSelectedFile(url + '/var/data/' + pro.nikname + '/main.jpg')
-            setAddress_full(address_full => ({ ...address_full, ...pro.address_full })),
+        setSelectedFile(url + '/var/data/' + pro.nikname + '/main.jpg')
+        setAddress_full(address_full => ({ ...address_full, ...pro.address_full })),
             setNikname(pro.nikname),
             setColor(pro.color ? pro.color : my_tema[0])
 
@@ -317,7 +319,15 @@ export default function EditProfile() {
                         />
                     </label>
 
+
                 </section>
+                <div className={styles.place} >
+                    <h4 onClick={() => selectLoc(true)}>
+                        Выбрать локацию
+                        <b>[{location[0].toFixed(5)}</b>,<b>{location[1].toFixed(5)}]</b>
+                    </h4>
+                </div>
+                {loc ? <Location nikname={profile.nikname} loc_master={location} close={selectLoc} /> : null}
             </div> : null}
             {tema ?
                 <div className={styles.main_tema}>
