@@ -123,7 +123,7 @@ export default function Home() {
             можете выбрать понравившуюся работу и написать
             мастеру!` }
         />
-        <Link className={styles.city} href="/city"> Ваш город {city}</Link>
+        <Link className={styles.city} href="/city"> Ваш город <span className={styles.my_city}>{city}</span></Link>
         <FilterServices />
         <div className={styles.images}>
           <div className={styles.images_one}>

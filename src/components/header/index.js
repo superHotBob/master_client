@@ -13,8 +13,7 @@ import Menu_icon from '../../components/icons/menu.js'
 const url = 'https://masters-client.onrender.com/'
 
 const new_text = {
-  color: '#000',
-  fontWeight: '500',
+  color: '#000', 
   fontSize: '16px',
   lineHeight: '26px',
   display: 'inline-block',
@@ -23,14 +22,14 @@ const new_text = {
 const new_text_mes = {
   color: '#000',
   fontWeyght: '600',
-  fontSize:  '16px',
+  fontSize: '16px',
   lineHeight: '26px',
   display: 'inline-block',
   marginLeft: '-35px'
 }
 
 
-export default function Header({ sel, text, mes, color = {} }) {
+export default function Header({ sel, text, mes, color = {}, select,view_time }) {
   const profile = useSelector((state) => state.counter.profile)
   const dispatch = useDispatch()
   const router = useRouter()
@@ -62,29 +61,29 @@ export default function Header({ sel, text, mes, color = {} }) {
 
   const [menu, menuView] = useState(false)
 
-  function MenuView(e){
+  function MenuView(e) {
     e.stopPropagation()
     menuView(!menu)
   }
   function ToBack(e) {
     e.stopPropagation()
-    if(sel !== 'back') {
+    if (sel !== 'back') {
       return router.push(sel)
     }
     router.back()
   }
   return (
-    <header className={styles.header} onClick={MenuView}>
-      {sel ? 
-        <div       
-          onClick={ToBack}
-          className={styles.left__arrow} 
+    <header className={styles.header} >
+      {sel ?
+        <div
+          onClick={view_time ? ()=>select(true) : ToBack }
+          className={styles.left__arrow}
           style={{ backgroundColor: color[2] }}
         >
-        <Menu_icon color={color[1] || '#3D4EEA'}  />
-          {/* <Image alt="Picture" src={arrow} className={styles.arrow} width={20} height={20} style={{ backgroundColor: color[2] }} /> */}
-        </div> :
-          <Image alt="Picture" src={arrow} className={styles.arrow} style={{ opacity: 0 }} width={20} height={20} />
+          <Menu_icon color={color[1] || '#3D4EEA'} />
+        </div>
+        :
+        <Image alt="Picture" src={arrow} className={styles.arrow} style={{ opacity: 0 }} width={20} height={20} />
 
       }
 
@@ -99,8 +98,8 @@ export default function Header({ sel, text, mes, color = {} }) {
 
           {text}
         </h3>
-        : 
-        <div className={styles.logo}>         
+        :
+        <div className={styles.logo}>
           <h3>masters.</h3>
           <h3>place</h3>
         </div>
@@ -123,10 +122,12 @@ export default function Header({ sel, text, mes, color = {} }) {
       <div
         className={styles.left__arrow}
         onClick={() => menuView(!menu)}
-        style={{ backgroundColor: menu ? color[1] || '#3D4EEA' : color[2] ,paddingTop:10}}
+        style={{ backgroundColor: menu ? color[1] || '#3D4EEA' : color[2], paddingTop: 10 }}
       >
         <Menu_icon color={menu ? color[2] || '#3D4EEA' : color[1] || '#3D4EEA'} type={menu ? 'close' : 'menu'} />
       </div>
+     
+     
       {menu ? <Menu /> : null}
     </header>
   )

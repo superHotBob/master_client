@@ -19,6 +19,7 @@
   border: 3px solid #fff;
   line-height: 140px;
   background-color: #3D6DEA;
+ 
 
 }
 
@@ -153,12 +154,13 @@
 .change {
   color: #3D4EEA;
   padding-right: 15px;
+  cursor: pointer;
 }
 
 .change::after {
   content: url('/arrow_right.svg');
   height: 15px;
-  transform: translate(10px, 2px);
+  transform: translate(3px, 2px);
 }
 
 .inputs textarea {
@@ -208,6 +210,7 @@ div.nikname,
 }
 
 div.connect_master,
+div.connect_master_connect,
 div.currency,
 div.tema {
   background: #8B95F2;
@@ -216,11 +219,11 @@ div.tema {
   font-size: 1em;
   margin: 8px 0 0;
   font-weight: 500;
-  display: flex;
-  padding: 8px;
+  display: flex;  
   height: 54px;
   justify-content: space-between;
   align-items: center;
+  border: none;
 }
 
 div.currency {
@@ -229,19 +232,42 @@ div.currency {
 
 div.tema {
   background: linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%);
+ 
 }
 
-.connect_master button,
+
 .currency button,
 .tema button {
   height: 34px;
   width: 112px;
   border-radius: 6px;
   padding: 6px;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(25px);
+  background: rgba(255, 255, 255, 0.2); 
   border: none;
   color: #fff;
+}
+.connect_master::after, .connect_master_connect::after {
+  content: 'Подключен';
+  height: 22px;
+  width: 112px;
+  text-align: center;
+  border-radius: 6px;
+  line-height: 22px;
+  padding: 6px;
+  background: rgba(255, 255, 255, 0.2);  
+  border: none;  
+}
+.tema::before {
+  content: 'Тема профиля';
+
+}
+.connect_master_connect::after {
+  content: 'Подключить';
+  cursor: pointer;
+}
+.connect_master::before, .connect_master_connect::before {
+  content: 'Аккаунт мастера';
+
 }
 
 .currency button {
@@ -258,7 +284,7 @@ div.tema {
   left: 0;
   background-color: #fff;
   height: 100%;
-  width: 100lvw;
+  width: 100vw;
   max-width: 500px;
 
   z-index: 101;
@@ -300,7 +326,7 @@ div.tema {
 .submitProfile input {
   margin: 6px auto 8px;
   display: block;
-  font-family: 'Rubik', sans-serif;
+  
   width: 100%;
 }
 
@@ -375,6 +401,7 @@ div.tema {
 
 .place {
   padding: 16px;
+  height: 48px;
 
 }
 

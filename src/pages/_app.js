@@ -4,14 +4,13 @@ import { Rubik } from 'next/font/google'
 import { store } from '../store'
 import { Provider } from 'react-redux'
 import Head from 'next/head'
-import localFont from 'next/font/local'
 import Navi from '@/components/navi'
 import { useRouter } from 'next/router'
 
 
 // const myFont = localFont({ src: [{path: '../../fonts/DelaGothicOne-Regular.ttf',display: 'block'}] })
 const rubik = Rubik({
-  weight: ['400', '500','600','800'],
+  // weight: ['400', '500','600','800'],
   subsets: ['cyrillic'],
   style: ['normal'],
   display: 'swap',

@@ -43,7 +43,7 @@ main {
 input[type='text'], input[type='tel'], input[type='radio'], input[type='search'] {
   background-color: #fff;
   outline: none;
-  font-family: '__Rubik_22010f';
+  font-family: '__Rubik_dce73a';
 }
 input[type=range]::-webkit-slider-thumb {
  

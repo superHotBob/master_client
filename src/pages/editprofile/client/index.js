@@ -39,8 +39,7 @@ export default function EditProfile() {
         const data = {
             status: 'client',
             name: name,
-            new_nikname: nikname,
-            image: '',
+            new_nikname: nikname,            
             text: text,
             old_nikname: profile.nikname
         }
@@ -48,7 +47,7 @@ export default function EditProfile() {
         //     return setMessage('Необходимо добавить иконку в формате jpg размером не более 20кб. ')
         // }
         if (file_for_upload) { UploadToServer() }
-        fetch('/api/editprofileclient', {
+        fetch('/api/edit_profile_client', {
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
@@ -160,10 +159,9 @@ export default function EditProfile() {
                     Краткая информация
                     <textarea value={text} placeholder='Расскажите о себе' rows={3} onChange={e => setText(e.target.value)} />
                 </label>
-                <div className={styles.connect_master}>
-                    Аккаунт мастера
-                    <button onClick={CreateNewMaster}>{profile.status === 'master' ? "Подключен" : "Подключить"}</button>
-                </div>
+                <div className={styles.connect_master_connect} onClick={CreateNewMaster}/>            
+                   
+                
             </section>
             <Navi />
         </main>

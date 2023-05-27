@@ -12,6 +12,13 @@
   text-align: center;
   display: block;
 }
+.my_city {
+  color: inherit
+}
+.my_city::first-letter {
+  text-transform: capitalize;
+  display: inline-block;
+}
 
 .city::after {
   content: url('/position.svg');  

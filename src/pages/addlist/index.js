@@ -63,7 +63,7 @@ export default function AddList() {
         fetch(`${url_two}readtext?file=${new_file}`)
         .then(res => res.text())
         .then(res=> {
-            console.log(res.split('\n')[1])
+           
             my_ref.current.value = res
         })
     }

@@ -53,34 +53,25 @@ export default function EditProfile() {
 
     const [message, setMessage] = useState()
     const [accept, setAccept] = useState(false)
-    const [tema, viewTema] = useState(false)
+    const [tema, viewTemaBlock] = useState(false)
     const [cur, setCur] = useState(false)
-    const [color, setColor] = useState(['linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)', '#3D4EEA', '#ECEEFD'])
+    const [color, setColor] = useState(my_tema[0].color)
     const [currency, setCurrency] = useState('BYN')
     const [city, setCity] = useState('')
     const [address, setAddress] = useState()
     const [address_full, setAddress_full] = useState()
     const [loc, selectLoc] = useState(false)
 
-    const { coords, isGeolocationAvailable, isGeolocationEnabled } =
-        useGeolocated({
-            positionOptions: {
-                enableHighAccuracy: true,
-            },
-            userDecisionTimeout: 5000,
-        });
+   
 
-    useLayoutEffect(() => {
-        let pro = JSON.parse(localStorage.getItem('profile'))
-        if (!pro) {
-            return () => router.push('/enter')
-        }
-    }, [])
-    // useEffect(() => {     
-    // //   if ( coords) { dispatch(setlocation([coords.latitude,coords.longitude])) 
-    //   console.log(coords?.latitude,coords?.longitude) 
-    // }, [coords])
-
+    // useLayoutEffect(() => {
+    //     let pro = JSON.parse(localStorage.getItem('profile'))
+    //     if (!pro) {
+    //         return () => router.push('/enter')
+    //     }
+    // }, [])
+   
+    
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem('profile'))
         if (!pro) {
@@ -110,24 +101,24 @@ export default function EditProfile() {
         // Location()
 
         setName(pro.name),
-            setText(pro.text),
-            setCity(pro.city),
-            setCurrency(my_currency[current_symbol.indexOf(pro.currency)] ?? 'Белорусский рубль'),
-            setAddress(pro.address)
+        setText(pro.text),
+        setCity(pro.city),
+        setCurrency(my_currency[current_symbol.indexOf(pro.currency)] ?? 'Белорусский рубль'),
+        setAddress(pro.address)
         setSelectedFile(url + '/var/data/' + pro.nikname + '/main.jpg')
         setAddress_full(address_full => ({ ...address_full, ...pro.address_full })),
-            setNikname(pro.nikname),
-            setColor(pro.color ? pro.color : my_tema[0])
+        setNikname(pro.nikname),
+        setColor(pro.color ? pro.color : my_tema[0])
 
     }, [])
     function Return() {
         setName(pro.name),
-            setText(pro.text),
-            setCurrency('Белорусский рубль')
+        setText(pro.text),
+        setCurrency('Белорусский рубль')
         setSelectedFile(url + '/var/data/' + pro.nikname + '/main.jpg')
         setAddress(pro.address),
-            setNikname(pro.nikname),
-            setColor(pro.color || my_tema[0])
+        setNikname(pro.nikname),
+        setColor(pro.color || my_tema[0].color)
     }
     const EditMaster = async () => {
         const data = {
@@ -194,7 +185,7 @@ export default function EditProfile() {
             </header>
             <div className={styles.image} style={{ background: color[0] }}>
                 <span onClick={() => viewTema(true)}>Изменить обложку</span>
-                <form style={{ height: '106px' }} className={styles.profile_image}>
+                <form  className={styles.profile_image}>
                     <Image
                         src={file}
                         alt="фото"
@@ -221,8 +212,7 @@ export default function EditProfile() {
                 </h6>
                 <div className={styles.nikname}>
                     <span>masters.place/{profile.status + '/'}</span>
-                    <input type="text" value={nikname} onChange={e => setNikname(e.target.value)} />
-                    {/* <span>{nikname || profile.nikname}</span> */}
+                    <input type="text" value={nikname} onChange={e => setNikname(e.target.value)} />                    
                 </div>
                 <label>
                     Имя и фамилия
@@ -244,14 +234,10 @@ export default function EditProfile() {
                     Основная валюта
                     <button onClick={() => setCur(true)}>{currency}</button>
                 </div>
-                <div className={styles.tema} style={{ background: color[0] }}>
-                    Тема профиля
+                <div className={styles.tema} style={{ background: color[0] }}>                    
                     <button onClick={() => viewTema(true)}>Изменить</button>
                 </div>
-                <div className={styles.connect_master}>
-                    Аккаунт мастера
-                    <button>Подключен</button>
-                </div>
+                <div className={styles.connect_master} />               
             </section>
             {accept ? <div className={styles.submitProfile}>
                 <header className={styles.header}>
@@ -324,15 +310,15 @@ export default function EditProfile() {
                 <div className={styles.place} >
                     <h4 onClick={() => selectLoc(true)}>
                         Выбрать локацию
-                        <b>[{location[0].toFixed(5)}</b>,<b>{location[1].toFixed(5)}]</b>
+                        {loc ? <> <b>[{profile.locations[0].toFixed(5)}</b>,<b>{profile.locations[1].toFixed(5)}]</b></>: null}
                     </h4>
                 </div>
-                {loc ? <Location nikname={profile.nikname} loc_master={location} close={selectLoc} /> : null}
+                {loc ? <Location nikname={profile.nikname} loc_master={profile.locations} close={selectLoc} /> : null}
             </div> : null}
             {tema ?
                 <div className={styles.main_tema}>
                     <div className={styles.select_tema}>
-                        <h6 onClick={() => viewTema(false)}>Выбор темы</h6>
+                        <h6 onClick={() => viewTemaBlock(false)}>Выбор темы</h6>
                         {my_tema.map((i, index) =>
                             <div
                                 key={i.name}

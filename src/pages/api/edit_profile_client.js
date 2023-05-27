@@ -6,17 +6,16 @@ export default async function handler(req, res) {
 
   const client = {
     nikname: req.body.new_nikname,
-    name: req.body.name,
-    image: req.body.image,
+    name: req.body.name,    
     text: req.body.text,
     old_nikname: req.body.old_nikname
   }
 
 
   const result = await sql`
-        update clients set ${sql(client, 'name', 'image', 'text', 'nikname')}    
+        update clients set ${sql(client, 'name', 'text', 'nikname')}    
         where nikname =  ${client.old_nikname}
-        returning name, image, text, nikname, status  
+        returning name, text, nikname, status  
       `
   if (result.length > 0) {
     res.status(200).json(result[0])

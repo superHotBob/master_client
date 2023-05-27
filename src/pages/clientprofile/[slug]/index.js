@@ -35,13 +35,13 @@ export default function Client() {
 
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem('profile'))
-        fetch(`/api/get_saved_image?nikname=${pro.nikname}`)
+       console.log(pro)
+
+        if (pro) {
+            fetch(`/api/get_saved_image?nikname=${pro.nikname}`)
             .then(res => res.json())
             .then(res => setData(res))
 
-
-        if (pro.nikname === slug) {
-           
         } else { router.push('/') }
     }, [])
 

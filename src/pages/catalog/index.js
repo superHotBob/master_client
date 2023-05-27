@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import styles from './catalog.module.css'
 import position from '../../../public/position.svg'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { setservice } from '../../reduser.js'
 import { useRouter } from 'next/router'
 
@@ -13,7 +13,7 @@ const images = ['маникюр', 'педикюр', 'макияж', 'ресни�
 export default function Catalog() {
     const dispatch = useDispatch()
     const router = useRouter()
-
+    const city = useSelector(state=>state.counter.city)
     function ToService(a) {
         dispatch(setservice(a))
         router.push(`/masternear/${a}`)
@@ -24,7 +24,7 @@ export default function Catalog() {
             <Header />
             <section className={styles.section}>
                 <div className={styles.city}>
-                    <Link href="/city"> Выбрать ваш город</Link>
+                    <Link href="/city"> Ваш город {city} </Link>
                     <Image alt="Picture of the author" src={position} width={20} height={20} />
                 </div>
                 <Link href="/event" className={styles.model}>

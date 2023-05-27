@@ -80,7 +80,7 @@ export default function Client() {
                 >
                     <p>
                         <span className={ActiveOrder(i.date_order) ? styles.active : null}>
-                            {i.date_order.replace(',', " ").replace(',', " в ")}
+                            {i.date_order.replace(',', " ").replace(',', ", в ")}
                         </span>
                         <span>#{i.id}</span>
                     </p>

@@ -77,10 +77,8 @@ export default function SelectDate({ name, price, order, close, nikname }) {
             fetch(`/api/get_orders_master_month?nikname=${nikname}&month=${my_months[month]}`)
             .then(res => res.json())
             .then(res => {
-                let m = res.map(i=>i.date_order.split(','))
-               
-                let new_schedule = [...data]
-                
+                let m = res.map(i=>i.date_order.split(','))               
+                let new_schedule = [...data]                
                 if(m.length>0){
                     m.forEach(i=> new_schedule[+i[0]-1] = new_schedule[+i[0]-1].split(',').filter(a=>a!==i[2]).join(','))
                 }
@@ -176,10 +174,10 @@ export default function SelectDate({ name, price, order, close, nikname }) {
     }
     return (
         <>
-            <div className={styles.head}>
+            {/* <div className={styles.head}>
                 <span onClick={() => close(true)} />
                 <span>Запись к мастеру</span>
-            </div>
+            </div> */}
             <h3 className={styles.date}>Ближайшие даты</h3>
             <div className={styles.mounth}>
                 {months.splice(month ? month - 1 : 0, 3).map(i =>

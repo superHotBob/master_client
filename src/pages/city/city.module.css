@@ -44,9 +44,11 @@
     color: #3D4EEA;
     border: 1px solid #3D4EEA;
     margin: 20px auto;
+    font-family: '__Rubik_dce73a';
 }
 .section input::placeholder {
     color: #8B95F2;
+
 
 }
 .city {
@@ -60,7 +62,8 @@
     color: #000;
     background-color: #fff;
 }
-.city span {
+.city span::first-letter {
+    text-transform: capitalize;
     color: #000;
 }
 .city input {

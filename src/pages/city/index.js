@@ -5,35 +5,37 @@ import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
 import { setcity, setlocation } from '../../reduser.js'
+import useSWR from 'swr'
 
 const citys = ['Минск', 'Брест','Гродно']
+const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 export default function City() {
     const [myCitys, setMyCitys] = useState(citys)
-    const [city, setCity] = useState()
     const [selCity, setSelCity] = useState()
+    const [findcity, setfindcity] = useState()
     const my_city = useSelector(state=>state.counter.city)
     const router = useRouter()
-    const ref = useRef()    
+    const ref = useRef()
+    const addref = useRef()    
     const dispatch = useDispatch()
-
-    useEffect(()=>{
-        
-        setCity(my_city)
-        setSelCity(my_city)
+    const { data, error, isLoading } = useSWR('/api/get_cities', fetcher)
+   
+    useEffect(()=>{        
+        // setSelCity(my_city)
+      
         
     },[])
 
-    const location = {
-        минск: [53.89565757721091, 27.545348010833237 ],
-        брест: [52.09788450736236, 23.732067465489514] ,
-        гродно: [53.670572646682174, 23.82749392191836]
-    }
+   
         
     function setMyCity() {
-        ref.current.value = selCity
+        setfindcity(selCity)
+        let new_data = [...data]
+        let loc = new_data.filter(i=>i.city === selCity)
+        console.log([+loc[0].lat,+loc[0].lon])
         dispatch(setcity(selCity))
-        dispatch(setlocation(location[selCity.toLowerCase()]))
+        dispatch(setlocation([+loc[0].lat,+loc[0].lon]))
     }
     function selectCity(e) {       
         if (e.target.value) {
@@ -43,7 +45,13 @@ export default function City() {
             setMyCitys(citys)
         }
     }
-
+    const AddCity = () => {
+        fetch(`https://api.api-ninjas.com/v1/geocoding?city=${addref.current.value}&country=BY`,
+        {
+        headers: { 'X-Api-Key': 'xxDz7cf1MDoWKvKJ7p9uLA==msmQGP675Gxdy2i4'},
+        contentType: 'application/json'})
+        .then(res=>console.log(res[0]))
+    }
     return (
         <div className={styles.main}>
             <header className={styles.header}>
@@ -53,19 +61,24 @@ export default function City() {
             </header>
             <input 
                 className={styles.seachcity} 
-                type="search" 
-                ref={ref} 
-                value={my_city}
+                type="search"               
+                value={findcity}
                 placeholder='Ваш город'                            
-                onChange={selectCity} 
+                onChange={(e)=>setfindcity(e.target.value)} 
             />
             <section className={styles.section}>               
-                {myCitys.sort().map(i =>
+                {data?.sort((a,b)=>{ return a.city.toLowerCase() < b.city.toLowerCase() ?-1:1}).map(i =>
                     <label className={styles.city} key={i}>
-                        {i}
-                        <input type="radio" checked={i === selCity} value={selCity} name="city" onClick={() => setSelCity(i)} />
+                        <span>{i.city}</span>
+                        <input type="radio" checked={i.city === selCity} value={selCity} name="city" onClick={() => setSelCity(i.city)} />
                     </label>
                 )}
+                <div
+                >Нет в списке. 
+                <p>Добавить город</p>
+                <input className={styles.seachcity} ref={addref} type="text" />
+                <button onClick={AddCity} className={styles.seachcity}>Добавить</button>
+                </div>
             </section>
         </div>
     )

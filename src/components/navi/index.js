@@ -39,10 +39,10 @@ export default function Navi({ save, color }) {
         
         <div className={styles.total} style={{ top: (height - 70) + 'px' }}>
             <div className={styles.main} style={{ background: color ? color : null }}>
-                <Link href="/" className={router.asPath === '/' ? styles.home : styles.dashboard}>
+                <Link title='главная страница' href="/" className={router.asPath === '/' ? styles.home : styles.dashboard}>
                     <Image alt="home" src={router.asPath === '/' ? home : home_wh} height={20} width={20} />
                 </Link>
-                <Link href="/catalog" className={router.asPath.includes('catalog') ? styles.home : styles.dashboard}>
+                <Link title="каталог" href="/catalog" className={router.asPath.includes('catalog') ? styles.home : styles.dashboard}>
                     <Image alt="catalog" src={router.asPath.includes('catalog') ? dashboard_bl : dashboard} height={20} width={20} />
                 </Link>
                 {prof.status  ?<Link href="/chat" className={styles.message} />:null}

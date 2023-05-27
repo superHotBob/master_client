@@ -34,7 +34,7 @@ const Master = () => {
     const [mapview, setmapview] = useState(false)
     const router = useRouter()
     const { slug } = router.query
-
+    const [gradient,color,background] = profile?.color || []
     const dispatch = useDispatch()
     const my_profile = useSelector(state => state.counter.profile)
     const master = useSelector(state => state.counter.master)
@@ -69,10 +69,10 @@ const Master = () => {
                 <section className={styles.section_main}>
                     <MasterHeader profile={profile}/>
                     <div className={styles.buttons}>
-                        <Link href={my_profile.status === 'client' ? '/chat' : '/error'} style={{ backgroundColor: profile.color[2] }} >
-                            <span style={{ color: profile.color[1] }}>
+                        <Link href={my_profile.status === 'client' ? '/chat' : '/error'} style={{ backgroundColor: background }} >
+                            <span style={{ color: color }}>
                                 Сообщения
-                                <Menu_icon type="chat" color={profile.color[1]} />
+                                <Menu_icon type="chat" color={color} />
                             </span>
                         </Link>    
                         <Link
@@ -80,18 +80,18 @@ const Master = () => {
                                 pathname: my_profile.status === 'client' ? '/recordingtomaster' : '/error',
                                 query: { nikname: slug, name: profile.name },
                             }}
-                            style={{ backgroundColor: profile.color[2] }}
+                            style={{ backgroundColor: background }}
 
                         >
-                            <span style={{ color: profile.color[1] }}>
+                            <span style={{ color: color }}>
                                 Запись к мастеру
-                                <Menu_icon type="edit" color={profile.color[1]} />
+                                <Menu_icon type="edit" color={color} />
                             </span>
                         </Link>
                     </div>
                     <nav className={styles.navigation}>
                         {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
-                            .map(i => <span key={i} onClick={() => setNavView(i)} style={nav_view === i ? { ...active, backgroundColor: profile.color[1] } : null}>{i}</span>)}
+                            .map(i => <span key={i} onClick={() => setNavView(i)} style={nav_view === i ? { ...active, backgroundColor: color } : null}>{i}</span>)}
                     </nav>
                     {nav_view === 'Отзывы' ? <Reviews nikname={slug} color={profile.color} /> : null}
                     {nav_view === 'Услуги' ? <Services name={slug} color={profile.color} /> : null}
@@ -99,7 +99,7 @@ const Master = () => {
                     {nav_view === 'Сертификаты' ? <Sertificats nikname={slug} /> : null}
                     
                 </section>
-                <Navi color={profile.color[0]} />
+                <Navi color={gradient} />
             </> :
                 <div className={styles.await}>
                     <Image alt="await" src='/await.gif' width={150} height={150} />
