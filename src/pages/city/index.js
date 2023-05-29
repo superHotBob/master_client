@@ -7,11 +7,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setcity, setlocation } from '../../reduser.js'
 import useSWR from 'swr'
 
-const citys = ['Минск', 'Брест','Гродно']
+
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 export default function City() {
-    const [myCitys, setMyCitys] = useState(citys)
+    const [myCitys, setMyCitys] = useState()
     const [selCity, setSelCity] = useState()
     const [findcity, setfindcity] = useState()
     const my_city = useSelector(state=>state.counter.city)
@@ -52,6 +52,7 @@ export default function City() {
         contentType: 'application/json'})
         .then(res=>console.log(res[0]))
     }
+    if(isLoading) return <h2>Загружаем города</h2>
     return (
         <div className={styles.main}>
             <header className={styles.header}>
@@ -76,7 +77,7 @@ export default function City() {
                 <div
                 >Нет в списке. 
                 <p>Добавить город</p>
-                <input className={styles.seachcity} ref={addref} type="text" />
+                <input placeholder='Введите ваш город' className={styles.seachcity} ref={addref} type="text" />
                 <button onClick={AddCity} className={styles.seachcity}>Добавить</button>
                 </div>
             </section>

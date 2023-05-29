@@ -30,7 +30,13 @@
     margin: 30px auto;
     height: 80vh;
     overflow-y: auto;
-
+}
+.section button {
+    color: #fff;
+    background-color: #3D4EEA;
+    font-weight: 500;
+    appearance: none;
+    font-family: inherit;
 }
 
 .seachcity {
@@ -43,8 +49,7 @@
     padding: 0px 8px 0px 8px;
     color: #3D4EEA;
     border: 1px solid #3D4EEA;
-    margin: 20px auto;
-    font-family: '__Rubik_dce73a';
+    margin: 20px auto;   
 }
 .section input::placeholder {
     color: #8B95F2;

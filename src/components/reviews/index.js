@@ -31,7 +31,7 @@ export default function Reviews({nikname,color}) {
                 <div className={styles.header}>
                     <span>{i.client_name||i.client}</span>
                     <span style={{textAlign: 'right',width: '55%',color: '#000'}}>
-                        {i.date_order.replace(',',' ').replace(',', ' в ')}:00
+                        {i.date_order.replace(',',' ').replace(',', ' в ')}
                     </span>
                     <div className={styles.stars}>
                         {[1, 2, 3, 4, 5].map(a => <React.Fragment key={a}>{

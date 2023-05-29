@@ -27,67 +27,66 @@ const text = (` Ищу модель, что бы протестировать к
     Отсутствие ответсвенности за возможные осложнения в процессе процедур
 
     Пишите, девачки :*:*:*:*`)
-
+const fetcher = (...args) => fetch(...args).then(res => res.json())
 const url = 'https://masters-client.onrender.com/'
-export default function Lenta({color={},nikname}) {
-    
+export default function Lenta({ color = {}, nikname }) {
+
     const [model, setViewText] = useState(false)
     const [message, setMessage] = useState(false)
-    const profile = useSelector(state=>state.counter.profile) 
-    console.log(profile.status)
-    const fetcher = (...args) => fetch(...args).then(res => res.json())
-    const { data, error, isLoading } = useSWR(`${url}getlists?dir=${nikname}`, fetcher)
+    const profile = useSelector(state => state.counter.profile)
 
-    function Saved_image(a) {       
+    const { data } = useSWR(`https://masters-client.onrender.com/getlists?dir=${nikname}`, fetcher)
+
+    function Saved_image(a) {
         let pro = JSON.parse(localStorage.getItem('profile'))
         let new_saved = [...pro.saved_image]
-        const add_image = [...new_saved,a]       
+        const add_image = [...new_saved, a]
         fetch('/api/saves_image', {
-            body: JSON.stringify({image: add_image,nikname:profile.nikname}),
+            body: JSON.stringify({ image: add_image, nikname: profile.nikname }),
             headers: {
                 'Content-Type': 'application/json',
             },
             method: 'POST',
         }).then(res => {
             setMessage(true)
-            const new_profile = {...profile,saved_image: add_image}
+            const new_profile = { ...profile, saved_image: add_image }
             localStorage.setItem('profile', JSON.stringify(new_profile))
             setTimeout(() => setMessage(false), 3000)
         })
     }
-   
+
     return (
-        <main className={styles.main}>          
-            <div onClick={() => setViewText(true)} className={styles.model} style={{background: color[0]}}>
+        <main className={styles.main}>
+            <div onClick={() => setViewText(true)} className={styles.model} style={{ background: color[0] }}>
                 <h3>Нужна модель</h3>
                 <h6>15 сентября, бесплатно</h6>
             </div>
             <dialog open={message} className={styles.message}>
                 Изображение сохранено
-            </dialog>            
+            </dialog>
             <div className={styles.images}>
                 <div className={styles.part_images}>
                     {data?.filter((i, index) => index % 2 === 0).map(i =>
-                        <div key={i}>                      
+                        <div key={i}>
                             <img alt={i} src={url + 'var/data/' + nikname + '/' + i} />
-                            { profile.status === 'client'?
-                            <span 
-                                className={styles.save__image} 
-                                onClick={()=>Saved_image(nikname + '/' + i)}
-                            />:null}
-                        </div>                         
+                            {profile.status === 'client' ?
+                                <span
+                                    className={styles.save__image}
+                                    onClick={() => Saved_image(nikname + '/' + i)}
+                                /> : null}
+                        </div>
                     )}
                 </div>
                 <div className={styles.part_images}>
-                    {data?.filter((i, index) => index % 2 !==0).map(i =>
-                        <div key={i}>                        
-                            <img  alt={i} src={url + 'var/data/' + nikname + '/' + i}  />  
-                            { profile.status === 'client'?
-                            <span 
-                                className={styles.save__image} 
-                                onClick={()=>Saved_image(nikname + '/' + i)}
-                            />:null}
-                        </div>                     
+                    {data?.filter((i, index) => index % 2 !== 0).map(i =>
+                        <div key={i}>
+                            <img alt={i} src={url + 'var/data/' + nikname + '/' + i} />
+                            {profile.status === 'client' ?
+                                <span
+                                    className={styles.save__image}
+                                    onClick={() => Saved_image(nikname + '/' + i)}
+                                /> : null}
+                        </div>
                     )}
                 </div>
             </div>

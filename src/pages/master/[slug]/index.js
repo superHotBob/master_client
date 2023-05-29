@@ -31,7 +31,7 @@ const Master = () => {
     const [viewText, setViewText] = useState(true)
     const [nav_view, setNavView] = useState('Лента')
     const [profile, setProfile] = useState(null)
-    const [mapview, setmapview] = useState(false)
+   
     const router = useRouter()
     const { slug } = router.query
     const [gradient,color,background] = profile?.color || []
@@ -40,9 +40,8 @@ const Master = () => {
     const master = useSelector(state => state.counter.master)
     
 
-    useEffect(() => {
-        
-        console.log('Pid',slug)
+    useEffect(() => {        
+       
         const { pathname } = window.location        
         if (master) {
             setProfile(master[0])
@@ -54,13 +53,7 @@ const Master = () => {
         return () => dispatch(setmaster(''))
     }, [])
 
-    function EnterToMessanger(a) {
-        if (profile.status === 'client') {
-            router.push('/chat')
-        } else {
-            router.push('/error')
-        }
-    }
+   
     return (
         <main className={styles.main}>
             <Head><title>{slug}</title></Head>
@@ -69,7 +62,7 @@ const Master = () => {
                 <section className={styles.section_main}>
                     <MasterHeader profile={profile}/>
                     <div className={styles.buttons}>
-                        <Link href={my_profile.status === 'client' ? '/chat' : '/error'} style={{ backgroundColor: background }} >
+                        <Link href={my_profile.status === 'client' ? '/chat' : `/master/${slug}/error`} style={{ backgroundColor: background }} >
                             <span style={{ color: color }}>
                                 Сообщения
                                 <Menu_icon type="chat" color={color} />
@@ -77,8 +70,10 @@ const Master = () => {
                         </Link>    
                         <Link
                             href={{
-                                pathname: my_profile.status === 'client' ? '/recordingtomaster' : '/error',
-                                query: { nikname: slug, name: profile.name },
+                                pathname: my_profile.status === 'client' ? 
+                                '/recordingtomaster' : 
+                                `/master/${slug}/error`,
+                                query: my_profile.status === 'client' ? { nikname: slug, name: profile.name }: null
                             }}
                             style={{ backgroundColor: background }}
 
@@ -95,7 +90,7 @@ const Master = () => {
                     </nav>
                     {nav_view === 'Отзывы' ? <Reviews nikname={slug} color={profile.color} /> : null}
                     {nav_view === 'Услуги' ? <Services name={slug} color={profile.color} /> : null}
-                    {nav_view === 'Лента' ? <Lenta nikname={slug} color={profile.color} /> : null}
+                    {nav_view === 'Лента'  ? <Lenta nikname={slug} color={profile.color} /> : null}
                     {nav_view === 'Сертификаты' ? <Sertificats nikname={slug} /> : null}
                     
                 </section>

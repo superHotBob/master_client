@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setclient, setprofile } from "@/reduser"
 import { useRouter } from "next/router"
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+
 import useSWR from 'swr'
 
 const style = {
@@ -21,7 +21,7 @@ export default function Menu() {
     const router = useRouter()
     const profile = useSelector((state) => state.counter.profile)
     const fetcher = (...args) => fetch(...args).then(res => res.json())
-    const { data, error, isLoading } = useSWR(`/api/get_orders_master?nikname=${profile.nikname}`, fetcher)
+    const { data } = useSWR(profile.status === 'master' ?`/api/get_orders_master?nikname=${profile.nikname}`: null, fetcher)
    
 
 
@@ -42,13 +42,11 @@ export default function Menu() {
             <p className={styles.menu_prof}>Меню профиля</p>
             <Link href='/chat'>Сообщения</Link>
             <Link href="/masterrecords" className={styles.records_on_seans}>Записи на сеанс<span>{data?.length}</span></Link>
-            <p className={styles.shedule} onClick={() => router.push('/calendar')}>Календарь работы</p>
+            <Link href="/calendar" className={styles.shedule} >Календарь работы</Link>
             <Link href="/addmasterorder" className={styles.add}>Добавить запись</Link>
             <Link href="/masterrecords" className={styles.collections}>Мои заказы</Link>
             <p className={styles.menu_prof}>Общее</p>
-            <p className={styles.edit_profile} onClick={() => router.push('/editprofile')} >
-                Редактировать профиль
-            </p>
+            <Link href="/editprofile" className={styles.edit_profile}>Редактировать профиль</Link>
             <p className={styles.copy} onClick={CopyProfile}>Скопировать ссылку профиля</p>
             <p className={styles.chat}>Техническая поддержка</p>
             <p className={styles.about}>О сервисе</p>

@@ -3,7 +3,7 @@ import styles from './enter.module.css'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { setprofile } from '@/reduser'
+import { setphone } from '@/reduser'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 
@@ -35,23 +35,35 @@ export default function Enter() {
         event.preventDefault()
         const data = { tel: phone }
         setBack("await.gif")
-        fetch(`${url}/call`, {
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            method: 'POST',
+        fetch(`/api/check_client?phone=${phone}`)
+        .then(res=>res.json())
+        .then(res=>{
+            if(res.length === 0) {
+               Call()
+            } else {
+                dispatch(setphone(phone))
+                router.push('/enterpassword')
+            }
         })
-            .then(res => {
-                if (res.status === 200) {
-                    setSelect('Подтвердить'),
+        function Call() {
+            fetch(`${url}/call`, {
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'POST',
+            })
+                .then(res => {
+                    if (res.status === 200) {
+                        setSelect('Подтвердить'),
                         setBack("logo-main.svg"),
                         setTimeout(() => document.getElementById(0).focus(), 500)
-                } else {
-                    setT(60)
-                    setBack("logo-main.svg")
-                }
-            })
+                    } else {
+                        setT(60)
+                        setBack("logo-main.svg")
+                    }
+                })
+        }    
 
     }
     useEffect(() => {
@@ -81,34 +93,15 @@ export default function Enter() {
         })
             .then(res => {                
                 if (res.status === 200) {
-                    handleSubmit()
+                    dispatch(setphone(phone))
+                    router.push('newpassword')
                 } else {
                     setMessage('dfg')
                 }
             })
     }
 
-    const handleSubmit = async () => {
-        const data = { tel: phone }
-        setBack("await.gif")
-        const response = await fetch('/api/enter_phone', {
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            method: 'POST',
-        })
-        const result = await response.json()
-        if (result.message) {
-            router.reload()
-        } else if (result.blocked !== 'yes') {
-            localStorage.setItem("profile", JSON.stringify(result))
-            dispatch(setprofile(result))
-            router.push('/')
-        } else {
-            router.push('/404')
-        }
-    }
+    
     const handleKeyDown = (e,b) => {      
         if (e.key === 'Backspace') {       
             if (!e.target.value > 0 && b > 0) {
@@ -156,7 +149,9 @@ export default function Enter() {
                             можно будет через  <b>{t}</b> сек.
                         </h3> : 
                         <>
-                            <div className={styles.button} onClick={firstCall}>Войти</div>
+                            <div  className={styles.button} onClick={firstCall}>
+                                Войти
+                            </div>
                             <div className={styles.colaboration}>
                                 Нажмая на кнопку, вы соглашаетесь с<br />
                                 <span style={{ color: "#3D4EEA" }}>Условиями обработки персональных <br />

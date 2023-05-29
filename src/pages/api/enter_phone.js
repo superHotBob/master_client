@@ -7,37 +7,40 @@ export default async function handler(req, res) {
 
   const result = await sql`
     select 
-    status,blocked,id,nikname
+    status,blocked,id,nikname,client_password
     from clients
     where phone = ${+req.body.tel}
   `
 
   const nikname = 'client' + (Math.random() * 100000).toFixed(0)
+  console.log(result, req.body)
 
-    if (result.length === 0) {
-      const result = await sql`
+  if (result.length === 0) {
+    const result = await sql`
           insert into clients (
-            phone, status, nikname, id, blocked
+            phone, status, nikname, id, blocked,client_password
           ) values (
-            ${+req.body.tel}, 'client', ${nikname}, ${(Math.random() * 100000).toFixed(0)}, 'no'
+            ${+req.body.tel}, 'client', ${nikname}, ${(Math.random() * 100000).toFixed(0)}, 'no', ${req.body.password}
           )
           returning status, nikname,id
       `
-     
-      res.status(200).json(result[0])
-      fetch(`https://masters-client.onrender.com/create?dir=${nikname}`)
-      .then(res=>console.log('GOOD'))
-    } else if (result[0].status === 'master' && result[0].blocked === 'no') {
-      const result = await sql`
+    res.status(200).json(result[0])
+    fetch(`https://masters-client.onrender.com/create?dir=${nikname}`)
+      .then(res => console.log('GOOD'))
+  } else if (result[0].status === 'master' && result[0].blocked === 'no') {
+    if (result[0].client_password === req.body.password) {
+    const result = await sql`
         select 
-        name,status,city,stars,locations,nikname,image,text,address,address_full,currency,color,services
+        name,status,city,stars,locations,nikname,text,address,address_full,currency,color,services
         from users
         where phone = ${+req.body.tel}
       `
-      res.status(200).json(result[0])
-      fetch(`https://masters-client.onrender.com/create?dir=${result[0].nikname}`)
-      .then(res=>console.log('GOOD'))
-    } else if (result[0].status === 'client' && result[0].blocked === 'no') {
+    res.status(200).json(result[0])
+    } else {
+      res.status(200).json([])
+    }   
+  } else if (result[0].status === 'client' && result[0].blocked === 'no') {
+    if (result[0].client_password === req.body.password) {
       const result = await sql`
         select 
         status,nikname,name,text,id,saved_image
@@ -45,14 +48,18 @@ export default async function handler(req, res) {
         where phone = ${+req.body.tel}
       `
       res.status(200).json(result[0])
-      fetch(`https://masters-client.onrender.com/create?dir=${result[0].nikname}`)
-      .then(res=>console.log('GOOD'))
-    } else if (result[0].blocked === 'yes') {
-
-      res.status(200).json(result[0])
     } else {
-      res.end('Ваш аккаунт заблокирован')
+      res.status(200).json([])
     }
-  
+
+    // fetch(`https://masters-client.onrender.com/create?dir=${result[0].nikname}`)
+    //   .then(res => console.log('Папка создана'))
+  } else if (result[0].blocked === 'yes') {
+
+    res.status(200).json(result[0])
+  } else {
+    res.end('Ваш аккаунт заблокирован')
+  }
+
 
 }
