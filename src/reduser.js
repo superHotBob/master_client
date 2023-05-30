@@ -2,8 +2,9 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   city: 'Минск',
-  master:'',
+  password:'',
   client: '',
+  master: '',
   nikname:'',
   phone: '',
   profile: {},
@@ -20,6 +21,9 @@ export const counterSlice = createSlice({
     setmessage: (state,action) => {
       state.message = action.payload
     },
+    setmaster: (state,action) => {
+      state.master = action.payload
+    },
     setphone: (state,action) => {
       state.phone = action.payload
     },
@@ -35,8 +39,8 @@ export const counterSlice = createSlice({
     setclient: (state, action) => {
       state.client = action.payload
     },
-    setmaster: (state, action) => {
-      state.master = action.payload
+    setpassword: (state, action) => {
+      state.password = action.payload
     },
     setcity: (state, action) => {
       state.city = action.payload
@@ -51,6 +55,6 @@ export const counterSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setphone,setclient, setmessage, setlocation,setmaster, setcity, setnikname, setprofile,setorder,setservice } = counterSlice.actions
+export const { setmaster,setphone,setclient, setmessage, setlocation,setpassword, setcity, setnikname, setprofile,setorder,setservice } = counterSlice.actions
 
 export default counterSlice.reducer

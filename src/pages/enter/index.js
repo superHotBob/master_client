@@ -2,8 +2,8 @@ import Header from '@/components/header'
 import styles from './enter.module.css'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { setphone } from '@/reduser'
+import { useDispatch, useSelector } from 'react-redux'
+import { setphone,setpassword } from '@/reduser'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 
@@ -17,6 +17,7 @@ export default function Enter() {
 
     const [phone, setPhone] = useState()
     const dispatch = useDispatch()
+    const my_phone = useSelector(state=>state.counter.phone)
     const router = useRouter()
     const [number, setNumber] = useState([, , ,])
     const [back, setBack] = useState('logo-main.svg')
@@ -38,10 +39,11 @@ export default function Enter() {
         fetch(`/api/check_client?phone=${phone}`)
         .then(res => res.json())
         .then(res => {
-            if (res[0].nikname) {
+            console.log(res[0].nikname && !my_phone)
+            if (res[0].nikname && !my_phone) {
                 dispatch(setphone(phone))
                 router.push('/enterpassword')
-            } else {
+            } else  {
                 Call()
             }
         })
@@ -56,8 +58,9 @@ export default function Enter() {
                 .then(res => {
                     if (res.status === 200) {
                         setSelect('Подтвердить'),
-                            setBack("logo-main.svg"),
-                            setTimeout(() => document.getElementById(0).focus(), 500)
+                        setBack("logo-main.svg"),
+                        dispatch(setpassword('hello')),
+                        setTimeout(() => document.getElementById(0).focus(), 500)
                     } else {
                         setT(60)
                         setBack("logo-main.svg")

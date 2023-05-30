@@ -40,15 +40,11 @@ main {
   display: inline-block;
 }
 
-input[type='text'], input[type='tel'], input[type='radio'], input[type='search'] {
+input[type='text'], input[type='tel'], input[type='radio'], input[type='search'],input[type='password'] {
   background-color: #fff;
-  outline: none;
-  
+  outline: none;  
 }
-input[type=range]::-webkit-slider-thumb {
- 
-  
- 
+input[type=range]::-webkit-slider-thumb { 
   padding: 20px 0; 
   cursor: pointer;
   -webkit-appearance: none;

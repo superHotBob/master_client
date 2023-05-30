@@ -1,6 +1,7 @@
 import Header from '@/components/header'
 import styles from './password.module.css'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 import { useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setprofile } from '@/reduser'
@@ -21,6 +22,7 @@ export default function EnterPassword() {
         const data = { tel: phone, password: passRef.current.value  }
         setBack("await.gif")
         setMessage('')
+        
         const response = await fetch('/api/enter_phone', {
             body: JSON.stringify(data),
             headers: {
@@ -50,8 +52,9 @@ export default function EnterPassword() {
             <h3 className={styles.registration}>Вход <br/> по номеру телефона</h3>
             <div className={styles.inputs}>
                 <form onSubmit={handleSubmit}>
-                    <input autoFocus ref={passRef} placeholder='Пароль' type="password"  />
-                    <button type='submit' className={styles.button}>Войти</button>                    
+                    <input autoFocus ref={passRef} placeholder='Пароль' type="password"  />                   
+                    <button type='submit' className={styles.button}>Войти</button> 
+                    <Link href="/enter">Изменить пароль</Link>                   
                 </form>                
                 <h4 className={styles.error}>{message}</h4>
             </div>
