@@ -14,30 +14,30 @@ export default function City() {
     const [myCitys, setMyCitys] = useState()
     const [selCity, setSelCity] = useState()
     const [findcity, setfindcity] = useState()
-    const my_city = useSelector(state=>state.counter.city)
+    const my_city = useSelector(state => state.counter.city)
     const router = useRouter()
     const ref = useRef()
-    const addref = useRef()    
+    const addref = useRef()
     const dispatch = useDispatch()
     const { data, error, isLoading } = useSWR('/api/get_cities', fetcher)
-   
-    useEffect(()=>{        
-        // setSelCity(my_city)
-      
-        
-    },[])
 
-   
-        
+    useEffect(() => {
+        // setSelCity(my_city)
+
+
+    }, [])
+
+
+
     function setMyCity() {
         setfindcity(selCity)
         let new_data = [...data]
-        let loc = new_data.filter(i=>i.city === selCity)
-        console.log([+loc[0].lat,+loc[0].lon])
+        let loc = new_data.filter(i => i.city === selCity)
+        console.log([+loc[0].lat, +loc[0].lon])
         dispatch(setcity(selCity))
-        dispatch(setlocation([+loc[0].lat,+loc[0].lon]))
+        dispatch(setlocation([+loc[0].lat, +loc[0].lon]))
     }
-    function selectCity(e) {       
+    function selectCity(e) {
         if (e.target.value) {
             let cc = myCitys.filter(i => i.toLowerCase().includes(e.target.value) ? i : null)
             setMyCitys(cc)
@@ -45,14 +45,27 @@ export default function City() {
             setMyCitys(citys)
         }
     }
-    const AddCity = () => {
-        fetch(`https://api.api-ninjas.com/v1/geocoding?city=${addref.current.value}&country=BY`,
-        {
-        headers: { 'X-Api-Key': 'xxDz7cf1MDoWKvKJ7p9uLA==msmQGP675Gxdy2i4'},
-        contentType: 'application/json'})
-        .then(res=>console.log(res[0]))
+    const AddCity = async () => {
+        let new_city = await fetch(`https://api.api-ninjas.com/v1/geocoding?city=${addref.current.value}&country=BY`,
+            {
+                headers: { 'X-Api-Key': 'xxDz7cf1MDoWKvKJ7p9uLA==msmQGP675Gxdy2i4' },
+                contentType: 'application/json'
+            })
+            .then(res => res.json())
+        console.log(new_city)
+        let data = { city: addref.current.value, lon: new_city[0].longitude, lat: new_city[0].latitude }
+        fetch('/api/add_city', {
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+        })
+        .then(res => res.json())
+        .then(res => router.reload())
+
     }
-    if(isLoading) return <h2>Загружаем города</h2>
+
     return (
         <div className={styles.main}>
             <header className={styles.header}>
@@ -60,25 +73,28 @@ export default function City() {
                 <span>Выбор города</span>
                 <span onClick={setMyCity}>Принять</span>
             </header>
-            <input 
-                className={styles.seachcity} 
-                type="search"               
+            <input
+                className={styles.seachcity}
+                type="search"
                 value={findcity}
-                placeholder='Ваш город'                            
-                onChange={(e)=>setfindcity(e.target.value)} 
+                placeholder='Ваш город'
+                onChange={(e) => setfindcity(e.target.value)}
             />
-            <section className={styles.section}>               
-                {data?.sort((a,b)=>{ return a.city.toLowerCase() < b.city.toLowerCase() ?-1:1}).map(i =>
-                    <label className={styles.city} key={i}>
-                        <span>{i.city}</span>
-                        <input type="radio" checked={i.city === selCity} value={selCity} name="city" onClick={() => setSelCity(i.city)} />
-                    </label>
-                )}
-                <div
-                >Нет в списке. 
-                <p>Добавить город</p>
-                <input placeholder='Введите ваш город' className={styles.seachcity} ref={addref} type="text" />
-                <button onClick={AddCity} className={styles.seachcity}>Добавить</button>
+            <section className={styles.section}>
+                <div className={styles.all_cities}>
+                    {data?.sort((a, b) => { return a.city.toLowerCase() < b.city.toLowerCase() ? -1 : 1 }).map(i =>
+                        <label className={styles.city} key={i}>
+                            <span>{i.city}</span>
+                            <input type="radio" checked={i.city === selCity} value={selCity} name="city" onClick={() => setSelCity(i.city)} />
+                        </label>
+                    )}
+                    {isLoading ? <h5>Загружаем города...</h5> : null}
+                </div>
+                <div>
+                    Нет в списке.
+                    <p>Добавить город</p>
+                    <input placeholder='Введите ваш город' className={styles.seachcity} ref={addref} type="text" />
+                    <button onClick={AddCity} className={styles.seachcity}>Добавить</button>
                 </div>
             </section>
         </div>

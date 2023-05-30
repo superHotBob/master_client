@@ -28,7 +28,7 @@
 .section {
     width: 300px;
     margin: 30px auto;
-    height: 80vh;
+    height: auto;
     overflow-y: auto;
 }
 .section button {
@@ -51,16 +51,26 @@
     border: 1px solid #3D4EEA;
     margin: 20px auto;   
 }
-.section input::placeholder {
+.seachcity::placeholder {
     color: #8B95F2;
-
-
+}
+.seachcity::first-letter {
+    text-transform: capitalize;
+}
+.all_cities {
+    height: 50vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.all_cities h5 {
+    text-align: center;
+    margin-top: 40%;
 }
 .city {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-weight: 600;
+    font-weight: 500;
     font-size:  14px;
     line-height: 17px;
     height: 48px;
@@ -73,7 +83,11 @@
 }
 .city input {
     height: 16px;
+    
     width: 16px;
     background-color: #fff;   
     margin-right: 15px;
+}
+.city input:active {
+    background-color: #3D4EEA;
 }
