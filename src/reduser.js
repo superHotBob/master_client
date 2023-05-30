@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   city: 'Минск',
-  password:'',
+  password: null,
   client: '',
   master: '',
   nikname:'',

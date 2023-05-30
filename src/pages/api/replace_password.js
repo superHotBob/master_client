@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   const result = await sql`
         update clients 
         set client_password = ${req.body.password}    
-        where phone =  ${req.body.phone}  
+        where phone =  ${req.body.tel}  
         returning phone      
       `
   if (result.length > 0) {

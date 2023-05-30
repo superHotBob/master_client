@@ -5,7 +5,7 @@ export default async function handler(req, res) {
 
     const result = await sql`
         select 
-        nikname
+        phone
         from  clients
         where phone = ${req.query.phone}
      `

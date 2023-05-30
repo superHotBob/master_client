@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setprofile } from '@/reduser'
+import { setprofile, setpassword } from '@/reduser'
 
 const url = 'https://masters-client.onrender.com'
 
@@ -15,14 +15,19 @@ export default function EnterPassword() {
     const router = useRouter()   
     const [back, setBack] = useState('logo-main.svg')  
     const [message, setMessage] = useState('')
-    const passRef = useRef()    
+    const passRef = useRef() 
+    
+    const ReplacePassword = () => {
+        dispatch(setpassword('new'))
+        router.push('/enter')
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const data = { tel: phone, password: passRef.current.value  }
         setBack("await.gif")
         setMessage('')
-        
+
         const response = await fetch('/api/enter_phone', {
             body: JSON.stringify(data),
             headers: {
@@ -54,7 +59,7 @@ export default function EnterPassword() {
                 <form onSubmit={handleSubmit}>
                     <input autoFocus ref={passRef} placeholder='Пароль' type="password"  />                   
                     <button type='submit' className={styles.button}>Войти</button> 
-                    <Link href="/enter">Изменить пароль</Link>                   
+                    <p onClick={ReplacePassword}>Изменить пароль</p>                   
                 </form>                
                 <h4 className={styles.error}>{message}</h4>
             </div>

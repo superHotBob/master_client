@@ -17,7 +17,7 @@ export default function Enter() {
 
     const [phone, setPhone] = useState()
     const dispatch = useDispatch()
-    const my_phone = useSelector(state=>state.counter.phone)
+    const password = useSelector(state=>state.counter.password)
     const router = useRouter()
     const [number, setNumber] = useState([, , ,])
     const [back, setBack] = useState('logo-main.svg')
@@ -39,8 +39,8 @@ export default function Enter() {
         fetch(`/api/check_client?phone=${phone}`)
         .then(res => res.json())
         .then(res => {
-            console.log(res[0].nikname && !my_phone)
-            if (res[0].nikname && !my_phone) {
+           
+            if (res[0]?.phone && !password) {
                 dispatch(setphone(phone))
                 router.push('/enterpassword')
             } else  {
@@ -59,8 +59,12 @@ export default function Enter() {
                     if (res.status === 200) {
                         setSelect('Подтвердить'),
                         setBack("logo-main.svg"),
-                        dispatch(setpassword('hello')),
+                        
                         setTimeout(() => document.getElementById(0).focus(), 500)
+                                                
+                            dispatch(setphone(phone))
+                       
+                       
                     } else {
                         setT(60)
                         setBack("logo-main.svg")
