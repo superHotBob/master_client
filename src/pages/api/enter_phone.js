@@ -7,20 +7,25 @@ export default async function handler(req, res) {
 
   const result = await sql`
     select 
-    status,blocked,id,nikname,client_password
+      status,blocked,id,nikname,client_password
     from clients
     where phone = ${+req.body.tel}
   `
 
   const nikname = 'client' + (Math.random() * 100000).toFixed(0)
-  console.log(result, req.body)
+ 
 
   if (result.length === 0) {
     const result = await sql`
           insert into clients (
             phone, status, nikname, id, blocked,client_password
           ) values (
-            ${+req.body.tel}, 'client', ${nikname}, ${(Math.random() * 100000).toFixed(0)}, 'no', ${req.body.password}
+            ${+req.body.tel}, 
+            'client', 
+            ${nikname}, 
+            ${(Math.random() * 100000).toFixed(0)}, 
+            'no', 
+            ${req.body.password}
           )
           returning status, nikname,id
       `
@@ -31,7 +36,7 @@ export default async function handler(req, res) {
     if (result[0].client_password === req.body.password) {
     const result = await sql`
         select 
-        name,status,city,stars,locations,nikname,text,address,address_full,currency,color,services
+          name,status,city,stars,locations,nikname,text,address,address_full,currency,color,services
         from users
         where phone = ${+req.body.tel}
       `
@@ -43,7 +48,7 @@ export default async function handler(req, res) {
     if (result[0].client_password === req.body.password) {
       const result = await sql`
         select 
-        status,nikname,name,text,id,saved_image
+          status,nikname,name,text,id,saved_image
         from clients
         where phone = ${+req.body.tel}
       `

@@ -28,8 +28,7 @@ export default function EnterPassword() {
             },
             method: 'POST',
         })
-        const result = await response.json()
-        console.log(result)
+        const result = await response.json()      
         if (result.length === 0) {
            setMessage('Пароль не верный')
            setBack('logo-main.svg')
@@ -52,7 +51,7 @@ export default function EnterPassword() {
             <div className={styles.inputs}>
                 <form onSubmit={handleSubmit}>
                     <input autoFocus ref={passRef} placeholder='Пароль' type="password"  />
-                    <button type='submit'className={styles.button}>Войти</button>                    
+                    <button type='submit' className={styles.button}>Войти</button>                    
                 </form>                
                 <h4 className={styles.error}>{message}</h4>
             </div>

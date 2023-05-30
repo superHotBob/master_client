@@ -14,7 +14,7 @@ const url = 'https://masters-client.onrender.com'
 
 
 export default function Enter() {
-    
+
     const [phone, setPhone] = useState()
     const dispatch = useDispatch()
     const router = useRouter()
@@ -36,13 +36,13 @@ export default function Enter() {
         const data = { tel: phone }
         setBack("await.gif")
         fetch(`/api/check_client?phone=${phone}`)
-        .then(res=>res.json())
-        .then(res=>{
-            if(res.length === 0) {
-               Call()
-            } else {
+        .then(res => res.json())
+        .then(res => {
+            if (res[0].nikname) {
                 dispatch(setphone(phone))
                 router.push('/enterpassword')
+            } else {
+                Call()
             }
         })
         function Call() {
@@ -56,14 +56,14 @@ export default function Enter() {
                 .then(res => {
                     if (res.status === 200) {
                         setSelect('Подтвердить'),
-                        setBack("logo-main.svg"),
-                        setTimeout(() => document.getElementById(0).focus(), 500)
+                            setBack("logo-main.svg"),
+                            setTimeout(() => document.getElementById(0).focus(), 500)
                     } else {
                         setT(60)
                         setBack("logo-main.svg")
                     }
                 })
-        }    
+        }
 
     }
     useEffect(() => {
@@ -91,7 +91,7 @@ export default function Enter() {
             },
             method: 'POST',
         })
-            .then(res => {                
+            .then(res => {
                 if (res.status === 200) {
                     dispatch(setphone(phone))
                     router.push('newpassword')
@@ -101,21 +101,21 @@ export default function Enter() {
             })
     }
 
-    
-    const handleKeyDown = (e,b) => {      
-        if (e.key === 'Backspace') {       
+
+    const handleKeyDown = (e, b) => {
+        if (e.key === 'Backspace') {
             if (!e.target.value > 0 && b > 0) {
                 document.getElementById(b - 1).focus()
             }
-        }       
+        }
     };
     function Number(a, b) {
-        let nmb = number       
+        let nmb = number
         nmb[b] = a
         setNumber(nmb)
-       if (a > 0 && b < 3) {
+        if (a > 0 && b < 3) {
             document.getElementById(b + 1).focus()
-        }       
+        }
     }
     function Reload() {
         setNumber([, , ,])
@@ -147,9 +147,9 @@ export default function Enter() {
                         <h3 className={styles.error} >
                             Повторно запросить звонок
                             можно будет через  <b>{t}</b> сек.
-                        </h3> : 
+                        </h3> :
                         <>
-                            <div  className={styles.button} onClick={firstCall}>
+                            <div className={styles.button} onClick={firstCall}>
                                 Войти
                             </div>
                             <div className={styles.colaboration}>
@@ -169,16 +169,16 @@ export default function Enter() {
                     <h4>+{phone}</h4>
                     <h5>Например +7 XXX XXX  <span>12 34</span></h5>
                     <div className={styles.numbers} >
-                        {[0, 1, 2, 3].map(i => 
-                        <input 
-                            id={i} 
-                            key={i} 
-                            onKeyDown={(e)=>handleKeyDown(e,i)} 
-                            pattern="[0-9]*" 
-                            type="text" 
-                            inputMode='numeric' 
-                            required  maxLength={1}  onChange={(e) => Number(e.target.value, i)} 
-                        />)}
+                        {[0, 1, 2, 3].map(i =>
+                            <input
+                                id={i}
+                                key={i}
+                                onKeyDown={(e) => handleKeyDown(e, i)}
+                                pattern="[0-9]*"
+                                type="text"
+                                inputMode='numeric'
+                                required maxLength={1} onChange={(e) => Number(e.target.value, i)}
+                            />)}
                     </div>
                     {message ? <h3 className={styles.error} >Не верный код</h3>
                         :
