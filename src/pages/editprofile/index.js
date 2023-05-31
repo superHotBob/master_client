@@ -263,7 +263,7 @@ export default function EditProfile() {
                     <label>
                         Выберите город<br/>
                         <select className={styles.select} onChange={handleLocation}>
-                            {data?.map(i=><option value={[i.lat,i.lon]}>
+                            {data?.map(i=><option key={i.city} value={[i.lat,i.lon]}>
                                 <p>{i.city}</p>
                                 </option>
                             )}
