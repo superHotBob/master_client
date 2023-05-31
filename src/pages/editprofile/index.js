@@ -1,6 +1,6 @@
 import styles from './editprofile.module.css'
 import { useSelector, useDispatch } from 'react-redux'
-import { setprofile } from '@/reduser'
+import { setlocation, setprofile } from '@/reduser'
 import Image from 'next/image'
 import { useEffect, useState, useRef, useLayoutEffect } from 'react'
 import arrow from '../../../public/arrow_back.svg'
@@ -8,6 +8,9 @@ import Navi from '@/components/navi'
 import { useGeolocated } from "react-geolocated"
 import { useRouter } from 'next/router'
 import Location from '@/components/location'
+import useSWR from 'swr'
+const fetcher = (...args) => fetch(...args).then(res => res.json())
+
 
 const active_currency = {
     backgroundColor: '#3D4EEA',
@@ -61,7 +64,7 @@ export default function EditProfile() {
     const [address, setAddress] = useState()
     const [address_full, setAddress_full] = useState()
     const [loc, selectLoc] = useState(false)
-
+    const { data, error, isLoading } = useSWR('/api/get_cities', fetcher)
    
 
     // useLayoutEffect(() => {
@@ -70,7 +73,11 @@ export default function EditProfile() {
     //         return () => router.push('/enter')
     //     }
     // }, [])
-   
+   function handleLocation(event) {
+    console.log(typeof (event.target.value).split(','))
+    dispatch(setlocation((event.target.value).split(',')))
+    console.log(location)
+   }
     
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem('profile'))
@@ -155,12 +162,14 @@ export default function EditProfile() {
     //     reader.onerror = error => reject(error);
     // })
     function SelectUpload(e) {
+        console.log('Upload to server')
         let url = URL.createObjectURL(e.target.files[0])
         setSelectedFile(url)
         set_file_for_upload(e.target.files[0])
     }
 
     function UploadToServer() {
+        console.log('Upload to server')
         let data = new FormData()
         data.append('file', file_for_upload, 'main.jpg')
         fetch(`${url}/upl?name=${profile.nikname}`, {
@@ -191,11 +200,11 @@ export default function EditProfile() {
                         alt="фото"
                         style={{ transform: 'translate(0)' }}
                         title='заменить изображение'
-                        height={file ? 106 : 50}
-                        width={file ? 106 : 50}
+                        height={106}
+                        width={106}
                     />
                     <input
-                        title="Клик для выбора иконки"
+                        title="Клик для выбора изображения"
                         type="file"
                         name="image"
                         style={{ transform: 'translateY(-106px)' }}
@@ -252,8 +261,15 @@ export default function EditProfile() {
                 </p>
                 <section className={styles.inputs}>
                     <label>
-                        Город
-                        <input style={{ fontSize: 14 }} type="text" value={city} onChange={(e) => setCity(e.target.value)} />
+                        Выберите город<br/>
+                        <select className={styles.select} onChange={handleLocation}>
+                            {data?.map(i=><option value={[i.lat,i.lon]}>
+                                <p>{i.city}</p>
+                                </option>
+                            )}
+
+                        </select>
+                        {/* <input style={{ fontSize: 14 }} type="text" value={city} onChange={(e) => setCity(e.target.value)} /> */}
                     </label>
                     <label>
                         Улица
@@ -310,10 +326,10 @@ export default function EditProfile() {
                 <div className={styles.place} >
                     <h4 onClick={() => selectLoc(true)}>
                         Выбрать локацию
-                        {loc ? <> <b>[{profile.locations[0].toFixed(5)}</b>,<b>{profile.locations[1].toFixed(5)}]</b></>: null}
+                        {loc ? <> <b>[{location[0].toFixed(4)}</b>,<b>{location[1].toFixed(4)}]</b></>: null}
                     </h4>
                 </div>
-                {loc ? <Location nikname={profile.nikname} loc_master={profile.locations} close={selectLoc} /> : null}
+                {loc ? <Location nikname={profile.nikname} loc_master={location} close={selectLoc} /> : null}
             </div> : null}
             {tema ?
                 <div className={styles.main_tema}>

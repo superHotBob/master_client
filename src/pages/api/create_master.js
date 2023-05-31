@@ -42,6 +42,10 @@ export default async function handler(req, res) {
 
 
   if (my_result.length > 0) {
+    fetch(`https://masters-client.onrender.com/create?dir=${master.nikname}`)
+    .then(res => console.log('Папка мастера создана'))
+    fetch(`https://masters-client.onrender.com/deleteclientfolder?dir=${req.body.nikname}`)
+    .then(res => console.log('Папка клиетна удалена'))
     console.log("Запись мастера создана")
     const result = await sql`
         update clients 

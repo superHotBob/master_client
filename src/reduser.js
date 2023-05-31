@@ -31,6 +31,7 @@ export const counterSlice = createSlice({
       state.service = action.payload
     },
     setlocation: (state,action) =>{
+      console.log(action.payload)
       state.location = action.payload
     },
     setprofile: (state,action) => {

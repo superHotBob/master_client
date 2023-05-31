@@ -1,13 +1,11 @@
 import Image from 'next/image'
 import styles from './city.module.css'
-import arrow from '../../../public/arrow_back.svg'
+import arrow from '../../../public/arrow_back_bold.svg'
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
 import { setcity, setlocation } from '../../reduser.js'
 import useSWR from 'swr'
-
-
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 export default function City() {
@@ -21,12 +19,7 @@ export default function City() {
     const dispatch = useDispatch()
     const { data, error, isLoading } = useSWR('/api/get_cities', fetcher)
 
-    useEffect(() => {
-        // setSelCity(my_city)
-
-
-    }, [])
-
+   
 
 
     function setMyCity() {

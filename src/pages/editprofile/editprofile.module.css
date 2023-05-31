@@ -116,9 +116,9 @@
   height: auto;
   font-size: 12px;
 }
-
 .inputs div,
 .inputs input,
+.inputs select,
 .submitProfile input,
 .inputs textarea {
   width: 100%;
@@ -127,6 +127,10 @@
   margin: 6px 0 15px;
   height: 48px;
   border: 1px solid #d0d0d0;
+  outline: none;
+}
+.select option {
+  padding: 10px;
 }
 
 .inputs h6 {
