@@ -60,7 +60,7 @@ export default function EditProfile() {
     const [cur, setCur] = useState(false)
     const [color, setColor] = useState(my_tema[0].color)
     const [currency, setCurrency] = useState('BYN')
-    const [city, setCity] = useState('')
+    const [city, setCity] = useState('Минск')
     const [address, setAddress] = useState()
     const [address_full, setAddress_full] = useState()
     const [loc, selectLoc] = useState(false)
@@ -75,7 +75,10 @@ export default function EditProfile() {
     // }, [])
    function handleLocation(event) {
     console.log(typeof (event.target.value).split(','))
-    dispatch(setlocation((event.target.value).split(',')))
+    setCity(event.target.value)
+    let loc = data.filter(i=>i.city===event.target.value).map(i=>i.lat + ',' + i.lon)[0].split(',')
+    console.log(loc)
+    dispatch(setlocation(loc))
     console.log(location)
    }
     
@@ -137,7 +140,7 @@ export default function EditProfile() {
             old_nikname: profile.nikname,
             currency: current_symbol[my_currency.indexOf(currency)],
             address: address,
-            city: city,
+            city: city.toLowerCase(),
             color: color,
             locations: location,
             address_full: address_full
@@ -262,8 +265,8 @@ export default function EditProfile() {
                 <section className={styles.inputs}>
                     <label>
                         Выберите город<br/>
-                        <select className={styles.select} onChange={handleLocation}>
-                            {data?.map(i=><option key={i.city} value={[i.lat,i.lon]}>
+                        <select value={city} className={styles.select} onChange={handleLocation}>
+                            {data?.map(i=><option key={i.city} value={i.city}>
                                 <p>{i.city}</p>
                                 </option>
                             )}
@@ -326,7 +329,7 @@ export default function EditProfile() {
                 <div className={styles.place} >
                     <h4 onClick={() => selectLoc(true)}>
                         Выбрать локацию
-                        {loc ? <> <b>[{location[0].toFixed(4)}</b>,<b>{location[1].toFixed(4)}]</b></>: null}
+                        {loc ? <> <b>[{(+location[0]).toFixed(4)}</b>,<b>{(+location[1]).toFixed(4)}]</b></>: null}
                     </h4>
                 </div>
                 {loc ? <Location nikname={profile.nikname} loc_master={location} close={selectLoc} /> : null}
