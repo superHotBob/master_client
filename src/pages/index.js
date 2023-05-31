@@ -118,10 +118,10 @@ export default function Home() {
     <>
       <Header />
       <section className={styles.section}>
-        <Message text={` Masters.place показывает самые крутые и 
+        <Message text='Masters.place показывает самые крутые и 
             актуальные работы мастеров в вашем городе. Вы 
             можете выбрать понравившуюся работу и написать
-            мастеру!` }
+            мастеру !'
         />
         <Link className={styles.city} href="/city"> Ваш город <span className={styles.my_city}>{city}</span></Link>
         <FilterServices />
@@ -134,7 +134,7 @@ export default function Home() {
                 id={i.id}
                 onClick={() => View(i.name, i.image, i.master_name)}
                 onError={() => imageOnError(i.id)}
-                onLoad={(img) => Height(i.id)}
+                onLoad={() => Height(i.id)}
                 src={i.image}
                 title={i.master_name}
               />

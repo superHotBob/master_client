@@ -13,7 +13,8 @@
   display: block;
 }
 .my_city {
-  color: inherit
+  color: inherit;
+  vertical-align: middle;
 }
 .my_city::first-letter {
   text-transform: capitalize;

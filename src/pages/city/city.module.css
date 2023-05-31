@@ -39,7 +39,7 @@
     font-family: inherit;
 }
 
-.seachcity {
+.seachcity, .addcity {
     display: block;
     height: 48px;    
     width: 300px;
@@ -57,10 +57,14 @@
 .seachcity::first-letter {
     text-transform: capitalize;
 }
+.addcity {
+    margin-top: 5px;
+}
 .all_cities {
     height: 50vh;
     overflow-y: auto;
     overflow-x: hidden;
+    margin-bottom: 20px;
 }
 .all_cities h5 {
     text-align: center;
@@ -82,12 +86,29 @@
     color: #000;
 }
 .city input {
-    height: 16px;
-    
+    height: 16px;    
     width: 16px;
     background-color: #fff;   
     margin-right: 15px;
+    display: none;
 }
+.disabled, .enabled {
+    height: 14px;    
+    width: 14px;
+    background-color: #fff;   
+    margin-right: 15px;
+    border-radius: 50%;
+    outline: 1px solid #ddd;
+    outline-offset: 3px;
+}
+.enabled {
+    
+    background-color: #3D4EEA;   
+   
+    outline: 1px solid #3D4EEA;
+   
+}
+
 .city input:active {
     background-color: #3D4EEA;
 }

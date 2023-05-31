@@ -85,15 +85,17 @@ export default function City() {
                     {data?.sort((a, b) => { return a.city.toLowerCase() < b.city.toLowerCase() ? -1 : 1 }).map(i =>
                         <label className={styles.city} key={i}>
                             <span>{i.city}</span>
+                            <span className={i.city === selCity ? styles.enabled : styles.disabled}></span>
                             <input type="radio" checked={i.city === selCity} value={selCity} name="city" onClick={() => setSelCity(i.city)} />
                         </label>
                     )}
                     {isLoading ? <h5>Загружаем города...</h5> : null}
                 </div>
                 <div>
-                    Нет в списке.
-                    <p>Добавить город</p>
-                    <input placeholder='Введите ваш город' className={styles.seachcity} ref={addref} type="text" />
+                    Нет в списке.<br/>
+                    <label>Добавить город
+                    <input placeholder='Введите ваш город' className={styles.addcity } ref={addref} type="text" />
+                    </label>
                     <button onClick={AddCity} className={styles.seachcity}>Добавить</button>
                 </div>
             </section>
