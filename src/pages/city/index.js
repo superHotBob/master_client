@@ -17,7 +17,7 @@ export default function City() {
     const ref = useRef()
     const addref = useRef()
     const dispatch = useDispatch()
-    const { data, error, isLoading } = useSWR('/api/get_cities', fetcher)
+    const { data, isLoading } = useSWR('/api/get_cities', fetcher)
 
    
 
@@ -30,14 +30,14 @@ export default function City() {
         dispatch(setcity(selCity))
         dispatch(setlocation([+loc[0].lat, +loc[0].lon]))
     }
-    function selectCity(e) {
-        if (e.target.value) {
-            let cc = myCitys.filter(i => i.toLowerCase().includes(e.target.value) ? i : null)
-            setMyCitys(cc)
-        } else {
-            setMyCitys(citys)
-        }
-    }
+    // function selectCity(e) {
+    //     if (e.target.value) {
+    //         let cc = myCitys.filter(i => i.toLowerCase().includes(e.target.value) ? i : null)
+    //         setMyCitys(cc)
+    //     } else {
+    //         setMyCitys(citys)
+    //     }
+    // }
     const AddCity = async () => {
         let new_city = await fetch(`https://api.api-ninjas.com/v1/geocoding?city=${addref.current.value}&country=BY`,
             {
@@ -74,7 +74,7 @@ export default function City() {
                 onChange={(e) => setfindcity(e.target.value)}
             />
             <section className={styles.section}>
-                <div className={styles.all_cities}>
+               
                     {data?.sort((a, b) => { return a.city.toLowerCase() < b.city.toLowerCase() ? -1 : 1 }).map(i =>
                         <label className={styles.city} key={i}>
                             <span>{i.city}</span>
@@ -83,14 +83,14 @@ export default function City() {
                         </label>
                     )}
                     {isLoading ? <h5>Загружаем города...</h5> : null}
-                </div>
-                <div>
+               
+                {/* <div>
                     Нет в списке.<br/>
                     <label>Добавить город
                     <input placeholder='Введите ваш город' className={styles.addcity } ref={addref} type="text" />
                     </label>
                     <button onClick={AddCity} className={styles.seachcity}>Добавить</button>
-                </div>
+                </div> */}
             </section>
         </div>
     )

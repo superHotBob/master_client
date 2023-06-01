@@ -28,9 +28,7 @@
 }
 .section {
     width: 300px;
-    margin: 10px auto;
-    height: auto;
-    overflow-y: auto;
+    margin: 10px auto;  
 }
 .section button {
     color: #fff;

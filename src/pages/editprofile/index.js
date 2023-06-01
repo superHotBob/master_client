@@ -73,11 +73,13 @@ export default function EditProfile() {
     //         return () => router.push('/enter')
     //     }
     // }, [])
-   function handleLocation(event) {    
-    setCity(event.target.value)
-    let loc = data.filter(i=>i.city.toLowerCase()===event.target.value).map(i=>i.lat + ',' + i.lon)[0].split(',')
-    
-    dispatch(setlocation(loc))
+   function handleLocation(event) {  
+    if(event.target.value !=='0'){  
+        setCity(event.target.value)
+        let loc = data.filter(i=>i.city.toLowerCase()===event.target.value).map(i=>i.lat + ',' + i.lon)[0].split(',')
+        
+        dispatch(setlocation(loc))
+    }
     
    }
     
@@ -267,6 +269,7 @@ export default function EditProfile() {
                                 <p>{i.city}</p>
                                 </option>
                             )}
+                            <option value={0}>Нет в списке</option>
 
                         </select>
                         {/* <input style={{ fontSize: 14 }} type="text" value={city} onChange={(e) => setCity(e.target.value)} /> */}

@@ -175,7 +175,7 @@
 }
 
 .main__filter span:last-of-type {
-  width: 34%;
+  width: 32%;
   color: #3D4EEA;
   background-position: right center;
   background-size: 18%;
@@ -186,7 +186,7 @@
 .main__filter span:last-of-type::after {
   content: url('/arrow_right.svg');
   display: inline-block;
-  transform: translate(15px, 1px);
+  transform: translate(5px, 1px);
 }
 
 .all__filter {
@@ -213,17 +213,18 @@
   color: #3D4EEA;
 }
 .all__filter p::after, .all__filter p::before {
-  content: '1 км';
+  content: '11 км';
   position: absolute;
-  left: 93%;
+  right: 3px;
   font-size: 14px;
   font-weight: 400;
   color: #D0D0D0;
   top: 60px;
 }
 .all__filter p::before {
-  content: '11 км';
+  content: '1 км';
   left: 0%;
+  display: flex;
 }
 
 .all__filter h6 {

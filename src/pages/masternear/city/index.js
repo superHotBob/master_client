@@ -140,10 +140,10 @@ export default function MasterNear() {
 
             <Header sel="/catalog" text="Мастера рядом " />
             <div className={styles.message}>
-                <Message text={` Masters.place позволяет познакомиться  с 
+                <Message text='Masters.place позволяет познакомиться  с 
                     мастерами вашего города. Для этого нужно выбрать 
                     ваш город, что бы увидеть список мастеров.
-                `} />
+                ' />
             </div>
             <Link className={styles.city} href='/city'>Ваш город {my_city}</Link>
             <div className={styles.selector}>
@@ -153,15 +153,15 @@ export default function MasterNear() {
                 <section>
                     <div className={styles.main__filter}>
                         {master ? null : <>
-                            <span>Мастера в радиусе {Math.trunc(17 * (17 - zoom) / zoom)} км</span>
+                            <span>Мастера в радиусе {Math.trunc(18 * (18 - zoom) / zoom)} км</span>
                             <span onClick={() => setViewFilter(true)}>
                                 радиус поиска
                             </span>
                         </>}
                         {viewFilter ? <div className={styles.all__filter}>
                             <h6 onClick={() => setViewFilter(false)} />
-                            <p>{Math.trunc(17 * (17 - zoom) / zoom)} км</p>
-                            <input className={styles.range} step="1" type="range" min="10" max="16" value={zoom} onChange={e => setZoom(e.target.value)} />
+                            <p>{Math.trunc(18 * (18 - zoom) / zoom)} км</p>
+                            <input className={styles.range} step="1" type="range" min="10" max="16" onChange={e => setZoom(27 - e.target.value)} />
 
                         </div> : null}
                     </div>
