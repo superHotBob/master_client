@@ -99,14 +99,12 @@ export default function MasterNear() {
 
         }
     }
-    function SetFilterCluster(a) {
-        
-        
+    function SetFilterCluster() {        
         setMapHeight(window.innerWidth > 500 ? '350px' : window.innerWidth/2 + 'px')
         // setZoom(12)
         setClusterMaster(true)
         // let filter_masters = masters.filter(i=>i.locations[0] > a[0][0] && i.locations[0] < a[1][0])
-        console.log(filter_masters)
+        console.log('Clusterer.current')
         // setMasters(filter_masters)
     }
     function CloseFilterCluster() {
@@ -133,9 +131,7 @@ export default function MasterNear() {
             document.getElementsByClassName('ymaps-2-1-79-map-copyrights-promo')[0].style.display = 'none';
             document.getElementsByClassName('ymaps-2-1-79-gototech')[0].style.display = 'none';
             document.getElementById('my_map').style.opacity = '1';
-        },500)
-        
-      
+        },500)      
     }
    
     return (
@@ -185,27 +181,15 @@ export default function MasterNear() {
                                         Map.current = yaMap;
                                     }
                                 }}
-                                onLoad={(e=>{
-                                    ymaps.current = e
-                                    console.log(e.coordSystem)
-                                    OnLoadMap()
-                                })}
-                                onClick={() => getZoom()}
-                                onWheel={() => {
-                                    setZoom(Map.current.getZoom())
-                                    console.log(Map.current.getZoom())
-                                }}
-                            
+                                onLoad={OnLoadMap}                                
+                                onWheel={() =>setZoom(Map.current.getZoom())}                            
                             >
                                 <Clusterer
                                     options={{
                                         preset: 'islands#invertedVioletClusterIcons',
                                         groupByCoordinates: false,                                       
                                         zoomMargin: [60,0,40,0] ,
-                                        gridSize: 128,
-                                        // clusterIconLayout: 'default#pieChart',
-                                        // clusterIconContentLayout: '<div style="background: red; width: 50px; color: #FFFFFF; font-weight: bold;">100</div>',
-                                        // clusterIconLayout: 10,
+                                        gridSize: 128,                                        
                                         clusterIcons: [{
                                             href: '/master.svg',
                                             size: [40, 40],                                           
@@ -237,7 +221,7 @@ export default function MasterNear() {
                                             iconImageSize: [40, 40],
 
                                         }}
-                                    onClick={() => ViewMaster(i.nikname, 14)}
+                                        onClick={() => ViewMaster(i.nikname, 14)}
 
                                     />)}
                                 </Clusterer>

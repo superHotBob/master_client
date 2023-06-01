@@ -48,7 +48,7 @@ export default function EditProfile() {
     const router = useRouter()
 
     const dispatch = useDispatch()
-    const [name, setName] = useState('Ваше имя')
+    const [name, setName] = useState('')
     const [nikname, setNikname] = useState()
     const [text, setText] = useState()
     const [file, setSelectedFile] = useState('/camera_wh.svg')
@@ -64,7 +64,7 @@ export default function EditProfile() {
     const [address, setAddress] = useState()
     const [address_full, setAddress_full] = useState()
     const [loc, selectLoc] = useState(false)
-    const { data, error, isLoading } = useSWR('/api/get_cities', fetcher)
+    const { data } = useSWR('/api/get_cities', fetcher)
    
 
     // useLayoutEffect(() => {
@@ -73,13 +73,12 @@ export default function EditProfile() {
     //         return () => router.push('/enter')
     //     }
     // }, [])
-   function handleLocation(event) {
-    console.log(typeof (event.target.value).split(','))
+   function handleLocation(event) {    
     setCity(event.target.value)
-    let loc = data.filter(i=>i.city===event.target.value).map(i=>i.lat + ',' + i.lon)[0].split(',')
-    console.log(loc)
+    let loc = data.filter(i=>i.city.toLowerCase()===event.target.value).map(i=>i.lat + ',' + i.lon)[0].split(',')
+    
     dispatch(setlocation(loc))
-    console.log(location)
+    
    }
     
     useEffect(() => {
@@ -140,7 +139,7 @@ export default function EditProfile() {
             old_nikname: profile.nikname,
             currency: current_symbol[my_currency.indexOf(currency)],
             address: address,
-            city: city.toLowerCase(),
+            city: city,
             color: color,
             locations: location,
             address_full: address_full
@@ -164,15 +163,13 @@ export default function EditProfile() {
     //     reader.onload = () => resolve(reader.result);
     //     reader.onerror = error => reject(error);
     // })
-    function SelectUpload(e) {
-        console.log('Upload to server')
+    function SelectUpload(e) {        
         let url = URL.createObjectURL(e.target.files[0])
         setSelectedFile(url)
         set_file_for_upload(e.target.files[0])
     }
 
-    function UploadToServer() {
-        console.log('Upload to server')
+    function UploadToServer() {        
         let data = new FormData()
         data.append('file', file_for_upload, 'main.jpg')
         fetch(`${url}/upl?name=${profile.nikname}`, {
@@ -266,7 +263,7 @@ export default function EditProfile() {
                     <label>
                         Выберите город<br/>
                         <select value={city} className={styles.select} onChange={handleLocation}>
-                            {data?.map(i=><option key={i.city} value={i.city}>
+                            {data?.map(i=><option key={i.city} value={i.city.toLowerCase()}>
                                 <p>{i.city}</p>
                                 </option>
                             )}

@@ -123,14 +123,17 @@
 .inputs textarea {
   width: 100%;
   border-radius: 4px;
+  background-color: #fff;
   padding: 0 8px;
   margin: 6px 0 15px;
+  font-family: inherit;
   height: 48px;
   border: 1px solid #d0d0d0;
   outline: none;
 }
 .select option {
   padding: 10px;
+  appearance: none;
 }
 
 .inputs h6 {
@@ -172,28 +175,21 @@
   padding: 12px 6px;
   background-color: #fff;
   outline: none;
-  font-weight: 500;
+  
   font-size: 14px;
   line-height: 17px;
 }
-
-
-
 div.nikname,
 .address {
   line-height: 40px;
   font-size: 14px;
 }
-
 .address span {
   text-transform: capitalize;
 }
-
 .nikname span {
   color: gray;
 }
-
-
 .nikname input {
   display: inline-block !important;
   color: #3D4EEA;
@@ -205,14 +201,12 @@ div.nikname,
   padding: 0;
   font-size: 14px;
 }
-
 .name {
   text-align: center;
   margin-top: 70px;
   font-size: 22px;
   font-weight: 500;
 }
-
 div.connect_master,
 div.connect_master_connect,
 div.currency,
@@ -327,10 +321,8 @@ div.tema {
   margin: 16px;
 }
 
-.submitProfile input {
-  margin: 6px auto 8px;
-  display: block;
-  
+.submitProfile input { 
+  display: block;  
   width: 100%;
 }
 
