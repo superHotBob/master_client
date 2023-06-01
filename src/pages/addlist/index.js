@@ -147,11 +147,12 @@ export default function AddList() {
                 {message}
             </dialog>
             <form className={styles.main__form}>
-                <label className={styles.sertificat__upload} style={{ color: color[1], backgroundColor: color[2] }}>
+                <label  title={tag ?'Добавить публикацию':' Необходимо выбрать услугу'} className={styles.sertificat__upload} style={{ color: color[1], backgroundColor: color[2] }}>
                     +
                     <input
                         type="file"
                         name="image"
+                       
                         disabled={!tag}
                         style={{ display: 'none' }}
                         accept=".jpg"

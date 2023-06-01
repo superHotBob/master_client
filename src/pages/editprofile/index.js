@@ -246,7 +246,7 @@ export default function EditProfile() {
                     <button onClick={() => setCur(true)}>{currency}</button>
                 </div>
                 <div className={styles.tema} style={{ background: color[0] }}>                    
-                    <button onClick={() => viewTema(true)}>Изменить</button>
+                    <button onClick={() => viewTemaBlock(true)}>Изменить</button>
                 </div>
                 <div className={styles.connect_master} />               
             </section>

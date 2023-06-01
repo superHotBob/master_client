@@ -4,8 +4,7 @@ import styles from '@/styles/Home.module.css'
 import Header from '@/components/header'
 import { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setcity } from '@/reduser'
-import { setlocation } from '@/reduser'
+
 import FilterServices from '@/components/filterServices'
 import Message from '@/components/message'
 import { useGeolocated } from "react-geolocated";
@@ -91,8 +90,7 @@ export default function Home() {
     count.current = count.current + 1
     let new_arr = []
     data.filter(i => i.id < 10).forEach(i => new_arr.push({ 'id': i.id + count.current, 'master_name': i.master_name, 'name': i.name, 'image': url_image + i.name + '/list__' + services__name[service] + '__' + count.current + '.jpg' }))
-    setdata(data.concat(new_arr))
-    console.log(data.concat(new_arr))
+    setdata(data.concat(new_arr))    
   }
   function Height(b) {
     document.getElementById(b).style.marginBottom = '10px'
@@ -105,14 +103,13 @@ export default function Home() {
     setTimeout(() => {
       document.getElementById(b + a).style.top = window.scrollY + 'px'
       document.getElementById(b + a).style.opacity = 1
-
     }, 500)
   }
   function GetText(a) {
     let new_file = a.replace('https://masters-client.onrender.com/var/data/', '')
     fetch(`${url_two}readtext?file=${new_file}`)
-      .then(res => res.text())
-      .then(res => setTag(res))
+    .then(res => res.text())
+    .then(res => setTag(res))
   }
   return (
     <>
@@ -123,7 +120,10 @@ export default function Home() {
             можете выбрать понравившуюся работу и написать
             мастеру !'
         />
-        <Link className={styles.city} href="/city"> Ваш город <span className={styles.my_city}>{city}</span></Link>
+        <Link className={styles.city} href="/city"> 
+          Ваш город 
+          <span className={styles.my_city}>{city}</span>
+        </Link>
         <FilterServices />
         <div className={styles.images}>
           <div className={styles.images_one}>
@@ -153,9 +153,7 @@ export default function Home() {
                 title={i.master_name}
               />
             )}
-
           </div>
-
         </div>
         <button id="add__images" className={styles.add__images} onClick={Plus}>+</button>
       </section>
@@ -176,9 +174,7 @@ export default function Home() {
               <span>{tag?.split('\n')[0]}</span>
             </div>
             <h5>{service}</h5>
-            <h6>{tag ? tag.split('\n')[1] :
-              `Без комментария`}
-            </h6>
+            <h6>{tag?.split('\n')[1] ??'Без комментария'}</h6>
             <Link className={styles.toprofilemaster} href={'/master/' + view_image.name} >Перейти в профиль мастера</Link>
           </div>
         </div> 

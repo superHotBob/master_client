@@ -13,16 +13,13 @@ import Menu_icon from '../../components/icons/menu.js'
 const url = 'https://masters-client.onrender.com/'
 
 const new_text = {
-  color: '#000', 
-  fontSize: '16px',
+  color: '##282828', 
   lineHeight: '26px',
   display: 'inline-block',
 
 }
 const new_text_mes = {
-  color: '#000',
-  fontWeyght: '600',
-  fontSize: '16px',
+  color: '##282828',  
   lineHeight: '26px',
   display: 'inline-block',
   marginLeft: '-35px'
@@ -88,7 +85,7 @@ export default function Header({ sel, text, mes, color = {}, select,view_time })
       }
 
       {text ?
-        <h3 style={mes ? new_text_mes : new_text}>
+        <h4 style={mes ? new_text_mes : new_text}>
           {mes ? <Image
             src={url + 'var/data/' + profile.nikname + '/main.jpg'}
             alt="menu"
@@ -97,11 +94,11 @@ export default function Header({ sel, text, mes, color = {}, select,view_time })
           /> : null}
 
           {text}
-        </h3>
+        </h4>
         :
         <div className={styles.logo}>
-          <h3>masters.</h3>
-          <h3>place</h3>
+          <h2>masters.</h2>
+          <h2>place</h2>
         </div>
       }
       {mes ? <Image
@@ -122,12 +119,10 @@ export default function Header({ sel, text, mes, color = {}, select,view_time })
       <div
         className={styles.left__arrow}
         onClick={() => menuView(!menu)}
-        style={{ backgroundColor: menu ? color[1] || '#3D4EEA' : color[2], paddingTop: 10 }}
+        style={{ backgroundColor: menu ? color[1] || '#3D4EEA' : color[2]}}
       >
         <Menu_icon color={menu ? color[2] || '#3D4EEA' : color[1] || '#3D4EEA'} type={menu ? 'close' : 'menu'} />
-      </div>
-     
-     
+      </div>     
       {menu ? <Menu /> : null}
     </header>
   )

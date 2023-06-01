@@ -133,6 +133,7 @@ export default function SelectDate({ name, price, order, close, nikname }) {
             })            
             setSaved(false)
             setgoodorder(true)
+            window.scrollTo(0, 0)
 
         }
         if (active_day && active_time) {

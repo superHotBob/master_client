@@ -1,8 +1,8 @@
 .header {
     text-align: center;   
     border-bottom: 1px solid #ECEEFD;
-    color: #282828;   
-    font-size: 22px;   
+    color: #282828;  
+       
     height: 72px;
     padding: 0 16px;
     position: relative;
@@ -10,12 +10,12 @@
     align-items: center;
     justify-content: space-between;
   }  
-  .header h3:last-of-type {
+  .header h2:last-of-type {
     color: #3D4EEA;
     display: inline-block;    
   }
   
-  .header h3:first-of-type {   
+  .header h2:first-of-type {   
     display: inline-block;
   }
   
@@ -32,15 +32,20 @@
     height: 38px;   
     display: inline-block;    
     width: 40px;
-    padding: 10px;
+    /* padding: 11px 10px; */
     text-align: center;
     line-height: 18px;
     background: #ECEEFD;
     border-radius: 100%;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .left__arrow {
-    padding: 7px 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .header a:first-of-type svg {
     transform: translate(-4px, -2px);

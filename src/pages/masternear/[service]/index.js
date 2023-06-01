@@ -14,7 +14,7 @@ const url = 'https://masters-client.onrender.com/'
 const sel = {
     background: 'linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)',
     color: '#fff',
-    fontWeight: 600
+    fontWeight: 500
 }
 export default function MasterNear() {
     const fetcher = (...args) => fetch(...args).then(res => res.json())
