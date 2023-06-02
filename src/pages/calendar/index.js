@@ -94,12 +94,12 @@ export default function Calendar() {
     function SetActiveTime(a) {
         if (!active_num) { return 0 }
 
-
         let act_day = mnt[active_num - 1]
         if (!act_day) {
             act_day = a
             mnt[active_num - 1] = act_day
             setActive_Day(a)
+            console.log(mnt)
             return setMnt([...mnt])
         }
         if (act_day.split(',').some(i => i === a)) {
@@ -151,9 +151,7 @@ export default function Calendar() {
             <div className={styles.week}>
                 {days.map(i => <span key={i}>{i}</span>)}
             </div>
-            <dialog open={message} className={styles.message}>
-                Календарь  сохранен
-            </dialog>
+           
             <div className={styles.days}>
                 {Array.from({ length: v }, (v, i) => i + 1).map(i => <span key={i} style={{ opacity: 0 }}>{i}</span>)}
 
@@ -190,6 +188,9 @@ export default function Calendar() {
             <div className={styles.button} style={{ backgroundColor: profile?.color[2], color: profile?.color[1] }} onClick={() => setView(true)}>
                 Редактировать шаблон времени +
             </div>
+            <dialog open={message} className={styles.message}>
+                Календарь  сохранен
+            </dialog>
         </section>
         {view ?
             <EditPatern

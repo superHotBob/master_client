@@ -21,8 +21,7 @@ export default function SelectDate({ name, price, order, close, nikname }) {
    
     const days = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"]
     const months = ['Декабрь','Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сетнябрь',
-        'Октябрь', 'Ноябрь', 'Декабрь'
-    ]
+        'Октябрь', 'Ноябрь', 'Декабрь']
 
     const d = new Date()
     const mon = d.getMonth() + 1
@@ -114,10 +113,10 @@ export default function SelectDate({ name, price, order, close, nikname }) {
     // }
     useEffect(() => {
         // setMonth(mon + 1)
-        const SaveOrder = async () => {
+        const SaveOrder = async () => {           
             const data = {
-                client: profile.nikname,
-                client_name: profile.name,
+                client: profile.status === 'client' ? profile.nikname : nikname,
+                client_name: profile.status === 'client' ? profile.name : name,
                 master: nikname,
                 master_name: name,
                 price: price,

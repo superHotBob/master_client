@@ -110,26 +110,24 @@
 
 }
 
-.section button {
+.section a {
   background: #ECEEFD;
   border-radius: 6px;
   display: block;
   height: 46px;
   width: 100%;
+  line-height: 45px;
   font-weight: 600;
   font-size: 16px;
   margin: 16px auto 8px;
   border: none;
   cursor: pointer;
   color: #fff;
+  text-align: center;
 }
-
-.section button span {
-  color: #fff;
-  display: inline-block;
-  transform: translate(3px, 1.5px);
+.section a:hover {
+  opacity: 0.9;
 }
-
 .order {
   padding: 10px;
   display: flex;

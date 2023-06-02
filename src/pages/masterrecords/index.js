@@ -1,4 +1,5 @@
 import Header from '@/components/header'
+import Link from 'next/link'
 import styles from './records.module.css'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
@@ -146,9 +147,11 @@ export default function Records() {
 
                         </div>
                         <p className={styles.all_records}>Все записи на сеансы</p>
-                        <button style={{ backgroundColor: profile.color[1] }} onClick={() => router.push('/addmasterorder')}>
-                            Добавить запись <span>+</span>
-                        </button>
+                        <Link href={`/recordingtomaster?name=${profile.name}&nikname=${profile.nikname}`}  style={{ backgroundColor: profile.color[1] }}>
+                          
+                            
+                            Добавить запись 
+                        </Link>
                         {orders?.map(i =>
                             <div
                                 onClick={() => viewOrder(i.id)}
