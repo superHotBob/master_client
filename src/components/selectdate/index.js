@@ -60,8 +60,7 @@ export default function SelectDate({ name, price, order, close, nikname }) {
     //     set_false_date(new_result)
     // }
 
-    useEffect(()=>{
-       
+    useEffect(()=>{       
         let day = d.getDate()
         let all_day = Array.from({length: day}, (v,i)=>i+1)        
         set_false_days(all_day) 
@@ -171,6 +170,7 @@ export default function SelectDate({ name, price, order, close, nikname }) {
     function SetMonth(a) {
         let m = my_months.findIndex(i => i === a)
         setMonth(m)
+        console.log(m)
     }
     return (
         <>

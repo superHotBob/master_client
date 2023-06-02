@@ -19,7 +19,7 @@
     line-height:  17px;
 }
 
-.header span:last-child {
+.header h4:last-child {
     color: #3D4EEA;
     cursor: pointer;
 }
