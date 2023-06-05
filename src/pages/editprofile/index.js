@@ -67,12 +67,10 @@ export default function EditProfile() {
     const { data } = useSWR('/api/get_cities', fetcher)
    
 
-    // useLayoutEffect(() => {
-    //     let pro = JSON.parse(localStorage.getItem('profile'))
-    //     if (!pro) {
-    //         return () => router.push('/enter')
-    //     }
-    // }, [])
+    useEffect(() => {
+        let pro = JSON.parse(localStorage.getItem('profile'))
+        if (!pro) { router.push('/enter') }       
+    }, [])
    function handleLocation(event) {  
     if(event.target.value !=='0'){  
         setCity(event.target.value)
@@ -123,13 +121,14 @@ export default function EditProfile() {
 
     }, [])
     function Return() {
+        let pro = JSON.parse(localStorage.getItem('profile'))
         setName(pro.name),
         setText(pro.text),
         setCurrency('Белорусский рубль')
         setSelectedFile(url + '/var/data/' + pro.nikname + '/main.jpg')
         setAddress(pro.address),
         setNikname(pro.nikname),
-        setColor(pro.color || my_tema[0].color)
+        setColor(pro.color)
     }
     const EditMaster = async () => {
         const data = {
@@ -158,13 +157,11 @@ export default function EditProfile() {
         localStorage.setItem("profile", JSON.stringify(result));
         dispatch(setprofile(result))
         setMessage('Ваш профиль изменён')
+        setTimeout(() => {
+            router.back()
+        }, 2000)
     }
-    // const toBase64 = file => new Promise((resolve, reject) => {
-    //     const reader = new FileReader();
-    //     reader.readAsDataURL(file);
-    //     reader.onload = () => resolve(reader.result);
-    //     reader.onerror = error => reject(error);
-    // })
+   
     function SelectUpload(e) {        
         let url = URL.createObjectURL(e.target.files[0])
         setSelectedFile(url)
@@ -263,14 +260,13 @@ export default function EditProfile() {
                 </p>
                 <section className={styles.inputs}>
                     <label>
-                        Выберите город<br/>
+                       Выберите город
                         <select value={city} className={styles.select} onChange={handleLocation}>
                             {data?.map(i=><option key={i.city} value={i.city.toLowerCase()}>
-                                <p>{i.city}</p>
+                                {i.city}
                                 </option>
                             )}
                             <option value={0}>Нет в списке</option>
-
                         </select>
                         {/* <input style={{ fontSize: 14 }} type="text" value={city} onChange={(e) => setCity(e.target.value)} /> */}
                     </label>
@@ -375,7 +371,7 @@ export default function EditProfile() {
                             )}
                         </div>
                     </div> : null}
-            <Navi color={color[0]} />
+            
         </main>
     )
 }

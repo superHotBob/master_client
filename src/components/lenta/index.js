@@ -27,10 +27,10 @@ const text = (` Ищу модель, что бы протестировать к
     Отсутствие ответсвенности за возможные осложнения в процессе процедур
 
     Пишите, девачки :*:*:*:*`)
-const fetcher = (...args) => fetch(...args).then(res => res.json())
-const url = 'https://masters-client.onrender.com/'
-export default function Lenta({ color = {}, nikname }) {
 
+const url = 'https://masters-client.onrender.com/'
+export default function Lenta({ color , nikname }) {
+    const fetcher = (...args) => fetch(...args).then(res => res.json())
     const [model, setViewText] = useState(false)
     const [message, setMessage] = useState(false)
     const profile = useSelector(state => state.counter.profile)
@@ -90,18 +90,20 @@ export default function Lenta({ color = {}, nikname }) {
                     )}
                 </div>
             </div>
-            {model ? <div className={styles.need_model_main}>
-                <div className={styles.need_model_data}>
-                    <Image alt="arrow" src={arrow_down} height={20} width={20} onClick={() => setViewText(false)} />
-                    <p className={styles.save}><span>Сохранить</span><span>12.03.2021</span></p>
-                    <h4>Нужна модель бесплатно</h4>
-                    <h4 className={styles.date}>11 Сертября 12:00</h4>
-                    <p className={styles.text}>
-                        {text}
-                    </p>
-                    <Link href="/" className={styles.add}>Подать заявку</Link>
-                </div>
-            </div> : null}
+            {model ? 
+                <div className={styles.need_model_main}>
+                    <div className={styles.need_model_data}>
+                        <Image alt="arrow" src={arrow_down} height={20} width={20} onClick={() => setViewText(false)} />
+                        <p className={styles.save}><span>Сохранить</span><span>12.03.2021</span></p>
+                        <h4>Нужна модель бесплатно</h4>
+                        <h4 className={styles.date}>11 Сертября 12:00</h4>
+                        <p className={styles.text}>
+                            {text}
+                        </p>
+                        <Link href="/" className={styles.add}>Подать заявку</Link>
+                    </div>
+                </div> 
+            : null}
         </main>
     )
 }

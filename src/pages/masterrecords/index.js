@@ -187,7 +187,7 @@ export default function Records() {
                         )}
 
                     </section>}
-                <Navi color={profile.color[1]} />
+               
             </> : null}
 
         </main>

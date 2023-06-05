@@ -19,8 +19,6 @@
   border: 3px solid #fff;
   line-height: 140px;
   background-color: #3D6DEA;
- 
-
 }
 
 .active_dialog {
@@ -116,6 +114,7 @@
   height: auto;
   font-size: 12px;
 }
+
 .inputs div,
 .inputs input,
 .inputs select,
@@ -131,11 +130,27 @@
   border: 1px solid #d0d0d0;
   outline: none;
 }
+
 .select option {
   padding: 10px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
   appearance: none;
+  display: block;
   background: #fff;
 }
+
+.select {
+  background-image: url('/arrow_down.svg');
+  background-position: 100% center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-size: 33px;
+  cursor: pointer;
+}
+
+
 
 .inputs h6 {
   display: flex;
@@ -176,25 +191,29 @@
   padding: 12px 6px;
   background-color: #fff;
   outline: none;
-  
+
   font-size: 14px;
   line-height: 17px;
 }
+
 div.nikname,
 .address {
   line-height: 40px;
   font-size: 14px;
 }
+
 .address span {
   text-transform: capitalize;
 }
+
 .nikname span {
   color: gray;
 }
+
 .nikname input {
   display: inline-block !important;
   color: #3D4EEA;
-  width: 50%;
+  width: 30%;
   border: none;
   font-weight: 600;
   height: 20px;
@@ -202,12 +221,14 @@ div.nikname,
   padding: 0;
   font-size: 14px;
 }
+
 .name {
   text-align: center;
   margin-top: 70px;
   font-size: 22px;
   font-weight: 500;
 }
+
 div.connect_master,
 div.connect_master_connect,
 div.currency,
@@ -218,7 +239,7 @@ div.tema {
   font-size: 1em;
   margin: 8px 0 0;
   font-weight: 500;
-  display: flex;  
+  display: flex;
   height: 54px;
   justify-content: space-between;
   align-items: center;
@@ -231,9 +252,7 @@ div.currency {
 
 div.tema {
   background: linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%);
- 
 }
-
 
 .currency button,
 .tema button {
@@ -241,11 +260,13 @@ div.tema {
   width: 112px;
   border-radius: 6px;
   padding: 6px;
-  background: rgba(255, 255, 255, 0.2); 
+  background: rgba(255, 255, 255, 0.2);
   border: none;
   color: #fff;
 }
-.connect_master::after, .connect_master_connect::after {
+
+.connect_master::after,
+.connect_master_connect::after {
   content: 'Подключен';
   height: 22px;
   width: 112px;
@@ -253,18 +274,22 @@ div.tema {
   border-radius: 6px;
   line-height: 22px;
   padding: 6px;
-  background: rgba(255, 255, 255, 0.2);  
-  border: none;  
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
 }
+
 .tema::before {
   content: 'Тема профиля';
 
 }
+
 .connect_master_connect::after {
   content: 'Подключить';
   cursor: pointer;
 }
-.connect_master::before, .connect_master_connect::before {
+
+.connect_master::before,
+.connect_master_connect::before {
   content: 'Аккаунт мастера';
 
 }
@@ -285,7 +310,6 @@ div.tema {
   height: 100%;
   width: 100vw;
   max-width: 500px;
-
   z-index: 101;
 }
 
@@ -322,8 +346,8 @@ div.tema {
   margin: 16px;
 }
 
-.submitProfile input { 
-  display: block;  
+.submitProfile input {
+  display: block;
   width: 100%;
 }
 
@@ -410,6 +434,7 @@ div.tema {
   border-radius: 5px;
   cursor: pointer;
 }
+
 .place h4:hover {
   box-shadow: 0 0 12px 2px #ddd;
 }
@@ -424,5 +449,5 @@ div.tema {
   display: inline-block;
   margin-left: 10px;
   transform: translate(-7px, 2px);
- 
+
 }

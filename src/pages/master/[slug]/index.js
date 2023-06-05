@@ -23,26 +23,26 @@ const url = 'https://masters-client.onrender.com/'
 const active = {
     color: "#fff",
     padding: '0 20px',
-    fontWeight: 600
+    fontWeight: 500
 
 }
 
 const Master = () => {
     const [viewText, setViewText] = useState(true)
-    const [nav_view, setNavView] = useState('Лента')
+    const [nav_view, setNavView] = useState(0)
     const [profile, setProfile] = useState(null)
-   
+
     const router = useRouter()
     const { slug } = router.query
-    const [gradient,color,background] = profile?.color || []
+    const [gradient, color, background] = profile?.color || []
     const dispatch = useDispatch()
     const my_profile = useSelector(state => state.counter.profile)
     const master = useSelector(state => state.counter.master)
-    
 
-    useEffect(() => {        
-       
-        const { pathname } = window.location        
+
+    useEffect(() => {
+
+        const { pathname } = window.location
         if (master) {
             setProfile(master[0])
         } else {
@@ -53,27 +53,27 @@ const Master = () => {
         return () => dispatch(setmaster(''))
     }, [])
 
-   
+
     return (
         <main className={styles.main}>
             <Head><title>{slug}</title></Head>
             {profile ? <>
-                <Header text={slug} sel='back' color={profile?.color} />
+                <Header text={slug} sel='back' color={profile.color} />
                 <section className={styles.section_main}>
-                    <MasterHeader profile={profile}/>
+                    <MasterHeader profile={profile} />
                     <div className={styles.buttons}>
                         <Link href={my_profile.status === 'client' ? '/chat' : `/master/${slug}/error`} style={{ backgroundColor: background }} >
                             <span style={{ color: color }}>
                                 Сообщения
                                 <Menu_icon type="chat" color={color} />
                             </span>
-                        </Link>    
+                        </Link>
                         <Link
                             href={{
-                                pathname: my_profile.status === 'client' ? 
-                                '/recordingtomaster' : 
-                                `/master/${slug}/error`,
-                                query: my_profile.status === 'client' ? { nikname: slug, name: profile.name }: null
+                                pathname: my_profile.status === 'client' ?
+                                    '/recordingtomaster' :
+                                    `/master/${slug}/error`,
+                                query: my_profile.status === 'client' ? { nikname: slug, name: profile.name } : null
                             }}
                             style={{ backgroundColor: background }}
 
@@ -86,19 +86,20 @@ const Master = () => {
                     </div>
                     <nav className={styles.navigation}>
                         {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
-                            .map(i => <span key={i} onClick={() => setNavView(i)} style={nav_view === i ? { ...active, backgroundColor: color } : null}>{i}</span>)}
+                            .map((i,index) => <span key={i} onClick={() => setNavView(index)} style={nav_view === index ? { ...active, backgroundColor: color } : null}>{i}</span>)}
                     </nav>
-                    {nav_view === 'Отзывы' ? <Reviews nikname={slug} color={profile.color} /> : null}
-                    {nav_view === 'Услуги' ? <Services name={slug} color={profile.color} /> : null}
-                    {nav_view === 'Лента'  ? <Lenta nikname={slug} color={profile.color} /> : null}
-                    {nav_view === 'Сертификаты' ? <Sertificats nikname={slug} /> : null}
-                    
+               
+                    {nav_view === 3 ? <Reviews nikname={slug} color={profile.color} /> : null}
+                    {nav_view === 1 ? <Services name={slug} color={profile.color} /> : null}
+                    {nav_view === 0 ? <Lenta nikname={slug} color={profile.color} /> : null}
+                    {nav_view === 2 ? <Sertificats nikname={slug} /> : null}
                 </section>
                 <Navi color={gradient} />
             </> :
                 <div className={styles.await}>
                     <Image alt="await" src='/await.gif' width={150} height={150} />
-                </div>}
+                </div>
+            }
         </main>
     )
 

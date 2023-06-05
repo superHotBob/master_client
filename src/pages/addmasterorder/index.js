@@ -118,11 +118,7 @@ export default function AddMasterOrder() {
                 <span>Добавить запись</span>
                 <span>Закрыть</span>
             </header>
-            <section className={styles.main}>
-                {/* <p>Клиент</p>
-                <div className={styles.client}>
-                    <h4>Bob</h4>
-                </div> */}
+            <section className={styles.main}>             
                 <p>Дата и время</p>
                 <span>Выберите дату записи и время.</span>
                 <DatePicker

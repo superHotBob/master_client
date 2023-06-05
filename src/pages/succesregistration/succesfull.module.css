@@ -1,0 +1,51 @@
+.main {
+    width: 100%;
+    text-align: center;
+    max-width: 500px;   
+    height: 100vh;
+    position: relative;
+    padding: 0 20px;
+    color: #fff;
+    background-color: #3D4EEA; 
+    background-image: url('/logoWh.svg');
+    background-position: center 40px;
+    background-size: 69px 48px;  
+    padding-top: 104px;
+
+}
+.main::before {
+    content: 'masters.place';
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 25vh;
+}
+.main h1 {
+    font-weight: 700;
+}
+
+.main h1,
+.main h5 {
+    color: #fff;
+    text-align: center;
+    line-height: 17px;
+}
+.main a {   
+    height: 46px;
+    display: block;
+    width: calc(100% - 40px);
+    position: absolute;
+    bottom: 20px;
+    line-height: 46px;    
+    font-weight: 500;   
+    margin: 30vh auto 0;
+    background: #FFFFFF;
+    border-radius: 6px;
+    color: #3D4EEA;
+}
+
+.main h1 {
+    font-size: 32px;
+    line-height: 41px;
+    margin-bottom: 16px;
+}
+

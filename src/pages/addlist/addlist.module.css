@@ -55,7 +55,6 @@
 .header span:last-of-type {
     color: #3D4EEA;
 }
-
 .main__form {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -64,7 +63,6 @@
 
 .sertificat__upload,
 .sertificats {
-
     height: 28vw;
     max-height: 145px;
     background: #ECEEFD;
@@ -99,10 +97,10 @@
 }
 .sertificats span img {
     margin: auto;
+    cursor: pointer;
 }
 
-.sertificats label {  
-   
+.sertificats label {   
     cursor: pointer;
 }
 

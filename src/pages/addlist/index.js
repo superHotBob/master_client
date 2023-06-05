@@ -4,7 +4,7 @@ import Menu_icon from '../../components/icons/menu'
 import styles from './addlist.module.css'
 
 const url = 'https://masters-client.onrender.com'
-const url_loc = 'http://localhost:5000'
+// const url = 'http://localhost:5000'
 
 const active = {
     color: "#fff",
@@ -62,8 +62,7 @@ export default function AddList() {
         let new_file = nikname + '/' + e.target.id       
         fetch(`${url_two}readtext?file=${new_file}`)
         .then(res => res.text())
-        .then(res=> {
-           
+        .then(res=> {           
             my_ref.current.value = res
         })
     }
@@ -165,8 +164,8 @@ export default function AddList() {
                         className={styles.sertificats}
                         style={{ border: i === activeImage ? "2px solid" + color[1] : '', backgroundImage: "url(" + url + "/var/data/" + nikname + '/' + i }}
                     >
-                        {lists.length != index + 1 ? 
-                        <span id={i} onClick={SetForTag}>
+                        {lists.filter(i => tag ? i.search(services__name[tag]) !== -1 : i).length !=index + 1 ? 
+                        <span id={i} onClick={SetForTag} title="добавить комментарий">
                             <label className={styles.sertificat__replace} >                            
                                 <img src='/edit_wh.svg' height={24} width={24} alt="trash" title='заменить'/>                                
                                 <input
@@ -179,8 +178,8 @@ export default function AddList() {
                                 />
                             </label>
                         </span>:null}
-                        {lists.length === index + 1 ? 
-                        <span id={i} style={{ color: color[1] }} onClick={SetForTag}>
+                        {lists.filter(i => tag ? i.search(services__name[tag]) !== -1 : i).length === index + 1 ? 
+                        <span id={i} style={{ color: color[1] }} onClick={SetForTag} title="добавить комментарий">
                             <img src='/trash_del.svg' title='удалить' height={24} width={24} alt="trash" onClick={() => Deletefile(i)}/>
                         </span> : null}
                     </div>

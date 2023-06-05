@@ -17,7 +17,7 @@ import Reviews from '@/components/reviews'
 const nav_active = ({
     color: "#fff",
     padding: '0 20px',
-    fontWeight: 600
+    fontWeight: 500
 })
 const text = {
     'Отзывы': `Здесь будут отображаться отзывы на выполенные

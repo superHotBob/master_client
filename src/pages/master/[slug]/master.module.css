@@ -53,7 +53,7 @@
     width: 43%;   
 }
 .buttons a span {
-    font-weight: 600;
+    font-weight: 500;
 }
 .buttons a span svg {
     transform: translate(4px,4px);
@@ -71,7 +71,7 @@
 .section h4 {
     margin: 0 0 5px;
     color: #282828;
-    font-weight: 600;
+    font-weight: 500;
     font-size:  12px;
     line-height: 22px;
     text-align: center;

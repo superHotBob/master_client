@@ -1,5 +1,4 @@
 import Header from '@/components/header'
-import Navi from '@/components/navi'
 import styles from './saved.module.css'
 import { useRouter } from 'next/router'
 

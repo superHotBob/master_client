@@ -89,8 +89,20 @@
   
   .image {
     height: 100px;
-    background: linear-gradient(94.86deg, #3D6DEA 0%, #F49ED2 48.96%, #FD3394 100%);
+   
     border-radius: 20px;
     background-size: 400% 400%;
     animation: gradient 22s ease infinite;
+  }
+
+  @keyframes gradient-bg {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
   }

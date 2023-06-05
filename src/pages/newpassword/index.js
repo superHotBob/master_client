@@ -75,7 +75,7 @@ export default function Password() {
             } else if (result.blocked !== 'yes') {
                 localStorage.setItem("profile", JSON.stringify(result))
                 dispatch(setprofile(result))
-                router.push('/')
+                router.push('/succesregistration')
             } else {
                 router.push('/404')
             }
@@ -92,13 +92,17 @@ export default function Password() {
             </h3>
             <div className={password ==='new' ? styles.inputs_password : styles.inputs}>
                 <form onSubmit={handleSubmit}>
-                    <input ref={passRef} placeholder='Пароль' type="password" minLength={8} maxLength={8} />
+                    <input ref={passRef} placeholder='Пароль (8 символов)' type="password" minLength={8} maxLength={8} />
                     <input ref={twopassRef} placeholder='Подтвердить пароль' type="password" minLength={8} maxLength={8} />
                     <button className={styles.button} type="submit">
                         {password === 'new' ? 'Восстановить пароль' : 'Завершить регистрацию'}
                     </button>
                 </form>
-
+                <div className={styles.colaboration}>
+                                Нажмая на кнопку, вы соглашаетесь с<br />
+                                <span style={{ color: "#3D4EEA" }}>Условиями обработки персональных <br />
+                                    данных</span>  и <span style={{ color: "#3D4EEA" }}>Пользовательским соглашением</span>
+                            </div>
 
                 <h4 className={styles.error}>{message}</h4>
             </div>
