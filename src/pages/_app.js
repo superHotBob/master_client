@@ -9,12 +9,19 @@ import { useRouter } from 'next/router'
 
 
 const rubik = Rubik({
-  weight: ['300','400', '500','700','800'],
+  weight: ['300', '400', '500', '700', '800'],
   subsets: ['cyrillic'],
   style: ['normal'],
   display: 'swap',
 })
-const my_path = ['informations','newpassword','succesregistration','masterrecords', 'addlist', 'calendar', 'master', 'masterprofile', 'city', 'masternear', 'chat', 'editprofile', 'addmasterorder']
+const my_path = ['informations','informations/aboutservice',
+  'newpassword',
+  'succesregistration',
+  'masterrecords',
+  'addlist',
+  'calendar',
+  'master',
+  'masterprofile', 'city', 'masternear', 'chat', 'editprofile', 'addmasterorder']
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter()
 

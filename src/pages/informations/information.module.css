@@ -12,9 +12,31 @@
     margin-bottom: 16px;
     
 }
+.header {
+    display: flex;
+    justify-content: space-between;
+    height: 46px;
+    padding: 11px;
+    padding-left: 21px;
+    align-items: center;
+    font-weight: 500;
+    font-size:  16px;
+    line-height:  17px;
+}
+
+.header h4:last-child {
+    color: #3D4EEA;
+    cursor: pointer;
+}
+.header img {
+    cursor: pointer;
+}
 .links {
     padding: 23px;
 }
 .main a img {
     margin-right: 19px;
+}
+.links h3 {
+    color: #3D4EEA;
 }
