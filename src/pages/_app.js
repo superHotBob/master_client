@@ -14,7 +14,7 @@ const rubik = Rubik({
   style: ['normal'],
   display: 'swap',
 })
-const my_path = ['newpassword','succesregistration','masterrecords', 'addlist', 'calendar', 'master', 'masterprofile', 'city', 'masternear', 'chat', 'editprofile', 'addmasterorder']
+const my_path = ['informations','newpassword','succesregistration','masterrecords', 'addlist', 'calendar', 'master', 'masterprofile', 'city', 'masternear', 'chat', 'editprofile', 'addmasterorder']
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter()
 

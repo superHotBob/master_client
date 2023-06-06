@@ -2,6 +2,7 @@ import styles from '../editprofile.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { setprofile } from '@/reduser'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import { useEffect, useState, useRef } from 'react'
 import Navi from '@/components/navi'
 
@@ -10,38 +11,36 @@ const url = 'https://masters-client.onrender.com'
 
 export default function EditProfile() {
     const profile = useSelector(state => state.counter.profile)
-
+    const router = useRouter()
     const dispatch = useDispatch()
-    const [name, setName] = useState('Ваше имя')
-    const [nikname, setNikname] = useState()
+    const [my_profile, setmy_profile] = useState({})    
     const [file, setSelectedFile] = useState('')
-    const [file_for_upload, set_file_for_upload] = useState()
-    const [text, setText] = useState('Немного о себе')
+    const [file_for_upload, set_file_for_upload] = useState()    
     const [message, setMessage] = useState()
 
-
+    
     useEffect(() => {
-        const prof = JSON.parse(localStorage.getItem('profile'))
-        setName(prof.name)
-        setText(prof.text)
-        setprofile(prof)
-        setSelectedFile(url + '/var/data/' + prof.nikname + '/main.jpg')
-        setNikname(prof.nikname)
-    }, [])
-
+        const prof = JSON.parse(localStorage.getItem('profile'))  
+        console.log(prof)     
+        setmy_profile(my_profile=>(
+            {...my_profile,...prof}
+        ))        
+        setSelectedFile(url + '/var/data/' + prof.nikname + '/main.jpg')       
+    }, [])   
     function Return() {
-        setName(prof.name),
-            setText(prof.text),
-            setNikname(prof.nikname),
-            setSelectedFile(url + '/var/data/' + prof.nikname + '/main.jpg')
+        const prof = JSON.parse(localStorage.getItem('profile'))
+        setmy_profile(my_profile=>(
+            {...my_profile,...prof}
+        )) 
+        setSelectedFile(url + '/var/data/' + prof.nikname + '/main.jpg')
+        router.back()
     }
     const EditClient = async () => {
-        const data = {
-            status: 'client',
-            name: name,
-            new_nikname: nikname,            
-            text: text,
-            old_nikname: profile.nikname
+        const data = {            
+            name: my_profile.name,
+            new_nikname: my_profile.nikname,            
+            text: my_profile.text,
+            old_nikname: my_profile.nikname
         }
         // if (!file_for_upload) {
         //     return setMessage('Необходимо добавить иконку в формате jpg размером не более 20кб. ')
@@ -65,10 +64,10 @@ export default function EditProfile() {
 
     async function CreateNewMaster() {
         const data = {
-            name: name,
-            nikname: nikname,
-            image: 'main.jpg',
-            text: text,
+            name: my_profile,
+            nikname: my_profile.nikname,
+            image: '',
+            text: my_profile.text,
             color: ''
         }
         fetch('/api/create_master', {
@@ -142,22 +141,32 @@ export default function EditProfile() {
                     accept=".jpg"
                 />
             </form>
-            <p className={styles.name}>{profile.name || name || 'Ваше имя'}</p>
+            <p className={styles.name}>{my_profile.name || 'Ваше имя'}</p>
             <section className={styles.inputs}>
                 <h6>
                     <span>Публичная ссылка, никнейм</span>
                 </h6>
                 <div className={styles.nikname}>
-                    <span>masters.place/{profile.status + '/'}</span>
-                    <input type="text" value={nikname} onChange={e => setNikname(e.target.value)} />
+                    <span>masters.place/{my_profile.status + '/'}</span>
+                    <input type="text" value={my_profile.nikname} disabled />
                 </div>
                 <label>
                     Имя и фамилия
-                    <input style={{ fontSize: 14 }} type="text" value={name} placeholder='Ваше имя' onChange={(e) => setName(e.target.value)} />
+                    <input 
+                        style={{ fontSize: 14 }} 
+                        type="text" 
+                        value={my_profile.name} 
+                        placeholder='Ваше имя'
+                        onChange={(e) => setmy_profile(my_profile=>({...my_profile,...{'name':e.target.value}}))} 
+                    />
                 </label>
                 <label>
                     Краткая информация
-                    <textarea value={text} placeholder='Расскажите о себе' rows={3} onChange={e => setText(e.target.value)} />
+                    <textarea 
+                    value={my_profile.text} 
+                    placeholder='Расскажите о себе' 
+                    rows={3} 
+                    onChange={e => setmy_profile(my_profile=>({...my_profile,...{'text': e.target.value}}))} />
                 </label>
                 <div className={styles.connect_master_connect} onClick={CreateNewMaster}/>            
                    

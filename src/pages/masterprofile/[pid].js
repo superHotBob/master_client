@@ -48,9 +48,9 @@ export default function Client() {
 
     useEffect(() => {        
         const pro = JSON.parse(localStorage.getItem('profile'))
-        // if (pro.nikname.toLowerCase() !== pathname.replace('/masterprofile/', '')) {
-        //     return () => router.push('/enter')
-        // }
+        if (pro.nikname.toLowerCase() !== window.location.pathname.replace('/masterprofile/', '')) {
+            return () => router.push('/enter')
+        }
         if (pro) {
             function GetLists() {
                 fetch(`${url}getlists?dir=${pro.nikname}`)

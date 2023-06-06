@@ -55,7 +55,7 @@ export default function EditProfile() {
     const [file_for_upload, set_file_for_upload] = useState(null)
 
     const [message, setMessage] = useState()
-    const [accept, setAccept] = useState(false)
+    const [master_address, setMasterAddress] = useState(false)
     const [tema, viewTemaBlock] = useState(false)
     const [cur, setCur] = useState(false)
     const [color, setColor] = useState(my_tema[0].color)
@@ -67,10 +67,7 @@ export default function EditProfile() {
     const { data } = useSWR('/api/get_cities', fetcher)
    
 
-    useEffect(() => {
-        let pro = JSON.parse(localStorage.getItem('profile'))
-        if (!pro) { router.push('/enter') }       
-    }, [])
+   
    function handleLocation(event) {  
     if(event.target.value !=='0'){  
         setCity(event.target.value)
@@ -85,7 +82,9 @@ export default function EditProfile() {
         let pro = JSON.parse(localStorage.getItem('profile'))
         if (!pro) {
             return () => router.push('/enter')
-        }
+        }else {
+
+       
         // const options = {
         //     method: "POST",
         //     mode: "cors",
@@ -109,15 +108,16 @@ export default function EditProfile() {
         // }
         // Location()
 
-        setName(pro.name),
-        setText(pro.text),
-        setCity(pro.city),
-        setCurrency(my_currency[current_symbol.indexOf(pro.currency)] ?? 'Белорусский рубль'),
-        setAddress(pro.address)
-        setSelectedFile(url + '/var/data/' + pro.nikname + '/main.jpg')
-        setAddress_full(address_full => ({ ...address_full, ...pro.address_full })),
-        setNikname(pro.nikname),
-        setColor(pro.color ? pro.color : my_tema[0])
+            setName(pro.name),
+            setText(pro.text),
+            setCity(pro.city),
+            setCurrency(my_currency[current_symbol.indexOf(pro.currency)] ?? 'Белорусский рубль'),
+            setAddress(pro.address)
+            setSelectedFile(url + '/var/data/' + pro.nikname + '/main.jpg')
+            setAddress_full(address_full => ({ ...address_full, ...pro.address_full })),
+            setNikname(pro.nikname),
+            setColor(pro.color ? pro.color : my_tema[0])
+        }
 
     }, [])
     function Return() {
@@ -129,6 +129,7 @@ export default function EditProfile() {
         setAddress(pro.address),
         setNikname(pro.nikname),
         setColor(pro.color)
+        router.back()
     }
     const EditMaster = async () => {
         const data = {
@@ -220,7 +221,7 @@ export default function EditProfile() {
                 </h6>
                 <div className={styles.nikname}>
                     <span>masters.place/{profile.status + '/'}</span>
-                    <input type="text" value={nikname} onChange={e => setNikname(e.target.value)} />                    
+                    <input disabled type="text" value={nikname} onChange={e => setNikname(e.target.value)} />                    
                 </div>
                 <label>
                     Имя и фамилия
@@ -228,7 +229,7 @@ export default function EditProfile() {
                 </label>
                 <h6>
                     <span>Место приема клиентов</span>
-                    <span className={styles.change} onClick={() => setAccept(true)}>изменить</span>
+                    <span className={styles.change} onClick={() => setMasterAddress(true)}>Изменить</span>
                 </h6>
                 <div className={styles.address}>
                     <span>{address}{' , '}{address_full?.дом}</span>
@@ -247,9 +248,9 @@ export default function EditProfile() {
                 </div>
                 <div className={styles.connect_master} />               
             </section>
-            {accept ? <div className={styles.submitProfile}>
+            {master_address ? <div className={styles.submitProfile}>
                 <header className={styles.header}>
-                    <Image src={arrow} alt="back" onClick={() => setAccept(false)} />
+                    <Image src={arrow} alt="back" onClick={() => setMasterAddress(false)} />
                     <h4>Адрес приема клиентов</h4>
                     <span style={{ opacity: 0 }}>Пр</span>
                 </header>

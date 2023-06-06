@@ -70,7 +70,7 @@ export default function Menu() {
                 <main className={styles.main_menu} style={style}>
                     <p className={styles.menu_prof}>Общее</p>
                     <p className={styles.chat}>Техническая поддержка</p>
-                    <p className={styles.about}>О сервисе</p>
+                    <Link href="/informations" className={styles.about}>Информация</Link>
                     <p onClick={() => router.push("/enter")} style={login}>Войти в аккаунт</p>
                 </main>}
     </>

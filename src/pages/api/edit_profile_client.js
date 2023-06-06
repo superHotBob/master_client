@@ -9,14 +9,13 @@ export default async function handler(req, res) {
     name: req.body.name,    
     text: req.body.text,
     old_nikname: req.body.old_nikname
-  }
-
-
+  } 
   const result = await sql`
         update clients set ${sql(client, 'name', 'text', 'nikname')}    
         where nikname =  ${client.old_nikname}
         returning name, text, nikname, status  
       `
+  console.log(result)    
   if (result.length > 0) {
     res.status(200).json(result[0])
   } else {

@@ -27,7 +27,7 @@ export default async function handler(req, res) {
             'no', 
             ${req.body.password}
           )
-          returning status, nikname,id
+          returning status, nikname, id, text, name
       `
     res.status(200).json(result[0])
     fetch(`https://masters-client.onrender.com/create?dir=${nikname}`)
