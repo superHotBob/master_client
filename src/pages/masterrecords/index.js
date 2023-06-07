@@ -5,25 +5,12 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { setorder } from '@/reduser'
-import Navi from '@/components/navi'
+
 
 const activ_month = {
     color: '#282828',
 }
-
-
-const false_mo = {
-    backgroundColor: '#fff',
-    color: '#d0d0d0',
-    border: '1px solid #d0d0d0'
-}
-
 const days = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"]
-
-
-
-
-
 export default function Records() {
     const months = ['Декабрь', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сетнябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
     const my_months = [...months]
@@ -37,13 +24,14 @@ export default function Records() {
     const all_days = new Date(year, month, 0)   
     const dispatch = useDispatch()
     const router = useRouter()
-    const [selector, setSelector] = useState(1)
+    const [selector, setSelector] = useState(true)
     const [active_day, setActive_Day] = useState()
     const [false_days, set_false_days] = useState([])
     const [first_orders, set_first_order] = useState([])
     const [orders, setOrders] = useState(null)
     const [profile, setProfile] = useState()
-
+   
+   
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem("profile"))
         setProfile(pro)
@@ -54,16 +42,15 @@ export default function Records() {
         }
     }, [])
 
-    async function GetMasterOrders(a) {
-       
+    async function GetMasterOrders(a) {       
         const response = await fetch(`/api/get_orders_master?nikname=${a.nikname}`, {
             headers: {
                 'Content-Type': 'application/json',
             },
             method: 'get',
         })
-        const result = await response.json()
-        console.log('result')
+        const result = await response.json()   
+        console.log(result)    
         const new_result = [...result]
         set_first_order(result)
         let month_result = new_result.filter(i => i.date_order.includes(months[month]))
@@ -77,7 +64,7 @@ export default function Records() {
         let result = first_orders.filter(i => +i.date_order.split(',')[0] === a)
         setOrders(result)
     }
-    function viewOrder(a) {
+    function ViewOrder(a) {
         let current_order = orders.filter(i => i.id === a)
         dispatch(setorder(current_order[0]))
         router.push('/order/' + a)
@@ -94,12 +81,14 @@ export default function Records() {
         setOrders(month_result)
         let flsd = month_result.map(i => +i.date_order.split(',')[0])
         set_false_days(flsd)
+        setActive_Day()
     }
    
-    function NewOrder(a) {
+    function NewOrderText(a) {
         let date_order = a.split(',')       
-        let mon =  my_months.indexOf(date_order[1])
-        let d = new Date();        
+        let mon =  my_months.indexOf(date_order[1]) - 1
+        let d = new Date();  
+        console.log(mon,d.getMonth())      
         if (mon >= d.getMonth() && +date_order[0] >= d.getDate()) {
             return true
         } else {
@@ -113,11 +102,11 @@ export default function Records() {
                 <Header sel="/" text="Записи на сеанс" color={profile.color} />
                 <div className={styles.selector}>
                     <span
-                        onClick={() => setSelector(1)}
+                        onClick={() => setSelector(true)}
                         style={selector ? { backgroundColor: profile.color[1], color: '#fff', fontWeight: 600 } : null}
                     >Записи на сеанс</span>
                     <span
-                        onClick={() => setSelector(0)}
+                        onClick={() => setSelector(false)}
                         style={selector ? null : { backgroundColor: profile.color[1], color: '#fff', fontWeight: 600 }}
                     >История записей</span>
                 </div>
@@ -147,19 +136,18 @@ export default function Records() {
 
                         </div>
                         <p className={styles.all_records}>Все записи на сеансы</p>
-                        <Link href={`/recordingtomaster?name=${profile.name}&nikname=${profile.nikname}`}  style={{ backgroundColor: profile.color[1] }}>
-                          
-                            
-                            Добавить запись 
-                        </Link>
+                        <Link 
+                            href={`/recordingtomaster?name=${profile.name}&nikname=${profile.nikname}`}  
+                            style={{ backgroundColor: profile.color[1] }}
+                        >Добавить запись</Link>
                         {orders?.map(i =>
                             <div
-                                onClick={() => viewOrder(i.id)}
+                                onClick={() => ViewOrder(i.id)}
                                 key={i.id}
                                 className={styles.order}
                             >
                                 <p>
-                                    <span className={NewOrder(i.date_order) ? styles.active : null}>
+                                    <span className={NewOrderText(i.date_order) ? styles.active : null}>
                                         {i.date_order.replace(',', " ").replace(',', " в ")}
                                     </span>
                                     <span>#{i.id}</span>
@@ -180,7 +168,10 @@ export default function Records() {
                                 key={i.id}
                                 className={styles.order}
                             >
-                                <p><span className={i.active ? styles.active : null}>{i.date_order.replace(/,/, ' ')}</span><span>#{i.id}</span></p>
+                                <p>
+                                    <span className={i.active ? styles.active : null}>{i.date_order.replace(/,/, ' ')}</span>
+                                    <span>#{i.id}</span>
+                                </p>
                                 <h3 ><span style={{ color: profile.color[1] }}>{i.client_name || i.client}</span><span style={{ color: profile.color[1] }}>{i.price} BYN</span></h3>
                                 <h6 style={{ color: profile.color[1] }}>{i.neworder.replace(/[0-9]/g, '  ').replace(/:/g, ' ')}</h6>
                             </div>

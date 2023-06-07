@@ -8,8 +8,7 @@ import Image from 'next/image'
 
 const review = {
     backgroundColor: '#3D4EEA',
-    fontWeight: 600,
-    
+    fontWeight: 500,    
 }
 
 export default function ClientOrder({ order, active, close }) {

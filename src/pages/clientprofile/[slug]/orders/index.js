@@ -4,7 +4,6 @@ import Link from 'next/link'
 import Header from '@/components/header'
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
-import useSWR from 'swr'
 import { useDispatch } from 'react-redux'
 import ClientOrder from '@/components/clientorder'
 const url = 'https://masters-client.onrender.com'
@@ -17,11 +16,10 @@ const sel = {
 
 const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сетнябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
 
-const fetcher = (...args) => fetch(...args).then(res => res.json())
+
 
 export default function Client() {
-    const router = useRouter()
-    const dispatch = useDispatch()
+    const router = useRouter()    
     const { slug } = router.query
     const profile = useSelector((state) => state.counter.profile)
 
@@ -58,7 +56,6 @@ export default function Client() {
         } else {
             return false
         }
-
     }
 
     return (
@@ -90,9 +87,6 @@ export default function Client() {
                 </div>
             )}
             {viewOrder ? <ClientOrder order={data[orderIndex]} active={ActiveOrder(data[orderIndex].date_order)} close={close} /> : null}
-
-
-
         </main>
     )
 }

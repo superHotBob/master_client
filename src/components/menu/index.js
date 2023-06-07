@@ -49,7 +49,7 @@ export default function Menu() {
             <Link href="/editprofile" className={styles.edit_profile}>Редактировать профиль</Link>
             <p className={styles.copy} onClick={CopyProfile}>Скопировать ссылку профиля</p>
             <p className={styles.chat}>Техническая поддержка</p>
-            <p className={styles.about}>О сервисе</p>
+            <Link href="/informations/aboutservice" className={styles.about}>О сервисе</Link>
             <p onClick={ExitFromAccount}>Выйти из аккаунта</p>
         </main>
             : profile.status === 'client' ?
@@ -64,7 +64,7 @@ export default function Menu() {
                     <Link href="/editprofile/client" className={styles.edit_profile}>Настройки профиля</Link>
                     {/* <p className={styles.copy} onClick={CopyProfile}>Скопировать ссылку профиля</p> */}
                     <p className={styles.chat}>Техническая поддержка</p>
-                    <p className={styles.about}>О сервисе</p>
+                    <Link href="/informations" className={styles.about}>Информация</Link>
                     <p onClick={ExitFromAccount}>Выйти из аккаунта</p>
                 </main> :
                 <main className={styles.main_menu} style={style}>

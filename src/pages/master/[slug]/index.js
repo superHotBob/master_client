@@ -18,6 +18,7 @@ import Link from 'next/link'
 import Location from '@/components/location'
 import MasterHeader from '@/components/masterheader'
 
+
 const url = 'https://masters-client.onrender.com/'
 
 const active = {
@@ -38,7 +39,7 @@ const Master = () => {
     const dispatch = useDispatch()
     const my_profile = useSelector(state => state.counter.profile)
     const master = useSelector(state => state.counter.master)
-
+    
 
     useEffect(() => {
 

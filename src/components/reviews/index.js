@@ -7,7 +7,7 @@ import star_gray from '../../../public/star-gray.svg'
 
 export default function Reviews({nikname,color}) {
 
-    const [view, setView] = useState(true)
+    const [view, setView] = useState(false)
     const [reviews, setreview] = useState()
 
     useEffect(() => {
@@ -31,32 +31,38 @@ export default function Reviews({nikname,color}) {
                 <div className={styles.header}>
                     <span>{i.client_name||i.client}</span>
                     <span style={{textAlign: 'right',width: '55%',color: '#000'}}>
-                        {i.date_order.replace(',',' ').replace(',', ' в ')}
+                        {i.date_order.split(',')[0] }, {i.date_order.split(',')[1] }, в {i.date_order.split(',')[2]}
                     </span>
                     <div className={styles.stars}>
                         {[1, 2, 3, 4, 5].map(a => <React.Fragment key={a}>{
-                            i.stars >= a ? <Image 
+                            i.stars >= a ? 
+                            <Image 
                                 alt="star"                               
                                 src={star}
                                 width={15} height={14}
-                            /> : <Image 
+                            /> 
+                            : 
+                            <Image 
                                 alt="star"                               
                                 src={star_gray}
                                 width={15} height={14}
-                        />
+                            />
                         }</React.Fragment>
 
                         )}
                     </div>
                 </div>
-                <p className={styles.service}>{i.neworder.replace(/[0-9]/g,'').replace(':','')}, {i.price} BYN</p>
-                {view !== i.name ?
-                <p className={styles.message} style={{color: color[1]}}>
-                    {i.review.slice(0,145) + '...'}
+                <p className={styles.service}>
+                    {i.neworder.replace(/[0-9]/g,'').replace(':','')}, {i.price} BYN
                 </p>
-                :
-                <p className={styles.message}>{i.review}</p>}
-                <span style={{color: color[2]}} onClick={()=>setView(view === i.name ? null : i.name)}>{view === i.name ?'скрыть' : 'подробнее'}</span>
+                {view  ?
+                    <p className={styles.message} style={{color: color[1]}}>
+                        {i.review.slice(0,145) + '...'}
+                    </p>
+                    :
+                    <p className={styles.message}>{i.review}</p>
+                }
+                <span  style={{color: color[2]}} onClick={()=>setView(view ? false: true)}>{view ?'подробнее':'скрыть' }</span>
             </div>)}
 
         </main>

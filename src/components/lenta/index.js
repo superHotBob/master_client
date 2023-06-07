@@ -3,8 +3,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 import arrow_down from '../../../public/arrow_down.svg'
 import { useSelector } from 'react-redux'
-import { useEffect, useState } from 'react'
+import {  useState } from 'react'
 import useSWR from 'swr'
+
 const text = (` Ищу модель, что бы протестировать китайскую 
     косметику на юнном теле. 
     Есть вероятность, что она низкого качества. 
@@ -36,7 +37,7 @@ export default function Lenta({ color , nikname }) {
     const profile = useSelector(state => state.counter.profile)
 
     const { data } = useSWR(`https://masters-client.onrender.com/getlists?dir=${nikname}`, fetcher)
-
+   
     function Saved_image(a) {
         let pro = JSON.parse(localStorage.getItem('profile'))
         let new_saved = [...pro.saved_image]

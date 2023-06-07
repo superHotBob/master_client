@@ -39,4 +39,15 @@
 }
 .links h3 {
     color: #3D4EEA;
+    margin-bottom: 26px;
+}
+.links h4 {
+    line-height: 26px;
+    margin-bottom: 8px;
+}
+.links p {
+    font-size: 12px;
+    line-height: 17px;
+    font-weight: 400;
+    margin-bottom: 26px;
 }

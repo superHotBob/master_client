@@ -13,7 +13,7 @@ const images = ['маникюр', 'педикюр', 'макияж', 'ресни�
 export default function Catalog() {
     const dispatch = useDispatch()
     const router = useRouter()
-    const city = useSelector(state=>state.counter.city)
+    const city = useSelector(state => state.counter.city)
     function ToService(a) {
         dispatch(setservice(a))
         router.push(`/masternear/${a}`)
@@ -23,10 +23,9 @@ export default function Catalog() {
         <>
             <Header />
             <section className={styles.section}>
-                <div className={styles.city}>
-                    <Link href="/city"> Ваш город {city} </Link>
+                <Link className={styles.city} href="/city"> Ваш город {city}
                     <Image alt="Picture of the author" src={position} width={20} height={20} />
-                </div>
+                </Link>
                 <Link href="/event" className={styles.model}>
                     СТАНЬ МOДЕЛЬЮ БЕCПЛАТНO
                 </Link>
@@ -35,8 +34,8 @@ export default function Catalog() {
                 </Link>
                 <div className={styles.images}>
                     {images.map(i =>
-                        <Image key={i} onClick={()=>ToService(i)} alt="image" src={'/' + i + '.svg'} width="80" height='90' />
-                   )}
+                        <Image key={i} onClick={() => ToService(i)} alt="image" src={'/' + i + '.svg'} width="80" height='90' />
+                    )}
                 </div>
                 <Link href="/catalog/services" className={styles.uslugi}>
                     Все услуги
@@ -51,7 +50,7 @@ export default function Catalog() {
                     )}
                 <h6 className={styles.agreement}>© 2022 – 2023 Некоммерческая организация. Все права защищены.</h6>
             </section>
-           
+
         </>
 
     )

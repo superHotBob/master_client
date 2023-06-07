@@ -33,9 +33,9 @@ p.menu_prof {
     transform: scale(1.03);
     transition: all 0.5s;
 }
-/* .main_menu a:first-of-type {
+.main_menu a:first-of-type {
     background-image: url('/message_menu.svg');
-} */
+}
 .records_on_seans {
     background-image: url('/ticket.svg'); 
 }
@@ -66,11 +66,12 @@ p.copy {
     background-image: url('/chat.svg'); 
 }
 .add {
-    background-image: url('/edit.svg'); 
+    background-image: url('/message_menu.svg');
 }
 .about {
     background-image: url('/information.svg'); 
 }
+
 .collections {
     background-image: url('/collections.svg'); 
 }
