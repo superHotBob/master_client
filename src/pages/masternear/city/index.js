@@ -166,7 +166,7 @@ export default function MasterNear() {
                         </div> : null}
                     </div>
 
-                    <div className={styles.my_map} id="my_map" style={{height: master ? "30vh" : mapHeight,  width: '100vw', maxWidth: '500px' }}>
+                    <div className={styles.my_map} id="my_map" style={{height: master ? "30vh" : mapHeight }}>
                         <YMaps instanceRef={ymaps}>
                             <Map id="mymap"
                                 state={{

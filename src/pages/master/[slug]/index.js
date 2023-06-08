@@ -29,7 +29,7 @@ const active = {
 }
 
 const Master = () => {
-    const [viewText, setViewText] = useState(true)
+    const [message, setmessage] = useState(false)
     const [nav_view, setNavView] = useState(0)
     const [profile, setProfile] = useState(null)
 
@@ -39,10 +39,9 @@ const Master = () => {
     const dispatch = useDispatch()
     const my_profile = useSelector(state => state.counter.profile)
     const master = useSelector(state => state.counter.master)
-    
+
 
     useEffect(() => {
-
         const { pathname } = window.location
         if (master) {
             setProfile(master[0])
@@ -54,7 +53,13 @@ const Master = () => {
         return () => dispatch(setmaster(''))
     }, [])
 
-
+    function LinkTo(a) {
+        if(my_profile.status === 'client') {
+            router.push(a)
+        } else {
+            setmessage(true)
+        }
+    }
     return (
         <main className={styles.main}>
             <Head><title>{slug}</title></Head>
@@ -62,34 +67,38 @@ const Master = () => {
                 <Header text={slug} sel='back' color={profile.color} />
                 <section className={styles.section_main}>
                     <MasterHeader profile={profile} />
+                    <dialog open={message} className={styles.dialog}>
+                        <div>
+                            <span onClick={() => setmessage(false)}>закрыть</span>
+                            <h4>
+                                Эта функция доступна только<br />
+                                зарегистрированным пользователям. Для<br />
+                                продолжения войдите или зарегистрируйте<br />
+                                аккаунт.
+                            </h4>
+                            <Link href="/enter">Войти</Link>
+                        </div>
+                    </dialog>
                     <div className={styles.buttons}>
-                        <Link href={my_profile.status === 'client' ? '/chat' : `/master/${slug}/error`} style={{ backgroundColor: background }} >
+                        <div onClick={()=>LinkTo('/chat')} style={{ backgroundColor: background }} >
                             <span style={{ color: color }}>
                                 Сообщения
                                 <Menu_icon type="chat" color={color} />
                             </span>
-                        </Link>
-                        <Link
-                            href={{
-                                pathname: my_profile.status === 'client' ?
-                                    '/recordingtomaster' :
-                                    `/master/${slug}/error`,
-                                query: my_profile.status === 'client' ? { nikname: slug, name: profile.name } : null
-                            }}
+                        </div>
+                        <div onClick={()=>LinkTo(`/recordingtomaster?nikname=${slug}&name=${profile.name}`)}                           
                             style={{ backgroundColor: background }}
-
                         >
                             <span style={{ color: color }}>
                                 Запись к мастеру
                                 <Menu_icon type="edit" color={color} />
                             </span>
-                        </Link>
+                        </div>
                     </div>
                     <nav className={styles.navigation}>
                         {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
-                            .map((i,index) => <span key={i} onClick={() => setNavView(index)} style={nav_view === index ? { ...active, backgroundColor: color } : null}>{i}</span>)}
+                            .map((i, index) => <span key={i} onClick={() => setNavView(index)} style={nav_view === index ? { ...active, backgroundColor: color } : null}>{i}</span>)}
                     </nav>
-               
                     {nav_view === 3 ? <Reviews nikname={slug} color={profile.color} /> : null}
                     {nav_view === 1 ? <Services name={slug} color={profile.color} /> : null}
                     {nav_view === 0 ? <Lenta nikname={slug} color={profile.color} /> : null}

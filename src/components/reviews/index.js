@@ -7,7 +7,7 @@ import star_gray from '../../../public/star-gray.svg'
 
 export default function Reviews({nikname,color}) {
 
-    const [view, setView] = useState(false)
+    const [view, setView] = useState(true)
     const [reviews, setreview] = useState()
 
     useEffect(() => {
@@ -54,15 +54,11 @@ export default function Reviews({nikname,color}) {
                 </div>
                 <p className={styles.service}>
                     {i.neworder.replace(/[0-9]/g,'').replace(':','')}, {i.price} BYN
-                </p>
-                {view  ?
-                    <p className={styles.message} style={{color: color[1]}}>
-                        {i.review.slice(0,145) + '...'}
-                    </p>
-                    :
-                    <p className={styles.message}>{i.review}</p>
-                }
-                <span  style={{color: color[2]}} onClick={()=>setView(view ? false: true)}>{view ?'подробнее':'скрыть' }</span>
+                </p>               
+                <p className={styles.message}>{view ? i.review.slice(0,145) + '...' : i.review}</p>              
+                <span  style={{color: color[2]}} onClick={()=>setView(view ? false: true)}>
+                    {view ?'подробнее':'скрыть' }
+                </span>
             </div>)}
 
         </main>
