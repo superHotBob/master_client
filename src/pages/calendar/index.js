@@ -15,49 +15,54 @@ const activ_month = {
 export default function Calendar() {
 
     const days = ["пн", "вт", "ср", "чт", "пт", "суб", "вс"]
-    const months = ['Декабрь', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 
-        'Июль', 'Август', 'Сетнябрь','Октябрь', 'Ноябрь', 'Декабрь']
+    const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+        'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+        'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+        'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
 
     const d = new Date()
-    const mon = d.getMonth() + 1
+    const year = d.getFullYear()
+    const mon = d.getMonth()
+
     const [month, setMonth] = useState(mon)
     const my_months = [...months]
     const [active_day, setActive_Day] = useState()
     const [active_num, setActive_Num] = useState()
-    const all_days = new Date(2023, month, 0)
+    const all_days = new Date(year, month + 1, 0)
+
     const [mnt, setMnt] = useState([])
     const [patern, setPatern] = useState([])
     const [view, setView] = useState(false)
     const [message, setMessage] = useState(false)
     const [profile, setProfile] = useState()
-    const year = new Date().getFullYear()
-    const day = new Date(year, month - 1, 1)
-    let v = days.indexOf(days[day.getDay() - 1])
+    const day = new Date(year, month, 1)
+    let v = days.indexOf(days[day.getDay()]) - 1
+
     const router = useRouter()
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem('profile'))
         if (!pro) {
-            return  () => router.push('/enter')
+            return () => router.push('/enter')
         }
         setProfile(pro)
         fetch(`/api/get_patern?nikname=${pro.nikname}`)
-        .then(res => res.json())
-        .then(data => setPatern(data))
+            .then(res => res.json())
+            .then(data => setPatern(data))
 
     }, [view])
     useEffect(() => {
         let current_month = my_months[month].toLocaleLowerCase()
         let pro = JSON.parse(localStorage.getItem("profile"))
         if (!pro) {
-            return  () => router.push('/enter')
+            return () => router.push('/enter')
         }
         setActive_Day()
         setActive_Num()
         fetch(`/api/get_schedule?month=${current_month}&nikname=${pro.nikname}`)
             .then(res => res.json())
             .then(res => {
-                if (res.length===0) {
-                    let new_arr = Array.from({ length: all_days.getDate() }, (v, i) =>"")
+                if (res.length === 0) {
+                    let new_arr = Array.from({ length: all_days.getDate() }, (v, i) => "")
                     console.log(new_arr)
                     setMnt(new_arr)
                 } else {
@@ -121,11 +126,15 @@ export default function Calendar() {
             return l
         }
         return 0
-
     }
     function SetMonth(a) {
-        let m = my_months.findIndex(i => i === a)
-        setMonth(m)
+        if(a==='Январь') {
+            setMonth(12)
+        } else {
+            let m = my_months.findIndex(i => i === a)
+            setMonth(m)
+        }
+       
     }
 
     return <>
@@ -134,8 +143,8 @@ export default function Calendar() {
                 <Menu_icon type="arrow" color={profile.color[1]} />
                 <h4>Календарь работы</h4>
                 <span onClick={SaveSchedule}>Сохранить</span>
-            </header> : 
-        null}
+            </header> :
+            null}
         <section className={styles.section}>
             <Message text={`Выбирайте дни и время, вы которые вы готовы
                         принимать клиентов. При записи клиент  сможет
@@ -151,7 +160,7 @@ export default function Calendar() {
             <div className={styles.week}>
                 {days.map(i => <span key={i}>{i}</span>)}
             </div>
-           
+
             <div className={styles.days}>
                 {Array.from({ length: v }, (v, i) => i + 1).map(i => <span key={i} style={{ opacity: 0 }}>{i}</span>)}
 
@@ -201,7 +210,7 @@ export default function Calendar() {
                 nikname={profile.nikname}
             /> : null
         }
-       
+
 
     </>
 

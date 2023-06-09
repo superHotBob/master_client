@@ -1,11 +1,8 @@
-
-
 .chat {
     padding: 0  10px 0 22%;
-
     margin: 10px 16px 10px 0;
     background-position: 16px top;
-    background-size: 15%;
+    background-size: 55px;
     display: block;
     min-height: 80px;
 }
@@ -15,6 +12,7 @@
     justify-content: space-between;
     margin-bottom: 6px;
     position: relative;
+    padding-top: 10px;
 }
 
 .chat span {

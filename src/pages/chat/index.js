@@ -1,32 +1,47 @@
 import Header from '@/components/header'
-import  styles  from './chat.module.css'
-import { useState } from 'react'
+import styles from './chat.module.css'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
-
-const chat = [
-    {image:'администратор', name: 'Администратор', text: 'Отвечу на любые вопросы.', date: '12:33' },
-    {image:'two', name: 'Александрова Анна', text: 'Меня не интересует где вам делать шугаринг. Главное что бы платили мне денег.', date: '10:03' },
-    {image:'three', name: 'Григорьев Платон', text: 'Меня не интересует где вам делать шугаринг. Главное что бы платили мне денег.', date: '12 ноября' },
-    {image:'four', name: 'Михайлов Роберт', text: 'Меня не интересует где вам делать шугаринг. Главное что бы платили мне денег.', date: '22 ноября' },
-    {image:'five', name: 'Новикова Ева', text: 'Меня не интересует где вам делать шугаринг. Главное что бы платили мне денег.', date: '10 ноября' },
-    {image:'six', name: 'Серебряков Дмитрий', text: 'Меня не интересует где вам делать шугаринг. Главное что бы платили мне денег.', date: '2 ноября' }
-]
-
-export default function Chat() {
-    const [new_message, setNew_Message] = useState(['Новикова Ева'])
+const url = 'https://masters-client.onrender.com/'
+export default function Chat() {   
+    const [chat, setchat] = useState()
+    const [status, setstatus] = useState()
+    useEffect(()=>{
+        const profile = JSON.parse(localStorage.getItem('profile'))
+        setstatus(profile.status)
+        fetch(`/api/get_messages?nikname=${profile.nikname}`)
+        .then(res=>res.json())
+        .then(res=>setchat(res))
+    },[])
+    const options_time = { month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+    
+    function ToDate(a){
+        console.log(new Date (+a))
+        const dt = new Date(+a)
+        return dt.toLocaleDateString('ru-RU', options_time)
+    }
     return (
         <>
             <Header sel="/" text="Чаты" />
             <section>
-                {chat.map(i=>
-                    <Link href={'/chat/messages/' + i.name} key={i.name} className={styles.chat} style={{backgroundImage:'url(/chat/' + i.image + '.jpg'}}>
-                        <p className={new_message.includes(i.name) ? styles.new:null}><b>{i.name}</b><span>{i.date}</span></p>
-                        <span>{i.text}</span>
-                    </Link>
-                )}
+                <Link href='/chat/messages/администратор' className={styles.chat} style={{ backgroundImage: 'url(/chat/администратор.jpg' }}>
+                    <p><b>Администратор</b><span>{12 +':' + 33}</span></p>
+                    <span>Отвечу на любые вопросы</span>
+                </Link>
+               {chat?.map(i =>
+                    <Link href={'/chat/messages/' + i.sendler_nikname + '?name=' + i.sendler} 
+                        key={i.sendler} 
+                        className={styles.chat} 
+                        style={{ backgroundImage: 'url('+ url + 'var/data/' + i.sendler_nikname + '/main.jpg' }}
+                    >
+                        <p >
+                            <b>{i.sendler}</b>
+                            <span>{ToDate(i.ms_date)}</span>
+                        </p>
+                        <span>{i.ms_text}</span>
+                    </Link>)}
+               
             </section>
-
-
         </>
     )
 }

@@ -59,7 +59,7 @@ export default function EnterPassword() {
                 <form onSubmit={handleSubmit}>
                     <input autoFocus ref={passRef} placeholder='Пароль' type="password"  />                   
                     <button type='submit' className={styles.button}>Войти</button> 
-                    <p onClick={ReplacePassword}>Изменить пароль</p>                   
+                    <p onClick={ReplacePassword}>Забыл или хочу изменить пароль</p>                   
                 </form>                
                 <h4 className={styles.error}>{message}</h4>
             </div>

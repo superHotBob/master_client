@@ -36,7 +36,7 @@
     color: #8B95F2;
 }
 
-.input div {
+.input button {
     border-radius: 100%;
     background-color: #3D4EEA;
     background-image: url('/send.svg');
@@ -61,8 +61,7 @@
     border-radius: 8px;
     width: 70%;
     padding: 10px 10px 4px 10px;
-    color: #fff;
-    font-weight: 500;
+    color: #fff;    
     margin: 16px 0 16px 30%;
 }
 

@@ -162,7 +162,7 @@ export default function Records() {
 
                     </section> :
                     <section className={styles.section}>
-                        {first_orders.map(i =>
+                        {first_orders.sort((a,b)=>a.id - b.id < 0 ? 1 : -1).map(i =>
                             <div
                                 onClick={() => router.push('/order/' + i.id)}
                                 key={i.id}

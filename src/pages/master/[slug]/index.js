@@ -80,7 +80,7 @@ const Master = () => {
                         </div>
                     </dialog>
                     <div className={styles.buttons}>
-                        <div onClick={()=>LinkTo('/chat')} style={{ backgroundColor: background }} >
+                        <div onClick={()=>LinkTo(`/chat/messages/${slug}?name=${profile.name}`)} style={{ backgroundColor: background }} >
                             <span style={{ color: color }}>
                                 Сообщения
                                 <Menu_icon type="chat" color={color} />
