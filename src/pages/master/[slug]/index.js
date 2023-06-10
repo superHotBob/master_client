@@ -41,17 +41,19 @@ const Master = () => {
     const master = useSelector(state => state.counter.master)
 
 
-    useEffect(() => {
-        const { pathname } = window.location
+    useEffect(() => {       
+        if(!slug){
+            return
+        }
         if (master) {
             setProfile(master[0])
         } else {
-            fetch(`/api/master?nikname=${pathname.replace('/master/', '')}`)
+            fetch(`/api/master?nikname=${slug}`)
                 .then(res => res.json())
                 .then(res => setProfile(res[0]))
         }
         return () => dispatch(setmaster(''))
-    }, [])
+    }, [slug])
 
     function LinkTo(a) {
         if(my_profile.status === 'client') {

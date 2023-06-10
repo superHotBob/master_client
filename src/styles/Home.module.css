@@ -69,6 +69,7 @@
   cursor: pointer; 
   opacity: 0;
   transition: all 0.5s;
+  margin-bottom: 11px;
 }
 
 .main__detail {
@@ -159,18 +160,4 @@
   line-height: 17px;
   color: #282828;
   padding: 4px 1rem 0;
-}
-@media screen and (min-width: 500px) {
-  .main {
-    height: auto;
-  }
-
-  .images a {
-    height: 38vw;
-  }
-
-  .city {
-    background-position: 73% center;
-  }
-
 }

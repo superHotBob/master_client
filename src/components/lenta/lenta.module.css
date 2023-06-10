@@ -40,7 +40,7 @@
     height: 20px;
     border-radius: 4px;
     background-color: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(25px);
+   
     position: absolute;
     left: 8px;
     bottom: 16px;

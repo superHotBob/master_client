@@ -93,7 +93,7 @@ export default function Home() {
     setdata(data.concat(new_arr))    
   }
   function Height(b) {
-    document.getElementById(b).style.marginBottom = '10px'
+    // document.getElementById(b).style.marginBottom = '10px'
     document.getElementById(b).style.opacity = 1
     document.getElementById("add__images").style.opacity = 1
   }

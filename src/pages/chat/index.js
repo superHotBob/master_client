@@ -15,8 +15,7 @@ export default function Chat() {
     },[])
     const options_time = { month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
     
-    function ToDate(a){
-        console.log(new Date (+a))
+    function ToDate(a){      
         const dt = new Date(+a)
         return dt.toLocaleDateString('ru-RU', options_time)
     }

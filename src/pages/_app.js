@@ -31,14 +31,13 @@ export default function MyApp({ Component, pageProps }) {
         <meta name="description" content="Master app" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
-        <title>masters.place</title>
-        <meta name="theme-color" content="#317EFB" />
+        <title>masters.place</title>      
         <link rel="apple-touch-icon" href="icons/android-chrome-192x192.png"></link>
         <meta name="application-name" content="PWA App" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta
           name='viewport'
-          content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover'
+          content='minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=yes, viewport-fit=cover'
         />
       </Head>
       <main className={rubik.className}>
