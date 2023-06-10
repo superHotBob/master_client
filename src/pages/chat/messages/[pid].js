@@ -12,7 +12,7 @@ const options = {
     minute: '2-digit',
     hour12: false
 };
-const url = 'https://masters-client.onrender.com/'
+
 
 export default function Messages() {
     const ref = useRef()
@@ -145,7 +145,8 @@ export default function Messages() {
                                 <p>{My_Date(+i.ms_date)}</p>
                             </div>
                             :
-                            <div style={{ backgroundImage: 'url(' + url + 'var/data/' + i.sendler_nikname + '/main.jpg' }} className={styles.wrap_master}>
+                            <div className={styles.wrap_master}>
+                                <img src={process.env.url + 'var/data/' + i.sendler_nikname + '/main.jpg' } height={50} width={50} alt="masre" />
                                 <div className={styles.master}>
                                     {i.ms_text}
                                     <p>{My_Date(+i.ms_date)}</p>

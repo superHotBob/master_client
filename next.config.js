@@ -5,6 +5,9 @@ const config = {
   reactStrictMode: true,
   images: {
     unoptimized: true
+  },
+  env: {
+    url:  'https://masters-client.onrender.com/',
   }
 }
 const nextConfig = withPWA({

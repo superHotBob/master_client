@@ -10,7 +10,7 @@ import 'react-phone-input-2/lib/style.css'
 // const url = 'http://localhost:5000'
 
 
-const url = 'https://masters-client.onrender.com'
+
 
 
 export default function Enter() {
@@ -48,7 +48,7 @@ export default function Enter() {
             }
         })
         function Call() {
-            fetch(`${url}/call`, {
+            fetch(`${process.env.url}/call`, {
                 body: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json',
@@ -91,7 +91,7 @@ export default function Enter() {
     async function SendCode(event) {
         event.preventDefault()
         const data = { tel: phone, number: +number.join('') }
-        fetch(`${url}/code`, {
+        fetch(`${process.env.url}/code`, {
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
