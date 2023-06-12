@@ -67,7 +67,7 @@
   width: 100%;
   height: auto;
   cursor: pointer; 
-  opacity: 0;
+  opacity: 1;
   transition: all 0.5s;
   margin-bottom: 11px;
 }
@@ -124,6 +124,7 @@
   line-height: 46px;
   background: #3D4EEA;
   border-radius: 6px;
+  font-weight: 500;
 }
 .detail img {
   border-radius: 0;

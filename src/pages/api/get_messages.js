@@ -13,7 +13,7 @@ export default async function handler(req, res) {
           recipient,
           recipient_nikname
         from  chat
-        where recipient_nikname = ${req.query.nikname}                
+        where recipient_nikname = ${req.query.nikname}  or  sendler_nikname = ${req.query.nikname}          
       `
   if (result.length > 0) {
     res.status(200).json(result)

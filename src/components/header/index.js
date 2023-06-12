@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 import { setprofile } from '@/reduser'
 import Menu_icon from '../../components/icons/menu.js'
 
-const url = 'https://masters-client.onrender.com/'
+
 
 const new_text = {
   color: '##282828', 
@@ -58,11 +58,7 @@ export default function Header({ sel, text, mes, color = {}, select,view_time })
 
   const [menu, menuView] = useState(false)
 
-  function MenuView(e) {
-    e.stopPropagation()
-    menuView(!menu)
-  }
-  function ToBack(e) {
+  const ToBack = (e) => {
     e.stopPropagation()
     if (sel !== 'back') {
       return router.push(sel)
@@ -87,7 +83,7 @@ export default function Header({ sel, text, mes, color = {}, select,view_time })
       {text ?
         <h4 style={mes ? new_text_mes : new_text}>
           {mes ? <Image
-            src={url + 'var/data/' + profile.nikname + '/main.jpg'}
+            src={process.env.url + 'var/data/' + profile.nikname + '/main.jpg'}
             alt="menu"
             className={styles.image_master}
             width={39} height={40}

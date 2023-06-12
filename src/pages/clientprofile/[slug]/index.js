@@ -16,7 +16,7 @@ const sel = {
 }
 
 
-const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сетнябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
+
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
@@ -34,16 +34,13 @@ export default function Client() {
     
 
     useEffect(() => {
-        let pro = JSON.parse(localStorage.getItem('profile'))
-       console.log(pro)
-
-        if (pro) {
-            fetch(`/api/get_saved_image?nikname=${pro.nikname}`)
+        if (slug) {
+            fetch(`/api/get_saved_image?nikname=${slug}`)
             .then(res => res.json())
             .then(res => setData(res))
 
         } else { router.push('/') }
-    }, [])
+    }, [slug])
 
    
     function GoToMaster(e, a) {
@@ -75,7 +72,7 @@ export default function Client() {
     return (
         <main className={styles.main}>
             <Header text={profile.nikname} sel="back" />
-            <div className={styles.profile} style={{ backgroundImage: "url(" + url + '/var/data/' + profile.nikname + '/main.jpg)' ? "url(" + url + '/var/data/' + profile.nikname + '/main.jpg)' : "url(/camera_bl.svg" }}>
+            <div className={styles.profile} style={{ backgroundImage: "url(" + process.env.url + '/var/data/' + profile.nikname + '/main.jpg)' ? "url(" + url + '/var/data/' + profile.nikname + '/main.jpg)' : "url(/camera_bl.svg" }}>
                 <h2>{profile.name}</h2>
                 <p>{profile.text}</p>
             </div>
@@ -95,7 +92,7 @@ export default function Client() {
                             <img 
                                 title={i.slice(0, i.indexOf('/'))} 
                                 onClick={(e) => GoToMaster(e, i)} 
-                                alt="image" src={url + '/var/data/' + i}
+                                alt="image" src={process.envurl + '/var/data/' + i}
                                 onLoad={()=>Loaded(i)} 
                             />
                             <span
@@ -112,7 +109,7 @@ export default function Client() {
                                 title={i.slice(0, i.indexOf('/'))} 
                                 onClick={(e) => GoToMaster(e, i)} 
                                 alt="image" 
-                                src={url + '/var/data/' + i} 
+                                src={process.env.url + '/var/data/' + i} 
                                 onLoad={()=>Loaded(i)} 
                             />
                             <span

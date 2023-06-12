@@ -12,7 +12,7 @@ const url_image = 'https://masters-client.onrender.com/var/data/'
 const url_two = 'https://masters-client.onrender.com/'
 const url_one = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/geolocate/address"
 const token = "5ff295eebd78a454b8bd3805b29d1eb6daefe31f"
-import useSWR from 'swr'
+
 const services__name = {
   барбер: 'barber',
   прически: 'pricheski',
@@ -134,7 +134,7 @@ export default function Home() {
                 id={i.id}
                 onClick={() => View(i.name, i.image, i.master_name)}
                 onError={() => imageOnError(i.id)}
-                onLoad={() => Height(i.id)}
+                // onLoad={() => Height(i.id)}
                 src={i.image}
                 title={i.master_name}
               />
@@ -148,7 +148,7 @@ export default function Home() {
                 id={i.id}
                 onClick={() => View(i.name, i.image, i.master_name)}
                 onError={() => imageOnError(i.id)}
-                onLoad={() => Height(i.id)}
+                // onLoad={() => Height(i.id)}
                 src={i.image}
                 title={i.master_name}
               />

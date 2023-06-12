@@ -14,7 +14,7 @@ export default function Catalog() {
     const dispatch = useDispatch()
     const router = useRouter()
     const city = useSelector(state => state.counter.city)
-    function ToService(a) {
+    const ToService = (a) => {
         dispatch(setservice(a))
         router.push(`/masternear/${a}`)
     }
