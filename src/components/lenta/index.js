@@ -29,14 +29,14 @@ const text = (` Ищу модель, что бы протестировать к
 
     Пишите, девачки :*:*:*:*`)
 
-const url = 'https://masters-client.onrender.com/'
+
 export default function Lenta({ color , nikname }) {
     const fetcher = (...args) => fetch(...args).then(res => res.json())
     const [model, setViewText] = useState(false)
     const [message, setMessage] = useState(false)
     const profile = useSelector(state => state.counter.profile)
 
-    const { data } = useSWR(`https://masters-client.onrender.com/getlists?dir=${nikname}`, fetcher)
+    const { data } = useSWR(`${process.env.url}getlists?dir=${nikname}`, fetcher)
    
     function Saved_image(a) {
         let pro = JSON.parse(localStorage.getItem('profile'))
@@ -69,7 +69,7 @@ export default function Lenta({ color , nikname }) {
                 <div className={styles.part_images}>
                     {data?.filter((i, index) => index % 2 === 0).map(i =>
                         <div key={i}>
-                            <img alt={i} src={url + 'var/data/' + nikname + '/' + i} />
+                            <img alt={i} src={process.env.url + 'var/data/' + nikname + '/' + i} />
                             {profile.status === 'client' ?
                                 <span
                                     className={styles.save__image}
@@ -81,7 +81,7 @@ export default function Lenta({ color , nikname }) {
                 <div className={styles.part_images}>
                     {data?.filter((i, index) => index % 2 !== 0).map(i =>
                         <div key={i}>
-                            <img alt={i} src={url + 'var/data/' + nikname + '/' + i} />
+                            <img alt={i} src={process.env.url + 'var/data/' + nikname + '/' + i} />
                             {profile.status === 'client' ?
                                 <span
                                     className={styles.save__image}

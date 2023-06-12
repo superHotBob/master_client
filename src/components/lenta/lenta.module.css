@@ -98,6 +98,7 @@
     margin-bottom: 6px;
     width: 100%;
     height: auto;
+    cursor: e-resize;
 }
 
 .need_model_main {

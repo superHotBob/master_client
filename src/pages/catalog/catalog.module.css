@@ -17,8 +17,7 @@
     font-size: 30px;    
     line-height: 29px; 
     font-weight: 800;   
-    text-align: left;
-    /* font-family: '__myFont_1c1004'; */
+    text-align: center;  
     margin: 8px 0;   
     color: #fff;
     background-position: center;
@@ -28,7 +27,7 @@
 
 .master {
     background-image: url('/image/background2.jpg');
-    text-align: center;
+   
     line-height: 55px;
 }
 .city {

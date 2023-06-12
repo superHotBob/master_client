@@ -5,15 +5,11 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 export default function Chat() {
-    const [chat, setchat] = useState()
-    const [my_chat, setmychat] = useState()  
+    const [chat, setchat] = useState()  
     const [resive, setresive] = useState(true) 
     const router = useRouter()
     useEffect(() => {
-        const profile = JSON.parse(localStorage.getItem('profile'))
-        const myChat = JSON.parse(localStorage.getItem('chat'))
-        setmychat(myChat)
-        console.log(myChat)
+        const profile = JSON.parse(localStorage.getItem('profile'))       
         if(!profile){
             return router.push('/')
         }
@@ -34,8 +30,9 @@ export default function Chat() {
         return dt.toLocaleDateString('ru-RU', options_time)
     }
     const NewMessage = (a,b) => {
-        console.log(a,my_chat[b])
-        if(+a > +my_chat[b]) {
+        const myChat = JSON.parse(localStorage.getItem('chat'))
+        console.log(a,myChat[b])
+        if(+a >= +myChat[b]) {
             return false
         } else {
             return true
