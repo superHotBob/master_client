@@ -31,9 +31,9 @@
    
 
 }
-p.new::after {
+.new_message::after {
     content: url('/red.svg');
     position: absolute;
-    top: 25px;
+    top: 34px;
     right: 0;
 }

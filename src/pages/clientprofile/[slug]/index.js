@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import Header from '@/components/header'
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
-import useSWR from 'swr'
+
 import { useDispatch } from 'react-redux'
 import Link from 'next/link'
 
@@ -18,14 +18,13 @@ const sel = {
 
 
 
-const fetcher = (...args) => fetch(...args).then(res => res.json())
+
 
 export default function Client() {
     const router = useRouter()
     const dispatch = useDispatch()
     const { slug } = router.query
-    const profile = useSelector((state) => state.counter.profile)
-    
+    const profile = useSelector((state) => state.counter.profile)    
     const [data, setData] = useState([])
    
 
@@ -38,7 +37,6 @@ export default function Client() {
             fetch(`/api/get_saved_image?nikname=${slug}`)
             .then(res => res.json())
             .then(res => setData(res))
-
         } else { router.push('/') }
     }, [slug])
 
