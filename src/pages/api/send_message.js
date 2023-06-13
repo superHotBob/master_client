@@ -6,14 +6,15 @@ export default async function handler(req, res) {
   
 
   const result = await sql`
-    insert into chat (recipient,recipient_nikname,sendler,sendler_nikname,ms_text,ms_date) 
+    insert into chat (recipient,recipient_nikname,sendler,sendler_nikname,ms_text,ms_date,chat) 
     values (
       ${req.body.recipient},
       ${req.body.recipient_nikname},
       ${req.body.sendler},
       ${req.body.sendler_nikname},     
       ${req.body.ms_text},
-      ${req.body.ms_date}
+      ${req.body.ms_date},
+      ${req.body.chat}
     )  
     returning *
   `

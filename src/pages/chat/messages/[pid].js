@@ -24,31 +24,38 @@ export default function Messages() {
     const profile = useSelector(state => state.counter.profile)
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem("profile"))
+        let ch = JSON.parse(localStorage.getItem("chat"))
+
         setColor(pro)
         if (pid === 'Администратор') {
             addMessage([])
         }
+      
+       
         if (pid === 'Администратор') {
             fetch(`/api/get_from_admin?name=${profile.name}`)
-                .then(res => res.json())
-                .then(res => {
-                    addMessage(res)
-                    Movie()
-                })
-                .catch(err => console.log(err))
+            .then(res => res.json())
+            .then(res => {
+                addMessage(res)
+                Movie()
+            })
+            .catch(err => console.log(err))
         } else {
             if(!pid) {
                 return;
               }
-            console.log(pid)
+           
             fetch(`/api/get_messages_master?my_name=${pro.nikname}&abonent=${pid}`)
                 .then(res => res.json())
                 .then(res => {
                     addMessage(res)
                     Movie()
+                    ch[pid] = res[res.length].ms_date
+                    localStorage.setItem('chat',JSON.stringify(ch))
                 })
                 .catch(err => console.log(err))
         }
+       
     }, [pid,resive])
     function Movie() {
         const objDiv = document.getElementById("section");
@@ -82,6 +89,7 @@ export default function Messages() {
                 .catch(err => console.log(err))
         } else if (profile.status === 'client') {
             const data = {
+                chat: messages.length ? messages[0].chat: Math.random().toFixed(6)*1000000 ,
                 ms_text: ref.current.value,
                 sendler: profile.name,
                 sendler_nikname: profile.nikname,
@@ -100,12 +108,12 @@ export default function Messages() {
                     let d = Date.now()
                     addMessage(messages => [...messages, data ])
                     Movie()
-                   ref.current.value = ''
+                    ref.current.value = ''
                 })
                 .catch(err => console.log(err))
-        } else {
-           
+        } else {           
             const data = {
+                chat: messages.length ? messages[0].chat: Math.random().toFixed(6)*1000000 ,
                 ms_text: ref.current.value,
                 sendler: profile.name,
                 sendler_nikname: profile.nikname,

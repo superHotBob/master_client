@@ -103,7 +103,7 @@ const Master = () => {
                     </nav>
                     {nav_view === 3 ? <Reviews nikname={slug} color={profile.color} /> : null}
                     {nav_view === 1 ? <Services name={slug} color={profile.color} /> : null}
-                    {nav_view === 0 ? <Lenta nikname={slug} color={profile.color} /> : null}
+                    {nav_view === 0 ? <Lenta nikname={slug} color={profile.color} name={profile.name}/> : null}
                     {nav_view === 2 ? <Sertificats nikname={slug} /> : null}
                 </section>
                 <Navi color={gradient} />

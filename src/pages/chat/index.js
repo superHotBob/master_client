@@ -7,9 +7,11 @@ import { useRouter } from 'next/router'
 export default function Chat() {
     const [chat, setchat] = useState()  
     const [resive, setresive] = useState(true) 
+    const [name, setnikname] = useState()
     const router = useRouter()
     useEffect(() => {
-        const profile = JSON.parse(localStorage.getItem('profile'))       
+        const profile = JSON.parse(localStorage.getItem('profile')) 
+        setnikname(profile.name)      
         if(!profile){
             return router.push('/')
         }
@@ -20,9 +22,10 @@ export default function Chat() {
                 setchat(res)
                 let chat = {}
                 res.forEach(element => chat[element.sendler] = element.ms_date)
-                localStorage.setItem('chat',JSON.stringify(chat))
+                
             })
     }, [resive])
+
     const options_time = { month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
 
     const ToDate = (a) => {
@@ -31,11 +34,12 @@ export default function Chat() {
     }
     const NewMessage = (a,b) => {
         const myChat = JSON.parse(localStorage.getItem('chat'))
-        console.log(a,myChat[b])
-        if(+a >= +myChat[b]) {
-            return false
-        } else {
+        console.log(a,myChat ? myChat[b] : 0 )
+        let mm = myChat ? +myChat[b] : 0 
+        if(+a >= mm ) {
             return true
+        } else {
+            return false
         }
     }
     return (
@@ -58,7 +62,7 @@ export default function Chat() {
                         <img src={process.env.url + 'var/data/' + i.sendler_nikname + '/main.jpg'} height={55} width={55} alt="masre" />
                         <div>
                             <p>
-                                <b>{i.sendler}</b>
+                                <b>{i.sendler === name ? i.recipient : i.sendler}</b>
                                 <span>{ToDate(i.ms_date)}</span>
                             </p>
                             <span className={NewMessage(i.ms_date,i.sendler) ? styles.new_message : null}>

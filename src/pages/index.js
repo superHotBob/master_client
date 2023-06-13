@@ -42,7 +42,7 @@ export default function Home() {
     count.current = 0
     fetch(`/api/all_masters_city_service?service=${service}&city=${city.toLowerCase()}`)
     .then(res => res.json())
-    .then(data => setdata(data.map((i, index) => data[index] = { 'id': index + 1 + '', 'master_name': i.name, 'name': i.nikname, image: url_image + i.nikname + '/list__' + services__name[service] + '__0.jpg' })))
+    .then(data => setdata(data.map((i, index) => data[index] = { 'id': index + 1 + '', 'master_name': i.name, 'name': i.nikname, image: process.env.url + 'var/data/' + i.nikname + '/list__' + services__name[service] + '__0.jpg' })))
   
   }, [service])
 

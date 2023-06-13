@@ -48,7 +48,7 @@ export default function Client() {
 
     useEffect(() => {        
         const pro = JSON.parse(localStorage.getItem('profile'))
-        if (pro.nikname.toLowerCase() !== window.location.pathname.replace('/masterprofile/', '')) {
+        if (pro.nikname !== pid) {
             return () => router.push('/enter')
         }
         if (pro) {
@@ -62,7 +62,7 @@ export default function Client() {
         } else {
             router.push('/enter')
         }
-    }, [])
+    }, [pid])
 
 
     function Load(a) {

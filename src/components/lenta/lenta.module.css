@@ -52,7 +52,7 @@
 .save__image::after {
     content: 'Сохранить';
     font-size: 10px;
-    transform: translateX(7px);
+    transform: translate(7px,-2px);
 }
 
 
@@ -98,7 +98,7 @@
     margin-bottom: 6px;
     width: 100%;
     height: auto;
-    cursor: e-resize;
+    cursor: zoom-in;
 }
 
 .need_model_main {
