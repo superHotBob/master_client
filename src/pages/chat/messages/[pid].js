@@ -36,8 +36,7 @@ export default function Messages() {
         }, 500) 
         let new_ch = ch ? ch: {}
         new_ch[pid] = Date.now()                    
-        localStorage.setItem('chat',JSON.stringify(new_ch))
-        
+        localStorage.setItem('chat',JSON.stringify(new_ch))        
     }
     
 
@@ -88,28 +87,29 @@ export default function Messages() {
         if (!ref.current.value) {
             return
         }
-        if (pid === 'администратор') {
-            const data = {
-                text: ref.current.value,
-                user: profile.name,
-                user_nikname: profile.nikname,
-                date: Date.now()
-            }
+        // if (pid === 'администратор') {
+        //     const data = {
+        //         text: ref.current.value,
+        //         user: profile.name,
+        //         user_nikname: profile.nikname,
+        //         date: Date.now()
+        //     }
            
-            fetch('/api/send_to_admin', {
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                method: 'POST',
-            })
-                .then(res => {
-                    let d = Date.now()
-                    addMessage(messages => ([...messages, { ms_user: profile.name, ms_text: ref.current.value, ms_date: d }]))
-                    Movie()
-                })
-                .catch(err => console.log(err))
-        } else if (profile.status === 'client') {
+        //     fetch('/api/send_to_admin', {
+        //         body: JSON.stringify(data),
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         method: 'POST',
+        //     })
+        //         .then(res => {
+        //             let d = Date.now()
+        //             addMessage(messages => ([...messages, { ms_user: profile.name, ms_text: ref.current.value, ms_date: d }]))
+        //             Movie()
+        //         })
+        //         .catch(err => console.log(err))
+        // } else 
+        if (pid !== 'администратор') {
             const data = {
                 chat: client.length > 0 ? client[0].chat: Math.random().toFixed(6)*1000000 ,
                 ms_text: ref.current.value,
@@ -141,7 +141,7 @@ export default function Messages() {
                 sendler: profile.name,
                 sendler_nikname: profile.nikname,
                 recipient_nikname: pid,
-                recipient: router.query.name,
+                recipient: pid ,
                 ms_date: Date.now()
             }
             fetch('/api/send_message', {
@@ -152,8 +152,7 @@ export default function Messages() {
                 method: 'POST',
             })
                 .then(res => {
-                    let d = Date.now()
-                    // addMessage(messages => [...messages,data])
+                    let d = Date.now()                  
                     Movie()
                    
                     ref.current.value = ''

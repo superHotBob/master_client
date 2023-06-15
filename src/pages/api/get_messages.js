@@ -5,10 +5,8 @@ export default async function handler(req, res) {
 
   const result = await sql`
         select * from (
-        select distinct on ( chat ) *
-         
-        from  chat
-       
+        select distinct on ( chat ) *         
+        from  chat       
         where recipient_nikname = ${req.query.nikname} or sendler_nikname =  ${req.query.nikname}
         order by chat, ms_date desc
         ) chat

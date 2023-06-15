@@ -9,7 +9,7 @@ export default async function handler(req, res) {
   where ms_user = ${req.query.name} 
   
   `
-  console.log(result)
+  
   if (result.length>0) {
     res.status(200).json(result)
   } else {

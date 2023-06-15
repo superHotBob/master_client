@@ -31,12 +31,13 @@ export default function Chat() {
         }
         return message_date.toLocaleDateString('ru-RU', options)
     }
-    const NewMessage = (a, b) => {
-        const myChat = JSON.parse(localStorage.getItem('chat'))
-       
-        let time_last_message = (myChat ? +myChat[b] : 0)
-       
-        if (+a >= +time_last_message) {
+    const NewMessage = (a, b, c) => {        
+        if(c === name) {return false}
+        const myChat = JSON.parse(localStorage.getItem('chat')) 
+           
+        let time_last_message = (myChat ? myChat[c]??0 : 0)  
+            
+        if (+a >= time_last_message) {
             return true
         } else {
             return false
@@ -57,7 +58,7 @@ export default function Chat() {
                     {data?.map(i =>
                         <Link 
                             href={'/chat/messages/' + (i.sendler_nikname === name ? i.recipient_nikname : i.sendler_nikname) + '?name=' + (i.sendler === name ? i.recipient : i.sendler)}
-                            key={i.sendler}
+                            key={i.recipient}
                             className={styles.chat}
                         >
                             <img src={process.env.url + 'var/data/' + (i.sendler_nikname === name ? i.recipient_nikname : i.sendler_nikname) + '/main.jpg'} alt="master" />
@@ -66,7 +67,7 @@ export default function Chat() {
                                     <b>{i.sendler_nikname === name ? i.recipient : i.sendler}</b>
                                     <span>{My_Date(i.ms_date)}</span>
                                 </p>
-                                <span className={NewMessage(i.ms_date, i.sendler_nikname) ? styles.new_message : null}>
+                                <span className={NewMessage(i.ms_date, i.recipient_nikname, i.sendler_nikname) ? styles.new_message : null}>
                                     {i.ms_text}
                                 </span>
                             </div>
