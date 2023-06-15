@@ -35,7 +35,7 @@ export default function Chat() {
         const myChat = JSON.parse(localStorage.getItem('chat'))
        
         let time_last_message = (myChat ? +myChat[b] : 0)
-        console.log(a,+myChat[b])
+       
         if (+a >= +time_last_message) {
             return true
         } else {

@@ -90,6 +90,10 @@
     line-height: 25px;
     
 }
+.client p img {
+    
+    margin: 0 0 -6px 5px;
+}
 .master p {
     color: #bbb;
 }

@@ -1,11 +1,12 @@
 import Header from "@/components/header"
 import { useEffect, useRef, useState } from "react"
+import check from '../../../../public/check.svg'
 import styles from './messages.module.css'
 import { useSelector } from "react-redux"
 import { useRouter } from "next/router"
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 import useSWR from 'swr'
-
+import Image from 'next/image'
 const options = {
     month: 'long',
     day: 'numeric',
@@ -26,7 +27,7 @@ export default function Messages() {
     const profile = useSelector(state => state.counter.profile)
 
     const { data: client , error, isLoading } = useSWR(`/api/get_messages_master?my_name=${profile.nikname}&abonent=${pid}`, fetcher, { refreshInterval: 5000 })  
-   
+    const { data: read } = useSWR(`/api/set_view_message?my_name=${profile.nikname}&name=${pid}`, fetcher)  
     if(client) {
         console.log(client)
         let ch = JSON.parse(localStorage.getItem("chat"))
@@ -36,7 +37,7 @@ export default function Messages() {
         let new_ch = ch ? ch: {}
         new_ch[pid] = Date.now()                    
         localStorage.setItem('chat',JSON.stringify(new_ch))
-        // addMessage(client)
+        
     }
     
 
@@ -177,14 +178,18 @@ export default function Messages() {
                         {i.sendler === profile.name ?
                             <div className={styles.client}>
                                 {i.ms_text}
-                                <p>{My_Date(+i.ms_date)}</p>
+                                <p>{My_Date(+i.ms_date)}
+                                {i.read ? <Image height={20} width={20} alt="check" src="/check_to.svg" /> : null}
+                                </p>
                             </div>
                             :
                             <div className={styles.wrap_master}>
                                 <img title={i.sendler} src={process.env.url + 'var/data/' + i.sendler_nikname + '/main.jpg' } height={50} width={50} alt="master" />
                                 <div className={styles.master}>
                                     {i.ms_text}
-                                    <p>{My_Date(+i.ms_date)}</p>
+                                    <p>{My_Date(+i.ms_date)}
+                                    
+                                    </p>
                                 </div>
                             </div>
                         }
