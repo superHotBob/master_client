@@ -3,40 +3,40 @@ import styles from './chat.module.css'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
+const fetcher = (...args) => fetch(...args).then(res => res.json())
+import useSWR from 'swr'
 
 export default function Chat() {
-    const [chat, setchat] = useState()  
-    const [resive, setresive] = useState(true) 
-    const [name, setnikname] = useState()
+    
+    const [resive, setresive] = useState(true)
+    const name = useSelector(state=>state.counter.profile['nikname'])
+
+    const { data, error } = useSWR(`/api/get_messages?nikname=${name}`, fetcher, { refreshInterval: 30000 })
+   
     const router = useRouter()
-    useEffect(() => {
-        const profile = JSON.parse(localStorage.getItem('profile')) 
-        setnikname(profile.name)      
-        if(!profile){
-            return router.push('/')
-        }
-        
-        fetch(`/api/get_messages?nikname=${profile.nikname}`)
-            .then(res => res.json())
-            .then(res => {
-                setchat(res)
-                let chat = {}
-                res.forEach(element => chat[element.sendler] = element.ms_date)
-                
-            })
-    }, [resive])
-
-    const options_time = { month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
-
-    const ToDate = (a) => {
-        const dt = new Date(+a)
-        return dt.toLocaleDateString('ru-RU', options_time)
+   
+    if (data) {
+        console.log(data)
     }
-    const NewMessage = (a,b) => {
+    if(error) return router.push('/')
+
+    const options = { month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+
+    function My_Date(a) {
+        const message_date = new Date(+a)
+        const current_date = new Date()
+        if (message_date.getDate() === current_date.getDate()) {
+            return message_date.toLocaleDateString('ru-RU', options).slice(-5)
+        }
+        return message_date.toLocaleDateString('ru-RU', options)
+    }
+    const NewMessage = (a, b) => {
         const myChat = JSON.parse(localStorage.getItem('chat'))
-        console.log(a,myChat ? myChat[b] : 0 )
-        let mm = myChat ? +myChat[b] : 0 
-        if(+a >= mm ) {
+       
+        let time_last_message = (myChat ? +myChat[b] : 0)
+        console.log(a,+myChat[b])
+        if (+a >= +time_last_message) {
             return true
         } else {
             return false
@@ -47,31 +47,32 @@ export default function Chat() {
             <Header sel="/" text="Чаты" />
             <section>
                 <Link href='/chat/messages/администратор' className={styles.chat}>
-                    <img src="/chat/администратор.jpg" height={55} width={55} alt="master" />
+                    <img src="/chat/администратор.jpg" alt="master" />
                     <div>
-                        <p><b>Администратор</b><span>{12 + ':' + 33}</span></p>
+                        <p><b>Администратор</b><span>{'12:33'}</span></p>
                         <span>Отвечу на любые вопросы</span>
                     </div>
                 </Link>
-                <div onClick={()=>setresive(!resive)}>
-                {chat?.map(i =>
-                    <Link href={'/chat/messages/' + i.sendler_nikname + '?name=' + i.sendler}
-                        key={i.sendler}
-                        className={styles.chat}
-                    >
-                        <img src={process.env.url + 'var/data/' + i.sendler_nikname + '/main.jpg'} height={55} width={55} alt="masre" />
-                        <div>
-                            <p>
-                                <b>{i.sendler === name ? i.recipient : i.sendler}</b>
-                                <span>{ToDate(i.ms_date)}</span>
-                            </p>
-                            <span className={NewMessage(i.ms_date,i.sendler) ? styles.new_message : null}>
-                                {i.ms_text}
-                            </span>
-                        </div>
+                <div onClick={() => setresive(!resive)}>
+                    {data?.map(i =>
+                        <Link 
+                            href={'/chat/messages/' + (i.sendler_nikname === name ? i.recipient_nikname : i.sendler_nikname) + '?name=' + (i.sendler === name ? i.recipient : i.sendler)}
+                            key={i.sendler}
+                            className={styles.chat}
+                        >
+                            <img src={process.env.url + 'var/data/' + (i.sendler_nikname === name ? i.recipient_nikname : i.sendler_nikname) + '/main.jpg'} alt="master" />
+                            <div>
+                                <p>
+                                    <b>{i.sendler_nikname === name ? i.recipient : i.sendler}</b>
+                                    <span>{My_Date(i.ms_date)}</span>
+                                </p>
+                                <span className={NewMessage(i.ms_date, i.sendler_nikname) ? styles.new_message : null}>
+                                    {i.ms_text}
+                                </span>
+                            </div>
 
-                    </Link>
-                )}
+                        </Link>
+                    )}
                 </div>
 
             </section>

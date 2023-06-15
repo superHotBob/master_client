@@ -6,11 +6,12 @@ export default async function handler(req, res) {
   
 
   const result = await sql`
-    insert into ms_admin (ms_user,ms_text,ms_date) 
+    insert into ms_admin (ms_user,ms_text,ms_date,ms_user_nikname) 
     values (
       ${req.body.user},     
       ${req.body.text},
-      ${req.body.date}
+      ${req.body.date},
+      ${req.body.user_nikname}
     )  
     returning *
   `

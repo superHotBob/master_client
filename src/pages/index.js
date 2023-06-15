@@ -34,16 +34,39 @@ export default function Home() {
   const [data, setdata] = useState([])
  
   const count = useRef(0)
+  const ref = useRef(null)
 
+  function handleScroll() {
+    
+    let sss =  window.pageYOffset + window.innerHeight
+    const mm = document.getElementById("myDiv")
+    let zzz = mm.clientHeight + mm.offsetTop
+    if(zzz > sss ) {
+     return console.log(zzz - sss)
+     
+      // document.getElementById("myDiv").style.backgroundColor = 'red';
+    } else {
+      
+      Plus()
+    }
+    
+  }
+  // useEffect(() => {
+  //   const element = ref.current
 
-  
+  //   window.addEventListener('scroll', handleScroll);
+
+  //   return () => {
+  //     window.removeEventListener('scroll', handleScroll);
+  //   };
+  // }, []);
   useEffect(() => {
-    setdata([])
+    setdata([])   
     count.current = 0
     fetch(`/api/all_masters_city_service?service=${service}&city=${city.toLowerCase()}`)
     .then(res => res.json())
     .then(data => setdata(data.map((i, index) => data[index] = { 'id': index + 1 + '', 'master_name': i.name, 'name': i.nikname, image: process.env.url + 'var/data/' + i.nikname + '/list__' + services__name[service] + '__0.jpg' })))
-  
+   
   }, [service])
 
   // useEffect(() => {
@@ -76,6 +99,7 @@ export default function Home() {
     setdata([...m])
   };
   const Plus = () => {
+    console.log('plus', count.current)
     count.current = count.current + 1
     let new_arr = []
     data.filter(i => i.id < 10).forEach(i => new_arr.push({ 'id': i.id + count.current, 'master_name': i.master_name, 'name': i.name, 'image': url_image + i.name + '/list__' + services__name[service] + '__' + count.current + '.jpg' }))
@@ -88,11 +112,14 @@ export default function Home() {
   }
 
   const View = (a, b, c) => viewImage({ name: a, image: b, master_name: c })
- 
+  const MyhandleScroll = event => {
+    setScrollTop(event.currentTarget.scrollTop);
+    console.log(event.currentTarget.scrollTop)
+  };
   return (
-    <>
+    <div onScroll={MyhandleScroll} >
       <Header />
-      <section className={styles.section}>
+      <section className={styles.section} >
         <Message text='Masters.place показывает самые крутые и 
             актуальные работы мастеров в вашем городе. Вы 
             можете выбрать понравившуюся работу и написать
@@ -103,7 +130,7 @@ export default function Home() {
           <span className={styles.my_city}>{city}</span>
         </Link>
         <FilterServices />
-        <div className={styles.images}>
+        <div className={styles.images} id="myDiv"  ref={ref}>
           <div className={styles.images_one}>
             {data?.filter((i, index) => index % 2 === 0).map(i =>
               <img
@@ -136,6 +163,6 @@ export default function Home() {
         <button id="add__images" className={styles.add__images} onClick={Plus}>+</button>
         {view_image ? <ViewImage  view_image={view_image} url_image={url_image} viewImage={viewImage} />:null}
       </section>      
-    </>
+    </div>
   )
 }
