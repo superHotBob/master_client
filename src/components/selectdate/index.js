@@ -62,16 +62,20 @@ export default function SelectDate({ name, price, order, close, nikname }) {
 
     useEffect(()=>{       
         let day = d.getDate()
-        let all_day = Array.from({length: day}, (v,i)=>i+1)        
-        set_false_days(all_day) 
+        
+        if(month > mon) {                  
+            set_false_days([]) 
+        } else {
+            let all_day = Array.from({length: day}, (v,i)=>i+1)        
+            set_false_days(all_day) 
+        }
            
         fetch(`/api/get_patern?nikname=${nikname}`)
         .then(res => res.json())
         .then(res => setPatern(res))
         fetch(`/api/get_schedule?nikname=${nikname}&month=${my_months[month].toLowerCase()}`)
         .then(res => res.json())
-        .then(data => {
-            console.log('data',data)  
+        .then(data => {            
             fetch(`/api/get_orders_master_month?nikname=${nikname}&month=${my_months[month]}`)
             .then(res => res.json())
             .then(res => {
@@ -148,7 +152,7 @@ export default function SelectDate({ name, price, order, close, nikname }) {
         }
         return 0
     }
-    function Set_Active_Day(a,b) {
+    function Set_Active_Day(a,b) {        
         if (false_days.includes(a) || b === 0 ) {
             return
         } else {
@@ -165,12 +169,12 @@ export default function SelectDate({ name, price, order, close, nikname }) {
         } else {
             return
         }
-        console.log(active_time)
+        
     }
     function SetMonth(a) {
         let m = my_months.findIndex(i => i === a)
-        setMonth(m)
-        console.log(m)
+        setMonth(m)       
+        setActive_Day(0)   
     }
     return (
         <>
@@ -231,7 +235,7 @@ export default function SelectDate({ name, price, order, close, nikname }) {
                 <h4>
                     Заказ создан, свяжитесь с мастером, что-бы <br /> не потерять друг-друга.
                 </h4>
-                <Link href="/chat" >Открыть чат с мастером</Link>
+                <Link href={`/chat/messages/${nikname}?name=${name}`}>Открыть чат с мастером</Link>
                 <h6 onClick={() => setgoodorder(false)}>Закрыть</h6>
             </div> : null}
         </>

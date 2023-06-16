@@ -3,7 +3,7 @@ import postgres from "postgres"
 export default async function handler(req, res) {
   const sql = postgres(`postgres://bobozeranski:${process.env.DATABASE_API}@ep-yellow-mountain-679652.eu-central-1.aws.neon.tech/neondb?sslmode=require&options=project%3Dep-yellow-mountain-679652`)
   
-   if( req.body.recipient_nikname === 'администратор') {
+   if( req.body.recipient_nikname === 'администратор' || req.body.sendler_nikname === 'администратор') {
     const result = await sql`
     insert into adminchat (recipient,recipient_nikname,sendler,sendler_nikname,ms_text,ms_date,chat) 
     values (
@@ -17,7 +17,8 @@ export default async function handler(req, res) {
     )  
     returning *
   `
-  res.send('Ok')    
+  res.send('Ok')  
+
 
    } else {
     const result = await sql`

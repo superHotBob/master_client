@@ -127,7 +127,7 @@ export default function Records() {
                                     <span
                                         onClick={() => FilterDay(i)}
                                         key={i}
-                                        style={active_day === i ? { backgroundColor: profile.color[1], color: '#fff' } : { backgroundColor: profile.color[2], color: profile.color[1] }}
+                                        style={active_day === i && Count(i) > 0 ? { backgroundColor: profile.color[1], color: '#fff' } : { backgroundColor: profile.color[2], color: profile.color[1] }}
                                     >
                                         {i}
                                         {Count(i) > 0 ? <b style={{ backgroundColor: profile.color[1], color: profile.color[2], display: Count(i) ? 'inline-block' : 'none' }} className={styles.count}>{Count(i)}</b> : null}

@@ -183,7 +183,15 @@ export default function Messages() {
                             </div>
                             :
                             <div className={styles.wrap_master}>
-                                <img title={i.sendler} src={process.env.url + 'var/data/' + i.sendler_nikname + '/main.jpg' } height={50} width={50} alt="master" />
+                                <img 
+                                    title={i.sendler} 
+                                    src={i.sendler === 'администратор' ? 
+                                    "/chat/администратор.jpg" :
+                                    process.env.url + 'var/data/' + i.sendler_nikname + '/main.jpg' 
+                                    } 
+                                    height={50} width={50} 
+                                    alt="master" 
+                                />
                                 <div className={styles.master}>
                                     {i.ms_text}
                                     <p>{My_Date(+i.ms_date)}
