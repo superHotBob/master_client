@@ -3,11 +3,11 @@ import styles from './enter.module.css'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setphone,setpassword } from '@/reduser'
+import { setphone, setpassword } from '@/reduser'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 
-// const url = 'http://localhost:5000'
+
 
 
 
@@ -17,7 +17,7 @@ export default function Enter() {
 
     const [phone, setPhone] = useState()
     const dispatch = useDispatch()
-    const password = useSelector(state=>state.counter.password)
+    const password = useSelector(state => state.counter.password)
     const router = useRouter()
     const [number, setNumber] = useState([, , ,])
     const [back, setBack] = useState('logo-main.svg')
@@ -37,16 +37,15 @@ export default function Enter() {
         const data = { tel: phone }
         setBack("await.gif")
         fetch(`/api/check_client?phone=${phone}`)
-        .then(res => res.json())
-        .then(res => {
-           
-            if (res[0]?.phone && !password) {
-                dispatch(setphone(phone))
-                router.push('/enterpassword')
-            } else  {
-                Call()
-            }
-        })
+            .then(res => res.json())
+            .then(res => {
+                if (res[0]?.phone && !password) {
+                    dispatch(setphone(phone))
+                    router.push('/enterpassword')
+                } else {
+                    Call()
+                }
+            })
         function Call() {
             fetch(`${process.env.url}/call`, {
                 body: JSON.stringify(data),
@@ -58,13 +57,10 @@ export default function Enter() {
                 .then(res => {
                     if (res.status === 200) {
                         setSelect('Подтвердить'),
-                        setBack("logo-main.svg"),
-                        
-                        setTimeout(() => document.getElementById(0).focus(), 500)
-                                                
-                            dispatch(setphone(phone))
-                       
-                       
+                            setBack("logo-main.svg"),
+                            setTimeout(() => document.getElementById(0).focus(), 500)
+                        dispatch(setphone(phone))
+
                     } else {
                         setT(60)
                         setBack("logo-main.svg")

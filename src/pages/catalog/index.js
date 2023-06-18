@@ -48,7 +48,7 @@ export default function Catalog() {
                     "Политика обработки персональных данных", 'Публичная оферта'].map((i, index) =>
                         <Link key={index} className={styles.info} href="/">{i}</Link>
                     )}
-                <h6 className={styles.agreement}>© 2022 – 2023 Некоммерческая организация. Все права защищены.</h6>
+                <span className={styles.agreement}>© 2022 – 2023 Некоммерческая организация. Все права защищены.</span>
             </section>
 
         </>

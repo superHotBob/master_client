@@ -64,7 +64,7 @@ export default function Lenta({ color, nikname, name }) {
     return <>
         <div onClick={() => setViewText(true)} className={styles.model} style={{ background: color[0] }}>
             <h3>Нужна модель</h3>
-            <h6>15 сентября, бесплатно</h6>
+            <span>15 сентября, бесплатно</span>
         </div>
         <dialog open={message} className={styles.message}>
             Изображение сохранено

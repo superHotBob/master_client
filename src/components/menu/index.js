@@ -1,10 +1,10 @@
 import styles from './menu.module.css'
-import { useDispatch, useSelector } from 'react-redux'
-import { setclient, setprofile } from "@/reduser"
+import { useDispatch } from 'react-redux'
+import { setprofile } from "@/reduser"
 import { useRouter } from "next/router"
 import Link from 'next/link'
 
-import useSWR from 'swr'
+
 
 const style = {
     backdropFilter: 'none',
@@ -14,14 +14,12 @@ const login = {
     backgroundImage: "url('/login.svg')"
 }
 
-export default function Menu() {
+export default function Menu({count,profile}) {
 
     const dispatch = useDispatch()
    
     const router = useRouter()
-    const profile = useSelector((state) => state.counter.profile)
-    const fetcher = (...args) => fetch(...args).then(res => res.json())
-    const { data } = useSWR(profile.status === 'master' ?`/api/get_orders_master?nikname=${profile.nikname}`: null, fetcher)
+   
    
 
 
@@ -41,7 +39,7 @@ export default function Menu() {
         {profile.status === 'master' ? <main className={styles.main_menu}>
             <p className={styles.menu_prof}>Меню профиля</p>
             <Link href='/chat'>Сообщения</Link>
-            <Link href="/masterrecords" className={styles.records_on_seans}>Записи на сеанс<span>{data?.length}</span></Link>
+            <Link href="/masterrecords" className={styles.records_on_seans}>Записи на сеанс<span>{count}</span></Link>
             <Link href="/calendar" className={styles.shedule} >Календарь работы</Link>
             <Link href="/addmasterorder" className={styles.add}>Добавить запись</Link>
             <Link href="/masterrecords" className={styles.collections}>Мои заказы</Link>

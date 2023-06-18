@@ -9,7 +9,8 @@ import ClientOrder from '@/components/clientorder'
 const url = 'https://masters-client.onrender.com'
 const sel = {
     background: 'linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)',
-    fontWeight: 600,
+    // background: '#5E2AF0',
+    fontWeight: 500,
     color: '#fff'
 }
 
@@ -26,19 +27,24 @@ export default function Client() {
     const [data, setData] = useState([])
     const [viewOrder, setviewOrder] = useState(false)
     const [orderIndex, setOrderIndex] = useState()
-
-
+   
+   
 
     const close = () => setviewOrder(false)
 
     useEffect(() => {
-        let pro = JSON.parse(localStorage.getItem('profile'))
-        if (pro.nikname === slug) {
-            fetch(`/api/get_orders_client?nikname=${pro.nikname}`)
-                .then(res => res.json())
-                .then(res => setData(res))
-        } else { router.push('/') }
-    }, [])
+        console.log(Object.keys(profile).length)
+        if(Object.keys(profile).length === 0) {
+            router.push('/')
+        } else {
+            fetch(`/api/get_orders_client?nikname=${slug}`)
+            .then(res => res.json())
+            .then(res => setData(res))
+        }
+          
+        
+    }, [slug,router])
+   
 
     function SetViewOrder(a) {
         setviewOrder(true)
@@ -59,7 +65,7 @@ export default function Client() {
     }
 
     return (
-        <main className={styles.main}>
+        <>
             <Header text={profile.nikname} sel="back" />
             <div className={styles.profile} style={{ backgroundImage: "url(" + url + '/var/data/' + profile.nikname + '/main.jpg)' ? "url(" + url + '/var/data/' + profile.nikname + '/main.jpg)' : "url(/camera_bl.svg" }}>
                 <h2>{profile.name}</h2>
@@ -87,6 +93,6 @@ export default function Client() {
                 </div>
             )}
             {viewOrder ? <ClientOrder order={data[orderIndex]} active={ActiveOrder(data[orderIndex].date_order)} close={close} /> : null}
-        </main>
+        </>
     )
 }

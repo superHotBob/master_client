@@ -16,7 +16,7 @@
 .main_menu p, .main_menu a {
     text-align: left;
     display: block;
-    cursor: pointer;
+    
     font-weight: 400;
     font-size:  16px;
     line-height: 31px;
@@ -29,10 +29,7 @@ p.menu_prof {
     font-weight: 500;
     margin: 15px 0;
 }
-.main_menu p:hover {
-    transform: scale(1.03);
-    transition: all 0.5s;
-}
+
 .main_menu a:first-of-type {
     background-image: url('/message_menu.svg');
 }
@@ -57,11 +54,11 @@ p.copy {
     height: 16px;
     text-align: center;
     width: 16px;
-    background-color: red;
+    background-color: #FD4D4D;
     border-radius: 100%;
     font-weight: 500;
     font-size: 10px;
-    line-height: 18px;
+    line-height: 16px;
     vertical-align: text-bottom;
 }
 .chat {

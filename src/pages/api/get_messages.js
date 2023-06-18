@@ -7,7 +7,7 @@ export default async function handler(req, res) {
         select * from (
         select distinct on ( chat ) *         
         from  chat       
-        where recipient_nikname = ${req.query.nikname} or sendler_nikname =  ${req.query.nikname}
+        where recipient_nikname = ${req.query.nikname} or sendler_nikname =  ${req.query.nikname} or sendler = 'администратор'
         order by chat, ms_date desc
         ) chat
                 
@@ -16,7 +16,9 @@ export default async function handler(req, res) {
         select * from (
         select distinct on ( chat ) *         
         from  adminchat       
-        where recipient_nikname = ${req.query.nikname} or sendler_nikname =  ${req.query.nikname}
+        where recipient_nikname = ${req.query.nikname} 
+        or sendler_nikname =  ${req.query.nikname}
+        
         order by chat, ms_date desc
         ) chat
                 

@@ -17,10 +17,10 @@
 }
 
 .model h3,
-.model h6 {
+.model span {
     color: #fff;   
 }
-.model h6 {    
+.model span {    
     font-size: 12px;
     font-weight: 400;
     line-height: 25px;
@@ -73,8 +73,8 @@
 
 }
 .message {
-    position: absolute;
-    top: 0;
+    position: fixed;
+    top: 200px;
     z-index: 200;
     left: calc(50% - 150px);
     padding: 30px 10px;

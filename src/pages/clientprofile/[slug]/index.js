@@ -38,7 +38,7 @@ export default function Client() {
             .then(res => res.json())
             .then(res => setData(res))
         } else { router.push('/') }
-    }, [slug])
+    }, [slug, router])
 
    
     function GoToMaster(e, a) {
@@ -68,7 +68,7 @@ export default function Client() {
     }  
 
     return (
-        <main className={styles.main}>
+        <>
             <Header text={profile.nikname} sel="back" />
             <div className={styles.profile} style={{ backgroundImage: "url(" + process.env.url + '/var/data/' + profile.nikname + '/main.jpg)' ? "url(" + url + '/var/data/' + profile.nikname + '/main.jpg)' : "url(/camera_bl.svg" }}>
                 <h2>{profile.name}</h2>
@@ -90,12 +90,13 @@ export default function Client() {
                             <img 
                                 title={i.slice(0, i.indexOf('/'))} 
                                 onClick={(e) => GoToMaster(e, i)} 
-                                alt="image" src={process.envurl + '/var/data/' + i}
+                                alt="image" src={process.env.url + 'var/data/' + i}
                                 onLoad={()=>Loaded(i)} 
                             />
                             <span
                                 className={styles.save__image}
                                 onClick={() => Delete_image(i)}
+                                title="удалить"
                             />
                         </div>
                     )}
@@ -107,12 +108,13 @@ export default function Client() {
                                 title={i.slice(0, i.indexOf('/'))} 
                                 onClick={(e) => GoToMaster(e, i)} 
                                 alt="image" 
-                                src={process.env.url + '/var/data/' + i} 
+                                src={process.env.url + 'var/data/' + i} 
                                 onLoad={()=>Loaded(i)} 
                             />
                             <span
                                 className={styles.save__image}
                                 onClick={() => Delete_image(i)}
+                                title="удалить"
                             />
                         </div>
                     )}
@@ -122,6 +124,6 @@ export default function Client() {
 
 
 
-        </main>
+        </>
     )
 }

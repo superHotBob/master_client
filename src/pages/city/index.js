@@ -64,7 +64,7 @@ export default function City() {
     // }
 
     return (
-        <div className={styles.main}>
+        <>
             <header className={styles.header}>
                 <Image src={arrow} alt="back" onClick={() => router.back()} />
                 <h4>Выбор города</h4>
@@ -96,6 +96,6 @@ export default function City() {
                     <button onClick={AddCity} className={styles.seachcity}>Добавить</button>
                 </div> */}
             </section>
-        </div>
+        </>
     )
 }

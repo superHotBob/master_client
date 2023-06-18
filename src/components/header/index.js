@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { setprofile } from '@/reduser'
 import Menu_icon from '../../components/icons/menu.js'
-
+import useSWR from 'swr'
 
 
 const new_text = {
@@ -25,9 +25,10 @@ const new_text_mes = {
   marginLeft: '-35px'
 }
 
-
+const fetcher = (...args) => fetch(...args).then(res => res.json())
 export default function Header({ sel, text, mes, color = {}, select,view_time }) {
   const profile = useSelector((state) => state.counter.profile)
+  const { data } = useSWR(profile.status === 'master' ?`/api/get_new_orders_master?nikname=${profile.nikname}`: null, fetcher)
   const dispatch = useDispatch()
   const router = useRouter()
   useEffect(() => {
@@ -117,9 +118,10 @@ export default function Header({ sel, text, mes, color = {}, select,view_time })
         onClick={() => menuView(!menu)}
         style={{ backgroundColor: menu ? color[1] || '#3D4EEA' : color[2]}}
       >
-        <Menu_icon color={menu ? color[2] || '#3D4EEA' : color[1] || '#3D4EEA'} type={menu ? 'close' : 'menu'} />
+        {data && !menu? <span className={styles.count}>{data}</span> : null}
+        <Menu_icon  color={menu ? color[2] || '#3D4EEA' : color[1] || '#3D4EEA'} type={menu ? 'close' : 'menu'} />
       </div>     
-      {menu ? <Menu /> : null}
+      {menu ? <Menu  count={data} profile={profile} /> : null}
     </header>
   )
 }

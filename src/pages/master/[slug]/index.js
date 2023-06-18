@@ -41,7 +41,8 @@ const Master = () => {
     const master = useSelector(state => state.counter.master)
 
 
-    useEffect(() => {       
+    useEffect(() => {    
+        console.log(router.pathname)   
         if(!slug){
             return
         }
