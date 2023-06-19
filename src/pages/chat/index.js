@@ -11,16 +11,17 @@ export default function Chat() {
 
     const name = useSelector(state => state.counter.profile['nikname'])
 
-    const { data, error } = useSWR(`/api/get_messages?nikname=${name}`, fetcher, { refreshInterval: 30000 })
+    const { data, error , mutate } = useSWR(`/api/get_messages?nikname=${name}`, fetcher, { refreshInterval: 30000 })
 
     const router = useRouter()
-
-
+    
+    
     if (error) return router.push('/')
 
     const options = { month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
 
     function My_Date(a) {
+        console.log(typeof a)
         const message_date = new Date(+a)
         const current_date = new Date()
         if (message_date.getDate() === current_date.getDate()) {
@@ -44,35 +45,31 @@ export default function Chat() {
         <>
             <Header sel="/" text="Чаты" />
             <section>
-                
-                        {data?.admin.map(i =>
-                            <Link
-                                href='/chat/messages/администратор'
-                                key={i.recipient}
-                                className={styles.chat}
-                            >
-                                <img src="/chat/администратор.jpg" alt="master" />
-                                <div>
-                                    <p>
-                                    <b>Администратор</b>
-                                        <span>{My_Date(i.ms_date)}</span>
-                                    </p>
-                                    <span className={NewMessage(i.ms_date, i.recipient_nikname, i.sendler_nikname) ? styles.new_message : null}>
-                                        {i.ms_text}
-                                    </span>
-                                </div>
-
-                            </Link>
-                        )}
-                   
-                    {data?.admin.length === 0 ? <Link href='/chat/messages/администратор' className={styles.chat}>
+                {data?.admin.map(i =>
+                    <Link
+                        href='/chat/messages/администратор'
+                        key={i.recipient}
+                        className={styles.chat}
+                    >
                         <img src="/chat/администратор.jpg" alt="master" />
                         <div>
-                            <p><b>Администратор</b><span>{'12:33'}</span></p>
-                            <span>Отвечу на любые вопросы</span>
+                            <p>
+                                <b>Администратор</b>
+                                <span>{My_Date(i.ms_date)}</span>
+                            </p>
+                            <span className={NewMessage(i.ms_date, i.recipient_nikname, i.sendler_nikname) ? styles.new_message : null}>
+                                {i.ms_text}
+                            </span>
                         </div>
-                    </Link> : null}
-                
+                    </Link>
+                )}
+                {data?.admin.length === 0 ? <Link href='/chat/messages/администратор' className={styles.chat}>
+                    <img src="/chat/администратор.jpg" alt="master" />
+                    <div>
+                        <p><b>Администратор</b><span>{'12:33'}</span></p>
+                        <span>Отвечу на любые вопросы</span>
+                    </div>
+                </Link> : null}
                 <div>
                     {data?.client.map(i =>
                         <Link

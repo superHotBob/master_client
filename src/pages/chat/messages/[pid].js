@@ -175,7 +175,7 @@ export default function Messages() {
                 {client?.sort((a, b) => a.ms_date - b.ms_date).map(i =>
                     <div key={i.ms_date} className={styles.message}>
                         {i.sendler === profile.name ?
-                            <div className={styles.client}>
+                            <div className={styles.wrap_client}>
                                 {i.ms_text}
                                 <p>{My_Date(+i.ms_date)}
                                 {i.read ? <Image height={20} width={20} alt="check" src="/check_to.svg" /> : null}
@@ -194,9 +194,9 @@ export default function Messages() {
                                 />
                                 <div className={styles.master}>
                                     {i.ms_text}
-                                    <p>{My_Date(+i.ms_date)}
-                                    
-                                    </p>
+                                    <span>
+                                        {My_Date(+i.ms_date)}                         
+                                    </span>
                                 </div>
                             </div>
                         }

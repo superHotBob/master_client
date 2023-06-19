@@ -147,7 +147,7 @@ export default function Records() {
                                 className={styles.order}
                             >
                                 <p>
-                                    <span className={NewOrderText(i.date_order) ? styles.active : null}>
+                                    <span className={i.read ? null : styles.active}>
                                         {i.date_order.replace(',', " ").replace(',', " в ")}
                                     </span>
                                     <span>#{i.id}</span>
@@ -169,7 +169,7 @@ export default function Records() {
                                 className={styles.order}
                             >
                                 <p>
-                                    <span className={i.active ? styles.active : null}>{i.date_order.replace(/,/, ' ')}</span>
+                                    <span className={i.read ? null : styles.active}>{i.date_order.replace(/,/, ' ')}</span>
                                     <span>#{i.id}</span>
                                 </p>
                                 <h3 ><span style={{ color: profile.color[1] }}>{i.client_name || i.client}</span><span style={{ color: profile.color[1] }}>{i.price} BYN</span></h3>

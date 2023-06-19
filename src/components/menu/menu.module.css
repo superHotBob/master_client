@@ -22,6 +22,9 @@
     line-height: 31px;
     background-position: right center;    
 }
+.main_menu p:last-of-type {
+    cursor: pointer;
+}
 p.menu_prof {
     text-align: center;
     color: #3D4EEA;
@@ -47,7 +50,7 @@ p.copy {
 .shedule {
     background-image: url('/calendar.svg'); 
 }
-.records_on_seans span {
+.records_on_seans span, .main_menu a:first-of-type span {
     transform: translate(10px,-1px);
     color: #fff;
     display: inline-block;

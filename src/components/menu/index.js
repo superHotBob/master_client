@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { setprofile } from "@/reduser"
 import { useRouter } from "next/router"
 import Link from 'next/link'
-
+import useSWR from 'swr'
 
 
 const style = {
@@ -13,13 +13,12 @@ const style = {
 const login = {
     backgroundImage: "url('/login.svg')"
 }
-
+const fetcher = (...args) => fetch(...args).then(res => res.json())
 export default function Menu({count,profile}) {
 
-    const dispatch = useDispatch()
-   
+    const dispatch = useDispatch()   
     const router = useRouter()
-   
+    const { data, error, isLoading } = useSWR(`/api/get_new_messages?nikname=${profile.nikname}`, fetcher)
    
 
 
@@ -38,8 +37,14 @@ export default function Menu({count,profile}) {
     <>
         {profile.status === 'master' ? <main className={styles.main_menu}>
             <p className={styles.menu_prof}>Меню профиля</p>
-            <Link href='/chat'>Сообщения</Link>
-            <Link href="/masterrecords" className={styles.records_on_seans}>Записи на сеанс<span>{count}</span></Link>
+            <Link href='/chat'>
+                Сообщения
+                {data ? <span>{data}</span> : null }
+            </Link>
+            <Link href="/masterrecords" className={styles.records_on_seans}>
+                Записи на сеанс
+                {count ? <span>{count}</span> : null }
+            </Link>
             <Link href="/calendar" className={styles.shedule} >Календарь работы</Link>
             <Link href="/addmasterorder" className={styles.add}>Добавить запись</Link>
             <Link href="/masterrecords" className={styles.collections}>Мои заказы</Link>
@@ -53,7 +58,10 @@ export default function Menu({count,profile}) {
             : profile.status === 'client' ?
                 <main className={styles.main_menu}>
                    <p className={styles.menu_prof}>Меню профиля</p>
-                    <Link href='/chat'>Сообщения</Link>
+                    <Link href='/chat'>
+                        Сообщения
+                        {data ? <span>{data}</span> : null }
+                    </Link>
                     <Link href={{
                         pathname: `/clientprofile/${profile.nikname}/orders`,
                       
