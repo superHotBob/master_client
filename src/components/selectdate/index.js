@@ -90,7 +90,7 @@ export default function SelectDate({ name, price, order, close, nikname }) {
             })
         })    
     },[month])
-
+    console.log(order)
 
     // function Next(a) {
     //     // const mon = d.getMonth()

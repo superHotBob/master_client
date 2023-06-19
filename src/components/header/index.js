@@ -28,7 +28,7 @@ const new_text_mes = {
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 export default function Header({ sel, text, mes, color = {}, select,view_time }) {
   const profile = useSelector((state) => state.counter.profile)
-  const { data } = useSWR(profile.status === 'master' ?`/api/get_new_orders_master?nikname=${profile.nikname}`: null, fetcher)
+  const { data } = useSWR(profile.status === 'master' ?`/api/get_new_orders_master?nikname=${profile.nikname}`: null, fetcher )
   const dispatch = useDispatch()
   const router = useRouter()
   useEffect(() => {

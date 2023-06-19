@@ -5,11 +5,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import SelectDate from '@/components/selectdate'
 
-const active = {
-    backgroundColor: '#3D4EEA',
-    color: '#fff',
-    borderRadius: '4px'
-}
+
 
 export default function Recording() {
 
@@ -81,7 +77,8 @@ export default function Recording() {
                     <div className={styles.all_cat}>
                         {category?.map(i =>
                             <span key={i}
-                                onClick={() => set_Active_Category(i)} style={active_category === i ?
+                                onClick={() => set_Active_Category(i)} 
+                                style={active_category === i ?
                                     {
                                         color: '#fff',
                                         fontWeight: 500,

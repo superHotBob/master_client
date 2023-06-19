@@ -47,7 +47,7 @@ export default function Enter() {
                 }
             })
         function Call() {
-            fetch(`${process.env.url}/call`, {
+            fetch('https://masters-client.onrender.com/call', {
                 body: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json',
@@ -87,7 +87,7 @@ export default function Enter() {
     async function SendCode(event) {
         event.preventDefault()
         const data = { tel: phone, number: +number.join('') }
-        fetch(`${process.env.url}/code`, {
+        fetch('https://masters-client.onrender.com/code', {
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',

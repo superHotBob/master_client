@@ -35,12 +35,13 @@ export default function Home() {
  
   const count = useRef(0)
   const ref = useRef(null)
-  // const { data:images, error, isLoading } = useSWR(`/api/all_masters_city_service?service=${service}&city=${city.toLowerCase()}`, fetcher)
+  const { data:images, error } = useSWR(`/api/all_masters_city_service?service=${service}&city=${city.toLowerCase()}`, fetcher)
 
-  // if(images) {
-  //   // setdata(images.map((i, index) => data[index] = { 'id': index + 1 + '', 'master_name': i.name, 'name': i.nikname, image: process.env.url + 'var/data/' + i.nikname + '/list__' + services__name[service] + '__0.jpg' }))
-  //   console.log('images')
-  // }
+  if(images) {
+    // setdata(images.map((i, index) => data[index] = { 'id': index + 1 + '', 'master_name': i.name, 'name': i.nikname, image: process.env.url + 'var/data/' + i.nikname + '/list__' + services__name[service] + '__0.jpg' }))
+   
+    // mutate({...images,nikname:newName})
+  }
   
   
   useEffect(() => {

@@ -32,8 +32,7 @@ export default function Client() {
 
     const close = () => setviewOrder(false)
 
-    useEffect(() => {
-        console.log(Object.keys(profile).length)
+    useEffect(() => {        
         if(Object.keys(profile).length === 0) {
             router.push('/')
         } else {
@@ -56,8 +55,10 @@ export default function Client() {
     function ActiveOrder(a) {
         let date_order = a.split(',')
         let mon = months.indexOf(date_order[1])
-        let d = new Date();
-        if (mon >= d.getMonth() && +date_order[0] >= d.getDate()) {
+        let d = new Date();        
+        if (mon >= d.getMonth()) {
+            return true
+        } else if (mon === d.getMonth()  && +date_order[0] >= d.getDate() ){      
             return true
         } else {
             return false

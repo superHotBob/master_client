@@ -8,5 +8,5 @@ export default async function handler(req, res) {
       set read = 'true'    
       where sendler_nikname =  ${req.query.name} and recipient_nikname = ${req.query.my_name}             
     `
-  
+  res.send('Ok')
 }
