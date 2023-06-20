@@ -18,9 +18,9 @@ const activ_month = {
 }
 
 export default function SelectDate({ name, price, order, close, nikname }) {
-   
+
     const days = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"]
-    const months = ['Декабрь','Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сетнябрь',
+    const months = ['Декабрь', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сетнябрь',
         'Октябрь', 'Ноябрь', 'Декабрь']
 
     const d = new Date()
@@ -40,14 +40,14 @@ export default function SelectDate({ name, price, order, close, nikname }) {
     const [patern, setPatern] = useState([])
     const [schedule, setSchedule] = useState([])
     const [orders, setOrders] = useState([])
-    
+
     const all_days = new Date(2023, month, 0)
     const profile = useSelector(state => state.counter.profile)
     const year = new Date().getFullYear()
     const day = new Date(year, month - 1, 1)
     let v = days.indexOf(days[day.getDay() - 1])
-    
-   
+
+
     // async function GetDate() {
     //     const response = await fetch(`/api/date_services_master?master=${nikname}`, {
     //         headers: {
@@ -59,37 +59,37 @@ export default function SelectDate({ name, price, order, close, nikname }) {
     //     let new_result = result.map(i => i.date_order.split(','))
     //     set_false_date(new_result)
     // }
-
-    useEffect(()=>{       
+    console.log(order)
+    useEffect(() => {
         let day = d.getDate()
-        
-        if(month > mon) {                  
-            set_false_days([]) 
+
+        if (month > mon) {
+            set_false_days([])
         } else {
-            let all_day = Array.from({length: day}, (v,i)=>i+1)        
-            set_false_days(all_day) 
+            let all_day = Array.from({ length: day }, (v, i) => i + 1)
+            set_false_days(all_day)
         }
-           
+
         fetch(`/api/get_patern?nikname=${nikname}`)
-        .then(res => res.json())
-        .then(res => setPatern(res))
-        fetch(`/api/get_schedule?nikname=${nikname}&month=${my_months[month].toLowerCase()}`)
-        .then(res => res.json())
-        .then(data => {            
-            fetch(`/api/get_orders_master_month?nikname=${nikname}&month=${my_months[month]}`)
             .then(res => res.json())
-            .then(res => {
-                let m = res.map(i=>i.date_order.split(','))               
-                let new_schedule = [...data]                
-                if(m.length>0){
-                    m.forEach(i=> new_schedule[+i[0]-1] = new_schedule[+i[0]-1].split(',').filter(a=>a!==i[2]).join(','))
-                }
-                setSchedule(new_schedule)
-                // setOrders(m)
-                
+            .then(res => setPatern(res))
+        fetch(`/api/get_schedule?nikname=${nikname}&month=${my_months[month].toLowerCase()}`)
+            .then(res => res.json())
+            .then(data => {
+                fetch(`/api/get_orders_master_month?nikname=${nikname}&month=${my_months[month]}`)
+                    .then(res => res.json())
+                    .then(res => {
+                        let m = res.map(i => i.date_order.split(','))
+                        let new_schedule = [...data]
+                        if (m.length > 0) {
+                            m.forEach(i => new_schedule[+i[0] - 1] = new_schedule[+i[0] - 1].split(',').filter(a => a !== i[2]).join(','))
+                        }
+                        setSchedule(new_schedule)
+                        // setOrders(m)
+
+                    })
             })
-        })    
-    },[month])
+    }, [month])
     console.log(order)
 
     // function Next(a) {
@@ -116,7 +116,7 @@ export default function SelectDate({ name, price, order, close, nikname }) {
     // }
     useEffect(() => {
         // setMonth(mon + 1)
-        const SaveOrder = async () => {           
+        const SaveOrder = async () => {
             const data = {
                 client: profile.status === 'client' ? profile.nikname : nikname,
                 client_name: profile.status === 'client' ? profile.name : name,
@@ -132,7 +132,7 @@ export default function SelectDate({ name, price, order, close, nikname }) {
                     'Content-Type': 'application/json',
                 },
                 method: 'POST',
-            })            
+            })
             setSaved(false)
             setgoodorder(true)
             window.scrollTo(0, 0)
@@ -146,14 +146,14 @@ export default function SelectDate({ name, price, order, close, nikname }) {
         }
     }, [order])
     function Count(a) {
-        if (schedule[a-1]) {
-            let l = schedule[a-1].split(',').length
+        if (schedule[a - 1]) {
+            let l = schedule[a - 1].split(',').length
             return l
         }
         return 0
     }
-    function Set_Active_Day(a,b) {        
-        if (false_days.includes(a) || b === 0 ) {
+    function Set_Active_Day(a, b) {
+        if (false_days.includes(a) || b === 0) {
             return
         } else {
             setActive_Day(a)
@@ -164,17 +164,17 @@ export default function SelectDate({ name, price, order, close, nikname }) {
         }
     }
     function Set_Active_Time(a) {
-        if (schedule[active_day-1]?.split(',').includes(a)) {
+        if (schedule[active_day - 1]?.split(',').includes(a)) {
             setActive_Time(a)
         } else {
             return
         }
-        
+
     }
     function SetMonth(a) {
         let m = my_months.findIndex(i => i === a)
-        setMonth(m)       
-        setActive_Day(0)   
+        setMonth(m)
+        setActive_Day(0)
     }
     return (
         <>
@@ -192,26 +192,26 @@ export default function SelectDate({ name, price, order, close, nikname }) {
                 {days.map(i => <span key={i}>{i}</span>)}
             </div>
             <div className={styles.all_days}>
-               
+
                 <div className={styles.days}>
-                {Array.from({ length: v }, (v, i) => i + 1).map(i => <span key={i} style={{ opacity: 0 }}>{i}</span>)}
+                    {Array.from({ length: v }, (v, i) => i + 1).map(i => <span key={i} style={{ opacity: 0 }}>{i}</span>)}
                     {Array.from({ length: all_days.getDate() }, (v, i) => i + 1)
                         .map(i =>
                             <span
                                 onClick={() => Set_Active_Day(i, Count(i))}
                                 key={i}
-                                style={active_day  === i ? active : ( Count(i) === 0 ? false_day : null)}
+                                style={active_day === i ? active : (Count(i) === 0 ? false_day : null)}
 
                             >{i}
-                             <b
-                                className={styles.count}
-                                style={{display: Count(i) ? 'inline-block' : 'none' }}
-                            >{Count(i)}</b>
+                                <b
+                                    className={styles.count}
+                                    style={{ display: Count(i) ? 'inline-block' : 'none' }}
+                                >{Count(i)}</b>
 
                             </span>
                         )}
                 </div>
-               
+
             </div>
             <h3 className={styles.date}>Свободное время</h3>
             <div className={styles.time}>
@@ -219,10 +219,10 @@ export default function SelectDate({ name, price, order, close, nikname }) {
                     <span
                         onClick={() => Set_Active_Time(i)}
                         key={i}
-                        style={active_time === i ? active  : schedule[active_day-1]?.split(',').includes(i) ? null  : (false_times.includes(i) ? 
-                            false_day : { backgroundColor: '#fff' , border: '1px solid #d0d0d0'})}
+                        style={active_time === i ? active : schedule[active_day - 1]?.split(',').includes(i) ? null : (false_times.includes(i) ?
+                            false_day : { backgroundColor: '#fff', border: '1px solid #d0d0d0' })}
                     >
-                    {i}
+                        {i}
                     </span>
                 )}
             </div>

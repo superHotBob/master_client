@@ -2,6 +2,8 @@ import Header from '@/components/header'
 import { useEffect, useState } from 'react'
 import styles from './recording.module.css'
 import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
+import { setorder } from '@/reduser'
 import Link from 'next/link'
 import SelectDate from '@/components/selectdate'
 
@@ -10,6 +12,7 @@ import SelectDate from '@/components/selectdate'
 export default function Recording() {
 
     const router = useRouter()
+    const dispatch = useDispatch()
     const { name, nikname } = router.query
     const [view, setView] = useState(true)
     const [services, setServices] = useState()
@@ -21,16 +24,11 @@ export default function Recording() {
 
 
     useEffect(() => {
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString)
+        
         async function GetServices() {
-            const response = await fetch(`/api/master_service?nikname=${urlParams.get('nikname')}`, {
-                headers: { 'Content-Type': 'application/json' },
-                method: 'get',
-            })
-            const result = await response.json()
-            let new_serv = Object.values(result[0])
-            let new_cat = Object.entries(result[0])
+            const response = await fetch(`/api/master_service?nikname=${nikname}`)
+            const result = await response.json()            
+            let new_cat = Object.entries(result)
             setServices(new_cat.filter(i => i[1] ? (i[1].length > 0 ? 1 : 0) : 0))
             let all_category = new_cat.map(i => i[1] && i[1].length > 0 ? i[0] : null)
             addCategory(all_category.filter(i => i ? 1 : 0))
@@ -41,7 +39,7 @@ export default function Recording() {
         } else {
             GetServices()
         }
-    }, [active_category])
+    }, [router,active_category,nikname])
 
     function Cost(a) {
         if (a.length === 0) {
@@ -54,6 +52,7 @@ export default function Recording() {
     }
 
     function AddOrder(a) {
+       
         if (orders.includes(a)) {
             let ord = orders.filter(i => i == a ? 0 : 1)
             addOrder(ord)
@@ -67,6 +66,19 @@ export default function Recording() {
 
     function CountCategory(a) {
         return count.filter(i => i === a).length > 0 ? count.filter(i => i === a).length : ''
+    }
+    function World(a) {
+        if(a>1 && a<5 ) {
+            return 'услуги'
+        } else if(a === 1) {
+            return 'услуга'
+        } else {
+            return 'услуг'
+        }
+    }
+    function ConfirmOrder(a) {
+        dispatch(setorder(a))
+        router.push('/confirmation')
     }
 
     return (
@@ -117,14 +129,18 @@ export default function Recording() {
                 />
             }
             <div className={styles.order}>
-                <h4>Ваш заказ</h4>
+                <h4>Ваш заказ
+                    {orders.length ? <span className={styles.world_for_count}>{orders.length} {World(orders.length)}</span>:null}
+                </h4>
                 <p>Услуги и товары ({orders.length})<span>{Cost(orders)} BYN</span></p>
                 <p>Скидка<span className={styles.discount}> {Cost(orders)*0.1} BYN</span></p>
                 <Link href="/#" title="Скидка 10% от заказа">Скидка</Link>
                 <h3>Общая стоимость<span>{Cost(orders) - Cost(orders)*0.1 > 0 ? Cost(orders) - Cost(orders)*0.1 : 0} BYN</span></h3>
                 {view ?
-                    <div onClick={() => setView(orders.length > 0 ? false : true)}>Выбрать дату</div> :
-                    <div onClick={() => addOrder([...orders])}>Записаться</div>
+                    <div onClick={() => setView(orders.length > 0 ? false : true)}>Выбрать дату</div> 
+                    :
+                   <div onClick={() => addOrder([...orders])}>Записаться</div>
+                    // <div onClick={() => ConfirmOrder([...orders])}>Записаться</div>
                 }
                 <h6>Нажмая на кнопку, вы соглашаетесь с <br />
                     <Link href="/#">Условиями обработки персональных данных</Link> и <br />

@@ -1,0 +1,13 @@
+.main_block {
+    padding: 26px;
+}
+.main_block h3 {
+    line-height: 26px;
+    color: #282828;
+    margin-bottom: 12px;
+}
+.main_block h4 {
+    color: #8B95F2;
+    line-height: 18px;
+    margin-bottom: 8px;
+}
