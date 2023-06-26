@@ -146,11 +146,11 @@ export default function Calendar() {
             </header> :
             null}
         <section className={styles.section}>
-            <Message text={`Выбирайте дни и время, вы которые вы готовы
+            <Message text='Выбирайте дни и время, вы которые вы готовы
                         принимать клиентов. При записи клиент  сможет
                         выбрать только те дни и время, которые 
                         вы указали рабочим.
-                    `} color={profile?.color}
+                    ' color={profile?.color}
             />
             <div className={styles.mounth}>
                 {months.splice(month ? month - 1 : 0, 3).map(i =>

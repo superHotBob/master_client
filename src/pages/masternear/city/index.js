@@ -85,8 +85,7 @@ export default function MasterNear() {
             const bounds = Map.current.getBounds()
             const center = Map.current.getCenter()
             const rightPoint = [center[0], bounds[1][1]]
-            console.log(bounds, rightPoint)
-            console.log(Clusterer.current.getGeoObjects())
+           
 
             //    let radius = ymaps.current.coordSystem.geo.getDistance(
             //         [53.94843972554695, 27.603028939367363],
@@ -137,7 +136,7 @@ export default function MasterNear() {
 
     return (
         <div className={styles.main}>
-            <Script src={'https://api-maps.yandex.ru/3.0/?apikey=05f8d2ae-bd94-4329-b9f9-7351e2ec9627&lang=ru_RU'} />
+            <Script src={'https://api-maps.yandex.ru/3.0/?apikey=89caab37-749d-4e30-8fdf-e8045542f060&lang=ru_RU'} />
 
             <Header sel="/catalog" text="Мастера рядом " />
             <div className={styles.message}>

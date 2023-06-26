@@ -121,7 +121,7 @@
 }
 
 .time span {
-    height: 40px;
+    height: 11vw;
 }
 
 .count {
@@ -150,15 +150,15 @@
     border-radius: 6px;
     display: block;
     text-align: center;
-    height: 46px;
+    height: 12vw;
     width: 100%;
-    line-height: 46px;
+    max-height: 60px;
+    line-height: max(9vw, 48px);
     font-weight: 500;
     font-size: 16px;
     margin: 24px auto;
     border: none;
     cursor: pointer;
-
 }
 
 /* .section button span::after {
@@ -167,11 +167,10 @@
 
 } */
 @media screen and (min-width: 500px) {
-
     .days {
         display: grid;
         grid-template-columns: repeat(7, auto);
         justify-content: space-between;
         gap: 8px;
-    }
+    }   
 }

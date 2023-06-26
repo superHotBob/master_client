@@ -6,7 +6,8 @@ import Location from '../location'
 const url = 'https://masters-client.onrender.com/'
 
 export default function MasterHeader({profile}) {
-    const [gradient,color,background] = profile.color
+    console.log(profile)
+    const [gradient, color, background] = profile?.color || ['linear-gradient(to left, #3D4EEA, #5E2AF0)', '#3D4EEA', '#ECEEFD']
     const [viewText, setViewText] = useState(true)
     const [mapview, setmapview] = useState(false)
     return (

@@ -1,8 +1,8 @@
 import styles from './selectdate.module.css'
 import { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import Link from 'next/link'
-
+import { setdate } from '@/reduser'
 import Image from 'next/image'
 const active = {
     backgroundColor: '#3D4EEA',
@@ -22,24 +22,22 @@ export default function SelectDate({ name, price, order, close, nikname }) {
     const days = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"]
     const months = ['Декабрь', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сетнябрь',
         'Октябрь', 'Ноябрь', 'Декабрь']
-
+    const dispatch = useDispatch()
     const d = new Date()
     const mon = d.getMonth() + 1
     const [month, setMonth] = useState(mon)
-    const my_months = [...months]
-    const [month_one, set_month_one] = useState(0)
+    const my_months = [...months]   
     const [false_times, set_false_time] = useState([])
-    const [false_days, set_false_days] = useState([])
-    const [false_date, set_false_date] = useState()
+    const [false_days, set_false_days] = useState([])   
     const [active_day, setActive_Day] = useState()
     const [active_time, setActive_Time] = useState()
 
     const [saved, setSaved] = useState(false)
-    const [goodorder, setgoodorder] = useState(false)
+    
 
     const [patern, setPatern] = useState([])
     const [schedule, setSchedule] = useState([])
-    const [orders, setOrders] = useState([])
+   
 
     const all_days = new Date(2023, month, 0)
     const profile = useSelector(state => state.counter.profile)
@@ -90,7 +88,7 @@ export default function SelectDate({ name, price, order, close, nikname }) {
                     })
             })
     }, [month])
-    console.log(order)
+   
 
     // function Next(a) {
     //     // const mon = d.getMonth()
@@ -114,37 +112,7 @@ export default function SelectDate({ name, price, order, close, nikname }) {
     //         set_month_one(0)
     //     }
     // }
-    useEffect(() => {
-        // setMonth(mon + 1)
-        const SaveOrder = async () => {
-            const data = {
-                client: profile.status === 'client' ? profile.nikname : nikname,
-                client_name: profile.status === 'client' ? profile.name : name,
-                master: nikname,
-                master_name: name,
-                price: price,
-                order: order,
-                date: `${active_day},${my_months[month]},${active_time}`,
-            }
-            await fetch('/api/save_order', {
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                method: 'POST',
-            })
-            setSaved(false)
-            setgoodorder(true)
-            window.scrollTo(0, 0)
-
-        }
-        if (active_day && active_time) {
-            SaveOrder()
-            setSaved(true)
-        } else {
-            // GetDate()
-        }
-    }, [order])
+   
     function Count(a) {
         if (schedule[a - 1]) {
             let l = schedule[a - 1].split(',').length
@@ -166,6 +134,7 @@ export default function SelectDate({ name, price, order, close, nikname }) {
     function Set_Active_Time(a) {
         if (schedule[active_day - 1]?.split(',').includes(a)) {
             setActive_Time(a)
+            dispatch(setdate(`${active_day},${my_months[month]},${a}`))
         } else {
             return
         }
@@ -192,7 +161,6 @@ export default function SelectDate({ name, price, order, close, nikname }) {
                 {days.map(i => <span key={i}>{i}</span>)}
             </div>
             <div className={styles.all_days}>
-
                 <div className={styles.days}>
                     {Array.from({ length: v }, (v, i) => i + 1).map(i => <span key={i} style={{ opacity: 0 }}>{i}</span>)}
                     {Array.from({ length: all_days.getDate() }, (v, i) => i + 1)
@@ -229,15 +197,7 @@ export default function SelectDate({ name, price, order, close, nikname }) {
             {saved ? <div className={styles.await}>
                 <Image alt="await" src='/await.gif' width={150} height={150} />
             </div> : null}
-            {goodorder ? <div className={styles.goodorder}>
-                <h3>master.place</h3>
-                <h1>УСПЕШНО</h1>
-                <h4>
-                    Заказ создан, свяжитесь с мастером, что-бы <br /> не потерять друг-друга.
-                </h4>
-                <Link href={`/chat/messages/${nikname}?name=${name}`}>Открыть чат с мастером</Link>
-                <h6 onClick={() => setgoodorder(false)}>Закрыть</h6>
-            </div> : null}
+            
         </>
     )
 }

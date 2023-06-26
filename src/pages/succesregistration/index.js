@@ -9,14 +9,12 @@ export default function Succes() {
     },[])
     return (
 
-    <main className={styles.main}>
-       
-        <h1>УСПЕШНО</h1>
+    <main className={styles.main}>       
+        <h1>УСПЕШНО!</h1>
         <h5>
         Отлично! Вы зарегистрировали аккаунт на <br/> платформе masters.place, теперь вам <br/> доступен весь функционал.
         </h5>
-        <Link href="/" >На главную</Link>
-        
+        <Link href="/" >На главную</Link>        
     </main> 
     ) 
 }  

@@ -35,26 +35,25 @@ const Master = () => {
 
     const router = useRouter()
     const { slug } = router.query
-    const [gradient, color, background] = profile?.color || []
+    const [gradient, color, background] = profile?.color || ['linear-gradient(to left, #3D4EEA, #5E2AF0)', '#3D4EEA', '#ECEEFD']
     const dispatch = useDispatch()
     const my_profile = useSelector(state => state.counter.profile)
     const master = useSelector(state => state.counter.master)
 
 
-    useEffect(() => {    
-        console.log(router.pathname)   
+    useEffect(() => {      
         if(!slug){
             return
         }
         if (master) {
-            setProfile(master[0])
+            setProfile(master)
         } else {
             fetch(`/api/master?nikname=${slug}`)
                 .then(res => res.json())
                 .then(res => setProfile(res[0]))
         }
-        return () => dispatch(setmaster(''))
-    }, [slug])
+        // return () => dispatch(setmaster(''))
+    }, [slug,router])
 
     function LinkTo(a) {
         if(my_profile.status === 'client') {
@@ -67,7 +66,7 @@ const Master = () => {
         <main className={styles.main}>
             <Head><title>{slug}</title></Head>
             {profile ? <>
-                <Header text={slug} sel='back' color={profile.color} />
+                <Header text={slug} sel={'/masternear/' + slug} color={profile.color} />
                 <section className={styles.section_main}>
                     <MasterHeader profile={profile} />
                     <dialog open={message} className={styles.dialog}>

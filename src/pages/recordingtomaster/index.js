@@ -2,12 +2,20 @@ import Header from '@/components/header'
 import { useEffect, useState } from 'react'
 import styles from './recording.module.css'
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
-import { setorder } from '@/reduser'
+import { useDispatch,useSelector } from 'react-redux'
+import { setmaster, setorder } from '@/reduser'
 import Link from 'next/link'
 import SelectDate from '@/components/selectdate'
 
+export function Bov() {
+    return (
+        <h6>Нажмая на кнопку, вы соглашаетесь с <br />
+        <Link href="/#">Условиями обработки персональных данных</Link> и <br />
+        <Link href="/#">Пользовательским соглашением</Link>
+    </h6>
 
+    )
+}
 
 export default function Recording() {
 
@@ -24,7 +32,7 @@ export default function Recording() {
 
 
     useEffect(() => {
-        
+        // dispatch(setmaster(nikname))
         async function GetServices() {
             const response = await fetch(`/api/master_service?nikname=${nikname}`)
             const result = await response.json()            
@@ -80,7 +88,7 @@ export default function Recording() {
         dispatch(setorder(a))
         router.push('/confirmation')
     }
-
+    
     return (
         <main className={styles.main}>
             <Header text="Запись к мастеру" sel={"/master/" + nikname} select={setView} view_time={!view} />
@@ -138,14 +146,10 @@ export default function Recording() {
                 <h3>Общая стоимость<span>{Cost(orders) - Cost(orders)*0.1 > 0 ? Cost(orders) - Cost(orders)*0.1 : 0} BYN</span></h3>
                 {view ?
                     <div onClick={() => setView(orders.length > 0 ? false : true)}>Выбрать дату</div> 
-                    :
-                   <div onClick={() => addOrder([...orders])}>Записаться</div>
-                    // <div onClick={() => ConfirmOrder([...orders])}>Записаться</div>
+                    :                
+                   <div onClick={() => ConfirmOrder([...orders])}>Записаться</div>
                 }
-                <h6>Нажмая на кнопку, вы соглашаетесь с <br />
-                    <Link href="/#">Условиями обработки персональных данных</Link> и <br />
-                    <Link href="/#">Пользовательским соглашением</Link>
-                </h6>
+                <Bov/>
 
             </div>
 
