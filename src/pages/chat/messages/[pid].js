@@ -1,6 +1,7 @@
 import Header from "@/components/header"
 import { useEffect, useRef, useState } from "react"
 import check from '../../../../public/check.svg'
+import Link from "next/link"
 import styles from './messages.module.css'
 import { useSelector } from "react-redux"
 import { useRouter } from "next/router"
@@ -168,6 +169,27 @@ export default function Messages() {
         } 
         return d.toLocaleDateString('ru-RU', options) 
     }
+    function ReadText(a,b) {      
+        if (a.includes(';')) {
+            let ss = a.split(';')
+            console.log(ss)
+            return <div style={{color:b}} className={styles.order}>
+                <p>Создан заказ 
+                    {b === '#fff' ?                   
+                    <Link style={{color: '#fff'}} href={'/order/' + ss[1] }>{' '} #{ss[1]} -</Link> 
+                    :
+                    <Link style={{color: '#3D4EEA'}} href={'/clientprofile/' + profile.nikname + '/orders' }>{' '} #{ss[1]} -</Link> }
+                </p>
+                <p>{ss[2]}</p>               
+                <p className={styles.details}>Детали заказа</p>
+                <p>{ss[4]}</p>
+                <p>{ss[5]}</p>                
+                <h4>{ss[6]} BYN</h4>
+                </div>
+        } else {
+            return a
+        }
+    }
     return (
         <main className={styles.main}>
             <Header sel='/chat' text={profile.name} mes="1" color={color} />
@@ -176,7 +198,7 @@ export default function Messages() {
                     <div key={i.ms_date} className={styles.message}>
                         {i.sendler === profile.name ?
                             <div className={styles.wrap_client}>
-                                {i.ms_text}
+                                {ReadText(i.ms_text,'#fff')}
                                 <p>{My_Date(+i.ms_date)}
                                 {i.read ? <Image height={20} width={20} alt="check" src="/check_to.svg" /> : null}
                                 </p>
@@ -193,7 +215,7 @@ export default function Messages() {
                                     alt="master" 
                                 />
                                 <div className={styles.master}>
-                                    {i.ms_text}
+                                {ReadText(i.ms_text,'#000')}
                                     <span>
                                         {My_Date(+i.ms_date)}                         
                                     </span>

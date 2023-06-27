@@ -84,7 +84,7 @@ export default function Chat() {
                                     <span>{My_Date(i.ms_date)}</span>
                                 </p>
                                 <span className={NewMessage(i.ms_date, i.recipient_nikname, i.sendler_nikname) ? styles.new_message : null}>
-                                    {i.ms_text}
+                                    {i.ms_text.slice(0,12)}
                                 </span>
                             </div>
 

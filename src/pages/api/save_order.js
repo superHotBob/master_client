@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   
  
 
-  const result = await sql`
+  const save_order = await sql`
   insert into orders (
     master, client,neworder,price,date_order,master_name,client_name
   ) values (
@@ -17,13 +17,43 @@ export default async function handler(req, res) {
     ${req.body.master_name},
     ${req.body.client_name}
   )
-  returning *
+  returning id
+  ` 
+  
+  console.log(save_order[0]['id'])  
+  const chat = await sql`
+    select (chat)
+    from chat
+    where (recipient_nikname = ${req.body.master} and sendler_nikname = ${req.body.client}) or 
+    (recipient_nikname = ${req.body.client} and sendler_nikname = ${req.body.master})
   `
  
-  
-  
-  
-    res.status(200).json(result) 
+  let my_chat = null
+  if(chat.length === 0 ) {
+   my_chat = Math.random().toFixed(6)*1000000
+  } else {
+    my_chat =  chat[0]['chat']
+  }
+  // console.log(req.body.master_name, my_chat)
+  const order = req.body.order.map(i=>i.split(':')).map(i=>i[0]).join()
+  console.log(order)
+  const text = `Cоздан заказ ;${save_order[0]['id']};${order};Детали заказа:;Дата встречи: ${req.body.date.replace(/,/g,' , ')}; Адрес встечи: ${req.body.address};${req.body.price}`
+  const date = Date.now()
+  const send_message = await sql`
+    insert into chat (recipient,recipient_nikname,sendler,sendler_nikname,ms_text,ms_date,chat, read) 
+    values (
+      ${req.body.client_name},
+      ${req.body.client},
+      ${req.body.master_name},
+      ${req.body.master},     
+      ${text},
+      ${date},
+      ${my_chat},
+      'false'
+    )  
+    returning *
+  `
+  res.send('Ok')     
   
   
 }

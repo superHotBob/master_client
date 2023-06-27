@@ -103,3 +103,20 @@
     color: #D0D0D0;
     margin: 16px 0  16px 48px;
 }
+.order p {
+    text-align: left;
+    font-size: 16px;
+    line-height: 18px;
+    color: inherit;
+    letter-spacing: -0.5px;
+
+}
+
+.order h4 {
+    font-size: 22px;
+    margin-top: 8px;
+    color: inherit;
+}
+.details {
+    margin-top: 8px;
+}

@@ -5,7 +5,8 @@ import useSWR from 'swr'
 import { useRouter } from 'next/router'
 import styles from './confirmation.module.css'
 import { Bov } from '../recordingtomaster'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
+import { useEffect } from 'react'
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 export default function Confirmation() {
@@ -14,19 +15,21 @@ export default function Confirmation() {
     const master = useSelector(state => state.counter.master)
     const date = useSelector(state => state.counter.date_order)
     const [goodorder, setgoodorder] = useState(false)
+    const [address, setaddress] = useState()
     const { data } = useSWR(`/api/get_full_address?nikname=${master.nikname}`, fetcher)
 
 
     const SaveOrder = () => {
         const profile = JSON.parse(localStorage.getItem('profile'))
         const data = {
-            client: profile.status === 'client' ? profile.nikname : master.nikname,
-            client_name: profile.status === 'client' ? profile.name : master.name,
+            client: profile.nikname ,
+            client_name:  profile.name,
             master: master.nikname,
             master_name: master.name,
             price: Cost(order),
             order: order,
             date: date,
+            address:  address
         }
         fetch('/api/save_order', {
             body: JSON.stringify(data),
@@ -34,10 +37,12 @@ export default function Confirmation() {
                 'Content-Type': 'application/json',
             },
             method: 'POST',
-        }).then(res=>ConfirmOrder())
+        }).then(res=>setgoodorder(true))
     }
 
-
+    useEffect(()=>{
+        setaddress('Ул. ' + master.address  + ', дом ' + data?.дом + ', кв.' + data?.квартира + ', этаж ' + data?.этаж)
+    },[data])
     function World(a) {
         if (a > 1 && a < 5) {
             return 'услуги'
@@ -48,9 +53,7 @@ export default function Confirmation() {
         }
     }
 
-    function ConfirmOrder() {
-        setgoodorder(true)
-    }
+   
 
     function Cost() {
         if (order.length > 0) {
@@ -62,7 +65,7 @@ export default function Confirmation() {
         }
 
     }
-    console.log(date)
+    
     return (
         <>
             <Header sel="back" text="Подтверждение заказа" />
@@ -77,18 +80,14 @@ export default function Confirmation() {
                     <p className={styles.uslugi} key={index}>
                         {i.split(':').map((a, index) => <span key={index}>{a} {index === 1 ? ' BYN' : null}</span>)}
                     </p>)}
-
-
-
                 <h4>Адрес:</h4>
                 Ул. {master.address}, дом {data?.дом}, кв.{data?.квартира}, этаж {data?.этаж}
                 <h4>Дата: </h4>
                 <span className={styles.date}>{date.replace(/,/g,' , ')}</span>
                 <h3>Сумма</h3>
-
                 <p className={styles.summa}><span>Услуги и товары ({order.length})</span><span>{Cost()} BYN</span></p>
               
-                {/* <Link href="#" className={styles.my_sale}>Скидка</Link> */}
+               
                 <h3>Общая стоимость<span>{Cost(order)} BYN</span></h3>
                 <div onClick={SaveOrder}>Записаться</div>
                 <Bov />

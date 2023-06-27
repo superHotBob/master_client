@@ -21,6 +21,7 @@ export default function Recording() {
 
     const router = useRouter()
     const dispatch = useDispatch()
+    const master = useSelector(state=>state.counter.master)
     const { name, nikname } = router.query
     const [view, setView] = useState(true)
     const [services, setServices] = useState()
@@ -31,15 +32,23 @@ export default function Recording() {
     const [count, setCount] = useState([])
 
 
+
+
     useEffect(() => {
+        console.log(master['services'])
+        if(master.phone===null) {
+            router.push('/')
+        }
         // dispatch(setmaster(nikname))
+        addCategory(master.services)
         async function GetServices() {
             const response = await fetch(`/api/master_service?nikname=${nikname}`)
             const result = await response.json()            
             let new_cat = Object.entries(result)
+           
             setServices(new_cat.filter(i => i[1] ? (i[1].length > 0 ? 1 : 0) : 0))
-            let all_category = new_cat.map(i => i[1] && i[1].length > 0 ? i[0] : null)
-            addCategory(all_category.filter(i => i ? 1 : 0))
+            // let all_category = new_cat.map(i => i[1] && i[1].length > 0 ? i[0] : null)
+            // addCategory(all_category.filter(i => i ? 1 : 0))
         }
         if (services) {
             let new_services = services.filter(i => i[0] === active_category)[0][1]
@@ -47,7 +56,7 @@ export default function Recording() {
         } else {
             GetServices()
         }
-    }, [router,active_category,nikname])
+    }, [router.query,active_category,nikname,master])
 
     function Cost(a) {
         if (a.length === 0) {
@@ -75,6 +84,7 @@ export default function Recording() {
     function CountCategory(a) {
         return count.filter(i => i === a).length > 0 ? count.filter(i => i === a).length : ''
     }
+   
     function World(a) {
         if(a>1 && a<5 ) {
             return 'услуги'
@@ -141,9 +151,9 @@ export default function Recording() {
                     {orders.length ? <span className={styles.world_for_count}>{orders.length} {World(orders.length)}</span>:null}
                 </h4>
                 <p>Услуги и товары ({orders.length})<span>{Cost(orders)} BYN</span></p>
-                <p>Скидка<span className={styles.discount}> {Cost(orders)*0.1} BYN</span></p>
-                <Link href="/#" title="Скидка 10% от заказа">Скидка</Link>
-                <h3>Общая стоимость<span>{Cost(orders) - Cost(orders)*0.1 > 0 ? Cost(orders) - Cost(orders)*0.1 : 0} BYN</span></h3>
+               
+                {/* <Link href="/#" title="Скидка 10% от заказа">Скидка</Link> */}
+                <h3>Общая стоимость<span>{Cost(orders)} BYN</span></h3>
                 {view ?
                     <div onClick={() => setView(orders.length > 0 ? false : true)}>Выбрать дату</div> 
                     :                
