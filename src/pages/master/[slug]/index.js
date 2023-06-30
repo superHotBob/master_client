@@ -45,7 +45,7 @@ const Master = () => {
         if(!slug){
             return
         }
-        if (master) {
+        if (master && my_profile) {
             setProfile(master)
         } else {
             fetch(`/api/master?nikname=${slug}`)

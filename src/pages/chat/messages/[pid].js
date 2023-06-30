@@ -171,8 +171,7 @@ export default function Messages() {
     }
     function ReadText(a,b) {      
         if (a.includes(';')) {
-            let ss = a.split(';')
-            console.log(ss)
+            let ss = a.split(';')           
             return <div style={{color:b}} className={styles.order}>
                 <p>Создан заказ 
                     {b === '#fff' ?                   
