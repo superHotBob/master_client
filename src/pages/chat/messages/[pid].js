@@ -27,8 +27,7 @@ export default function Messages() {
     const [resive, setresive] = useState(true)
     const profile = useSelector(state => state.counter.profile)
 
-    const { data: client } = useSWR(`/api/get_messages_onebyone?my_name=${profile.nikname}
-        &abonent=${pid}&status=${profile.status}`, 
+    const { data: client } = useSWR(`/api/get_messages_onebyone?nikname=${profile.nikname}&abonent=${pid}&status=${profile.status}`, 
         fetcher, { refreshInterval: 5000 
     })  
     const { data: read } = useSWR(`/api/set_view_message?my_name=${profile.nikname}&name=${pid}`, fetcher)  

@@ -40,6 +40,11 @@ export default async function handler(req, res) {
     client: client,
     subscribe: subscribe
   } 
+  if(subscribe.length === 0 ) {
+    delete result['subscribe']
+    return res.status(200).json(result)
+  }
+  
   if((+admin[0] ? +admin[0].ms_date : 0) > +subscribe[0].ms_date) {
     delete result['subscribe']
   } else {

@@ -14,8 +14,8 @@ export default async function handler(req, res) {
       ${req.body.ms_text},
       ${req.body.ms_date},
       ${req.body.chat},
-      ${req.body.phone}
-      'false'
+      'false',
+      0000000000
     )  
     returning *
   `
