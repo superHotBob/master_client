@@ -27,7 +27,10 @@ export default function Messages() {
     const [resive, setresive] = useState(true)
     const profile = useSelector(state => state.counter.profile)
 
-    const { data: client , error, isLoading } = useSWR(`/api/get_messages_master?my_name=${profile.nikname}&abonent=${pid}`, fetcher, { refreshInterval: 5000 })  
+    const { data: client } = useSWR(`/api/get_messages_onebyone?my_name=${profile.nikname}
+        &abonent=${pid}&status=${profile.status}`, 
+        fetcher, { refreshInterval: 5000 
+    })  
     const { data: read } = useSWR(`/api/set_view_message?my_name=${profile.nikname}&name=${pid}`, fetcher)  
     if(client) {
         console.log(client)
@@ -118,7 +121,8 @@ export default function Messages() {
                 sendler_nikname: profile.nikname,
                 recipient_nikname: pid,
                 recipient: router.query.name,
-                ms_date: Date.now()
+                ms_date: Date.now(),
+                phone: profile.phone
             }
             fetch('/api/send_message', {
                 body: JSON.stringify(data),
@@ -137,13 +141,14 @@ export default function Messages() {
                 .catch(err => console.log(err))
         } else {           
             const data = {
-                chat: client.length > 0 ? client[0].chat: Math.random().toFixed(6)*1000000 ,
+                chat: (client.length > 0 && client[0].chat != 0) ? client[0].chat: Math.random().toFixed(6)*1000000 ,
                 ms_text: ref.current.value,
                 sendler: profile.name,
                 sendler_nikname: profile.nikname,
-                recipient_nikname: pid,
-                recipient: pid ,
-                ms_date: Date.now()
+                recipient_nikname: 'администратор',
+                recipient: 'администратор',
+                ms_date: Date.now(),
+                phone: profile.phone
             }
             fetch('/api/send_message', {
                 body: JSON.stringify(data),
@@ -152,10 +157,8 @@ export default function Messages() {
                 },
                 method: 'POST',
             })
-                .then(res => {
-                    let d = Date.now()                  
-                    Movie()
-                   
+                .then(res => {                                    
+                    Movie()                   
                     ref.current.value = ''
                 })
                 .catch(err => console.log(err))

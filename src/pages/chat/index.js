@@ -10,8 +10,8 @@ import useSWR from 'swr'
 export default function Chat() {
 
     const name = useSelector(state => state.counter.profile['nikname'])
-
-    const { data, error , mutate } = useSWR(`/api/get_messages?nikname=${name}`, fetcher, { refreshInterval: 30000 })
+    const status = useSelector(state => state.counter.profile['status'])
+    const { data, error , mutate } = useSWR(`/api/get_messages?nikname=${name}&status=${status}`, fetcher, { refreshInterval: 30000 })
 
     const router = useRouter()
     
@@ -83,9 +83,9 @@ export default function Chat() {
                                     <b>{i.sendler_nikname === name ? i.recipient : i.sendler}</b>
                                     <span>{My_Date(i.ms_date)}</span>
                                 </p>
-                                <span className={NewMessage(i.ms_date, i.recipient_nikname, i.sendler_nikname) ? styles.new_message : null}>
+                                <h6 className={NewMessage(i.ms_date, i.recipient_nikname, i.sendler_nikname) ? styles.new_message : null}>
                                     {i.ms_text.slice(0,12)}
-                                </span>
+                                </h6>
                             </div>
 
                         </Link>

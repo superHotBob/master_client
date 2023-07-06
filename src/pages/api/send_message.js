@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   
    if( req.body.recipient_nikname === 'администратор' || req.body.sendler_nikname === 'администратор') {
     const result = await sql`
-    insert into adminchat (recipient,recipient_nikname,sendler,sendler_nikname,ms_text,ms_date,chat,read) 
+    insert into adminchat (recipient,recipient_nikname,sendler,sendler_nikname,ms_text,ms_date,chat,read,phone) 
     values (
       ${req.body.recipient},
       ${req.body.recipient_nikname},
@@ -14,6 +14,7 @@ export default async function handler(req, res) {
       ${req.body.ms_text},
       ${req.body.ms_date},
       ${req.body.chat},
+      ${req.body.phone}
       'false'
     )  
     returning *
@@ -39,19 +40,5 @@ export default async function handler(req, res) {
   res.send('Ok')    
 
   }
-
-  // const result = await sql`
-  //   insert into ${my_table} (recipient,recipient_nikname,sendler,sendler_nikname,ms_text,ms_date,chat) 
-  //   values (
-  //     ${req.body.recipient},
-  //     ${req.body.recipient_nikname},
-  //     ${req.body.sendler},
-  //     ${req.body.sendler_nikname},     
-  //     ${req.body.ms_text},
-  //     ${req.body.ms_date},
-  //     ${req.body.chat}
-  //   )  
-  //   returning *
-  // `
-  // res.send('Ok')    
+ 
 }

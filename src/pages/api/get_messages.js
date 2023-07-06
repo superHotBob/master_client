@@ -28,7 +28,7 @@ export default async function handler(req, res) {
       select * from (
         select distinct on ( chat ) *         
         from  chat       
-        where chat = 0
+        where chat = 0 and ( recipient = ${req.query.status} or recipient = 'all')
         order by chat, ms_date desc
       ) chat
               
@@ -39,8 +39,7 @@ export default async function handler(req, res) {
     admin: admin,
     client: client,
     subscribe: subscribe
-  }
- 
+  } 
   if((+admin[0] ? +admin[0].ms_date : 0) > +subscribe[0].ms_date) {
     delete result['subscribe']
   } else {

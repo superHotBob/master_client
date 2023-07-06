@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   const result = await sql`
   select *
   from users
-  where nikname = ${req.query.nikname} AND blocked = 'no'
+  where nikname = ${req.query.nikname} AND blocked = '0'
   `  
   if (result.length) {
     res.status(200).json(result) 

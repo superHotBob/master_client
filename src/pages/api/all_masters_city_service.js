@@ -6,7 +6,7 @@ export default async function handler(req, res) {
         select nikname, name 
         from users
         where ${req.query.service} = ANY (services) 
-        and city = ${req.query.city} and blocked = 'no'
+        and city = ${req.query.city} and blocked = '0'
          `  
         res.status(200).json(result) 
 

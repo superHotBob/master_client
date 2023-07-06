@@ -43,7 +43,7 @@ const Master = () => {
 
     useEffect(() => {      
         if(!slug){
-            return
+            return console.log('slug')
         }
         if (master && my_profile) {
             setProfile(master)

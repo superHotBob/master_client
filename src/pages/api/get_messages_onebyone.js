@@ -30,7 +30,7 @@ export default async function handler(req, res) {
     const subscribe = await sql`
         select * 
         from  chat
-        where chat = 0
+        where chat = 0 and recipient = ${req.query.status} or recipient = 'all'
          
       `
     const admin_subscribe = admin.concat(subscribe)
