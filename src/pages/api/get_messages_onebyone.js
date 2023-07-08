@@ -6,8 +6,7 @@ export default async function handler(req, res) {
 
  
 
-  if (req.query.abonent === 'администратор' || req.query.my_name === 'администратор') {
-    console.log(req.query.abonent,req.query.nikname)
+  if (req.query.abonent === 'администратор' || req.query.my_name === 'администратор') {   
     const admin = await sql`
       select * from  adminchat       
       where (sendler_nikname  =  ${req.query.nikname} and recipient_nikname = 'администратор') or 
@@ -22,7 +21,7 @@ export default async function handler(req, res) {
          
     `
 
-    console.log('admin',admin) 
+    
    
     const admin_subscribe = admin.concat(subscribe)
    

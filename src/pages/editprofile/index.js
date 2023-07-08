@@ -2,13 +2,14 @@ import styles from './editprofile.module.css'
 import { useSelector, useDispatch } from 'react-redux'
 import { setlocation, setprofile } from '@/reduser'
 import Image from 'next/image'
-import { useEffect, useState, useRef, useLayoutEffect } from 'react'
+import { useEffect, useState } from 'react'
 import arrow from '../../../public/arrow_back.svg'
 import Navi from '@/components/navi'
 import { useGeolocated } from "react-geolocated"
 import { useRouter } from 'next/router'
 import Location from '@/components/location'
 import useSWR from 'swr'
+import Link from 'next/link'
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 
@@ -36,12 +37,7 @@ const my_tema = [
 ]
 const my_currency = ['Белорусcкий рубль', 'Российский рубль', 'Казахстанский тенге']
 const current_symbol = ['BYN', '₽', '₸']
-const url_one = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/geolocate/address"
-const url_two = "https://cleaner.dadata.ru/api/v1/clean/address"
-const token = "5ff295eebd78a454b8bd3805b29d1eb6daefe31f"
 const url = 'https://masters-client.onrender.com'
-// const url = 'http://localhost:5000'
-
 export default function EditProfile() {
     const profile = useSelector(state => state.counter.profile)
     const location = useSelector(state => state.counter.location)
@@ -83,31 +79,6 @@ export default function EditProfile() {
         if (!pro) {
             return () => router.push('/enter')
         }else {
-
-       
-        // const options = {
-        //     method: "POST",
-        //     mode: "cors",
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //         "Accept": "application/json",
-        //         "Authorization": "Token " + token
-        //     },
-        //     body: JSON.stringify({ lat: pro.locations[0], lon: pro.locations[1] })
-        // }
-
-        // function Location() {
-        //     fetch(url_one, options)
-        //     .then(response => response.json())
-        //     .then(result => {
-        //         setCity(result.suggestions[0].data.city.toLowerCase())
-        //         setAddress(result.suggestions[0].data.street)               
-        //         setAddress_full(address_full => ({ ...address_full, ...{ 'дом': result.suggestions[0].data.house } }))
-        //     })
-        //     .catch(error => console.log("error", error));
-        // }
-        // Location()
-
             setName(pro.name),
             setText(pro.text),
             setCity(pro.city),
@@ -158,9 +129,7 @@ export default function EditProfile() {
         localStorage.setItem("profile", JSON.stringify(result));
         dispatch(setprofile(result))
         setMessage('Ваш профиль изменён')
-        setTimeout(() => {
-            router.back()
-        }, 2000)
+        setTimeout(() => router.back(), 2000)
     }
    
     function SelectUpload(e) {        
@@ -218,9 +187,10 @@ export default function EditProfile() {
             <section className={styles.inputs}>
                 <h6>
                     <span>Публичная ссылка, никнейм</span>
+                    <Link className={styles.change} href="/editnikname">Изменить</Link>
                 </h6>
                 <div className={styles.nikname}>
-                    <span>masters.place/{profile.status + '/'}</span>
+                    <span>masters.place/</span>
                     <input disabled type="text" value={nikname} onChange={e => setNikname(e.target.value)} />                    
                 </div>
                 <label>
@@ -248,7 +218,8 @@ export default function EditProfile() {
                 </div>
                 <div className={styles.connect_master} />               
             </section>
-            {master_address ? <div className={styles.submitProfile}>
+            {master_address ? 
+                <div className={styles.submitProfile}>
                 <header className={styles.header}>
                     <Image src={arrow} alt="back" onClick={() => setMasterAddress(false)} />
                     <h4>Адрес приема клиентов</h4>
@@ -273,15 +244,14 @@ export default function EditProfile() {
                     </label>
                     <label>
                         Улица
-                        <input
-                            style={{ fontSize: 14 }}
+                        <input                           
                             type="text" value={address}
                             onChange={(e) => setAddress(e.target.value)}
                         />
                     </label>
                     <label>
                         Номер дома
-                        <input style={{ fontSize: 14 }}
+                        <input 
                             type="text"
                             value={address_full.дом}
                             onChange={(e) => setAddress_full({ ...address_full, ...{ 'дом': e.target.value } })}
@@ -310,18 +280,16 @@ export default function EditProfile() {
                     </label>
                     <label>
                         Этаж
-                        <input style={{ fontSize: 14 }} type="text" value={address_full.этаж}
+                        <input  type="text" value={address_full.этаж}
                             onChange={(e) => setAddress_full({ ...address_full, ...{ 'этаж': e.target.value } })}
                         />
                     </label>
                     <label>
                         Номер квартиры
-                        <input style={{ fontSize: 14 }} type="text" value={address_full.квартира}
+                        <input  type="text" value={address_full.квартира}
                             onChange={(e) => setAddress_full(address_full => ({ ...address_full, ...{ 'квартира': e.target.value } }))}
                         />
                     </label>
-
-
                 </section>
                 <div className={styles.place} >
                     <h4 onClick={() => selectLoc(true)}>

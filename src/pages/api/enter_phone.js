@@ -31,39 +31,40 @@ export default async function handler(req, res) {
       `
     res.status(200).json(result[0])
     fetch(`https://masters-client.onrender.com/create?dir=${nikname}`)
-      .then(res => console.log('GOOD'))
+    .then(res => console.log('GOOD'))
+
   } else if (result[0].status === 'master' && result[0].blocked === '0') {
-    if (result[0].client_password === req.body.password) {
-    const result = await sql`
-        select 
-          name,status,city,stars,locations,nikname,text,address,address_full,currency,color,services
-        from users
-        where phone = ${+req.body.tel}
-      `
-    res.status(200).json(result[0])
-    } else {
-      res.status(200).json([])
-    }   
-  } else if (result[0].status === 'client' && result[0].blocked === '0') {
-    if (result[0].client_password === req.body.password) {
+      if (result[0].client_password === req.body.password) {
       const result = await sql`
-        select 
-          status,nikname,name,text,id,saved_image
-        from clients
-        where phone = ${+req.body.tel}
-      `
+          select 
+            name,status,city,stars,locations,nikname,text,address,address_full,currency,color,services
+          from users
+          where phone = ${+req.body.tel}
+        `
       res.status(200).json(result[0])
-    } else {
-      res.status(200).json([])
-    }
+      } else {
+        res.status(200).json([{message:'пароль не верный'}])
+      }   
+  } else if (result[0].status === 'client' && result[0].blocked === '0') {
+      if (result[0].client_password === req.body.password) {
+        const result = await sql`
+          select 
+            status,nikname,name,text,id,saved_image
+          from clients
+          where phone = ${+req.body.tel}
+        `
+        res.status(200).json(result[0])
+      } else {
+        res.status(200).json([{message:'пароль не верный'}])
+      }
 
     // fetch(`https://masters-client.onrender.com/create?dir=${result[0].nikname}`)
     //   .then(res => console.log('Папка создана'))
-  } else if (result[0].blocked === 'yes') {
+  } else if (result[0].blocked !== '0') {
 
-    res.status(200).json([])
+    res.status(404).json([{message: 'Ваш аккаунт заблокирован'}])
   } else {
-    res.end('Ваш аккаунт заблокирован')
+    res.status(404).end('Ваш аккаунт заблокирован')
   }
 
 

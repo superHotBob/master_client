@@ -165,7 +165,9 @@
   display: inline;
   float: right;
 }
-
+.inputs label input[type="text"] {
+  font-size: 14px;
+}
 .radio {
   height: 31px;
   margin: 6px 0;

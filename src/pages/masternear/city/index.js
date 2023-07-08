@@ -235,7 +235,7 @@ export default function MasterNear() {
                 <section className={styles.section}>
                     <Image alt="close" className={styles.close} src={arrow_down} width={25} height={25} onClick={() => ViewMaster('', 11)} />
                     {masters?.filter(i => i.nikname === master).map(i =>
-                        <Link key={i.nikname} className={styles.master} href={`/master/${i.nikname}`} >
+                        <Link key={i.nikname} className={styles.master} href={`/${i.nikname}`} >
                             <p style={{ width: '75%' }}>
                                 <b>{i.name}</b>
                                 <span className={styles.pro}>MASTER</span>

@@ -20,8 +20,7 @@ export default function EditProfile() {
 
     
     useEffect(() => {
-        const prof = JSON.parse(localStorage.getItem('profile'))  
-        console.log(prof)     
+        const prof = JSON.parse(localStorage.getItem('profile'))        
         setmy_profile(my_profile=>(
             {...my_profile,...prof}
         ))        
@@ -38,13 +37,9 @@ export default function EditProfile() {
     const EditClient = async () => {
         const data = {            
             name: my_profile.name,
-            new_nikname: my_profile.nikname,            
-            text: my_profile.text,
-            old_nikname: my_profile.nikname
-        }
-        // if (!file_for_upload) {
-        //     return setMessage('Необходимо добавить иконку в формате jpg размером не более 20кб. ')
-        // }
+            nikname: my_profile.nikname,            
+            text: my_profile.text,           
+        }       
         if (file_for_upload) { UploadToServer() }
         fetch('/api/edit_profile_client', {
             body: JSON.stringify(data),
@@ -55,9 +50,9 @@ export default function EditProfile() {
         })
         .then(res => res.json())
         .then(res => {
-                localStorage.setItem("profile", JSON.stringify(res))
-                dispatch(setprofile(res))
-                setMessage('Ваш профиль изменён')
+            localStorage.setItem("profile", JSON.stringify(res))
+            dispatch(setprofile(res))
+            setMessage('Ваш профиль изменён')
         })
         .catch(err => setMessage("Ошибка сохранения "))
     }
@@ -82,23 +77,7 @@ export default function EditProfile() {
             })
             .catch(err => setMessage("Ошибка создания профиля мастера"))
     }
-
-    // const toBase64 = file => new Promise((resolve, reject) => {
-    //     const reader = new FileReader();
-    //     reader.readAsDataURL(file);
-    //     reader.onload = () => resolve(reader.result);
-    //     reader.onerror = error => reject(error);
-    // });
-
-    // async function onSelectFile(a) {
-    //     if (a.size > 50000) {
-    //         setMessage('Файл больше 50кб')
-    //     } else {
-    //         // let result = await toBase64(a)
-    //         setSelectedFile(a)
-    //     }
-
-    // }
+   
     function SelectUpload(e) {
         let url = URL.createObjectURL(e.target.files[0])
         setSelectedFile(url)
@@ -108,7 +87,7 @@ export default function EditProfile() {
     function UploadToServer() {
         let data = new FormData()       
         data.append('file', file_for_upload, 'main.jpg')
-        fetch(`${url}/upl?name=${profile.nikname}`, {
+        fetch(`${url}/upl?name=${my_profile.nikname}`, {
             body: data,
             method: 'post',
         }).then(res => console.log('file is good'))
@@ -143,13 +122,13 @@ export default function EditProfile() {
             </form>
             <p className={styles.name}>{my_profile.name || 'Ваше имя'}</p>
             <section className={styles.inputs}>
-                <h6>
+                {/* <h6>
                     <span>Публичная ссылка, никнейм</span>
                 </h6>
                 <div className={styles.nikname}>
                     <span>masters.place/{my_profile.status + '/'}</span>
                     <input type="text" value={my_profile.nikname} disabled />
-                </div>
+                </div> */}
                 <label>
                     Имя и фамилия
                     <input 

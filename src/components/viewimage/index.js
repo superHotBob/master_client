@@ -60,7 +60,7 @@ export default function ViewImage({ view_image, viewImage, pid = null }) {
                     >
                         Отправить сообщение мастеру
                     </Link> :
-                    <Link className={styles.toprofilemaster} href={'/master/' + view_image.name} >Перейти в профиль мастера</Link>
+                    <Link className={styles.toprofilemaster} href={'/' + view_image.name} >Перейти в профиль мастера</Link>
                 }
             </div>
         </div>

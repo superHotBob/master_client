@@ -41,7 +41,7 @@ export default function MasterNear() {
     // }, [service])   
 
     function ViewNewMaster(a) {
-        router.push(`/master/${a}`)
+        router.push(`/${a}`)
         let master = data.filter(i => i.nikname === a)
         dispatch(setmaster(master[0]))
     }   
