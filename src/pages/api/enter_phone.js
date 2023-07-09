@@ -24,13 +24,13 @@ export default async function handler(req, res) {
             'client', 
             ${nikname}, 
             ${(Math.random() * 100000).toFixed(0)}, 
-            'no', 
+            '0', 
             ${req.body.password}
           )
           returning status, nikname, id, text, name
       `
     res.status(200).json(result[0])
-    fetch(`https://masters-client.onrender.com/create?dir=${nikname}`)
+    fetch(`https://masters-client.onrender.com/createclientfolder?dir=${nikname}`)
     .then(res => console.log('GOOD'))
 
   } else if (result[0].status === 'master' && result[0].blocked === '0') {

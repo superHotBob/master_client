@@ -26,7 +26,7 @@ export default async function handler(req, res) {
   master['phone'] = my_result[0].phone
   master['nikname'] = (req.body.nikname).replace('client','master')
   const result = await sql`   
-    insert into users (name, phone, nikname, id, services,stars, color, text) 
+    insert into users (name, phone, nikname, id, services,stars, color, text,blocked) 
     values (      
       ${master.name},
       ${master.phone},      
@@ -35,7 +35,8 @@ export default async function handler(req, res) {
       '{}',
       '5.0',
       ${master.color},
-      ${master.text}
+      ${master.text},
+      '0'
     )  
     returning *
   `

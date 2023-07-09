@@ -9,14 +9,11 @@ import Menu_icon from '@/components/icons/menu'
 
 
 const style_one = {
-
     background: '#8B95F2',
-
 }
 const style_two = {
     color: '#fff',
     background: '#3D4EEA',
-
 }
 const my_category = ['маникюр', 'прически', 'педикюр', 'макияж', 'массаж', 'барбер', 'ресницы', 'брови', 'депиляция', 'чистка', 'стрижка', 'окрашивание']
 
@@ -42,11 +39,9 @@ export default function AddService({ view, setView, color }) {
         const response = await fetch(`/api/master_service?nikname=${a}`, {
             headers: { 'Content-Type': 'application/json' }
         })
-        const result = await response.json()
-        console.log('Services', result)
+        const result = await response.json()       
         if (result.length > 0) {
-            let new_serv = Object.entries(result[0])
-            console.log(result[0])
+            let new_serv = Object.entries(result[0])            
             setServices(new_serv)
             let all_category = new_serv.map(i => i[1] && i[1].length > 0 ? i[0] : null)
             addCategory(b.services ? b.services : all_category)
@@ -84,8 +79,8 @@ export default function AddService({ view, setView, color }) {
 
         } else {
             // add_new_category(new_category => ([...new_category, e.target.id]))
-            // console.log([...new_category, e.target.id])
-            const ind = services.findIndex(i => i[0] === e.target.id)
+            // console.log([...new_category, e.target.id])           
+            const ind = services.findIndex(i => i[0] === e.target.id)            
             let new_serv = services
             new_serv[ind][1] = ['']
             setServices(services)
@@ -143,7 +138,7 @@ export default function AddService({ view, setView, color }) {
                                 id={cat}
                                 style={category.includes(cat) ?
                                     { ...style_one, color: color[1], backgroundColor: color[2], borderColor: color[1] } : new_category.includes(cat) ?
-                                        { ...style_two, color: color[1], borderColor: color[1] } : { cursor: 'pointer', color: color[1], borderColor: color[1] }}
+                                    { ...style_two, color: color[1], borderColor: color[1] } : { cursor: 'pointer', color: color[1], borderColor: color[1] }}
                             >
                                 {cat}
                             </b>
