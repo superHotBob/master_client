@@ -20,8 +20,7 @@ export default function Chat() {
 
     const options = { month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
 
-    function My_Date(a) {
-        console.log(typeof a)
+    function My_Date(a) {        
         const message_date = new Date(+a)
         const current_date = new Date()
         if (message_date.getDate() === current_date.getDate()) {
@@ -84,7 +83,7 @@ export default function Chat() {
                                     <span>{My_Date(i.ms_date)}</span>
                                 </p>
                                 <h6 className={NewMessage(i.ms_date, i.recipient_nikname, i.sendler_nikname) ? styles.new_message : null}>
-                                    {i.ms_text.slice(0,12)}
+                                    {i.ms_text}
                                 </h6>
                             </div>
 

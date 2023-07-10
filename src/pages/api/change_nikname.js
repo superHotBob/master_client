@@ -33,8 +33,8 @@ export default async function handler(req, res) {
     console.log(4)
     const result_orders = await sql`
         update schedule 
-        set master = ${req.query.newnikname}    
-        where master =  ${req.query.oldnikname}  
+        set nikname = ${req.query.newnikname}    
+        where nikname =  ${req.query.oldnikname}  
         returning  *     
     `
     console.log(5)

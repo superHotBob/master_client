@@ -5,61 +5,61 @@ import useSWR from 'swr'
 const url = 'https://masters-client.onrender.com'
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
-export default function Sertificats({nikname}) { 
-     const { data, error, isLoading } = useSWR(`${url}/getsertificats?dir=${nikname}`, fetcher)
-     const [image, viewImage] = useState()
-     const [tag, setTag] = useState()
-  
-   
-    // const [tag, setTag] = useState()
-    function ViewImage(a) {            
-        viewImage(a)
-        // setTimeout(()=> {
-        //     document.getElementById(a + 'aaa').style.top = window.scrollY + 150 + 'px'},500)
-    }
-    function GetText(a) {
-      let new_file = nikname + '/' +  a.replace('https://masters-client.onrender.com/var/data/', '')
-      fetch(`${url}/readtext?file=${new_file}`)
+export default function Sertificats({ nikname }) {
+  const { data, error, isLoading } = useSWR(`${url}/getsertificats?dir=${nikname}`, fetcher)
+  const [image, viewImage] = useState()
+  const [tag, setTag] = useState()
+
+
+
+  function ViewImage(a) {
+    viewImage(a)
+    // setTimeout(()=> {
+    //     document.getElementById(a + 'aaa').style.top = window.scrollY + 150 + 'px'},500)
+  }
+  function GetText(a) {
+    let new_file = nikname + '/' + a.replace('https://masters-client.onrender.com/var/data/', '')
+    fetch(`${url}/readtext?file=${new_file}`)
       .then(res => res.text())
       .then(res => setTag(res))
-    }
+  }
 
-    if (error) return <div>Сертификатов нет</div>
-    if (isLoading) return <div>Загрузка сертификатов</div>
-   
-    return (
-        <>
-        <main className={styles.main}>
-            {data?.map(i => 
-                <div 
-                    key={i}
-                    onClick={()=>{
-                      ViewImage(i)
-                      GetText(i)
-                    }} 
-                    className={styles.image} 
-                    style={{ backgroundImage: "url(" + url + '/var/data/' +  nikname + '/' + i + ")" }}
-                />
-            )}
-        </main>
-        {image  ?
-        <div className={styles.main__detail} >         
+  if (error) return <div>Сертификатов нет</div>
+  if (isLoading) return <div>Загрузка сертификатов</div>
+
+  return (
+    <>
+      <main className={styles.main}>
+        {data?.map(i =>
+          <div
+            key={i}
+            onClick={() => {
+              ViewImage(i)
+              GetText(i)
+            }}
+            className={styles.image}
+            style={{ backgroundImage: "url(" + url + '/var/data/' + nikname + '/' + i + ")" }}
+          />
+        )}
+      </main>
+      {image ?
+        <div className={styles.main__detail} >
           <div className={styles.detail} id={image + 'aaa'}>
             <h3 onClick={() => viewImage()} />
             <img
               alt="my_image"
-              src={url + '/var/data/' +  nikname + '/' + image}
+              src={url + '/var/data/' + nikname + '/' + image}
               width="100%"
               id={image}
               height="auto"
-            />           
+            />
             <h6>{tag ? tag :
               `Без комментария`}
-            </h6>           
+            </h6>
           </div>
-        </div> 
+        </div>
         : null
       }
-        </>
-    )
+    </>
+  )
 }

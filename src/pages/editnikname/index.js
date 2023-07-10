@@ -13,7 +13,7 @@ export default function EditNikname() {
     const [copyring, setcopyring] = useState(false)
     useEffect(()=>setnewnikname(profile.nikname),[profile])
     function CopyLink() {
-        navigator.clipboard.writeText(`http://localhost:3000/${newnikname}`);
+       navigator.clipboard.writeText(`${location.origin}/${newnikname}`);
        setcopyring(true)
        setTimeout(()=>setcopyring(false),3000)
     }

@@ -34,8 +34,8 @@ export default async function handler(req, res) {
     const result = await sql`
       select * 
       from  chat
-      where (sendler_nikname = ${req.query.abonent} and recipient_nikname =  ${req.query.my_name}  ) or (
-          recipient_nikname = ${req.query.abonent} and sendler_nikname =  ${req.query.my_name}) 
+      where (sendler_nikname = ${req.query.abonent} and recipient_nikname =  ${req.query.nikname}  ) or (
+          recipient_nikname = ${req.query.abonent} and sendler_nikname =  ${req.query.nikname}) 
                       
     `
     if (result.length > 0) {

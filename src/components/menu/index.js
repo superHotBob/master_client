@@ -35,7 +35,8 @@ export default function Menu({count,profile}) {
 
     return (
     <>
-        {profile.status === 'master' ? <main className={styles.main_menu}>
+        {profile.status === 'master' ? 
+        <main className={styles.main_menu}>
             <p className={styles.menu_prof}>Меню профиля</p>
             <Link href='/chat'>
                 Сообщения
