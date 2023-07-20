@@ -36,24 +36,29 @@ const Master = () => {
 
     const router = useRouter()
     const { slug } = router.query
-    const [gradient, color, background] = profile?.color || my_data.my_tema[0]
+    const [gradient, color, background] = my_data.my_tema[0].color
     const dispatch = useDispatch()
     const my_profile = useSelector(state => state.counter.profile)
     const master = useSelector(state => state.counter.master)
 
 
-    useEffect(() => {      
-        if(!slug){
-            return console.log('slug')
-        }
+    useEffect(() => { 
+       
         if (master && my_profile) {
             setProfile(master)
         } else {
             fetch(`/api/master?nikname=${slug}`)
                 .then(res => res.json())
-                .then(res => setProfile(res[0]))
-        }
-        // return () => dispatch(setmaster(''))
+                .then(res => {
+                    if(res.length){
+                        setProfile(res[0])
+                        dispatch(setmaster(res[0]))
+                    } else {
+                        document.getElementById('message').innerText = 'Такого мастера нет'
+                    }                   
+                })
+                .catch(err=>console.log(new Error(err)))
+        }        
     }, [slug,router])
 
     function LinkTo(a) {
@@ -69,7 +74,7 @@ const Master = () => {
             {profile ? <>
                 <Header text={slug} sel={'/masternear/' + slug} color={profile.color} />
                 <section className={styles.section_main}>
-                    <MasterHeader profile={profile} />
+                <MasterHeader profile={profile} master={slug}/>
                     <dialog open={message} className={styles.dialog}>
                         <div>
                             <span onClick={() => setmessage(false)}>закрыть</span>
