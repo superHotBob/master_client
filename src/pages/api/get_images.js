@@ -7,6 +7,7 @@ export default async function handler(req, res) {
   select *
   from images
   where nikname = ${req.query.nikname} 
+  order by rating desc
   `
   if (result.length) {
     res.status(200).json(result)

@@ -14,7 +14,8 @@ import { useEffect } from 'react'
 export default function DisplayPublications() {
     const { color = my_data.my_tema[0].color, nikname } = useSelector(state => state.counter.profile)
     const router = useRouter()
-    const [images, setImages] = useState()
+    const [imagesone, setImagesOne] = useState([])
+    const [imagestwo, setImagesTwo] = useState([])
     // const { data, mutate } = useSWR(`/api/get_images?nikname=${nikname}`, fetcher)
     const reorder = (list, startIndex, endIndex) => {
         const result = Array.from(list);
@@ -24,38 +25,50 @@ export default function DisplayPublications() {
         return result;
     };
     useEffect(() => {
-        fetch(`/api/get_images?nikname=${nikname}`)
+        const pro = JSON.parse(localStorage.getItem('profile'))
+        if(!pro.nikname) {
+            router.push('/enter')
+        }
+        fetch(`/api/get_images?nikname=${pro.nikname}`)
             .then(res => res.json())
-            .then(res => setImages(res))
+            .then(res => res.map((i, index) => (index + 1) % 2 != 0 ?
+                setImagesOne(imagesone => ([...imagesone, i])) :
+                setImagesTwo(imagestwo => ([...imagestwo, i]))
+            ))
     }, [])
-    function onDragEnd(result) {
-        // let new_images = images.filter(i=>i.id !== result.source.index)
-        // setImages(new_images)
-        // console.log(images)
-        // dropped outside the list
+    function onDragEndOne(result) {        
         if (!result.destination) {
-            // console.log(result.destination, result.source.index)
-            // let new_images = images.filter((i,index)=>index != result.source.index)
-            // setImages(new_images)
+            console.log(result.destination, result.source.index)
+            let new_images = imagesone.filter((i, index) => index != result.source.index)
+            setImagesOne(new_images)
             return;
         }
-        // console.log( result.source.index,result.destination.index)
-        // const new_images = reorder(
-        //     images,
-        //     result.source.index,
-        //     result.destination.index
-        // );
-        // setImages(new_images)
+        console.log(result.source.index, result.destination.index)
+        const new_images = reorder(
+            imagesone,
+            result.source.index,
+            result.destination.index
+        );
+        setImagesOne(new_images)
 
     }
-    function onDragUpdate(result) {
-        console.log(result.source.index)
-            let new_images = images.filter((i,index)=>i.id !== result.source.index)
-            setImages(new_images)
-            console.log(images)
-           
-      
+    function onDragEndTwo(result) {        
+        if (!result.destination) {
+            console.log(result.destination, result.source.index)
+            let new_images = imagestwo.filter((i, index) => index != result.source.index)
+            setImagesTwo(new_images)
+            return;
+        }
+        console.log(result.source.index, result.destination.index)
+        const new_images = reorder(
+            imagestwo,
+            result.source.index,
+            result.destination.index
+        );
+        setImagesTwo(new_images)
+
     }
+   
     return (
         <main>
             <header className={styles.header}>
@@ -76,21 +89,24 @@ export default function DisplayPublications() {
                 </p>
             </section>
             <div className={styles.images}>
-                {images?.length}
-                <DragDropContext onDragEnd={onDragEnd} onDragUpdate={onDragUpdate}>
-                    <Droppable droppableId="droppable">
-                        {(provided, snapshot) => (<>
+                <DragDropContext onDragEnd={onDragEndOne} >
+                    <Droppable
+                        droppableId="board"
+                        type="COLUMN"
+                        direction="vertical"
+                    >
+                        {(provided, snapshot) => (
                             <div
                                 {...provided.droppableProps}
                                 ref={provided.innerRef}
                             >
 
-                                {images?.filter((i, my_index) => my_index % 2 != 0).map((i, index) =>
+                                {imagesone?.map((i, index) =>
 
 
-                                    <Draggable key={i.id + 'v'} draggableId={i.id + ''} index={i.id}>
+                                    <Draggable key={i.img_date} draggableId={i.img_date} index={index}>
                                         {(provided, snapshot) => (
-                                           
+
                                             <img
                                                 {...provided.draggableProps}
                                                 {...provided.dragHandleProps}
@@ -98,32 +114,8 @@ export default function DisplayPublications() {
 
                                                 key={i.id}
                                                 alt={i.nikname} src={url + '/var/data/' + i.nikname + '/' + i.id + '.jpg'} />
-                                            
-                                            
-                                        )}
-                                    </Draggable>
 
 
-                                )}
-                             {provided.placeholder}    
-                            </div>
-                            <div
-
-                                ref={provided.innerRef}
-                            >
-
-                                {images?.filter((i, my_index) => my_index % 2 === 0).map((i, index) =>
-
-
-                                    <Draggable key={i.id + 'v'} draggableId={i.id + ''} index={i.id}>
-                                        {(provided, snapshot) => (
-                                            <img
-                                                {...provided.draggableProps}
-                                                {...provided.dragHandleProps}
-                                                ref={provided.innerRef}
-
-                                                key={i.id}
-                                                alt={i.nikname} src={url + '/var/data/' + i.nikname + '/' + i.id + '.jpg'} />
                                         )}
                                     </Draggable>
 
@@ -131,19 +123,53 @@ export default function DisplayPublications() {
                                 )}
                                 {provided.placeholder}
                             </div>
-                        </>
-                        )}
-                       
-                    </Droppable>
+                        )}    
+                        </Droppable>
                 </DragDropContext>
+                <DragDropContext onDragEnd={onDragEndTwo} >
+                    <Droppable 
+                        droppableId="board"
+                        type="COLUMN"
+                        direction="vertical"
+                    >
+                        {(provided, snapshot) => (
+                        <div
+                            {...provided.droppableProps}
+                            ref={provided.innerRef}
+                        >
 
-                {/* <div>
+                            {imagestwo?.map((i, index) =>
+
+
+                                <Draggable key={i.img_date} draggableId={i.img_date} index={index}>
+                                    {(provided, snapshot) => (
+                                        <img
+                                            {...provided.draggableProps}
+                                            {...provided.dragHandleProps}
+                                            ref={provided.innerRef}
+
+                                            key={i.id}
+                                            alt={i.nikname} src={url + '/var/data/' + i.nikname + '/' + i.id + '.jpg'} />
+                                    )}
+                                </Draggable>
+
+
+                            )}
+                            {provided.placeholder}
+                        </div>
+                 
+                        )}
+
+                </Droppable>
+            </DragDropContext>
+
+            {/* <div>
                     {images?.filter((i, index) => index % 2 === 0).map(i =>
                         <img onClick={() => Movie(i)} key={i.id} alt={i.nikname} src={url + '/var/data/' + i.nikname + '/' + i.id + '.jpg'} />)}
                 </div> */}
-            </div>
-           
+        </div>
 
-        </main>
+
+        </main >
     )
 }
