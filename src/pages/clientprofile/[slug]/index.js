@@ -1,14 +1,12 @@
 import styles from './client.module.css'
 import { useRouter } from 'next/router'
-
 import Header from '@/components/header'
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
-
 import { useDispatch } from 'react-redux'
 import Link from 'next/link'
-
 const url = 'https://masters-client.onrender.com'
+
 const sel = {
     background: 'linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)',
     fontWeight: 600,
@@ -24,26 +22,41 @@ export default function Client() {
     const router = useRouter()
     const dispatch = useDispatch()
     const { slug } = router.query
-    const profile = useSelector((state) => state.counter.profile)    
+    const profile = useSelector((state) => state.counter.profile)
     const [data, setData] = useState([])
-   
 
 
 
-    
+
+
 
     useEffect(() => {
-        if (slug) {
-            fetch(`/api/get_saved_image?nikname=${slug}`)
+        const  GetId = async () => {
+          const data = await  fetch(`/api/get_saved_image?nikname=${slug}`)
             .then(res => res.json())
-            .then(res => setData(res))
-        } else { router.push('/') }
-    }, [slug, router])
+            .then(res => res)
 
-   
-    function GoToMaster(e, a) {
-        let master = a.slice(0, a.indexOf('/'))
-        router.push(`/master/${master}`)
+           data.forEach(i => {
+            fetch(`/api/get_image_id?id=${i}`)
+                .then(res => res.json())
+                .then(res => setData(data=>[...data,...res]))
+            
+           });
+                
+            
+
+           
+        }
+
+        GetId()
+
+
+    }, [slug])
+
+
+    function GoToMaster(a) {
+        
+        router.push(`/${a}`)
     }
     function Loaded(a) {
         document.getElementById(a).style.opacity = 1
@@ -65,7 +78,7 @@ export default function Client() {
             document.getElementById(a).style.opacity = 0
 
         })
-    }  
+    }
 
     return (
         <>
@@ -86,16 +99,17 @@ export default function Client() {
             <div className={styles.images}>
                 <section>
                     {data?.filter((i, index) => index % 2 === 0).map(i =>
-                        <div key={i} id={i}>
-                            <img 
-                                title={i.slice(0, i.indexOf('/'))} 
-                                onClick={(e) => GoToMaster(e, i)} 
-                                alt="image" src={process.env.url + 'var/data/' + i}
-                                onLoad={()=>Loaded(i)} 
+                        <div key={i.id} id={i.id}>
+                            <img
+                                title={i.nikname}
+                                onClick={(e) => GoToMaster(i.nikname)}
+                                alt="image"
+                                onLoad={() => Loaded(i.id)}
+                                src={process.env.url + 'var/data/' + i.nikname + '/' + i.id + '.jpg' }
                             />
                             <span
                                 className={styles.save__image}
-                                onClick={() => Delete_image(i)}
+                                onClick={() => Delete_image(i.id)}
                                 title="удалить"
                             />
                         </div>
@@ -103,17 +117,17 @@ export default function Client() {
                 </section>
                 <section>
                     {data?.filter((i, index) => index % 2 !== 0).map(i =>
-                        <div key={i} id={i}>
-                            <img 
-                                title={i.slice(0, i.indexOf('/'))} 
-                                onClick={(e) => GoToMaster(e, i)} 
-                                alt="image" 
-                                src={process.env.url + 'var/data/' + i} 
-                                onLoad={()=>Loaded(i)} 
+                        <div key={i.id} id={i.id}>
+                            <img
+                                title={i.nikname}
+                                onClick={(e) => GoToMaster(i.nikname)}
+                                alt="image"
+                                src={process.env.url + 'var/data/' + i.nikname + '/' + i.id + '.jpg' }
+                                onLoad={() => Loaded(i.id)}
                             />
                             <span
                                 className={styles.save__image}
-                                onClick={() => Delete_image(i)}
+                                onClick={() => Delete_image(i.id)}
                                 title="удалить"
                             />
                         </div>

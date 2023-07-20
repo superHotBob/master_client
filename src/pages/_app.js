@@ -17,6 +17,7 @@ const rubik = Rubik({
 const my_path = ['informations','informations/aboutservice',
   'newpassword',
   'succesregistration',
+  'displaypublications',
   'masterrecords',
   'confirmation',
   'addlist',

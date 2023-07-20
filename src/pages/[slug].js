@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router'
-import { usePathname } from 'next/navigation'
 import Head from 'next/head'
 import styles from '../styles/master.module.css'
 import Image from 'next/image'
@@ -15,11 +14,11 @@ import Sertificats from '@/components/serificats'
 import { useSelector } from 'react-redux'
 import Menu_icon from '@/components/icons/menu'
 import Link from 'next/link'
-import Location from '@/components/location'
 import MasterHeader from '@/components/masterheader'
+import { my_data } from '@/data.'
 
 
-const url = 'https://masters-client.onrender.com/'
+
 
 const active = {
     color: "#fff",
@@ -35,31 +34,29 @@ const Master = () => {
 
     const router = useRouter()
     const { slug } = router.query
-    const [gradient, color, background] = profile?.color || ['linear-gradient(to left, #3D4EEA, #5E2AF0)', '#3D4EEA', '#ECEEFD']
+    const [gradient, color, background] =  my_data['my_tema'][0].color
     const dispatch = useDispatch()
     const my_profile = useSelector(state => state.counter.profile)
     const master = useSelector(state => state.counter.master)
 
 
-    useEffect(() => {      
-        if(!slug){
-            return console.log('slug')
-        }
+    useEffect(() => { 
+       
         if (master && my_profile) {
             setProfile(master)
         } else {
             fetch(`/api/master?nikname=${slug}`)
                 .then(res => res.json())
                 .then(res => {
-                    if(res.length>0){
+                    if(res.length){
                         setProfile(res[0])
+                        dispatch(setmaster(res[0]))
                     } else {
                         document.getElementById('message').innerText = 'Такого мастера нет'
-                    }
-                   
+                    }                   
                 })
-        }
-        // return () => dispatch(setmaster(''))
+                .catch(err=>console.log(new Error(err)))
+        }        
     }, [slug,router])
 
     function LinkTo(a) {
@@ -75,7 +72,7 @@ const Master = () => {
             {profile ? <>
                 <Header text={slug} sel={'/masternear/' + slug} color={profile.color} />
                 <section className={styles.section_main}>
-                    <MasterHeader profile={profile} />
+                    <MasterHeader profile={profile} master={slug}/>
                     <dialog open={message} className={styles.dialog}>
                         <div>
                             <span onClick={() => setmessage(false)}>закрыть</span>
@@ -108,10 +105,10 @@ const Master = () => {
                         {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
                             .map((i, index) => <span key={i} onClick={() => setNavView(index)} style={nav_view === index ? { ...active, backgroundColor: color } : null}>{i}</span>)}
                     </nav>
-                    {nav_view === 3 ? <Reviews nikname={slug} color={profile.color} /> : null}
-                    {nav_view === 1 ? <Services name={slug} color={profile.color} /> : null}
-                    {nav_view === 0 ? <Lenta nikname={slug} color={profile.color} name={profile.name}/> : null}
-                    {nav_view === 2 ? <Sertificats nikname={slug} /> : null}
+                    {nav_view === 3 ? <Reviews nikname={slug} color={profile.color} /> : 
+                    nav_view === 1 ? <Services name={slug} color={profile.color} /> : 
+                    nav_view === 0 ? <Lenta nikname={slug} color={profile.color} name={profile.name}/> : 
+                    <Sertificats nikname={slug} />}
                 </section>
                 <Navi color={gradient} />
             </> :

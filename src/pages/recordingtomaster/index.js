@@ -35,28 +35,43 @@ export default function Recording() {
 
 
     useEffect(() => {
-        console.log(master['services'])
+        
         if(master.phone===null) {
             router.push('/')
         }
-        // dispatch(setmaster(nikname))
-        addCategory(master.services)
+       
+       
         async function GetServices() {
             const response = await fetch(`/api/master_service?nikname=${nikname}`)
             const result = await response.json()            
-            let new_cat = Object.entries(result)
+            let new_cat = Object.entries(result[0])
            
-            setServices(new_cat.filter(i => i[1] ? (i[1].length > 0 ? 1 : 0) : 0))
-            // let all_category = new_cat.map(i => i[1] && i[1].length > 0 ? i[0] : null)
-            // addCategory(all_category.filter(i => i ? 1 : 0))
+            setServices(new_cat.filter(i => i[1].length ))
+            let all_category = new_cat.map(i => i[1] && i[1].length > 0 ? i[0] : null)
+               
+            addCategory(all_category.filter(i => i ? 1 : 0))
+            // if(master) {
+            //     addCategory(master[0]['services'])
+            // } else {
+            //     let all_category = new_cat.map(i => i[1] && i[1].length > 0 ? i[0] : null)
+               
+            //     addCategory(all_category.filter(i => i ? 1 : 0))
+            // }
+           
         }
-        if (services) {
-            let new_services = services.filter(i => i[0] === active_category)[0][1]
-            setFilterServices(new_services)
-        } else {
+        // if (services) {
+        //     let new_services = services.filter(i => i[0] === active_category)[0][1]
+        //     setFilterServices(new_services)
+        // } else {
             GetServices()
-        }
-    }, [router.query,active_category,nikname,master])
+        // }
+    }, [router.query,nikname,master])
+
+    function SetActiveCategory(a) {
+        set_Active_Category(a)       
+        let new_services = services.filter(i => i[0] === a)[0][1]        
+        setFilterServices(new_services)
+    }
 
     function Cost(a) {
         if (a.length === 0) {
@@ -101,13 +116,13 @@ export default function Recording() {
     
     return (
         <main className={styles.main}>
-            <Header text="Запись к мастеру" sel={"/master/" + nikname} select={setView} view_time={!view} />
+            <Header text="Запись к мастеру" sel={"/" +  nikname} select={setView} view_time={!view} />
             {view ? <>               
                 <div className={styles.category}>
                     <div className={styles.all_cat}>
                         {category?.map(i =>
                             <span key={i}
-                                onClick={() => set_Active_Category(i)} 
+                                onClick={() => SetActiveCategory(i)} 
                                 style={active_category === i ?
                                     {
                                         color: '#fff',
@@ -143,7 +158,7 @@ export default function Recording() {
                     nikname={nikname}
                     order={orders}
                     close={setView}
-                    price={Cost(orders)*0.9}
+                    price={Cost(orders)}
                 />
             }
             <div className={styles.order}>

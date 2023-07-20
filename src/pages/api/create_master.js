@@ -24,7 +24,7 @@ export default async function handler(req, res) {
   master['color'] = ['linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)', '#3D4EEA', '#ECEEFD']
   master['id'] = my_result[0].id
   master['phone'] = my_result[0].phone
-  master['nikname'] = (req.body.nikname).replace('client','master')
+  master['nikname'] = (req.body.nikname)
   const result = await sql`   
     insert into users (name, phone, nikname, id, services,stars, color, text,blocked) 
     values (      

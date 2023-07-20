@@ -1,8 +1,7 @@
 const withPWA = require("next-pwa")
 const  runtimeCaching = require('next-pwa/cache.js')
 const isProduction = process.env.NODE_ENV === 'production'
-const config = {
-  reactStrictMode: true,
+const config = { 
   images: {
     unoptimized: true
   },

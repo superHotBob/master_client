@@ -31,53 +31,31 @@ export default function Home() {
   const service = useSelector(state => state.counter.service)
   const city = useSelector(state => state.counter.city)
   const [view_image, viewImage] = useState(false)
-  const [data, setdata] = useState([])
+  // const [data, setdata] = useState([])
  
   const count = useRef(0)
   const ref = useRef(null)
-  const { data:images, error } = useSWR(`/api/all_masters_city_service?service=${service}&city=${city.toLowerCase()}`, fetcher)
-
-  if(images) {
-    // setdata(images.map((i, index) => data[index] = { 'id': index + 1 + '', 'master_name': i.name, 'name': i.nikname, image: process.env.url + 'var/data/' + i.nikname + '/list__' + services__name[service] + '__0.jpg' }))
+  // const { data:images, error } = useSWR(`/api/all_masters_city_service?service=${service}&city=${city.toLowerCase()}`, fetcher)
+  const { data, error } = useSWR(`/api/get_images_master_city?service=${service}&city=${city.toLowerCase()}`, fetcher)
+  // if(images) {
+  //   // setdata(images.map((i, index) => data[index] = { 'id': index + 1 + '', 'master_name': i.name, 'name': i.nikname, image: process.env.url + 'var/data/' + i.nikname + '/list__' + services__name[service] + '__0.jpg' }))
    
-    // mutate({...images,nikname:newName})
-  }
+  //   // mutate({...images,nikname:newName})
+  // }
   
   
-  useEffect(() => {
-    setdata([])   
-    count.current = 0
-    fetch(`/api/all_masters_city_service?service=${service}&city=${city.toLowerCase()}`)
-    .then(res => res.json())
-    .then(data => {      
-      setdata(data.map((i, index) => data[index] = { 'id': index + 1 + '', 'master_name': i.name, 'name': i.nikname, image: process.env.url + 'var/data/' + i.nikname + '/list__' + services__name[service] + '__0.jpg' }))
-    })
-   
-  }, [service])
-
   // useEffect(() => {
-  //   // console.log([coords.latitude, coords.longitude])
-  //   const options = {
-  //     method: "POST",
-  //     mode: "cors",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "Accept": "application/json",
-  //       "Authorization": "Token " + token
-  //     },
-  //     body: JSON.stringify({ lat: coords?.latitude, lon: coords?.longitude })
-  //   }
+  //   setdata([])   
+    
+  //   fetch(`/api/get_images_master_city?service=${service}&city=${city.toLowerCase()}`)
+  //   .then(res => res.json())
+  //   .then(data => {      
+  //     setdata(data)
+  //   })
+   
+  // }, [service])
 
-  //   async function Location() {
-  //     await fetch(url_one, options)
-  //       .then(response => response.json())
-  //       .then(result => {
-  //         dispatch(setcity(result.suggestions[0].data.city))
-  //       })
-  //       .catch(error => console.log("error", error));
-  //   }
-  //   city ? null : Location()
-  // }, [coords])
+  
 
   const imageOnError = (a) => {
     let new_data = [...data]
@@ -93,11 +71,11 @@ export default function Home() {
   }
   function Height(b) {
     // document.getElementById(b).style.marginBottom = '10px'
-    document.getElementById(b).style.opacity = 1
-    document.getElementById("add__images").style.opacity = 1
+    // document.getElementById(b).style.opacity = 1
+    // document.getElementById("add__images").style.opacity = 1
   }
 
-  const View = (a, b, c) => viewImage({ name: a, image: b, master_name: c })
+  const View = (a, b, c, d, e) => viewImage({text: d, name: a, image: b, master_name: c , date: e})
  
   return (
     <>
@@ -120,10 +98,10 @@ export default function Home() {
                 alt="abc"
                 key={i.id}
                 id={i.id}
-                onClick={() => View(i.name, i.image, i.master_name)}
-                onError={() => imageOnError(i.id)}
+                onClick={() => View(i.nikname, process.env.url + 'var/data/' + i.nikname + '/' +  i.id + '.jpg', i.master_name, i.review, i.img_date)}
+               
                 onLoad={() => Height(i.id)}
-                src={i.image}
+                src={process.env.url + 'var/data/' + i.nikname + '/' +  i.id + '.jpg' }
                 data-title={i.master_name}
               />
             )}
@@ -134,17 +112,17 @@ export default function Home() {
                 alt="abc"
                 key={i.id}
                 id={i.id}
-                onClick={() => View(i.name, i.image, i.master_name)}
-                onError={() => imageOnError(i.id)}
+                onClick={() => View(i.nikname, process.env.url + 'var/data/' + i.nikname + '/' +  i.id + '.jpg', i.master_name, i.review, i.img_date)}
+                
                 onLoad={() => Height(i.id)}
-                src={i.image}
+                src={process.env.url + 'var/data/' + i.nikname + '/' +  i.id + '.jpg' }
                 data-title={i.master_name}
               />
             )}
           </div>
         </div>
-        <button id="add__images" className={styles.add__images} onClick={Plus}>+</button>
-        {view_image ? <ViewImage  view_image={view_image} url_image={url_image} viewImage={viewImage} />:null}
+        {/* <button id="add__images" className={styles.add__images} onClick={Plus}>+</button> */}
+        {view_image ? <ViewImage service={service} view_image={view_image} url_image={url_image} viewImage={viewImage} />:null}
       </section>      
     </>
   )

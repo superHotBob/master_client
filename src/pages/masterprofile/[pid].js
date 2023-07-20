@@ -13,6 +13,8 @@ import Menu_icon from '@/components/icons/menu'
 import AddService from '@/components/addservise'
 import MasterHeader from '@/components/masterheader'
 import Reviews from '@/components/reviews'
+import { url } from '@/data.'
+
 
 const nav_active = ({
     color: "#fff",
@@ -36,7 +38,7 @@ const text = {
     продтвердите это сертификатами.                    
     `
 }
-const url = 'https://masters-client.onrender.com/'
+
 export default function Client() {
     const router = useRouter()
     const { pid } = router.query
@@ -53,7 +55,7 @@ export default function Client() {
         }
         if (pro) {
             function GetLists() {
-                fetch(`${url}getlists?dir=${pro.nikname}`)
+                fetch(`/api/get_images?nikname=${pro.nikname}`)
                     .then(res => res.json())
                     .then(res => setlists(res))
             }
@@ -77,7 +79,7 @@ export default function Client() {
             {profile ? <>
                 <Header sel='back' text='Мой профиль' color={profile.color} />
                 <section className={styles.lenta}>
-                    <MasterHeader profile={profile} />
+                    <MasterHeader profile={profile} master={pid}/>
                     <nav className={styles.navigation}>
                         {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
                             .map(i => <span key={i} onClick={() => setNavView(i)} style={nav_view === i ? { ...nav_active, background: profile.color[1] } : null}>{i}</span>)}
@@ -99,7 +101,7 @@ export default function Client() {
                                 style={{ color: profile.color[1], backgroundColor: profile.color[2] }}
                             >Добавить публикацию +</Link>
                             <Link
-                                href="/addlist"
+                                href="/displaypublications"
                                 className={styles.uslugi}
                                 style={{ color: profile.color[1], backgroundColor: profile.color[2] }}
                             >
@@ -111,24 +113,24 @@ export default function Client() {
                             <div className={styles.lenta_images}>
                                 {lists?.filter((i, index) => index % 2 == 0).map(i =>
                                     <img
-                                        key={i}
-                                        id={i}
+                                        key={i.id}
+                                        id={i.id}
                                         alt="my_image"
-                                        onLoad={() => Load(i)}
+                                        onLoad={() => Load(i.id)}
                                         className={styles.lenta_image}
-                                        src={url + "var/data/" + pid + '/' + i}
+                                        src={url + "/var/data/" + pid + '/' + i.id + '.jpg'}
                                     />
                                 )}
                             </div>
                             <div className={styles.lenta_images}>
                                 {lists?.filter((i, index) => index % 2 !== 0).map(i =>
                                     <img
-                                        key={i}
-                                        onLoad={() => Load(i)}
-                                        id={i}
+                                        key={i.id}
+                                        onLoad={() => Load(i.id)}
+                                        id={i.id}
                                         alt="my_image"
                                         className={styles.lenta_image}
-                                        src={url + "var/data/" + pid + '/' + i}
+                                        src={url + "/var/data/" + pid + '/' + i.id + '.jpg'}
                                     />
                                 )}
                             </div>

@@ -80,8 +80,7 @@
 
 .sertificats {
     background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+    background-size: cover;   
     background-color: inherit;
 }
 
@@ -98,6 +97,9 @@
 .sertificats span img {
     margin: auto;
     cursor: pointer;
+    border: 1px solid #fff;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .sertificats label {   

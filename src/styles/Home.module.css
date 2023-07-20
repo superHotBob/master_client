@@ -39,6 +39,7 @@
   width: calc(50% - 5.5px);
   display: flex;
   flex-direction: column;  
+  min-height: 30vh;
 }
 
 

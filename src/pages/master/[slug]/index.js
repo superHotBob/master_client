@@ -17,6 +17,7 @@ import Menu_icon from '@/components/icons/menu'
 import Link from 'next/link'
 import Location from '@/components/location'
 import MasterHeader from '@/components/masterheader'
+import { my_data } from '@/data.'
 
 
 const url = 'https://masters-client.onrender.com/'
@@ -35,7 +36,7 @@ const Master = () => {
 
     const router = useRouter()
     const { slug } = router.query
-    const [gradient, color, background] = profile?.color || ['linear-gradient(to left, #3D4EEA, #5E2AF0)', '#3D4EEA', '#ECEEFD']
+    const [gradient, color, background] = profile?.color || my_data.my_tema[0]
     const dispatch = useDispatch()
     const my_profile = useSelector(state => state.counter.profile)
     const master = useSelector(state => state.counter.master)
@@ -101,10 +102,11 @@ const Master = () => {
                         {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
                             .map((i, index) => <span key={i} onClick={() => setNavView(index)} style={nav_view === index ? { ...active, backgroundColor: color } : null}>{i}</span>)}
                     </nav>
-                    {nav_view === 3 ? <Reviews nikname={slug} color={profile.color} /> : null}
-                    {nav_view === 1 ? <Services name={slug} color={profile.color} /> : null}
-                    {nav_view === 0 ? <Lenta nikname={slug} color={profile.color} name={profile.name}/> : null}
-                    {nav_view === 2 ? <Sertificats nikname={slug} /> : null}
+                    {nav_view === 3 ? <Reviews nikname={slug} color={profile.color} /> : 
+                    nav_view === 1 ? <Services name={slug} color={profile.color} /> :
+                    nav_view === 2 ? <Sertificats nikname={slug} /> : 
+                    <Lenta nikname={slug} color={profile.color} name={profile.name}/>}
+                   
                 </section>
                 <Navi color={gradient} />
             </> :

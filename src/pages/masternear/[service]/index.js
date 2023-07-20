@@ -22,23 +22,13 @@ export default function MasterNear() {
     const my_city = useSelector((state) => state.counter.city)
     const service = useSelector((state) => state.counter.service)   
     const dispatch = useDispatch()      
-    const [masters, setMasters] = useState()
+   
 
     const { data, error, isLoading } = useSWR('/api/all_masters_city?' + new URLSearchParams({
         city: my_city.toLowerCase(),
         service: service ? service : pid}), fetcher)
     
-    // useEffect(() => {
-    //     // const { pathname } = window.location
-    //     // setSelector(pathname.replace('/masternear/', ''))
-    //     // setMasters()
-    //     fetch('/api/all_masters_city?' + new URLSearchParams({
-    //         city: my_city.toLowerCase(),
-    //         service: service ? service : pid
-    //     }), { next: { revalidate: 100 } })
-    //         .then(res => res.json())
-    //         .then(data => setMasters(data))
-    // }, [service])   
+    
 
     function ViewNewMaster(a) {
         router.push(`/${a}`)

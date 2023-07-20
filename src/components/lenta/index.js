@@ -28,7 +28,7 @@ const text = (` Ищу модель, что бы протестировать к
     Низкокачественный сервис
     Отсутствие ответсвенности за возможные осложнения в процессе процедур
 
-    Пишите, девачки :*:*:*:*`)
+    Пишите, девочки :*:*:*:*`)
 
 
 export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2AF0)', '#3D4EEA', '#ECEEFD'], nikname, name }) {
@@ -38,9 +38,9 @@ export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2A
     const [message, setMessage] = useState(false)
     const profile = useSelector(state => state.counter.profile)
 
-    const { data } = useSWR(`${process.env.url}getlists?dir=${nikname}`, fetcher)
+    const { data } = useSWR(`/api/get_images?nikname=${nikname}`, fetcher)
 
-    function Saved_image(a) {
+    function Saved_image(a) {        
         let pro = JSON.parse(localStorage.getItem('profile'))
         let new_saved = [...pro.saved_image]
         const add_image = [...new_saved, a]
@@ -58,7 +58,15 @@ export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2A
         })
     }
     const ViewImageClick = (a) => {
-        viewImage({ name: nikname, image: process.env.url + 'var/data/' + nikname + '/' + a, master_name: name })
+        console.log(a)
+        viewImage({ 
+            name: a.nikname, 
+            image: process.env.url + 'var/data/' + nikname + '/' + a.id + '.jpg', 
+            master_name: name ,
+            date: a.img_date,
+            text: a.review,
+            service: a.service
+        })
     }
 
     return <>
@@ -72,24 +80,26 @@ export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2A
         <div className={styles.images}>
             <div className={styles.part_images}>
                 {data?.filter((i, index) => index % 2 === 0).map(i =>
-                    <div key={i}>
-                        <img alt={i} onClick={() => ViewImageClick(i)} src={process.env.url + 'var/data/' + nikname + '/' + i} />
+                    <div key={i.id}>
+                        <img alt={i.id} onClick={() => ViewImageClick(i)} 
+                        src={process.env.url + 'var/data/' + nikname + '/' + i.id + '.jpg'} />
                         {profile.status === 'client' ?
                             <span
                                 className={styles.save__image}
-                                onClick={() => Saved_image(nikname + '/' + i)}
+                                onClick={() => Saved_image(i.id)}
                             /> : null}
                     </div>
                 )}
             </div>
             <div className={styles.part_images}>
                 {data?.filter((i, index) => index % 2 !== 0).map(i =>
-                    <div key={i}>
-                        <img alt={i} onClick={() => ViewImageClick(i)} src={process.env.url + 'var/data/' + nikname + '/' + i} />
+                    <div key={i.id}>
+                        <img alt={i} onClick={() => ViewImageClick(i)} 
+                        src={process.env.url + 'var/data/' + nikname + '/' + i.id + '.jpg'} />
                         {profile.status === 'client' ?
                             <span
                                 className={styles.save__image}
-                                onClick={() => Saved_image(nikname + '/' + i)}
+                                onClick={() => Saved_image(i.id)}
                             /> : null}
                     </div>
                 )}

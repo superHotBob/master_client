@@ -5,33 +5,22 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 
-export default function ViewImage({ view_image, viewImage, pid = null }) {
+export default function ViewImage({ view_image, viewImage, pid = null, service }) {
 
-    const service = useSelector(state => state.counter.service)
-    const status = useSelector(state=>state.counter.profile['status'])
-    const [tag, setTag] = useState('')
    
+    const status = useSelector(state => state.counter.profile['status'])
+    const [tag, setTag] = useState('')
+    
     useEffect(() => {
-        let new_file = view_image.image.replace('https://masters-client.onrender.com/var/data/', '')
-        fetch(`${process.env.url}readtext?file=${new_file}`)
-            .then(res => res.text())
-            .then(res => {
-                setTag(res)
-                // document.getElementById("main").style.top = window.scrollY + 'px'
-                document.getElementById("main").style.opacity = 1
-                document.body.classList.add("no-scroll")
-            })
-            .catch(err => {
-
-                document.getElementById("main").style.top = window.scrollY + 'px'
-                document.getElementById("main").style.opacity = 1
-            })
-            .finally(() => {
-
-                document.getElementById("main").style.top = window.scrollY + 'px'
-                document.getElementById("main").style.opacity = 1
-            })
+        document.getElementById("main").style.top = window.scrollY + 'px'
+        document.getElementById("main").style.opacity = 1
     }, [])
+
+    function ConvertDate(a) {
+        const date = new Date(+a);
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Intl.DateTimeFormat('ru-RU', options).format(date);
+    }
 
     return (
 
@@ -48,13 +37,13 @@ export default function ViewImage({ view_image, viewImage, pid = null }) {
                 <div className={styles.master} >
                     <Image alt="image" src={process.env.url + 'var/data/' + view_image.name + '/main.jpg'} width={26} height={26} />
                     <span>{pid || view_image.master_name}</span>
-                    <span>{tag?.split('\n')[0]}</span>
+                    <span>{ConvertDate(+view_image.date)}</span>
                 </div>
                 {pid ? null : <h5>{service}</h5>}
-                <h6>{tag?.split('\n')[1] ?? 'Без комментария'}</h6>
+                <h6>{view_image.text}</h6>
                 {pid ?
                     <Link
-                        style={{display: status === 'client' ? 'block' : 'none'}}
+                        style={{ display: status === 'client' ? 'block' : 'none' }}
                         className={styles.toprofilemaster}
                         href={`/chat/messages/${view_image.name}?name=${view_image.master_name}`}
                     >

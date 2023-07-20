@@ -11,7 +11,7 @@ import Location from '@/components/location'
 import useSWR from 'swr'
 import Link from 'next/link'
 const fetcher = (...args) => fetch(...args).then(res => res.json())
-
+import { my_data } from '@/data.'
 
 const active_currency = {
     backgroundColor: '#3D4EEA',
@@ -26,15 +26,7 @@ const passive_currency = {
     zIndex: 200
 }
 
-const my_tema = [
-    { name: 'Оригинальный', color: ['linear-gradient(to left, #3D4EEA, #5E2AF0)', '#3D4EEA', '#ECEEFD'] },
-    { name: 'Розовый фламинго', color: ['linear-gradient(to left, #EA3DC4, #F02A5A)', '#F47BC3', '#FDECF6'] },
-    { name: 'Сияние озера', color: ['linear-gradient(93.46deg, #7AB7D9 2.85%, #F4FCFF 50%, #BBD7E0 97.15%)', '#45A1D6', '#F1FCFF'] },
-    { name: 'Жаркие барханы', color: ['linear-gradient(94.86deg, #FA7F71 0%, #F2A273 46.87%, #F4C662 100%)', '#ED965B', '#FDF5EC'] },
-    { name: 'Зеленый чай', color: ['linear-gradient(94.86deg, #11998E 0%, #78FFD6 100%)', '#2CB69C', '#ECFDFB'] },
-    { name: 'Темная ночь', color: ['linear-gradient(94.86deg, #534E9B 0%, #7D78BF 100%)', '#534E9B', '#E5E7F0'] },
-    { name: 'Лесной массив', color: ['linear-gradient(94.86deg, #305F53 0%, #71978E 48.96%, #456A61 100%)', '#456A61', '#E1F3EB'] }
-]
+
 const my_currency = ['Белорусcкий рубль', 'Российский рубль', 'Казахстанский тенге']
 const current_symbol = ['BYN', '₽', '₸']
 const url = 'https://masters-client.onrender.com'
@@ -54,7 +46,7 @@ export default function EditProfile() {
     const [master_address, setMasterAddress] = useState(false)
     const [tema, viewTemaBlock] = useState(false)
     const [cur, setCur] = useState(false)
-    const [color, setColor] = useState(my_tema[0].color)
+    const [color, setColor] = useState(my_data.my_tema[0].color)
     const [currency, setCurrency] = useState('BYN')
     const [city, setCity] = useState('Минск')
     const [address, setAddress] = useState()
@@ -137,6 +129,9 @@ export default function EditProfile() {
         setSelectedFile(url)
         set_file_for_upload(e.target.files[0])
     }
+    function SetAddressFull(e) {
+        setAddress_full({ ...address_full, ...{ 'тип': e.target.value } })
+    }
 
     function UploadToServer() {        
         let data = new FormData()
@@ -162,7 +157,7 @@ export default function EditProfile() {
                 <span onClick={EditMaster} style={{ color: color[1] }}>Принять</span>
             </header>
             <div className={styles.image} style={{ background: color[0] }}>
-                <span onClick={() => viewTema(true)}>Изменить обложку</span>
+                <span onClick={() => viewTemaBlock(true)}>Изменить обложку</span>
                 <form  className={styles.profile_image}>
                     <Image
                         src={file}
@@ -261,21 +256,21 @@ export default function EditProfile() {
                         Квартира
                         <input type="radio" name="type_house" value="квартира"
                             checked={address_full.тип === "квартира"}
-                            onChange={(e) => setAddress_full({ ...address_full, ...{ 'тип': e.target.value } })}
+                            onChange={SetAddressFull}
                         />
                     </label>
                     <label className={styles.radio}>
                         Частный дом
                         <input type="radio" name="type_house" value="частный дом"
                             checked={address_full.тип === "частный дом"}
-                            onChange={(e) => setAddress_full({ ...address_full, ...{ 'тип': e.target.value } })}
+                            onChange={SetAddressFull}
                         />
                     </label>
                     <label className={styles.radio}>
                         Комерческое помещение
                         <input type="radio" name="type_house" value="комерческое помещение"
                             checked={address_full.тип === "комерческое помещение"}
-                            onChange={(e) => setAddress_full({ ...address_full, ...{ 'тип': e.target.value } })}
+                            onChange={SetAddressFull}
                         />
                     </label>
                     <label>
@@ -303,7 +298,7 @@ export default function EditProfile() {
                 <div className={styles.main_tema}>
                     <div className={styles.select_tema}>
                         <h6 onClick={() => viewTemaBlock(false)}>Выбор темы</h6>
-                        {my_tema.map((i, index) =>
+                        {my_data.my_tema.map((i, index) =>
                             <div
                                 key={i.name}
                                 onClick={() => setColor(i.color)}

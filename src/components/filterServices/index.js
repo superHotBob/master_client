@@ -2,6 +2,7 @@ import styles from './filter.module.css'
 import { useState } from 'react'
 import { useDispatch,useSelector } from 'react-redux'
 import { setservice } from '../../reduser.js'
+import { my_data } from '@/data.'
 
 const style = {
     color: '#fff',   
@@ -9,7 +10,7 @@ const style = {
     border: '1.5px solid #3D4EEA',    
    
 }
-const services = ['маникюр', 'прически','педикюр', 'макияж', 'массаж', 'барбер', 'ресницы', 'брови', 'депиляция','окрашивание','чистка','стрижка']
+
 export default function FilterServices() {
     const [viewFilter, setViewFilter] = useState(false)  
     const dispatch = useDispatch()
@@ -27,7 +28,7 @@ export default function FilterServices() {
             </span>
             {viewFilter ? <div className={styles.all__filter}>              
                 <div className={styles.all__filter__data} onClick={setFilter}>
-                    {services.map(i =><b key={i} id={i} style={my_service === i ? style : null}>{i}</b>)}
+                    {my_data.category.map(i =><b key={i} id={i} style={my_service === i ? style : null}>{i}</b>)}
                 </div>
             </div> : null}
         </div>

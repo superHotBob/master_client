@@ -1,6 +1,7 @@
 import styles from './addservice.module.css'
 import { useEffect, useState, useRef } from 'react'
-import Menu_icon from '@/components/icons/menu'
+import Menu_icon from '@/components/icons/menu' 
+import { my_data } from '@/data.'
 
 
 const style = {
@@ -9,7 +10,7 @@ const style = {
     border: '1.5px solid #3D4EEA',
 }
 
-const my_category = ['маникюр', 'прически', 'педикюр', 'макияж', 'массаж', 'барбер', 'ресницы', 'брови', 'депиляция']
+
 export default function AddService() {
 
     const cost = useRef(null)
@@ -32,7 +33,7 @@ export default function AddService() {
             headers: {'Content-Type': 'application/json'}
         })
         const result = await response.json()
-        console.log('My services', result[0])
+       
         if (result.length > 0) {
             let new_serv = Object.entries(result[0])
             setServices(new_serv)
@@ -42,26 +43,11 @@ export default function AddService() {
             setServices([])
         }
     }
-    const SaveServices = async () => {
-        // const data = {
-        //     nikname: profile.nikname,
-        //     массаж: services[3][1],
-        //     педикюр: services[4][1],
-        //     маникюр: services[0][1],
-        //     брови: services[1][1],
-        //     стрижка: services[2][1],
-        //     ресницы: services[5][1],
-        //     депиляция: services[6][1],
-        //     прически: services[7][1],
-        //     макияж: services[8][1],
-        //     барбер: services[9][1],
-        //     чистка: services[10][1]
-        // }
+    const SaveServices = async () => {        
         const data = {
             nikname: profile.nikname,
         }
-        services.forEach(element => data[element[0]] = element[1]);
-        console.log('Data',data)
+        services.forEach(element => data[element[0]] = element[1]);        
         // const response = await fetch('/api/edit_master_service', {
         //     body: JSON.stringify(data),
         //     headers: {
@@ -86,12 +72,10 @@ export default function AddService() {
             let new_serv = services;
             const ind = services.findIndex(i => i[0] === e.target.id)
             new_serv[ind][1] = ''
-            setServices(services)
-            console.log(services)
+            setServices(services)     
 
         } else {
-            addCategory(category => ([...category, e.target.id]))
-            console.log([...category, e.target.id])
+            addCategory(category => ([...category, e.target.id]))           
             const ind = services.findIndex(i => i[0] === e.target.id)
             let new_serv = services;
             new_serv[ind][1] = ['']
@@ -153,7 +137,7 @@ export default function AddService() {
                 <div className={styles.all__filter} style={{ display: viewFilter ? 'block' : 'none' }}>
                     <h6 onClick={() => setViewFilter(false)} />
                     <div className={styles.all__filter__data} onClick={AddCategory}>
-                        {my_category?.map(i => <b key={i} id={i} style={category.includes(i) ? style : null}>{i}</b>)}
+                        {my_data.category?.map(i => <b key={i} id={i} style={category.includes(i) ? style : null}>{i}</b>)}
                     </div>
                 </div>
                 {services?.map((i, b) =>

@@ -3,7 +3,7 @@ import React from 'react'
 import trash from '../../../public/trash.svg'
 import trash_blk from '../../../public/trash_blk.svg'
 import Image from 'next/image'
-
+import { my_data } from '@/data.'
 import { useEffect, useState, useRef } from 'react'
 import Menu_icon from '@/components/icons/menu'
 
@@ -15,11 +15,11 @@ const style_two = {
     color: '#fff',
     background: '#3D4EEA',
 }
-const my_category = ['маникюр', 'прически', 'педикюр', 'макияж', 'массаж', 'барбер', 'ресницы', 'брови', 'депиляция', 'чистка', 'стрижка', 'окрашивание']
+
 
 export default function AddService({ view, setView, color }) {
     const cost = useRef(null)
-    const serv = useRef(null)
+    const serv = useRef(null)    
     const [profile, setProfile] = useState()
     const [viewFilter, setViewFilter] = useState(false)
     const [addUsluga, setaddUsluga] = useState([])
@@ -121,7 +121,7 @@ export default function AddService({ view, setView, color }) {
         addCategory([...new_cat])
     }
     return (
-        <main className={view ? styles.mainservice : styles.mainnew}>
+        <div className={view ? styles.mainservice : styles.mainnew}>
             {profile ?
                 <header className={styles.header}>
                     <Menu_icon type="arrow_button" color={color[1]} setView={setView} />
@@ -132,7 +132,7 @@ export default function AddService({ view, setView, color }) {
                 <span style={{ color: color[1], cursor: 'pointer' }} onClick={() => setViewFilter(true)}>Добавить  категорию +</span>
                 <div className={styles.all__filter} style={{ display: viewFilter ? 'block' : 'none' }}>
                     <div className={styles.all__filter__data} onClick={AddCategory}>
-                        {my_category?.map(cat =>
+                        {my_data.category?.map(cat =>
                             <b
                                 key={cat}
                                 id={cat}
@@ -210,6 +210,6 @@ export default function AddService({ view, setView, color }) {
             )}
             {message ? <p className={styles.message}>{message}</p> : null}
 
-        </main>
+        </div>
     )
 }

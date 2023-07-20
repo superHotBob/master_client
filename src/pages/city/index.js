@@ -29,6 +29,7 @@ export default function City() {
         console.log([+loc[0].lat, +loc[0].lon])
         dispatch(setcity(selCity))
         dispatch(setlocation([+loc[0].lat, +loc[0].lon]))
+        router.push('/')
     }
     useEffect(()=>{
         data?.filter(i=>i.city.includes(findcity))
