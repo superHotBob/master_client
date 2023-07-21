@@ -9,7 +9,7 @@
     line-height: 17px;
 }
 
-.header h4:last-child {
+.header span:last-child {
     color: #3D4EEA;
     cursor: pointer;
 }
@@ -30,13 +30,17 @@
     display: flex;
     justify-content: space-between;
     margin: 16px;
+    flex-wrap: wrap;
 }
-.images div {
-    width: 49%;
-}
-.images img {
-    width: 100%;
+
+.images .image {
+    width: calc(50% - 5px);
+    object-fit: cover;
     border-radius: 12px;
+    height: 48vw;
+    max-height: 240px;
+    margin-bottom: 10px;
+   
 }
 .delete {
     position: fixed;

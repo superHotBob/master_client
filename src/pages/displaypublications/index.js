@@ -16,6 +16,7 @@ export default function DisplayPublications() {
     const router = useRouter()
     const [imagesone, setImagesOne] = useState([])
     const [imagestwo, setImagesTwo] = useState([])
+    const [images, setImages] = useState([])
     // const { data, mutate } = useSWR(`/api/get_images?nikname=${nikname}`, fetcher)
     const reorder = (list, startIndex, endIndex) => {
         const result = Array.from(list);
@@ -26,49 +27,70 @@ export default function DisplayPublications() {
     };
     useEffect(() => {
         const pro = JSON.parse(localStorage.getItem('profile'))
-        if(!pro.nikname) {
+        if (!pro.nikname) {
             router.push('/enter')
         }
         fetch(`/api/get_images?nikname=${pro.nikname}`)
             .then(res => res.json())
-            .then(res => res.map((i, index) => (index + 1) % 2 != 0 ?
-                setImagesOne(imagesone => ([...imagesone, i])) :
-                setImagesTwo(imagestwo => ([...imagestwo, i]))
-            ))
+            .then(res => {
+                setImages(res),
+                    res.map(i => i.rating % 2 === 0 ?
+                        setImagesOne(imagesone => ([...imagesone, i])) :
+                        setImagesTwo(imagestwo => ([...imagestwo, i])),
+                    )
+            }
+            )
     }, [])
-    function onDragEndOne(result) {        
+
+    useEffect(()=>{
+        console.log(images)
+    },[images])
+
+    function SaveImages() {
+        for (const [index, i] of images.entries()) {
+            fetch(`/api/update_image_rating?id=${i.id}&rating=${images.length -  index + 1}`)
+            .then(res=>res.json())
+            .then(res=>console.log(res))
+        }
+    }
+    function onDragEndOne(result) {
         if (!result.destination) {
-            console.log(result.destination, result.source.index)
-            let new_images = imagesone.filter((i, index) => index != result.source.index)
+            return;
+        }
+        console.log(result.source.index, result.destination.index)
+        if (+result.source.index % 2 === 0) {
+            const new_images = reorder(
+                imagesone,
+                result.source.index,
+                result.destination.index
+            );
             setImagesOne(new_images)
-            return;
-        }
-        console.log(result.source.index, result.destination.index)
-        const new_images = reorder(
-            imagesone,
-            result.source.index,
-            result.destination.index
-        );
-        setImagesOne(new_images)
 
-    }
-    function onDragEndTwo(result) {        
-        if (!result.destination) {
-            console.log(result.destination, result.source.index)
-            let new_images = imagestwo.filter((i, index) => index != result.source.index)
+        } else {
+            const new_images = reorder(
+                imagestwo,
+                result.source.index,
+                result.destination.index
+            );
             setImagesTwo(new_images)
+        }
+
+
+    }
+    function onDragEnd(result) {
+        console.log(result)
+        if (!result.destination) {
             return;
         }
-        console.log(result.source.index, result.destination.index)
+
         const new_images = reorder(
-            imagestwo,
+            images,
             result.source.index,
             result.destination.index
         );
-        setImagesTwo(new_images)
-
+        setImages(new_images)
     }
-   
+
     return (
         <main>
             <header className={styles.header}>
@@ -80,7 +102,7 @@ export default function DisplayPublications() {
                     <Menu_icon color={color[1]} />
                 </div>
                 <span>Показ публицаций</span>
-                <span style={{ color: color[1] }}>Принять</span>
+                <span style={{ color: color[1] }} onClick={SaveImages}>Принять</span>
             </header>
             <section>
                 <p className={styles.text}>
@@ -88,88 +110,42 @@ export default function DisplayPublications() {
                     Перетаксикайте публикации зажатием.`}
                 </p>
             </section>
-            <div className={styles.images}>
-                <DragDropContext onDragEnd={onDragEndOne} >
-                    <Droppable
-                        droppableId="board"
-                        type="COLUMN"
-                        direction="vertical"
-                    >
-                        {(provided, snapshot) => (
-                            <div
-                                {...provided.droppableProps}
-                                ref={provided.innerRef}
-                            >
-
-                                {imagesone?.map((i, index) =>
-
-
-                                    <Draggable key={i.img_date} draggableId={i.img_date} index={index}>
-                                        {(provided, snapshot) => (
-
-                                            <img
-                                                {...provided.draggableProps}
-                                                {...provided.dragHandleProps}
-                                                ref={provided.innerRef}
-
-                                                key={i.id}
-                                                alt={i.nikname} src={url + '/var/data/' + i.nikname + '/' + i.id + '.jpg'} />
-
-
-                                        )}
-                                    </Draggable>
-
-
-                                )}
-                                {provided.placeholder}
-                            </div>
-                        )}    
-                        </Droppable>
-                </DragDropContext>
-                <DragDropContext onDragEnd={onDragEndTwo} >
-                    <Droppable 
-                        droppableId="board"
-                        type="COLUMN"
-                        direction="vertical"
-                    >
-                        {(provided, snapshot) => (
+            <DragDropContext onDragEnd={onDragEnd}>
+                <Droppable
+                    droppableId="board"
+                    direction="vertical"
+                >
+                    {provided => (
                         <div
-                            {...provided.droppableProps}
+                            className={styles.images}
                             ref={provided.innerRef}
+                            {...provided.droppableProps}
                         >
-
-                            {imagestwo?.map((i, index) =>
-
-
-                                <Draggable key={i.img_date} draggableId={i.img_date} index={index}>
-                                    {(provided, snapshot) => (
+                            {images?.map((i, index) =>
+                                <Draggable
+                                    key={i.img_date}
+                                    draggableId={i.img_date}
+                                    index={index}
+                                >
+                                    {provided => (
                                         <img
                                             {...provided.draggableProps}
                                             {...provided.dragHandleProps}
                                             ref={provided.innerRef}
-
-                                            key={i.id}
-                                            alt={i.nikname} src={url + '/var/data/' + i.nikname + '/' + i.id + '.jpg'} />
+                                            provided={provided}
+                                            className={styles.image}
+                                            key={i.img_date}
+                                            alt={i.nikname}
+                                            src={url + '/var/data/' + i.nikname + '/' + i.id + ".jpg"} 
+                                        />
                                     )}
                                 </Draggable>
-
-
                             )}
                             {provided.placeholder}
                         </div>
-                 
-                        )}
-
+                    )}
                 </Droppable>
             </DragDropContext>
-
-            {/* <div>
-                    {images?.filter((i, index) => index % 2 === 0).map(i =>
-                        <img onClick={() => Movie(i)} key={i.id} alt={i.nikname} src={url + '/var/data/' + i.nikname + '/' + i.id + '.jpg'} />)}
-                </div> */}
-        </div>
-
-
         </main >
     )
 }
