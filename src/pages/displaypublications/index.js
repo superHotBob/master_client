@@ -17,13 +17,13 @@ export default function DisplayPublications() {
     const [imagesone, setImagesOne] = useState([])
     const [imagestwo, setImagesTwo] = useState([])
     const [images, setImages] = useState([])
-    // const { data, mutate } = useSWR(`/api/get_images?nikname=${nikname}`, fetcher)
+    const [delete_images, setDeleteImages] = useState([])
+   
     const reorder_in_block = (startIndex, endIndex, block) => {
         let result = block === 'one' ? imagesone: imagestwo;
         let new_ind = result[startIndex];
         result[startIndex] = result[endIndex];
-        result[endIndex] = new_ind;      
-        console.log(result)
+        result[endIndex] = new_ind;       
         return result;
     };
     const reorder_between_block = (startIndex, endIndex, block) => {
@@ -60,28 +60,36 @@ export default function DisplayPublications() {
 
   
 
-    function SaveImages() {       
+    function SaveImages() {      
+        for (const i of delete_images) {
+            fetch(`/api/delete_images_time?img_date=${i}`)                       
+        } 
         for (const [index, i] of imagesone.entries()) {
-            fetch(`/api/update_image_rating?id=${i.id}&rating=${images.length - index*2 + 1}`)
-                       
+            fetch(`/api/update_image_rating?id=${i.id}&rating=${images.length - delete_images.length - index*2 + 1}`)                       
         }
         for (const [index, i] of imagestwo.entries()) {
-            fetch(`/api/update_image_rating?id=${i.id}&rating=${images.length - index*2}`)
+            fetch(`/api/update_image_rating?id=${i.id}&rating=${images.length - delete_images.length -  index*2}`)
             .then(res => res.json())
             .then(res => {
                 document.getElementById('message').style.display = 'block',
                 setTimeout(() => document.getElementById('message').style.display = 'none', 2000)
             })
         }
+        
     }
 
-    function onDragEnd(result) {        
+    function onDragEnd(result) {  
+        console.log(result.destination.index)      
         if (!result.destination) {
+            return;
+        }
+        if(result.destination.index === imagestwo.length) {
             return;
         }
         if (result.destination.droppableId === 'delete') {
             let result_new = result.source.droppableId === 'one' ? imagesone: imagestwo;
-            let new_images = result_new.filter(i => i.img_date !== result.draggableId)           
+            let new_images = result_new.filter(i => i.img_date !== result.draggableId)
+            setDeleteImages(delete_images => ([...delete_images,result.draggableId]))
             if( result.source.droppableId === 'one') {
                 setImagesOne(new_images)
             } else {

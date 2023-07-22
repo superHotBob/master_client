@@ -32,13 +32,15 @@
     margin: 16px;
 }
 .images {   
-    width: calc(50% - 6.5px);  
+    width: calc(50% - 5px);
+    display: flex;
+    flex-direction: column;  
 }
 
 .images .image {
     width: 100% ;   
     border-radius: 12px;   
-    margin-bottom: 8px;   
+    margin-bottom: 10px;   
 }
 .delete{
     position: fixed;
