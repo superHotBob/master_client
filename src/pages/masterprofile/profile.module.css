@@ -100,7 +100,7 @@
   height: fit-content; 
 }
 .lenta_images {
-  width: 49%;
+  width: calc(50% - 8px);
 }
 .lenta_images img {
   opacity: 0;
@@ -110,5 +110,5 @@
   height: auto;
   width: 100%;
   border-radius: 8px;
-  margin-bottom: calc(5% - 8px);
+  margin-bottom:  8px;
 }

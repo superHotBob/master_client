@@ -26,26 +26,44 @@
     font-weight: 400;
     line-height: 17px;
 }
-.images {
+.main_images {
     display: flex;
     justify-content: space-between;
     margin: 16px;
-    flex-wrap: wrap;
+}
+.images {   
+    width: calc(50% - 6.5px);  
 }
 
 .images .image {
-    width: calc(50% - 5px);
-    object-fit: cover;
-    border-radius: 12px;
-    height: 48vw;
-    max-height: 240px;
-    margin-bottom: 10px;
-   
+    width: 100% ;   
+    border-radius: 12px;   
+    margin-bottom: 8px;   
 }
-.delete {
+.delete{
     position: fixed;
-    bottom: 20px;
-    height: 30px;
-    opacity: 0.5;
-    width: 100%;
+    bottom: 23px;
+    height: 47px;  
+    width: 25%;
+    left: 37%;
+    max-width: 500px;  
+}
+.trash {
+    padding: 16px;
+    background-color: red;
+    border-radius: 50%;
+    position: fixed;
+    z-index: 10000;
+    bottom: 23px;
+    left: calc(50% - 25px);
+}
+.message {
+    position: absolute;
+    top: 45%;
+    left: 35%;
+    width: 30%;
+    padding: 10px 20px;
+    background-color: aliceblue;
+    border-radius: 8px;
+    display: none;
 }
