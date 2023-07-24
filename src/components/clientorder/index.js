@@ -64,7 +64,7 @@ export default function ClientOrder({ order, active, close }) {
                 <>
                     <h5>Мастер</h5>
                     <h5 style={{ fontWeight: 400 }}>
-                        <Link href={'/master/' + order.master} style={{ color: '#3D4EEA' }}>{order.master_name || order.master}{' '}</Link>({order.master})
+                        <Link href={'/' + order.master} style={{ color: '#3D4EEA' }}>{order.master_name || order.master}{' '}</Link>({order.master})
                     </h5>
                     <h5>Дата и время</h5>
                     <span>{order.date_order.replace(',', " ").replace(',', " в ")}</span>

@@ -40,7 +40,7 @@ export default function EditNikname() {
     }
     async function ChangeNikname() {
         console.log('dfsd')
-        let ch = await fetch(`/api/change_nikname?newnikname=${newnikname}&oldnikname=${profile.nikname}`)
+        let ch = await fetch(`/api/edit_nikname?newnikname=${newnikname}&oldnikname=${profile.nikname}`)
         .then(res=>res.json())
         .then(res=>{})
         

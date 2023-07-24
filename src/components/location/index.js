@@ -16,8 +16,8 @@ import icon_close from '../../../public/close.svg'
     ]);
   };
 
-const API_KEY = "05f8d2ae-bd94-4329-b9f9-7351e2ec9627"  
-//const API_KEY = "89caab37-749d-4e30-8fdf-e8045542f060"
+
+const API_KEY = "89caab37-749d-4e30-8fdf-e8045542f060"
 export default function Location({loc_master, close, nikname}) {
     const dispatch = useDispatch()
     function ViewGrayScale() {          
@@ -26,6 +26,10 @@ export default function Location({loc_master, close, nikname}) {
         document.getElementsByClassName('ymaps-2-1-79-gotoymaps')[0].style.display = 'none'
     }
     function UpdateLocation(a) {
+        console.log(a)
+        // fetch(`https://geocode-maps.yandex.ru/1.x/?apikey=${API_KEY}&geocode=Каменогорская+88&lang=ru_RU&format=json`)
+        // .then(res=>res.json())
+        // .then(res=>console.log('responce',res))
         fetch('/api/edit_location_master',{
             method: 'Post',
             body: JSON.stringify({
@@ -50,8 +54,7 @@ export default function Location({loc_master, close, nikname}) {
             <Script src={`https://api-maps.yandex.ru/3.0/?apikey=${API_KEY}&lang=ru_RU`} />
             <div className={styles.my_map} >
                 <Image src={icon_close} onClick={()=>close(false)} alt="close" width={20} height={20}/>
-                        <YMaps >         
-                       
+                        <YMaps >                       
                             <Map id="mymap"
                                 options={{ set: defaultState }}
                                 state={{

@@ -50,7 +50,7 @@ export default function Chat() {
                         key={i.recipient}
                         className={styles.chat}
                     >
-                        <img src="/chat/администратор.jpg" alt="master" />
+                        <img src="/image/администратор.jpg" alt="master" />
                         <div>
                             <p>
                                 <b>Администратор</b>
@@ -63,7 +63,7 @@ export default function Chat() {
                     </Link>
                 )}
                 {data?.admin.length === 0 ? <Link href='/chat/messages/администратор' className={styles.chat}>
-                    <img src="/chat/администратор.jpg" alt="master" />
+                    <img src="/image/администратор.jpg" alt="master" />
                     <div>
                         <p><b>Администратор</b><span>{'12:33'}</span></p>
                         <span>Отвечу на любые вопросы</span>

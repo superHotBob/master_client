@@ -49,12 +49,18 @@ export default async function handler(req, res) {
     `
     console.log(6)
     await sql`
-    update images 
-    set nikname = ${req.query.newnikname}    
-    where nikname =  ${req.query.oldnikname}  
-    returning  *     
-`
+        update images 
+        set nikname = ${req.query.newnikname}    
+        where nikname =  ${req.query.oldnikname}  
+        returning  *     
+    `
     console.log(7)
+    await sql`
+        update orders 
+        set master = ${req.query.newnikname}    
+        where master =  ${req.query.oldnikname}  
+        returning  *     
+    `
     fetch(`https://masters-client.onrender.com/rename_master_dir?oldname=${req.query.oldnikname}&newname=${req.query.newnikname}`)
     .then(res => console.log('GOOD'))
 

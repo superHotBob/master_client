@@ -139,8 +139,3 @@ input[type="radio"] {
   accent-color: #3D4EEA;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-}

@@ -8,6 +8,7 @@ export default async function handler(req, res) {
     from images
     where city = ${req.query.city} and  service = ${req.query.service}
     order  by img_date DESC
+    limit ${req.query.limit} offset ${req.query.offset}
   `
   if (result.length) {
     res.status(200).json(result)

@@ -51,6 +51,8 @@ export default function MasterNear() {
 
     }
     useEffect(() => {
+       
+
         if (window.innerWidth > 500) {
             setMapHeight(450)
         } else {

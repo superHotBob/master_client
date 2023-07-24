@@ -50,7 +50,7 @@ export default async function handler(req, res) {
     console.log("Запись мастера создана")
     const result = await sql`
         update clients 
-        set status = 'master', nikname = ${master.nikname}
+        set status = 'master', nikname = ${master.nikname}, rating = 0
         where id = ${my_result[0].id}
         returning *
       `

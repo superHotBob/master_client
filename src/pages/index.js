@@ -31,12 +31,14 @@ export default function Home() {
   const service = useSelector(state => state.counter.service)
   const city = useSelector(state => state.counter.city)
   const [view_image, viewImage] = useState(false)
-  // const [data, setdata] = useState([])
+  const [data, setdata] = useState([])
  
   const count = useRef(0)
   const ref = useRef(null)
-  // const { data:images, error } = useSWR(`/api/all_masters_city_service?service=${service}&city=${city.toLowerCase()}`, fetcher)
-  const { data, error } = useSWR(`/api/get_images_master_city?service=${service}&city=${city.toLowerCase()}`, fetcher)
+  const servref = useRef(service)
+ 
+ 
+  // const { data, error } = useSWR(`/api/get_images_master_city?service=${service}&city=${city.toLowerCase()}&limit=6&offset=4`, fetcher)
   // if(images) {
   //   // setdata(images.map((i, index) => data[index] = { 'id': index + 1 + '', 'master_name': i.name, 'name': i.nikname, image: process.env.url + 'var/data/' + i.nikname + '/list__' + services__name[service] + '__0.jpg' }))
    
@@ -45,17 +47,52 @@ export default function Home() {
   
   
   // useEffect(() => {
-  //   setdata([])   
+  //   // setdata([])   
     
-  //   fetch(`/api/get_images_master_city?service=${service}&city=${city.toLowerCase()}`)
+  //   fetch(`/api/get_images_master_city?service=${service}&city=${city.toLowerCase()}&limit=6&offset=0`)
   //   .then(res => res.json())
   //   .then(data => {      
   //     setdata(data)
   //   })
    
   // }, [service])
+  const [scrollTop, setScrollTop] = useState(0);
+  useEffect(() => {
+    const handleScroll = (event) => {
+      if(Math.floor(window.scrollY /130)  >  scrollTop) {
+        setScrollTop(Math.floor(window.scrollY /130));
+        console.log(window.scrollY )
+      }
+     
+      
+    };
 
-  
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+  useEffect(()=>{
+    console.log(scrollTop)
+    console.log(servref.current)
+    if(servref.current != service) {
+      console.log(service)
+      setdata([])
+      setScrollTop(0)
+      servref.current = service
+    }
+    fetch(`/api/get_images_master_city?service=${service}&city=${city.toLowerCase()}&limit=6&offset=${scrollTop*6}`)
+    .then(res => res.json())
+    .then(res => { 
+      if(res.length>0){
+        setdata(data=>([...data,...res]))
+      }  else {
+
+      }   
+     
+    })
+  },[scrollTop,service])
 
   const imageOnError = (a) => {
     let new_data = [...data]
@@ -86,6 +123,7 @@ export default function Home() {
             можете выбрать понравившуюся работу и написать
             мастеру !'
         />
+        <p style={{position:'fixed',top: '200px'}}>{scrollTop}</p>
         <Link className={styles.city} href="/city"> 
           Ваш город 
           <span className={styles.my_city}>{city}</span>

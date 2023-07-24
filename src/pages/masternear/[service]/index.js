@@ -57,7 +57,7 @@ export default function MasterNear() {
                         <p className={styles.name_stars} >
                             <span>{i.name}</span>
                             <span className={styles.pro}>MASTER</span>
-                            <span className={styles.stars}>{i.stars}</span>
+                            {i.stars === 0.0 ? <span className={styles.stars}>{i.stars}</span> : null}
                         </p>
                         <h4>{i.address}</h4>
                         <h5>{i.services.map(a => <span key={a} className={styles.service}>{a}</span>)}</h5>

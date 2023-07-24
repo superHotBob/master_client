@@ -141,6 +141,7 @@ export default function DisplayPublications() {
                             className={styles.delete}
                             ref={provided.innerRef}
                             {...provided.draggableProps}
+                            style={{outline: 'none'}}
                         >
                             {provided.placeholder}
                         </div>
@@ -160,7 +161,7 @@ export default function DisplayPublications() {
                                 <Draggable
                                     key={i.img_date}
                                     draggableId={i.img_date}
-                                    index={index}
+                                    index={index}                                    
                                 >
                                     {(provided, snapshot) => {
                                         const style = {

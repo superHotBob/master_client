@@ -97,8 +97,12 @@ export default function EditProfile() {
     return (
         <main className={styles.main}>
             <header className={styles.header}>
-                <dialog onClick={() => setMessage()} open={message ? 'open' : false} className={message ? styles.active_dialog : styles.passive_dialog}>
-                    {message}
+                <dialog 
+                    onClick={() => setMessage()} 
+                    open={message ? 'open' : false} 
+                    className={message ? styles.active_dialog : styles.passive_dialog}
+                >
+                    <p>{message}</p>
                 </dialog>
                 <span onClick={Return}>Отмена</span>
                 <span>{profile.nikname}</span>

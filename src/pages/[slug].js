@@ -40,24 +40,28 @@ const Master = () => {
     const master = useSelector(state => state.counter.master)
 
 
-    useEffect(() => { 
-       
-        if (master && my_profile) {
-            setProfile(master)
-        } else {
-            fetch(`/api/master?nikname=${slug}`)
-                .then(res => res.json())
-                .then(res => {
-                    if(res.length){
-                        setProfile(res[0])
-                        dispatch(setmaster(res[0]))
-                    } else {
-                        document.getElementById('message').innerText = 'Такого мастера нет'
-                    }                   
-                })
-                .catch(err=>console.log(new Error(err)))
-        }        
-    }, [slug,router])
+    useEffect(() => {
+        if(!slug){
+            console.log(router)
+            return ;
+        } else {       
+            if (master && my_profile) {
+                setProfile(master)
+            } else {
+                fetch(`/api/master?nikname=${slug}`)
+                    .then(res => res.json())
+                    .then(res => {
+                        if(res.length > 0){
+                            setProfile(res[0])
+                            dispatch(setmaster(res[0]))
+                        } else {
+                            document.getElementById('message').innerText = 'Такого мастера нет'
+                        }                   
+                    })
+                    .catch(err=>console.log(new Error(err)))
+            } 
+        }           
+    }, [slug])
 
     function LinkTo(a) {
         if(my_profile.status === 'client') {
@@ -87,7 +91,7 @@ const Master = () => {
                     </dialog>
                     <div className={styles.buttons}>
                         <div onClick={()=>LinkTo(`/chat/messages/${slug}?name=${profile.name}`)} style={{ backgroundColor: background }} >
-                            <span style={{ color: color }}>
+                            <span style={{ color: color }} title="Отправить сообщение мастеру">
                                 Сообщения
                                 <Menu_icon type="chat" color={color} />
                             </span>
@@ -95,7 +99,7 @@ const Master = () => {
                         <div onClick={()=>LinkTo(`/recordingtomaster?nikname=${slug}&name=${profile.name}`)}                           
                             style={{ backgroundColor: background }}
                         >
-                            <span style={{ color: color }}>
+                            <span style={{ color: color }} title='Запись к мастеру'>
                                 Запись к мастеру
                                 <Menu_icon type="edit" color={color} />
                             </span>

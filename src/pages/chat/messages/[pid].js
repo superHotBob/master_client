@@ -209,7 +209,7 @@ export default function Messages() {
                                 <img 
                                     title={i.sendler} 
                                     src={i.sendler === 'администратор' ? 
-                                    "/chat/администратор.jpg" :
+                                    "/image/администратор.jpg" :
                                     process.env.url + 'var/data/' + i.sendler_nikname + '/main.jpg' 
                                     } 
                                     height={50} width={50} 
