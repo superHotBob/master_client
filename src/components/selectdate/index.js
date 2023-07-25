@@ -132,9 +132,20 @@ export default function SelectDate({ name, price, order, close, nikname }) {
         }
     }
     function Set_Active_Time(a) {
+        const dt = new Date()
         if (schedule[active_day - 1]?.split(',').includes(a)) {
             setActive_Time(a)
+            const tm = a.split(':')
+            const date_ord = new Date(dt.getFullYear(),month,active_day,tm[0],tm[1]);
+            const new_date = Date.parse(date_ord)
+            const date= new Date(new_date)
+           
+           
+            const formattedDate = date.toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric', hour:   '2-digit',
+            minute: '2-digit', });
+            console.log(new_date); 
             dispatch(setdate(`${active_day},${my_months[month]},${a}`))
+            // dispatch(setdate(new_date))
         } else {
             return
         }

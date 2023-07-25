@@ -7,7 +7,8 @@ import styles from './confirmation.module.css'
 import { Bov } from '../recordingtomaster'
 import { useState } from 'react'
 import { useEffect } from 'react'
-
+const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сетнябрь',
+        'Октябрь', 'Ноябрь']
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 export default function Confirmation() {
     const router = useRouter()
@@ -65,6 +66,18 @@ export default function Confirmation() {
         }
 
     }
+       
+    function Order_Date(a) {        
+        const dt = new Date()
+        let d = a.split(',')      
+        const tm = d[2].split(':')
+        const date_ord = new Date(dt.getFullYear(),months.indexOf(d[1]), d[0], tm[0],tm[1]);
+        const new_date = Date.parse(date_ord)
+        const date= new Date(new_date)
+        const formattedDate = date_ord.toLocaleDateString('ru-RU', { year: 'numeric', month: 'long', day: 'numeric', hour:   '2-digit',
+        minute: '2-digit', });
+        return formattedDate
+    }
     
     return (
         <>
@@ -83,7 +96,7 @@ export default function Confirmation() {
                 <h4>Адрес:</h4>
                 Ул. {master.address}, дом {data?.дом}, кв.{data?.квартира}, этаж {data?.этаж}
                 <h4>Дата: </h4>
-                <span className={styles.date}>{date.replace(/,/g,' , ')}</span>
+                <span className={styles.date}>{Order_Date(date)}</span>
                 <h3>Сумма</h3>
                 <p className={styles.summa}><span>Услуги и товары ({order.length})</span><span>{Cost()} BYN</span></p>
               

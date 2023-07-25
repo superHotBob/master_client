@@ -20,7 +20,8 @@ export default function ClientOrder({ order, active, close }) {
         const data = {
             review: ref.current.
                 value, id: order.id,
-            stars: stars
+            stars: stars,
+            nikname: order.master
         }
         const response = await fetch('/api/add_review', {
             body: JSON.stringify(data),

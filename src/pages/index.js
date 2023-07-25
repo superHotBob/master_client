@@ -59,8 +59,8 @@ export default function Home() {
   const [scrollTop, setScrollTop] = useState(0);
   useEffect(() => {
     const handleScroll = (event) => {
-      if(Math.floor(window.scrollY /130)  >  scrollTop) {
-        setScrollTop(Math.floor(window.scrollY /130));
+      if(Math.floor(window.scrollY /100)  >  scrollTop) {
+        setScrollTop(Math.floor(window.scrollY /100));
         console.log(window.scrollY )
       }
      
@@ -122,8 +122,7 @@ export default function Home() {
             актуальные работы мастеров в вашем городе. Вы 
             можете выбрать понравившуюся работу и написать
             мастеру !'
-        />
-        <p style={{position:'fixed',top: '200px'}}>{scrollTop}</p>
+        />      
         <Link className={styles.city} href="/city"> 
           Ваш город 
           <span className={styles.my_city}>{city}</span>

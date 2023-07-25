@@ -34,13 +34,10 @@ export default function Recording() {
 
 
 
-    useEffect(() => {
-        
+    useEffect(() => {        
         if(master.phone===null) {
             router.push('/')
-        }
-       
-       
+        }       
         async function GetServices() {
             const response = await fetch(`/api/master_service?nikname=${nikname}`)
             const result = await response.json()            

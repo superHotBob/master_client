@@ -48,6 +48,7 @@ export default function Client() {
     function SetViewOrder(a) {
         setviewOrder(true)
         setOrderIndex(a)
+        window.scrollTo(0, 0);
     }
 
 
