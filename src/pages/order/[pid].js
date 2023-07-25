@@ -2,6 +2,7 @@ import styles from './order.module.css'
 import { useRouter } from 'next/router'
 import { useState, useRef, useEffect } from 'react'
 import useSWR from 'swr'
+import { Convert_Date } from '@/profile'
 
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
@@ -52,7 +53,7 @@ export default function Order() {
         } else {
             return false
         }
-    }
+    }   
     return (
         <main className={styles.main}>
             {order && color ? <>
@@ -65,7 +66,7 @@ export default function Order() {
                         <b style={{fontWeight: 500, color: '#3D4EEA' }}>{order.client}</b>{' '}({order.client_name})
                     </span>
                     <h5>Дата и время</h5>
-                    <span>{order.date_order.replace(/,/g, ' ')}</span>
+                    <span>{Convert_Date(order.date_order)}</span>
                     <h5>Услуги и стоимость</h5>
                     <span>{order.new_order}</span>
                     <span>Стоимость {order.price} BYN</span>

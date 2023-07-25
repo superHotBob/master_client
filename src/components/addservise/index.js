@@ -95,7 +95,9 @@ export default function AddService({ view, setView, color }) {
         setaddUsluga([a])
         console.log(addUsluga)
     }
-    function SaveNewService(a, b) {
+    function SaveNewService(event, a, b) {
+       
+        event.preventDefault()
         let new_services = services
         new_services[b][1] = [...new_services[b][1], `${serv.current.value}:${cost.current.value}`].filter(i => i)        // // setServices([...services])
         setServices([...services])
@@ -187,18 +189,38 @@ export default function AddService({ view, setView, color }) {
                         </React.Fragment>
                     )}
                     <div className={styles.button_add} style={{ backgroundColor: color[2], color: color[1] }}>
-                        <p onClick={() => SetAddUsluga(i[0])} style={{ cursor: 'pointer', color: color[1] }}>Добавить услугу +</p>
-                        {addUsluga[0] === i[0] ?
-                            <h5 className={styles.inputs__new__services} style={{color:color[1]}}>
-                                <input autoFocus style={{ borderColor: color[1]}} ref={serv} type="text" maxLength={30} placeholder='Название услуги' />
-                                <input style={{ borderColor: color[1]}} ref={cost} type="text" placeholder='Цена' pattern="[0-9]*" inputMode='numeric' required />
+                        <p onClick={() => SetAddUsluga(i[0])} style={{ cursor: 'pointer', color: color[1] }}>
+                            Добавить услугу +
+                        </p>
+                        {addUsluga[0] === i[0] ?                           
+                                <form onSubmit={(event) => SaveNewService(event, i, b)} className={styles.inputs__new__services} style={{color:color[1]}}>
+                                <input 
+                                    autoFocus 
+                                    style={{ borderColor: color[1]}} 
+                                    ref={serv} 
+                                    type="text" 
+                                    maxLength={30} 
+                                    placeholder='Название услуги' 
+                                />
+                                <input 
+                                    style={{ borderColor: color[1]}} 
+                                    ref={cost} 
+                                    type="text" 
+                                    placeholder='Цена' 
+                                    pattern="[0-9]*" 
+                                    inputMode='numeric' 
+                                    required 
+                                />
                                 <b style={{ color: color[1] }}>{profile.currency}</b>
-                                <span
+                                <button type='submit'
                                     style={{backgroundColor: color[1] }}
-                                    onClick={() => SaveNewService(i, b)}>
+                                   >
                                     Добавить
-                                </span>
-                            </h5>
+                                </button>
+
+                                </form>
+                                
+                           
                             :
                             null
                         }

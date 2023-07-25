@@ -291,7 +291,7 @@
     width: 68%;
 }
 
-.inputs__new__services span {
+.inputs__new__services button {
     display: block;
     text-align: center;
     width: 100%;

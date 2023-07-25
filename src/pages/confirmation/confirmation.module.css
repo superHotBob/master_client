@@ -76,7 +76,6 @@ div.goodorder {
     background-size: 69px 48px;
     padding-top: 104px;
 }
-
 .goodorder h6,
 .goodorder h1,
 .goodorder h4,
@@ -86,7 +85,6 @@ div.goodorder {
     line-height: 17px;
     
 }
-
 .goodorder a {
     width: calc(100% - 64px);
     height: 46px;
@@ -98,21 +96,18 @@ div.goodorder {
     border-radius: 6px;
     color: #3D4EEA;
 }
-
 .goodorder h1 {
     font-size: 32px;
     line-height: 41px;
     margin-bottom: 16px;
 }
-
 .goodorder h3 {
     margin: 0 0 160px;
     display: block;
 }
-
 .goodorder h6 {
     position: absolute;
-    top: calc(100vh - 24px);
+    bottom: 24px;
     font-weight: 500;
     width: 100%;
     cursor: pointer;

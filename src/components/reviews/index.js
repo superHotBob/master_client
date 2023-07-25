@@ -4,6 +4,7 @@ import React from 'react'
 import styles from './reviews.module.css'
 import star from '../../../public/star-small.svg'
 import star_gray from '../../../public/star-gray.svg'
+import { Convert_Date } from '@/profile'
 
 export default function Reviews({nikname,color}) {
 
@@ -31,7 +32,7 @@ export default function Reviews({nikname,color}) {
                 <div className={styles.header}>
                     <span>{i.client_name||i.client}</span>
                     <span style={{textAlign: 'right',width: '55%',color: '#000'}}>
-                        {i.date_order.split(',')[0] }, {i.date_order.split(',')[1] }, в {i.date_order.split(',')[2]}
+                        {Convert_Date(i.date_order)}
                     </span>
                     <div className={styles.stars}>
                         {[1, 2, 3, 4, 5].map(a => <React.Fragment key={a}>{

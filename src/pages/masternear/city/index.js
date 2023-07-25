@@ -142,7 +142,7 @@ export default function MasterNear() {
 
             <Header sel="/catalog" text="Мастера рядом " />
             <div className={styles.message}>
-                <Message text='Masters.place позволяет познакомиться  с 
+                <Message page="city" text='Masters.place позволяет познакомиться  с 
                     мастерами вашего города. Для этого нужно выбрать 
                     ваш город, что бы увидеть список мастеров.
                 ' />

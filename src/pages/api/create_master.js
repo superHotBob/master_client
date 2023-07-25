@@ -33,7 +33,7 @@ export default async function handler(req, res) {
       ${master.nikname},
       ${master.id},      
       '{}',
-      '5.0',
+      '0.0',
       ${master.color},
       ${master.text},
       '0'

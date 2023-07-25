@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { setorder } from '@/reduser'
+import { Convert_Date } from '@/profile'
 
 
 const activ_month = {
@@ -95,7 +96,22 @@ export default function Records() {
             return false
         }
     }
-
+    function Order_Date(a = "1,'Июнь',10:00") { 
+        if(a) {            
+            const dt = new Date()
+            let d = a.split(',')      
+            const tm = d[2].split(':')
+            console.log(tm)
+            const date_ord = new Date(dt.getFullYear(),months.indexOf(d[1]), d[0], tm[0],tm[1]);
+            const new_date = Date.parse(date_ord)
+            const date= new Date(new_date)
+            const formattedDate = date_ord.toLocaleDateString('ru-RU', { month: 'long', day: 'numeric', hour:   '2-digit',
+            minute: '2-digit', });
+            return formattedDate
+        } else {
+            return 
+        }  
+    }
     return (
         <main className={styles.main}>
             {profile ? <>
@@ -148,7 +164,7 @@ export default function Records() {
                             >
                                 <p>
                                     <span className={i.read ? null : styles.active}>
-                                        {i.date_order.replace(',', " ").replace(',', " в ")}
+                                        {Convert_Date(i.date_order)}
                                     </span>
                                     <span>#{i.id}</span>
                                 </p>
@@ -169,7 +185,9 @@ export default function Records() {
                                 className={styles.order}
                             >
                                 <p>
-                                    <span className={i.read ? null : styles.active}>{i.date_order.replace(/,/, ' ')}</span>
+                                    <span className={i.read ? null : styles.active}>
+                                        {Order_Date(i.date_order)}
+                                    </span>
                                     <span>#{i.id}</span>
                                 </p>
                                 <h3 ><span style={{ color: profile.color[1] }}>{i.client_name || i.client}</span><span style={{ color: profile.color[1] }}>{i.price} BYN</span></h3>

@@ -18,10 +18,10 @@ export default function MasterHeader({profile, master}) {
             <p className={styles.name_stars}>
                 <span >{profile.name}</span>
                 <span className={styles.pro} style={{ background: gradient }}>MASTER</span>
-                <span
+                {profile.stars === '0.0' ? null : <span
                     className={styles.stars}
                     style={{ color: color, backgroundColor: background }}
-                >{profile.stars}</span>
+                >{profile.stars}</span>}
             </p>
             <h4 onClick={() => setmapview(true)}>{profile.address}</h4>
             {viewText ? <h5 className={styles.text}>{profile.text}</h5> : null}

@@ -82,7 +82,7 @@ export default function Home() {
       setScrollTop(0)
       servref.current = service
     }
-    fetch(`/api/get_images_master_city?service=${service}&city=${city.toLowerCase()}&limit=6&offset=${scrollTop*6}`)
+    fetch(`/api/get_images_master_city?service=${service}&city=${city.toLowerCase()}&limit=7&offset=${scrollTop*7}`)
     .then(res => res.json())
     .then(res => { 
       if(res.length>0){
@@ -118,7 +118,7 @@ export default function Home() {
     <>
       <Header />
       <section className={styles.section} >
-        <Message text='Masters.place показывает самые крутые и 
+        <Message page="main" text='Masters.place показывает самые крутые и 
             актуальные работы мастеров в вашем городе. Вы 
             можете выбрать понравившуюся работу и написать
             мастеру !'

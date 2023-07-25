@@ -10,12 +10,12 @@ export default function EditNikname() {
     const router = useRouter()
     const profile = useSelector(state=>state.counter.profile)
     const [newnikname, setnewnikname] = useState()
-    const [copyring, setcopyring] = useState(false)
+    const [copyring, setcopyring] = useState('')
     useEffect(()=>setnewnikname(profile.nikname),[profile])
     function CopyLink() {
        navigator.clipboard.writeText(`${location.origin}/${newnikname}`);
-       setcopyring(true)
-       setTimeout(()=>setcopyring(false),3000)
+       setcopyring('Скопировано в буфер')
+       setTimeout(()=>setcopyring(''),3000)
     }
     function ViewCurrentName(e) {
         setnewnikname(e.target.value)
@@ -42,7 +42,10 @@ export default function EditNikname() {
         console.log('dfsd')
         let ch = await fetch(`/api/edit_nikname?newnikname=${newnikname}&oldnikname=${profile.nikname}`)
         .then(res=>res.json())
-        .then(res=>{})
+        .then(res=>{
+            setcopyring('Nikname изменён. Выдите из акаунта и войдите снова.')
+            setTimeout(()=>setcopyring(''),3000)
+        })
         
     }
     return (

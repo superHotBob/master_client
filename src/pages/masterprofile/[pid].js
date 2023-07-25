@@ -84,7 +84,7 @@ export default function Client() {
                         {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
                             .map(i => <span key={i} onClick={() => setNavView(i)} style={nav_view === i ? { ...nav_active, background: profile.color[1] } : null}>{i}</span>)}
                     </nav>                    
-                    <Message color={profile.color} text={text[nav_view]} />                       
+                    <Message color={profile.color} text={text[nav_view]} page="masterprofile"/>                       
                     {nav_view === 'Услуги' ? <>                        
                         <div onClick={() => setView(false)} className={styles.uslugi_plus} style={{ backgroundColor: profile.color[1] }}>
                             Редактировать категории и услуги
