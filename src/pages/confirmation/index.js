@@ -67,10 +67,11 @@ export default function Confirmation() {
 
     }
        
-    function Order_Date(a = '1,2,10:00') {        
+    function Order_Date(a = "1,'Июнь',10:00") {        
         const dt = new Date()
         let d = a.split(',')      
         const tm = d[2].split(':')
+        console.log(tm)
         const date_ord = new Date(dt.getFullYear(),months.indexOf(d[1]), d[0], tm[0],tm[1]);
         const new_date = Date.parse(date_ord)
         const date= new Date(new_date)
