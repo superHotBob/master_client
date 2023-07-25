@@ -67,7 +67,7 @@ export default function Confirmation() {
 
     }
        
-    function Order_Date(a) {        
+    function Order_Date(a = '1,2,10:00') {        
         const dt = new Date()
         let d = a.split(',')      
         const tm = d[2].split(':')
