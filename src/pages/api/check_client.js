@@ -8,9 +8,16 @@ export default async function handler(req, res) {
         phone
         from  clients
         where phone = ${req.query.phone}
-     `
-
-    console.log(req.socket.remoteAddress) 
+    `
+    let date_enter = Date.now()
+    await sql`
+        insert into history (
+            ip, date_enter, city , phone
+        ) values (
+            ${req.socket.remoteAddress}, ${date_enter},'Минск',${req.query.phone}
+        )
+    `
+   
 
     res.status(200).json(result)
 }
