@@ -25,7 +25,7 @@ export default function Enter() {
     const [message, setMessage] = useState('')
     const [t, setT] = useState()
 
-    useEffect(() => {
+    useEffect(() => {        
         setNumber([, , ,])
         setSelect('Вход')
         setBack('logo-main.svg')

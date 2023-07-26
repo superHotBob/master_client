@@ -3,8 +3,8 @@ import postgres from "postgres"
 
 export default async function handler(req, res) {
   const sql = postgres(`postgres://bobozeranski:${process.env.DATABASE_API}@ep-yellow-mountain-679652.eu-central-1.aws.neon.tech/neondb?sslmode=require&options=project%3Dep-yellow-mountain-679652`)
-
-
+  
+ 
   const result = await sql`
     select 
       status,blocked,id,nikname,client_password
@@ -12,7 +12,8 @@ export default async function handler(req, res) {
     where phone = ${+req.body.tel}
   `
 
-  // const nikname = (Math.random() * 100000).toFixed(0)
+  
+ 
 
 
 

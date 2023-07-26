@@ -23,7 +23,7 @@ const my_path = ['informations','informations/aboutservice',
   'addlist',
   'calendar',
   'master',
-  'masterprofile', 'city', 'masternear', 'chat', 'editprofile', 'addmasterorder']
+  'masterprofile', 'city', 'masternear', 'masternear/city','chat', 'editprofile', 'addmasterorder']
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter()
 

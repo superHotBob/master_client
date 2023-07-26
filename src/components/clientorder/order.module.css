@@ -1,7 +1,7 @@
 .data {
-    position: absolute;
+    position: fixed;
     top: 0;
-    left: 0;
+    max-width: 500px;
     background-color: #fff;
     width: 100%;
    
@@ -53,7 +53,7 @@
 .data button {
     position: absolute;
     height: 46px;
-    margin-top: 50px;
+    bottom: 20px;
     left: 16px;
     display: block;
     max-width: calc(500px - 32px);

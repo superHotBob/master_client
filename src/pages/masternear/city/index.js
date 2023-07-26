@@ -241,7 +241,7 @@ export default function MasterNear() {
                             <p style={{ width: '75%' }}>
                                 <b>{i.name}</b>
                                 <span className={styles.pro}>MASTER</span>
-                                {i.stars ? <span className={styles.stars}>{i.stars}</span> : null}
+                                {i.stars != '0.0' ? <span className={styles.stars}>{i.stars}</span> : null}
                             </p>
                             <h4>{i.address}</h4>
                             <h5>{i.services.map(a => <span key={a} className={styles.service}>{a}</span>)}</h5>

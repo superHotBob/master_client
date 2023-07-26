@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     select
     COUNT(*) 
     from orders
-    where master = ${req.query.nikname} 
+    where master = ${req.query.nikname} and read = 'f'
   `
   let count = result[0].count
  

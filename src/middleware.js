@@ -3,12 +3,13 @@ import { NextRequest } from 'next/server';
  
 // This function can be marked `async` if using `await` inside
 export function middleware(request) {
- 
-  return 
+  
+  const response = NextResponse.next()
+  return response 
  
 }
  
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: '/api/check_clientss',
+  matcher: '/enter',
 };

@@ -30,9 +30,9 @@ const text = (` Ищу модель, что бы протестировать к
 
     Пишите, девочки :*:*:*:*`)
 
-
-export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2AF0)', '#3D4EEA', '#ECEEFD'], nikname, name }) {
     const fetcher = (...args) => fetch(...args).then(res => res.json())
+export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2AF0)', '#3D4EEA', '#ECEEFD'], nikname, name }) {
+    
     const [model, setViewText] = useState(false)
     const [view_image, viewImage] = useState(false)
     const [message, setMessage] = useState(false)

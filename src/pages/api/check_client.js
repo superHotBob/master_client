@@ -9,5 +9,8 @@ export default async function handler(req, res) {
         from  clients
         where phone = ${req.query.phone}
      `
+
+    console.log(req.socket.remoteAddress) 
+
     res.status(200).json(result)
 }

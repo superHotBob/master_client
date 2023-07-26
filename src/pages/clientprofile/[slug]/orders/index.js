@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import ClientOrder from '@/components/clientorder'
+import { Convert_Date } from '@/profile'
+
 const url = 'https://masters-client.onrender.com'
 const sel = {
     background: 'linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)',
@@ -85,7 +87,7 @@ export default function Client() {
                 >
                     <p>
                         <span className={ActiveOrder(i.date_order) ? styles.active : null}>
-                            {i.date_order.replace(',', " ").replace(',', ", в ")}
+                            {Convert_Date(i.date_order)}
                         </span>
                         <span>#{i.id}</span>
                     </p>
