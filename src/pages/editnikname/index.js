@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
+import { EditLocalStorage } from '@/profile'
 
 export default function EditNikname() {
     const router = useRouter()
@@ -41,8 +42,9 @@ export default function EditNikname() {
     async function ChangeNikname() {
         console.log('dfsd')
         let ch = await fetch(`/api/edit_nikname?newnikname=${newnikname}&oldnikname=${profile.nikname}`)
-        .then(res=>res.json())
+        .then(res=>res.text())
         .then(res=>{
+            EditLocalStorage('nikname', newnikname)
             setcopyring('Nikname изменён. Выдите из акаунта и войдите снова.')
             setTimeout(()=>setcopyring(''),3000)
         })
@@ -61,7 +63,7 @@ export default function EditNikname() {
              записях. Ваше короткое имя: `}<span>@{newnikname}</span>
             </p>
             <p>Ваша ссылка MasterPlace: <b>master.palce/{newnikname}</b></p>
-            <input type="text" onChange={ViewCurrentName} minLength={4}/>
+            <input type="text" onChange={ViewCurrentName} minLength={4} placeholder='Новый nikname'/>
             <span id="name"/>
             <span onClick={CopyLink}>Скопировать ссылку</span>
             {copyring ? <h2>Скопировано в буфер</h2> : null}

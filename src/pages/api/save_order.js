@@ -7,7 +7,7 @@ export default async function handler(req, res) {
 
   const save_order = await sql`
   insert into orders (
-    master, client,neworder,price,date_order,master_name,client_name
+    master, client,neworder,price,date_order,master_name,client_name,read
   ) values (
     ${req.body.master}, 
     ${req.body.client},
@@ -15,7 +15,8 @@ export default async function handler(req, res) {
     ${req.body.price},
     ${req.body.date},
     ${req.body.master_name},
-    ${req.body.client_name}
+    ${req.body.client_name},
+    'f'
   )
   returning id
   ` 
@@ -30,7 +31,10 @@ export default async function handler(req, res) {
  
   let my_chat = null
   if(chat.length === 0 ) {
-   my_chat = Math.random().toFixed(6)*1000000
+    const max_chat = await sql`
+      select Max(chat) from chat
+    `
+   my_chat = max_chat[0].max
   } else {
     my_chat =  chat[0]['chat']
   }
@@ -49,7 +53,7 @@ export default async function handler(req, res) {
       ${text},
       ${date},
       ${my_chat},
-      'false'
+      'f'
     )  
     returning *
   `

@@ -146,7 +146,7 @@ export default function Calendar() {
             </header> :
             null}
         <section className={styles.section}>
-            <Message text='Выбирайте дни и время, вы которые вы готовы
+            <Message page="calendar"  text='Выбирайте дни и время, вы которые вы готовы
                         принимать клиентов. При записи клиент  сможет
                         выбрать только те дни и время, которые 
                         вы указали рабочим.

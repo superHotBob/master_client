@@ -113,7 +113,7 @@ export default function Records() {
         }  
     }
     return (
-        <main className={styles.main}>
+        <>
             {profile ? <>
                 <Header sel="/" text="Записи на сеанс" color={profile.color} />
                 <div className={styles.selector}>
@@ -199,6 +199,6 @@ export default function Records() {
                
             </> : null}
 
-        </main>
+        </>
     )
 }

@@ -97,11 +97,9 @@ export default function EditProfile() {
     const EditMaster = async () => {
         const data = {
             status: profile.status,
-            name: name,
-            new_nikname: nikname,
-            image: 'file',
+            name: name,           
             text: text,
-            old_nikname: profile.nikname,
+            nikname: nikname,
             currency: current_symbol[my_currency.indexOf(currency)],
             address: address,
             city: city,
@@ -153,7 +151,7 @@ export default function EditProfile() {
                     <b className={styles.message}>{message}</b>
                 </dialog>
                 <span onClick={Return} style={{ color: color[1] }}>Отмена</span>
-                <span>{profile.nikname}</span>
+                <span>{nikname}</span>
                 <span onClick={EditMaster} style={{ color: color[1] }}>Принять</span>
             </header>
             <div className={styles.image} style={{ background: color[0] }}>

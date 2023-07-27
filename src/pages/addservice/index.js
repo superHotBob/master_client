@@ -97,14 +97,7 @@ export default function AddService() {
         setServices([...new_service])
         console.log(new_service)
     }
-    function DeleteService(a, b) {
-        console.log(a, b)
-        let new_service = services
-        new_service[a][1].splice(b, 1)
-        setServices(new_service)
-        console.log(new_service)
-        setServices([...services])
-    }
+   
     function DeleteNewService(a) {
         console.log(a)
         let new_service = services

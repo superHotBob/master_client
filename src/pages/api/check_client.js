@@ -18,7 +18,5 @@ export default async function handler(req, res) {
             ${ipAddress}, ${date_enter},'Минск',${req.query.phone}
         )
     `
-   
-
     res.status(200).json(result)
 }

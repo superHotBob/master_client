@@ -1,13 +1,4 @@
-.main {
-  align-items: center;
-  min-height: 800px;
-  max-width: 500px;
-  background-color: #fff;
-  width: 100%;
-  margin: 0 auto;
-  min-height: 100vh;
-  padding-bottom: 50px;
-}
+
 .message {
   width: calc(100% - 32px);
   margin: 16px auto 0;

@@ -41,8 +41,7 @@ const Master = () => {
 
 
     useEffect(() => {
-        if(!slug){
-            console.log(router)
+        if(!slug){           
             return ;
         } else {       
             if (master && my_profile) {
@@ -71,7 +70,7 @@ const Master = () => {
         }
     }
     return (
-        <main className={styles.main}>
+        <>
             <Head><title>{slug}</title></Head>
             {profile ? <>
                 <Header text={slug} sel={'/masternear/' + slug} color={profile.color} />
@@ -124,7 +123,7 @@ const Master = () => {
                     <h2 id="message"></h2>
                 </div>
             }
-        </main>
+        </>
     )
 
 }

@@ -37,7 +37,7 @@ export default function MasterNear() {
     }   
    
     return (
-        <div className={styles.main}>
+        <>
             <Header sel="/catalog" text="Мастера рядом " />
             <div className={styles.message}>
                 <Message page="masternear" text={` Masters.place позволяет познакомиться  с 
@@ -67,6 +67,6 @@ export default function MasterNear() {
                 {isLoading?<p className={styles.message__await}>Загружаем мастеров...</p>:null}
                 {error?<p className={styles.message__await}>Ошибка загрузки мастеров...</p>:null}
             </section>
-        </div >
+        </>
     )
 }

@@ -59,19 +59,19 @@ export default async function handler(req, res) {
     }
 
     const services = await sql`
-        insert into services (user_id,nikname,маникюр,чистка,брови,массаж,педикюр,стрижка,ресницы,депиляция,прически,макияж,барбер)
+        insert into services (user_id,nikname,маникюр,чистка,брови,массаж,педикюр,стрижка,ресницы,депиляция,прически,макияж,барбер,окрашивание)
         values (
           ${my_result[0].id},
           ${master.nikname},
-          '{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}'
+          '{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}', '{}'
         )
       `
 
     const schedule = await sql`
-          insert into schedule (nikname,patern,апрель,май,июнь,июль,август, сентябрь)
+          insert into schedule (nikname,patern,апрель,май,июнь,июль,август, сентябрь,октябрь,ноябрь,декабрь)
           values (
             ${master.nikname},
-            '{}','{}','{}','{}','{}','{}','{}'
+            '{}','{}','{}','{}','{}','{}','{}','{}','{}','{}'
           )
     
     `

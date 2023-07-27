@@ -137,7 +137,7 @@ export default function MasterNear() {
     }
 
     return (
-        <div className={styles.main}>
+        <>
             <Script src={'https://api-maps.yandex.ru/3.0/?apikey=89caab37-749d-4e30-8fdf-e8045542f060&lang=ru_RU'} />
 
             <Header sel="/catalog" text="Мастера рядом " />
@@ -265,6 +265,6 @@ export default function MasterNear() {
                 )}
             </section> : null} */}
 
-        </div >
+        </>
     )
 }

@@ -5,7 +5,7 @@ export default async function handler(req, res) {
   
   const result = await sql`
     select 
-      маникюр, брови,массаж,педикюр,стрижка,ресницы,депиляция,прически,макияж,барбер,чистка
+      маникюр, брови,массаж,педикюр,стрижка,ресницы,депиляция,прически,макияж,барбер,чистка,окрашивание
       from services
     where nikname = ${req.query.nikname}
   `  

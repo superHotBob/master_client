@@ -1,13 +1,3 @@
-.main {    
-    min-height: 100vh; 
-    max-width: 500px;   
-    background-color: #fff;
-    width: 100%;
-    margin: 0 auto;    
-    position: relative;
-    z-index: 101;
-    padding-bottom: 50px;
-}
 
 .header {
     text-align: center;
