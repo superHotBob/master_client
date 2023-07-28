@@ -199,7 +199,7 @@ export default function AddService({ view, setView, color }) {
                                     style={{ borderColor: color[1]}} 
                                     ref={serv} 
                                     type="text" 
-                                    maxLength={30} 
+                                    maxLength={80} 
                                     placeholder='Название услуги' 
                                 />
                                 <input 

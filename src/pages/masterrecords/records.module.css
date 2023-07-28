@@ -40,11 +40,14 @@
 }
 
 .all_records {
-  text-align: left;
+  text-align: center;
   font-weight: 500;
   font-size: 16px;
   line-height: 16px;
   margin: 26px 0 12px;
+}
+.all_records span {
+  margin-left: 10px;
 }
 
 .mounth {
@@ -169,7 +172,7 @@
   font-size: 12px;
   width: 18px;
   height: 18px;
-  line-height: 18px;
+  line-height: 15px;
   border-radius: 100%;
 
 }

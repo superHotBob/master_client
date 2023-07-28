@@ -8,6 +8,7 @@ export default async function handler(req, res) {
   from orders
   where master = ${req.query.nikname} and review is not NULL
   `
+  
   if (result.length) {
     res.status(200).json(result)
   } else {

@@ -10,10 +10,11 @@ export default function ViewImage({ view_image, viewImage, pid = null, service }
    
     const status = useSelector(state => state.counter.profile['status'])
     const [tag, setTag] = useState('')
-    
+   
     useEffect(() => {
         document.getElementById("main").style.top = window.scrollY + 'px'
         document.getElementById("main").style.opacity = 1
+       
     }, [])
 
     function ConvertDate(a) {
@@ -23,7 +24,6 @@ export default function ViewImage({ view_image, viewImage, pid = null, service }
     }
 
     return (
-
         <div className={styles.main__detail} id="main">
             <div className={styles.detail}>
                 <h3 onClick={() => viewImage(false)} />
@@ -53,8 +53,6 @@ export default function ViewImage({ view_image, viewImage, pid = null, service }
                 }
             </div>
         </div>
-
-
     )
 
 }

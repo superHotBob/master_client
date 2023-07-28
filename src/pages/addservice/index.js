@@ -143,7 +143,7 @@ export default function AddService() {
                                 <div key={index} style={{ background: profile.color[2] }} className={styles.usluga}>
                                     {a.length === 0 ?
                                         <h5 className={styles.inputs__new__services}>
-                                            <input ref={serv} type="text" maxLength={30} placeholder='Название услуги' />
+                                            <input ref={serv} type="text" maxLength={70} placeholder='Название услуги' />
                                             <input ref={cost} type="text" placeholder='Цена' />
                                             <span
                                                 style={{ color: profile.color[1] }}

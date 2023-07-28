@@ -38,7 +38,36 @@ export default function Confirmation() {
                 'Content-Type': 'application/json',
             },
             method: 'POST',
-        }).then(res=>setgoodorder(true))
+        }).then(res=>{
+            setgoodorder(true)
+            EditSchedule()
+        })
+        EditSchedule()
+    }
+    async function EditSchedule() {
+        const my_data = {
+            nikname: master.nikname,
+            month: date.split(',')[1].toLowerCase()            
+        } 
+        await  fetch(`/api/get_schedule?nikname=${my_data.nikname}&month=${my_data.month}`)
+        .then(res => res.json())
+        .then(data =>{
+            let new_schedule = data;
+            let new_days = new_schedule[date.split(',')[0]-1].split(',').filter(i=>i!=date.split(',')[2]);           
+            new_schedule[date.split(',')[0] - 1] = new_days.join();
+            my_data['schedule'] = new_schedule;
+            
+        }) 
+       
+        fetch('/api/edit_schedule', {
+            body: JSON.stringify(my_data),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+        })
+        .then(res => console.log('Ok'))
+
     }
 
     useEffect(()=>{
@@ -71,8 +100,7 @@ export default function Confirmation() {
         if(a) {            
             const dt = new Date()
             let d = a.split(',')      
-            const tm = d[2].split(':')
-            console.log(tm)
+            const tm = d[2].split(':')           
             const date_ord = new Date(dt.getFullYear(),months.indexOf(d[1]), d[0], tm[0],tm[1]);
             const new_date = Date.parse(date_ord)
             const date= new Date(new_date)

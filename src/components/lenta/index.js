@@ -39,6 +39,9 @@ export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2A
     const profile = useSelector(state => state.counter.profile)
 
     const { data } = useSWR(`/api/get_images?nikname=${nikname}`, fetcher)
+   
+   
+  
 
     function Saved_image(a) {        
         let pro = JSON.parse(localStorage.getItem('profile'))

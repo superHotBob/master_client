@@ -86,7 +86,7 @@
     width: calc(100% - 32px);
     margin: 20px auto;
     grid-template-columns: auto auto auto;
-    justify-content: space-between;
+    justify-content: center;
     gap: 8px;
 }
 .time span {

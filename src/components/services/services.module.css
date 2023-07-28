@@ -12,6 +12,8 @@
 }
 .data span:last-of-type {
     font-size: 16px;
+    width: 70px;
+    text-align: right;
 }
 .service {
     display: flex;

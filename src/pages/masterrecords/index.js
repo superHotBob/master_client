@@ -28,7 +28,7 @@ export default function Records() {
     const [selector, setSelector] = useState(true)
     const [active_day, setActive_Day] = useState()
     const [false_days, set_false_days] = useState([])
-    const [first_orders, set_first_order] = useState([])
+    const [all_orders, set_all_order] = useState([])
     const [orders, setOrders] = useState(null)
     const [profile, setProfile] = useState()
    
@@ -41,7 +41,7 @@ export default function Records() {
         } else {
             GetMasterOrders(pro)
         }
-    }, [])
+    }, [month])
 
     async function GetMasterOrders(a) {       
         const response = await fetch(`/api/get_orders_master?nikname=${a.nikname}`, {
@@ -50,19 +50,19 @@ export default function Records() {
             },
             method: 'get',
         })
-        const result = await response.json()   
-        console.log(result)    
+        const result = await response.json()           
         const new_result = [...result]
-        set_first_order(result)
+        set_all_order(result)
         let month_result = new_result.filter(i => i.date_order.includes(months[month]))
         let flsd = month_result.map(i => +i.date_order.split(',')[0])
         set_false_days(flsd)
         setOrders(month_result)
     }
 
-    function FilterDay(a) {
-        setActive_Day(a)
-        let result = first_orders.filter(i => +i.date_order.split(',')[0] === a)
+    function FilterDay(event) {
+        setActive_Day(event.target.id)
+        console.log(typeof event.target.id, typeof active_day)
+        let result = all_orders.filter(i => +i.date_order.split(',')[0] === +event.target.id)
         setOrders(result)
     }
     function ViewOrder(a) {
@@ -100,8 +100,7 @@ export default function Records() {
         if(a) {            
             const dt = new Date()
             let d = a.split(',')      
-            const tm = d[2].split(':')
-            console.log(tm)
+            const tm = d[2].split(':')            
             const date_ord = new Date(dt.getFullYear(),months.indexOf(d[1]), d[0], tm[0],tm[1]);
             const new_date = Date.parse(date_ord)
             const date= new Date(new_date)
@@ -136,26 +135,33 @@ export default function Records() {
                         <div className={styles.week}>
                             {days.map(i => <span key={i}>{i}</span>)}
                         </div>
-                        <div className={styles.days}>
+                        <div className={styles.days} onClick={FilterDay}>
                             {Array.from({ length: v }, (v, i) => i + 1).map(i => <span key={i} style={{ opacity: 0 }}>{i}</span>)}
                             {Array.from({ length: all_days.getDate() }, (v, i) => i + 1)
                                 .map(i =>
                                     <span
-                                        onClick={() => FilterDay(i)}
+                                        id={i}
                                         key={i}
-                                        style={active_day === i && Count(i) > 0 ? { backgroundColor: profile.color[1], color: '#fff' } : { backgroundColor: profile.color[2], color: profile.color[1] }}
+                                        style={+active_day === +i && Count(i) > 0 ? { backgroundColor: profile.color[1], color: '#fff' } : { backgroundColor: profile.color[2], color: profile.color[1] }}
                                     >
                                         {i}
-                                        {Count(i) > 0 ? <b style={{ backgroundColor: profile.color[1], color: profile.color[2], display: Count(i) ? 'inline-block' : 'none' }} className={styles.count}>{Count(i)}</b> : null}
+                                        {Count(i) > 0 ? 
+                                            <b style={{ border: `2px solid ${profile.color[1]}`, backgroundColor: +active_day === +i ? profile.color[2] : profile.color[1], color: +active_day === +i ? profile.color[1] : profile.color[2], display: Count(i) ? 'inline-block' : 'none' }} className={styles.count}>
+                                            {Count(i)}
+                                            </b> 
+                                        : null}
                                     </span>
                                 )}
 
                         </div>
-                        <p className={styles.all_records}>Все записи на сеансы</p>
+                        <p className={styles.all_records}>
+                            Все записи на сеансы
+                            <span style={{color: profile.color[1]}}>{active_day ?  Convert_Date(` ${active_day},${month},${'00:00'}`) : null}</span>
+                        </p>
                         <Link 
                             href={`/recordingtomaster?name=${profile.name}&nikname=${profile.nikname}`}  
                             style={{ backgroundColor: profile.color[1] }}
-                        >Добавить запись</Link>
+                        >Добавить запись +</Link>
                         {orders?.map(i =>
                             <div
                                 onClick={() => ViewOrder(i.id)}
@@ -176,9 +182,10 @@ export default function Records() {
                             </div>
                         )}
 
-                    </section> :
+                    </section> 
+                    :
                     <section className={styles.section}>
-                        {first_orders.sort((a,b)=>a.id - b.id < 0 ? 1 : -1).map(i =>
+                        {all_orders.sort((a,b)=>a.id - b.id < 0 ? 1 : -1).map(i =>
                             <div
                                 onClick={() => router.push('/order/' + i.id)}
                                 key={i.id}
@@ -195,7 +202,8 @@ export default function Records() {
                             </div>
                         )}
 
-                    </section>}
+                    </section>
+                }
                
             </> : null}
 
