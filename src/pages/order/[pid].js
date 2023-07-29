@@ -6,23 +6,21 @@ import { Convert_Date } from '@/profile'
 
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
+
 const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сетнябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
 export default function Order() {
-    const router = useRouter()
-   
-    const [color, setColor] = useState()
-    const [result, setresult] = useState(false)
-   
-   
-    const { pid } = router.query
-    const { data: order } = useSWR(`/api/get_order_master?id=${pid}`, fetcher)
-    
 
-   
+    const router = useRouter()   
+    const [color, setColor] = useState()
+    const [result, setresult] = useState(false)   
+    const { pid } = router.query
+
+    const { data: order } = useSWR(`/api/get_order_master?id=${pid}`, fetcher)
+    const {} = useSWR(`/api/view_order?id=${pid}`, fetcher)
+
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem("profile"))
         setColor(pro.color)
-
     }, [])
     async function DeleteOrder() {
         const my_data = { id: order.id }
@@ -39,9 +37,7 @@ export default function Order() {
         }
 
     }
-    if (order) {
-        console.log(order)
-    }
+   
     async function EditSchedule() {
         const my_data = {
             nikname: order.master,
@@ -86,7 +82,9 @@ export default function Order() {
                 <section className={styles.data} style={{ color: color[1] }}>
                     <h5>Клиент</h5>
                     <span style={{ fontWeight: 400 }}>
-                        <b style={{ fontWeight: 500, color: '#3D4EEA' }}>{order.client}</b>{' '}({order.client_name})
+                        <b style={{ fontWeight: 500, color: '#3D4EEA' }}>
+                            {order.client}
+                        </b>{' '}({order.client_name})
                     </span>
                     <h5>Дата и время</h5>
                     <span>{Convert_Date(order.date_order)}</span>

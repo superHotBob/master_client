@@ -7,7 +7,7 @@ export default async function handler(req, res) {
 
   const save_order = await sql`
   insert into orders (
-    master, client,neworder,price,date_order,master_name,client_name,read
+    master, client,neworder,price,date_order,master_name,client_name,read,order_month
   ) values (
     ${req.body.master}, 
     ${req.body.client},
@@ -16,7 +16,8 @@ export default async function handler(req, res) {
     ${req.body.date},
     ${req.body.master_name},
     ${req.body.client_name},
-    'f'
+    'f',
+    ${req.body.month}
   )
   returning id
   ` 

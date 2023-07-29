@@ -18,10 +18,11 @@ export default function Confirmation() {
     const [goodorder, setgoodorder] = useState(false)
     const [address, setaddress] = useState()
     const { data } = useSWR(`/api/get_full_address?nikname=${master.nikname}`, fetcher)
-
-
+    const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сетнябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
+    
     const SaveOrder = () => {
         const profile = JSON.parse(localStorage.getItem('profile'))
+        const month =  months.indexOf(date.split(',')[1]) + 1
         const data = {
             client: profile.nikname ,
             client_name:  profile.name,
@@ -30,7 +31,8 @@ export default function Confirmation() {
             price: Cost(order),
             order: order,
             date: date,
-            address:  address
+            address:  address,
+            month: month
         }
         fetch('/api/save_order', {
             body: JSON.stringify(data),

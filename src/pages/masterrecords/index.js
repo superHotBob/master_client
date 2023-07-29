@@ -21,7 +21,8 @@ export default function Records() {
     const [month, setMonth] = useState(mon)
     const year = new Date().getFullYear()
     const day = new Date(year, month - 1, 1)
-    let v = days.indexOf(days[day.getDay() - 1])
+    let v = days.indexOf(days[day.getDay() - 1]) === -1 ? 6 : days.indexOf(days[day.getDay() - 1])
+   
     const all_days = new Date(year, month, 0)   
     const dispatch = useDispatch()
     const router = useRouter()
@@ -37,7 +38,7 @@ export default function Records() {
         let pro = JSON.parse(localStorage.getItem("profile"))
         setProfile(pro)
         if(orders) {
-            return null
+            return; 
         } else {
             GetMasterOrders(pro)
         }
@@ -61,7 +62,7 @@ export default function Records() {
 
     function FilterDay(event) {
         setActive_Day(event.target.id)
-        console.log(typeof event.target.id, typeof active_day)
+        
         let result = all_orders.filter(i => +i.date_order.split(',')[0] === +event.target.id)
         setOrders(result)
     }
@@ -78,7 +79,7 @@ export default function Records() {
     function SetMonth(a) {
         let m = my_months.findIndex(i => i === a)
         setMonth(m)
-        let month_result = first_orders.filter(i => i.date_order.includes(a))
+        let month_result = all_orders.filter(i => i.date_order.includes(a))
         setOrders(month_result)
         let flsd = month_result.map(i => +i.date_order.split(',')[0])
         set_false_days(flsd)
@@ -136,8 +137,8 @@ export default function Records() {
                             {days.map(i => <span key={i}>{i}</span>)}
                         </div>
                         <div className={styles.days} onClick={FilterDay}>
-                            {Array.from({ length: v }, (v, i) => i + 1).map(i => <span key={i} style={{ opacity: 0 }}>{i}</span>)}
-                            {Array.from({ length: all_days.getDate() }, (v, i) => i + 1)
+                            {Array.from({ length: v }, (a, i) => i + 1).map(i => <span key={i} style={{ opacity: 0 }}>{i}</span>)}
+                            {Array.from({ length: all_days.getDate() }, (a, i) => i + 1)
                                 .map(i =>
                                     <span
                                         id={i}
@@ -156,7 +157,7 @@ export default function Records() {
                         </div>
                         <p className={styles.all_records}>
                             Все записи на сеансы
-                            <span style={{color: profile.color[1]}}>{active_day ?  Convert_Date(` ${active_day},${month},${'00:00'}`) : null}</span>
+                            <span style={{color: profile.color[1]}}>{active_day ?  Convert_Date(` ${active_day},${my_months[month]},${'00:00'}`) : null}</span>
                         </p>
                         <Link 
                             href={`/recordingtomaster?name=${profile.name}&nikname=${profile.nikname}`}  
@@ -193,7 +194,7 @@ export default function Records() {
                             >
                                 <p>
                                     <span className={i.read ? null : styles.active}>
-                                        {Order_Date(i.date_order)}
+                                        {Convert_Date(i.date_order)}
                                     </span>
                                     <span>#{i.id}</span>
                                 </p>
