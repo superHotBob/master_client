@@ -9,7 +9,7 @@ export default async function handler(req, res) {
   where nikname = ${req.query.nikname} AND blocked = '0'
   `  
   if (result.length) {
-    res.status(200).json(result) 
+    res.status(200).json(result[0]) 
   } else {
     res.status(400).send([])
   }

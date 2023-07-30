@@ -41,8 +41,9 @@ export default function Calendar() {
     const router = useRouter()
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem('profile'))
-        if (!pro) {
-            return () => router.push('/enter')
+        if(!pro) {
+            router.push('/')
+           return ;
         }
         setProfile(pro)
         fetch(`/api/get_patern?nikname=${pro.nikname}`)
@@ -53,9 +54,11 @@ export default function Calendar() {
     useEffect(() => {
         let current_month = my_months[month].toLocaleLowerCase()
         let pro = JSON.parse(localStorage.getItem("profile"))
-        if (!pro) {
-            return () => router.push('/enter')
+        if(!pro) {
+            router.push('/')
+           return ;
         }
+       
         setActive_Day()
         setActive_Num()
         fetch(`/api/get_schedule?month=${current_month}&nikname=${pro.nikname}`)

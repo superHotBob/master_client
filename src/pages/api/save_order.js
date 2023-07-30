@@ -35,7 +35,7 @@ export default async function handler(req, res) {
     const max_chat = await sql`
       select Max(chat) from chat
     `
-   my_chat = max_chat[0].max
+   my_chat = max_chat[0].max + 1
   } else {
     my_chat =  chat[0]['chat']
   }

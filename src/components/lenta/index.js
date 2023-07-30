@@ -60,8 +60,7 @@ export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2A
             setTimeout(() => setMessage(false), 3000)
         })
     }
-    const ViewImageClick = (a) => {
-        console.log(a)
+    const ViewImageClick = (a) => {        
         viewImage({ 
             name: a.nikname, 
             image: process.env.url + 'var/data/' + nikname + '/' + a.id + '.jpg', 
@@ -84,7 +83,7 @@ export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2A
             <div className={styles.part_images}>
                 {data?.filter((i, index) => index % 2 === 0).map(i =>
                     <div key={i.id}>
-                        <img alt={i.id} onClick={() => ViewImageClick(i)} 
+                        <img alt="image" onClick={() => ViewImageClick(i)} 
                         src={process.env.url + 'var/data/' + nikname + '/' + i.id + '.jpg'} />
                         {profile.status === 'client' ?
                             <span
@@ -97,7 +96,7 @@ export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2A
             <div className={styles.part_images}>
                 {data?.filter((i, index) => index % 2 !== 0).map(i =>
                     <div key={i.id}>
-                        <img alt={i} onClick={() => ViewImageClick(i)} 
+                        <img alt="image" onClick={() => ViewImageClick(i)} 
                         src={process.env.url + 'var/data/' + nikname + '/' + i.id + '.jpg'} />
                         {profile.status === 'client' ?
                             <span

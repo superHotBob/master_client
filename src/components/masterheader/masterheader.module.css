@@ -3,6 +3,7 @@
     padding: 16px 0 0;
     font-weight: 500;
     line-height: 17px;
+    margin: 0 16px;
   }
   
   .section h4::before {

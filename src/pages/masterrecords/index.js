@@ -36,6 +36,10 @@ export default function Records() {
    
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem("profile"))
+        if(!pro) {
+            router.push('/')
+           return ;
+        }
         setProfile(pro)
         if(orders) {
             return; 

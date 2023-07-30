@@ -48,7 +48,7 @@ export default function Client() {
     const [newSertificat, AddNewSertificat] = useState(false)
     const [lists, setlists] = useState()
 
-    useEffect(() => {        
+    useEffect(() => {
         const pro = JSON.parse(localStorage.getItem('profile'))
         if (pro.nikname !== pid) {
             return () => router.push('/enter')
@@ -74,18 +74,19 @@ export default function Client() {
 
 
     return (
-        <main className={styles.main}>
+        <>
             <Head><title>{pid}</title></Head>
+            <Header sel='back' text='Мой профиль' color={profile?.color} />
+            <MasterHeader profile={profile} master={pid} />
+            <nav className={styles.navigation}>
+                {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
+                    .map(i => <span key={i} onClick={() => setNavView(i)} style={nav_view === i ? { ...nav_active, background: profile?.color[1] } : null}>{i}</span>)}
+            </nav>
             {profile ? <>
-                <Header sel='back' text='Мой профиль' color={profile.color} />
                 <section className={styles.lenta}>
-                    <MasterHeader profile={profile} master={pid}/>
-                    <nav className={styles.navigation}>
-                        {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
-                            .map(i => <span key={i} onClick={() => setNavView(i)} style={nav_view === i ? { ...nav_active, background: profile.color[1] } : null}>{i}</span>)}
-                    </nav>                    
-                    <Message color={profile.color} text={text[nav_view]} page="masterprofile"/>                       
-                    {nav_view === 'Услуги' ? <>                        
+
+                    <Message color={profile.color} text={text[nav_view]} page="masterprofile" />
+                    {nav_view === 'Услуги' ? <>
                         <div onClick={() => setView(false)} className={styles.uslugi_plus} style={{ backgroundColor: profile.color[1] }}>
                             Редактировать категории и услуги
                         </div>
@@ -93,7 +94,7 @@ export default function Client() {
                         <AddService view={view} setView={setView} color={profile.color} />
 
                     </> : null}
-                    {nav_view === 'Лента' ? <>                        
+                    {nav_view === 'Лента' ? <>
                         <div className={styles.lenta_selector}>
                             <Link
                                 href="/addlist"
@@ -149,6 +150,6 @@ export default function Client() {
                 </section>
                 <Navi color={profile.color[0]} />
             </> : null}
-        </main >
+        </ >
     )
 }

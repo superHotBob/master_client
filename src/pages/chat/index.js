@@ -1,5 +1,6 @@
 import Header from '@/components/header'
 import styles from './chat.module.css'
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -76,7 +77,10 @@ export default function Chat() {
                             key={i.recipient}
                             className={styles.chat}
                         >
-                            <img src={process.env.url + 'var/data/' + (i.sendler_nikname === name ? i.recipient_nikname : i.sendler_nikname) + '/main.jpg'} alt="master" />
+                            <Image width={55} height={55}
+                            src={process.env.url + 'var/data/' + (i.sendler_nikname === name ? i.recipient_nikname : i.sendler_nikname) + '/main.jpg'} 
+                            alt="master" 
+                            />
                             <div>
                                 <p>
                                     <b>{i.sendler_nikname === name ? i.recipient : i.sendler}</b>
