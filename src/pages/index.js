@@ -35,6 +35,7 @@ export default function Home() {
  
   const count = useRef(0)
   const ref = useRef(null)
+  const refmove = useRef(0)
   const servref = useRef(service)
  
  
@@ -57,38 +58,40 @@ export default function Home() {
    
   // }, [service])
   const [scrollTop, setScrollTop] = useState(0);
-  useEffect(() => {
-    const handleScroll = (event) => {
-      if(Math.floor(window.scrollY /100)  >  scrollTop) {
-        setScrollTop(Math.floor(window.scrollY /100));
-        console.log(window.scrollY )
-      }
+  // useEffect(() => {
+  //   const handleScroll = (event) => {
+  //     if(event.wheelDeltaY < 0 ) {
+        
+  //       setScrollTop(Math.floor(window.scrollY /150));
+  //       refmove.current = Math.floor(window.scrollY /150)
+        
+  //     }
      
       
-    };
+  //   };
 
-    window.addEventListener('scroll', handleScroll);
+  //   window.addEventListener('wheel', handleScroll);
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-  useEffect(()=>{
-    console.log(scrollTop)
-    console.log(servref.current)
-    if(servref.current != service) {
-      console.log(service)
+  //   return () => {
+  //     window.removeEventListener('wheel', handleScroll);
+  //   };
+  // }, []);
+  useEffect(()=>{   
+    // console.log(refmove.current, scrollTop, window.scrollY/150)
+   
+   
+    if(servref.current != service) {     
       setdata([])
       setScrollTop(0)
       servref.current = service
     }
-    fetch(`/api/get_images_master_city?service=${service}&city=${city.toLowerCase()}&limit=7&offset=${scrollTop*7}`)
+    fetch(`/api/get_images_master_city?service=${service}&city=${city.toLowerCase()}&limit=100&offset=${0}`)
     .then(res => res.json())
     .then(res => { 
       if(res.length>0){
         setdata(data=>([...data,...res]))
       }  else {
-
+        return;
       }   
      
     })
@@ -139,7 +142,7 @@ export default function Home() {
                
                 onLoad={() => Height(i.id)}
                 src={process.env.url + 'var/data/' + i.nikname + '/' +  i.id + '.jpg' }
-                data-title={i.master_name}
+                title={i.master_name}
               />
             )}
           </div>
@@ -153,7 +156,7 @@ export default function Home() {
                 
                 onLoad={() => Height(i.id)}
                 src={process.env.url + 'var/data/' + i.nikname + '/' +  i.id + '.jpg' }
-                data-title={i.master_name}
+                title={i.master_name}
               />
             )}
           </div>

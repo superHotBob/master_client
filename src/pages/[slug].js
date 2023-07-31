@@ -36,15 +36,19 @@ const Master = () => {
     const { slug } = router.query
     const [gradient, color, background] = my_data['my_tema'][0].color
     const dispatch = useDispatch()
-    // const my_profile = useSelector(state => state.counter.profile)
-    // const master = useSelector(state => state.counter.master)
-    const { data: profile, error, isLoading } = useSWR(`/api/master?nikname=${slug}`, fetcher)
-    // if(profile?.length>0) {
-    //     dispatch(setmaster(profile))
-    //     console.log(profile)
-    // } else {
-    //     return document.getElementById('message').innerText = 'Такого мастера нет'
-    // }
+    const my_profile = useSelector(state => state.counter.profile)
+    const master = useSelector(state => state.counter.master)
+    const { data: profile } = useSWR(`/api/master?nikname=${slug}`, fetcher)
+    if(profile) {
+        if(Object.keys(profile).length) {
+            dispatch(setmaster(profile))
+            
+        } else {
+            router.push('/404')
+        }
+       
+       
+    } 
     
 
     // useEffect(() => {
@@ -78,7 +82,7 @@ const Master = () => {
     // }, [slug])
 
     function LinkTo(a) {
-        if (profile.status === 'client') {
+        if (my_profile.status === 'client') {
             router.push(a)
         } else {
             setmessage(true)

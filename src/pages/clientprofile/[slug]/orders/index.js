@@ -56,12 +56,15 @@ export default function Client() {
 
 
     function ActiveOrder(a) {
+        if(!a) {
+            return;
+        }
         let date_order = a.split(',')
         let mon = months.indexOf(date_order[1])
-        let d = new Date();        
-        if (mon >= d.getMonth()) {
+        let d = new Date();       
+        if (mon > d.getMonth() )  {
             return true
-        } else if (mon === d.getMonth()  && +date_order[0] >= d.getDate() ){      
+        } else if( mon = d.getMonth() && +date_order[0] >  d.getDate()) {
             return true
         } else {
             return false

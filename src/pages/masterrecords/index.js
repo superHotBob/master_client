@@ -66,8 +66,11 @@ export default function Records() {
 
     function FilterDay(event) {
         setActive_Day(event.target.id)
+        // console.log(i.date_order.split(',')[1], my_months[month])
         
-        let result = all_orders.filter(i => +i.date_order.split(',')[0] === +event.target.id)
+        let result = all_orders
+        .filter(i => +i.date_order.split(',')[0] === +event.target.id)
+        .filter(i => i.date_order.split(',')[1] === my_months[month])
         setOrders(result)
     }
     function ViewOrder(a) {

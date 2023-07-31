@@ -21,6 +21,13 @@ export default async function handler(req, res) {
     select AVG(stars) as avg from orders 
     where master = ${req.body.nikname}
   ` 
+
+  const count_orders = await sql`
+    select Count(id) from orders 
+    where master = ${req.body.nikname}
+  ` 
+  console.log(count_orders)
+
   console.log(average)
   const ave = (+average[0].avg).toFixed(1)
   const update_stars = await sql`
@@ -28,6 +35,16 @@ export default async function handler(req, res) {
     set stars = ${ave}
     where nikname = ${req.body.nikname}
   `  
+  const update_rating = await sql`
+    update users 
+    set rating = ${(+count_orders[0].count + +ave).toFixed(0)}
+    where nikname = ${req.body.nikname}
+  `  
+  const update_rating_client = await sql`
+  update clients 
+  set rating = ${(+count_orders[0].count + +ave).toFixed(0)}
+  where nikname = ${req.body.nikname}
+`  
 
 
   if (result.length > 0) {

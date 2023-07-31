@@ -19,7 +19,7 @@ export default function ClientOrder({ order, active, close }) {
     async function SendReview() {
         const data = {
             review: ref.current.
-                value, id: order.id,
+            value, id: order.id,
             stars: stars,
             nikname: order.master
         }

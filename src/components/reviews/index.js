@@ -11,7 +11,7 @@ const fetcher = (...args) => fetch(...args).then(res => res.json())
 export default function Reviews({ nikname, color }) {
 
     const { data: reviews, isLoading } = useSWR(`/api/get_orders_master_review?nikname=${nikname}`, fetcher)
-    const [view, setView] = useState(true)
+    const [view, setView] = useState(null)
 
     if (isLoading) {
         return <h3> Загружаем отзывы ...</h3>
@@ -22,8 +22,8 @@ export default function Reviews({ nikname, color }) {
         {reviews?.map((i, index) =>
             <div className={styles.data} key={index}>
                 <div className={styles.header}>
-                    <span>{i.client_name || i.client}</span>
-                    <span style={{ textAlign: 'right', width: '55%', color: '#000' }}>
+                    <span>{i.client_name }</span>
+                    <span style={{ textAlign: 'right', width: '39%', color: '#000' }}>
                         {Convert_Date(i.date_order)}
                     </span>
                     <div className={styles.stars}>
@@ -48,9 +48,9 @@ export default function Reviews({ nikname, color }) {
                 <p className={styles.service}>
                     {i.neworder.replace(/[0-9]/g, '').replace(':', '')}, {i.price} BYN
                 </p>
-                <p className={styles.message}>{view ? i.review.slice(0, 145) + '...' : i.review}</p>
-                <span style={{ color: color[2] }} onClick={() => setView(view ? false : true)}>
-                    {view ? 'подробнее' : 'скрыть'}
+                <p className={styles.message}>{view === i.id ? i.review : i.review.slice(0, 145) + '...'}</p>
+                <span style={{ color: color[2] }} onClick={() => setView(view === i.id ? null : i.id)}>
+                    {view != i.id ? 'подробнее' : 'скрыть'}
                 </span>
             </div>)}
 

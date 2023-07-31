@@ -64,10 +64,16 @@ export default function Order() {
 
     }
     function NewOrder(a) {
+        if(!a) {
+            return;
+        }
         let date_order = a.split(',')
         let mon = months.indexOf(date_order[1])
         let d = new Date();
-        if (mon >= d.getMonth() && +date_order[0] >= d.getDate()) {
+        console.log(mon, d.getMonth(), +date_order[0] , d.getDate())
+        if (mon > d.getMonth() )  {
+            return true
+        } else if( mon = d.getMonth() && +date_order[0] >  d.getDate()) {
             return true
         } else {
             return false
@@ -75,36 +81,37 @@ export default function Order() {
     }
     return (
         <main className={styles.main}>
-            {order && color ? <>
-                <header>
-                    <b onClick={() => router.back()} /><span>#{order.id}</span><span style={{ color: color[1] }}>Готово</span>
+             <header>
+                    <b onClick={() => router.back()} /><span>#{pid}</span><span style={{ color: color ? color[1] : null }}>Готово</span>
                 </header>
-                <section className={styles.data} style={{ color: color[1] }}>
+           
+               
+                <section className={styles.data} style={{ color: color ? color[1] : null }}>
                     <h5>Клиент</h5>
                     <span style={{ fontWeight: 400 }}>
                         <b style={{ fontWeight: 500, color: '#3D4EEA' }}>
-                            {order.client}
-                        </b>{' '}({order.client_name})
+                            {order?.client}
+                        </b>{' '}({order?.client_name})
                     </span>
                     <h5>Дата и время</h5>
-                    <span>{Convert_Date(order.date_order)}</span>
+                    <span>{Convert_Date(order?.date_order)}</span>
                     <h5>Услуги и стоимость</h5>
-                    <span>{order.new_order}</span>
-                    <span>Стоимость {order.price} BYN</span>
+                    <span>{order?.new_order}</span>
+                    <span>Стоимость {order?.price} BYN</span>
                     <h5>Дополнительное описание</h5>
-                    <span>{order.neworder.replace(/[0-9]/g, '  ').replace(/:/g, ' ')}</span>
-                    {NewOrder(order.date_order) ?
+                    <span>{order?.neworder.replace(/[0-9]/g, '  ').replace(/:/g, ' ')}</span>
+                    {NewOrder(order?.date_order) ?
                         <button onClick={DeleteOrder}>
                             <b>Отменить заказ</b>
                         </button>
                         :
                         <div className={styles.review} >
                             Отзыв
-                            <h3>{order.review}</h3>
+                            <h3>{order?.review}</h3>
                         </div>
                     }
                 </section>
-            </> : null}
+           
             {result ? <p>{result}</p> : null}
         </main>
     )
