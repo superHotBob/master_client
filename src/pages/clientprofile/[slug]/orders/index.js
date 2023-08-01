@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import ClientOrder from '@/components/clientorder'
-import { Convert_Date } from '@/profile'
+import { Convert_Date, NewOrder } from '@/profile'
 
 const url = 'https://masters-client.onrender.com'
 const sel = {
@@ -55,32 +55,7 @@ export default function Client() {
 
 
 
-    function ActiveOrder(a) {
-        if(!a) {
-            return;
-        }
-        let date_order = a.split(',')
-        let mon = months.indexOf(date_order[1])
-        let d = new Date();  
-       
-        if (mon > d.getMonth() )  {
-           
-            return true;
-        } else if ( mon === d.getMonth() && +date_order[0] >=  d.getDate()) {
-            if( +date_order[2].split(':')[0] > d.getHours()) {
-               
-                return true;
-            } else {
-               
-                 return true;
-            }
-           
-        } else {
-           
-            return false;
-        }
-    }
-
+    
     return (
         <>
             <Header text={profile.nikname} sel="back" />
@@ -99,7 +74,7 @@ export default function Client() {
                     className={styles.order}
                 >
                     <p>
-                        <span className={ActiveOrder(i.date_order) ? styles.active : null}>
+                        <span className={NewOrder(i.date_order) ? styles.active : null}>
                             {Convert_Date(i.date_order)}
                         </span>
                         <span>#{i.id}</span>
@@ -109,7 +84,7 @@ export default function Client() {
 
                 </div>
             )}
-            {viewOrder ? <ClientOrder order={data[orderIndex]} active={ActiveOrder(data[orderIndex].date_order)} close={close} /> : null}
+            {viewOrder ? <ClientOrder order={data[orderIndex]} active={NewOrder(data[orderIndex].date_order)} close={close} /> : null}
         </>
     )
 }

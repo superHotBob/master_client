@@ -21,11 +21,16 @@
   .section h4::first-letter {
     text-transform: capitalize;
   }
-  .image img {
+  .image .image_master {
     border-radius: 100%;
     transform: translateY(50px);
     border: 3px solid #fff;
     background-color: #fff;
+    background-position: center;
+    background-size: contain;
+    height: 105px;
+    width: 105px;
+    margin: 0 auto;
   }
   
   .name_stars {

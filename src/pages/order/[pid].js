@@ -2,7 +2,7 @@ import styles from './order.module.css'
 import { useRouter } from 'next/router'
 import { useState, useRef, useEffect } from 'react'
 import useSWR from 'swr'
-import { Convert_Date } from '@/profile'
+import { Convert_Date, NewOrder } from '@/profile'
 
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
@@ -63,22 +63,7 @@ export default function Order() {
         .then(res => router.push('/masterrecords'))
 
     }
-    function NewOrder(a) {
-        if(!a) {
-            return;
-        }
-        let date_order = a.split(',')
-        let mon = months.indexOf(date_order[1])
-        let d = new Date();
-        console.log(mon, d.getMonth(), +date_order[0] , d.getDate())
-        if (mon > d.getMonth() )  {
-            return true
-        } else if( mon = d.getMonth() && +date_order[0] >  d.getDate()) {
-            return true
-        } else {
-            return false
-        }
-    }
+    
     return (
         <main className={styles.main}>
              <header>

@@ -21,37 +21,66 @@ export default function Confirmation() {
     const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сетнябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
     
     const SaveOrder = () => {
-        const profile = JSON.parse(localStorage.getItem('profile'))
+        const profile = JSON.parse(localStorage.getItem('profile'))        
         const month =  months.indexOf(date.split(',')[1]) + 1
-        const data = {
-            client: profile.nikname ,
-            client_name:  profile.name,
-            master: master.nikname,
-            master_name: master.name,
-            price: Cost(order),
-            order: order,
-            date: date,
-            address:  address,
-            month: month
+        console.log(profile)
+        if(profile.status === 'client') {
+            const data = {
+                client: profile.nikname ,
+                client_name:  profile.name,
+                master: master.nikname,
+                master_name: master.name,
+                price: Cost(order),
+                order: order,
+                date: date,
+                address:  address,
+                month: month
+            }
+            fetch('/api/save_order', {
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'POST',
+            }).then(res=>{
+                setgoodorder(true)
+                EditSchedule()
+            })
+            EditSchedule(master_name)
+        } else {
+            const data = {
+                client: profile.nikname ,
+                client_name:  profile.name,
+                master: profile.nikname,
+                master_name: profile.name,
+                price: Cost(order),
+                order: order,
+                date: date,
+                address:  address,
+                month: month
+            }
+            fetch('/api/save_order_master', {
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'POST',
+            }).then(res=>{
+                setgoodorder(true)
+                EditSchedule()
+            })
+            EditSchedule(profile.nikname)
         }
-        fetch('/api/save_order', {
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            method: 'POST',
-        }).then(res=>{
-            setgoodorder(true)
-            EditSchedule()
-        })
-        EditSchedule()
+        
     }
-    async function EditSchedule() {
+
+
+    async function EditSchedule(a) {
         const my_data = {
-            nikname: master.nikname,
+            nikname: a,
             month: date.split(',')[1].toLowerCase()            
         } 
-        await  fetch(`/api/get_schedule?nikname=${my_data.nikname}&month=${my_data.month}`)
+        await  fetch(`/api/get_schedule?nikname=${a}&month=${my_data.month}`)
         .then(res => res.json())
         .then(data =>{
             let new_schedule = data;

@@ -13,7 +13,12 @@ export default function MasterHeader({profile, master}) {
         <>
         <section className={styles.section}>
             <div className={styles.image} style={{ background: gradient }}>
-                <Image priority={true} src={url + 'var/data/' + master + '/main.jpg'} alt="profile" height={105} width={105} /> 
+                <div className={styles.image_master} 
+                    style={{backgroundImage: 'url(' + url + 'var/data/' + master + '/main.jpg)' }}
+                />
+
+               
+                {/* <Image priority={true} src={url + 'var/data/' + master + '/main.jpg'} alt="profile" height={105} width={105} />  */}
             </div>
             <p className={styles.name_stars}>
                 <span >{profile?.name}</span>
