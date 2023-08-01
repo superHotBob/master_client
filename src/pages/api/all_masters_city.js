@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     const sql = postgres('postgres://bobozeranski:ZdxF36OgaSAK@ep-yellow-mountain-679652.eu-central-1.aws.neon.tech/neondb?sslmode=require&options=project%3Dep-yellow-mountain-679652')
 
     const result = await sql`
-        select nikname, name,stars,address, services, locations, color, text
+        select nikname, name,stars,address, services, locations
         from users
         where ${req.query.service} = ANY (services) and city = ${req.query.city} and blocked = '0'
    `

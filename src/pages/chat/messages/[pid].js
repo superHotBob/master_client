@@ -114,7 +114,7 @@ export default function Messages() {
         // } else 
         if (pid !== 'администратор') {
             const data = {
-                chat: client.length > 0 ? client[0].chat: Math.random().toFixed(6)*1000000 ,
+                chat: client.length > 0 ? client[0].chat: null ,
                 ms_text: ref.current.value,
                 sendler: profile.name,
                 sendler_nikname: profile.nikname,
@@ -140,7 +140,7 @@ export default function Messages() {
                 .catch(err => console.log(err))
         } else {           
             const data = {
-                chat: (client.length > 0 && client[0].chat != 0) ? client[0].chat: Math.random().toFixed(6)*1000000 ,
+                chat: (client.length > 0 && client[0].chat != 0) ? client[0].chat: null ,
                 ms_text: ref.current.value,
                 sendler: profile.name,
                 sendler_nikname: profile.nikname,

@@ -58,6 +58,18 @@ export default async function handler(req, res) {
     )  
     returning *
   `
+
+  const update_rating_client = await sql`
+    update clients 
+    set rating = rating + 1
+    where nikname = ${req.body.master}
+  `
+  const update_rating_master = await sql`
+    update users 
+    set rating = rating + 1
+    where nikname = ${req.body.master}
+  `    
+
   res.send('Ok')     
   
   

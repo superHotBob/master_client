@@ -15,8 +15,7 @@ function Convert_Date(a = "1,'Июнь',10:00") {
   if (a) {
     const dt = new Date()
     let d = a.split(',')
-    const tm = d[2].split(':')
-    console.log(d)
+    const tm = d[2].split(':')   
     if (tm[0] === '00') {
       const date_ord = new Date(dt.getFullYear(), months.indexOf(d[1]), d[0])
       const formattedDate = date_ord.toLocaleDateString('ru-RU', {

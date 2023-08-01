@@ -61,13 +61,23 @@ export default function Client() {
         }
         let date_order = a.split(',')
         let mon = months.indexOf(date_order[1])
-        let d = new Date();       
+        let d = new Date();  
+       
         if (mon > d.getMonth() )  {
-            return true
-        } else if( mon = d.getMonth() && +date_order[0] >  d.getDate()) {
-            return true
+           
+            return true;
+        } else if ( mon === d.getMonth() && +date_order[0] >=  d.getDate()) {
+            if( +date_order[2].split(':')[0] > d.getHours()) {
+               
+                return true;
+            } else {
+               
+                 return true;
+            }
+           
         } else {
-            return false
+           
+            return false;
         }
     }
 

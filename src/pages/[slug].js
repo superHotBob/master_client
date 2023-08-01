@@ -27,7 +27,19 @@ const active = {
 
 }
 
-const Master = () => {
+export async function getServerSideProps({ params }) {
+    console.log('params',params)
+    const res = await fetch(`https://masterplace.netlify.app/api/master?nikname=${params.slug}`);
+    const profile = await res.json();
+  
+    return {
+      props: {
+        profile,
+      },
+    };
+  }
+
+export default function Master({profile})  {
     const [message, setmessage] = useState(false)
     const [nav_view, setNavView] = useState(0)
     // const [profile, setProfile] = useState(null)
@@ -37,18 +49,23 @@ const Master = () => {
     const [gradient, color, background] = my_data['my_tema'][0].color
     const dispatch = useDispatch()
     const my_profile = useSelector(state => state.counter.profile)
+    const service = useSelector(state=>state.counter.service)
     const master = useSelector(state => state.counter.master)
-    const { data: profile } = useSWR(`/api/master?nikname=${slug}`, fetcher)
-    if(profile) {
-        if(Object.keys(profile).length) {
-            dispatch(setmaster(profile))
+
+
+    // const { data: profile } = useSWR(`/api/master?nikname=${slug}`, fetcher)
+
+
+    // if(profile) {
+    //     if(Object.keys(profile).length) {
+    //         dispatch(setmaster(profile))
             
-        } else {
-            router.push('/404')
-        }
+    //     } else {
+    //         router.push('/404')
+    //     }
        
        
-    } 
+    // } 
     
 
     // useEffect(() => {
@@ -91,7 +108,7 @@ const Master = () => {
     return (
         <>
             <Head><title>{slug}</title></Head>
-            <Header text={slug} sel={'/masternear/' + slug} color={profile?.color} />
+            <Header text={slug} sel={'/masternear/' + service} color={profile?.color} />
             <MasterHeader profile={profile} master={slug} />
             
                 <section className={styles.section_main}>
@@ -141,4 +158,3 @@ const Master = () => {
 
 }
 
-export default Master
