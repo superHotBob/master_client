@@ -154,11 +154,11 @@ export default function AddList() {
             })
             .catch(err => console.log(err))
     }
-    const CustomInput = forwardRef(({ value, onClick }, ref) => (
-        <button className={styles.custom_input} onClick={onClick} ref={ref} style={{ borderColor: color[1] }}>
-          {value}
-        </button>
-      ));
+    // const CustomInput =  forwardRef(({ value, onClick }, ref) => (
+    //     <button className={styles.custom_input} onClick={onClick} ref={ref} style={{ borderColor: color[1] }}>
+    //       {value}
+    //     </button>
+    //   ));
 
     return (
         <main className={styles.main}>
@@ -247,7 +247,8 @@ export default function AddList() {
                         onChange={(date) => setStartDate(date)}
                         showTimeSelect
                         dateFormat="Pp"
-                        customInput={<CustomInput />}
+                        className={styles.custom_input}
+                        // customInput={<CustomInput />}
 
                     />
                     <section className={styles.tags}>
