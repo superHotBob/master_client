@@ -8,6 +8,7 @@ export default async function handler(req, res) {
         select nikname, name,stars,address, services, locations
         from users
         where ${req.query.service} = ANY (services) and city = ${req.query.city} and blocked = '0'
+        order by rating DESC
    `
     if (result.length>0) {
         res.status(200).json(result)

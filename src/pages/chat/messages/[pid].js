@@ -21,6 +21,7 @@ export default function Messages() {
     const ref = useRef()
     const router = useRouter()
     const { pid } = router.query
+    const { name } = router.query
     const [messages, addMessage] = useState([])
    
     const color = useSelector(state=>state.counter.profile['color'])
@@ -193,7 +194,7 @@ export default function Messages() {
     }
     return (
         <main className={styles.main}>
-            <Header sel='/chat' text={profile.name} mes="1" color={color} />
+            <Header sel='/chat' text={router.query.name} name={pid} mes="1" color={color} />
             <section className={styles.section} id="section">
                 {client?.sort((a, b) => a.ms_date - b.ms_date).map(i =>
                     <div key={i.ms_date} className={styles.message}>

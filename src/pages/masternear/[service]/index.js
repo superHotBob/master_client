@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import styles from './near.module.css'
 import { useSelector, useDispatch } from 'react-redux'
-import { setmaster } from '@/reduser'
+import { setmaster, setservice } from '@/reduser'
 import { useState, useEffect } from 'react'
 import FilterServices from '@/components/filterServices'
 import Message from '@/components/message'
@@ -18,17 +18,21 @@ const sel = {
 }
 export default function MasterNear() {
     const fetcher = (...args) => fetch(...args).then(res => res.json())
-    const router = useRouter()   
+    const router = useRouter()
+    const { service } = router.query   
     const my_city = useSelector((state) => state.counter.city)
-    const service = useSelector((state) => state.counter.service)   
+    const services = useSelector((state) => state.counter.service)   
     const dispatch = useDispatch()      
    
 
     const { data, error, isLoading } = useSWR('/api/all_masters_city?' + new URLSearchParams({
         city: my_city.toLowerCase(),
-        service: service ? service : pid}), fetcher)
+        service:  service}), fetcher)
     
-    
+    useEffect(()=>{
+       router.push(`/masternear/${services}`)
+       
+        },[services])
 
     function ViewNewMaster(a) {
         router.push(`/${a}`)

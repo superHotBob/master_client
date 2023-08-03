@@ -46,7 +46,7 @@ export default function Confirmation() {
                 setgoodorder(true)
                 EditSchedule()
             })
-            EditSchedule(master_name)
+            EditSchedule( master.nikname)
         } else {
             const data = {
                 client: profile.nikname ,

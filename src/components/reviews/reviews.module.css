@@ -14,6 +14,10 @@
     
     transform: translateY(2px);
 }
+.stars {
+    width: 80px;
+    text-align: right;
+}
 .header {
     display: flex;
     justify-content: space-between;

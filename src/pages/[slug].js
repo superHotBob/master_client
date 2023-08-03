@@ -16,6 +16,7 @@ import Menu_icon from '@/components/icons/menu'
 import Link from 'next/link'
 import MasterHeader from '@/components/masterheader'
 import { my_data } from '@/data.'
+import { useEffect } from 'react'
 
 
 const active = {
@@ -50,19 +51,17 @@ export default function Master({ profile }) {
 
 
     
+    useEffect(()=>{
+        if(profile) {
+            if(Object.keys(profile).length) {
+                dispatch(setmaster(profile))    
+            } else {
+                router.push('/404')
+            }    
+        }
+    },[router])
 
-
-    // if(profile) {
-    //     if(Object.keys(profile).length) {
-    //         dispatch(setmaster(profile))
-
-    //     } else {
-    //         router.push('/404')
-    //     }
-
-
-    // } 
-
+    
 
     // useEffect(() => {
     //     const abortController = new AbortController();

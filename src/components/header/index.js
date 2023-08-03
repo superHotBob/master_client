@@ -26,7 +26,7 @@ const new_text_mes = {
 }
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
-export default function Header({ sel, text, mes, color = {}, select,view_time }) {
+export default function Header({ sel, text, mes, color = {}, select,view_time ,name}) {
   const profile = useSelector((state) => state.counter.profile)
   const { data } = useSWR(profile.status === 'master' ?`/api/get_new_orders_master?nikname=${profile.nikname}`: null, fetcher )
   const dispatch = useDispatch()
@@ -84,7 +84,7 @@ export default function Header({ sel, text, mes, color = {}, select,view_time })
       {text ?
         <h4 style={mes ? new_text_mes : new_text}>
           {mes ? <Image
-            src={process.env.url + 'var/data/' + profile.nikname + '/main.jpg'}
+            src={process.env.url + 'var/data/' + name + '/main.jpg'}
             alt="menu"
             className={styles.image_master}
             width={39} height={40}
