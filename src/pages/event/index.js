@@ -26,7 +26,7 @@ export default function Event() {
         <>
             <Header text="Мероприятия" sel="/catalog/services" />           
             {data?.map(i=>
-                <section className={styles.event} style={{backgroundImage: 'url(' + url + '/var/data/' + i.master_nikname + '/main.jpg)' }}>
+                <section key={i.event_id} className={styles.event} style={{backgroundImage: 'url(' + url + '/var/data/' + i.master_nikname + '/main.jpg)' }}>
                     <p>
                         {i.name}<br />
                         <span className={styles.pro}>MASTER</span>
