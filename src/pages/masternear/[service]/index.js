@@ -34,11 +34,11 @@ export default function MasterNear() {
        
         },[services])
 
-    function ViewNewMaster(a) {
-        router.push(`/${a}`)
-        let master = data.filter(i => i.nikname === a)
-        dispatch(setmaster(master[0]))
-    }   
+    // function ViewNewMaster(a) {
+    //     router.push(`/${a}`)
+    //     let master = data.filter(i => i.nikname === a)
+    //     dispatch(setmaster(master[0]))
+    // }   
    
     return (
         <>
@@ -57,7 +57,7 @@ export default function MasterNear() {
             <section className={styles.section} >
                 <FilterServices />
                 {data?.map(i =>
-                    <div key={i.name} className={styles.master} onClick={() => ViewNewMaster(i.nikname)}>
+                    <Link key={i.name} className={styles.master} href={'/' + i.nikname}>
                         <p className={styles.name_stars} >
                             <span>{i.name}</span>
                             <span className={styles.pro}>MASTER</span>
@@ -66,7 +66,7 @@ export default function MasterNear() {
                         <h4>{i.address}</h4>
                         <h5>{i.services.map(a => <span key={a} className={styles.service}>{a}</span>)}</h5>
                         <Image src={url + 'var/data/' + i.nikname + '/main.jpg'} width={60} height={60} alt="image" />
-                    </div>
+                    </Link>
                 )}
                 {isLoading?<p className={styles.message__await}>Загружаем мастеров...</p>:null}
                 {error?<p className={styles.message__await}>Ошибка загрузки мастеров...</p>:null}

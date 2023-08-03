@@ -1,9 +1,9 @@
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
 import Header from '@/components/header'
-import {useLayoutEffect, useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import {  useSelector } from 'react-redux'
-import useSWR from 'swr'
+
 import FilterServices from '@/components/filterServices'
 import Message from '@/components/message'
 import ViewImage from '@/components/viewimage'
@@ -27,7 +27,7 @@ const services__name = {
 }
 
 export default function Home() {
-  const fetcher = (...args) => fetch(...args).then(res => res.json())
+  
   const service = useSelector(state => state.counter.service)
   const city = useSelector(state => state.counter.city)
   const [view_image, viewImage] = useState(false)
@@ -77,7 +77,6 @@ export default function Home() {
   //   };
   // }, []);
   useEffect(()=>{   
-    // console.log(refmove.current, scrollTop, window.scrollY/150)
    
    
     if(servref.current != service) {     
@@ -97,18 +96,7 @@ export default function Home() {
     })
   },[scrollTop,service])
 
-  const imageOnError = (a) => {
-    let new_data = [...data]
-    const m = new_data.filter(i => i.id !== a)
-    setdata([...m])
-  };
-  const Plus = () => {
-    
-    count.current = count.current + 1
-    let new_arr = []
-    data.filter(i => i.id < 10).forEach(i => new_arr.push({ 'id': i.id + count.current, 'master_name': i.master_name, 'name': i.name, 'image': url_image + i.name + '/list__' + services__name[service] + '__' + count.current + '.jpg' }))
-    setdata(data.concat(new_arr))    
-  }
+ 
   function Height(b) {
     // document.getElementById(b).style.marginBottom = '10px'
     // document.getElementById(b).style.opacity = 1
@@ -160,8 +148,7 @@ export default function Home() {
               />
             )}
           </div>
-        </div>
-        {/* <button id="add__images" className={styles.add__images} onClick={Plus}>+</button> */}
+        </div>        
         {view_image ? <ViewImage service={service} view_image={view_image} url_image={url_image} viewImage={viewImage} />:null}
       </section>      
     </>

@@ -1,19 +1,10 @@
-.main {
-    align-items: center;
-    min-height: 800px;
-    max-width: 500px;
-    background-color: #fff;
-    width: 100%;
-    margin: 0 auto;
-    padding-bottom: 50px;
-}
-
 .event {
     padding: 10px;    
-    background-position: 10px 10px;
+    background-position: 12px 12px;
     box-shadow: 0px 0px 20px #C5C5C5;
     border-radius: 12px;
-    margin:8px 16px;
+    margin: 0 16px 8px;
+    background-size: 50px;
 }
 
 .images {
@@ -27,7 +18,10 @@
     font-size:  16px;
     line-height: 18px;
     color: #282828;
-    margin-bottom: 8px;
+    margin:20px 8px;
+}
+.event:first-of-type {
+    margin-top: 13px;
 }
 
 .event h4 {
@@ -36,7 +30,8 @@
     padding-left: 20px;
     font-weight: 500;
     font-size:  12px;
-    line-height: 27px;
+    line-height: 17px;
+    text-transform: capitalize;
 }
 
 .event h5 {
@@ -47,7 +42,7 @@
 }
 
 .event p {
-    padding: 0 0 20px 75px;
+    padding: 0 0 0 75px;
     font-weight: 500;
 }
 
