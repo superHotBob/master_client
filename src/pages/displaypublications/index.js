@@ -6,10 +6,7 @@ import { url, my_data } from '@/data.'
 import { useState } from 'react'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useEffect } from 'react'
-import { My_Date } from '@/profile'
-import useSWR from 'swr'
 
-import { useSWRConfig } from 'swr'
 export default function DisplayPublications() {
 
     const { color = my_data.my_tema[0].color, nikname } = useSelector(state => state.counter.profile)
@@ -19,10 +16,10 @@ export default function DisplayPublications() {
     const [images, setImages] = useState([])
     const [delete_images, setDeleteImages] = useState([])
 
-    const { cache } = useSWRConfig()
+    
 
 
-    const events = cache.get(`/api/get_events_master?nikname=${nikname}`).data
+   
 
     const reorder_in_block = (startIndex, endIndex, block) => {
         let result = block === 'one' ? imagesone : imagestwo;
