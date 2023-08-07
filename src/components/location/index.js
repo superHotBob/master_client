@@ -77,14 +77,7 @@ export default function Location({ loc_master, close, nikname }) {
             {/* <div style={{ width: '100%', height: '400px' }}>
                 <div id="container"/>
             </div> */}
-            <iframe
-                id="inlineFrameExample"
-                title="Inline Frame Example"
-                width="300"
-                height="200"
-                src="https://www.openstreetmap.org/export/embed.html?bbox=-0.004017949104309083%2C47.620495%2C0.00030577182769775396%2C-122.349297&layer=mapnik"
-            >
-            </iframe>
+           
             <div className={styles.my_map} >
                 {/* <Image src={icon_close} onClick={()=>close(false)} alt="close" width={20} height={20}/>
                         <YMaps >                       
