@@ -1,7 +1,7 @@
 import Header from '@/components/header'
 import Link from 'next/link'
 import styles from './event.module.css'
-const fetcher = (...args) => fetch(...args).then(res => res.json())
+
 import useSWR from 'swr'
 import { url } from '@/data.'
 
@@ -10,7 +10,7 @@ import { url } from '@/data.'
 
 export default function Event() {
 
-    const { data, error , mutate } = useSWR('/api/get_events', fetcher)
+    const { data, error , mutate } = useSWR('/api/get_events')
 
     const options = { month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
 
@@ -35,9 +35,9 @@ export default function Event() {
                     <h3>{i.event_text}</h3>
                     <h4>{i.address}</h4>
                     <h5 style={{color: '#000',margin: '8px 0'}}>{My_Date(i.date_event)}</h5>
-                    <h5>{i.service}</h5>                
+                    <h5>{i.services.map(m => <span key={m}>{m}</span>)}</h5>              
                     <Link href="/apply_to_event" >
-                        <span>Подать заявку</span>
+                        <span>Написать мастеру</span>
                     </Link>
                 </section>
             )}

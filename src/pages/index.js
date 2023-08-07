@@ -8,34 +8,16 @@ import FilterServices from '@/components/filterServices'
 import Message from '@/components/message'
 import ViewImage from '@/components/viewimage'
 const url_image = 'https://masters-client.onrender.com/var/data/'
-// const url_one = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/geolocate/address"
-// const token = "5ff295eebd78a454b8bd3805b29d1eb6daefe31f"
 
-const services__name = {
-  барбер: 'barber',
-  прически: 'pricheski',
-  массаж: 'massaj',
-  маникюр: 'manikur',
-  педикюр: 'pedikur',
-  окрашивание: 'okrashivanie',
-  чистка: 'chistka',
-  стрижка: 'strijka',
-  брови: 'brovi',
-  ресницы: 'resnici',
-  депиляция: 'depiliaciy',
-  макияж: 'makiaj'
-}
-
-export default function Home() {
-  
+export default function Home() {  
   const service = useSelector(state => state.counter.service)
   const city = useSelector(state => state.counter.city)
   const [view_image, viewImage] = useState(false)
   const [data, setdata] = useState([])
  
-  const count = useRef(0)
+ 
   const ref = useRef(null)
-  const refmove = useRef(0)
+  
   const servref = useRef(service)
  
  
@@ -107,7 +89,7 @@ export default function Home() {
  
   return (
     <>
-      <Header />
+      <Header loading="lazy"/>
       <section className={styles.section} >
         <Message page="main" text='Masters.place показывает самые крутые и 
             актуальные работы мастеров в вашем городе. Вы 
@@ -127,8 +109,8 @@ export default function Home() {
                 key={i.id}
                 id={i.id}
                 onClick={() => View(i.nikname, process.env.url + 'var/data/' + i.nikname + '/' +  i.id + '.jpg', i.master_name, i.review, i.img_date)}
-               
-                onLoad={() => Height(i.id)}
+                loading='lazy'
+                // onLoad={() => Height(i.id)}
                 src={process.env.url + 'var/data/' + i.nikname + '/' +  i.id + '.jpg' }
                 title={i.master_name}
               />
@@ -141,8 +123,8 @@ export default function Home() {
                 key={i.id}
                 id={i.id}
                 onClick={() => View(i.nikname, process.env.url + 'var/data/' + i.nikname + '/' +  i.id + '.jpg', i.master_name, i.review, i.img_date)}
-                
-                onLoad={() => Height(i.id)}
+                loading='lazy'
+                // onLoad={() => Height(i.id)}
                 src={process.env.url + 'var/data/' + i.nikname + '/' +  i.id + '.jpg' }
                 title={i.master_name}
               />

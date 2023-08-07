@@ -1,9 +1,8 @@
 import styles from './services.module.css'
 import useSWR from 'swr'
 
-export default function Services({ color, name }) {    
-    const fetcher = (...args) => fetch(...args).then(res => res.json())
-    const { data, error, isLoading } = useSWR(`/api/master_service?nikname=${name}`, fetcher)  
+export default function Services({ color, name }) {     
+    const { data, error, isLoading } = useSWR(`/api/master_service?nikname=${name}`)  
 
     if (error) return <div>ошибка загрузки</div>
     if (isLoading) return <div className={styles.upload__message}>Загрузка услуг...</div>

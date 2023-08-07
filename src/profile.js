@@ -69,4 +69,14 @@ function EditLocalStorage(a, b) {
   new_loc[a] = b
   localStorage.setItem('profile', JSON.stringify(new_loc))
 }
-export { Convert_Date, EditLocalStorage, NewOrder }
+const options = { month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+
+function My_Date(a) {        
+    const message_date = new Date(+a)
+    const current_date = new Date()
+    if (message_date.getDate() === current_date.getDate()) {
+        return message_date.toLocaleDateString('ru-RU', options)
+    }
+    return message_date.toLocaleDateString('ru-RU', options)
+}
+export { Convert_Date, EditLocalStorage, NewOrder, My_Date }

@@ -11,4 +11,4 @@
      ]
 }
 const url = 'https://masters-client.onrender.com'
-export { my_data , url}
+export { my_data , url }

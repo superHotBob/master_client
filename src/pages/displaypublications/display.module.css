@@ -45,9 +45,9 @@
 .delete{
     position: fixed;
     bottom: 23px;
-    height: 47px;  
-    width: 25%;
-    left: 37%;
+    height: 172px;  
+    width: 100%;
+    z-index: 110000;
     max-width: 500px;  
 }
 .trash {
@@ -68,4 +68,34 @@
     background-color: aliceblue;
     border-radius: 8px;
     display: none;
+}
+.model {
+    height: 80px;
+    background:  #5E2AF0;
+    border-radius: 8px;
+    padding: 20px 16px 22px;
+    display: flex;
+    margin: 0 16px 10px;
+    width: calc(100% - 32px);
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-direction: column;
+    z-index: 1000;
+    position: absolute;
+}
+.model h3 {
+    font-weight: 500;
+}
+
+.model h3,
+.model span {
+    color: #fff;   
+}
+.model span {    
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 25px;
+    letter-spacing: 0em;
+    text-align: left;
+
 }

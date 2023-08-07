@@ -45,6 +45,17 @@
     padding: 0 0 0 75px;
     font-weight: 500;
 }
+.event h5 span {
+    color: #8B95F2;
+    font-weight: 400;
+    font-size:  12px;
+    line-height: 12px;
+    margin-right: 10px;
+    display: inline-block;
+}
+.event h5 span:first-letter {    
+    text-transform: uppercase;
+}
 
 .event a {
     height: 46px;

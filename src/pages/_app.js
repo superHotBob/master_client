@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import Head from 'next/head'
 import Navi from '@/components/navi'
 import { useRouter } from 'next/router'
-
+import { SWRConfig } from 'swr'
 
 
 const rubik = Rubik({
@@ -14,7 +14,7 @@ const rubik = Rubik({
   style: ['normal'],
   display: 'swap',
 })
-const my_path = ['informations','informations/aboutservice',
+const my_path = ['informations', 'informations/aboutservice',
   'newpassword',
   'succesregistration',
   'displaypublications',
@@ -23,25 +23,29 @@ const my_path = ['informations','informations/aboutservice',
   'addlist',
   'calendar',
   'master',
-  'masterprofile', 'city', 'masternear', 'masternear/city','chat', 'editprofile', 'addmasterorder']
+  'masterprofile', 'city', 'masternear', 'masternear/city', 'chat', 'editprofile', 'addmasterorder']
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter()
 
   return (
-    <Provider store={store}>
-      <Head>
-        <meta name="description" content="Master app" />
-        <meta name="viewport" content="width=device-width" />
-        <link rel="icon" href="/favicon.ico" />
-        <title>masters.place</title>      
-        <link rel="apple-touch-icon" href="icons/android-chrome-192x192.png"></link>
-        <meta name="application-name" content="PWA App" />
-        <meta name="mobile-web-app-capable" content="yes" />       
-      </Head>
-      <main className={rubik.className}>
-        <Component {...pageProps} />
-        {my_path.includes(router.asPath.replace('/', '')) ? null : <Navi />}
-      </main>
-    </Provider>
+    <SWRConfig value={{ provider: () => new Map(),
+      fetcher: (resource, init) => fetch(resource, init).then(res => res.json())
+    }}>
+      <Provider store={store}>
+        <Head>
+          <meta name="description" content="Master app" />
+          <meta name="viewport" content="width=device-width" />
+          <link rel="icon" href="/favicon.ico" />
+          <title>masters.place</title>
+          <link rel="apple-touch-icon" href="icons/android-chrome-192x192.png"></link>
+          <meta name="application-name" content="PWA App" />
+          <meta name="mobile-web-app-capable" content="yes" />
+        </Head>
+        <main className={rubik.className}>
+          <Component {...pageProps} />
+          {my_path.includes(router.asPath.replace('/', '')) ? null : <Navi />}
+        </main>
+      </Provider>
+    </SWRConfig>
   )
 }

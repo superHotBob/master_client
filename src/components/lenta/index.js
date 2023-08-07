@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import useSWR from 'swr'
 import ViewImage from '../viewimage'
+import { My_Date } from '@/profile'
 
 const text = (` Ищу модель, что бы протестировать китайскую 
     косметику на юнном теле. 
@@ -30,18 +31,18 @@ const text = (` Ищу модель, что бы протестировать к
 
     Пишите, девочки :*:*:*:*`)
 
-    const fetcher = (...args) => fetch(...args).then(res => res.json())
+    import { useSWRConfig } from 'swr' 
 export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2AF0)', '#3D4EEA', '#ECEEFD'], nikname, name }) {
-    
+    const { cache, mutate, ...extraConfig } = useSWRConfig()
     const [model, setViewText] = useState(false)
     const [view_image, viewImage] = useState(false)
     const [message, setMessage] = useState(false)
     const profile = useSelector(state => state.counter.profile)
 
-    const { data } = useSWR(`/api/get_images?nikname=${nikname}`, fetcher)
+    const { data } = useSWR(`/api/get_images?nikname=${nikname}`)
+    const { data:events } = useSWR(`/api/get_events_master?nikname=${nikname}`)
    
    
-  
 
     function Saved_image(a) {        
         let pro = JSON.parse(localStorage.getItem('profile'))
@@ -60,7 +61,8 @@ export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2A
             setTimeout(() => setMessage(false), 3000)
         })
     }
-    const ViewImageClick = (a) => {        
+    const ViewImageClick = (a) => {   
+        console.log(a)     
         viewImage({ 
             name: a.nikname, 
             image: process.env.url + 'var/data/' + nikname + '/' + a.id + '.jpg', 
@@ -72,10 +74,12 @@ export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2A
     }
 
     return <>
-        <div onClick={() => setViewText(true)} className={styles.model} style={{ background: color[0] }}>
+        {events ?<>
+        {Object.keys(events).length ? <div onClick={() => setViewText(true)} className={styles.model} style={{ background: color[0] }}>
             <h3>Нужна модель</h3>
-            <span>15 сентября, бесплатно</span>
-        </div>
+            <span>{My_Date(events.date_event)}, бесплатно</span>
+        </div> : null}</>
+        : null}
         <dialog open={message} className={styles.message}>
             Изображение сохранено
         </dialog>
@@ -112,10 +116,10 @@ export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2A
             <div className={styles.need_model_main}>
                 <div className={styles.need_model_data}>
                     <Image alt="arrow" src={arrow_down} height={20} width={20} onClick={() => setViewText(false)} />
-                    <p className={styles.save}><span>Сохранить</span><span>12.03.2021</span></p>
+                   
                     <h4>Нужна модель бесплатно</h4>
-                    <h4 className={styles.date}>11 Сертября 12:00</h4>
-                    <p className={styles.text}>{text}</p>
+                    <h4 className={styles.date}>{My_Date(events.date_event)}</h4>
+                    <p className={styles.text}>{events.event_text}</p>
                     <Link href="/" className={styles.add}>Подать заявку</Link>
                 </div>
             </div>

@@ -14,6 +14,7 @@ import AddService from '@/components/addservise'
 import MasterHeader from '@/components/masterheader'
 import Reviews from '@/components/reviews'
 import { url } from '@/data.'
+import Lenta from '@/components/lenta'
 
 
 const nav_active = ({
@@ -43,29 +44,27 @@ export default function Client() {
     const [nav_view, setNavView] = useState('Лента')
     const [newSertificat, AddNewSertificat] = useState(false)
     const [lists, setlists] = useState()
-
+   
     useEffect(() => {
         const pro = JSON.parse(localStorage.getItem('profile'))
-        if (pro.nikname !== pid) {
-            return () => router.push('/enter')
-        }
+        // if (pro.nikname !== pid) {
+        //     return () => router.push('/enter')
+        // }
         if (pro) {
             function GetLists() {
-                fetch(`/api/get_images?nikname=${pro.nikname}`)
+                fetch(`/api/get_images?nikname=${pid}`)
                     .then(res => res.json())
                     .then(res => setlists(res))
             }
-            GetLists()
+            // GetLists()
             setProfile(pro)
         } else {
             router.push('/enter')
         }
-    }, [pid])
+    }, [pid,router])
 
 
-    function Load(a) {
-        document.getElementById(a).style.opacity = 1
-    }
+  
 
 
 
@@ -74,7 +73,7 @@ export default function Client() {
             <Head><title>{pid}</title></Head>
             <Header sel='back' text='Мой профиль' color={profile?.color} />
             <MasterHeader profile={profile} master={pid} />
-            <nav className={styles.navigation}>
+            <nav className={styles.navigation} >
                 {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
                     .map(i => <span key={i} onClick={() => setNavView(i)} style={nav_view === i ? { ...nav_active, background: profile?.color[1] } : null}>{i}</span>)}
             </nav>
@@ -89,8 +88,8 @@ export default function Client() {
                         <Services color={profile.color} name={pid} />
                         <AddService view={view} setView={setView} color={profile.color} />
 
-                    </> : null}
-                    {nav_view === 'Лента' ? <>
+                    </> :
+                    nav_view === 'Лента' ? <>
                         <div className={styles.lenta_selector}>
                             <Link
                                 href="/addlist"
@@ -105,35 +104,10 @@ export default function Client() {
                                 Показ
                                 <Menu_icon type="dashboard" color={profile.color[1]} />
                             </Link>
-                        </div>
-                        <div className={styles.all__images}>
-                            <div className={styles.lenta_images}>
-                                {lists?.filter((i, index) => index % 2 == 0).map(i =>
-                                    <img
-                                        key={i.id}
-                                        id={i.id}
-                                        alt="my_image"
-                                        onLoad={() => Load(i.id)}
-                                        className={styles.lenta_image}
-                                        src={url + "/var/data/" + pid + '/' + i.id + '.jpg'}
-                                    />
-                                )}
-                            </div>
-                            <div className={styles.lenta_images}>
-                                {lists?.filter((i, index) => index % 2 !== 0).map(i =>
-                                    <img
-                                        key={i.id}
-                                        onLoad={() => Load(i.id)}
-                                        id={i.id}
-                                        alt="my_image"
-                                        className={styles.lenta_image}
-                                        src={url + "/var/data/" + pid + '/' + i.id + '.jpg'}
-                                    />
-                                )}
-                            </div>
-                        </div>
-                    </> : null}
-                    {nav_view === 'Сертификаты' ? <>
+                        </div>                       
+                        <Lenta  nikname={pid} name={profile.name} color={profile.color} />
+                    </> : 
+                    nav_view === 'Сертификаты' ? <>
                         <div onClick={() => AddNewSertificat(true)} className={styles.uslugi_plus} style={{ color: '#fff', backgroundColor: profile.color[1] }}>
                             Добавить сетрификат +
                         </div>
@@ -141,8 +115,8 @@ export default function Client() {
                         {newSertificat ? <AddSertificat setView={setView} color={profile.color} nikname={profile.nikname} view={AddNewSertificat} /> : null}
 
 
-                    </> : null}
-                    {nav_view === 'Отзывы' ? <Reviews color={profile.color} nikname={profile.nikname} /> : null}
+                    </> :
+                    nav_view === 'Отзывы' ? <Reviews color={profile.color} nikname={profile.nikname} /> : null}
                 </section>
                 <Navi color={profile.color[0]} />
             </> : null}

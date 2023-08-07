@@ -2,28 +2,33 @@ import Menu_icon from '@/components/icons/menu'
 import styles from './display.module.css'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
-import useSWR from 'swr'
-const fetcher = (...args) => fetch(...args).then(res => res.json())
 import { url, my_data } from '@/data.'
 import { useState } from 'react'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useEffect } from 'react'
+import { My_Date } from '@/profile'
+import useSWR from 'swr'
 
-
-
+import { useSWRConfig } from 'swr'
 export default function DisplayPublications() {
+
     const { color = my_data.my_tema[0].color, nikname } = useSelector(state => state.counter.profile)
     const router = useRouter()
     const [imagesone, setImagesOne] = useState([])
     const [imagestwo, setImagesTwo] = useState([])
     const [images, setImages] = useState([])
     const [delete_images, setDeleteImages] = useState([])
-   
+
+    const { cache } = useSWRConfig()
+
+
+    const events = cache.get(`/api/get_events_master?nikname=${nikname}`).data
+
     const reorder_in_block = (startIndex, endIndex, block) => {
-        let result = block === 'one' ? imagesone: imagestwo;
+        let result = block === 'one' ? imagesone : imagestwo;
         let new_ind = result[startIndex];
         result[startIndex] = result[endIndex];
-        result[endIndex] = new_ind;       
+        result[endIndex] = new_ind;
         return result;
     };
     const reorder_between_block = (startIndex, endIndex, block) => {
@@ -31,14 +36,14 @@ export default function DisplayPublications() {
         let result_start = block === 'one' ? imagestwo : imagesone;
         let new_ind = result_end[endIndex];
         result_end[endIndex] = result_start[startIndex];
-        result_start[startIndex] = new_ind;      
-       if( block === 'one') {
+        result_start[startIndex] = new_ind;
+        if (block === 'one') {
             setImagesOne(result_end)
             setImagesTwo(result_start)
         } else {
             setImagesOne(result_start)
             setImagesTwo(result_end)
-       }
+        }
     };
 
     useEffect(() => {
@@ -49,68 +54,80 @@ export default function DisplayPublications() {
         fetch(`/api/get_images?nikname=${pro.nikname}`)
             .then(res => res.json())
             .then(res => {
-               setImagesOne(res.filter((i,index)=>(index+1) % 2 != 0));
-               setImagesTwo(res.filter((i,index)=>(index+1) % 2 === 0))
-               setImages(res);
+                setImagesOne(res.filter((i, index) => (index + 1) % 2 != 0));
+                setImagesTwo(res.filter((i, index) => (index + 1) % 2 === 0))
+                setImages(res);
 
 
             })
 
     }, [])
 
-  
 
-    function SaveImages() {      
+
+    function SaveImages() {
         for (const i of delete_images) {
-            fetch(`/api/delete_images_time?img_date=${i}`)                       
-        } 
+            fetch(`/api/delete_images_time?img_date=${i}`)
+        }
         for (const [index, i] of imagesone.entries()) {
-            fetch(`/api/update_image_rating?id=${i.id}&rating=${images.length - delete_images.length - index*2 + 1}`)                       
+            fetch(`/api/update_image_rating?id=${i.id}&rating=${images.length - delete_images.length - index * 2 + 1}`)
         }
         for (const [index, i] of imagestwo.entries()) {
-            fetch(`/api/update_image_rating?id=${i.id}&rating=${images.length - delete_images.length -  index*2}`)
-            .then(res => res.json())
-            .then(res => {
-                document.getElementById('message').style.display = 'block',
-                setTimeout(() => document.getElementById('message').style.display = 'none', 2000)
-            })
+            fetch(`/api/update_image_rating?id=${i.id}&rating=${images.length - delete_images.length - index * 2}`)
+                .then(res => res.json())
+                .then(res => {
+                    document.getElementById('message').style.display = 'block',
+                        setTimeout(() => document.getElementById('message').style.display = 'none', 2000)
+                })
         }
-        
+
     }
 
-    function onDragEnd(result) {  
-        console.log(result.destination.index)      
+    function onDragEnd(result) {
+        console.log(result.destination.index)
         if (!result.destination) {
             return;
         }
-        if(result.destination.index === imagestwo.length) {
+        if (result.destination.index === imagestwo.length) {
+            return;
+        }
+
+        if (result.source.droppableId === 'event' && result.destination.droppableId === 'delete') {
+            return console.log('delete')
+        }
+        if (result.source.droppableId === 'event' && result.destination.droppableId === 'one') {
+            console.log(result.destination.droppableId)
+            return;
+        }
+        if (result.source.droppableId === 'event' && result.destination.droppableId === 'two') {
+            console.log(result.destination.droppableId)
             return;
         }
         if (result.destination.droppableId === 'delete') {
-            let result_new = result.source.droppableId === 'one' ? imagesone: imagestwo;
+            let result_new = result.source.droppableId === 'one' ? imagesone : imagestwo;
             let new_images = result_new.filter(i => i.img_date !== result.draggableId)
-            setDeleteImages(delete_images => ([...delete_images,result.draggableId]))
-            if( result.source.droppableId === 'one') {
+            setDeleteImages(delete_images => ([...delete_images, result.draggableId]))
+            if (result.source.droppableId === 'one') {
                 setImagesOne(new_images)
             } else {
                 setImagesTwo(new_images)
-            }           
+            }
             return;
         } else if (result.destination.droppableId === result.source.droppableId) {
-            const new_images = reorder_in_block(               
+            const new_images = reorder_in_block(
                 result.source.index,
                 result.destination.index,
                 result.destination.droppableId
             );
             setImages(new_images)
         } else {
-            const new_images = reorder_between_block(               
+            const new_images = reorder_between_block(
                 result.source.index,
                 result.destination.index,
                 result.destination.droppableId
-            );          
+            );
         }
-    }   
+    }
     return (
         <>
             <header className={styles.header}>
@@ -130,105 +147,140 @@ export default function DisplayPublications() {
                     Перетаксикайте публикации зажатием.`}
                 </p>
             </section>
-            <div className={styles.main_images}>
-            <DragDropContext onDragEnd={onDragEnd} >
-                <Droppable
-                    droppableId="delete"
-                    direction="vertical"
-                >
-                    {provided => (
-                        <div
-                            className={styles.delete}
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            style={{outline: 'none'}}
+            <div className={styles.all_drop}>
+                <DragDropContext onDragEnd={onDragEnd} >
+
+                    {/* <Droppable
+                        droppableId="event"
+                        direction="vertical"
+                    >
+
+
+                        <Draggable
+                            key="draggable-1"
+                            draggableId="draggable-1"
+                            index={1890000}
                         >
-                            {provided.placeholder}
-                        </div>
-                    )}
-                </Droppable>
-                <Droppable
-                    droppableId="one"
-                    direction="vertical"
-                >
-                    {provided => (
-                        <div
-                            className={styles.images}
-                            ref={provided.innerRef}
-                            {...provided.droppableProps}
-                        >
-                            {imagesone?.map((i, index) =>
-                                <Draggable
-                                    key={i.img_date}
-                                    draggableId={i.img_date}
-                                    index={index}                                    
+                            {provided => (
+                                <div
+                                    className={styles.model}
+                                    style={{ background: color[0] }}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                    ref={provided.innerRef}
                                 >
-                                    {(provided, snapshot) => {
-                                        const style = {
-                                            border: snapshot.isDragging ? `2px solid ${color[1]}` : 'none',                                           
-                                            ...provided.draggableProps.style,
-                                        };
-                                        return (
-                                            <img
-                                                {...provided.draggableProps}
-                                                {...provided.dragHandleProps}
-                                                ref={provided.innerRef}
-                                                className={styles.image}
-                                                style={style}
-                                                alt={i.nikname}
-                                                src={url + '/var/data/' + i.nikname + '/' + i.id + ".jpg"}
-                                            />
-                                        )
-                                    }}
-                                </Draggable>
+                                    <h3>Нужна модель</h3>
+                                    <span>{My_Date(events?.date_event)}, бесплатно</span>
+
+                                </div>
                             )}
-                            {provided.placeholder}
-                        </div>
-                    )}
-                </Droppable>
-                <Droppable
-                    droppableId="two"
-                    direction="vertical"
-                >
-                    {provided => (
-                        <div
-                            className={styles.images}
-                            ref={provided.innerRef}
-                            {...provided.droppableProps}
+                        </Draggable>
+
+
+
+                    </Droppable> */}
+
+                    <div className={styles.main_images}>
+                        <Droppable
+                            droppableId="one"
+                            direction="vertical"
                         >
-                            {imagestwo?.map((i, index) =>
-                                <Draggable
-                                    key={i.img_date}
-                                    draggableId={i.img_date}
-                                    index={index}
+                            {provided => (
+                                <div
+                                    className={styles.images}
+                                    ref={provided.innerRef}
+                                    {...provided.droppableProps}
                                 >
-                                    {(provided, snapshot) => {
-                                        const style = {
-                                            border: snapshot.isDragging ? `2px solid ${color[1]}` : 'none',                                           
-                                            ...provided.draggableProps.style,
-                                        };
-                                        return (
-                                            <img
-                                                {...provided.draggableProps}
-                                                {...provided.dragHandleProps}
-                                                ref={provided.innerRef}
-                                                className={styles.image}
-                                                style={style}
-                                                alt={i.nikname}
-                                                src={url + '/var/data/' + i.nikname + '/' + i.id + ".jpg"}
-                                            />
-                                        )
-                                    }}
-                                </Draggable>
+                                    {imagesone?.map((i, index) =>
+                                        <Draggable
+                                            key={i.img_date}
+                                            draggableId={i.img_date}
+                                            index={index}
+                                        >
+                                            {(provided, snapshot) => {
+                                                const style = {
+                                                    border: snapshot.isDragging ? `2px solid ${color[1]}` : 'none',
+                                                    ...provided.draggableProps.style,
+                                                };
+                                                return (
+                                                    <img
+                                                        {...provided.draggableProps}
+                                                        {...provided.dragHandleProps}
+                                                        ref={provided.innerRef}
+                                                        className={styles.image}
+                                                        style={style}
+                                                        alt={i.nikname}
+                                                        src={url + '/var/data/' + i.nikname + '/' + i.id + ".jpg"}
+                                                    />
+                                                )
+                                            }}
+                                        </Draggable>
+                                    )}
+                                    {provided.placeholder}
+                                </div>
                             )}
-                            {provided.placeholder}
-                        </div>
-                    )}
-                </Droppable>
-            </DragDropContext>
+                        </Droppable>
+                        <Droppable
+                            droppableId="two"
+                            direction="vertical"
+                        >
+                            {provided => (
+                                <div
+                                    className={styles.images}
+                                    ref={provided.innerRef}
+                                    {...provided.droppableProps}
+                                >
+                                    {imagestwo?.map((i, index) =>
+                                        <Draggable
+                                            key={i.img_date}
+                                            draggableId={i.img_date}
+                                            index={index}
+                                        >
+                                            {(provided, snapshot) => {
+                                                const style = {
+                                                    border: snapshot.isDragging ? `2px solid ${color[1]}` : 'none',
+                                                    ...provided.draggableProps.style,
+                                                };
+                                                return (
+                                                    <img
+                                                        {...provided.draggableProps}
+                                                        {...provided.dragHandleProps}
+                                                        ref={provided.innerRef}
+                                                        className={styles.image}
+                                                        style={style}
+                                                        alt={i.nikname}
+                                                        src={url + '/var/data/' + i.nikname + '/' + i.id + ".jpg"}
+                                                    />
+                                                )
+                                            }}
+                                        </Draggable>
+                                    )}
+                                    {provided.placeholder}
+                                </div>
+                            )}
+                        </Droppable>
+                    </div>
+                    <Droppable
+                        droppableId="delete"
+                        direction="vertical"
+                    >
+                        {provided => (
+
+                            <div
+                                className={styles.delete}
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                style={{ outline: 'none' }}
+                            >
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
+
+                </DragDropContext>
             </div>
             <h2 id="message" className={styles.message}>Принято</h2>
-            <img src="/trash.svg" alt="trash" className={styles.trash}/>
+            <img src="/trash.svg" alt="trash" className={styles.trash} />
         </ >
     )
 }

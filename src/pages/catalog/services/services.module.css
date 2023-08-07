@@ -79,3 +79,8 @@
     height: 80px;
     margin-top: 16px;
 }
+.message {
+    margin: 30vh auto;
+    text-align: center;
+    color: green;
+}

@@ -1,26 +1,48 @@
 import styles from './location.module.css'
 import { useEffect, useRef } from 'react'
+import React from 'react';
 import Script from 'next/script'
 import { useDispatch } from 'react-redux'
 import { setlocation } from '@/reduser'
 import Image from 'next/image'
-import { YMaps, Map, Placemark, withYMaps, useYMaps } from '@pbe/react-yandex-maps'
+// import { YMaps, Map, Placemark, withYMaps, useYMaps } from '@pbe/react-yandex-maps'
 import icon_close from '../../../public/close.svg'
+import { load } from '@2gis/mapgl';
 
+//   const SuggestComponent = () => {
+//     return withYMaps(MapSuggestComponent, true, [
+//       "SuggestView",
+//       "geocode",
+//       "coordSystem.geo"
+//     ]);
+//   };
 
-  const SuggestComponent = () => {
-    return withYMaps(MapSuggestComponent, true, [
-      "SuggestView",
-      "geocode",
-      "coordSystem.geo"
-    ]);
-  };
+export const Map = () => {
+    useEffect(() => {
+        let map;
+        load().then((mapglAPI) => {
+            map = new mapglAPI.Map('container', {
+                center: [55.31878, 25.23584],
+                zoom: 13,
+                key: 'c080bb6a-8134-4993-93a1-5b4d8c36a59b',
+            });
+        });
 
-
+        // Destroy the map on unmount
+        return () => map && map.destroy();
+    }, []);
+}
+const MapWrapper = React.memo(
+    () => {
+        return <div id="container" style={{ width: '100%', height: '400px' }}></div>;
+    },
+    () => true,
+);
 const API_KEY = "89caab37-749d-4e30-8fdf-e8045542f060"
-export default function Location({loc_master, close, nikname}) {
+export default function Location({ loc_master, close, nikname }) {
     const dispatch = useDispatch()
-    function ViewGrayScale() {          
+
+    function ViewGrayScale() {
         document.getElementsByClassName('ymaps-2-1-79-ground-pane')[0].style.filter = 'grayscale(1)'
         document.getElementsByClassName('ymaps-2-1-79-copyright')[0].style.display = 'none'
         document.getElementsByClassName('ymaps-2-1-79-gotoymaps')[0].style.display = 'none'
@@ -30,30 +52,41 @@ export default function Location({loc_master, close, nikname}) {
         // fetch(`https://geocode-maps.yandex.ru/1.x/?apikey=${API_KEY}&geocode=Каменогорская+88&lang=ru_RU&format=json`)
         // .then(res=>res.json())
         // .then(res=>console.log('responce',res))
-        fetch('/api/edit_location_master',{
+        fetch('/api/edit_location_master', {
             method: 'Post',
             body: JSON.stringify({
                 nikname: nikname,
-                locations: a 
+                locations: a
             }),
             headers: {
                 'Content-Type': 'application/json',
             }
-        }).then(res=>res.json())
+        }).then(res => res.json())
     }
-    
-    const defaultState = {        
+
+    const defaultState = {
         controls: [],
         behaviors: ["default", "scrollZoom", "onclick"],
-        
+
     };
-   
-    
+
+
     return (
-        <div className={styles.map}>           
-            <Script src={`https://api-maps.yandex.ru/3.0/?apikey=${API_KEY}&lang=ru_RU`} />
+        <div className={styles.map}>
+            {/* <Script src={`https://api-maps.yandex.ru/3.0/?apikey=${API_KEY}&lang=ru_RU`} /> */}
+            {/* <div style={{ width: '100%', height: '400px' }}>
+                <div id="container"/>
+            </div> */}
+            <iframe
+                id="inlineFrameExample"
+                title="Inline Frame Example"
+                width="300"
+                height="200"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=-0.004017949104309083%2C47.620495%2C0.00030577182769775396%2C-122.349297&layer=mapnik"
+            >
+            </iframe>
             <div className={styles.my_map} >
-                <Image src={icon_close} onClick={()=>close(false)} alt="close" width={20} height={20}/>
+                {/* <Image src={icon_close} onClick={()=>close(false)} alt="close" width={20} height={20}/>
                         <YMaps >                       
                             <Map id="mymap"
                                 options={{ set: defaultState }}
@@ -91,8 +124,8 @@ export default function Location({loc_master, close, nikname}) {
                                     onClick={(e) => UpdateLocation(e.get("target").geometry.getCoordinates())}
                                 />
                             </Map>
-                        </YMaps>
-                    </div>
+                        </YMaps> */}
+            </div>
 
         </div>
     )

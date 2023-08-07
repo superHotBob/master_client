@@ -4,6 +4,7 @@ import Menu_icon from '../../components/icons/menu'
 import styles from './addlist.module.css'
 import { url } from '@/data.'
 import DatePicker from "react-datepicker";
+import useSWR from 'swr'
 
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale, setDefaultLocale } from "react-datepicker";
@@ -45,7 +46,11 @@ const services__name = {
     макияж: 'макияж'
 }
 
+import { useSWRConfig } from 'swr' 
+import Event from '@/components/event'
+
 export default function AddList() {
+    
     const my_ref = useRef(null)
     const [lists, setlists] = useState([])
     const [nikname, setnikname] = useState()
@@ -55,47 +60,31 @@ export default function AddList() {
     const [activeImage, setActiveImage] = useState()
     const [message, setmessage] = useState('')
     const [selector, setSelector] = useState(true)
-    const [startDate, setStartDate] = useState(new Date());
+   
 
+   
+  
+    
+   
     useEffect(() => {
         const prof = JSON.parse(localStorage.getItem('profile'))
+       
+        
         setnikname(prof.nikname)
         setColor([...prof.color])
         setServices(prof.services)
         fetch(`/api/get_images?nikname=${prof.nikname}`)
-            .then(res => res.json())
-            .then(res => setlists(res))
+        .then(res => res.json())
+        .then(res => setlists(res))
     }, [])
-
-
+   
     function SetForTag(e) {
-        e.stopPropagation()
         setActiveImage(e.target.id)
         let text = lists.filter(i => i.id === +e.target.id)[0]['review']
-        my_ref.current.value = text ? text : 'Добавить комментарий'
+        text ? my_ref.current.value = text : my_ref.current.value = 'Ваш комментарий'
     }
 
-    function SaveEvent() {
-        const body = JSON.stringify({
-            nikname: nikname,
-            service: tag,
-            text: my_ref.current.value,
-            date: Date.now(startDate)
-        })
-        fetch('/api/add_event', {
-            body: body,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            method: 'post',
-        })
-        .then(res => {
-            setmessage('Мероприятие  сохранено')
-            setTimeout(() => setmessage(''), 2000)
-        })
-        .catch(err => console.log(err))
-
-    }
+   
 
 
     function SaveTag() {
@@ -121,7 +110,6 @@ export default function AddList() {
         if (!e.target.files[0]) return
         const prof = JSON.parse(localStorage.getItem('profile'))
         let id = await fetch('/api/add_image', {
-
             body: JSON.stringify({
                 nikname: prof.nikname,
                 service: services__name[tag],
@@ -133,15 +121,10 @@ export default function AddList() {
             },
             method: 'post',
         })
-            .then(res => res.json())
-            .then(res => res[0].id)
-        console.log(id)
-
-
-
+        .then(res => res.json())
+        .then(res => res[0].id)
         let data = new FormData()
         let file_name = id + '.jpg'
-
         data.append('file', e.target.files[0], file_name)
         fetch(`${url}/upl?name=${nikname}`, {
             body: data,
@@ -154,12 +137,8 @@ export default function AddList() {
             })
             .catch(err => console.log(err))
     }
-    // const CustomInput =  forwardRef(({ value, onClick }, ref) => (
-    //     <button className={styles.custom_input} onClick={onClick} ref={ref} style={{ borderColor: color[1] }}>
-    //       {value}
-    //     </button>
-    //   ));
-
+    
+   
     return (
         <main className={styles.main}>
             <header className={styles.header}>
@@ -204,10 +183,7 @@ export default function AddList() {
                             className={styles.sertificats}
                             style={{ border: i.id === +activeImage ? "2px solid " + color[1] : '', backgroundImage: "url(" + url + "/var/data/" + nikname + '/' + i.id + '.jpg' }}
                         />
-
-
                     )}
-
                 </form>
                 <section className={styles.services}>
                     {services?.map(i =>
@@ -223,61 +199,23 @@ export default function AddList() {
                         </span>
                     )}
                 </section>
-                {activeImage ?
-                    <label className={styles.addtag}>
-                        Расскажите о проекте подробнее...
-                        <textarea
-                            ref={my_ref}
-                            maxLength="500"
-                            placeholder='Ваш комментарий'
-                            rows={10}
-                            style={{ borderColor: color[1] }}
-                        />
-                        <button onClick={SaveTag} style={{ ...active, backgroundColor: color[1] }}>Сохранить</button>
-                    </label> : null
-                }
+
+                <label className={styles.addtag}>
+                    Расскажите о проекте подробнее...
+                    <textarea
+                        ref={my_ref}
+                        maxLength="500"
+
+                        placeholder='Ваш комментарий'
+                        rows={10}
+                        style={{ borderColor: color[1] }}
+                    />
+                    <button onClick={SaveTag} style={{ ...active, backgroundColor: color[1] }}>Сохранить</button>
+                </label>
+
             </>
                 :
-                <div className={styles.date} style={{ borderColor: color[1] }}>
-                    <h3>Дата и время</h3>
-                    <p>Выберите дату проведения события</p>
-                    <DatePicker
-                        locale="ru"
-                        selected={startDate}
-                        onChange={(date) => setStartDate(date)}
-                        showTimeSelect
-                        dateFormat="Pp"
-                        className={styles.custom_input}
-                        // customInput={<CustomInput />}
-
-                    />
-                    <section className={styles.tags}>
-                        {services?.map(i =>
-                            <h4
-                                key={i}
-                                className={tag === i ? styles.active__service : null}
-                                onClick={() => {
-                                    settag(i)
-
-                                }}
-                            >
-                                {i}
-                            </h4>
-                        )}
-                        <label className={styles.addtag}>
-                            Расскажите о мероприятии подробнее...
-                            <textarea
-                                ref={my_ref}
-                                maxLength="500"
-                                placeholder='Ваш рассказ'
-                                rows={10}
-                                style={{ borderColor: color[1] }}
-                            />
-                            <button onClick={SaveEvent} style={{ ...active, backgroundColor: color[1] }}>Сохранить</button>
-                        </label>
-                    </section>
-
-                </div>
+                <Event nikname={nikname} color={color} />
             }
         </main>
     )
