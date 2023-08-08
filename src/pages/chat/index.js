@@ -73,7 +73,7 @@ export default function Chat() {
                 <div>
                     {data?.client.map(i =>
                         <Link
-                            href={'/chat/messages/' + (i.sendler_nikname === name ? i.recipient_nikname : i.sendler_nikname) + '?name=' + (i.sendler != name ? i.recipient : i.sendler)}
+                            href={'/chat/messages/' + (i.sendler_nikname === name ? i.recipient_nikname : i.sendler_nikname) + '?name=' + (i.sendler_nikname === name  ? i.recipient : i.sendler)}
                             key={i.recipient}
                             className={styles.chat}
                         >
@@ -90,7 +90,6 @@ export default function Chat() {
                                     {i.ms_text}
                                 </h6>
                             </div>
-
                         </Link>
                     )}
                 </div>

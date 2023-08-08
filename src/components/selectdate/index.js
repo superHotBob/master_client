@@ -43,7 +43,7 @@ export default function SelectDate({ name, price, order, close, nikname }) {
     const profile = useSelector(state => state.counter.profile)
     const year = new Date().getFullYear()
     const day = new Date(year, month - 1, 1)
-    let v = days.indexOf(days[day.getDay() - 1])
+    let v = days.indexOf(days[day.getDay() - 1]) === -1 ? 6 : days.indexOf(days[day.getDay() - 1])
 
 
     // async function GetDate() {

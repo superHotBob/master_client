@@ -107,9 +107,9 @@
     position: absolute;
     max-width: 500px;
     z-index: 1000;
-    top: 150px;
-    border-top-right-radius: 8px;
-    border-top-left-radius: 8px;
+    top: 0;
+    border-radius: 8px;
+   
     left: 0;
 }
 
@@ -121,8 +121,8 @@
     padding: 10px 20px;
     position: absolute;
     text-align: left;
-    border-top-right-radius: 8px;
-    border-top-left-radius: 8px;
+    border-radius: 8px;
+   
     top: 175px;
     left: 0;
 }

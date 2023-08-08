@@ -6,6 +6,9 @@
     margin: 0 16px 8px;
     background-size: 50px;
 }
+.event:last-of-type {
+    padding-bottom: 50px;
+}
 
 .images {
     margin: 20px 0;
@@ -40,9 +43,16 @@
     font-size:  12px;
     line-height: 17px;
 }
+.event img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    float: left;
+}
 
 .event p {
-    padding: 0 0 0 75px;
+    margin-left: 10px;
+    display: inline-block;
     font-weight: 500;
 }
 .event h5 span {

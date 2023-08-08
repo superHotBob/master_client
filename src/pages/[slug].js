@@ -144,7 +144,7 @@ export default function Master({ profile }) {
                         nav_view === 0 ? <Lenta nikname={slug} color={profile?.color} name={profile?.name} /> :
                             <Sertificats nikname={slug} />}
             </section>
-            <Navi color={gradient} />
+            {/* <Navi color={gradient} /> */}
         </>
 
 

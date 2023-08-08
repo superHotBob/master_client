@@ -36,7 +36,7 @@ export default function Calendar() {
     const [message, setMessage] = useState(false)
     const [profile, setProfile] = useState()
     const day = new Date(year, month, 1)
-    let v = days.indexOf(days[day.getDay()]) - 1
+    let v = days.indexOf(days[day.getDay() - 1]) === -1 ? 6 : days.indexOf(days[day.getDay() - 1])
 
     const router = useRouter()
     useEffect(() => {
