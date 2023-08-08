@@ -8,6 +8,7 @@ import { setservice } from '@/reduser'
 import { useRouter } from 'next/router'
 
 import useSWR from 'swr'
+import { useSelector } from 'react-redux'
 
 const images = ['маникюр', 'педикюр', 'макияж', 'ресницы', 'брови', 'депиляция', 'массаж', 'стрижка', 'окрашивание', 'прически', 'барбер', 'чистка']
 
@@ -19,7 +20,8 @@ const sel = {
 }
 
 const My_Events = () => {
-    const { data: events } = useSWR('/api/get_events')
+    const city = useSelector(state=>state.counter.city)
+    const { data: events } = useSWR(`/api/get_events?city=${city.toLowerCase()}`)
 
     if (events?.length === 0) {
         return <h3 className={styles.message}>Мероприятий нет</h3>
@@ -51,16 +53,16 @@ export default function Services() {
                 <span onClick={() => setSelector(true)} style={selector ? sel : null}>Каталог услуг</span>
                 <span onClick={() => setSelector(false)} style={selector ? null : sel}>Мероприятия</span>
             </div>
-            {selector ? <div className={styles.images} onClick={ToService}>
-                {images.map(i =>
-                    <Image key={i} id={i} alt="image" src={'/' + i + '.svg'} width="100" height='120' />
+            {selector ? 
+                <div className={styles.images} onClick={ToService}>
+                    {images.map(i =>
+                        <Image key={i} id={i} alt="image" src={'/' + i + '.svg'} width="100" height='120' />
 
-                )}
-            </div>
-                :
-            <My_Events />
+                    )}
+                </div>
+                    :
+                <My_Events />
             }
-
         </>
     )
 

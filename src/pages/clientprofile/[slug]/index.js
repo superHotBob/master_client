@@ -83,8 +83,9 @@ export default function Client() {
     return (
         <>
             <Header text={profile.nikname} sel="back" />
-            <div className={styles.profile} style={{ backgroundImage: "url(" + process.env.url + '/var/data/' + profile.nikname + '/main.jpg)' ? "url(" + url + '/var/data/' + profile.nikname + '/main.jpg)' : "url(/camera_bl.svg" }}>
-                <h2>{profile.name}</h2>
+            <div className={styles.profile}>
+                <img src={ process.env.url + 'var/data/' + slug + '/main.jpg'} alt="client" height={50} />
+                <h2>{profile.name}</h2> 
                 <p>{profile.text}</p>
             </div>
             <div className={styles.selector}>

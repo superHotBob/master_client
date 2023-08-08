@@ -13,10 +13,11 @@ export default async function handler(req, res) {
         name,
         stars,
         address,
-        services
+        services,
+        city
         from  events 
         INNER JOIN users ON master_nikname = nikname
-        where +date_event > ${curr_date}                
+        where +date_event > ${curr_date}  and city = ${req.query.city}              
       `
   if (result.length > 0) {
     res.status(200).json(result)

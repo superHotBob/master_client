@@ -19,10 +19,15 @@
 }
 
 .profile {
-  padding: 20px 16px 20px 120px;
-  background-position: 37px center;
-  background-size: 50px;
-
+  padding: 20px 16px 20px 16px;
+}
+.profile img {
+  border-radius: 50%;
+  max-width: 50px;
+  height: 50px;
+  object-fit: cover;
+  float: left;
+  margin-right: 16px;
 }
 
 

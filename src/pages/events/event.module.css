@@ -21,7 +21,7 @@
     font-size:  16px;
     line-height: 18px;
     color: #282828;
-    margin:20px 8px;
+    margin:20px 0;
 }
 .event:first-of-type {
     margin-top: 13px;
@@ -67,11 +67,11 @@
     text-transform: uppercase;
 }
 
-.event a {
+.event button {
     height: 46px;
     border-radius: 6px;  
     background-color: #ECEEFD;   
-    display: block;
+    width: 100%;
     margin-top: 20px;
     text-align: center;
     font-weight: 500;
@@ -79,10 +79,28 @@
     line-height: 46px;
    
 }
-.event a span {
+.event button span {
     color: #3D4EEA;
 }
-.event a span::after {
+.event button:disabled {
+   background-color: #ddd;
+}
+
+.event button:disabled::after {
+    content: 'Только для клиентов';
+    transform: translate(-160px,-20px);
+    position: absolute;
+    font-size: 12px;
+    opacity: 0;
+    transition: all 0.5s;
+}
+.event button:disabled:hover::after{
+    opacity: 1;
+    transition: all 0.5s;
+    transform: translate(-160px,-35px);
+}
+
+.event button span::after {
     content:  url('/camera.svg');
     transform: translate(10px,5px);
     

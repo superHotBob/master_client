@@ -106,8 +106,8 @@ export default function ClientOrder({ order, active, close }) {
 
                         )}
                     </div>
-                    {result ? <p className={styles.result}>{result}</p> : null}
-                    <button style={review} onClick={SendReview}>Оставить отзыв</button>
+                    {result ? <p className={styles.result}>{result}</p> :
+                    <button style={review} onClick={SendReview}>Оставить отзыв</button>}
                 </div>
             }
         </section>

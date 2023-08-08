@@ -1,7 +1,7 @@
 import Header from '@/components/header'
-import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
 import styles from './event.module.css'
-
 import useSWR from 'swr'
 import { url } from '@/data.'
 
@@ -9,10 +9,11 @@ import { url } from '@/data.'
 
 
 export default function Event() {
-
-    const { data, error , mutate } = useSWR('/api/get_events')
-
-    const options = { month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+    const router = useRouter()   
+    const  status  = useSelector(state=>state.counter.profile['status'])
+    const city = useSelector(state=>state.counter.city)
+    const { data } = useSWR(`/api/get_events?city=${city.toLowerCase()}`)
+    console.log(status)
 
     function My_Date(a) {        
         const message_date = new Date(+a)
@@ -20,7 +21,7 @@ export default function Event() {
         if (message_date.getDate() === current_date.getDate()) {
             return message_date.toLocaleDateString('ru-RU', options)
         }
-        return message_date.toLocaleDateString('ru-RU', options)
+        return message_date.toLocaleDateString('ru-RU', { month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })
     }
     return (
         <>
@@ -37,9 +38,9 @@ export default function Event() {
                     <h4>{i.address}</h4>
                     <h5 style={{color: '#000',margin: '8px 0'}}>{My_Date(i.date_event)}</h5>
                     <h5>{i.services.map(m => <span key={m}>{m}</span>)}</h5>              
-                    <Link href={`/chat/messages/${i.master_nikname}?name=${i.name}`} >
+                    <button disabled = {status !='client'} onClick={()=>router.push(`/chat/messages/${i.master_nikname}?name=${i.name}`)} >
                         <span>Написать мастеру</span>
-                    </Link>
+                    </button>
                 </section>
             )}
            
