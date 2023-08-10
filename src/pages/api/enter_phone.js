@@ -73,7 +73,7 @@ export default async function handler(req, res) {
         `
       res.status(200).json(result[0])
     } else {
-      res.status(200).json([{ message: 'пароль не верный' }])
+      res.status(200).json([])
     }
   } else if (result[0].status === 'client' && result[0].blocked === '0') {
     if (result[0].client_password === req.body.password) {

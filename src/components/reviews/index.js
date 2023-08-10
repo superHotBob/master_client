@@ -14,7 +14,7 @@ export default function Reviews({ nikname, color }) {
     const [view, setView] = useState(null)
 
     if (isLoading) {
-        return <h3> Загружаем отзывы ...</h3>
+        return <h3> Загрузка отзывыв...</h3>
     }
 
     return <>

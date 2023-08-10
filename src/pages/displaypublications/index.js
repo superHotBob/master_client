@@ -16,10 +16,10 @@ export default function DisplayPublications() {
     const [images, setImages] = useState([])
     const [delete_images, setDeleteImages] = useState([])
 
-    
 
 
-   
+
+
 
     const reorder_in_block = (startIndex, endIndex, block) => {
         let result = block === 'one' ? imagesone : imagestwo;
@@ -81,23 +81,12 @@ export default function DisplayPublications() {
     }
 
     function onDragEnd(result) {
-        console.log(result.destination.index)
         if (!result.destination) {
+            console.log('return1')
             return;
         }
-        if (result.destination.index === imagestwo.length) {
-            return;
-        }
-
-        if (result.source.droppableId === 'event' && result.destination.droppableId === 'delete') {
-            return console.log('delete')
-        }
-        if (result.source.droppableId === 'event' && result.destination.droppableId === 'one') {
-            console.log(result.destination.droppableId)
-            return;
-        }
-        if (result.source.droppableId === 'event' && result.destination.droppableId === 'two') {
-            console.log(result.destination.droppableId)
+        if (result.destination.index === imagestwo.length && result.destination.droppableId != 'delete') {
+            console.log('return2')
             return;
         }
         if (result.destination.droppableId === 'delete') {
@@ -125,6 +114,11 @@ export default function DisplayPublications() {
             );
         }
     }
+    const getListStyle = isDraggingOver => ({
+        opacity: isDraggingOver ? "0.8" : "1",
+        outline: 'none'
+
+    })
     return (
         <>
             <header className={styles.header}>
@@ -146,53 +140,44 @@ export default function DisplayPublications() {
             </section>
             <div className={styles.all_drop}>
                 <DragDropContext onDragEnd={onDragEnd} >
-
-                    {/* <Droppable
-                        droppableId="event"
-                        direction="vertical"
+                    <Droppable
+                        droppableId="delete"
+                        
                     >
+                        {provided => (
+                            <div
+                                className={styles.delete}
+                                ref={provided.innerRef}
+                                {...provided.draggableProps}
+                                style={{ outline: 'none' }}
+                            >
+                                {provided.placeholder}
+                            </div>
+                        )}
+                    </Droppable>
 
-
-                        <Draggable
-                            key="draggable-1"
-                            draggableId="draggable-1"
-                            index={1890000}
-                        >
-                            {provided => (
-                                <div
-                                    className={styles.model}
-                                    style={{ background: color[0] }}
-                                    {...provided.draggableProps}
-                                    {...provided.dragHandleProps}
-                                    ref={provided.innerRef}
-                                >
-                                    <h3>Нужна модель</h3>
-                                    <span>{My_Date(events?.date_event)}, бесплатно</span>
-
-                                </div>
-                            )}
-                        </Draggable>
-
-
-
-                    </Droppable> */}
 
                     <div className={styles.main_images}>
+
                         <Droppable
                             droppableId="one"
-                            direction="vertical"
+                           
+
                         >
-                            {provided => (
+                            {(provided, snapshot) => (
                                 <div
                                     className={styles.images}
                                     ref={provided.innerRef}
                                     {...provided.droppableProps}
+                                    style={getListStyle(snapshot.isDraggingOver)}
                                 >
                                     {imagesone?.map((i, index) =>
                                         <Draggable
                                             key={i.img_date}
                                             draggableId={i.img_date}
                                             index={index}
+                                            
+                                           
                                         >
                                             {(provided, snapshot) => {
                                                 const style = {
@@ -217,9 +202,9 @@ export default function DisplayPublications() {
                                 </div>
                             )}
                         </Droppable>
+
                         <Droppable
-                            droppableId="two"
-                            direction="vertical"
+                            droppableId="two"                            
                         >
                             {provided => (
                                 <div
@@ -256,23 +241,10 @@ export default function DisplayPublications() {
                                 </div>
                             )}
                         </Droppable>
-                    </div>
-                    <Droppable
-                        droppableId="delete"
-                        direction="vertical"
-                    >
-                        {provided => (
 
-                            <div
-                                className={styles.delete}
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                style={{ outline: 'none' }}
-                            >
-                                {provided.placeholder}
-                            </div>
-                        )}
-                    </Droppable>
+
+                    </div>
+
 
                 </DragDropContext>
             </div>

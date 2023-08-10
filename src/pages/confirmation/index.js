@@ -7,21 +7,21 @@ import styles from './confirmation.module.css'
 import { Bov } from '../recordingtomaster'
 import { useState } from 'react'
 import { useEffect } from 'react'
-const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сетнябрь',
-        'Октябрь', 'Ноябрь']
-const fetcher = (...args) => fetch(...args).then(res => res.json())
+
+
 export default function Confirmation() {
     const router = useRouter()
     const order = useSelector(state => state.counter.order)
     const master = useSelector(state => state.counter.master)
+    const profile = useSelector(state=>state.counter.profile)
     const date = useSelector(state => state.counter.date_order)
     const [goodorder, setgoodorder] = useState(false)
     const [address, setaddress] = useState()
-    const { data } = useSWR(`/api/get_full_address?nikname=${master.nikname}`, fetcher)
+    const { data } = useSWR(`/api/get_full_address?nikname=${master.nikname}`)
     const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сетнябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
     
     const SaveOrder = () => {
-        const profile = JSON.parse(localStorage.getItem('profile'))        
+        // const profile = JSON.parse(localStorage.getItem('profile'))        
         const month =  months.indexOf(date.split(',')[1]) + 1
         console.log(profile)
         if(profile.status === 'client') {
@@ -44,9 +44,9 @@ export default function Confirmation() {
                 method: 'POST',
             }).then(res=>{
                 setgoodorder(true)
-                EditSchedule()
+                EditSchedule(master.nikname)
             })
-            EditSchedule( master.nikname)
+           
         } else {
             const data = {
                 client: profile.nikname ,
@@ -67,9 +67,9 @@ export default function Confirmation() {
                 method: 'POST',
             }).then(res=>{
                 setgoodorder(true)
-                EditSchedule()
+                EditSchedule(profile.nikname)
             })
-            EditSchedule(profile.nikname)
+            
         }
         
     }
@@ -175,7 +175,7 @@ export default function Confirmation() {
                         Заказ создан, свяжитесь с мастером, что-бы <br /> не потерять друг-друга.
                     </h4>
                     <Link href={`/chat/messages/${master.nikname}?name=${master.name}`}>Открыть чат с мастером</Link>
-                    <h6 onClick={() => setgoodorder(false)}>Закрыть</h6>
+                    <h6 onClick={() => router.push(`/${master.nikname}`)}>Закрыть</h6>
                 </div> : null}
             </section>
         </>

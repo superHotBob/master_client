@@ -10,21 +10,7 @@ import icon_close from '../../../public/close.svg'
 
 
 
-// export const Map = () => {
-//     useEffect(() => {
-//         let map;
-//         load().then((mapglAPI) => {
-//             map = new mapglAPI.Map('container', {
-//                 center: [55.31878, 25.23584],
-//                 zoom: 13,
-//                 key: 'c080bb6a-8134-4993-93a1-5b4d8c36a59b',
-//             });
-//         });
 
-//         // Destroy the map on unmount
-//         return () => map && map.destroy();
-//     }, []);
-// }
 
 const API_KEY = "89caab37-749d-4e30-8fdf-e8045542f060"
 export default function Location({ loc_master, close, nikname }) {
@@ -65,6 +51,7 @@ export default function Location({ loc_master, close, nikname }) {
 
             <div className={styles.my_map} >
                 <Image src={icon_close} onClick={() => close(false)} alt="close" width={20} height={20} />
+                
                 <YMaps >
                     <Map id="mymap"
                         options={{ set: defaultState }}

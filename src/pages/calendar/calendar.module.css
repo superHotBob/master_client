@@ -49,12 +49,18 @@
 
 .mounth span {
     display: inline-block;
-    width: fit-content;
+    width: 20%;
     font-weight: 400;
     color: #d0d0d0;
+    text-align: center;
     cursor: pointer;
 }
-
+.mounth span:last-of-type {
+    text-align: right;
+}
+.mounth span:first-of-type {
+    text-align: left;
+}
 .week span {
     padding: 15px 0;
     display: inline-block;
@@ -83,12 +89,13 @@
 .week {
     display: grid;
     grid-template-columns: repeat(7, auto);
+    gap: 8px;
 }
 
 .days {
     display: grid;
     grid-template-columns: repeat(7, auto);
-    justify-content: space-between;
+    justify-content: center;
     gap: 8px;
 }
 

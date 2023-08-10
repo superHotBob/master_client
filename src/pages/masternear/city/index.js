@@ -21,10 +21,11 @@ const sel = {
 }
 // const API_KEY = "05f8d2ae-bd94-4329-b9f9-7351e2ec9627"
 const API_KEY = "89caab37-749d-4e30-8fdf-e8045542f060"
-const mapState = { center: [55.75, 37.57], zoom: 10 };
-const MapComponent = ({ loc, setRadius, set_view_select }) => {
+
+const MapComponent = ({  setRadius, set_view_select }) => {
     const router = useRouter()
-    const { pid } = router.query 
+    const { pid } = router.query
+    const loc = useSelector((state => state.counter.location))
     const my_city = useSelector((state) => state.counter.city)
     const service = useSelector((state) => state.counter.service)
     const [zoom, setZoom] = useState(11)
@@ -96,7 +97,7 @@ const MapComponent = ({ loc, setRadius, set_view_select }) => {
         console.log(geoObjectsQuery)
         // setMasters(filter_masters)
     }
-    function ViewMaster(a, b,c) {
+    function ViewMaster(a, b, c) {
         if (window.innerWidth > 500) {
             setMapHeight(450)
             selectMaster(a)
@@ -122,34 +123,9 @@ const MapComponent = ({ loc, setRadius, set_view_select }) => {
             setRadius(Math.ceil(radius.toFixed(0) / 1000))
         }
     }
-    function Bob() {
-        console.log('fdfsf')
-    }
-    const squareLayoutMyImage = (a) => ymaps.templateLayoutFactory.createClass(`
    
-   
-    
-    
-      <img src=${a} height="40" width="40"
-      style="border: 2px solid blue;border-radius: 50%;height: 40px;width: 40px; z-index: 0"
-      onclick="() => console.log('fdfsf')"
-      />
-
-    
-  `
-    );
-    const squareLayout = (a) => ymaps.templateLayoutFactory.createClass(`<div class="placemark_layout_container"
-   
-   
-    
-    >
-      <img src=${a} height="40" width="40"
-      onclick="console.log('fdfsf')"
-      
-      />
-
-    
-    </div>`);
+   console.log(masters)
+  
     return (
         <>
             <Map id="mymap"
@@ -168,7 +144,7 @@ const MapComponent = ({ loc, setRadius, set_view_select }) => {
                 onLoad={OnLoadMap}
                 onWheel={() => {
                     getZoom(),
-                        setZoom(Map.current.getZoom())
+                    setZoom(Map.current.getZoom())
                 }}
             >
                 <Clusterer
@@ -192,7 +168,7 @@ const MapComponent = ({ loc, setRadius, set_view_select }) => {
                     onClick={(e) => {
                         SetFilterCluster()
                     }}
-                   
+
                     instanceRef={ymaps => {
                         if (ymaps) {
                             Clusterer.current = ymaps;
@@ -213,23 +189,19 @@ const MapComponent = ({ loc, setRadius, set_view_select }) => {
                                 strokeColor: 'blue'
                             }}
                             options={{
-                                // iconLayout: zoom < 12 ? '/master1.svg' : squareLayoutMyImage(url + 'var/data/' + i.nikname + '/main.jpg') ,  
                                 iconLayout: 'default#image',
-
                                 iconImageHref: zoom > 12 ? url + 'var/data/' + i.nikname + '/main.jpg' : '/master1.svg',
                                 iconImageSize: [40, 40],
-
-
-
                             }}
-                            onClick={() => ViewMaster(i.nikname, 14,true)}
+                            onClick={() => ViewMaster(i.nikname, 14, true)}
 
                         />)}
                 </Clusterer>
             </Map>
+           
             {master ?
                 <section className={styles.section}>
-                    <Image alt="close" className={styles.close} src={arrow_down} width={25} height={25} onClick={() => ViewMaster('', 11,false)} />
+                    <Image alt="close" className={styles.close} src={arrow_down} width={25} height={25} onClick={() => ViewMaster('', 11, false)} />
                     {masters?.filter(i => i.nikname === master).map(i =>
                         <Link key={i.nikname} className={styles.master} href={`/${i.nikname}`}
                             style={{ backgroundImage: 'url(' + url + 'var/data/' + i.nikname + '/main.jpg)' }}
@@ -252,11 +224,11 @@ const MapComponent = ({ loc, setRadius, set_view_select }) => {
 
 
 export default function MasterNear() {
-   
+
     // const my_sel = router.query.sel
     const my_city = useSelector((state) => state.counter.city)
     const service = useSelector((state) => state.counter.service)
-    const loc = useSelector((state => state.counter.location))
+    
     const dispatch = useDispatch()
     const [viewFilter, setViewFilter] = useState(false)
     const [zoom, setZoom] = useState(11)
@@ -298,51 +270,20 @@ export default function MasterNear() {
                 [53.970144032848296, 27.696309659065204]
             )
 
-            // var suggestView1 = ymaps.current.SuggestView('suggest1');
+          
             console.log(radius)
             setZoom(Map.current.getZoom())
 
         }
     }
-    function SetFilterCluster() {
-        setMapHeight(window.innerWidth > 500 ? '350px' : window.innerWidth / 2 + 'px')
-        // setZoom(12)
-        setClusterMaster(true)
-        // let filter_masters = masters.filter(i=>i.locations[0] > a[0][0] && i.locations[0] < a[1][0])
-        console.log(Clusterer.current.getBounds())
-        // setMasters(filter_masters)
-    }
-    function CloseFilterCluster() {
-        if (window.innerWidth > 500) {
-            setMapHeight(500)
-        } else {
-            setMapHeight(window.innerWidth)
-        }
-        setZoom(11)
-        selectMaster()
-        console.log(loc)
-        // Map.current.coordSystem.geo.setCenter(my_city)
-        setClusterMaster(false)
-        Map.current.setCenter([53.94843972554695, 27.603028939367363])
-    }
+  
 
 
-    function OnLoadMap() {
-        setTimeout(() => {
-            document.getElementsByClassName('ymaps-2-1-79-ground-pane')[0].style.filter = 'grayscale(1)'
-            document.getElementsByClassName('ymaps-2-1-79-copyright')[0].style.display = 'none'
-            document.getElementsByClassName('ymaps-2-1-79-gotoymaps')[0].style.display = 'none'
-            document.getElementsByClassName('ymaps-2-1-79-copyright__link')[0].style.display = 'none';
-            document.getElementsByClassName('ymaps-2-1-79-map-copyrights-promo')[0].style.display = 'none';
-            document.getElementsByClassName('ymaps-2-1-79-gototech')[0].style.display = 'none';
-            document.getElementById('my_map').style.opacity = '1';
-
-        }, 500)
-    }
+  
 
     return (
         <>
-            {/* <Script src={'https://api-maps.yandex.ru/3.0/?apikey=89caab37-749d-4e30-8fdf-e8045542f060&lang=ru_RU'} /> */}
+           <Script src={'https://api-maps.yandex.ru/3.0/?apikey=89caab37-749d-4e30-8fdf-e8045542f060&lang=ru_RU'} /> 
 
             <Header sel="/catalog" text="Мастера рядом " />
             <div className={styles.message}>
@@ -385,9 +326,15 @@ export default function MasterNear() {
 
             <div className={styles.my_map} id="my_map" style={{ height: master ? "30vh" : mapHeight }}>
                 <YMaps query={{ apikey: API_KEY }}>
-                    <MapComponent setRadius={setRadius} set_view_select = {set_view_select} master={master} loc={loc} zoom={zoom} masters={masters} />
+                    <MapComponent 
+                        setRadius={setRadius} 
+                        set_view_select={set_view_select} 
+                        master={master}  
+                        zoom={zoom} 
+                        masters={masters} 
+                    />
                 </YMaps>
-            </div>   
+            </div>
 
         </>
     )

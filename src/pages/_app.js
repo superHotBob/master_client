@@ -26,7 +26,7 @@ const my_path = ['informations', 'informations/aboutservice',
   'masterprofile', 'city', 'masternear', 'masternear/city', 'chat', 'editprofile', 'addmasterorder']
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter()
-
+  console.log("This is _app block")
   return (
     <SWRConfig value={{ provider: () => new Map(),
       fetcher: (resource, init) => fetch(resource, init).then(res => res.json())

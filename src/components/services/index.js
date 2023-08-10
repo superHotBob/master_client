@@ -5,7 +5,7 @@ export default function Services({ color, name }) {
     const { data, error, isLoading } = useSWR(`/api/master_service?nikname=${name}`)  
 
     if (error) return <div>ошибка загрузки</div>
-    if (isLoading) return <div className={styles.upload__message}>Загрузка услуг...</div>
+    if (isLoading) return <h3 className={styles.upload__message}>Загрузка услуг...</h3>
     if(data) {
         return <>
         {Object.entries(data[0]).map(i => i[1]?.length > 0 ? i[0] : null).filter(i => i)?.map((i) =>

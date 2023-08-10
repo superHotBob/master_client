@@ -88,16 +88,19 @@
 
 .event button:disabled::after {
     content: 'Только для клиентов';
-    transform: translate(-160px,-20px);
+    width: 134px;
+    transition: all 0.5s;
+    transform: translate(-164px,-5px);
     position: absolute;
     font-size: 12px;
     opacity: 0;
-    transition: all 0.5s;
+   
 }
 .event button:disabled:hover::after{
     opacity: 1;
+    width: 134px;
     transition: all 0.5s;
-    transform: translate(-160px,-35px);
+    transform: translate(-164px,-35px);
 }
 
 .event button span::after {

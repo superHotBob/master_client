@@ -42,7 +42,11 @@ export default async function handler(req, res) {
   // console.log(req.body.master_name, my_chat)
   const order = req.body.order.map(i=>i.split(':')).map(i=>i[0]).join()
   console.log(order)
-  const text = `Cоздан заказ ;${save_order[0]['id']};${order};Детали заказа:;Дата встречи: ${req.body.date.replace(/,/g,' , ')}; Адрес встечи: ${req.body.address};${req.body.price}`
+  const text = `Cоздан заказ ; ${save_order[0]['id']};${order};
+  Детали заказа:;
+  Дата встречи: ${req.body.date.replace(/,/g,' , ')}; 
+  Адрес встечи: ${req.body.address};
+  ${req.body.price}`
   const date = Date.now()
   const send_message = await sql`
     insert into chat (recipient,recipient_nikname,sendler,sendler_nikname,ms_text,ms_date,chat, read) 

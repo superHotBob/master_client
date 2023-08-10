@@ -10,6 +10,10 @@
     content: url('/location.svg');
     display: inline-block;
     transform: translate(-7px, 4px);
+    cursor: pointer;
+  }
+  .section h4::before:hover {
+    transform: scale(1.1);
   }
   .section h4 {
     margin: 0 0 5px;
@@ -27,7 +31,7 @@
     border: 3px solid #fff;
     background-color: #fff;
     background-position: center;
-    background-size: contain;
+    background-size: cover;
     height: 105px;
     width: 105px;
     margin: 0 auto;

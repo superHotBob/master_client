@@ -8,18 +8,25 @@
     max-width: 500px;
 }
 .my_map {
-    width: calc(100% - 32px);
+    width: 100%;
     border-radius: 8px;
-    margin: 16px auto 0;
-    max-width: calc(500px - 32px );
+  
+    max-width: 500px;
     background-color: #fff;
 }
 .map img {
-    float: right;
+   
     display: block;
     z-index: 200;
-    position: relative;
+    
     background-color: #fff;
+    margin: 8px auto;
+    padding: 4px;
+   
     cursor: pointer;
     border: 1px solid #3D4EEA;
+    border-radius: 50%;
+}
+.map img:hover {
+    transform: scale(1.1);
 }

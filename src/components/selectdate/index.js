@@ -144,9 +144,11 @@ export default function SelectDate({ name, price, order, close, nikname }) {
     return (
         <>           
             <h3 className={styles.date}>Ближайшие даты</h3>
-            <div className={styles.mounth}>
+            <div className={styles.month}>
                 {months.splice(month ? month - 1 : 0, 3).map(i =>
-                    <span onClick={() => SetMonth(i)} style={i === my_months[month] ? activ_month : null} key={i}>{i}</span>
+                    <button onClick={() => SetMonth(i)} style={i === my_months[month] ? activ_month : null} key={i}>
+                        {i}
+                    </button>
                 )}
             </div>
             <div className={styles.week}>

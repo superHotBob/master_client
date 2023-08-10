@@ -5,7 +5,7 @@
     text-align: center;    
     margin: 26px 0 24px;
 }
-.mounth {
+.month {
     display: flex;
     justify-content: space-between;
     margin: 20px auto 5px;
@@ -13,19 +13,21 @@
 }
 
 
-.mounth span {
+.month button {
     display: inline-block;
-    width: fit-content;
+    width: 20%;
     font-weight: 400;
+    text-align: center;
+    font-size: 16px;
     color: #d0d0d0;
     cursor: pointer;
+    background-color: #fff;
 }
-.month {
-    margin: 24px 0 0;
-    font-weight: 400;
-    font-size: 1em;
-    line-height: 18px;
-    text-align: center;
+.month button:first-of-type {
+    text-align: left;
+}
+.month button:last-of-type {
+    text-align: right;
 }
 
 .all_days {   

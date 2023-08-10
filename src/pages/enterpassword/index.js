@@ -57,7 +57,7 @@ export default function EnterPassword() {
             <h3 className={styles.registration}>Вход <br/> по номеру телефона</h3>
             <div className={styles.inputs}>
                 <form onSubmit={handleSubmit}>
-                    <input autoFocus ref={passRef} placeholder='Пароль' type="password"  />                   
+                    <input autoFocus ref={passRef} placeholder='Пароль' type="password"  inputMode="numeric"/>                   
                     <button type='submit' className={styles.button}>Войти</button> 
                     <p onClick={ReplacePassword}>Забыл или хочу изменить пароль</p>                   
                 </form>                

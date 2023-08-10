@@ -25,7 +25,7 @@ export default function Sertificats({ nikname }) {
   }
 
   if (error) return <div>Сертификатов нет</div>
-  if (isLoading) return <div>Загрузка сертификатов</div>
+  if (isLoading) return <h3 className={styles.upload_message}>Загрузка сертификатов...</h3>
 
   return (
     <>

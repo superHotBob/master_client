@@ -1,7 +1,7 @@
 import styles from './addmasterorder.module.css'
 import Image from 'next/image'
 import { useSelector } from 'react-redux'
-import { useEffect, useState , useRef} from 'react'
+import { useEffect, useState, useRef } from 'react'
 import arrow from '../../../public/arrow_back.svg'
 import { useRouter } from 'next/router'
 import DatePicker from "react-datepicker";
@@ -16,7 +16,7 @@ const active = {
     borderRadius: '4px'
 }
 const months = ['Декабрь', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сетнябрь',
-'Октябрь', 'Ноябрь']
+    'Октябрь', 'Ноябрь']
 export default function AddMasterOrder() {
     const ref = useRef()
     const profile = useSelector(state => state.counter.profile)
@@ -30,7 +30,7 @@ export default function AddMasterOrder() {
 
 
     useEffect(() => {
-        let pro = JSON.parse(localStorage.getItem('profile'))       
+        let pro = JSON.parse(localStorage.getItem('profile'))
         if (pro.status === 'master') {
             setcategory(pro.services)
             async function GetServices() {
@@ -40,7 +40,7 @@ export default function AddMasterOrder() {
                 })
                 const result = await response.json()
                 setServices(result[0])
-                
+
             }
             GetServices()
         } else {
@@ -50,26 +50,27 @@ export default function AddMasterOrder() {
     async function RecordingOrder() {
         const data = {
             text: ref.current.value,
-            date: `${date.getDate()},${months[date.getMonth()+1]},${date.getHours()}`,
+            date: `${date.getDate()},${months[date.getMonth() + 1]},${date.getHours()}`,
             master: profile.nikname,
             master_name: profile.name,
             client: 'guest',
             client_name: 'guest',
             order: orders,
             price: Cost(0)
-        }       
-         const response = await fetch('/api/save_order', {
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                method: 'POST',
-            })
-            const result = await response.json()
-           
-               
+        }
+        console.log(data)
+        // const response = await fetch('/api/save_order_master', {
+        //     body: JSON.stringify(data),
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     },
+        //     method: 'POST',
+        // })
+        // const result = await response.json()
+
+
     }
-    
+
     function Cost(a) {
         if (a.length === 0) {
             return 0
@@ -118,7 +119,7 @@ export default function AddMasterOrder() {
                 <span>Добавить запись</span>
                 <span>Закрыть</span>
             </header>
-            <section className={styles.main}>             
+            <section className={styles.main}>
                 <p>Дата и время</p>
                 <span>Выберите дату записи и время.</span>
                 <DatePicker
@@ -171,9 +172,9 @@ export default function AddMasterOrder() {
                 )}
             </section>
             <section className={styles.main}>
-            <h4>Дополнительное описание</h4>
-            <span>Вы можете дополнительно описать индивидуальный заказ для клиента.</span>
-            <textarea placeholder='Опишите услугу' ref={ref} />
+                <h4>Дополнительное описание</h4>
+                <span>Вы можете дополнительно описать индивидуальный заказ для клиента.</span>
+                <textarea placeholder='Опишите услугу' ref={ref} />
             </section>
             <div className={styles.order}>
                 <h3>Общая стоимость<span>{Cost(orders)} {profile.currency}</span></h3>

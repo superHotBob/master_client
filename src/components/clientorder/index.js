@@ -5,6 +5,7 @@ import styles from './order.module.css'
 import star from '../../../public/star-small.svg'
 import star_gray from '../../../public/star-gray.svg'
 import Image from 'next/image'
+import { Convert_Date } from '@/profile'
 
 const review = {
     backgroundColor: '#3D4EEA',
@@ -68,7 +69,7 @@ export default function ClientOrder({ order, active, close }) {
                         <Link href={'/' + order.master} style={{ color: '#3D4EEA' }}>{order.master_name || order.master}{' '}</Link>({order.master})
                     </h5>
                     <h5>Дата и время</h5>
-                    <span>{order.date_order.replace(',', " ").replace(',', " в ")}</span>
+                    <span>{Convert_Date(order.date_order)}</span>
                     <h5>Услуги и стоимость</h5>
                     <span>{order.text}</span>
                     <span>Стоимость {order.price} BYN</span>

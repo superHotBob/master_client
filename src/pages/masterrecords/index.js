@@ -13,7 +13,7 @@ const activ_month = {
 }
 const days = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"]
 export default function Records() {
-    const months = ['Декабрь', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сетнябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
+    const months = ['Декабрь', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
     const my_months = [...months]
     const d = new Date()
     const mon = d.getMonth() + 1
@@ -22,8 +22,8 @@ export default function Records() {
     const year = new Date().getFullYear()
     const day = new Date(year, month - 1, 1)
     let v = days.indexOf(days[day.getDay() - 1]) === -1 ? 6 : days.indexOf(days[day.getDay() - 1])
-   
-    const all_days = new Date(year, month, 0)   
+
+    const all_days = new Date(year, month, 0)
     const dispatch = useDispatch()
     const router = useRouter()
     const [selector, setSelector] = useState(true)
@@ -32,30 +32,30 @@ export default function Records() {
     const [all_orders, set_all_order] = useState([])
     const [orders, setOrders] = useState(null)
     const [profile, setProfile] = useState()
-   
-   
+
+
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem("profile"))
-        if(!pro) {
+        if (!pro) {
             router.push('/')
-           return ;
+            return;
         }
         setProfile(pro)
-        if(orders) {
-            return; 
+        if (orders) {
+            return;
         } else {
             GetMasterOrders(pro)
         }
     }, [month])
 
-    async function GetMasterOrders(a) {       
+    async function GetMasterOrders(a) {
         const response = await fetch(`/api/get_orders_master?nikname=${a.nikname}`, {
             headers: {
                 'Content-Type': 'application/json',
             },
             method: 'get',
         })
-        const result = await response.json()           
+        const result = await response.json()
         const new_result = [...result]
         set_all_order(result)
         let month_result = new_result.filter(i => i.date_order.includes(months[month]))
@@ -66,11 +66,11 @@ export default function Records() {
 
     function FilterDay(event) {
         setActive_Day(event.target.id)
-       
-        
+
+
         let result = all_orders
-        .filter(i => +i.date_order.split(',')[0] === +event.target.id)
-        .filter(i => i.date_order.split(',')[1] === my_months[month])
+            .filter(i => +i.date_order.split(',')[0] === +event.target.id)
+            .filter(i => i.date_order.split(',')[1] === my_months[month])
         setOrders(result)
     }
     function ViewOrder(a) {
@@ -92,33 +92,19 @@ export default function Records() {
         set_false_days(flsd)
         setActive_Day()
     }
-   
+
     function NewOrderText(a) {
-        let date_order = a.split(',')       
-        let mon =  my_months.indexOf(date_order[1]) - 1
-        let d = new Date();  
-        console.log(mon,d.getMonth())      
+        let date_order = a.split(',')
+        let mon = my_months.indexOf(date_order[1]) - 1
+        let d = new Date();
+        console.log(mon, d.getMonth())
         if (mon >= d.getMonth() && +date_order[0] >= d.getDate()) {
             return true
         } else {
             return false
         }
     }
-    function Order_Date(a = "1,'Июнь',10:00") { 
-        if(a) {            
-            const dt = new Date()
-            let d = a.split(',')      
-            const tm = d[2].split(':')            
-            const date_ord = new Date(dt.getFullYear(),months.indexOf(d[1]), d[0], tm[0],tm[1]);
-            const new_date = Date.parse(date_ord)
-            const date= new Date(new_date)
-            const formattedDate = date_ord.toLocaleDateString('ru-RU', { month: 'long', day: 'numeric', hour:   '2-digit',
-            minute: '2-digit', });
-            return formattedDate
-        } else {
-            return 
-        }  
-    }
+
     return (
         <>
             {profile ? <>
@@ -153,21 +139,21 @@ export default function Records() {
                                         style={+active_day === +i && Count(i) > 0 ? { backgroundColor: profile.color[1], color: '#fff' } : { backgroundColor: profile.color[2], color: profile.color[1] }}
                                     >
                                         {i}
-                                        {Count(i) > 0 ? 
+                                        {Count(i) > 0 ?
                                             <b style={{ border: `2px solid ${profile.color[1]}`, backgroundColor: +active_day === +i ? profile.color[2] : profile.color[1], color: +active_day === +i ? profile.color[1] : profile.color[2], display: Count(i) ? 'inline-block' : 'none' }} className={styles.count}>
-                                            {Count(i)}
-                                            </b> 
-                                        : null}
+                                                {Count(i)}
+                                            </b>
+                                            : null}
                                     </span>
                                 )}
 
                         </div>
                         <p className={styles.all_records}>
                             Все записи на сеансы
-                            <span style={{color: profile.color[1]}}>{active_day ?  Convert_Date(` ${active_day},${my_months[month]},${'00:00'}`) : null}</span>
+                            <span style={{ color: profile.color[1] }}>{active_day ? Convert_Date(` ${active_day},${my_months[month]},${'00:00'}`) : null}</span>
                         </p>
-                        <Link 
-                            href={`/recordingtomaster?name=${profile.name}&nikname=${profile.nikname}`}  
+                        <Link
+                            href={`/recordingtomaster?name=${profile.name}&nikname=${profile.nikname}`}
                             style={{ backgroundColor: profile.color[1] }}
                         >Добавить запись +</Link>
                         {orders?.map(i =>
@@ -183,17 +169,21 @@ export default function Records() {
                                     <span>#{i.id}</span>
                                 </p>
                                 <h3>
-                                    <span style={{ color: profile.color[1] }}>{i.client_name || i.client}</span>
+                                    <span style={{ color: profile.color[1] }}>
+                                        {i.client === i.master ? <b>Мой заказ</b> : i.client_name}
+                                    </span>
                                     <span style={{ color: profile.color[1] }}>{i.price} BYN</span>
                                 </h3>
-                                <h6 style={{ color: profile.color[1] }}>{i.neworder.replace(/[0-9]/g, ' ').replace(/:/g, ' ')}</h6>
+                                <h6 style={{ color: profile.color[1] }}>
+                                    {i.neworder.replace(/[0-9]/g, ' ').replace(/:/g, ' ')}
+                                </h6>
                             </div>
                         )}
 
-                    </section> 
+                    </section>
                     :
                     <section className={styles.section}>
-                        {all_orders.sort((a,b)=>a.id - b.id < 0 ? 1 : -1).map(i =>
+                        {all_orders.sort((a, b) => a.id - b.id < 0 ? 1 : -1).map(i =>
                             <div
                                 onClick={() => router.push('/order/' + i.id)}
                                 key={i.id}
@@ -205,14 +195,19 @@ export default function Records() {
                                     </span>
                                     <span>#{i.id}</span>
                                 </p>
-                                <h3 ><span style={{ color: profile.color[1] }}>{i.client_name || i.client}</span><span style={{ color: profile.color[1] }}>{i.price} BYN</span></h3>
+                                <h3>
+                                    <span style={{ color: profile.color[1] }}>
+                                    {i.client === i.master ? <b>Мой заказ</b> : i.client_name}
+                                    </span>
+                                    <span style={{ color: profile.color[1] }}>{i.price} BYN</span>
+                                </h3>
                                 <h6 style={{ color: profile.color[1] }}>{i.neworder.replace(/[0-9]/g, '  ').replace(/:/g, ' ')}</h6>
                             </div>
                         )}
 
                     </section>
                 }
-               
+
             </> : null}
 
         </>

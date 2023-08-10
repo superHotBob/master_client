@@ -6,11 +6,11 @@
     gap: 10px;
 }
 .image {
-   
+    height: 48vw;
+    max-height: 240px;
    
     background-position: center;
-    background-size: 100% 100%;
-   
+    background-size: 100% 100%;   
     border-radius: 8px;
 }
 .main__detail {
@@ -60,4 +60,7 @@
     color: #282828;
     padding: 4px 1rem 0;
   }
-  
+  .upload__message {
+    margin: 50px auto;
+    text-align: center;
+}
