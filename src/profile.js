@@ -81,4 +81,4 @@ function My_Date(a) {
     }
     return message_date.toLocaleDateString('ru-RU', options)
 }
-export { Convert_Date, EditLocalStorage, NewOrder, My_Date }
+export { Convert_Date, EditLocalStorage, NewOrder, My_Date, months }

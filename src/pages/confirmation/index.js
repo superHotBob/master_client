@@ -7,6 +7,7 @@ import styles from './confirmation.module.css'
 import { Bov } from '../recordingtomaster'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import { months } from '@/profile'
 
 
 export default function Confirmation() {
@@ -18,7 +19,7 @@ export default function Confirmation() {
     const [goodorder, setgoodorder] = useState(false)
     const [address, setaddress] = useState()
     const { data } = useSWR(`/api/get_full_address?nikname=${master.nikname}`)
-    const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сетнябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
+    
     
     const SaveOrder = () => {
         // const profile = JSON.parse(localStorage.getItem('profile'))        
