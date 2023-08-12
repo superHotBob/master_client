@@ -144,8 +144,8 @@ export default function Calendar() {
 
     return <>
         {Object.keys(pro).length > 0 ?<>
-            <header className={styles.header} style={{ color: pro?.color[1] || null }}>
-                <Menu_icon type="arrow" color={pro.color[1]} />
+            <header className={styles.header} >
+                <Menu_icon type="arrow"  color={'#000'} />
                 <h4>Календарь работы</h4>
                 <span onClick={SaveSchedule}>Сохранить</span>
             </header> 
@@ -154,7 +154,7 @@ export default function Calendar() {
                         принимать клиентов. При записи клиент  сможет
                         выбрать только те дни и время, которые 
                         вы указали рабочим.
-                    ' color={pro?.color}
+                    ' 
             />
             <div className={styles.mounth}>
                 {months.splice(month ? month - 1 : 0, 3).map(i =>
@@ -174,13 +174,16 @@ export default function Calendar() {
                             onClick={() => SetActiveDay(i)}
                             key={i}
                             id={i}
-                            style={active_num == i ? { backgroundColor: pro?.color[1] || null, color: '#fff' } : { backgroundColor: pro?.color[2]||null, color: pro?.color[1] }}
+                            style={active_num === i ? {  color: '#fff', backgroundColor: "#3D4EEA" } : {  color: '#000', backgroundColor: "#ECEEFD" } }
                         >{i}
                             <b
                                 className={styles.count}
-                                style={{ backgroundColor: pro?.color[1], color: pro?.color[2], display: Count(index) ? 'inline-block' : 'none' }}
-                            >{Count(index)}</b>
-
+                                style={{ backgroundColor: active_num === i ? "#8B95F2" : "#3D4EEA" , 
+                                    display: Count(index) ? 'inline-block' : 'none'}}                             
+                                    
+                            >
+                            {Count(index)}
+                            </b>
                         </span>
                     )}
             </div>
@@ -190,15 +193,15 @@ export default function Calendar() {
                     <span
                         key={i}
                         style={active_day?.split(',').some(a => a === i) ?
-                            { backgroundColor: pro.color[1] } :
-                            { backgroundColor: pro.color[2], color: pro.color[1] }}
+                            { backgroundColor: "#3D4EEA", color: '#fff' } :
+                            { backgroundColor: "#ECEEFD", color: '#000' }}
                         onClick={() => SetActiveTime(i)}
                     >
                         {i}
                     </span>
                 )}
             </div>
-            <div className={styles.button} style={{ backgroundColor: pro?.color[2], color: pro?.color[1] }} onClick={() => setView(true)}>
+            <div className={styles.button}  onClick={() => setView(true)}>
                 Редактировать шаблон времени +
             </div>
             <dialog open={message} className={styles.message}>
@@ -212,9 +215,9 @@ export default function Calendar() {
             <EditPatern
                 view={view}
                 setView={setView}
-                color={profile.color}
+                color={pro.color}
                 old_patern={patern}
-                nikname={profile.nikname}
+                nikname={pro.nikname}
             /> : null
         }
 
