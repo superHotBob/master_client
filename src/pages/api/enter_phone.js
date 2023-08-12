@@ -25,14 +25,16 @@ export default async function handler(req, res) {
     const nikname = max_id[0].max + 1;
     const result = await sql`
           insert into clients (
-            phone, status, nikname, id, blocked,client_password
+            phone, status, nikname, id, blocked,client_password,name, text
           ) values (
             ${+req.body.tel}, 
             'client', 
             ${nikname}, 
             ${nikname}, 
             '0', 
-            ${req.body.password}
+            ${req.body.password},
+            'Гость',
+            'Добрый день'
           )
           returning status, nikname, id, text, name
       `

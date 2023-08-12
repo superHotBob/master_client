@@ -25,8 +25,8 @@ export default async function handler(req, res) {
   master['id'] = my_result[0].id
   master['phone'] = my_result[0].phone
   master['nikname'] = (req.body.nikname)
-  const result = await sql`   
-    insert into users (name, phone, nikname, id, services,stars, color, text,blocked) 
+  const master_profile = await sql`   
+    insert into users (name, phone, nikname, id, services,stars, color, text,blocked, rating) 
     values (      
       ${master.name},
       ${master.phone},      
@@ -36,6 +36,7 @@ export default async function handler(req, res) {
       '0.0',
       ${master.color},
       ${master.text},
+      '0',
       '0'
     )  
     returning *
@@ -68,14 +69,14 @@ export default async function handler(req, res) {
       `
 
     const schedule = await sql`
-          insert into schedule (nikname,patern,апрель,май,июнь,июль,август, сентябрь,октябрь,ноябрь,декабрь)
+          insert into schedule (nikname,patern,январь,февраль,март,апрель,май,июнь,июль,август, сентябрь,октябрь,ноябрь,декабрь)
           values (
             ${master.nikname},
-            '{}','{}','{}','{}','{}','{}','{}','{}','{}','{}'
+            '{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}','{}'
           )
     
     `
-    res.status(200).end('Профиль мастера создан')
+    res.status(200).send(master_profile)
   } else {
     res.status(400).end('Error')
   }

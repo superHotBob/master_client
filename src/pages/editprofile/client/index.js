@@ -7,7 +7,7 @@ import { useEffect, useState, useRef } from 'react'
 import Navi from '@/components/navi'
 
 
-const url = 'https://masters-client.onrender.com'
+
 
 export default function EditProfile() {
     const profile = useSelector(state => state.counter.profile)
@@ -24,14 +24,14 @@ export default function EditProfile() {
         setmy_profile(my_profile=>(
             {...my_profile,...prof}
         ))        
-        setSelectedFile(url + '/var/data/' + prof.nikname + '/main.jpg')       
+        setSelectedFile(process.env.url + 'var/data/' + prof.nikname + '/main.jpg')       
     }, [])   
     function Return() {
         const prof = JSON.parse(localStorage.getItem('profile'))
         setmy_profile(my_profile=>(
             {...my_profile,...prof}
         )) 
-        setSelectedFile(url + '/var/data/' + prof.nikname + '/main.jpg')
+        setSelectedFile(process.env.url + 'var/data/' + prof.nikname + '/main.jpg')
         router.back()
     }
     const EditClient = async () => {
@@ -72,10 +72,14 @@ export default function EditProfile() {
             },
             method: 'POST',
         })
-            .then(res => {
-                setMessage('Профиль мастера создан')
-            })
-            .catch(err => setMessage("Ошибка создания профиля мастера"))
+        .then(res => res.json())
+        .then(res => {
+            setMessage('Профиль мастера создан')
+            localStorage.setItem('profile', JSON.stringify(res[0]))
+            setTimeout(()=>router.push('/editprofile'),3000)
+
+        })
+        .catch(err => setMessage("Ошибка создания профиля мастера"))
     }
    
     function SelectUpload(e) {
@@ -91,7 +95,7 @@ export default function EditProfile() {
             body: data,
             method: 'post',
         }).then(res => console.log('file is good'))
-        setSelectedFile(url + '/var/data/' + profile.nikname + '/main.jpg')      
+        setSelectedFile(process.env.url + 'var/data/' + profile.nikname + '/main.jpg')      
     }
 
     return (
@@ -110,7 +114,7 @@ export default function EditProfile() {
             </header>
             <form style={{ height: '106px' }} className={styles.image}>
                 <Image
-                    src={file ? file : url + '/var/data/' + profile.nikname + '/main.jpg'}
+                    src={file ? file : process.env.url + '/var/data/' + profile.nikname + '/main.jpg'}
                     alt="фото"
                     title='заменить изображение'
                     height={file ? 106 : 50}
@@ -125,14 +129,7 @@ export default function EditProfile() {
                 />
             </form>
             <p className={styles.name}>{my_profile.name || 'Ваше имя'}</p>
-            <section className={styles.inputs}>
-                {/* <h6>
-                    <span>Публичная ссылка, никнейм</span>
-                </h6>
-                <div className={styles.nikname}>
-                    <span>masters.place/{my_profile.status + '/'}</span>
-                    <input type="text" value={my_profile.nikname} disabled />
-                </div> */}
+            <section className={styles.inputs}>             
                 <label>
                     Имя и фамилия
                     <input 

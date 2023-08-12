@@ -8,6 +8,7 @@ export default async function handler(req, res) {
     select nikname, name,image,stars,address, services
     from users
     where ${req.query.service.toLowerCase()} = ANY (services) and city = ${req.query.city.toLowerCase()} and blocked = '0'
+    order by rating  DESC
   `
  
   
