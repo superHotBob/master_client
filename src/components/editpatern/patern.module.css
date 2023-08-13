@@ -31,7 +31,7 @@
 }
 
 .header span {
-    color: inherit;
+    color: #3D4EEA;
     cursor: pointer;
     font-weight: 500;
 }
@@ -40,6 +40,7 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    
 }
 
 .paterns div {
@@ -48,6 +49,7 @@
     border-radius: 8px;
     padding: 8px 8px 8px 12px;
     justify-content: space-between;
+    background-color: #F8F8F8;
     display: flex;
     font-size: 18px;
     font-weight: 500;
@@ -58,6 +60,10 @@
 .paterns div b {
     color: inherit;
     font-weight: 500;
+}
+div.add {
+    background-color: #3D4EEA;
+    color: #fff;
 }
 .delete {
     position: absolute;
@@ -100,6 +106,8 @@
 }
 .time input {
     color: inherit;
+    font-weight: 500;
+    font-family: '__Rubik_393a0c'
 }
 .time b {
     font-size: 64px;
@@ -136,6 +144,7 @@
     font-size: 16px;
     font-weight: 500;
     color: #fff;
+    background-color: #3D4EEA;
 }
 .message {
     position: absolute;

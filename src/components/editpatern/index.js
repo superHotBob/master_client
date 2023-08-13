@@ -71,36 +71,36 @@ export default function EditPatern({view,color={},setView,old_patern,nikname}) {
     }
     return (
         <main className={!view ? styles.mainpatern : styles.mainnew}>            
-                <header className={styles.header} style={{ color: color[1] }}>
-                    <Menu_icon type="arrow_button" color={color[1]} setView={()=>setView(false)} />
+                <header className={styles.header} >
+                    <Menu_icon type="arrow_button" color="#000" setView={()=>setView(false)} />
                     <h4>Шаблон времени</h4>
                     <span onClick={SavePatern} >Сохранить</span>
                 </header> 
                 <Message text={`Вы можете создавать и удалять до двенадцати
                  временых окон для записи.
                 `}
-                color={color}
+                
                 />
                 <dialog open={message} className={styles.message}>
                     Шаблон  сохранен
                 </dialog>
                 <section className={styles.paterns}>
                  {patern?.sort().map(i =>
-                    <div key={i} style={{backgroundColor: color[2]}}>
+                    <div key={i}>
                         {i} 
                         <Image src={trash_blk} width={29} height={29} alt="trash" onClick={() => setDel(i)} />
                         {del === i ? <span className={styles.delete} onClick={() => DeletePatern(i)}>Удалить</span>:null}
                     </div>)}
-                    {patern?.length<12?<div style={!viewForm ? {backgroundColor: color[2]}:{backgroundColor: color[1],color: '#fff'}}>
+                    {patern?.length<12?<div className={styles.add}>
                         <b>Добавить</b> 
                         <b onClick={()=>setViewForm(true)}>+</b>
                     </div>:null}
                     {Array.from({length: 11 - patern?.length}, (v,i)=>'').map((i,index)=>
-                        <div key={index} style={{backgroundColor: color[2]}}></div>
+                        <div key={index}/>
                     )}
                 </section>
                 {viewForm ? 
-                    <div className={styles.time} style={{backgroundColor: color[2], color: '#000' }}>
+                    <div className={styles.time}>
                         <input 
                             type="text" 
                             autoFocus
@@ -131,7 +131,7 @@ export default function EditPatern({view,color={},setView,old_patern,nikname}) {
                             inputMode='numeric' 
                             required  maxLength={1}  onChange={(e) => Number(e.target.value,3)} 
                         />
-                        <div style={{backgroundColor: color[1]}} onClick={SetPatern}>
+                        <div  onClick={SetPatern}>
                             Добавить время для записей
                         </div>
                     </div>

@@ -97,10 +97,7 @@ export default function Calendar() {
         })
 
     }
-    function SetActiveDay(a) {
-        setActive_Day(mnt[a - 1])
-        setActive_Num(a)
-    }
+   
     function SetActiveTime(a) {
         if (!active_num) { return 0 }
 
@@ -132,6 +129,11 @@ export default function Calendar() {
         }
         return 0
     }
+    function setActiveDay(e) {
+        setActive_Day(mnt[e.target.id - 1])
+        setActive_Num(e.target.id)
+        console.log(e.target.id)
+    }
     function SetMonth(a) {
         if(a==='Январь') {
             setMonth(12)
@@ -145,7 +147,7 @@ export default function Calendar() {
     return <>
         {Object.keys(pro).length > 0 ?<>
             <header className={styles.header} >
-                <Menu_icon type="arrow"  color={'#000'} />
+                <Menu_icon type="arrow"  color='#3D4EEA' />
                 <h4>Календарь работы</h4>
                 <span onClick={SaveSchedule}>Сохранить</span>
             </header> 
@@ -165,20 +167,20 @@ export default function Calendar() {
                 {days.map(i => <span key={i}>{i}</span>)}
             </div>
 
-            <div className={styles.days}>
+            <div className={styles.days}  onClick={setActiveDay}>
                 {Array.from({ length: v }, (v, i) => i + 1).map(i => <span key={i} style={{ opacity: 0 }}>{i}</span>)}
 
                 {Array.from({ length: all_days.getDate() }, (v, i) => i + 1)
                     .map((i, index) =>
                         <span
-                            onClick={() => SetActiveDay(i)}
+                           
                             key={i}
                             id={i}
-                            style={active_num === i ? {  color: '#fff', backgroundColor: "#3D4EEA" } : {  color: '#000', backgroundColor: "#ECEEFD" } }
+                            style={{  color: +active_num === i ? '#fff':'#000',  backgroundColor: +active_num === i ? "#3D4EEA" : "#ECEEFD" }}
                         >{i}
                             <b
                                 className={styles.count}
-                                style={{ backgroundColor: active_num === i ? "#8B95F2" : "#3D4EEA" , 
+                                style={{ backgroundColor: +active_num === i ? "#8B95F2" : "#3D4EEA" , 
                                     display: Count(index) ? 'inline-block' : 'none'}}                             
                                     
                             >
