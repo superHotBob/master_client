@@ -118,8 +118,8 @@ export default function EditProfile() {
         const result = await response.json()
         localStorage.setItem("profile", JSON.stringify(result));
         dispatch(setprofile(result))
-        setMessage('Ваш профиль изменён')
-        setTimeout(() => router.back(), 2000)
+        // setMessage('Ваш профиль изменён')
+        
     }
    
     function SelectUpload(e) {        

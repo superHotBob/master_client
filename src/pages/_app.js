@@ -23,7 +23,7 @@ const my_path = ['informations', 'informations/aboutservice',
   'addlist',
   'calendar',
   'master',
-  'masterprofile', 'city', 'masternear', 'masternear/city', 'chat', 'editprofile', 'addmasterorder']
+  'masterprofile', 'city', 'masternear', 'masternear/city', 'editprofile', 'addmasterorder']
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter()
   console.log("This is _app block")

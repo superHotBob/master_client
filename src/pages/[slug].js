@@ -6,7 +6,6 @@ import Header from '@/components/header'
 import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setmaster } from '@/reduser'
-import Navi from '@/components/navi'
 import Reviews from '@/components/reviews'
 import Services from '@/components/services'
 import Lenta from '@/components/lenta'
@@ -38,8 +37,7 @@ export async function getServerSideProps({ params }) {
 
 export default function Master({ profile }) {
     const [message, setmessage] = useState(false)
-    const [nav_view, setNavView] = useState(0)
-    // const [profile, setProfile] = useState(null)
+    const [nav_view, setNavView] = useState(0)  
 
     const router = useRouter()
     const { slug } = router.query
