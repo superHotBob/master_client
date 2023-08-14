@@ -127,12 +127,11 @@ export default function Enter() {
         setMessage('')
     }
     return (
-        <section className={styles.section} >
-            <Header text={select} sel="/" />
-            <div className={styles.image} style={{ backgroundImage: `url(${back})` }} />
+        <section className={styles.section} style={{ backgroundImage: `url(${back})` }}>
+            <Header text={select} sel="/enter" />           
             {select === 'Вход' ?
                 <div className={styles.inputs}>
-                    <p>Используйте свой номер телефона как логин для входа на сайт.</p>
+                    <p>Используйте свой номер телефона как логин для входа на сайт.</p>                    
                     <PhoneInput
                         country={'by'}
                         inputProps={{
@@ -140,11 +139,23 @@ export default function Enter() {
                             required: true,
                             autoFocus: true
                         }}
+                       countryCodeEditable={false}
                         onlyCountries={['by', 'ru']}
                         value={phone}
                         prefix='+'
+                        containerStyle={{
+                            border: '1px solid #3D4EEA',
+                            borderRadius: '6px',
+                            height: '46px',
+                            display: 'flex'
+                        }}
+                        searchStyle={{
+                            border: 'none',borderRight: '1px solid #3D4EEA'
+                        }}
+                        buttonStyle={{borderTopLeftRadius: '6px',borderBottomLeftRadius: '6px'}}
                         placeholder='номер телефона'
                         onChange={phone => setPhone(phone)}
+                        inputStyle={{border: 'none',borderRight: 'none',height: 'auto'}}
                     />
                     {message ?
                         <h3 className={styles.error} >
@@ -152,9 +163,9 @@ export default function Enter() {
                             можно будет через  <b>{t}</b> сек.
                         </h3> :
                         <>
-                            <div className={styles.button} onClick={firstCall}>
+                            <button disabled={phone?.length != 12} className={styles.button} onClick={firstCall}>
                                 Войти
-                            </div>
+                            </button>
                             <div className={styles.colaboration}>
                                 Нажмая на кнопку, вы соглашаетесь с<br />
                                 <span style={{ color: "#3D4EEA" }}>Условиями обработки персональных <br />

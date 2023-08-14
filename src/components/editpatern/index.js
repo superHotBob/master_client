@@ -8,7 +8,7 @@ import Menu_icon from '@/components/icons/menu'
 import Message from '../message'
 
 
-export default function EditPatern({view,color={},setView,old_patern,nikname}) {
+export default function EditPatern({view,setView,old_patern,nikname}) {
     const [patern, setPatern] = useState()
     const [viewForm, setViewForm] = useState(false)
     const [message, setMessage] = useState(false)

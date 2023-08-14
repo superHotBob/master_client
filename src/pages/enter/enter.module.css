@@ -1,6 +1,7 @@
 .section {
     background-color: #fff;
-
+    background-position: center 113px;
+    background-size: 20%;
     height: calc(100vh - 72px);
     position: relative;
     z-index: 100;
@@ -23,7 +24,7 @@
 }
 
 .inputs {
-    margin: 0 auto;
+    margin: 150px auto;
     width: 300px;
 
 }
@@ -63,15 +64,15 @@
 }
 
 .inputs input {
-    height: 46px !important;
-    width: 300px;
+   
+   
     display: block;
     color: #3D4EEA;
     margin: 0 auto;
     font-family: 'Rubik', sans-serif;
     outline: none;
-    border-radius: 6px;
-    border: 1px solid #3D4EEA !important;
+   
+    
 
 }
 

@@ -25,11 +25,10 @@ export default function City() {
     function setMyCity() {
         setfindcity(selCity)
         let new_data = [...data]
-        let loc = new_data.filter(i => i.city === selCity)
-        console.log([+loc[0].lat, +loc[0].lon])
+        let loc = new_data.filter(i => i.city === selCity)       
         dispatch(setcity(selCity))
         dispatch(setlocation([+loc[0].lat, +loc[0].lon]))
-        router.push('/')
+        router.back()
     }
     useEffect(()=>{
         data?.filter(i=>i.city.includes(findcity))
