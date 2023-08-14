@@ -5,10 +5,11 @@ export default async function handler(req, res) {
 
     const result = await sql`
         select 
-        phone
+        phone,blocked
         from  clients
-        where phone = ${req.query.phone}
+        where phone = ${req.query.phone} 
     `
+    console.log(result)
     let date_enter = Date.now()
     const ipAddress = IP.address()
     await sql`

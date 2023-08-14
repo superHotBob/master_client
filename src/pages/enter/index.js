@@ -39,11 +39,13 @@ export default function Enter() {
         fetch(`/api/check_client?phone=${phone}`)
             .then(res => res.json())
             .then(res => {
-                if (res[0]?.phone && !password) {
-                    dispatch(setphone(phone))
-                    router.push('/enterpassword')
-                } else {
+                if(res.length === 0 ) {
                     Call()
+                } else if (res[0].blocked != '0' ) {
+                    router.push('/enter')
+                } else {
+                    dispatch(setphone(phone))
+                    router.push('/enterpassword')                  
                 }
             })
         function Call() {

@@ -22,7 +22,7 @@ export default async function handler(req, res) {
   returning id
   ` 
   
-  console.log(save_order[0]['id'])  
+
   const chat = await sql`
     select (chat)
     from chat
@@ -35,13 +35,13 @@ export default async function handler(req, res) {
     const max_chat = await sql`
       select Max(chat) from chat
     `
-   my_chat = max_chat[0].max + 1
+   my_chat = +max_chat[0].max + 1
   } else {
-    my_chat =  chat[0]['chat']
+    my_chat =  +chat[0]['chat']
   }
-  // console.log(req.body.master_name, my_chat)
+ 
   const order = req.body.order.map(i=>i.split(':')).map(i=>i[0]).join()
-  console.log(order)
+ 
   const text = `Cоздан заказ ; ${save_order[0]['id']};${order};
   Детали заказа:;
   Дата встречи: ${req.body.date.replace(/,/g,' , ')}; 
@@ -63,17 +63,16 @@ export default async function handler(req, res) {
     returning *
   `
 
-  const update_rating_client = await sql`
+  await sql`
     update clients 
     set rating = rating + 1
     where nikname = ${req.body.master}
   `
-  const update_rating_master = await sql`
+   await sql`
     update users 
     set rating = rating + 1
     where nikname = ${req.body.master}
-  `    
-
+  `
   res.send('Ok')     
   
   

@@ -49,7 +49,7 @@ export default function Reviews({ nikname, color }) {
                     {i.neworder.replace(/[0-9]/g, '').replace(':', '')}, {i.price} BYN
                 </p>
                 <p className={styles.message}>{view === i.id ? i.review : i.review.slice(0, 145) + '...'}</p>
-                <span style={{ color: color[2] }} onClick={() => setView(view === i.id ? null : i.id)}>
+                <span  onClick={() => setView(view === i.id ? null : i.id)}>
                     {view != i.id ? 'подробнее' : 'скрыть'}
                 </span>
             </div>)}

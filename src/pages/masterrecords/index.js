@@ -121,7 +121,7 @@ export default function Records() {
                 </div>
                 {selector ?
                     <section className={styles.section}>
-                        <div className={styles.mounth}>
+                        <div className={styles.month}>
                             {months.splice(month ? month - 1 : 0, 3).map((i, index) =>
                                 <span key={i} onClick={() => SetMonth(i)} style={i === my_months[month] ? activ_month : null} >{i}</span>
                             )}
@@ -197,7 +197,7 @@ export default function Records() {
                                 </p>
                                 <h3>
                                     <span style={{ color: profile.color[1] }}>
-                                    {i.client === i.master ? <b>Мой заказ</b> : i.client_name}
+                                        {i.client_name || i.client}
                                     </span>
                                     <span style={{ color: profile.color[1] }}>{i.price} BYN</span>
                                 </h3>

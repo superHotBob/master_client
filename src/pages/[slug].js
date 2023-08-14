@@ -101,7 +101,7 @@ export default function Master({ profile }) {
     return (
         <>
             <Head><title>{slug}</title></Head>
-            <Header text={slug} sel="back" color={profile?.color} />
+            <Header text={slug} sel="/" color={profile?.color} />
             <MasterHeader profile={profile} master={slug} />
 
             <section className={styles.section_main}>

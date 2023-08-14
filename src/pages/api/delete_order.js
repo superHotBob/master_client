@@ -11,7 +11,7 @@ export default async function handler(req, res) {
   `
 
   if (result.length > 0) {
-    res.end('Отзыв  добавлен')
+    res.end('Заказ удален')
   } else {
     res.end(null)
   }

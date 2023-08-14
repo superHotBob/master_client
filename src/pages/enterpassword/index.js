@@ -37,9 +37,10 @@ export default function EnterPassword() {
         if (result.length === 0) {
             setMessage('Пароль не верный')
             setBack('logo-main.svg')
-        } else if (result.blocked !== '0') {
+        } else if (result.blocked != '0') {
             localStorage.setItem("profile", JSON.stringify(result))
             dispatch(setprofile(result))
+           
             router.push('/')
         } else {
             router.push('/404')

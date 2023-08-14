@@ -46,13 +46,16 @@ export default function Recording() {
             setServices(new_cat.filter(i => i[1].length))
             let all_category = new_cat.map(i => i[1] && i[1].length > 0 ? i[0] : null)
             addCategory(all_category.filter(i => i ? 1 : 0))
+            set_Active_Category(all_category.filter(i => i ? 1 : 0)[0])
+            let new_services = new_cat.filter(i => i[1].length)?.filter(i => i[0] === all_category.filter(i => i ? 1 : 0)[0])[0][1]
+            setFilterServices(new_services)
         }
-        GetServices()
+        GetServices()       
     }, [router.query, nikname, master])
 
-    function SetActiveCategory(a) {
+    function SetActiveCategory(a) {       
         set_Active_Category(a)
-        let new_services = services.filter(i => i[0] === a)[0][1]
+        let new_services = services?.filter(i => i[0] === a)[0][1]
         setFilterServices(new_services)
     }
 

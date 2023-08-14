@@ -50,9 +50,23 @@
   margin-left: 10px;
 }
 
-.mounth {
+.month {
   display: flex;
   justify-content: space-between;
+}
+.month span {
+  display: inline-block;
+  width: 20%;
+  font-weight: 400;
+  color: #d0d0d0;
+  text-align: center;
+  cursor: pointer;
+}
+.mounth span:last-of-type {
+  text-align: right;
+}
+.month span:first-of-type {
+  text-align: left;
 }
 
 .days::-webkit-scrollbar {
@@ -120,7 +134,7 @@
   height: 46px;
   width: 100%;
   line-height: 45px;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 16px;
   margin: 16px auto 8px;
   border: none;
