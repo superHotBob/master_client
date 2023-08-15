@@ -60,8 +60,7 @@ export default function EditProfile() {
     async function CreateNewMaster() {
         const data = {
             name: my_profile,
-            nikname: my_profile.nikname,
-            image: '',
+            nikname: my_profile.nikname,           
             text: my_profile.text,
             color: ''
         }

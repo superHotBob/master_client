@@ -33,7 +33,7 @@ export default async function handler(req, res) {
             ${nikname}, 
             '0', 
             ${req.body.password},
-            'Гость',
+            ${nikname}, 
             'Добрый день'
           )
           returning status, nikname, id, text, name

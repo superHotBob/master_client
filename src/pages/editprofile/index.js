@@ -92,7 +92,7 @@ export default function EditProfile() {
         setAddress(pro.address),
         setNikname(pro.nikname),
         setColor(pro.color)
-        router.back()
+        router.push(`/${pro.nikname}`)
     }
     const EditMaster = async () => {
         const data = {
