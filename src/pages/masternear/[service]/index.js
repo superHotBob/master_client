@@ -17,7 +17,7 @@ const sel = {
     fontWeight: 500
 }
 export default function MasterNear() {
-    const fetcher = (...args) => fetch(...args).then(res => res.json())
+   
     const router = useRouter()
     const { service } = router.query   
     const my_city = useSelector((state) => state.counter.city)
@@ -27,7 +27,7 @@ export default function MasterNear() {
 
     const { data, error, isLoading } = useSWR('/api/all_masters_city?' + new URLSearchParams({
         city: my_city.toLowerCase(),
-        service:  service}), fetcher)
+        service:  service}))
     
     useEffect(()=>{
        router.push(`/masternear/${services}`)

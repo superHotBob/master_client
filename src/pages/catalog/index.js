@@ -24,7 +24,7 @@ export default function Catalog() {
                 <Link className={styles.city} href="/city"> Ваш город {city}
                     <Image alt="Picture of the author" src={position} width={20} height={20} />
                 </Link>
-                <Link href="/events" className={styles.model}>
+                <Link href="/event" className={styles.model}>
                     СТАНЬ МOДЕЛЬЮ БЕCПЛАТНO
                 </Link>
                 <Link href="/" className={styles.master}>

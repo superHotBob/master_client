@@ -100,10 +100,10 @@ export default function Header({ sel, text, mes, color = {}, select,view_time ,n
       }
       {mes ? <Image
         src={call}
-        alt="menu"
+        alt="phone"
         style={{ transform: 'transitionX(20px)' }}
         className={styles.call}
-        width={20} height={20}
+        width={10} height={10}
       /> : null}
       {/* <Image
         src={menu ? close : img_menu}

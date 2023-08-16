@@ -9,7 +9,7 @@ export default async function handler(req, res) {
         from  clients
         where phone = ${req.query.phone} 
     `
-    console.log(result)
+   
     let date_enter = Date.now()
     const ipAddress = IP.address()
     await sql`

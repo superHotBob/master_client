@@ -47,7 +47,7 @@ export default function Chat() {
             <section>
                 {data?.admin.map(i =>
                     <Link
-                        href='/chat/messages/администратор'
+                        href={`/chat/messages/администратор?chat=${i.chat}`}
                         key={i.recipient}
                         className={styles.chat}
                     >

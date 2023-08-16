@@ -47,8 +47,7 @@ export default async function handler(req, res) {
       select Min(chat) from adminchat
     `
     let chat = +max_chat[0].min - 1;
-    let date = Date.now();
-    console.log(chat,date)
+    let date = Date.now();   
     const message_from_admin = await sql`
       insert into adminchat (recipient,recipient_nikname,sendler,sendler_nikname,ms_text,ms_date,chat,read,phone) 
       values (

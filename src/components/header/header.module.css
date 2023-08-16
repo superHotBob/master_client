@@ -65,6 +65,9 @@
   .call {
     position: absolute;    
     right: 64px;
+    height: 30px;
+    width: 30px;
+    padding: 5px;
   }
   .image_master {  
     padding: 0 !important;

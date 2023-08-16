@@ -18,13 +18,19 @@ export default async function handler(req, res) {
     }
 
 
-    const result = await sql`
+    const result_master = await sql`
       update users set ${sql(master, 'city', 'name','address', 'text', 'nikname','currency','color','address_full','locations')}    
       where nikname =  ${master.nikname}
       returning *
     `
-    if (result.length > 0) {
-        res.status(200).json(result[0])
+    await sql`
+        update clients 
+        set name = ${req.body.name}    
+        where nikname =  ${master.nikname}
+        returning *
+    `
+    if (result_master.length > 0) {
+        res.status(200).json(result_master[0])
     } else {
         console.log('Error')
     }

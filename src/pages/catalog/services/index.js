@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 import useSWR from 'swr'
 import { useSelector } from 'react-redux'
 
+
 const images = ['маникюр', 'педикюр', 'макияж', 'ресницы', 'брови', 'депиляция', 'массаж', 'стрижка', 'окрашивание', 'прически', 'барбер', 'чистка']
 
 
@@ -28,7 +29,7 @@ const My_Events = () => {
     }
     return <div className={styles.events}>
         {events?.length > 0 ?
-            <Link href="/events" className={styles.model}>
+            <Link href="/event" className={styles.model}>
                 СТАТЬ МОДЕЛЬЮ <br />БЕСПЛАТНО
             </Link>
             : 
