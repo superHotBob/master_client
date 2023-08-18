@@ -5,8 +5,8 @@ import useSWR from 'swr'
 const url = 'https://masters-client.onrender.com'
 
 
-export default function Sertificats({ nikname }) {
-  const { data, error, isLoading } = useSWR(`${url}/getsertificats?dir=${nikname}`)
+export default function Sertificats({ nikname , nav}) {
+  const { data, error, isLoading } = useSWR(nav === 2 ? `${url}/getsertificats?dir=${nikname}`: null)
   const [image, viewImage] = useState()
   const [tag, setTag] = useState()
 

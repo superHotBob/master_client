@@ -16,6 +16,7 @@ import Link from 'next/link'
 import MasterHeader from '@/components/masterheader'
 import { my_data } from '@/data.'
 import { useEffect } from 'react'
+import useSWR from 'swr'
 
 
 const active = {
@@ -25,72 +26,47 @@ const active = {
 
 }
 
-export async function getServerSideProps({ params }) {
-    const res = await fetch(`https://masterplace.netlify.app/api/master?nikname=${params.slug}`);
-    const profile = await res.json();
-    return {
-        props: {
-            profile,
-        },
-    };
-}
+// export async function getServerSideProps({ params }) {
+//     const res = await fetch(`https://masterplace.netlify.app/api/master?nikname=${params.slug}`);
+//     const profile = await res.json();
+//     return {
+//         props: {
+//             profile,
+//         },
+//     };
+// }
 
-export default function Master({ profile }) {
-    const [message, setmessage] = useState(false)
-    const [nav_view, setNavView] = useState(0)  
-
+export default function Master() {
     const router = useRouter()
     const { slug } = router.query
+    const [message, setmessage] = useState(false)
+    const [nav_view, setNavView] = useState(0)  
+   
+    
+   
     const [gradient, color, background] = my_data['my_tema'][0].color
     const dispatch = useDispatch()
     const my_profile = useSelector(state => state.counter.profile)
     const service = useSelector(state => state.counter.service)
     const master = useSelector(state => state.counter.master)
 
+    const { data:profile } = useSWR(`/api/master?nikname=${slug}`,
+    {onSuccess:(profile)=> dispatch(setmaster(profile)) ,onError:()=>router.push('/404')})
 
     
-    useEffect(()=>{
-        if(profile) {
-            if(Object.keys(profile).length) {
-                dispatch(setmaster(profile))    
-            } else {
-                router.push('/404')
-            }    
-        }
-    },[router])
-
-    
-
-    // useEffect(() => {
-    //     const abortController = new AbortController();
-
-    //     if (!slug) { return; }
-
-    //     const FetchData = async () => {
-    //         fetch(`/api/master?nikname=${slug}`)
-    //             .then(res => res.json())
-    //             .then(res => {
-    //                 if (res.status === 'master') {
-    //                     setProfile(res)
-    //                     dispatch(setmaster(res))
-    //                 } else {
-    //                     document.getElementById('message').innerText = 'Такого мастера нет'
-    //                 }
-    //             })
-    //             .catch(err => console.log(new Error(err)))
-
+    // useEffect(()=>{
+    //     if(profile) {
+    //         if(Object.keys(profile).length) {
+    //             dispatch(setmaster(profile))    
+    //         } else {
+    //             router.push('/404')
+    //         }    
     //     }
+    // },[router])
 
-    //     // if (master && my_profile) {
-    //     //     setProfile(master)
-    //     // } else {
-    //         FetchData()
-    //     // }
-    //     return () => {
-    //         abortController.abort();
-    //     };
-    // }, [slug])
+    
 
+   
     function LinkTo(a) {
         if (my_profile.status === 'client') {
             router.push(a)
@@ -105,8 +81,8 @@ export default function Master({ profile }) {
             <MasterHeader profile={profile} master={slug} />
 
             <section className={styles.section_main}>
-                <dialog open={message} className={styles.dialog}>
-                    <div>
+            {message ? <div  className={styles.dialog}>
+                     <div >
                         <span onClick={() => setmessage(false)}>закрыть</span>
                         <h4>
                             Эта функция доступна только<br />
@@ -116,7 +92,7 @@ export default function Master({ profile }) {
                         </h4>
                         <Link href="/enter">Войти</Link>
                     </div>
-                </dialog>
+                </div>: null}
                 <div className={styles.buttons}>
                     <div onClick={() => LinkTo(`/chat/messages/${slug}?name=${profile.name}`)} style={{ backgroundColor: background }} >
                         <span style={{ color: color }} title="Отправить сообщение мастеру">
@@ -140,7 +116,7 @@ export default function Master({ profile }) {
                 {nav_view === 3 ? <Reviews nikname={slug} color={profile?.color} /> :
                     nav_view === 1 ? <Services name={slug} color={profile?.color} nav={nav_view}/> :
                         nav_view === 0 ? <Lenta nikname={slug} color={profile?.color} name={profile?.name} /> :
-                            <Sertificats nikname={slug} />}
+                            <Sertificats nav={nav_view} nikname={slug} />}
             </section>
            
         </>

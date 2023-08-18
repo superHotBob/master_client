@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 import { SWRConfig } from 'swr'
 
 
+
 const rubik = Rubik({
   weight: ['300', '400', '500', '700', '800'],
   subsets: ['cyrillic'],
@@ -26,7 +27,7 @@ const my_path = ['informations', 'informations/aboutservice',
   'masterprofile', 'city', 'masternear', 'masternear/city', 'editprofile', 'addmasterorder']
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter()
-  console.log("This is _app block")
+ 
   return (
     <SWRConfig value={{ provider: () => new Map(),
       fetcher: (resource, init) => fetch(resource, init).then(res => res.json())

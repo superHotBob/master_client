@@ -5,7 +5,7 @@ import Location from '../location'
 
 const url = 'https://masters-client.onrender.com/'
 
-export default function MasterHeader({profile, master}) {   
+export default function MasterHeader({profile}) {   
     const [gradient, color, background] = profile?.color || ['linear-gradient(to left, #ddd, #ddd)', '#ddd', '#ddd']
     const [viewText, setViewText] = useState(true)
     const [mapview, setmapview] = useState(false)
@@ -13,9 +13,9 @@ export default function MasterHeader({profile, master}) {
         <>
         <section className={styles.section}>
             <div className={styles.image} style={{ background: gradient }}>
-                <div className={styles.image_master} 
-                    style={{backgroundImage: 'url(' + url + 'var/data/' + master + '/main.jpg)' }}
-                />
+                {profile ? <div className={styles.image_master} 
+                    style={{backgroundImage: 'url(' + url + 'var/data/' + profile.nikname + '/main.jpg)' }}
+                />:<div className={styles.image_master} />}
 
                
                 {/* <Image priority={true} src={url + 'var/data/' + master + '/main.jpg'} alt="profile" height={105} width={105} />  */}
