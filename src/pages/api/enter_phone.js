@@ -40,7 +40,7 @@ export default async function handler(req, res) {
       `
     res.status(200).json(result[0])
     fetch(`https://masters-client.onrender.com/createclientfolder?dir=${nikname}`)
-      .then(res => console.log('GOOD'))
+    .then(res => console.log('Папка клиента создана'))
 
 
     const max_chat = await sql`
@@ -48,8 +48,8 @@ export default async function handler(req, res) {
     `
     let chat = +max_chat[0].min - 1;
     let date = Date.now();   
-    const message_from_admin = await sql`
-      insert into adminchat (recipient,recipient_nikname,sendler,sendler_nikname,ms_text,ms_date,chat,read,phone) 
+    sql`
+      insert into adminchat (recipient,recipient_nikname,sendler,sendler_nikname,ms_text,ms_date,chat,read) 
       values (
         ${nikname}, 
         ${nikname}, 
@@ -58,8 +58,8 @@ export default async function handler(req, res) {
         'Приветствуем Вас на нашем сервисе.',
         ${date},
         ${chat},
-        'f',
-        0
+        'f'
+       
       )  
       returning *
     `
@@ -87,10 +87,7 @@ export default async function handler(req, res) {
       res.status(200).json(result[0])
     } else {
       res.status(200).json([{ message: 'пароль не верный' }])
-    }
-
-    // fetch(`https://masters-client.onrender.com/create?dir=${result[0].nikname}`)
-    //   .then(res => console.log('Папка создана'))
+    }   
   } else if (result[0].blocked !== '0') {
 
     res.status(404).json([{ message: 'Ваш аккаунт заблокирован' }])

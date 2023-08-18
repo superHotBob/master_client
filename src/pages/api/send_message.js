@@ -14,8 +14,8 @@ export default async function handler(req, res) {
       chat = max_chat[0].max + 1
       
     }
-    const result = await sql`
-    insert into adminchat (recipient,recipient_nikname,sendler,sendler_nikname,ms_text,ms_date,chat,read,phone) 
+    await sql`
+    insert into adminchat (recipient,recipient_nikname,sendler,sendler_nikname,ms_text,ms_date,chat,read) 
     values (
       ${req.body.recipient},
       ${req.body.recipient_nikname},
@@ -24,8 +24,8 @@ export default async function handler(req, res) {
       ${req.body.ms_text},
       ${req.body.ms_date},
       ${chat},
-      'false',
-      0000000000
+      'false'
+     
     )  
     returning *
   `

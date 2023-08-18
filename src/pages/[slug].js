@@ -138,11 +138,11 @@ export default function Master({ profile }) {
                         .map((i, index) => <span key={i} onClick={() => setNavView(index)} style={nav_view === index ? { ...active, backgroundColor: color } : null}>{i}</span>)}
                 </nav>
                 {nav_view === 3 ? <Reviews nikname={slug} color={profile?.color} /> :
-                    nav_view === 1 ? <Services name={slug} color={profile?.color} /> :
+                    nav_view === 1 ? <Services name={slug} color={profile?.color} nav={nav_view}/> :
                         nav_view === 0 ? <Lenta nikname={slug} color={profile?.color} name={profile?.name} /> :
                             <Sertificats nikname={slug} />}
             </section>
-            {/* <Navi color={gradient} /> */}
+           
         </>
 
 

@@ -9,14 +9,19 @@ export default async function handler(req, res) {
     name: req.body.name,    
     text: req.body.text,    
   } 
-  const result = await sql`
-        update clients set ${sql(client, 'name', 'text', 'nikname')}    
-        where nikname =  ${client.nikname}
-        returning name, text, nikname, status  
-      `
-  console.log(result)    
-  if (result.length > 0) {
-    res.status(200).json(result[0])
+  const new_client = await sql`
+    update clients set ${sql(client, 'name', 'text', 'nikname')}    
+    where nikname =  ${client.nikname}
+    returning name, text, nikname, status  
+  `
+  await sql`
+    update adminchat
+    set recipient = ${client.name}    
+    where recipient_nikname =  ${client.nikname}    
+  `
+ 
+  if (new_client.length > 0) {
+    res.status(200).json(new_client[0])
   } else {
     console.log('Error')
   }

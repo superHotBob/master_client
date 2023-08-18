@@ -56,13 +56,13 @@
 }
 .month span {
   display: inline-block;
-  width: 20%;
+  width: 25%;
   font-weight: 400;
   color: #d0d0d0;
   text-align: center;
   cursor: pointer;
 }
-.mounth span:last-of-type {
+.month span:last-of-type {
   text-align: right;
 }
 .month span:first-of-type {

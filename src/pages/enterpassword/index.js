@@ -17,7 +17,7 @@ export default function EnterPassword() {
 
     const ReplacePassword = () => {
         dispatch(setpassword('new'))
-        router.push('/enter')
+        router.push('/newpassword')
     }
 
     const handleSubmit = async (e) => {

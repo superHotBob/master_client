@@ -12,11 +12,13 @@ export default function Order() {
     const { pid } = router.query
 
     const { data: order } = useSWR(`/api/get_order_master?id=${pid}`)
-
+    const { data: read } = useSWR(()=> order.read ?null : `/api/edit_view_order?id=${pid}` )
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem("profile"))
         setColor(pro.color)
+       
     }, [])
+   
     async function DeleteOrder() {
         const my_data = { id: order.id }
         const response = await fetch('/api/delete_order', {

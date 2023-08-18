@@ -83,10 +83,10 @@ export default function Records() {
         let s = false_days.filter(i => i === a).length
         return s
     }
-    function SetMonth(a) {
-        let m = my_months.findIndex(i => i === a)
+    function SetMonth(e) {
+        let m = my_months.findIndex(i => i === e.target.id)
         setMonth(m)
-        let month_result = all_orders.filter(i => i.date_order.includes(a))
+        let month_result = all_orders.filter(i => i.date_order.includes(e.target.id))
         setOrders(month_result)
         let flsd = month_result.map(i => +i.date_order.split(',')[0])
         set_false_days(flsd)
@@ -121,9 +121,9 @@ export default function Records() {
                 </div>
                 {selector ?
                     <section className={styles.section}>
-                        <div className={styles.month}>
-                            {months.splice(month ? month - 1 : 0, 3).map((i, index) =>
-                                <span key={i} onClick={() => SetMonth(i)} style={i === my_months[month] ? activ_month : null} >{i}</span>
+                        <div className={styles.month} onClick={SetMonth}>
+                            {months.splice(month ? month - 1 : 0, 3).map(i =>
+                                <span key={i} id={i} style={i === my_months[month] ? activ_month : null} >{i}</span>
                             )}
                         </div>
                         <div className={styles.week}>

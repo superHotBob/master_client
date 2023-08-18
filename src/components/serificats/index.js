@@ -3,10 +3,10 @@ import { useState, useEffect } from 'react'
 import useSWR from 'swr'
 
 const url = 'https://masters-client.onrender.com'
-const fetcher = (...args) => fetch(...args).then(res => res.json())
+
 
 export default function Sertificats({ nikname }) {
-  const { data, error, isLoading } = useSWR(`${url}/getsertificats?dir=${nikname}`, fetcher)
+  const { data, error, isLoading } = useSWR(`${url}/getsertificats?dir=${nikname}`)
   const [image, viewImage] = useState()
   const [tag, setTag] = useState()
 
@@ -14,8 +14,7 @@ export default function Sertificats({ nikname }) {
 
   function ViewImage(a) {
     viewImage(a)
-    // setTimeout(()=> {
-    //     document.getElementById(a + 'aaa').style.top = window.scrollY + 150 + 'px'},500)
+   
   }
   function GetText(a) {
     let new_file = nikname + '/' + a.replace('https://masters-client.onrender.com/var/data/', '')
@@ -29,19 +28,21 @@ export default function Sertificats({ nikname }) {
 
   return (
     <>
-      <main className={styles.main}>
+      <div className={styles.sertificat_main}>
         {data?.map(i =>
-          <div
+          <img
             key={i}
+            alt="image"
+           
             onClick={() => {
               ViewImage(i)
               GetText(i)
             }}
             className={styles.image}
-            style={{ backgroundImage: "url(" + url + '/var/data/' + nikname + '/' + i + ")" }}
+            src={url + '/var/data/' + nikname + '/' + i  }
           />
         )}
-      </main>
+      </div>
       {image ?
         <div className={styles.main__detail} >
           <div className={styles.detail} id={image + 'aaa'}>

@@ -7,31 +7,8 @@ import { useState } from 'react'
 import useSWR from 'swr'
 import ViewImage from '../viewimage'
 import { My_Date } from '@/profile'
+import { useSWRConfig } from 'swr' 
 
-const text = (` Ищу модель, что бы протестировать китайскую 
-    косметику на юнном теле. 
-    Есть вероятность, что она низкого качества. 
-    От вас потребуется только придти, и посидеть часов 10-15, 
-    пока я перепробую все возможные комбинации использования косметики.
-
-    От вас:
-    Возраст больше 50ти лет
-    Желание терпеть
-    Высокий болевой порог
-    Подпись о неразглошении
-    Возможность самостоятельно убраться из помещения в случае экстренной ситуации
-
-    От меня:
-    Низкокачественная косметика в подарок
-    10-15 часов незабываемых процидур
-    Чайок-мурёк
-    Некомпетентность
-    Низкокачественный сервис
-    Отсутствие ответсвенности за возможные осложнения в процессе процедур
-
-    Пишите, девочки :*:*:*:*`)
-
-    import { useSWRConfig } from 'swr' 
 export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2AF0)', '#3D4EEA', '#ECEEFD'], nikname, name }) {
     const { cache, mutate, ...extraConfig } = useSWRConfig()
     const [model, setViewText] = useState(false)
@@ -39,8 +16,8 @@ export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2A
     const [message, setMessage] = useState(false)
     const profile = useSelector(state => state.counter.profile)
 
-    const { data } = useSWR(`/api/get_images?nikname=${nikname}`)
-    const { data:events } = useSWR(`/api/get_events_master?nikname=${nikname}`)
+    const { data: image } = useSWR(view_image ? null : `/api/get_images?nikname=${nikname}`)
+    const { data:events } = useSWR(view_image ? null : `/api/get_events_master?nikname=${nikname}`,{revalidateIfStale: false})
    
    
 
@@ -61,8 +38,7 @@ export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2A
             setTimeout(() => setMessage(false), 3000)
         })
     }
-    const ViewImageClick = (a) => {   
-        console.log(a)     
+    const ViewImageClick = (a) => {          
         viewImage({ 
             name: a.nikname, 
             image: process.env.url + 'var/data/' + nikname + '/' + a.id + '.jpg', 
@@ -73,8 +49,8 @@ export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2A
         })
     }
 
-    return <>
-        {events ?<>
+    return ( <>
+        {events ? <>
         {Object.keys(events).length ? <div onClick={() => setViewText(true)} className={styles.model} style={{ background: color[0] }}>
             <h3>Нужна модель</h3>
             <span>{My_Date(events.date_event)}, бесплатно</span>
@@ -85,7 +61,7 @@ export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2A
         </dialog>
         <div className={styles.images}>
             <div className={styles.part_images}>
-                {data?.filter((i, index) => index % 2 === 0).map(i =>
+                {image?.filter((i, index) => index % 2 === 0).map(i =>
                     <div key={i.id}>
                         <img alt="image" onClick={() => ViewImageClick(i)} 
                         src={process.env.url + 'var/data/' + nikname + '/' + i.id + '.jpg'} />
@@ -98,7 +74,7 @@ export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2A
                 )}
             </div>
             <div className={styles.part_images}>
-                {data?.filter((i, index) => index % 2 !== 0).map(i =>
+                {image?.filter((i, index) => index % 2 !== 0).map(i =>
                     <div key={i.id}>
                         <img alt="image" onClick={() => ViewImageClick(i)} 
                         src={process.env.url + 'var/data/' + nikname + '/' + i.id + '.jpg'} />
@@ -126,5 +102,5 @@ export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2A
             : null}
         {view_image ? <ViewImage view_image={view_image} viewImage={viewImage}  pid={name} /> : null}
 
-    </>
+    </>) 
 }

@@ -5,7 +5,7 @@ import Link from "next/link"
 import styles from './messages.module.css'
 import { useSelector } from "react-redux"
 import { useRouter } from "next/router"
-const fetcher = (...args) => fetch(...args).then(res => res.json())
+// const fetcher = (...args) => fetch(...args).then(res => res.json())
 import useSWR from 'swr'
 import Image from 'next/image'
 
@@ -21,22 +21,21 @@ const options = {
 export default function Messages() {
     const ref = useRef()
     const router = useRouter()
-    const { pid } = router.query
-    const { name } = router.query
-    const [messages, addMessage] = useState([])
+    const { pid } = router.query   
    
     const color = useSelector(state=>state.counter.profile['color'])
-    const [resive, setresive] = useState(true)
+   
     const profile = useSelector(state => state.counter.profile)
-
-    // const { data: client } = useSWR(`/api/get_messages_onebyone?nikname=${profile.nikname}&abonent=${pid}&status=${profile.status}`, 
-    //     fetcher, { refreshInterval: 5000 
-    // })  
-    const { data: client } = useSWR(`/api/get_messages_onebyone?nikname=${profile.nikname}&abonent=${pid}&status=${profile.status}`, 
-    fetcher, { refreshInterval: 5000 
-})  
-    if(client) {
-        console.log(client)
+   
+    const { data: dialog } = useSWR(`/api/get_messages_onebyone?nikname=${profile.nikname}&abonent=${pid}&status=${profile.status}`, 
+     { refreshInterval: 5000 , onSuccess: 
+        (data, key, config) => {
+          console.log('data'); 
+          
+        }
+    })  
+    if(dialog) {   
+           
         let ch = JSON.parse(localStorage.getItem("chat"))
         setTimeout(() => {
             Movie()
@@ -89,8 +88,7 @@ export default function Messages() {
         objDiv.scrollTop = objDiv.scrollHeight;
     }
     function SendMessage() {
-        const d = new Date()
-        // let message = {id: messages[messages.length-1].id + 1, name: 'Виктория Ченг', date: d.getHours() + ':' + d.getMinutes(), message: ref.current.value }
+        const d = new Date()       
         if (!ref.current.value) {
             return
         }
@@ -144,14 +142,14 @@ export default function Messages() {
                 .catch(err => console.log(err))
         } else {           
             const data = {
-                chat: (client.length > 0 && client[0].chat != 0) ? client[0].chat: null ,
+                chat: (dialog.length > 0 && dialog[0].chat != 0) ? dialog[0].chat: null ,
                 ms_text: ref.current.value,
                 sendler: profile.name,
                 sendler_nikname: profile.nikname,
                 recipient_nikname: 'администратор',
                 recipient: 'администратор',
                 ms_date: Date.now(),
-                phone: profile.phone
+               
             }
             fetch('/api/send_message', {
                 body: JSON.stringify(data),
@@ -199,7 +197,7 @@ export default function Messages() {
         <main className={styles.main}>
             <Header sel='/chat' text={router.query.name} name={pid} mes="1" color={color} />
             <section className={styles.section} id="section">
-                {client?.sort((a, b) => a.ms_date - b.ms_date).map(i =>
+                {dialog?.sort((a, b) => a.ms_date - b.ms_date).map(i =>
                     <div key={i.ms_date} className={styles.message}>
                         {i.sendler === profile.name ?
                             <div className={styles.wrap_client}>

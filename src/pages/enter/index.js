@@ -7,12 +7,6 @@ import { setphone, setpassword } from '@/reduser'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 
-
-
-
-
-
-
 export default function Enter() {
 
     const [phone, setPhone] = useState()
@@ -59,8 +53,8 @@ export default function Enter() {
                 .then(res => {
                     if (res.status === 200) {
                         setSelect('Подтвердить'),
-                            setBack("logo-main.svg"),
-                            setTimeout(() => document.getElementById(0).focus(), 500)
+                        setBack("logo-main.svg"),
+                        setTimeout(() => document.getElementById(0).focus(), 500)
                         dispatch(setphone(phone))
 
                     } else {

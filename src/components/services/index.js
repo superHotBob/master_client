@@ -1,7 +1,7 @@
 import styles from './services.module.css'
 import useSWR from 'swr'
 
-export default function Services({ color, name }) {     
+export default function Services({ color, name}) {     
     const { data, error, isLoading } = useSWR(`/api/master_service?nikname=${name}`)  
 
     if (error) return <div>ошибка загрузки</div>
