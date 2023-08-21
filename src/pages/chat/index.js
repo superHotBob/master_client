@@ -12,7 +12,7 @@ export default function Chat() {
 
     const name = useSelector(state => state.counter.profile['nikname'])
     const status = useSelector(state => state.counter.profile['status'])
-    const { data, error , mutate } = useSWR(`/api/get_messages?nikname=${name}&status=${status}`, fetcher, { refreshInterval: 30000 })
+    const { data, error , mutate } = useSWR(`/api/get_messages?nikname=${name}&status=${status}`, { refreshInterval: 30000 })
 
     const router = useRouter()
     

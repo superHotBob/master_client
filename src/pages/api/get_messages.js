@@ -27,7 +27,7 @@ export default async function handler(req, res) {
   const subscribe = await sql`
       select * from (
         select distinct on ( chat ) *         
-        from  chat       
+        from  adminchat       
         where chat = 0 and ( recipient = ${req.query.status} or recipient = 'all')
         order by chat, ms_date desc
       ) chat
@@ -38,19 +38,19 @@ export default async function handler(req, res) {
   const result = {
     admin: admin,
     client: client,
-    subscribe: subscribe
+    // subscribe: subscribe
   } 
-  if(subscribe.length === 0 ) {
-    delete result['subscribe']
-    return res.status(200).json(result)
-  }
+  // if(subscribe.length === 0 ) {
+  //   delete result['subscribe']
+  //   return res.status(200).json(result)
+  // }
   
-  if((+admin[0] ? +admin[0].ms_date : 0) > +subscribe[0].ms_date) {
-    delete result['subscribe']
-  } else {
-    result['admin'] = result['subscribe']
-    delete result['subscribe']
-  }
+  // if((+admin[0] ? +admin[0].ms_date : 0) > +subscribe[0].ms_date) {
+  //   delete result['subscribe']
+  // } else {
+  //   result['admin'] = result['subscribe']
+  //   delete result['subscribe']
+  // }
 
   res.status(200).json(result)
 

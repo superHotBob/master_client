@@ -190,7 +190,8 @@ export default function Enter() {
                                 required maxLength={1} onChange={(e) => Number(e.target.value, i)}
                             />)}
                     </div>
-                    {message ? <h3 className={styles.error} >Не верный код</h3>
+                    {message ? 
+                        <h3 className={styles.error} >Не верный код</h3>
                         :
                         <>
                             <div className={styles.button} onClick={SendCode}>Подтвердить</div>

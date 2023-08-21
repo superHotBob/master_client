@@ -10,7 +10,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@2gis/mapgl": "^1.38.1",
     "@pbe/react-yandex-maps": "^1.2.2",
     "@reduxjs/toolkit": "^1.9.3",
     "eslint": "8.35.0",

@@ -44,11 +44,11 @@ export default async function handler(req, res) {
 
 
     const max_chat = await sql`
-      select Min(chat) from adminchat
+      select Max(chat) from adminchat
     `
-    let chat = +max_chat[0].min - 1;
-    let date = Date.now();   
-    sql`
+    let chat = +max_chat[0].max + 1;
+    let date = Date.now();    
+    const adminchat = await sql`
       insert into adminchat (recipient,recipient_nikname,sendler,sendler_nikname,ms_text,ms_date,chat,read) 
       values (
         ${nikname}, 
@@ -58,11 +58,10 @@ export default async function handler(req, res) {
         'Приветствуем Вас на нашем сервисе.',
         ${date},
         ${chat},
-        'f'
-       
-      )  
-      returning *
+        'f'       
+      )    
     `
+    
 
   } else if (result[0].status === 'master' && result[0].blocked === '0') {
     if (result[0].client_password === req.body.password) {

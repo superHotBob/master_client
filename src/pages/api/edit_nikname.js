@@ -62,7 +62,7 @@ export default async function handler(req, res) {
         returning  *     
     `
     fetch(`https://masters-client.onrender.com/rename_master_dir?oldname=${req.query.oldnikname}&newname=${req.query.newnikname}`)
-    .then(res => console.log('GOOD'))
+    .then(res => console.log('Папка мастера переименована'))
 
     res.status(200).send('Ok')
 

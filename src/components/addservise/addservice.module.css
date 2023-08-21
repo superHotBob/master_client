@@ -224,7 +224,7 @@
 
 .service span:first-of-type {
     display: inline-block;
-    width: 65%;
+    width: 70%;
     margin: 10px 0;
     font-size: 14px;
     text-transform: capitalize;
@@ -234,7 +234,9 @@
     display: inline-block;
     font-size: 16px;
     cursor: pointer;
-
+    min-width: 80px;
+    text-align: right;
+    padding-right: 5px;
 }
 
 .usluga {

@@ -38,15 +38,17 @@
   }
   
   .name_stars {
-    margin: 60px auto 17px;
+    margin: 60px auto 8px;
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     align-items: center;
     width: fit-content;
   }
   
   .section p span:first-of-type {
     font-size: 22px;
+    line-height: 27px;
   }
   
   .pro {

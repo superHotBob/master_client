@@ -106,15 +106,7 @@ export default function Header({ sel, text, mes, color = {}, select,view_time ,n
         style={{ transform: 'transitionX(20px)' }}
         className={styles.call}
         width={10} height={10}
-      /> : null}
-      {/* <Image
-        src={menu ? close : img_menu}
-        alt="menu"
-        onClick={() => menuView(!menu)}
-        className={styles.left__arrow}
-        width={20} height={20}
-        style={{backgroundColor: menu ? color[1] || '#3D4EEA' : color[2],}}
-      /> */}
+      /> : null}    
       <div
         className={styles.left__arrow}
         onClick={() => menuView(!menu)}

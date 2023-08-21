@@ -16,9 +16,9 @@ export default async function handler(req, res) {
   const subscribe = await sql`
       select COUNT(*) 
       from  adminchat       
-      where chat = 0  and read = false               
+      where chat = 0  and read = false and (recipient = ${req.query.status} or recipient = 'all')              
     `
   const result = +admin[0].count + +client[0].count + +subscribe[0].count
-  console.log(+client[0].count, +admin[0].count)
+  console.log(+client[0].count, +admin[0].count, subscribe[0].count)
   res.status(200).send(result)
 }

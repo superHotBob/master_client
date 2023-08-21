@@ -1,13 +1,14 @@
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
-import Header from '@/components/header'
+// import Header from '@/components/header'
 import { useEffect, useState, useRef } from 'react'
 import {  useSelector } from 'react-redux'
-
+import dynamic from 'next/dynamic';
 import FilterServices from '@/components/filterServices'
 import Message from '@/components/message'
 import ViewImage from '@/components/viewimage'
 const url_image = 'https://masters-client.onrender.com/var/data/'
+const Header = dynamic(() => import('../components/header'));
 
 export default function Home() {  
   const service = useSelector(state => state.counter.service)

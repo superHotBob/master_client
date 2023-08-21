@@ -13,12 +13,12 @@ const style = {
 const login = {
     backgroundImage: "url('/login.svg')"
 }
-const fetcher = (...args) => fetch(...args).then(res => res.json())
+
 export default function Menu({ count, profile }) {
 
     const dispatch = useDispatch()
     const router = useRouter()
-    const { data, error, isLoading } = useSWR(`/api/get_new_messages?nikname=${profile.nikname}`, fetcher)
+    const { data, error, isLoading } = useSWR(`/api/get_new_messages?nikname=${profile.nikname}&status=${profile.status}`)
 
 
 

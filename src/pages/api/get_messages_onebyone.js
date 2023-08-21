@@ -16,7 +16,7 @@ export default async function handler(req, res) {
         
     const subscribe = await sql`
         select * 
-        from  chat
+        from  adminchat
         where chat = 0 and recipient = ${req.query.status} or recipient = 'all'
          
     `
@@ -35,7 +35,7 @@ export default async function handler(req, res) {
       select * 
       from  chat
       where (sendler_nikname = ${req.query.abonent} and recipient_nikname =  ${req.query.nikname}  ) or (
-          recipient_nikname = ${req.query.abonent} and sendler_nikname =  ${req.query.nikname}) 
+          recipient_nikname = ${req.query.abonent} and sendler_nikname =  ${req.query.nikname})
                       
     `
     if (result.length > 0) {

@@ -5,7 +5,6 @@ import Link from "next/link"
 import styles from './messages.module.css'
 import { useSelector } from "react-redux"
 import { useRouter } from "next/router"
-// const fetcher = (...args) => fetch(...args).then(res => res.json())
 import useSWR from 'swr'
 import Image from 'next/image'
 
@@ -21,41 +20,36 @@ const options = {
 export default function Messages() {
     const ref = useRef()
     const router = useRouter()
-    const { pid } = router.query   
-   
-    const color = useSelector(state=>state.counter.profile['color'])
-   
+    const { pid } = router.query
+
+    const color = useSelector(state => state.counter.profile['color'])
+
     const profile = useSelector(state => state.counter.profile)
-   
-    const { data: dialog } = useSWR(`/api/get_messages_onebyone?nikname=${profile.nikname}&abonent=${pid}&status=${profile.status}`, 
-     { refreshInterval: 5000 , onSuccess: 
-        (data, key, config) => {
-          console.log('data'); 
-          
-        }
-    })  
-    if(dialog) {   
-           
-        let ch = JSON.parse(localStorage.getItem("chat"))
-        setTimeout(() => {
-            Movie()
-        }, 500) 
-        let new_ch = ch ? ch: {}
-        new_ch[pid] = Date.now()                    
-        localStorage.setItem('chat',JSON.stringify(new_ch))        
-    }
-    
+
+    const { data: dialog } = useSWR(`/api/get_messages_onebyone?nikname=${profile.nikname}&abonent=${pid}&status=${profile.status}`,
+        {
+            refreshInterval: 5000, onSuccess:
+                () => {
+
+                    let ch = JSON.parse(localStorage.getItem("chat"))
+                    setTimeout(() => Movie(), 500)
+                    let new_ch = ch ? ch : {}
+                    new_ch[pid] = Date.now()
+                    localStorage.setItem('chat', JSON.stringify(new_ch))
+                }
+        })
+
 
     // useEffect(() => {
     //     let pro = JSON.parse(localStorage.getItem("profile"))
-       
 
-       
+
+
     //     if (pid === 'Администратор') {
     //         addMessage([])
     //     }
-      
-       
+
+
     //     if (pid === 'Администратор') {
     //         fetch(`/api/get_from_admin?name=${profile.name}`)
     //         .then(res => res.json())
@@ -80,7 +74,7 @@ export default function Messages() {
     //             })
     //             .catch(err => console.log(err))
     //     }
-       
+
     // }, [pid,resive])
 
     function Movie() {
@@ -88,7 +82,7 @@ export default function Messages() {
         objDiv.scrollTop = objDiv.scrollHeight;
     }
     function SendMessage() {
-        const d = new Date()       
+        const d = new Date()
         if (!ref.current.value) {
             return
         }
@@ -99,7 +93,7 @@ export default function Messages() {
         //         user_nikname: profile.nikname,
         //         date: Date.now()
         //     }
-           
+
         //     fetch('/api/send_to_admin', {
         //         body: JSON.stringify(data),
         //         headers: {
@@ -116,7 +110,7 @@ export default function Messages() {
         // } else 
         if (pid !== 'администратор') {
             const data = {
-                chat: client.length > 0 ? client[0].chat: null ,
+                chat: dialog.length > 0 ? dialog[0].chat : null,
                 ms_text: ref.current.value,
                 sendler: profile.name,
                 sendler_nikname: profile.nikname,
@@ -135,21 +129,21 @@ export default function Messages() {
                 .then(res => {
                     let d = Date.now()
                     // addMessage(messages => [...messages, data ])
-                    
+
                     Movie()
                     ref.current.value = ''
                 })
                 .catch(err => console.log(err))
-        } else {           
+        } else {
             const data = {
-                chat: (dialog.length > 0 && dialog[0].chat != 0) ? dialog[0].chat: null ,
+                chat: (dialog.length > 0 && dialog[0].chat != 0) ? dialog.filter(i=>i.recipient_nikname ===  profile.nikname)[0].chat : null,
                 ms_text: ref.current.value,
                 sendler: profile.name,
                 sendler_nikname: profile.nikname,
                 recipient_nikname: 'администратор',
                 recipient: 'администратор',
                 ms_date: Date.now(),
-               
+
             }
             fetch('/api/send_message', {
                 body: JSON.stringify(data),
@@ -158,8 +152,8 @@ export default function Messages() {
                 },
                 method: 'POST',
             })
-                .then(res => {                                    
-                    Movie()                   
+                .then(res => {
+                    Movie()
                     ref.current.value = ''
                 })
                 .catch(err => console.log(err))
@@ -168,27 +162,27 @@ export default function Messages() {
     function My_Date(a) {
         const d = new Date(a)
         const n = new Date()
-        if(d.getDate() === n.getDate()) {
-            return d.toLocaleDateString('ru-RU', options).slice(-5) 
-        } 
-        return d.toLocaleDateString('ru-RU', options) 
+        if (d.getDate() === n.getDate()) {
+            return d.toLocaleDateString('ru-RU', options).slice(-5)
+        }
+        return d.toLocaleDateString('ru-RU', options)
     }
-    function ReadText(a,b) {      
+    function ReadText(a, b) {
         if (a.includes(';')) {
-            let ss = a.split(';')           
-            return <div style={{color:b}} className={styles.order}>
-                <p>Создан заказ 
-                    {b === '#fff' ?                   
-                    <Link style={{color: '#fff'}} href={'/order/' + ss[1] }>{' '} #{ss[1]} -</Link> 
-                    :
-                    <Link style={{color: '#3D4EEA'}} href={'/clientprofile/' + profile.nikname + '/orders' }>{' '} #{ss[1]} -</Link> }
+            let ss = a.split(';')
+            return <div style={{ color: b }} className={styles.order}>
+                <p>Создан заказ
+                    {b === '#fff' ?
+                        <Link style={{ color: '#fff' }} href={'/order/' + ss[1]}>{' '} #{ss[1]} -</Link>
+                        :
+                        <Link style={{ color: '#3D4EEA' }} href={'/clientprofile/' + profile.nikname + '/orders'}>{' '} #{ss[1]} -</Link>}
                 </p>
-                <p>{ss[2]}</p>               
+                <p>{ss[2]}</p>
                 <p className={styles.details}>Детали заказа</p>
                 <p>{ss[4]}</p>
-                <p>{ss[5]}</p>                
+                <p>{ss[5]}</p>
                 <h4>{ss[6]} BYN</h4>
-                </div>
+            </div>
         } else {
             return a
         }
@@ -201,26 +195,26 @@ export default function Messages() {
                     <div key={i.ms_date} className={styles.message}>
                         {i.sendler === profile.name ?
                             <div className={styles.wrap_client}>
-                                {ReadText(i.ms_text,'#fff')}
+                                {ReadText(i.ms_text, '#fff')}
                                 <p>{My_Date(+i.ms_date)}
-                                {i.read ? <Image height={20} width={20} alt="check" src="/check_to.svg" /> : null}
+                                    {i.read ? <Image height={20} width={20} alt="check" src="/check_to.svg" /> : null}
                                 </p>
                             </div>
                             :
                             <div className={styles.wrap_master}>
-                                <img 
-                                    title={i.sendler} 
-                                    src={i.sendler === 'администратор' ? 
-                                    "/image/администратор.jpg" :
-                                    process.env.url + 'var/data/' + i.sendler_nikname + '/main.jpg' 
-                                    } 
-                                    height={50} width={50} 
-                                    alt="master" 
+                                <img
+                                    title={i.sendler}
+                                    src={i.sendler === 'администратор' ?
+                                        "/image/администратор.jpg" :
+                                        process.env.url + 'var/data/' + i.sendler_nikname + '/main.jpg'
+                                    }
+                                    height={50} width={50}
+                                    alt="master"
                                 />
                                 <div className={styles.master}>
-                                {ReadText(i.ms_text,'#000')}
+                                    {ReadText(i.ms_text, '#000')}
                                     <span>
-                                        {My_Date(+i.ms_date)}                         
+                                        {My_Date(+i.ms_date)}
                                     </span>
                                 </div>
                             </div>
@@ -232,7 +226,7 @@ export default function Messages() {
 
             <div className={styles.input}>
                 <input type="text" placeholder="Ваше сообщение" ref={ref} />
-                <button onClick={SendMessage} title="отправить сообщение"/>
+                <button onClick={SendMessage} title="отправить сообщение" />
             </div>
 
         </main>

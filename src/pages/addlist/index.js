@@ -73,6 +73,7 @@ export default function AddList() {
         setnikname(prof.nikname)
         setColor([...prof.color])
         setServices(prof.services)
+        settag(prof.services[0])
         fetch(`/api/get_images?nikname=${prof.nikname}`)
         .then(res => res.json())
         .then(res => setlists(res))
@@ -201,7 +202,7 @@ export default function AddList() {
                 </section>
 
                 <label className={styles.addtag}>
-                    Расскажите о проекте подробнее...
+                    Добавьте комментарий к публикации
                     <textarea
                         ref={my_ref}
                         maxLength="500"
