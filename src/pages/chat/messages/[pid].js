@@ -1,6 +1,5 @@
 import Header from "@/components/header"
-import { useEffect, useRef, useState } from "react"
-import check from '../../../../public/check.svg'
+import { useRef } from "react"
 import Link from "next/link"
 import styles from './messages.module.css'
 import { useSelector } from "react-redux"
@@ -29,58 +28,26 @@ export default function Messages() {
     const { data: dialog } = useSWR(`/api/get_messages_onebyone?nikname=${profile.nikname}&abonent=${pid}&status=${profile.status}`,
         {
             refreshInterval: 5000, onSuccess:
-                () => {
-
+            () => {
                     let ch = JSON.parse(localStorage.getItem("chat"))
-                    setTimeout(() => Movie(), 500)
+                   
                     let new_ch = ch ? ch : {}
                     new_ch[pid] = Date.now()
                     localStorage.setItem('chat', JSON.stringify(new_ch))
-                }
-        })
+            },compare(a,b){
+               
+                return a.length === b.length
+            }
+        }
+    )
+    setTimeout(() => Movie(), 500)
 
-
-    // useEffect(() => {
-    //     let pro = JSON.parse(localStorage.getItem("profile"))
-
-
-
-    //     if (pid === 'Администратор') {
-    //         addMessage([])
-    //     }
-
-
-    //     if (pid === 'Администратор') {
-    //         fetch(`/api/get_from_admin?name=${profile.name}`)
-    //         .then(res => res.json())
-    //         .then(res => {
-    //             addMessage(res)
-    //             Movie()
-    //         })
-    //         .catch(err => console.log(err))
-    //     } else {
-    //         if(!pid) {
-    //             return;
-    //           }
-    //         let ch = JSON.parse(localStorage.getItem("chat"))
-    //         fetch(`/api/get_messages_master?my_name=${pro.nikname}&abonent=${pid}`)
-    //             .then(res => res.json())
-    //             .then(res => {
-    //                 addMessage(res)
-    //                 Movie()
-    //                 let new_ch = ch? ch: {}
-    //                 new_ch[pid] = Date.now()                    
-    //                 localStorage.setItem('chat',JSON.stringify(new_ch))
-    //             })
-    //             .catch(err => console.log(err))
-    //     }
-
-    // }, [pid,resive])
-
-    function Movie() {
+  
+    function Movie() {       
         const objDiv = document.getElementById("section");
         objDiv.scrollTop = objDiv.scrollHeight;
     }
+    console.log('render')
     function SendMessage() {
         const d = new Date()
         if (!ref.current.value) {

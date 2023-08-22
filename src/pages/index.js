@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
-// import Header from '@/components/header'
 import { useEffect, useState, useRef } from 'react'
 import {  useSelector } from 'react-redux'
 import dynamic from 'next/dynamic';
@@ -22,45 +21,13 @@ export default function Home() {
   const servref = useRef(service)
  
  
-  // const { data, error } = useSWR(`/api/get_images_master_city?service=${service}&city=${city.toLowerCase()}&limit=6&offset=4`, fetcher)
-  // if(images) {
-  //   // setdata(images.map((i, index) => data[index] = { 'id': index + 1 + '', 'master_name': i.name, 'name': i.nikname, image: process.env.url + 'var/data/' + i.nikname + '/list__' + services__name[service] + '__0.jpg' }))
-   
-  //   // mutate({...images,nikname:newName})
-  // }
   
   
-  // useEffect(() => {
-  //   // setdata([])   
-    
-  //   fetch(`/api/get_images_master_city?service=${service}&city=${city.toLowerCase()}&limit=6&offset=0`)
-  //   .then(res => res.json())
-  //   .then(data => {      
-  //     setdata(data)
-  //   })
-   
-  // }, [service])
+  
+ 
   const [scrollTop, setScrollTop] = useState(0);
-  // useEffect(() => {
-  //   const handleScroll = (event) => {
-  //     if(event.wheelDeltaY < 0 ) {
-        
-  //       setScrollTop(Math.floor(window.scrollY /150));
-  //       refmove.current = Math.floor(window.scrollY /150)
-        
-  //     }
-     
-      
-  //   };
-
-  //   window.addEventListener('wheel', handleScroll);
-
-  //   return () => {
-  //     window.removeEventListener('wheel', handleScroll);
-  //   };
-  // }, []);
-  useEffect(()=>{   
-   
+  
+  useEffect(()=>{  
    
     if(servref.current != service) {     
       setdata([])
@@ -80,11 +47,7 @@ export default function Home() {
   },[scrollTop,service])
 
  
-  function Height(b) {
-    // document.getElementById(b).style.marginBottom = '10px'
-    // document.getElementById(b).style.opacity = 1
-    // document.getElementById("add__images").style.opacity = 1
-  }
+ 
 
   const View = (a, b, c, d, e) => viewImage({text: d, name: a, image: b, master_name: c , date: e})
  
@@ -110,8 +73,7 @@ export default function Home() {
                 key={i.id}
                 id={i.id}
                 onClick={() => View(i.nikname, process.env.url + 'var/data/' + i.nikname + '/' +  i.id + '.jpg', i.master_name, i.review, i.img_date)}
-                loading='lazy'
-                // onLoad={() => Height(i.id)}
+                              
                 src={process.env.url + 'var/data/' + i.nikname + '/' +  i.id + '.jpg' }
                 title={i.master_name}
               />
@@ -124,8 +86,8 @@ export default function Home() {
                 key={i.id}
                 id={i.id}
                 onClick={() => View(i.nikname, process.env.url + 'var/data/' + i.nikname + '/' +  i.id + '.jpg', i.master_name, i.review, i.img_date)}
-                loading='lazy'
-                // onLoad={() => Height(i.id)}
+                
+                
                 src={process.env.url + 'var/data/' + i.nikname + '/' +  i.id + '.jpg' }
                 title={i.master_name}
               />
