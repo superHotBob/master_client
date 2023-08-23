@@ -6,7 +6,8 @@ export default async function handler(req, res) {
   const result = await sql`
       update chat 
       set read = 'true'    
-      where sendler_nikname =  ${req.query.name} and recipient_nikname = ${req.query.my_name}             
+      where sendler_nikname =  ${req.query.abonent} and recipient_nikname = ${req.query.nikname}             
     `
+    console.log(result)
   res.send('Ok')
 }

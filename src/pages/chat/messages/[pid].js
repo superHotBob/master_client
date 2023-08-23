@@ -36,45 +36,30 @@ export default function Messages() {
                     localStorage.setItem('chat', JSON.stringify(new_ch))
             },compare(a,b){
                
-                return a.length === b.length
+                return a?.length === b?.length
             }
         }
     )
     setTimeout(() => Movie(), 500)
 
+    const { data: read } = useSWR(()=> 
+        dialog.sort((a,b)=>+b.ms_date - a.ms_date)[0].read ? null :
+        dialog.sort((a,b)=>+b.ms_date - a.ms_date)[0].recipient_nikname === profile.nikname ? 
+        `/api/set_view_message?nikname=${profile.nikname}&abonent=${pid}`: null
+    )    
+
+
   
     function Movie() {       
         const objDiv = document.getElementById("section");
         objDiv.scrollTop = objDiv.scrollHeight;
-    }
-    console.log('render')
+    }   
     function SendMessage() {
         const d = new Date()
         if (!ref.current.value) {
             return
         }
-        // if (pid === 'администратор') {
-        //     const data = {
-        //         text: ref.current.value,
-        //         user: profile.name,
-        //         user_nikname: profile.nikname,
-        //         date: Date.now()
-        //     }
-
-        //     fetch('/api/send_to_admin', {
-        //         body: JSON.stringify(data),
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         method: 'POST',
-        //     })
-        //         .then(res => {
-        //             let d = Date.now()
-        //             addMessage(messages => ([...messages, { ms_user: profile.name, ms_text: ref.current.value, ms_date: d }]))
-        //             Movie()
-        //         })
-        //         .catch(err => console.log(err))
-        // } else 
+       
         if (pid !== 'администратор') {
             const data = {
                 chat: dialog.length > 0 ? dialog[0].chat : null,

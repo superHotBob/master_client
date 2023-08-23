@@ -140,7 +140,7 @@ export default function Records() {
                                     >
                                         {i}
                                         {Count(i) > 0 ?
-                                            <b style={{ border: `2px solid ${profile.color[1]}`, backgroundColor: +active_day === +i ? profile.color[2] : profile.color[1], color: +active_day === +i ? profile.color[1] : profile.color[2], display: Count(i) ? 'inline-block' : 'none' }} className={styles.count}>
+                                            <b style={{ backgroundColor: +active_day === +i ? '#8B95F2' : '#3D4EEA', color: '#fff', display: Count(i) ? 'inline-block' : 'none' }} className={styles.count}>
                                                 {Count(i)}
                                             </b>
                                             : null}

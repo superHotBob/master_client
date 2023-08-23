@@ -67,26 +67,26 @@ export default function Home() {
         <FilterServices />
         <div className={styles.images} id="myDiv"  ref={ref}>
           <div className={styles.images_one}>
-            {data?.filter((i, index) => index % 2 === 0).map(i =>
+            {data?.filter((i, index) => index % 2 === 0).map((i,index) =>
               <img
                 alt="abc"
                 key={i.id}
                 id={i.id}
                 onClick={() => View(i.nikname, process.env.url + 'var/data/' + i.nikname + '/' +  i.id + '.jpg', i.master_name, i.review, i.img_date)}
-                              
+                loading={index > 3 ? 'lazy': 'eager'}              
                 src={process.env.url + 'var/data/' + i.nikname + '/' +  i.id + '.jpg' }
                 title={i.master_name}
               />
             )}
           </div>
           <div className={styles.images_one}>
-            {data?.filter((i, index) => index % 2 !== 0).map(i =>
+            {data?.filter((i, index) => index % 2 !== 0).map((i,index) =>
               <img
                 alt="abc"
                 key={i.id}
                 id={i.id}
                 onClick={() => View(i.nikname, process.env.url + 'var/data/' + i.nikname + '/' +  i.id + '.jpg', i.master_name, i.review, i.img_date)}
-                
+                loading={index > 3 ? 'lazy': 'eager'}   
                 
                 src={process.env.url + 'var/data/' + i.nikname + '/' +  i.id + '.jpg' }
                 title={i.master_name}

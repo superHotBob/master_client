@@ -35,7 +35,7 @@ export default function MyApp({ Component, pageProps }) {
       <Provider store={store}>
         <Head>
           <meta name="description" content="Master app" />
-          <meta name="viewport" content="width=device-width" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/favicon.ico" />
           <title>masters.place</title>
           <link rel="apple-touch-icon" href="icons/android-chrome-192x192.png"></link>

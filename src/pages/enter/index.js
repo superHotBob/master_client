@@ -19,15 +19,28 @@ export default function Enter() {
     const [message, setMessage] = useState('')
     const [t, setT] = useState()
 
-    useEffect(() => {        
-        setNumber([, , ,])
-        setSelect('Вход')
-        setBack('logo-main.svg')
-        setMessage('')
-    }, [])
+   
 
-    function firstCall(event) {
-        event.preventDefault()
+    // useEffect(() => {        
+    //     // setNumber([, , ,])
+    //     // setSelect('Вход')
+    //     // setBack('logo-main.svg')
+    //     // setMessage('')
+    //     document.body.addEventListener('keydown', handler);
+    //     return ()=>document.body.removeEventListener('keydown', handler);
+    // }, [])
+
+       
+    // const handler = (event) => {  
+    //     console.log(phone)     
+    //     if(event.key === 'Enter') {
+           
+    //         return firstCall()
+            
+    //     }        
+    // }
+    const firstCall = () => {
+        
         const data = { tel: phone }
         setBack("await.gif")
         fetch(`/api/check_client?phone=${phone}`)
@@ -80,8 +93,8 @@ export default function Enter() {
     }, [t])
 
 
-    async function SendCode(event) {
-        event.preventDefault()
+    async function SendCode() {
+       
         const data = { tel: phone, number: +number.join('') }
         fetch(`${process.env.url}code`, {
             body: JSON.stringify(data),
@@ -124,7 +137,7 @@ export default function Enter() {
     }
     return (
         <section className={styles.section} style={{ backgroundImage: `url(${back})` }}>
-            <Header text={select} sel="/enter" />           
+            <Header text={select} sel="/enter" />                      
             {select === 'Вход' ?
                 <div className={styles.inputs}>
                     <p>Используйте свой номер телефона как логин для входа на сайт.</p>                    
