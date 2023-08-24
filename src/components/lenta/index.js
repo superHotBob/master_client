@@ -17,7 +17,7 @@ export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2A
     const profile = useSelector(state => state.counter.profile)
 
     const { data: image } = useSWR(view_image ? null : `/api/get_images?nikname=${nikname}`)
-    const { data:events } = useSWR(view_image ? null : `/api/get_events_master?nikname=${nikname}`)
+    const { data: events } = useSWR(view_image ? null : `/api/get_events_master?nikname=${nikname}`)
    
    
 

@@ -6,10 +6,11 @@ import { url, my_data } from '@/data.'
 import { useState } from 'react'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useEffect } from 'react'
+import { my_tema } from '@/data.'
 
 export default function DisplayPublications() {
 
-    const { color = my_data.my_tema[0].color, nikname } = useSelector(state => state.counter.profile)
+    const { color = my_tema[0].color } = useSelector(state => state.counter.profile)
     const router = useRouter()
     const [imagesone, setImagesOne] = useState([])
     const [imagestwo, setImagesTwo] = useState([])
