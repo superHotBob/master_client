@@ -2,11 +2,10 @@ import Menu_icon from '@/components/icons/menu'
 import styles from './display.module.css'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
-import { url, my_data } from '@/data.'
 import { useState } from 'react'
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import { useEffect } from 'react'
-import { my_tema } from '@/data.'
+import { my_tema, url } from '@/data.'
 
 export default function DisplayPublications() {
 

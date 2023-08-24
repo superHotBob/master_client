@@ -37,6 +37,7 @@ export default function Master() {
     const [gradient, color, background] = my_tema[0].color
     const dispatch = useDispatch()
     const my_profile = useSelector(state => state.counter.profile)
+    const service = useSelector(state=>state.counter.service)
    
 
     const { data:profile } = useSWR(`/api/master?nikname=${slug}`,
@@ -53,7 +54,7 @@ export default function Master() {
     return (
         <>
             <Head><title>{slug}</title></Head>
-            <Header text={slug} sel="/masternear" color={profile?.color} />
+            <Header text={slug} sel={'/masternear/' + service} color={profile?.color} />
             <MasterHeader profile={profile} slug={slug} />
 
             <section className={styles.section_main}>
