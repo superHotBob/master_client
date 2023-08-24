@@ -184,7 +184,8 @@ export default function SelectDate({ name, price, order, close, nikname }) {
                         >{index + 1}
                             <b
                                 className={styles.count}
-                                style={{ display: Count(i) ? 'inline-block' : 'none' }}
+                                style={{ display: Count(i) ? 'inline-block' : 'none',
+                                 backgroundColor : !Count(i) ? null:  active_day === index + 1 ? '#8B95F2' : 'none' }}
                             >{Count(i)}</b>
 
                         </span>

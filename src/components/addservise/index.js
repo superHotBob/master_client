@@ -103,15 +103,17 @@ export default function AddService({ view, setView, color }) {
         setServices([...services])
         setaddUsluga(false)
     }
-    function DeleteService(a, b, c) {
-        console.log(a, b, c)
+    
+    function DeleteService(a, b, c, d) {
+       
         let new_service = services
         new_service[a][1].splice(b, 1)
-        console.log(new_service[a][1])
-        if (new_service[a][1].splice(b, 1).length === 0) {
-            let new_cat = category.filter(i => i !== c)
-            addCategory([...new_cat])
-        }
+        
+        // if (ss.length === 0) {
+        //     let new_cat = category.filter(i => i !== c)
+        //     addCategory([...new_cat])
+        // }
+        DeleteMessage(d + 'del', '100%' )
         setServices([...services])
     }
     function DeleteCat(del_category) {
@@ -180,9 +182,8 @@ export default function AddService({ view, setView, color }) {
                                     <Image src={trash_blk} width={29} height={29} alt="trash" onClick={() => DeleteMessage(service + 'del', 0)} />
                                     <p id={service + 'del'} className={styles.delete__message}>
                                         <b>Удалить услугу?</b>
-                                        <button onClick={() => DeleteService(b, c, i[0])}>Удалить</button>
+                                        <button onClick={() => DeleteService(b, c, i[0],service)}>Удалить</button>
                                         <button onClick={() => DeleteMessage(service + 'del', '100%')}>Отмена</button>
-
                                     </p>
                                 </h5>
                             )}

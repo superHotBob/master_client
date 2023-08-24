@@ -4,28 +4,20 @@ import Link from 'next/link'
 import Header from '@/components/header'
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
 import ClientOrder from '@/components/clientorder'
 import { Convert_Date, NewOrder } from '@/profile'
 
-const url = 'https://masters-client.onrender.com'
+
 const sel = {
     background: 'linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)',
     // background: '#5E2AF0',
     fontWeight: 500,
     color: '#fff'
 }
-
-
-const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сетнябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
-
-
-
 export default function Client() {
     const router = useRouter()    
     const { slug } = router.query
     const profile = useSelector((state) => state.counter.profile)
-
     const [data, setData] = useState([])
     const [viewOrder, setviewOrder] = useState(false)
     const [orderIndex, setOrderIndex] = useState()

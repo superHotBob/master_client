@@ -75,7 +75,7 @@ export default function ClientOrder({ order, active, close }) {
                     <span>Стоимость {order.price} BYN</span>
                     <h5>Дополнительное описание</h5>
                     <div className={styles.review}>
-                        {order.neworder.split(',').map((i, index) => <span key={index}>{((index > 0 ? ' , ' : ' ') + i.split(':')[0])}</span>)}
+                        {order.neworder.split(',').map((i, index) => <span key={index}>{(index + 1 + '. ' + i.split(':')[0])}</span>)}
                     </div>
                     {active ?
                         <button onClick={DeleteOrder}><b>Отменить заказ</b></button>

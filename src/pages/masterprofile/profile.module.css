@@ -86,10 +86,8 @@
   width: calc(100% - 32px);
   max-width: calc(500px - 32px);
   margin: 0 auto;
+  padding-bottom: 60px;
 }
-
-
-
 .all__images, .lenta_selector {
   display: flex;
   justify-content: space-between;

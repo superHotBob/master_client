@@ -150,7 +150,7 @@
 .service span:last-of-type {
   display: inline-block;
   font-size: 18px;
-
+  width: 80px;
   cursor: pointer;
 
 }

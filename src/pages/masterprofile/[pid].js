@@ -105,7 +105,7 @@ export default function Client() {
                         <div onClick={() => AddNewSertificat(true)} className={styles.uslugi_plus} style={{ color: '#fff', backgroundColor: profile.color[1] }}>
                             Добавить сетрификат +
                         </div>
-                        <Sertificats nikname={pid} />
+                        <Sertificats nikname={pid}  nav={2}/>
                         {newSertificat ? <AddSertificat setView={setView} color={profile.color} nikname={profile.nikname} view={AddNewSertificat} /> : null}
 
 

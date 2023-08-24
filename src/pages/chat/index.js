@@ -1,20 +1,18 @@
 import Header from '@/components/header'
 import styles from './chat.module.css'
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
-const fetcher = (...args) => fetch(...args).then(res => res.json())
 import useSWR from 'swr'
 
 export default function Chat() {
-
+    const router = useRouter()
     const name = useSelector(state => state.counter.profile['nikname'])
     const status = useSelector(state => state.counter.profile['status'])
     const { data, error } = useSWR(`/api/get_messages?nikname=${name}&status=${status}`, { refreshInterval: 30000 })
 
-    const router = useRouter()
+   
     
     
     if (error) return router.push('/')
@@ -29,18 +27,18 @@ export default function Chat() {
         }
         return message_date.toLocaleDateString('ru-RU', options)
     }
-    const NewMessage = (a, b, c) => {
-        if (c === name) { return false }
-        const myChat = JSON.parse(localStorage.getItem('chat'))
+    // const NewMessage = (a, b, c) => {
+    //     if (c === name) { return false }
+    //     const myChat = JSON.parse(localStorage.getItem('chat'))
 
-        let time_last_message = (myChat ? myChat[c] ?? 0 : 0)
+    //     let time_last_message = (myChat ? myChat[c] ?? 0 : 0)
 
-        if (+a >= time_last_message) {
-            return true
-        } else {
-            return false
-        }
-    }
+    //     if (+a >= time_last_message) {
+    //         return true
+    //     } else {
+    //         return false
+    //     }
+    // }
     return (
         <>
             <Header sel="/" text="Чаты" />
@@ -57,7 +55,7 @@ export default function Chat() {
                                 <b>Администратор</b>
                                 <span>{My_Date(i.ms_date)}</span>
                             </p>
-                            <span className={NewMessage(i.ms_date, i.recipient_nikname, i.sendler_nikname) ? styles.new_message : null}>
+                            <span className={i.read  ? null :  i.sendler_nikname === name ? null : styles.new_message }>
                                 {i.ms_text}
                             </span>
                         </div>

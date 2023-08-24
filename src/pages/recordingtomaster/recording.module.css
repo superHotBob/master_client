@@ -10,8 +10,8 @@
 .category {
     overflow-x: auto;   
     width: calc(100% - 32px);
-    margin: 24px auto;
-    height: 27px;
+    margin: 22px auto 11px;
+    height: 40px;
 }
 .all_cat {
     width: max-content;
@@ -96,10 +96,19 @@
     background-color: rgba(236, 238, 253, 0.8);
     padding: 26px;
 }
-.order a {
-    font-size: 10px;
-    color: #3D4EEA;
+.colaboration {
+    text-align: center;
+    font-size: 14px;
+    line-height: 17px;
+    margin: 0 auto;
+    max-width: 310px;
 }
+.colaboration a {
+    margin: 0 5px;
+    color: #3D4EEA;
+
+}
+
 .order div{
     text-align: center;
     color: #fff;

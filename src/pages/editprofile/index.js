@@ -4,14 +4,13 @@ import { setlocation, setprofile } from '@/reduser'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import arrow from '../../../public/arrow_back.svg'
-import Navi from '@/components/navi'
-import { useGeolocated } from "react-geolocated"
+
 import { useRouter } from 'next/router'
 import Location from '@/components/location'
 import useSWR from 'swr'
 import Link from 'next/link'
-const fetcher = (...args) => fetch(...args).then(res => res.json())
-import { my_data } from '@/data.'
+
+import { my_tema } from '@/data.'
 
 const active_currency = {
     backgroundColor: '#3D4EEA',
@@ -29,7 +28,7 @@ const passive_currency = {
 
 const my_currency = ['Белорусcкий рубль', 'Российский рубль', 'Казахстанский тенге']
 const current_symbol = ['BYN', '₽', '₸']
-const url = 'https://masters-client.onrender.com'
+
 export default function EditProfile() {
     const profile = useSelector(state => state.counter.profile)
     const location = useSelector(state => state.counter.location)
@@ -46,28 +45,27 @@ export default function EditProfile() {
     const [master_address, setMasterAddress] = useState(false)
     const [tema, viewTemaBlock] = useState(false)
     const [cur, setCur] = useState(false)
-    const [color, setColor] = useState(my_data.my_tema[0].color)
+    const [color, setColor] = useState(my_tema[0].color)
     const [currency, setCurrency] = useState('BYN')
     const [city, setCity] = useState('Минск')
     const [address, setAddress] = useState()
     const [address_full, setAddress_full] = useState()
     const [loc, selectLoc] = useState(false)
-    const { data } = useSWR('/api/get_cities', fetcher)
+    const { data } = useSWR('/api/get_cities')
    
-
+    console.log(my_tema.map(i=>i.color).indexOf(color))
    
-   function handleLocation(event) {  
-    if(event.target.value !=='0'){  
-        setCity(event.target.value)
-        let loc = data.filter(i=>i.city.toLowerCase()===event.target.value).map(i=>i.lat + ',' + i.lon)[0].split(',')
-        
-        dispatch(setlocation(loc))
-    }
-    
-   }
-    
+    function handleLocation(event) {  
+        if(event.target.value !=='0'){  
+            setCity(event.target.value)
+            let loc = data.filter(i=>i.city.toLowerCase()===event.target.value).map(i=>i.lat + ',' + i.lon)[0].split(',')
+            
+            dispatch(setlocation(loc))
+        }    
+    }    
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem('profile'))
+        console.log(my_tema[+pro.tema])
         if (!pro) {
             return () => router.push('/enter')
         }else {
@@ -76,10 +74,10 @@ export default function EditProfile() {
             setCity(pro.city),
             setCurrency(my_currency[current_symbol.indexOf(pro.currency)] ?? 'Белорусский рубль'),
             setAddress(pro.address)
-            setSelectedFile(url + '/var/data/' + pro.nikname + '/main.jpg')
+            setSelectedFile(process.env.url + 'var/data/' + pro.nikname + '/main.jpg')
             setAddress_full(address_full => ({ ...address_full, ...pro.address_full })),
             setNikname(pro.nikname),
-            setColor(pro.color ? pro.color : my_tema[0])
+            setColor(pro.tema ? my_tema[+pro.tema].color : my_tema[0].color)
         }
 
     }, [])
@@ -88,7 +86,7 @@ export default function EditProfile() {
         setName(pro.name),
         setText(pro.text),
         setCurrency('Белорусский рубль')
-        setSelectedFile(url + '/var/data/' + pro.nikname + '/main.jpg')
+        setSelectedFile(process.env.url + 'var/data/' + pro.nikname + '/main.jpg')
         setAddress(pro.address),
         setNikname(pro.nikname),
         setColor(pro.color)
@@ -104,6 +102,7 @@ export default function EditProfile() {
             address: address,
             city: city,
             color: color,
+            tema: my_tema.map(i=>i.color).indexOf(color),
             locations: location,
             address_full: address_full
         }
@@ -138,7 +137,7 @@ export default function EditProfile() {
             body: data,
             method: 'post',
         }).then(res => console.log('file is good'))
-        setSelectedFile(url + '/var/data/' + profile.nikname + '/main.jpg')
+        setSelectedFile(process.env.url + 'var/data/' + profile.nikname + '/main.jpg')
     }
     return (
         <main className={styles.main}>
@@ -296,7 +295,7 @@ export default function EditProfile() {
                 <div className={styles.main_tema}>
                     <div className={styles.select_tema}>
                         <h6 onClick={() => viewTemaBlock(false)}>Выбор темы</h6>
-                        {my_data.my_tema.map((i, index) =>
+                        {my_tema.map((i, index) =>
                             <div
                                 key={i.name}
                                 onClick={() => setColor(i.color)}

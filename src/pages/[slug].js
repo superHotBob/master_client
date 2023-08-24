@@ -13,7 +13,7 @@ import Sertificats from '@/components/serificats'
 import Menu_icon from '@/components/icons/menu'
 import Link from 'next/link'
 import MasterHeader from '@/components/masterheader'
-import { my_data } from '@/data.'
+import { my_tema } from '@/data.'
 import useSWR from 'swr'
 
 
@@ -34,17 +34,18 @@ export default function Master() {
    
     
    
-    const [gradient, color, background] = my_data['my_tema'][0].color
+    const [gradient, color, background] = my_tema[0].color
     const dispatch = useDispatch()
     const my_profile = useSelector(state => state.counter.profile)
    
 
     const { data:profile } = useSWR(`/api/master?nikname=${slug}`,
-    {onSuccess:(profile)=> dispatch(setmaster(profile)) ,onError:()=>router.push('/404')})
+    {onSuccess:(profile)=> profile.status ? dispatch(setmaster({...profile,nikname: slug})) : router.push('/404')})
    
     function LinkTo(a) {
         if (my_profile.status === 'client') {
             router.push(a)
+            
         } else {
             setmessage(true)
         }
@@ -52,8 +53,8 @@ export default function Master() {
     return (
         <>
             <Head><title>{slug}</title></Head>
-            <Header text={slug} sel="back" color={profile?.color} />
-            <MasterHeader profile={profile} master={slug} />
+            <Header text={slug} sel="/masternear" color={profile?.color} />
+            <MasterHeader profile={profile} slug={slug} />
 
             <section className={styles.section_main}>
             {message ? <div  className={styles.dialog}>
@@ -88,9 +89,9 @@ export default function Master() {
                     {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
                         .map((i, index) => <span key={i} onClick={() => setNavView(index)} style={nav_view === index ? { ...active, backgroundColor: color } : null}>{i}</span>)}
                 </nav>
-                {nav_view === 3 ? <Reviews nikname={slug} color={profile?.color} /> :
-                    nav_view === 1 ? <Services name={slug} color={profile?.color} nav={nav_view}/> :
-                        nav_view === 0 ? <Lenta nikname={slug} color={profile?.color} name={profile?.name} /> :
+                {nav_view === 3 ? <Reviews nikname={slug} color={my_tema[profile?.tema]} /> :
+                    nav_view === 1 ? <Services name={slug} color={my_tema[profile?.tema]} nav={nav_view}/> :
+                        nav_view === 0 ? <Lenta nikname={slug} color={my_tema[profile?.tema]} name={profile?.name} /> :
                             <Sertificats nav={nav_view} nikname={slug} />}
             </section>
            

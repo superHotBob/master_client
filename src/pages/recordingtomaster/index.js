@@ -9,10 +9,10 @@ import SelectDate from '@/components/selectdate'
 
 export function Bov() {
     return (
-        <h6>Нажмая на кнопку, вы соглашаетесь с <br />
-            <Link href="/#">Условиями обработки персональных данных</Link> и <br />
+        <section className={styles.colaboration}>Нажмая на кнопку, вы соглашаетесь с <br />
+            <Link href="/#">Условиями обработки персональных данных</Link> и 
             <Link href="/#">Пользовательским соглашением</Link>
-        </h6>
+        </section>
 
     )
 }
@@ -112,14 +112,14 @@ export default function Recording() {
                                 style={active_category === i ?
                                     {
                                         color: '#fff',
-                                        fontWeight: 500,
+                                        fontWeight: 500,                                        
                                         backgroundColor: '#3D4EEA',
                                     } : null}
                             >
                                 {i}
                                 <b
                                     className={active_category == i ? styles.active_count : null}
-                                    style={{ display: CountCategory(i) === '' ? 'none' : 'inline-block' }}
+                                    style={{verticalAlign: 'text-top', display: CountCategory(i) === '' ? 'none' : 'inline-block' }}
                                 >
                                     {CountCategory(i)}
                                 </b>

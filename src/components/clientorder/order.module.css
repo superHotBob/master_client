@@ -27,7 +27,9 @@
     margin: 16px 0 0;
     cursor: pointer;
 }
-
+.review  {
+    margin-top: 16px;
+}
 
 
 .data header span:first-of-type::before {
@@ -46,8 +48,9 @@
     margin: 16px 0 0;
 }
 .data .review span {
-    display: inline-block;
-    margin-top: 20px;
+    display: block;
+    margin-top: 5px;
+    text-transform: capitalize;
 }
 
 .data button {
