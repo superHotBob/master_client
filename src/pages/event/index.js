@@ -13,13 +13,13 @@ export default function Event() {
     const  status  = useSelector(state=>state.counter.profile['status'])
     const city = useSelector(state=>state.counter.city)
     const { data } = useSWR(`/api/get_events?city=${city.toLowerCase()}`)
-    console.log(status)
+    
 
     function My_Date(a) {        
         const message_date = new Date(+a)
         const current_date = new Date()
         if (message_date.getDate() === current_date.getDate()) {
-            return message_date.toLocaleDateString('ru-RU', options)
+            return message_date.toLocaleDateString('ru-RU', {  month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })
         }
         return message_date.toLocaleDateString('ru-RU', { month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })
     }

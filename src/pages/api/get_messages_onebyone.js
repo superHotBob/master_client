@@ -6,7 +6,7 @@ export default async function handler(req, res) {
 
  
 
-  if (req.query.abonent === 'администратор' || req.query.my_name === 'администратор') {   
+  if (req.query.abonent === 'администратор' || req.query.nikname === 'администратор') {   
     const admin = await sql`
       select * from  adminchat       
       where (sendler_nikname  =  ${req.query.nikname} and recipient_nikname = 'администратор') or 
@@ -15,23 +15,22 @@ export default async function handler(req, res) {
     ; 
     
     const date_reg = await sql`
-      select registration from clients
+      select registration 
+      from clients
       where nikname = ${req.query.nikname}
+      
     `
-    let dd = date_reg[0].registration + ''
-    // let d = new Date(dd)
    
+    // const dd = date_reg[0]['registration']
+    // let d = new Date(dd)
+  
     const subscribe = await sql`
         select * 
         from  adminchat
-        where (chat = 0 and recipient = ${req.query.status} or recipient = 'all') 
+        where chat = 0 and (recipient = ${req.query.status} or recipient = 'all') and ms_date > ${Date.parse(date_reg[0]['registration'])}
          
-    `
-
-   
-    
-   
-    const admin_subscribe = admin.concat(subscribe.filter(i=> +i.ms_date > Date.parse(dd)))
+    `   
+    const admin_subscribe = admin.concat(subscribe)
    
     if (subscribe.length > 0) {    
       res.status(200).json(admin_subscribe)
@@ -43,8 +42,7 @@ export default async function handler(req, res) {
       select * 
       from  chat
       where (sendler_nikname = ${req.query.abonent} and recipient_nikname =  ${req.query.nikname}  ) or (
-          recipient_nikname = ${req.query.abonent} and sendler_nikname =  ${req.query.nikname})
-                      
+      recipient_nikname = ${req.query.abonent} and sendler_nikname =  ${req.query.nikname})                      
     `
     if (result.length > 0) {
       res.status(200).json(result)

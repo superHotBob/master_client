@@ -26,19 +26,7 @@ export default function Chat() {
             return message_date.toLocaleDateString('ru-RU', options).slice(-5)
         }
         return message_date.toLocaleDateString('ru-RU', options)
-    }
-    // const NewMessage = (a, b, c) => {
-    //     if (c === name) { return false }
-    //     const myChat = JSON.parse(localStorage.getItem('chat'))
-
-    //     let time_last_message = (myChat ? myChat[c] ?? 0 : 0)
-
-    //     if (+a >= time_last_message) {
-    //         return true
-    //     } else {
-    //         return false
-    //     }
-    // }
+    }   
     return (
         <>
             <Header sel="/" text="Чаты" />
@@ -91,7 +79,6 @@ export default function Chat() {
                         </Link>
                     )}
                 </div>
-
             </section>
         </>
     )

@@ -8,7 +8,7 @@ const url = 'https://masters-client.onrender.com/'
 
 export default function MasterHeader({profile,slug}) {   
     // console.log(my_tema[profile.tema].color)
-    const [gradient, color, background] = my_tema[profile?.tema??0].color 
+    const [gradient, color, background] = my_tema[profile?.tema].color 
     const [viewText, setViewText] = useState(true)
     const [mapview, setmapview] = useState(false)
     return (
@@ -16,7 +16,7 @@ export default function MasterHeader({profile,slug}) {
         <section className={styles.section}>
             <div className={styles.image} style={{ background: gradient }}>
                  <div className={styles.image_master} 
-                    style={{backgroundImage: 'url(' + url + 'var/data/' + (profile?.nikname??slug) + '/main.jpg)' }}
+                    style={{backgroundImage: 'url(' + url + 'var/data/' + (profile?.nikname||slug) + '/main.jpg)' }}
                 />
 
                

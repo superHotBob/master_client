@@ -2,7 +2,7 @@ import Message from '@/components/message'
 import { useEffect, useState, useRef, forwardRef } from 'react'
 import Menu_icon from '../../components/icons/menu'
 import styles from './addlist.module.css'
-import { url } from '@/data.'
+import { url, my_tema } from '@/data.'
 import DatePicker from "react-datepicker";
 import useSWR from 'swr'
 
@@ -71,7 +71,7 @@ export default function AddList() {
        
         
         setnikname(prof.nikname)
-        setColor([...prof.color])
+        setColor([... my_tema[prof.tema].color])
         setServices(prof.services)
         settag(prof.services[0])
         fetch(`/api/get_images?nikname=${prof.nikname}`)
@@ -89,6 +89,11 @@ export default function AddList() {
 
 
     function SaveTag() {
+        if(my_ref.current.value.length < 5) {
+            setmessage('Слишком короткий! Минимум 10 букв')
+            setTimeout(() => setmessage(''), 2000)
+            return;
+        }
         fetch('/api/add_review_publication', {
             body: JSON.stringify({
                 id: activeImage,
@@ -100,11 +105,13 @@ export default function AddList() {
             method: 'post',
         })
             .then(res => {
-                setmessage('Коментарий сохранён')
+               my_ref.current.value
+               setmessage('Коментарий сохранён.')
                 setTimeout(() => setmessage(''), 2000)
             })
             .catch(err => console.log(err))
     }
+    
 
     async function selectUpload(e) {
         // e.preventDefault()
@@ -211,7 +218,9 @@ export default function AddList() {
                         rows={10}
                         style={{ borderColor: color[1] }}
                     />
-                    <button onClick={SaveTag} style={{ ...active, backgroundColor: color[1] }}>Сохранить</button>
+                    <button  onClick={SaveTag} style={{ ...active, backgroundColor: color[1] }}>
+                        Сохранить
+                    </button>
                 </label>
 
             </>

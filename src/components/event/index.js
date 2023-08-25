@@ -60,7 +60,7 @@ export default function Event({nikname,color}) {
     }
     if( data['event_id'] ) return <div className={styles.message}>
         У вас уже есть мероприятие. Удалите его , что-бы создать новое.
-        <Link href='/events' style={{ ...active, backgroundColor: color[1] }}>Посмотреть</Link>
+        <Link href='/event' style={{ ...active, backgroundColor: color[1] }}>Посмотреть</Link>
         <button onClick={DeleteEvent} style={{ ...active, backgroundColor: 'red' }}>Удалить</button>
         </div>
     return (

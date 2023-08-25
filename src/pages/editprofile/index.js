@@ -72,7 +72,7 @@ export default function EditProfile() {
             setName(pro.name),
             setText(pro.text),
             setCity(pro.city),
-            setCurrency(my_currency[current_symbol.indexOf(pro.currency)] ?? 'Белорусский рубль'),
+            setCurrency(my_currency[current_symbol.indexOf(pro.currency)] || 'Белорусский рубль'),
             setAddress(pro.address)
             setSelectedFile(process.env.url + 'var/data/' + pro.nikname + '/main.jpg')
             setAddress_full(address_full => ({ ...address_full, ...pro.address_full })),

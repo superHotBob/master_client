@@ -13,7 +13,7 @@ import Menu_icon from '@/components/icons/menu'
 import AddService from '@/components/addservise'
 import MasterHeader from '@/components/masterheader'
 import Reviews from '@/components/reviews'
-import { url } from '@/data.'
+import { my_tema } from '@/data.'
 import Lenta from '@/components/lenta'
 
 
@@ -38,12 +38,14 @@ export default function Client() {
     const [nav_view, setNavView] = useState('Лента')
     const [newSertificat, AddNewSertificat] = useState(false)
     const [lists, setlists] = useState()
+    const [tema, setTema] = useState(my_tema[0].color)
    
     useEffect(() => {
         const pro = JSON.parse(localStorage.getItem('profile'))
         // if (pro.nikname !== pid) {
         //     return () => router.push('/enter')
         // }
+        setTema(my_tema[pro?.tema].color)
         if (pro) {
             function GetLists() {
                 fetch(`/api/get_images?nikname=${pid}`)
@@ -56,31 +58,30 @@ export default function Client() {
             router.push('/enter')
         }
     }, [pid,router])
+    
 
-
-  
+    
 
 
 
     return (
         <>
             <Head><title>{pid}</title></Head>
-            <Header sel='back' text='Мой профиль' color={profile?.color} />
+            <Header sel='back' text='Мой профиль' color={tema} />
             <MasterHeader profile={profile} master={pid} />
             <nav className={styles.navigation} >
                 {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
-                    .map(i => <span key={i} onClick={() => setNavView(i)} style={nav_view === i ? { ...nav_active, background: profile?.color[1] } : null}>{i}</span>)}
+                    .map(i => <span key={i} onClick={() => setNavView(i)} style={nav_view === i ? { ...nav_active, background: tema[1] } : null}>{i}</span>)}
             </nav>
             {profile ? <>
                 <section className={styles.lenta}>
-
-                    <Message color={profile.color} text={text[nav_view]} page="masterprofile" />
+                    <Message color={my_tema[profile?.tema]} text={text[nav_view]} page="masterprofile" />
                     {nav_view === 'Услуги' ? <>
-                        <div onClick={() => setView(false)} className={styles.uslugi_plus} style={{ backgroundColor: profile.color[1] }}>
+                        <div onClick={() => setView(false)} className={styles.uslugi_plus} style={{ backgroundColor: tema[1] }}>
                             Редактировать категории и услуги
                         </div>
-                        <Services color={profile.color} name={pid} />
-                        <AddService view={view} setView={setView} color={profile.color} />
+                        <Services color={tema} name={pid} />
+                        <AddService view={view} setView={setView} color={tema} />
 
                     </> :
                     nav_view === 'Лента' ? <>
@@ -88,21 +89,21 @@ export default function Client() {
                             <Link
                                 href="/addlist"
                                 className={styles.addlist}
-                                style={{ color: profile.color[1], backgroundColor: profile.color[2] }}
+                                style={{ color: tema[1], backgroundColor:tema[2] }}
                             >Добавить публикацию +</Link>
                             <Link
                                 href="/displaypublications"
                                 className={styles.uslugi}
-                                style={{ color: profile.color[1], backgroundColor: profile.color[2] }}
+                                style={{ color: tema[1], backgroundColor: tema[2]}}
                             >
                                 Показ
-                                <Menu_icon type="dashboard" color={profile.color[1]} />
+                                <Menu_icon type="dashboard" color={tema[1]} />
                             </Link>
                         </div>                       
-                        <Lenta  nikname={pid} name={profile.name} color={profile.color} />
+                        <Lenta  nikname={pid} name={profile.name} color={tema} />
                     </> : 
                     nav_view === 'Сертификаты' ? <>
-                        <div onClick={() => AddNewSertificat(true)} className={styles.uslugi_plus} style={{ color: '#fff', backgroundColor: profile.color[1] }}>
+                        <div onClick={() => AddNewSertificat(true)} className={styles.uslugi_plus} style={{ color: '#fff', backgroundColor: tema[1] }}>
                             Добавить сетрификат +
                         </div>
                         <Sertificats nikname={pid}  nav={2}/>
@@ -110,10 +111,10 @@ export default function Client() {
 
 
                     </> :
-                    nav_view === 'Отзывы' ? <Reviews color={profile.color} nikname={profile.nikname} /> : null}
+                    nav_view === 'Отзывы' ? <Reviews color={tema} nikname={profile.nikname} /> : null}
                 </section>
-                <Navi color={profile.color[0]} />
+                <Navi color={my_tema[profile?.tema][0]} />
             </> : null}
-        </ >
+        </>
     )
 }

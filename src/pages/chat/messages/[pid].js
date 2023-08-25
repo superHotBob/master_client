@@ -50,9 +50,11 @@ export default function Messages() {
 
 
   
-    function Movie() {       
+    function Movie() {  
+        if( document.getElementById("section"))  {   
         const objDiv = document.getElementById("section");
         objDiv.scrollTop = objDiv.scrollHeight;
+        }
     }   
     function SendMessage() {
         const d = new Date()
