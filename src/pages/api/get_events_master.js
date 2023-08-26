@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   const result = await sql`
         select  date_event,event_id, event_text     
         from events 
-        where master_nikname = ${req.query.nikname}                 
+        where master_nikname = ${req.query.nikname}   and date_event >= ${Date.now()}              
       `
   if (result.length) {
     res.status(200).json(result[0])

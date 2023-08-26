@@ -45,7 +45,7 @@ export default function Client() {
         // if (pro.nikname !== pid) {
         //     return () => router.push('/enter')
         // }
-        setTema(my_tema[pro?.tema].color)
+        setTema(my_tema[+pro?.tema].color)
         if (pro) {
             function GetLists() {
                 fetch(`/api/get_images?nikname=${pid}`)
@@ -90,15 +90,15 @@ export default function Client() {
                             <Link
                                 href="/addlist"
                                 className={styles.addlist}
-                                style={{ color: tema[1], backgroundColor:tema[2] }}
+                                style={{ color: tema[2], backgroundColor:tema[1] }}
                             >Добавить публикацию +</Link>
                             <Link
                                 href="/displaypublications"
                                 className={styles.uslugi}
-                                style={{ color: tema[1], backgroundColor: tema[2]}}
+                                style={{ color: tema[2], backgroundColor: tema[1]}}
                             >
                                 Показ
-                                <Menu_icon type="dashboard" color={tema[1]} />
+                                <Menu_icon type="dashboard" color={tema[2]} />
                             </Link>
                         </div>                       
                         <Lenta  nikname={pid} name={profile.name} color={tema} />

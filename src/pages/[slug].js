@@ -21,7 +21,6 @@ const active = {
     color: "#fff",
     padding: '0 20px',
     fontWeight: 500
-
 }
 
 
@@ -30,16 +29,23 @@ export default function Master() {
     const router = useRouter()
     const { slug } = router.query
     const [message, setmessage] = useState(false)
-    const [nav_view, setNavView] = useState(0)   
+    const [nav_view, setNavView] = useState(0) 
+    const [color , setColor] = useState(my_tema[0].color)  
    
     const dispatch = useDispatch()
     const my_profile = useSelector(state => state.counter.profile)
     const service = useSelector(state=>state.counter.service)
    
 
-    const { data:profile } = useSWR(`/api/master?nikname=${slug}`,
-    {onSuccess:(profile)=> profile.status ? dispatch(setmaster({...profile,nikname: slug})) : router.push('/404')})
-    const [gradient, color, background] = my_tema[profile.tema].color
+    const { data:profile } = useSWR(slug ? `/api/master?nikname=${slug}` : null,
+    {onSuccess:(profile)=> profile.status ? 
+        (
+            setColor(my_tema[+profile.tema].color),
+            dispatch(setmaster({...profile,nikname: slug}))
+        ) 
+        : router.push('/404')
+    })
+    // const [gradient, color, background] = my_tema[profile.tema].color
     function LinkTo(a) {
         if (my_profile.status === 'client') {
             router.push(a)
@@ -48,6 +54,7 @@ export default function Master() {
             setmessage(true)
         }
     }
+    
     return (
         <>
             <Head><title>{slug}</title></Head>
@@ -70,16 +77,16 @@ export default function Master() {
                     : null
                 }
                 <div className={styles.buttons}>
-                    <div onClick={() => LinkTo(`/chat/messages/${slug}?name=${profile.name}`)} style={{ backgroundColor: background }} >
-                        <span style={{ color: color }} title="Отправить сообщение мастеру">
+                    <div onClick={() => LinkTo(`/chat/messages/${slug}?name=${profile.name}`)} style={{ backgroundColor: color[1] }} >
+                        <span style={{ color: color[2] }} title="Отправить сообщение мастеру">
                             Сообщения
                             <Menu_icon type="chat" color={color} />
                         </span>
                     </div>
                     <div onClick={() => LinkTo(`/recordingtomaster?nikname=${slug}&name=${profile.name}`)}
-                        style={{ backgroundColor: background }}
+                        style={{ backgroundColor:color[0] }}
                     >
-                        <span style={{ color: color }} title='Запись к мастеру'>
+                        <span style={{ color: color[1] }} title='Запись к мастеру'>
                             Запись к мастеру
                             <Menu_icon type="edit" color={color} />
                         </span>
@@ -87,11 +94,11 @@ export default function Master() {
                 </div>
                 <nav className={styles.navigation}>
                     {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
-                        .map((i, index) => <span key={i} onClick={() => setNavView(index)} style={nav_view === index ? { ...active, backgroundColor: color } : null}>{i}</span>)}
+                        .map((i, index) => <span key={i} onClick={() => setNavView(index)} style={+nav_view === index ? { ...active, backgroundColor: color[1] } : null}>{i}</span>)}
                 </nav>
-                {nav_view === 3 ? <Reviews nikname={slug} color={my_tema[profile?.tema]} /> :
-                    nav_view === 1 ? <Services name={slug} color={my_tema[profile?.tema]} nav={nav_view}/> :
-                        nav_view === 0 ? <Lenta nikname={slug} color={my_tema[profile?.tema]} name={profile?.name} /> :
+                {nav_view === 3 ? <Reviews nikname={slug} color={color} /> :
+                    nav_view === 1 ? <Services name={slug} color={color} nav={nav_view}/> :
+                        nav_view === 0 ? <Lenta nikname={slug} color={color} name={profile.name} /> :
                             <Sertificats nav={nav_view} nikname={slug} />}
             </section>: null}
            
