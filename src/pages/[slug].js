@@ -30,11 +30,8 @@ export default function Master() {
     const router = useRouter()
     const { slug } = router.query
     const [message, setmessage] = useState(false)
-    const [nav_view, setNavView] = useState(0)  
+    const [nav_view, setNavView] = useState(0)   
    
-    
-   
-    const [gradient, color, background] = my_tema[0].color
     const dispatch = useDispatch()
     const my_profile = useSelector(state => state.counter.profile)
     const service = useSelector(state=>state.counter.service)
@@ -42,7 +39,7 @@ export default function Master() {
 
     const { data:profile } = useSWR(`/api/master?nikname=${slug}`,
     {onSuccess:(profile)=> profile.status ? dispatch(setmaster({...profile,nikname: slug})) : router.push('/404')})
-   
+    const [gradient, color, background] = my_tema[profile.tema].color
     function LinkTo(a) {
         if (my_profile.status === 'client') {
             router.push(a)
@@ -54,22 +51,24 @@ export default function Master() {
     return (
         <>
             <Head><title>{slug}</title></Head>
-            <Header text={slug} sel={'/masternear/' + service} color={profile?.color} />
-            <MasterHeader profile={profile} slug={slug} />
+            {profile ? <Header text={slug} sel={'/masternear/' + service} col={my_tema[+profile.tema]} /> :null}
+            {profile ? <MasterHeader profile={profile} slug={slug} /> : null }
 
-            <section className={styles.section_main}>
-            {message ? <div  className={styles.dialog}>
-                     <div >
-                        <span onClick={() => setmessage(false)}>закрыть</span>
-                        <h4>
-                            Эта функция доступна только<br />
-                            зарегистрированным пользователям. Для<br />
-                            продолжения войдите или зарегистрируйте<br />
-                            аккаунт.
-                        </h4>
-                        <Link href="/enter">Войти</Link>
+            {profile ? <section className={styles.section_main}>
+                {message ? <div  className={styles.dialog}>
+                        <div >
+                            <span onClick={() => setmessage(false)}>закрыть</span>
+                            <h4>
+                                Эта функция доступна только<br />
+                                зарегистрированным пользователям. Для<br />
+                                продолжения войдите или зарегистрируйте<br />
+                                аккаунт.
+                            </h4>
+                            <Link href="/enter">Войти</Link>
+                        </div>
                     </div>
-                </div>: null}
+                    : null
+                }
                 <div className={styles.buttons}>
                     <div onClick={() => LinkTo(`/chat/messages/${slug}?name=${profile.name}`)} style={{ backgroundColor: background }} >
                         <span style={{ color: color }} title="Отправить сообщение мастеру">
@@ -94,7 +93,7 @@ export default function Master() {
                     nav_view === 1 ? <Services name={slug} color={my_tema[profile?.tema]} nav={nav_view}/> :
                         nav_view === 0 ? <Lenta nikname={slug} color={my_tema[profile?.tema]} name={profile?.name} /> :
                             <Sertificats nav={nav_view} nikname={slug} />}
-            </section>
+            </section>: null}
            
         </>
 

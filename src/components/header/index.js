@@ -26,7 +26,7 @@ const new_text_mes = {
 }
 
 
-export default function Header({ sel, text, mes, color = {}, select,view_time ,name}) {
+export default function Header({ sel, text, mes, col, select,view_time ,name}) {
   const profile = useSelector((state) => state.counter.profile)
   const { data } = useSWR(profile.status === 'master' ?
   `/api/get_new_orders_master?nikname=${profile.nikname}`
@@ -74,9 +74,9 @@ export default function Header({ sel, text, mes, color = {}, select,view_time ,n
         <div
           onClick={view_time ? ()=>select(true) : ToBack }
           className={styles.left__arrow}
-          style={{ backgroundColor: color[2] }}
+          style={{ backgroundColor: col?.color[2] }}
         >
-          <Menu_icon color={color[1] || '#3D4EEA'} />
+          <Menu_icon color={col?.color[1] || '#3D4EEA'} />
         </div>
         :
         <Image alt="Picture" src={arrow} className={styles.arrow} style={{ opacity: 0 }} width={20} height={20} />
@@ -110,10 +110,10 @@ export default function Header({ sel, text, mes, color = {}, select,view_time ,n
       <div
         className={styles.left__arrow}
         onClick={() => menuView(!menu)}
-        style={{ backgroundColor: menu ? color[1] || '#3D4EEA' : color[2]}}
+        style={{ backgroundColor: menu ? col?.color[1] || '#3D4EEA' : col?.color[2]}}
       >
         {data && !menu? <span className={styles.count}>{data}</span> : null}
-        <Menu_icon  color={menu ? color[2] || '#3D4EEA' : color[1] || '#3D4EEA'} type={menu ? 'close' : 'menu'} />
+        <Menu_icon  color={menu ? col?.color[2] || '#3D4EEA' : col?.color[1] || '#3D4EEA'} type={menu ? 'close' : 'menu'} />
       </div>     
       {menu ? <Menu  count={data} profile={profile} /> : null}
     </header>

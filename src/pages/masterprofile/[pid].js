@@ -67,13 +67,14 @@ export default function Client() {
     return (
         <>
             <Head><title>{pid}</title></Head>
+            {profile ? <>
             <Header sel='back' text='Мой профиль' color={tema} />
             <MasterHeader profile={profile} master={pid} />
             <nav className={styles.navigation} >
                 {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
                     .map(i => <span key={i} onClick={() => setNavView(i)} style={nav_view === i ? { ...nav_active, background: tema[1] } : null}>{i}</span>)}
             </nav>
-            {profile ? <>
+           
                 <section className={styles.lenta}>
                     <Message color={my_tema[profile?.tema]} text={text[nav_view]} page="masterprofile" />
                     {nav_view === 'Услуги' ? <>
