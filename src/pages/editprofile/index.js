@@ -53,7 +53,7 @@ export default function EditProfile() {
     const [loc, selectLoc] = useState(false)
     const { data } = useSWR('/api/get_cities')
    
-    console.log(my_tema.map(i=>i.color).indexOf(color))
+   
    
     function handleLocation(event) {  
         if(event.target.value !=='0'){  
@@ -106,7 +106,7 @@ export default function EditProfile() {
             locations: location,
             address_full: address_full
         }
-        const response = await fetch('/api/editprofilemaster', {
+        const response = await fetch('/api/edit_profile_master', {
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
@@ -117,7 +117,7 @@ export default function EditProfile() {
         const result = await response.json()
         localStorage.setItem("profile", JSON.stringify(result));
         dispatch(setprofile(result))
-        // setMessage('Ваш профиль изменён')
+     
         
     }
    

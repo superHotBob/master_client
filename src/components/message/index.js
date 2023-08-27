@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import { useState ,useEffect} from 'react'
 import Menu_icon from '../icons/menu'
 import styles from './message.module.css'
-import { useEffect } from 'react'
 
-export default function Message ({ text, page, color = ['','#3D4EEA','#ECEEFD'] }) {
+
+export default function Message ({ text, page, color = [] }) {
     const [view, close] = useState(true)
-    function Close() {
+    function closeMessage() {
         close(false)
         let mess =  JSON.parse(localStorage.getItem('message')) || {}
         
@@ -16,16 +16,16 @@ export default function Message ({ text, page, color = ['','#3D4EEA','#ECEEFD'] 
     useEffect(()=>{
      
       let mm =  JSON.parse(localStorage.getItem('message'))
-      if(mm) {
-        console.log(mm[page])
+      if(mm) {       
         close(mm[page] === false ? mm[page] : true)
       } else {
         return
       }
       
     },[])
+   
     return <>
-        {view ? <div className={styles.message} style={{color: color[1],background:color[2]}} onClick={Close}>
+        {view ? <div className={styles.message} style={{color: color[1],background:color[2]}} onClick={closeMessage}>
             {text}
             <Menu_icon color={color[1]}  type='close__message' />
         </div> : null}

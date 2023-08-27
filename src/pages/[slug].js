@@ -58,7 +58,7 @@ export default function Master() {
     return (
         <>
             <Head><title>{slug}</title></Head>
-            {profile ? <Header text={slug} sel={'/masternear/' + service} col={my_tema[+profile.tema]} /> :null}
+            {profile ? <Header text={slug} sel={'/masternear/' + service} col={color} /> :null}
             {profile ? <MasterHeader profile={profile} slug={slug} /> : null }
 
             {profile ? <section className={styles.section_main}>
@@ -78,17 +78,17 @@ export default function Master() {
                 }
                 <div className={styles.buttons}>
                     <div onClick={() => LinkTo(`/chat/messages/${slug}?name=${profile.name}`)} style={{ backgroundColor: color[1] }} >
-                        <span style={{ color: color[2] }} title="Отправить сообщение мастеру">
+                        <span title="Отправить сообщение мастеру">
                             Сообщения
-                            <Menu_icon type="chat" color={color} />
+                            <Menu_icon type="chat" color={color[2]} />
                         </span>
                     </div>
                     <div onClick={() => LinkTo(`/recordingtomaster?nikname=${slug}&name=${profile.name}`)}
-                        style={{ backgroundColor:color[0] }}
+                        style={{ backgroundColor:color[1] }}
                     >
-                        <span style={{ color: color[1] }} title='Запись к мастеру'>
+                        <span  title='Запись к мастеру'>
                             Запись к мастеру
-                            <Menu_icon type="edit" color={color} />
+                            <Menu_icon type="edit" color={color[2]} />
                         </span>
                     </div>
                 </div>

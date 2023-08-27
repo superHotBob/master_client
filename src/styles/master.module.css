@@ -44,6 +44,7 @@
 }
 .buttons div span {
     font-weight: 500;
+    color: #fff;
 }
 .buttons div span svg {
     transform: translate(4px,4px);

@@ -68,7 +68,7 @@ export default function Client() {
         <>
             <Head><title>{pid}</title></Head>
             {profile ? <>
-            <Header sel='back' text='Мой профиль' color={tema} />
+            <Header sel='back' text='Мой профиль' col={tema} />
             <MasterHeader profile={profile} master={pid} />
             <nav className={styles.navigation} >
                 {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
@@ -76,7 +76,7 @@ export default function Client() {
             </nav>
            
                 <section className={styles.lenta}>
-                    <Message color={my_tema[profile?.tema]} text={text[nav_view]} page="masterprofile" />
+                    <Message color={tema} text={text[nav_view]} page="masterprofile" />
                     {nav_view === 'Услуги' ? <>
                         <div onClick={() => setView(false)} className={styles.uslugi_plus} style={{ backgroundColor: tema[1] }}>
                             Редактировать категории и услуги

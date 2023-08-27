@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 import { setprofile } from '@/reduser'
 import Menu_icon from '../../components/icons/menu.js'
 import useSWR from 'swr'
+import { my_tema } from '@/data.'
 
 
 const new_text = {
@@ -26,40 +27,25 @@ const new_text_mes = {
 }
 
 
-export default function Header({ sel, text, mes, col, select,view_time ,name}) {
+export default function Header({ sel, text, mes, col = my_tema[0].color, select,view_time ,name}) {
   const profile = useSelector((state) => state.counter.profile)
+  const [menu, menuView] = useState(false)
   const { data } = useSWR(profile.status === 'master' ?
   `/api/get_new_orders_master?nikname=${profile.nikname}`
   : null, {loadingTimeout:3000})
+
   const dispatch = useDispatch()
   const router = useRouter()
+  
   useEffect(() => {
     let pro = JSON.parse(localStorage.getItem("profile"))
     if (!profile.status) {
       dispatch(setprofile(pro))
     }
-    // if (pro?.status === 'master') {
-    //   async function GetMasterOrders() {
-    //     const response = await fetch(`/api/get_orders_master?nikname=${pro.nikname}`, {
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         method: 'get',
-    //     })
-    //     const result = await response.json()
-    //     const new_result = [...result]
-    //     console.log(new_result)
-    //     // let month_result = new_result.filter(i => i.date_order.includes(months[month]))
-    //     // let flsd = month_result.map(i => +i.date_order.split(',')[0])
-    //     // set_false_days(flsd)
-    //     // setOrders(month_result)
-    //   }
-    //   GetMasterOrders()
-
-    // }
+   
   }, [profile.status, dispatch])
 
-  const [menu, menuView] = useState(false)
+  
 
   const ToBack = (e) => {
     e.stopPropagation()
@@ -74,9 +60,9 @@ export default function Header({ sel, text, mes, col, select,view_time ,name}) {
         <div
           onClick={view_time ? ()=>select(true) : ToBack }
           className={styles.left__arrow}
-          style={{ backgroundColor: col?.color[2] }}
+          style={{ backgroundColor: col[2] }}
         >
-          <Menu_icon color={col?.color[1] || '#3D4EEA'} />
+          <Menu_icon color={col[1] || '#3D4EEA'} />
         </div>
         :
         <Image alt="Picture" src={arrow} className={styles.arrow} style={{ opacity: 0 }} width={20} height={20} />
@@ -110,10 +96,10 @@ export default function Header({ sel, text, mes, col, select,view_time ,name}) {
       <div
         className={styles.left__arrow}
         onClick={() => menuView(!menu)}
-        style={{ backgroundColor: menu ? col?.color[1] || '#3D4EEA' : col?.color[2]}}
+        style={{ backgroundColor: menu ? col[1] || '#3D4EEA' : col[2]}}
       >
         {data && !menu? <span className={styles.count}>{data}</span> : null}
-        <Menu_icon  color={menu ? col?.color[2] || '#3D4EEA' : col?.color[1] || '#3D4EEA'} type={menu ? 'close' : 'menu'} />
+        <Menu_icon  color={menu ? col[2] || '#3D4EEA' : col[1] || '#3D4EEA'} type={menu ? 'close' : 'menu'} />
       </div>     
       {menu ? <Menu  count={data} profile={profile} /> : null}
     </header>

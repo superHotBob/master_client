@@ -7,7 +7,7 @@ export default async function handler(req, res) {
     const result = await sql`
         select nikname, name,stars,address, services,locations
         from users
-        where ${req.query.service} = ANY (services) and city = ${req.query.city} and blocked = '0'
+        where ${req.query.service} = ANY (services) and city = ${req.query.city} 
         order by rating DESC
    `
     if (result.length>0) {
