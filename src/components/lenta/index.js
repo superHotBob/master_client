@@ -7,10 +7,9 @@ import { useState } from 'react'
 import useSWR from 'swr'
 import ViewImage from '../viewimage'
 import { My_Date } from '@/profile'
-import { useSWRConfig } from 'swr' 
 
 export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2AF0)', '#3D4EEA', '#ECEEFD'], nikname, name }) {
-    const { cache, mutate, ...extraConfig } = useSWRConfig()
+    
     const [model, setViewText] = useState(false)
     const [view_image, viewImage] = useState(false)
     const [message, setMessage] = useState(false)
@@ -96,7 +95,7 @@ export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2A
                     <h4>Нужна модель бесплатно</h4>
                     <h4 className={styles.date}>{My_Date(events.date_event)}</h4>
                     <p className={styles.text}>{events.event_text}</p>
-                    <Link href="/" className={styles.add}>Подать заявку</Link>
+                    {profile.status === 'client' ? <Link href="/" className={styles.add}>Подать заявку</Link>: null}
                 </div>
             </div>
             : null}

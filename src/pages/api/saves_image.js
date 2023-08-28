@@ -7,7 +7,7 @@ export default async function handler(req, res) {
         update clients 
         set saved_image = ${req.body.image}    
         where nikname =  ${req.body.nikname}  
-        returning *      
+        returning id     
       `
   if (result.length > 0) {
     res.status(200).json(result[0])

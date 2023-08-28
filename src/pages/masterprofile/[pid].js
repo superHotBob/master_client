@@ -108,7 +108,7 @@ export default function Client() {
                             Добавить сетрификат +
                         </div>
                         <Sertificats nikname={pid}  nav={2}/>
-                        {newSertificat ? <AddSertificat setView={setView} color={profile.color} nikname={profile.nikname} view={AddNewSertificat} /> : null}
+                        {newSertificat ? <AddSertificat setView={setView} color={tema} nikname={profile.nikname} view={AddNewSertificat} /> : null}
 
 
                     </> :

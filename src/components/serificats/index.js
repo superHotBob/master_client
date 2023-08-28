@@ -12,7 +12,7 @@ export default function Sertificats({ nikname , nav}) {
 
 
 
-  function ViewImage(a) {
+  function viewBigImage(a) {
     viewImage(a)
    
   }
@@ -24,7 +24,7 @@ export default function Sertificats({ nikname , nav}) {
   }
 
   if (error) return <div>Сертификатов нет</div>
-  if (isLoading) return <h3 className={styles.upload_message}>Загрузка сертификатов...</h3>
+  if (isLoading) return <h4 className={styles.upload_message}>Загрузка сертификатов...</h4>
 
   return (
     <>
@@ -35,7 +35,7 @@ export default function Sertificats({ nikname , nav}) {
             alt="image"
            
             onClick={() => {
-              ViewImage(i)
+              viewBigImage(i)
               GetText(i)
             }}
             className={styles.image}
@@ -46,7 +46,7 @@ export default function Sertificats({ nikname , nav}) {
       {image ?
         <div className={styles.main__detail} >
           <div className={styles.detail} id={image + 'aaa'}>
-            <h3 onClick={() => viewImage()} />
+            <h3 onClick={() => viewBigImage()} />
             <img
               alt="my_image"
               src={url + '/var/data/' + nikname + '/' + image}

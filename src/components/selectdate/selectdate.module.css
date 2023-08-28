@@ -66,6 +66,7 @@
 }
 
 .days span,
+.days button,
 .time span {
     color: #3D4EEA;   
     justify-content: center;

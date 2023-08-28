@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { setorder } from '@/reduser'
 import { Convert_Date } from '@/profile'
+import { my_tema } from '@/data.'
 
 
 const activ_month = {
@@ -93,30 +94,20 @@ export default function Records() {
         setActive_Day()
     }
 
-    function NewOrderText(a) {
-        let date_order = a.split(',')
-        let mon = my_months.indexOf(date_order[1]) - 1
-        let d = new Date();
-        console.log(mon, d.getMonth())
-        if (mon >= d.getMonth() && +date_order[0] >= d.getDate()) {
-            return true
-        } else {
-            return false
-        }
-    }
+   
 
     return (
         <>
             {profile ? <>
-                <Header sel="/" text="Записи на сеанс" color={profile.color} />
+                <Header sel="/" text="Записи на сеанс" color={my_tema[+profile.tema].color} />
                 <div className={styles.selector}>
                     <span
                         onClick={() => setSelector(true)}
-                        style={selector ? { backgroundColor: profile.color[1], color: '#fff', fontWeight: 600 } : null}
+                        style={selector ? { backgroundColor: my_tema[+profile.tema].color[1], color: '#fff', fontWeight: 600 } : null}
                     >Записи на сеанс</span>
                     <span
                         onClick={() => setSelector(false)}
-                        style={selector ? null : { backgroundColor: profile.color[1], color: '#fff', fontWeight: 600 }}
+                        style={selector ? null : { backgroundColor: my_tema[+profile.tema].color[1], color: '#fff', fontWeight: 600 }}
                     >История записей</span>
                 </div>
                 {selector ?
@@ -136,7 +127,7 @@ export default function Records() {
                                     <span
                                         id={i}
                                         key={i}
-                                        style={+active_day === +i && Count(i) > 0 ? { backgroundColor: profile.color[1], color: '#fff' } : { backgroundColor: profile.color[2], color: profile.color[1] }}
+                                        style={+active_day === +i && Count(i) > 0 ? { backgroundColor: my_tema[+profile.tema].color[1], color: '#fff' } : { backgroundColor: my_tema[+profile.tema].color[2], color: my_tema[+profile.tema].color[1] }}
                                     >
                                         {i}
                                         {Count(i) > 0 ?
@@ -150,11 +141,11 @@ export default function Records() {
                         </div>
                         <p className={styles.all_records}>
                             Все записи на сеансы
-                            <span style={{ color: profile.color[1] }}>{active_day ? Convert_Date(` ${active_day},${my_months[month]},${'00:00'}`) : null}</span>
+                            <span style={{ color: my_tema[+profile.tema].color[1] }}>{active_day ? Convert_Date(` ${active_day},${my_months[month]},${'00:00'}`) : null}</span>
                         </p>
                         <Link
                             href={`/recordingtomaster?name=${profile.name}&nikname=${profile.nikname}`}
-                            style={{ backgroundColor: profile.color[1] }}
+                            style={{ backgroundColor: my_tema[+profile.tema].color[1] }}
                         >Добавить запись +</Link>
                         {orders?.map(i =>
                             <div
@@ -169,12 +160,12 @@ export default function Records() {
                                     <span>#{i.id}</span>
                                 </p>
                                 <h3>
-                                    <span style={{ color: profile.color[1] }}>
+                                    <span style={{ color: my_tema[+profile.tema].color[1] }}>
                                         {i.client === i.master ? <b>Мой заказ</b> : i.client_name}
                                     </span>
-                                    <span style={{ color: profile.color[1] }}>{i.price} BYN</span>
+                                    <span style={{ color: my_tema[+profile.tema].color[1] }}>{i.price} BYN</span>
                                 </h3>
-                                <h6 style={{ color: profile.color[1] }}>
+                                <h6 style={{ color: my_tema[+profile.tema].color[1] }}>
                                     {i.neworder.replace(/[0-9]/g, ' ').replace(/:/g, ' ')}
                                 </h6>
                             </div>
@@ -196,12 +187,12 @@ export default function Records() {
                                     <span>#{i.id}</span>
                                 </p>
                                 <h3>
-                                    <span style={{ color: profile.color[1] }}>
+                                    <span style={{ color: my_tema[+profile.tema].color[1] }}>
                                         {i.client_name || i.client}
                                     </span>
-                                    <span style={{ color: profile.color[1] }}>{i.price} BYN</span>
+                                    <span style={{ color: my_tema[+profile.tema].color[1] }}>{i.price} BYN</span>
                                 </h3>
-                                <h6 style={{ color: profile.color[1] }}>{i.neworder.replace(/[0-9]/g, '  ').replace(/:/g, ' ')}</h6>
+                                <h6 style={{ color: my_tema[+profile.tema].color[1] }}>{i.neworder.replace(/[0-9]/g, '  ').replace(/:/g, ' ')}</h6>
                             </div>
                         )}
 

@@ -140,7 +140,11 @@ export default function SelectDate({ name, price, order, close, nikname }) {
         setActive_Time()
         let m = my_months.findIndex(i => i === a)
         setMonth(m)
+        setPatern([])
     }
+    const  disabled = (a) => Date.parse(new Date(year, month-1, a)) < Date.parse(new Date())
+
+    
     return (
         <>           
             <h3 className={styles.date}>Ближайшие даты</h3>
@@ -176,25 +180,25 @@ export default function SelectDate({ name, price, order, close, nikname }) {
                 <div className={styles.days}>
                     {Array.from({ length: v }, (v, i) => i + 1).map(i => <span key={i} style={{ opacity: 0 }}>{i}</span>)}
                     {schedule?.map((i, index) =>
-                        <span
+                        <button
                             onClick={() => Set_Active_Day(i, Count(i), index)}
                             key={index}
                             style={active_day === index + 1 ? (Count(i) === 0 ? false_day : active) : null}
-
+                            disabled={disabled(index+1)}
                         >{index + 1}
                             <b
                                 className={styles.count}
                                 style={{ display: Count(i) ? 'inline-block' : 'none',
-                                 backgroundColor : !Count(i) ? null:  active_day === index + 1 ? '#8B95F2' : 'none' }}
+                                 backgroundColor : !Count(i) ? null:  active_day === index + 1 ? '#8B95F2' : '#3D4EEA' }}
                             >{Count(i)}</b>
 
-                        </span>
+                        </button>
                     )}
                     
                 </div>
 
             </div>
-            <h3 className={styles.date}>Свободное время</h3>
+            <h3 className={styles.date}>Свободное время {!schedule?.length ? 'отсувствует' : ''}</h3>
             <div className={styles.time}>
                 {patern?.map(i =>
                     <span
