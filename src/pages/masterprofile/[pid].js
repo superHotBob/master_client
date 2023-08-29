@@ -5,7 +5,8 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import Message from '@/components/message'
-import Navi from '@/components/navi'
+import { useDispatch } from 'react-redux'
+import { settema } from '@/reduser'
 import Services from '@/components/services'
 import Sertificats from '@/components/serificats'
 import AddSertificat from '@/components/addsertificat'
@@ -15,6 +16,7 @@ import MasterHeader from '@/components/masterheader'
 import Reviews from '@/components/reviews'
 import { my_tema } from '@/data.'
 import Lenta from '@/components/lenta'
+import { useSelector } from 'react-redux'
 
 
 const nav_active = ({
@@ -37,15 +39,17 @@ export default function Client() {
     const [profile, setProfile] = useState()
     const [nav_view, setNavView] = useState('Лента')
     const [newSertificat, AddNewSertificat] = useState(false)
-    const [lists, setlists] = useState()
-    const [tema, setTema] = useState(my_tema[0].color)
+    const [lists, setlists] = useState()    
+    const tema = useSelector(state=>state.counter.tema)
+    const dispatch = useDispatch()
    
     useEffect(() => {
         const pro = JSON.parse(localStorage.getItem('profile'))
         // if (pro.nikname !== pid) {
         //     return () => router.push('/enter')
         // }
-        setTema(my_tema[+pro?.tema].color)
+        // setTema(my_tema[+pro?.tema].color)
+        dispatch(settema(my_tema[+pro?.tema].color))
         if (pro) {
             function GetLists() {
                 fetch(`/api/get_images?nikname=${pid}`)
@@ -57,6 +61,7 @@ export default function Client() {
         } else {
             router.push('/enter')
         }
+        return ()=>dispatch(settema(my_tema[0].color))
     }, [pid,router])
     
 
@@ -114,7 +119,7 @@ export default function Client() {
                     </> :
                     nav_view === 'Отзывы' ? <Reviews color={tema} nikname={profile.nikname} /> : null}
                 </section>
-                <Navi color={my_tema[profile?.tema][0]} />
+                
             </> : null}
         </>
     )

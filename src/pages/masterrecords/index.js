@@ -131,7 +131,9 @@ export default function Records() {
                                     >
                                         {i}
                                         {Count(i) > 0 ?
-                                            <b style={{ backgroundColor: +active_day === +i ? '#8B95F2' : '#3D4EEA', color: '#fff', display: Count(i) ? 'inline-block' : 'none' }} className={styles.count}>
+                                            <b style={{ backgroundColor: +active_day === +i ? my_tema[+profile.tema].color[2] : my_tema[+profile.tema].color[1], 
+                                            color: +active_day === +i ? my_tema[+profile.tema].color[1]: '#fff', 
+                                            display: Count(i) ? 'inline-block' : 'none' }} className={styles.count}>
                                                 {Count(i)}
                                             </b>
                                             : null}

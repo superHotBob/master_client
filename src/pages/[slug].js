@@ -5,7 +5,7 @@ import styles from '../styles/master.module.css'
 import Header from '@/components/header'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setmaster } from '@/reduser'
+import { setmaster, settema } from '@/reduser'
 import Reviews from '@/components/reviews'
 import Services from '@/components/services'
 import Lenta from '@/components/lenta'
@@ -15,6 +15,7 @@ import Link from 'next/link'
 import MasterHeader from '@/components/masterheader'
 import { my_tema } from '@/data.'
 import useSWR from 'swr'
+import { useEffect } from 'react'
 
 
 const active = {
@@ -36,12 +37,15 @@ export default function Master() {
     const my_profile = useSelector(state => state.counter.profile)
     const service = useSelector(state=>state.counter.service)
    
-
+    useEffect(()=>{ console.log('gdf')
+    return ()=>dispatch(settema(my_tema[0].color))},
+    [])
     const { data:profile } = useSWR(slug ? `/api/master?nikname=${slug}` : null,
     {onSuccess:(profile)=> profile.status ? 
         (
             setColor(my_tema[+profile.tema].color),
-            dispatch(setmaster({...profile,nikname: slug}))
+            dispatch(setmaster({...profile,nikname: slug})),
+            dispatch(settema(my_tema[+profile.tema].color))
         ) 
         : router.push('/404')
     })

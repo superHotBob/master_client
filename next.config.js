@@ -6,7 +6,8 @@ const config = {
     unoptimized: true
   },
   env: {
-    url:  'https://masters-client.onrender.com/',    
+    url:  'https://masters-client.onrender.com/', 
+    url_image: 'https://masters-client.onrender.com/var/data/'
   }
 }
 const nextConfig = withPWA({

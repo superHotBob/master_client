@@ -5,7 +5,6 @@ import {  useSelector } from 'react-redux'
 import FilterServices from '@/components/filterServices'
 import Message from '@/components/message'
 import ViewImage from '@/components/viewimage'
-const url_image = 'https://masters-client.onrender.com/var/data/'
 import Header from '@/components/header'
 
 export default function Home() {  
@@ -17,17 +16,11 @@ export default function Home() {
  
   const ref = useRef(null)
   
-  const servref = useRef(service)
- 
- 
-  
-  
-  
+  const servref = useRef(service)  
  
   const [scrollTop, setScrollTop] = useState(0);
   
-  useEffect(()=>{  
-   
+  useEffect(()=>{   
     if(servref.current != service) {     
       setdata([])
       setScrollTop(0)
@@ -71,9 +64,9 @@ export default function Home() {
                 alt="abc"
                 key={i.id}
                 id={i.id}
-                onClick={() => View(i.nikname, process.env.url + 'var/data/' + i.nikname + '/' +  i.id + '.jpg', i.master_name, i.review, i.img_date)}
+                onClick={() => View(i.nikname, process.env.url_image + i.nikname + '/' +  i.id + '.jpg', i.master_name, i.review, i.img_date)}
                 loading={index > 3 ? 'lazy': 'eager'}              
-                src={process.env.url + 'var/data/' + i.nikname + '/' +  i.id + '.jpg' }
+                src={process.env.url_image + i.nikname + '/' +  i.id + '.jpg' }
                 title={i.master_name}
               />
             )}
@@ -84,16 +77,25 @@ export default function Home() {
                 alt="abc"
                 key={i.id}
                 id={i.id}
-                onClick={() => View(i.nikname, process.env.url + 'var/data/' + i.nikname + '/' +  i.id + '.jpg', i.master_name, i.review, i.img_date)}
-                loading={index > 3 ? 'lazy': 'eager'}   
+                onClick={() => View(i.nikname, process.env.url_image + i.nikname + '/' +  i.id + '.jpg', i.master_name, i.review, i.img_date)}
+                loading={index > 3 ? 'lazy': 'eager'} 
                 
-                src={process.env.url + 'var/data/' + i.nikname + '/' +  i.id + '.jpg' }
+                src={process.env.url_image + i.nikname + '/' +  i.id + '.jpg' }
                 title={i.master_name}
               />
             )}
           </div>
         </div>        
-        {view_image ? <ViewImage service={service} view_image={view_image} url_image={url_image} viewImage={viewImage} />:null}
+        {view_image ? 
+          <ViewImage 
+            service={service} 
+            view_image={view_image} 
+            url_image={process.env.url_image} 
+            viewImage={viewImage} 
+          />
+        :
+          null
+        }
       </section>      
     </>
   )

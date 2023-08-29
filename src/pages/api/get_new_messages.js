@@ -13,10 +13,16 @@ export default async function handler(req, res) {
         from  adminchat       
         where recipient_nikname = ${req.query.nikname} and read = false               
       `
+  const admin_all = await sql`
+      select MIN(ms_date) 
+      from  adminchat       
+      where recipient_nikname = ${req.query.nikname} 
+    `
+  
   const subscribe = await sql`
       select COUNT(*) 
       from  adminchat       
-      where chat = 0  and read = false and (recipient = ${req.query.status} or recipient = 'all')              
+      where chat = 0 and ms_date > ${admin_all[0].min}  and read = false and (recipient = ${req.query.status} or recipient = 'all')              
     `
   const result = +admin[0].count + +client[0].count + +subscribe[0].count
   console.log(+client[0].count, +admin[0].count, subscribe[0].count)

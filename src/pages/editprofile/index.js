@@ -12,6 +12,8 @@ import Link from 'next/link'
 
 import { my_tema } from '@/data.'
 
+const  url = 'https://masters-client.onrender.com/'
+
 const active_currency = {
     backgroundColor: '#3D4EEA',
     color: '#fff',
@@ -51,7 +53,7 @@ export default function EditProfile() {
     const [address, setAddress] = useState()
     const [address_full, setAddress_full] = useState()
     const [loc, selectLoc] = useState(false)
-    const { data } = useSWR('/api/get_cities')
+    const { data } = useSWR(master_address ? '/api/get_cities':null)
    
    
    
@@ -74,7 +76,7 @@ export default function EditProfile() {
             setCity(pro.city),
             setCurrency(my_currency[current_symbol.indexOf(pro.currency)] || 'Белорусский рубль'),
             setAddress(pro.address)
-            setSelectedFile(process.env.url + 'var/data/' + pro.nikname + '/main.jpg')
+            setSelectedFile(process.env.url_image + pro.nikname + '/main.jpg')
             setAddress_full(address_full => ({ ...address_full, ...pro.address_full })),
             setNikname(pro.nikname),
             setColor(pro.tema ? my_tema[+pro.tema].color : my_tema[0].color)
@@ -86,7 +88,7 @@ export default function EditProfile() {
         setName(pro.name),
         setText(pro.text),
         setCurrency('Белорусский рубль')
-        setSelectedFile(process.env.url + 'var/data/' + pro.nikname + '/main.jpg')
+        setSelectedFile(process.env.url_image + pro.nikname + '/main.jpg')
         setAddress(pro.address),
         setNikname(pro.nikname),
         setColor(pro.color)
@@ -117,11 +119,11 @@ export default function EditProfile() {
         const result = await response.json()
         localStorage.setItem("profile", JSON.stringify(result));
         dispatch(setprofile(result))
-     
+        // setMessage('Ваш профиль изменён')
         
     }
    
-    function SelectUpload(e) {        
+    function selectUpload(e) {        
         let url = URL.createObjectURL(e.target.files[0])
         setSelectedFile(url)
         set_file_for_upload(e.target.files[0])
@@ -133,11 +135,11 @@ export default function EditProfile() {
     function UploadToServer() {        
         let data = new FormData()
         data.append('file', file_for_upload, 'main.jpg')
-        fetch(`${url}/upl?name=${profile.nikname}`, {
+        fetch(`${url}upl?name=${profile.nikname}`, {
             body: data,
             method: 'post',
         }).then(res => console.log('file is good'))
-        setSelectedFile(process.env.url + 'var/data/' + profile.nikname + '/main.jpg')
+        setSelectedFile(process.env.url_image + profile.nikname + '/main.jpg')
     }
     return (
         <main className={styles.main}>
@@ -169,7 +171,7 @@ export default function EditProfile() {
                         type="file"
                         name="image"
                         style={{ transform: 'translateY(-106px)' }}
-                        onChange={(e) => SelectUpload(e)}
+                        onChange={selectUpload}
                         accept=".jpg"
                     />
                 </form>
@@ -324,9 +326,9 @@ export default function EditProfile() {
                                         {i}
                                     </span>
 
-                                    {index === 0 && <span className={styles.img_currency} style={{ fontSize: 20, color: currency === i ? '#fff' : '#000' }}>BYN</span>}
-                                    {index === 1 && <span className={styles.img_currency} style={{ fontSize: 20, color: currency === i ? '#fff' : '#000' }}>₽</span>}
-                                    {index === 2 && <span className={styles.img_currency} style={{ fontSize: 20, color: currency === i ? '#fff' : '#000' }}>₸</span>}
+                                    {index === 0 && <span className={styles.img_currency} style={{  color: currency === i ? '#fff' : '#000' }}>BYN</span>}
+                                    {index === 1 && <span className={styles.img_currency} style={{  color: currency === i ? '#fff' : '#000' }}>₽</span>}
+                                    {index === 2 && <span className={styles.img_currency} style={{  color: currency === i ? '#fff' : '#000' }}>₸</span>}
 
                                 </div>
                             )}
