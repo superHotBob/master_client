@@ -25,6 +25,7 @@
   .section h4::first-letter {
     text-transform: capitalize;
   }
+ 
   .image .image_master {
     border-radius: 100%;
     transform: translateY(50px);
@@ -103,18 +104,18 @@
     height: 100px;
    
     border-radius: 20px;
-    background-size: 400% 400%;
-    animation: gradient 22s ease infinite;
+   
+	  animation: gradient 20s reverse linear infinite; 
   }
 
-  @keyframes gradient-bg {
+  @keyframes gradient {
     0% {
-      background-position: 0% 50%;
+      background-position: 0%;
     }
     50% {
-      background-position: 100% 50%;
+      background-position: 100%;
     }
     100% {
-      background-position: 0% 50%;
+      background-position: 200%;
     }
   }

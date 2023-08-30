@@ -3,7 +3,7 @@ import Menu_icon from '../icons/menu'
 import styles from './message.module.css'
 
 
-export default function Message ({ text, page, color = [] }) {
+export default function Message ({ text, page, color = ['linear-gradient(to left, #3D4EEA, #5E2AF0)', '#3D4EEA', '#ECEEFD'] }) {
     const [view, close] = useState(true)
     function closeMessage() {
         close(false)

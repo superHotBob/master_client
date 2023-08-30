@@ -8,8 +8,7 @@ import home_wh from '../../../public/home_wh.svg'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
-import { useSWRConfig } from 'swr'
-
+import { usePathname } from 'next/navigation'
 
 const active = {
     backgroundColor: '#fff',
@@ -29,26 +28,40 @@ const saved = {
     width: '46px',
     backgroundPosition: 'center',
 }
+const chat = {
+    backgroundColor: '#fff',
+    backgroundImage: 'url("/message_active.svg")',
+    width: '46px',
+    backgroundPosition: 'center',
+}
 
 export default function Navi({ save, color }) {
     const [height, setHeight] = useState('700px')
     const prof = useSelector(state => state.counter.profile)
     const tema = useSelector(state => state.counter.tema)
-    const router = useRouter()  
-    const { cache } = useSWRConfig()
-    console.log(tema)
+    const router = useRouter()
+    const pathname = usePathname()  
+    
+    
     useEffect(() => setHeight(window.innerHeight - 70 + 'px'), [])
     
     return (        
         <div className={styles.total} style={{ top: height}}>
             <div className={styles.main} style={{ background: tema[0]}}>
                 <Link title='главная страница' href="/" className={router.asPath === '/' ? styles.home : styles.dashboard}>
-                    <Image alt="home" src={router.asPath === '/' ? home : home_wh} height={20} width={20} />
+                    <Image alt="home" src={pathname === '/' ? home : home_wh} height={20} width={20} />
                 </Link>
                 <Link title="каталог" href="/catalog" className={router.asPath.includes('catalog') ? styles.home : styles.dashboard}>
                     <Image alt="catalog" src={router.asPath.includes('catalog') ? dashboard_bl : dashboard} height={20} width={20} />
                 </Link>
-                {prof.status  ?<Link href="/chat" title="чат" className={styles.message} />:null}
+                {prof.status ? 
+                    <Link 
+                        href="/chat" 
+                        title="чат" 
+                        className={styles.message} 
+                        style={pathname === '/chat' ?  chat : null}
+                    /> : 
+                null}
                 {prof.status === 'client' ?
                     <Link
                         href={'/clientprofile/' + prof.nikname }

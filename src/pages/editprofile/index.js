@@ -91,7 +91,7 @@ export default function EditProfile() {
         setSelectedFile(process.env.url_image + pro.nikname + '/main.jpg')
         setAddress(pro.address),
         setNikname(pro.nikname),
-        setColor(pro.color)
+        setColor(my_tema[+pro.tema].color)
         router.push(`/${pro.nikname}`)
     }
     const EditMaster = async () => {

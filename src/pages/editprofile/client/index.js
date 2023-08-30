@@ -90,7 +90,7 @@ export default function EditProfile() {
     function UploadToServer() {
         let data = new FormData()       
         data.append('file', file_for_upload, 'main.jpg')
-        fetch(`${url}/upl?name=${my_profile.nikname}`, {
+        fetch(`${process.env.url}upl?name=${my_profile.nikname}`, {
             body: data,
             method: 'post',
         }).then(res => console.log('file is good'))

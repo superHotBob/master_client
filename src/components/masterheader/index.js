@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Location from '../location'
 import { my_tema } from '@/data.'
 
-const url = 'https://masters-client.onrender.com/'
+
 
 export default function MasterHeader({ profile, slug }) {   
     const [gradient, color, background] = my_tema[+profile.tema].color
@@ -13,9 +13,9 @@ export default function MasterHeader({ profile, slug }) {
     return (
         <>
             <section className={styles.section}>
-                <div className={styles.image} style={{ background: gradient }}>
+                <div className={styles.image} style={{ background: gradient,backgroundSize: '200%' }}>
                     <div className={styles.image_master}
-                        style={{ backgroundImage: 'url(' + url + 'var/data/' + (profile?.nikname || slug) + '/main.jpg)' }}
+                        style={{ backgroundImage: 'url(' + process.env.url_image + (profile?.nikname || slug) + '/main.jpg)' }}
                     />
                 </div>
                 <p className={styles.name_stars}>
