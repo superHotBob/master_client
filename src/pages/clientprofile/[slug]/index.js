@@ -12,25 +12,19 @@ const sel = {
     color: '#fff'
 }
 export default function Client() {
-    const router = useRouter()    
+    const router = useRouter()
     const { slug } = router.query
     const profile = useSelector((state) => state.counter.profile)
     const [data, setData] = useState([])
 
     useEffect(() => {
-        const GetId = async () => {
-            const data = await fetch(`/api/get_saved_image?nikname=${slug}`)
-                .then(res => res.json())
-                .then(res => res)
-
-            data.forEach(i => {
-                fetch(`/api/get_image_id?id=${i}`)
-                .then(res => res.json())
-                .then(res => setData(data => [...data, ...res]))
-            });
-        }
-        GetId()
-    }, [slug])
+        let pro = JSON.parse(localStorage.getItem('profile'))
+        pro.saved_image.forEach(i => {
+            fetch(`/api/get_image_id?id=${i}`)
+            .then(res => res.json())
+            .then(res => setData(data => [...data, ...res]))
+        })
+    }, [])
 
 
     function goToMaster(a) {
@@ -61,7 +55,7 @@ export default function Client() {
         <>
             <Header text={profile.nikname} sel="back" />
             <div className={styles.profile}>
-                <img src={process.env.url + 'var/data/' + slug + '/main.jpg'} alt="client" height={50} />
+                <img src={process.env.url_image + slug + '/main.jpg'} alt="client" height={50} />
                 <h2>{profile.name}</h2>
                 <p>{profile.text}</p>
             </div>
@@ -83,7 +77,7 @@ export default function Client() {
                                 onClick={() => goToMaster(i.nikname)}
                                 alt="image"
                                 onLoad={() => loaded(i.id)}
-                                src={process.env.url + 'var/data/' + i.nikname + '/' + i.id + '.jpg'}
+                                src={process.env.url_image + i.nikname + '/' + i.id + '.jpg'}
                             />
                             <span
                                 className={styles.save__image}
@@ -100,7 +94,7 @@ export default function Client() {
                                 title={'Master ' + i.nikname}
                                 onClick={() => goToMaster(i.nikname)}
                                 alt="image"
-                                src={process.env.url + 'var/data/' + i.nikname + '/' + i.id + '.jpg'}
+                                src={process.env.url_image + i.nikname + '/' + i.id + '.jpg'}
                                 onLoad={() => loaded(i.id)}
                             />
                             <span

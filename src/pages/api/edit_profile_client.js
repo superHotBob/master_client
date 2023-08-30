@@ -19,6 +19,12 @@ export default async function handler(req, res) {
     set recipient = ${client.name}    
     where recipient_nikname =  ${client.nikname}    
   `
+  await sql`
+    update chat
+    set recipient = ${client.name},
+    set sendler =  ${client.name}
+    where recipient_nikname =  ${client.nikname} or  sendler_nikname =  ${client.nikname}  
+  `
  
   if (new_client.length > 0) {
     res.status(200).json(new_client[0])
