@@ -142,7 +142,7 @@ export default function EditProfile() {
         setSelectedFile(process.env.url_image + profile.nikname + '/main.jpg')
     }
     return (
-        <main className={styles.main}>
+        <>
             <header className={styles.header}>
                 <dialog
                     onClick={() => setMessage()}
@@ -335,6 +335,6 @@ export default function EditProfile() {
                         </div>
                     </div> : null}
             
-        </main>
+        </>
     )
 }
