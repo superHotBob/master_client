@@ -78,8 +78,7 @@ export default function Home() {
                 key={i.id}
                 id={i.id}
                 onClick={() => View(i.nikname, process.env.url_image + i.nikname + '/' +  i.id + '.jpg', i.master_name, i.review, i.img_date)}
-                loading={index > 3 ? 'lazy': 'eager'} 
-                
+                loading={index > 3 ? 'lazy': 'eager'}                 
                 src={process.env.url_image + i.nikname + '/' +  i.id + '.jpg' }
                 title={i.master_name}
               />

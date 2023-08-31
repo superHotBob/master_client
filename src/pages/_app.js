@@ -23,10 +23,14 @@ const my_path = ['informations', 'informations/aboutservice',
   'confirmation',
   'addlist',
   'calendar',
-  'master',
-  'masterprofile', 'city', 'masternear', 'masternear/city', 'editprofile', 'addmasterorder']
+   'city', 'masternear', 'masternear/city', 'editprofile', 'addmasterorder']
 export default function MyApp({ Component, pageProps }) {
   const router = useRouter()
+  const { slug } = router.query
+ 
+  if(slug ) {
+    my_path.push(slug)
+  }
  
   return (
     <SWRConfig value={{ provider: () => new Map(),

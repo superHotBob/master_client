@@ -42,12 +42,12 @@ export default function Navi({ save, color }) {
     const router = useRouter()
     const pathname = usePathname()  
     
-    
+   
     useEffect(() => setHeight(window.innerHeight - 70 + 'px'), [])
     
     return (        
-        <div className={styles.total} style={{ top: height}}>
-            <div className={styles.main} style={{ background: tema[0]}}>
+        <div className={styles.total} style={{ top: height }}>
+            <div className={styles.main_navi} style={{ backgroundImage: tema[0],backgroundSize: '200%'}}>
                 <Link title='главная страница' href="/" className={router.asPath === '/' ? styles.home : styles.dashboard}>
                     <Image alt="home" src={pathname === '/' ? home : home_wh} height={20} width={20} />
                 </Link>

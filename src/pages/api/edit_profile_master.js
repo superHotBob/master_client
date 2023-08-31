@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     const result_master = await sql`
       update users set ${sql(master, 'city', 'name','address', 'text', 'nikname','currency','address_full','locations','tema')}    
       where nikname =  ${master.nikname}
-      returning nikname,name,text,currency,address,city,tema,locations, stars
+      returning nikname,name,text,currency,status,address,city,tema,locations, stars
     `
     await sql`
         update clients 

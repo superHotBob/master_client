@@ -1,6 +1,6 @@
 import styles from './order.module.css'
 import { useRouter } from 'next/router'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import useSWR from 'swr'
 import { Convert_Date, NewOrder } from '@/profile'
 
@@ -20,7 +20,7 @@ export default function Order() {
     }, [])
    
     async function DeleteOrder() {
-        const my_data = { id: order.id }
+        const my_data = { id: order.id, nikname: order.master }
         const response = await fetch('/api/delete_order', {
             body: JSON.stringify(my_data),
             headers: {
@@ -57,7 +57,7 @@ export default function Order() {
             },
             method: 'POST',
         })
-            .then(res => router.push('/masterrecords'))
+        .then(res => router.push('/masterrecords'))
 
     }
 

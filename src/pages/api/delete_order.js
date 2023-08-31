@@ -10,6 +10,17 @@ export default async function handler(req, res) {
     returning *
   `
 
+  await sql`
+  update clients 
+  set rating = rating - 1
+  where nikname = ${req.body.nikname}
+`
+ await sql`
+  update users 
+  set rating = rating - 1
+  where nikname = ${req.body.nikname}
+`
+
   if (result.length > 0) {
     res.end('Заказ удален')
   } else {

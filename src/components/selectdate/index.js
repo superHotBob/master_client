@@ -99,7 +99,7 @@ export default function SelectDate({ name, price, order, close, nikname }) {
     // }
 
     function Count(a) {       
-        return a ? a.split(',').length : null
+        return a ? a.split(',').filter(i=>i).length : null
     }
     function Set_Active_Day(a, b, index) {
         if (!b) {
@@ -189,7 +189,7 @@ export default function SelectDate({ name, price, order, close, nikname }) {
                             <b
                                 className={styles.count}
                                 style={{ display: Count(i) ? 'inline-block' : 'none',
-                                 backgroundColor : !Count(i) ? null:  active_day === index + 1 ? '#8B95F2' : '#3D4EEA' }}
+                                backgroundColor : !Count(i) ? null:  active_day === index + 1 ? '#8B95F2' : '#3D4EEA' }}
                             >{Count(i)}</b>
 
                         </button>
@@ -200,7 +200,7 @@ export default function SelectDate({ name, price, order, close, nikname }) {
             </div>
             <h3 className={styles.date}>Свободное время {!schedule?.length ? 'отсувствует' : ''}</h3>
             <div className={styles.time}>
-                {patern?.map(i =>
+                {patern?.filter(i=>i).map(i =>
                     <span
                         onClick={() => Set_Active_Time(i)}
                         key={i}

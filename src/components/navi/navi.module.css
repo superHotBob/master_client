@@ -1,27 +1,29 @@
 .total {
-    position: fixed;    
+    position: fixed;
     width: 100%;
     max-width: 500px;
-    z-index: 100;   
+    z-index: 100;
+    border-radius: 30px;
+   
 }
-.main {
+
+.main_navi {
     margin: 0 auto;
-    background: linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%);
-    border-radius: 30px;
     height: 58px;
-    display: block;
-    width: fit-content;
+    width: fit-content;    
     border-radius: 30px;
+    background: linear-gradient(90deg, #3D4EEA 0%, #3D4EEA 100%);
+    background-size: 200%;
     padding: 6px 3px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    animation: gradient 15s reverse linear infinite;
 }
 
 .enter {
     height: 46px;
-    width: 72px;   
+    width: 72px;
     font-weight: 500;
     font-size: 16px;
     line-height: 29px;
@@ -35,12 +37,16 @@
 
 
 }
+
 .message {
-    background-image: url('/message.svg');   
+    background-image: url('/message.svg');
 }
 
 
-.dashboard, .home , .message, .stroke {
+.dashboard,
+.home,
+.message,
+.stroke {
     height: 46px;
     width: 46px;
     background-size: 50%;
@@ -50,13 +56,32 @@
     text-align: center;
     margin: 0 3px;
 }
+
 .stroke {
-    background-image: url('/stroke.svg');  
-    background-size: 30%; 
+    background-image: url('/stroke.svg');
+    background-size: 30%;
 }
+
 .home {
     background-color: #fff;
 }
-.dashboard img , .home img{
+
+.dashboard img,
+.home img {
     margin-top: 13px;
+}
+
+
+@keyframes gradient {
+    0% {
+        background-position: 0%;
+    }
+
+    50% {
+        background-position: 100%;
+    }
+
+    100% {
+        background-position: 200%;
+    }
 }

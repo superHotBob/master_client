@@ -20,7 +20,7 @@ export default function MasterHeader({ profile, slug }) {
                 </div>
                 <p className={styles.name_stars}>
                     <span >{profile?.name}</span>
-                    <span className={styles.pro} style={{ background: gradient }}>MASTER</span>
+                    <span className={styles.pro} style={{ background: gradient,backgroundSize: '200%' }}>MASTER</span>
                     {profile?.stars === '0.0' ? null : <span
                         className={styles.stars}
                         style={{ color: color, backgroundColor: background }}
