@@ -1,0 +1,25 @@
+.info {
+    display: block;
+    color: #3D4EEA;
+    font-weight: 400;
+    font-size:  16px;
+    line-height:  28px;
+    text-align: left;
+}
+
+.information  {
+    font-weight: 500;
+    color: #3D4EEA;
+    font-size:  16px;
+    line-height:  26px;
+    margin: 16px 0;
+    text-align: left;
+}
+
+.agreement {
+    font-weight: 400;
+    font-size:  10px;
+    line-height:  15px;
+    margin: 25px 0 80px;
+    display: block;
+}

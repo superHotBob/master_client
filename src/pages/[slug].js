@@ -17,6 +17,7 @@ import { my_tema } from '@/data.'
 import useSWR from 'swr'
 import { useEffect } from 'react'
 import Navi from '@/components/navi'
+import Information from '@/components/information'
 
 
 const active = {
@@ -31,7 +32,7 @@ export default function Master() {
     const router = useRouter()
     const { slug } = router.query
     const [message, setmessage] = useState(false)
-    const [nav_view, setNavView] = useState(0)
+    const [nav_view, setNavView] = useState(10)
     const [color, setColor] = useState(my_tema[0].color)
 
     const dispatch = useDispatch()
@@ -39,20 +40,21 @@ export default function Master() {
     const service = useSelector(state => state.counter.service)
 
     useEffect(() => {
-        console.log('gdf')
+        setNavView(0)
         return () => dispatch(settema(my_tema[0].color))
     }, [])
     const { data: profile } = useSWR(slug ? `/api/master?nikname=${slug}` : null,
         {
             onSuccess: (profile) => profile.status ?
                 (
-                    setColor(my_tema[+profile.tema].color),
+                    
                     dispatch(setmaster({ ...profile, nikname: slug })),
-                    dispatch(settema(my_tema[+profile.tema].color))
+                    dispatch(settema(my_tema[+profile.tema].color)),
+                    setColor(my_tema[+profile.tema].color)
                 )
                 : router.push('/404')
         })
-    // const [gradient, color, background] = my_tema[profile.tema].color
+  
     function LinkTo(a) {
         if (my_profile.status === 'client') {
             router.push(a)
@@ -67,8 +69,8 @@ export default function Master() {
             <Head><title>{slug}</title></Head>
             {profile ? <Header text={slug} sel={'/masternear/' + service} col={color} /> : null}
             {profile ? <MasterHeader profile={profile} slug={slug} /> : null}
-
-            {profile ? <section className={styles.section_main}>
+            {profile ? <> 
+                <section className={styles.section_main}>
                 {message ? <div className={styles.dialog}>
                     <div >
                         <span onClick={() => setmessage(false)}>закрыть</span>
@@ -107,9 +109,13 @@ export default function Master() {
                     nav_view === 1 ? <Services name={slug} color={color} nav={nav_view} /> :
                         nav_view === 0 ? <Lenta nikname={slug} color={color} name={profile.name} /> :
                             <Sertificats nav={nav_view} nikname={slug} />}
-                <Navi />
-            </section> : null}
-
+                 <Information/> 
+            </section>
+           
+            <Navi />
+            </>
+            : null}
+           
         </>
     )
 }

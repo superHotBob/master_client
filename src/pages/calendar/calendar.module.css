@@ -103,7 +103,7 @@
     text-transform: capitalize;
 }
 
-.days span,
+.days button,
 .time span {
     color: #fff;
     cursor: pointer;
@@ -121,7 +121,7 @@
     font-size: 14px;
 }
 
-.days span {
+.days button {
     width: 11vw;
     max-width: 60px;
     position: relative;
@@ -148,7 +148,7 @@
     display: grid;
     gap: 8px;
     grid-template-columns: repeat(3, auto);
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .section .button {

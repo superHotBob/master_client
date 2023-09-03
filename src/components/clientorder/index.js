@@ -80,6 +80,13 @@ export default function ClientOrder({ order, active, close }) {
                     {active ?
                         <button onClick={DeleteOrder}><b>Отменить заказ</b></button>
                         :
+                        order.review ? 
+
+                       <div className={styles.result}>
+                        <span>Отзыв</span>
+                        {order.review}
+                        </div>
+                        :
                         <button style={review} onClick={() => setreview(false)}>Оставить отзыв</button>
                     }
                     {result ? <p className={styles.res}>{result}</p> : null}

@@ -45,7 +45,7 @@ export default function Home() {
  
   return (
     <>
-      <Header loading="lazy"/>
+      <Header/>
       <section className={styles.section} >
         <Message page="main" text='Masters.place показывает самые крутые и 
             актуальные работы мастеров в вашем городе. Вы 

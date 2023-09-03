@@ -15,7 +15,7 @@ const activ_month = {
 
 export default function Calendar() {
 
-    const pro = useSelector(state=>state.counter.profile)
+    const pro = useSelector(state => state.counter.profile)
     const dispatch = useDispatch()
     console.log('this is calendar block')
 
@@ -45,25 +45,26 @@ export default function Calendar() {
 
     const router = useRouter()
 
-    useEffect(() => {  
-        dispatch(setprofile(JSON.parse(localStorage.getItem('profile'))))
+    useEffect(() => {
         let pro = JSON.parse(localStorage.getItem('profile'))
-        if(!pro) {
+        dispatch(setprofile(pro))
+
+        if (!pro) {
             router.push('/')
-           return ;
+            return;
         }
         // setProfile(pro)
         fetch(`/api/get_patern?nikname=${pro.nikname}`)
-        .then(res => res.json())
-        .then(data => setPatern(data))
+            .then(res => res.json())
+            .then(data => setPatern(data))
     }, [view])
     useEffect(() => {
-        let current_month = my_months[month].toLocaleLowerCase() 
-        let pro = JSON.parse(localStorage.getItem('profile'))      
-        if(!pro) {
+        let current_month = my_months[month].toLocaleLowerCase()
+        let pro = JSON.parse(localStorage.getItem('profile'))
+        if (!pro) {
             router.push('/')
-           return ;
-        }       
+            return;
+        }
         setActive_Day()
         setActive_Num()
         fetch(`/api/get_schedule?month=${current_month}&nikname=${pro.nikname}`)
@@ -79,7 +80,7 @@ export default function Calendar() {
             })
     }, [month])
 
-    function SaveSchedule() {      
+    function SaveSchedule() {
         const data = {
             nikname: pro.nikname,
             month: my_months[month].toLocaleLowerCase(),
@@ -97,7 +98,7 @@ export default function Calendar() {
         })
 
     }
-   
+
     function SetActiveTime(a) {
         if (!active_num) { return 0 }
 
@@ -135,84 +136,83 @@ export default function Calendar() {
         console.log(e.target.id)
     }
     function SetMonth(a) {
-        if(a==='Январь') {
+        if (a === 'Январь') {
             setMonth(12)
         } else {
             let m = my_months.findIndex(i => i === a)
             setMonth(m)
         }
-       
     }
 
     return <>
-        {Object.keys(pro).length > 0 ?<>
+        {Object.keys(pro).length > 0 ? <>
             <header className={styles.header} >
-                <Menu_icon type="arrow"  color='#3D4EEA' />
+                <Menu_icon type="arrow" color='#3D4EEA' />
                 <h4>Календарь работы</h4>
                 <span onClick={SaveSchedule}>Сохранить</span>
-            </header> 
-        <section className={styles.section}>
-            <Message page="calendar"  text='Выбирайте дни и время, вы которые вы готовы
+            </header>
+            <section className={styles.section}>
+                <Message page="calendar" text='Выбирайте дни и время, вы которые вы готовы
                         принимать клиентов. При записи клиент  сможет
                         выбрать только те дни и время, которые 
                         вы указали рабочим.
-                    ' 
-            />
-            <div className={styles.mounth}>
-                {months.splice(month ? month - 1 : 0, 3).map(i =>
-                    <span onClick={() => SetMonth(i)} style={i === my_months[month] ? activ_month : null} key={i}>{i}</span>
-                )}
-            </div>
-            <div className={styles.week}>
-                {days.map(i => <span key={i}>{i}</span>)}
-            </div>
+                    '
+                />
+                <div className={styles.mounth}>
+                    {months.splice(month ? month - 1 : 0, 3).map(i =>
+                        <span onClick={() => SetMonth(i)} style={i === my_months[month] ? activ_month : null} key={i}>{i}</span>
+                    )}
+                </div>
+                <div className={styles.week}>
+                    {days.map(i => <span key={i}>{i}</span>)}
+                </div>
 
-            <div className={styles.days}  onClick={setActiveDay}>
-                {Array.from({ length: v }, (v, i) => i + 1).map(i => <span key={i} style={{ opacity: 0 }}>{i}</span>)}
+                <div className={styles.days} onClick={setActiveDay}>
+                    {Array.from({ length: v }, (v, i) => i + 1).map(i => <span key={i} style={{ opacity: 0 }}>{i}</span>)}
 
-                {Array.from({ length: all_days.getDate() }, (v, i) => i + 1)
-                    .map((i, index) =>
+                    {Array.from({ length: all_days.getDate() }, (v, i) => i + 1)
+                        .map((i, index) =>
+                            <button
+
+                                key={i}
+                                id={i}
+                                style={{ color: +active_num === i ? '#fff' : '#000', backgroundColor: +active_num === i ? "#3D4EEA" : "#ECEEFD" }}
+                            >{i}
+                                <b
+                                    className={styles.count}
+                                    style={{
+                                        backgroundColor: +active_num === i ? "#8B95F2" : "#3D4EEA",
+                                        display: Count(index) ? 'inline-block' : 'none'
+                                    }}
+
+                                >
+                                    {Count(index)}
+                                </b>
+                            </button>
+                        )}
+                </div>
+                <p>Время для записи</p>
+                <div className={styles.time}>
+                    {patern?.map((i) =>
                         <span
-                           
                             key={i}
-                            id={i}
-                            style={{  color: +active_num === i ? '#fff':'#000',  backgroundColor: +active_num === i ? "#3D4EEA" : "#ECEEFD" }}
-                        >{i}
-                            <b
-                                className={styles.count}
-                                style={{ backgroundColor: +active_num === i ? "#8B95F2" : "#3D4EEA" , 
-                                    display: Count(index) ? 'inline-block' : 'none'}}                             
-                                    
-                            >
-                            {Count(index)}
-                            </b>
+                            style={active_day?.split(',').some(a => a === i) ?
+                                { backgroundColor: "#3D4EEA", color: '#fff' } :
+                                { backgroundColor: "#ECEEFD", color: '#000' }}
+                            onClick={() => SetActiveTime(i)}
+                        >
+                            {i}
                         </span>
                     )}
-            </div>
-            <p>Время для записи</p>
-            <div className={styles.time}>
-                {patern?.map((i) =>
-                    <span
-                        key={i}
-                        style={active_day?.split(',').some(a => a === i) ?
-                            { backgroundColor: "#3D4EEA", color: '#fff' } :
-                            { backgroundColor: "#ECEEFD", color: '#000' }}
-                        onClick={() => SetActiveTime(i)}
-                    >
-                        {i}
-                    </span>
-                )}
-            </div>
-            <div className={styles.button}  onClick={() => setView(true)}>
-                Редактировать шаблон времени +
-            </div>
-            <dialog open={message} className={styles.message}>
-                Календарь  сохранен
-            </dialog>
-        </section>
-        </>
-        :
-            null}
+                </div>
+                {!view ? <div className={styles.button} onClick={() => setView(true)}>
+                    Редактировать шаблон времени +
+                </div> : null}
+                <dialog open={message} className={styles.message}>
+                    Календарь  сохранен
+                </dialog>
+            </section>
+        </> : null}
         {view ?
             <EditPatern
                 view={view}

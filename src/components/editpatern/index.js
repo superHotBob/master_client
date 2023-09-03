@@ -14,7 +14,11 @@ export default function EditPatern({view,setView,old_patern,nikname}) {
     const [message, setMessage] = useState(false)
     const [del, setDel] = useState(false)
 
-    useEffect(()=>setPatern([...old_patern]),[])
+    useEffect(()=>{
+        setPatern([...old_patern])
+        window.onscroll = function () { window.scrollTo(0, 0); }
+        return ()=> window.onscroll=function(){}
+    },[])
 
     function DeletePatern(a) {
         let new_patern =  patern.filter(i=>i!==a)

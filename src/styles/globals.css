@@ -30,6 +30,9 @@ main {
   background-color: #fff;
   max-width: 500px;
 }
+button:focus {
+  border: 1px sold #3D4EEA;
+}
 .pro {
   margin: 0 5px;  
   border-radius: 4px;  

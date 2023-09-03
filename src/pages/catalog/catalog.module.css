@@ -52,7 +52,7 @@
 .images {
     display: grid;
     grid-template-columns: auto auto auto auto;
-    gap: 0 10px;
+    
 }
 
 .images img {
@@ -82,24 +82,4 @@
     margin: 8px 0 24px;
 }
 
-.info {
-    display: block;
-    color: #3D4EEA;
-    font-weight: 400;
-    font-size:  16px;
-    line-height:  28px;
-}
 
-.section h3 {
-    font-weight: 500;
-    font-size:  16px;
-    line-height:  26px;
-    margin-bottom: 26px;
-}
-
-.agreement {
-    font-weight: 400;
-    font-size:  10px;
-    line-height:  15px;
-    margin: 26px 0 50px;
-}

@@ -9,6 +9,8 @@ import { SWRConfig } from 'swr'
 
 
 
+
+
 const rubik = Rubik({
   weight: ['300', '400', '500', '700', '800'],
   subsets: ['cyrillic'],
@@ -46,7 +48,7 @@ export default function MyApp({ Component, pageProps }) {
           <meta name="application-name" content="PWA App" />
           <meta name="mobile-web-app-capable" content="yes" />
         </Head>
-        <main className={rubik.className}>
+        <main className={rubik.className}>         
           <Component {...pageProps} />
           {my_path.includes(router.asPath.replace('/', '')) ? null : <Navi />}
         </main>

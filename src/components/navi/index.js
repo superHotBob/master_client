@@ -48,16 +48,16 @@ export default function Navi({ save, color }) {
     return (        
         <div className={styles.total} style={{ top: height }}>
             <div className={styles.main_navi} style={{ backgroundImage: tema[0],backgroundSize: '200%'}}>
-                <Link title='главная страница' href="/" className={router.asPath === '/' ? styles.home : styles.dashboard}>
+                <Link title='на главную страницу' href="/" className={pathname === '/' ? styles.home : styles.dashboard}>
                     <Image alt="home" src={pathname === '/' ? home : home_wh} height={20} width={20} />
                 </Link>
-                <Link title="каталог" href="/catalog" className={router.asPath.includes('catalog') ? styles.home : styles.dashboard}>
-                    <Image alt="catalog" src={router.asPath.includes('catalog') ? dashboard_bl : dashboard} height={20} width={20} />
+                <Link title="в каталог" href="/catalog" className={pathname === '/catalog' ? styles.home : styles.dashboard}>
+                    <Image alt="catalog" src={pathname === '/catalog' ? dashboard_bl : dashboard} height={20} width={20} />
                 </Link>
                 {prof.status ? 
                     <Link 
                         href="/chat" 
-                        title="чат" 
+                        title="в чат" 
                         className={styles.message} 
                         style={pathname === '/chat' ?  chat : null}
                     /> : 
@@ -71,6 +71,7 @@ export default function Navi({ save, color }) {
                     />: null}
                 <Link
                     href={prof.status ? "/" + prof.status + "profile/" + prof.nikname : "/enter"}
+                    title="в профиль"
                     className={styles.enter}
                     style={prof.status ?
                         (router.asPath.includes('clientprofile') || router.asPath.includes('masterprofile/') ? active : active_two) : null}
