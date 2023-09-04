@@ -69,11 +69,11 @@
   font-size: 1em;
   line-height: 1.5em;
   font-weight: 500;
-
+  margin-right: 5px;
 }
 
 .pro {
-  margin: 0 5px;
+  margin-right: 5px;
   background: linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%);
   border-radius: 4px;
   font-size: 12px;

@@ -1,5 +1,3 @@
-import Header from '@/components/header'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
 import styles from './services.module.css'
@@ -44,12 +42,15 @@ export default function Services() {
 
 
     function ToService(event) {
-        dispatch(setservice(event.target.id))
-        router.push(`/masternear/${event.target.id}`)
+        if( images.includes(event.target.id)) {
+            dispatch(setservice(event.target.id))
+            router.push(`/masternear/${event.target.id}`)
+        }
+       
     }
     return (
         <>
-            <Header sel="/catalog" />
+            
             <div className={styles.selector}>
                 <span onClick={() => setSelector(true)} style={selector ? sel : null}>Каталог услуг</span>
                 <span onClick={() => setSelector(false)} style={selector ? null : sel}>Мероприятия</span>
@@ -57,7 +58,7 @@ export default function Services() {
             {selector ? 
                 <div className={styles.images} onClick={ToService}>
                     {images.map(i =>
-                        <Image key={i} id={i} alt="image" src={'/' + i + '.svg'} width="100" height='120' />
+                        <img key={i} id={i} alt="image" src={'/' + i + '.svg'} width='100%' height='auto' />
 
                     )}
                 </div>

@@ -1,4 +1,3 @@
-import Header from '@/components/header'
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from './catalog.module.css'
@@ -22,8 +21,7 @@ export default function Catalog() {
 
     return (
         <>
-            <Header sel="/"/>
-            <section className={styles.section}>
+                <section className={styles.section}>
                 <Link className={styles.city} href="/city"> Ваш город {city}
                     <Image alt="Picture of the author" src={position} width={20} height={20} />
                 </Link>

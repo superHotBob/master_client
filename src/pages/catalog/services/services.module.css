@@ -10,10 +10,11 @@
 }
 
 .images {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    padding: 0 10px;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    max-width:  500px;
+    gap: 21px 26px;
+    padding: 0 16px;
 }
 .images img {
     cursor: pointer;

@@ -44,10 +44,10 @@ export default function MasterNear() {
         <>
             <Header sel="/catalog" text="Мастера рядом " />
             <div className={styles.message}>
-                <Message page="masternear" text={` Masters.place позволяет познакомиться  с 
+                <Message page="masternear" text='Masters.place позволяет познакомиться  с 
                     мастерами вашего города. Для этого нужно выбрать 
-                    ваш город, что бы увидеть список мастеров.
-                `} />
+                    ваш город, что бы увидеть список мастеров.'
+                />
             </div>
             <Link className={styles.city} href='/city'>Ваш город {my_city}</Link>
             <div className={styles.selector}>

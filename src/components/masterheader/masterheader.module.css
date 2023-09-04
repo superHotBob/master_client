@@ -61,7 +61,7 @@
     font-size: 12px;
     color: #fff;
     padding: 3px 8px;
-    animation: gradient 15s reverse linear infinite; 
+    animation: gradient 10s reverse linear infinite; 
   }
   
   .stars {
@@ -106,7 +106,7 @@
    
     border-radius: 20px;
    
-	  animation: gradient 15s reverse linear infinite; 
+	  animation: gradient 10s reverse linear infinite; 
   }
 
   @keyframes gradient {

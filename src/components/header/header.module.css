@@ -14,7 +14,10 @@
     color: #3D4EEA;
     display: inline-block;    
   }
-  
+  .shadow_arrow {
+    height: 40px;
+    width: 40px;
+  }
   .header h2:first-of-type {   
     display: inline-block;
   }
