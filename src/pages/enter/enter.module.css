@@ -5,42 +5,57 @@
     height: calc(100vh - 72px);
     position: relative;
     z-index: 100;
+    
+}
+
+.registration {
+    font-size: 18px;   
+    margin: 0 auto 20px;
+    text-align: center;
 }
 
 .image {
+    margin: 40px 0;
     background-position: center;
-    background-size: 20%;
-    height: 120px;
+    background-size: 69px 48px;
+    height: 48px;
 }
-
-.inputs::before {
-    content: 'Войти по номеру телефона';
-    text-align: center;
-    color: black;
-    display: block;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 18px;
-}
-
 .inputs {
-    margin: 128px auto;
+    margin: 130px auto 0;
     width: 300px;
 
 }
 .number {
-    position: relative;
-    margin: 150px auto;
+    position: relative;    
+    padding-top: 130px;
 }
-.inputs p,
+.inputs_password input,
 .number p {
     text-align: center;
     font-weight: 400;
     font-size: 12px;
-    line-height: 18px;
+    line-height: 17px;
     width: 300px;
     margin: 24px auto;
 }
+
+.inputs_password {
+    margin-top: 130px;
+}
+
+
+.inputs_password p,
+.inputs p {
+    color: #3D4EEA;
+    font-size: 12px;
+    cursor: pointer;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.inputs p:hover {
+    text-decoration: underline;
+}
+
 .number p {
     margin: 0 auto 15px;
 }
@@ -53,14 +68,22 @@
     margin: 0 auto 20px;
 }
 
-.inputs input {   
+.inputs_password input {
+    height: 46px ;
+    width: 300px;
+    text-align: left;
     display: block;
     color: #3D4EEA;
     margin: 0 auto;
-    
-    outline: none;
+    padding: 0 10px; 
+    margin-bottom: 12px;   
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #3D4EEA ;
 }
-
+.inputs_password input::placeholder {
+    color: #3D4EEA
+}
 .button {
     height: 46px;
     width: 300px;

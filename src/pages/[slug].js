@@ -69,7 +69,7 @@ export default function Master() {
             <Head><title>{slug}</title></Head>
             {profile ? <Header text={slug} sel={'/masternear/' + service} col={color} /> : null}
             {profile ? <MasterHeader profile={profile} slug={slug} /> : null}
-            {profile ? <> 
+            {profile && <> 
                 <section className={styles.section_main}>
                 {message ? <div className={styles.dialog}>
                     <div >
@@ -113,9 +113,7 @@ export default function Master() {
             </section>
            
             <Navi />
-            </>
-            : null}
-           
+            </>}           
         </>
     )
 }

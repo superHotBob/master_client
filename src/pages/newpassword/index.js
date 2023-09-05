@@ -14,6 +14,7 @@ export default function Password() {
     const [message, setMessage] = useState('')
     const onepassword = useRef()
     const twopassword = useRef()
+    
     const handler = event => {
         if(event.key === 'Enter') {
             twopassword.current.focus()

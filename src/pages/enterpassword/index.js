@@ -1,5 +1,5 @@
 import Header from '@/components/header'
-import styles from './password.module.css'
+import styles from '../enter/enter.module.css'
 import { useRouter } from 'next/router'
 import { useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -17,13 +17,13 @@ export default function EnterPassword() {
 
     const ReplacePassword = () => {
         dispatch(setpassword('new'))
-        router.push('/newpassword')
+        router.push('/enter')
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const data = { tel: phone, password: passRef.current.value }
-        setBack("await.gif")
+        // setBack("await.gif")
         setMessage('')
 
         const response = await fetch('/api/enter_phone', {
@@ -50,11 +50,13 @@ export default function EnterPassword() {
     return (
         <section className={styles.section} style={{ backgroundImage: `url(${back})` }}>
             <Header text='Вход' sel="/enter" />
-            <h3 className={styles.registration}>Вход <br /> по номеру телефона</h3>
-            <form onSubmit={handleSubmit} className={styles.inputs}>
+            
+            <form onSubmit={handleSubmit} className={styles.inputs_password}>
+                <h3 className={styles.registration}>Вход по номеру телефона</h3>
+                <p>Введите пароль вашего  аккаунта.</p>
                 <input required autoComplete='on' autoFocus ref={passRef} placeholder='Пароль' type="password" inputMode="numeric" />
                 <button type='submit' className={styles.button}>Войти</button>
-                <p onClick={ReplacePassword}>Забыл или хочу изменить пароль</p>
+                <p onClick={ReplacePassword}>Востановить или изменить пароль</p>
             </form>
             <h4 className={styles.error}>{message}</h4>
         </section>

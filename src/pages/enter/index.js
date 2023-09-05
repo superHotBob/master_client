@@ -3,7 +3,7 @@ import styles from './enter.module.css'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setphone, setpassword } from '@/reduser'
+import { setphone } from '@/reduser'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 
@@ -12,6 +12,8 @@ export default function Enter() {
     const [phone, setPhone] = useState()
     const dispatch = useDispatch()
     const password = useSelector(state => state.counter.password)
+    const my_phone = useSelector(state => state.counter.phone)
+
     const router = useRouter()
     const [number, setNumber] = useState([, , ,])
     const [back, setBack] = useState('logo-main.svg')
@@ -19,40 +21,31 @@ export default function Enter() {
     const [message, setMessage] = useState('')
     const [t, setT] = useState()
 
-   
 
-    // useEffect(() => {        
-    //     // setNumber([, , ,])
-    //     // setSelect('Вход')
-    //     // setBack('logo-main.svg')
-    //     // setMessage('')
-    //     document.body.addEventListener('keydown', handler);
-    //     return ()=>document.body.removeEventListener('keydown', handler);
-    // }, [])
 
-       
-    // const handler = (event) => {  
-    //     console.log(phone)     
-    //     if(event.key === 'Enter') {
-           
-    //         return firstCall()
-            
-    //     }        
-    // }
+
+
+    useEffect(() => {
+        setPhone(my_phone)
+        if (password === 'new') {
+            setSelect('Восстановление пароля')
+        }
+    }, [])
+
     const firstCall = () => {
-        
         const data = { tel: phone }
-        setBack("await.gif")
+        // setBack("await.gif")
+
         fetch(`/api/check_client?phone=${phone}`)
             .then(res => res.json())
             .then(res => {
-                if(res.length === 0 ) {
+                if (res.length === 0 || password === 'new') {
                     Call()
-                } else if (res[0].blocked != '0' ) {
+                } else if (res[0].blocked != '0') {
                     router.push('/enter')
                 } else {
                     dispatch(setphone(phone))
-                    router.push('/enterpassword')                  
+                    router.push('/enterpassword')
                 }
             })
         function Call() {
@@ -66,19 +59,20 @@ export default function Enter() {
                 .then(res => {
                     if (res.status === 200) {
                         setSelect('Подтвердить'),
-                        setBack("logo-main.svg"),
-                        setTimeout(() => document.getElementById(0).focus(), 500)
+                            // setBack("logo-main.svg"),
+                            setTimeout(() => document.getElementById(0).focus(), 500)
                         dispatch(setphone(phone))
 
                     } else {
                         setT(60)
-                        setBack("logo-main.svg")
+                        // setBack("logo-main.svg")
                     }
                 })
         }
 
     }
     useEffect(() => {
+
         if (t > 0) {
             let timer = setInterval(() => {
                 setT(t - 1)
@@ -94,7 +88,6 @@ export default function Enter() {
 
 
     async function SendCode() {
-       
         const data = { tel: phone, number: +number.join('') }
         fetch(`${process.env.url}code`, {
             body: JSON.stringify(data),
@@ -108,7 +101,7 @@ export default function Enter() {
                     dispatch(setphone(phone))
                     router.push('newpassword')
                 } else {
-                    setMessage('dfg')
+                    setMessage('Не верный код')
                 }
             })
     }
@@ -137,10 +130,13 @@ export default function Enter() {
     }
     return (
         <section className={styles.section} style={{ backgroundImage: `url(${back})` }}>
-            <Header text={select} sel="/enter" />                      
+            <Header text={select} sel="/enter" />           
             {select === 'Вход' ?
                 <div className={styles.inputs}>
-                    <p>Используйте свой номер телефона как логин для входа на сайт.</p>                    
+                    <h3 className={styles.registration}>
+                        Вход по номеру телефона
+                    </h3>
+                    <p>Используйте свой номер телефона как логин для входа на сайт.</p>
                     <PhoneInput
                         country={'by'}
                         inputProps={{
@@ -148,7 +144,7 @@ export default function Enter() {
                             required: true,
                             autoFocus: true
                         }}
-                       countryCodeEditable={false}
+                        countryCodeEditable={false}
                         onlyCountries={['by', 'ru']}
                         value={phone}
                         prefix='+'
@@ -159,12 +155,12 @@ export default function Enter() {
                             display: 'flex'
                         }}
                         searchStyle={{
-                            border: 'none',borderRight: '1px solid #3D4EEA'
+                            border: 'none', borderRight: '1px solid #3D4EEA'
                         }}
-                        buttonStyle={{borderTopLeftRadius: '6px',borderBottomLeftRadius: '6px'}}
+                        buttonStyle={{ borderTopLeftRadius: '6px', borderBottomLeftRadius: '6px' }}
                         placeholder='номер телефона'
                         onChange={phone => setPhone(phone)}
-                        inputStyle={{border: 'none',borderRight: 'none',height: 'auto'}}
+                        inputStyle={{ border: 'none', borderRight: 'none', height: 'auto' }}
                     />
                     {message ?
                         <h3 className={styles.error} >
@@ -203,7 +199,7 @@ export default function Enter() {
                                 required maxLength={1} onChange={(e) => Number(e.target.value, i)}
                             />)}
                     </div>
-                    {message ? 
+                    {message ?
                         <h3 className={styles.error} >Не верный код</h3>
                         :
                         <>

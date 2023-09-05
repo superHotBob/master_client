@@ -11,20 +11,21 @@ export default function Home() {
   const service = useSelector(state => state.counter.service)
   const city = useSelector(state => state.counter.city)
   const [view_image, viewImage] = useState(false)
-  const [data, setdata] = useState([])
-  
+  const [data, setdata] = useState([]) 
   
  
-  const ref = useRef(null)
+  const ref = useRef(null)  
+  const servref = useRef(service)
   
-  const servref = useRef(service)  
- 
-
-  
-  useEffect(()=>{   
+  useEffect(()=>{ 
+    // for( const i of Array(1000)) {
+    //   fetch('http://masters.place:5000/ip').then(res=>res.text()).then(res=>console.log(res))
+     
+    // } 
+    
+    
     if(servref.current != service) {     
-      setdata([])
-      
+      setdata([])      
       servref.current = service
     }
     fetch(`/api/get_images_master_city?service=${service}&city=${city.toLowerCase()}&limit=100&offset=${0}`)

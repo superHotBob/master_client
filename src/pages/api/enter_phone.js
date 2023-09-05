@@ -11,12 +11,6 @@ export default async function handler(req, res) {
     from clients
     where phone = ${+req.body.tel}
   `
-
-  
- 
-
-
-
   if (result.length === 0) {
     const max_id = await sql`
       select Max(id) from clients
@@ -36,10 +30,10 @@ export default async function handler(req, res) {
             ${nikname}, 
             'Добрый день'
           )
-          returning status, nikname, id, text, name
+          returning status, nikname, id, text, name,saved_image
       `
     res.status(200).json(result[0])
-    fetch(`https://masters-client.onrender.com/createclientfolder?dir=${nikname}`)
+    fetch(`http://masters.place:5000/createclientfolder?dir=${nikname}`)
     .then(res => console.log('Папка клиента создана'))
 
 
