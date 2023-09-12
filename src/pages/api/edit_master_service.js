@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     окрашивание: req.body.окрашивание || []
   }
   const nikname = user.user 
-  const result = await client.query(`
+  const { rows: result } = await client.query(`
     update "services"
     set макияж = $2 ,массаж = $3, маникюр = $4, 
     педикюр = $5, барбер = $6, брови = $7, прически = $8, ресницы = $9, 
@@ -36,14 +36,14 @@ export default async function handler(req, res) {
  
   delete user.user
   let obj = Object.entries(user).filter(i => i[1].length > 0).map(i => i[0])
-  const {rows } = await client.query(`
+  await client.query(`
     update "masters" 
     set services = $1      
     where "nikname" = $2
     returning services
   `,[obj,req.body.nikname]);
 
-  console.log(rows, obj)
+  
 
   client.end();
   if (result.length > 0) {

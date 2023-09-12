@@ -1,19 +1,10 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import postgres from "postgres"
 const { Client } = require('pg')
 
-export default async function handler(req, res) {
-  const sql = postgres(`postgres://bobozeranski:${process.env.DATABASE_API}@ep-yellow-mountain-679652.eu-central-1.aws.neon.tech/neondb?sslmode=require&options=project%3Dep-yellow-mountain-679652`)
-  
-  const client = new Client({
-    user: 'client',
-    host: '5.35.5.23',
-    database: 'postgres',
-    password: 'client123',
-    port: 5432,
-  })
+export default async function handler(req, res) {  
+  const client = new Client(process.env.pg_data)
+  await client.connect()
 
-  await client.connect();
   const { rows:result } = await client.query(
    `select 
       status,blocked,id,nikname,client_password  
@@ -25,11 +16,9 @@ export default async function handler(req, res) {
   
 
   if (result.length === 0) {
-    const {rows:max_id} = await client.query("SELECT Max(id) from clients");
-    console.log(max_id)
+    const {rows:max_id} = await client.query("SELECT Max(id) from clients");   
 
     const nikname = max_id[0].max + 1;
-    
    
 
     const { rows:result } = await client.query(
@@ -41,12 +30,10 @@ export default async function handler(req, res) {
    
       
     fetch(`http://masters.place:5000/createclientfolder?dir=${nikname}`)
-    .then(res => console.log('Папка клиента создана'))
-    // fetch(`${process.env.url}createclientfolder?dir=${nikname}`)
-    // .then(res => console.log('Папка клиента создана'))
+    .then(res => console.log('Иконка клиента создана'))
+   
 
-    res.status(200).json(result[0])
-    console.log(result)
+    res.status(200).json(result[0])   
     const {rows: max_chat } = await client.query("SELECT Max(chat) from adminchat");
     let chat = +max_chat[0].max + 1;
     let date = Date.now();

@@ -95,8 +95,7 @@ export default function Recording() {
             return 'услуг'
         }
     }
-    function ConfirmOrder(a) {
-       
+    function ConfirmOrder(a) {       
         dispatch(setorder(a))
         router.push('/confirmation')
     }

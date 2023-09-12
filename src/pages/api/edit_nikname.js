@@ -62,7 +62,7 @@ export default async function handler(req, res) {
         where master =  $2  
         returning *      
     `, [req.query.newnikname,req.query.oldnikname]);
-    fetch(`http://localhost:5000/rename_master_icon?oldname=${req.query.oldnikname}&newname=${req.query.newnikname}`)
+    fetch(`http://masters.place:5000/rename_master_icon?oldname=${req.query.oldnikname}&newname=${req.query.newnikname}`)
         .then(res => console.log('Папка мастера переименована'))
 
     res.status(200).send('Ok')

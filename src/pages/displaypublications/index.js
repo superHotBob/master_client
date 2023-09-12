@@ -192,7 +192,7 @@ export default function DisplayPublications() {
                                                         className={styles.image}
                                                         style={style}
                                                         alt={i.nikname}
-                                                        src={url + '/var/data/' + i.nikname + '/' + i.id + ".jpg"}
+                                                        src={process.env.url_image + i.id + ".jpg"}
                                                     />
                                                 )
                                             }}
@@ -231,7 +231,7 @@ export default function DisplayPublications() {
                                                         className={styles.image}
                                                         style={style}
                                                         alt={i.nikname}
-                                                        src={url + '/var/data/' + i.nikname + '/' + i.id + ".jpg"}
+                                                        src={process.env.url_image  + i.id + ".jpg"}
                                                     />
                                                 )
                                             }}

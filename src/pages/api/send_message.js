@@ -1,8 +1,7 @@
-import postgres from "postgres"
 const { Client } = require('pg')
 
 export default async function handler(req, res) {
-  const sql = postgres(`postgres://bobozeranski:${process.env.DATABASE_API}@ep-yellow-mountain-679652.eu-central-1.aws.neon.tech/neondb?sslmode=require&options=project%3Dep-yellow-mountain-679652`)
+ 
   const client = new Client(process.env.pg_data)
 
   await client.connect();
@@ -70,7 +69,7 @@ export default async function handler(req, res) {
     )  
     returning *
   `
-    client.query(`
+   await client.query(`
       INSERT INTO "chat" (recipient,recipient_nikname,sendler,sendler_nikname,ms_text,ms_date,chat,read)
       VALUES($1,$2,$3,$4,$5,$6,$7,$8)
     `, [req.body.recipient, req.body.recipient_nikname, req.body.sendler, req.body.sendler_nikname,

@@ -28,7 +28,7 @@ export default function Event() {
             <Header text="Мероприятия" sel="/catalog/services" />           
             {data?.map(i=>
                 <section key={i.event_id} className={styles.event}>
-                    <img src={url + '/var/data/' + i.master_nikname + '/main.jpg'} alt="master" height={50} width={50}/>
+                    <img src={process.env.url_image + i.master_nikname + '.jpg'} alt="master" height={50} width={50}/>
                     <p>
                         {i.name}<br />
                         <span className={styles.pro}>MASTER</span>

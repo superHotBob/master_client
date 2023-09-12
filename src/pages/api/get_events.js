@@ -1,30 +1,25 @@
-import postgres from "postgres"
+
 const { Client } = require('pg')
 export default async function handler(req, res) {
   const d = new Date()
   const curr_date = Date.now(d) 
-  const client = new Client({
-    user: 'client',
-    host: '5.35.5.23',
-    database: 'postgres',
-    password: 'client123',
-    port: 5432,
-  })  
+  const client = new Client(process.env.pg_data)  
   await client.connect();
   const { rows } = await client.query(
    `select date_event, 
     event_text,
     master_nikname,
-    event_id,       
+    id,       
     name,
     stars,
     address,
     services
   
-    from  events 
-    INNER JOIN users ON master_nikname = nikname
-    where +date_event > ${curr_date}  and city = ${req.query.city}
-    `)      
+    from  "events" 
+    INNER JOIN "masters" ON master_nikname = nikname
+    where +date_event > $1  and city = $2
+    `,[curr_date,req.query.city]);
+
     if (rows.length > 0) {
       res.status(200).json(rows)
     } else {
