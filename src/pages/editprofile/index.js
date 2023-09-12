@@ -76,7 +76,7 @@ export default function EditProfile() {
             setCity(pro.city),
             setCurrency(my_currency[current_symbol.indexOf(pro.currency)] || 'Белорусский рубль'),
             setAddress(pro.address)
-            setSelectedFile(process.env.url_image + pro.nikname + '/main.jpg')
+            setSelectedFile(process.env.url_image + pro.nikname + '.jpg')
             setAddress_full(address_full => ({ ...address_full, ...pro.address_full })),
             setNikname(pro.nikname),
             setColor(pro.tema ? my_tema[+pro.tema].color : my_tema[0].color)
@@ -88,7 +88,7 @@ export default function EditProfile() {
         setName(pro.name),
         setText(pro.text),
         setCurrency('Белорусский рубль')
-        setSelectedFile(process.env.url_image + pro.nikname + '/main.jpg')
+        setSelectedFile(process.env.url_image + pro.nikname + '.jpg')
         setAddress(pro.address),
         setNikname(pro.nikname),
         setColor(my_tema[+pro.tema].color)
@@ -119,7 +119,7 @@ export default function EditProfile() {
         const result = await response.json()
         localStorage.setItem("profile", JSON.stringify(result));
         dispatch(setprofile(result))
-        // setMessage('Ваш профиль изменён')
+      
         
     }
    
@@ -134,12 +134,12 @@ export default function EditProfile() {
 
     function UploadToServer() {        
         let data = new FormData()
-        data.append('file', file_for_upload, 'main.jpg')
-        fetch(`${url}upl?name=${profile.nikname}`, {
+        data.append('file', file_for_upload, `${profile.nikname}.jpg`)
+        fetch(`http://masters.place:5000/upl?name=${profile.nikname}`, {
             body: data,
             method: 'post',
         }).then(res => console.log('file is good'))
-        setSelectedFile(process.env.url_image + profile.nikname + '/main.jpg')
+        setSelectedFile(process.env.url_image + profile.nikname + '.jpg')
     }
     return (
         <>

@@ -49,8 +49,9 @@
 }
 .active_dialog p {
   text-align: center;
-  line-height: 167px;
-  font-weight: 180px;
+  line-height: 25px;
+  font-weight: 500;
+  margin-top: 50px;
 }
 
 .passive_dialog {
@@ -80,7 +81,7 @@
   border-radius: 100%;
   transform: translateY(53px);
   line-height: 105px;
- object-fit: cover;
+ 
 }
 
 .image span {

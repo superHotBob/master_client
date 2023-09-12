@@ -11,5 +11,5 @@ const my_tema = [
      { name: 'Лесной массив', color: ['linear-gradient(-90deg, #305F53 0%, #71978E 50%, #305F53 100%, #71978E 50%, #305F53 100%)', '#456A61', '#E1F3EB'] }
 ]
 
-const url = 'https://masters-client.onrender.com'
+const url = 'http://masters.place:5000'
 export { my_data, url, my_tema }

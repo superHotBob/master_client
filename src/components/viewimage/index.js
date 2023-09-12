@@ -35,7 +35,7 @@ export default function ViewImage({ view_image, viewImage, pid = null, service }
                     height="auto"
                 />
                 <div className={styles.master} >
-                    <Image alt="image" src={process.env.url + 'var/data/' + view_image.name + '/main.jpg'} width={26} height={26} />
+                    <Image alt="image" src={'https://masters.place/images/' + view_image.name + '.jpg'} width={26} height={26} />
                     <span>{pid || view_image.master_name}</span>
                     <span>{ConvertDate(+view_image.date)}</span>
                 </div>

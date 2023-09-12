@@ -51,11 +51,13 @@ export default function Client() {
         })
     }
 
+
+
     return (
         <>
             <Header text={profile.nikname} sel="back" />
             <div className={styles.profile}>
-                <img src={process.env.url_image + slug + '/main.jpg'} alt="client" height={50} />
+                <img src={'https://masters.place/images/' + slug + '.jpg'} alt="client" height={50} />
                 <h2>{profile.name}</h2>
                 <p>{profile.text}</p>
             </div>

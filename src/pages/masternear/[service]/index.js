@@ -65,7 +65,7 @@ export default function MasterNear() {
                         </p>
                         <h4>{i.address}</h4>
                         <h5>{i.services.map(a => <span key={a} className={styles.service}>{a}</span>)}</h5>
-                        <Image src={process.env.url_image + i.nikname + '/main.jpg'} width={60} height={60} alt="image" />
+                        <Image src={process.env.url_image + i.nikname + '.jpg'} width={60} height={60} alt="image" />
                     </Link>
                 )}
                 {isLoading?<p className={styles.message__await}>Загружаем мастеров...</p>:null}

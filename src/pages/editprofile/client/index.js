@@ -24,14 +24,14 @@ export default function EditProfile() {
         setmy_profile(my_profile=>(
             {...my_profile,...prof}
         ))        
-        setSelectedFile(process.env.url + 'var/data/' + prof.nikname + '/main.jpg')       
+        setSelectedFile('https://masters.place/images/' + profile.nikname + '.jpg')       
     }, [])   
     function Return() {
         const prof = JSON.parse(localStorage.getItem('profile'))
         setmy_profile(my_profile=>(
             {...my_profile,...prof}
         )) 
-        setSelectedFile(process.env.url + 'var/data/' + prof.nikname + '/main.jpg')
+        setSelectedFile(process.env.url_new_image + prof.nikname + '/main.jpg')
         router.back()
     }
     const EditClient = async () => {
@@ -59,10 +59,9 @@ export default function EditProfile() {
 
     async function CreateNewMaster() {
         const data = {
-            name: my_profile,
+            name: my_profile.name,
             nikname: my_profile.nikname,           
-            text: my_profile.text,
-            color: ''
+            text: my_profile.text           
         }
         fetch('/api/create_master', {
             body: JSON.stringify(data),
@@ -89,12 +88,12 @@ export default function EditProfile() {
 
     function UploadToServer() {
         let data = new FormData()       
-        data.append('file', file_for_upload, 'main.jpg')
-        fetch(`${process.env.url}upl?name=${my_profile.nikname}`, {
+        data.append('file', file_for_upload, `${my_profile.nikname}.jpg`)
+        fetch(`http://masters.place:5000/upl?name=${my_profile.nikname}`, {
             body: data,
             method: 'post',
         }).then(res => console.log('file is good'))
-        setSelectedFile(process.env.url + 'var/data/' + profile.nikname + '/main.jpg')      
+        setSelectedFile(process.env.url_image + profile.nikname + '.jpg')      
     }
 
     return (
@@ -113,7 +112,7 @@ export default function EditProfile() {
             </header>
             <form style={{ height: '106px' }} className={styles.image}>
                 <Image
-                    src={file ? file : process.env.url + '/var/data/' + profile.nikname + '/main.jpg'}
+                    src={file ? file : 'https://masters.place/images/' + profile.nikname + '.jpg'}
                     alt="фото"
                     title='заменить изображение'
                     height={file ? 106 : 50}

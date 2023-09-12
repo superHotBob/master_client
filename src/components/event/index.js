@@ -41,8 +41,7 @@ export default function Event({nikname,color}) {
             },
             method: 'post',
         })
-        .then(res => {
-            
+        .then(res => {            
             setmessage('Мероприятие  сохранено')
             setTimeout(() => setmessage(''), 2000)
         })

@@ -66,9 +66,9 @@ export default function Home() {
                 alt="abc"
                 key={i.id}
                 id={i.id}
-                onClick={() => View(i.nikname, process.env.url_image + i.nikname + '/' +  i.id + '.jpg', i.master_name, i.review, i.img_date)}
+                onClick={() => View(i.nikname, process.env.url_image +  i.id + '.jpg', i.master_name, i.review, i.img_date)}
                 loading={index > 3 ? 'lazy': 'eager'}              
-                src={process.env.url_image + i.nikname + '/' +  i.id + '.jpg' }
+                src={process.env.url_image +  i.id + '.jpg' }
                 title={i.master_name}
               />
             )}
@@ -79,9 +79,9 @@ export default function Home() {
                 alt="abc"
                 key={i.id}
                 id={i.id}
-                onClick={() => View(i.nikname, process.env.url_image + i.nikname + '/' +  i.id + '.jpg', i.master_name, i.review, i.img_date)}
+                onClick={() => View(i.nikname, process.env.url_image +  i.id + '.jpg', i.master_name, i.review, i.img_date)}
                 loading={index > 3 ? 'lazy': 'eager'}                 
-                src={process.env.url_image + i.nikname + '/' +  i.id + '.jpg' }
+                src={process.env.url_image +  i.id + '.jpg' }
                 title={i.master_name}
               />
             )}

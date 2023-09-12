@@ -44,15 +44,12 @@ export default function Client() {
         setOrderIndex(a)
         window.scrollTo(0, 0);
     }
-
-
-
-    
+  
     return (
         <>
             <Header text={profile.nikname} sel="back" />
             <div className={styles.profile}>
-                <img src={ process.env.url + 'var/data/' + slug + '/main.jpg'} alt="client" />
+                <img src={ process.env.url_image + slug + '.jpg'} alt="client" />
                 <h2>{profile.name}</h2> 
                 <p>{profile.text}</p>
             </div>

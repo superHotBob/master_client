@@ -14,6 +14,7 @@ export default function AddSertificat({ nikname, view, color }) {
     const [active, setactive] = useState()
     const [message, setmessage] = useState()
     const my_ref = useRef()
+    
     useEffect(() => {
         async function GetSertificats() {
             fetch(`${url}/getsertificats?dir=${nikname}`)

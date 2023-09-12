@@ -1,16 +1,19 @@
-import postgres from "postgres"
+const { Client } = require('pg')
 
 export default async function handler(req, res) {
-  const sql = postgres(`postgres://bobozeranski:${process.env.DATABASE_API}@ep-yellow-mountain-679652.eu-central-1.aws.neon.tech/neondb?sslmode=require&options=project%3Dep-yellow-mountain-679652`)
+  const client = new Client(process.env.pg_data)
 
-  const result = await sql`
+  await client.connect();
+  const { rows } = await client.query(`
   select *
-  from images
-  where nikname = ${req.query.nikname} 
-  order by rating desc
-  `
-  if (result.length) {
-    res.status(200).json(result)
+  from "images"
+  where "nikname" = $1
+  order by $2 desc
+  `,[req.query.nikname,'rating']);
+
+  client.end();
+  if (rows.length) {
+    res.status(200).json(rows)
   } else {
     res.json([])
   }

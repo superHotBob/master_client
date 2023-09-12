@@ -24,7 +24,7 @@ export default function Confirmation() {
     const SaveOrder = () => {
         // const profile = JSON.parse(localStorage.getItem('profile'))        
         const month =  months.indexOf(date.split(',')[1]) + 1
-        console.log(profile)
+       
         if(profile.status === 'client') {
             const data = {
                 client: profile.nikname ,
@@ -32,7 +32,7 @@ export default function Confirmation() {
                 master: master.nikname,
                 master_name: master.name,
                 price: Cost(order),
-                order: order,
+                order: order.join(','),
                 date: date,
                 address:  address,
                 month: month
@@ -55,7 +55,7 @@ export default function Confirmation() {
                 master: profile.nikname,
                 master_name: profile.name,
                 price: Cost(order),
-                order: order,
+                order: order.join(','),
                 date: date,
                 address:  address,
                 month: month

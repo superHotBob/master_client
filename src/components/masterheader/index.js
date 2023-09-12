@@ -15,7 +15,7 @@ export default function MasterHeader({ profile, slug }) {
             <section className={styles.section}>
                 <div className={styles.image} style={{ background: gradient,backgroundSize: '200%' }}>
                     <div className={styles.image_master}
-                        style={{ backgroundImage: 'url(' + process.env.url_image + (profile?.nikname || slug) + '/main.jpg)' }}
+                        style={{ backgroundImage: 'url(https://masters.place/images/' + (profile?.nikname || slug) + '.jpg)' }}
                     />
                 </div>
                 <p className={styles.name_stars}>

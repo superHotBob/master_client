@@ -49,7 +49,7 @@ export default function Enter() {
                 }
             })
         function Call() {
-            fetch(`${process.env.url}call`, {
+            fetch(`${process.env.url_new}call`, {
                 body: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json',
@@ -87,9 +87,9 @@ export default function Enter() {
     }, [t])
 
 
-    async function SendCode() {
+    async function sendCode() {
         const data = { tel: phone, number: +number.join('') }
-        fetch(`${process.env.url}code`, {
+        fetch(`${process.env.url_new}code`, {
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
@@ -112,6 +112,9 @@ export default function Enter() {
             if (!e.target.value > 0 && b > 0) {
                 document.getElementById(b - 1).focus()
             }
+        }
+        if(e.key === 'Enter' && b === 3 ) {
+            sendCode()
         }
     };
     function Number(a, b) {
@@ -203,7 +206,7 @@ export default function Enter() {
                         <h3 className={styles.error} >Не верный код</h3>
                         :
                         <>
-                            <div className={styles.button} onClick={SendCode}>Подтвердить</div>
+                            <div className={styles.button} onClick={sendCode}>Подтвердить</div>
                             <h6>Не получили звонок?</h6>
                         </>
                     }

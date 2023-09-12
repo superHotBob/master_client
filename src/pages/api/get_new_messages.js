@@ -1,30 +1,37 @@
-import postgres from "postgres"
+const { Client } = require('pg')
+export default async function handler(req, res) {  
 
-export default async function handler(req, res) {
-  const sql = postgres(`postgres://bobozeranski:${process.env.DATABASE_API}@ep-yellow-mountain-679652.eu-central-1.aws.neon.tech/neondb?sslmode=require&options=project%3Dep-yellow-mountain-679652`)
+  const client = new Client(process.env.pg_data)
 
-  const client = await sql`
-        select Count(*)      
-        from  chat       
-        where recipient_nikname = ${req.query.nikname} and read = false              
-      `
-  const admin = await sql`
-        select COUNT(*) 
-        from  adminchat       
-        where recipient_nikname = ${req.query.nikname} and read = false               
-      `
-  const admin_all = await sql`
-      select MIN(ms_date) 
-      from  adminchat       
-      where recipient_nikname = ${req.query.nikname} 
-    `
+  await client.connect();
   
-  const subscribe = await sql`
+  const { rows: client_count } = await client.query(`
+        select Count(*)      
+        from  "chat"       
+        where "recipient_nikname" = $1 and "read" = $2            
+      `,[req.query.nikname,false])
+
+  const { rows: admin } = await client.query(`
+        select COUNT(*) 
+        from  "adminchat"       
+        where "recipient_nikname" = $1 and "read" = $2            
+        `,[req.query.nikname,false])
+
+  const { rows: admin_all } = await client.query(`
+      select MIN(ms_date) 
+      from  "adminchat"       
+      where "recipient_nikname" = $1          
+      `,[req.query.nikname])
+  
+  const {rows: subscribe } = await client.query(`
       select COUNT(*) 
-      from  adminchat       
-      where chat = 0 and ms_date > ${admin_all[0].min}  and read = false and (recipient = ${req.query.status} or recipient = 'all')              
-    `
-  const result = +admin[0].count + +client[0].count + +subscribe[0].count
-  console.log(+client[0].count, +admin[0].count, subscribe[0].count)
+      from  "adminchat"       
+      where "chat" = $1 and "ms_date" > $2 and "read" = $3 and ("recipient" = $4 or recipient = $5)              
+    `,[0,admin_all[0].min,false,req.query.status,'all']);
+
+  const result = +admin[0].count + +client_count[0].count + +subscribe[0].count
+  console.log(+client_count[0].count, +admin[0].count, subscribe[0].count)
+
+  await client.end();
   res.status(200).send(result)
 }

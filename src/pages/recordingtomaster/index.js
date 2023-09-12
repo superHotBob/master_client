@@ -96,6 +96,7 @@ export default function Recording() {
         }
     }
     function ConfirmOrder(a) {
+       
         dispatch(setorder(a))
         router.push('/confirmation')
     }

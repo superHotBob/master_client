@@ -25,6 +25,7 @@
 }
 .header img {
     cursor: pointer;
+    margin-right: 55px;
 }
 .section {
     width: 300px;

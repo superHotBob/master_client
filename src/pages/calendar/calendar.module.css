@@ -36,7 +36,9 @@
 
 .section p {
     text-align: center;
-    font: 600 16px/26px 'Rbik', sans-serif;
+    font-weight: 500;
+    font-size:  16px;
+    line-height: 26px;
     margin: 26px 0 12px;
 }
 

@@ -6,8 +6,17 @@ const config = {
     unoptimized: true
   },
   env: {
-    url:  'https://masters-client.onrender.com/', 
-    url_image: 'https://masters-client.onrender.com/var/data/'
+    url:  'https://masters.place/', 
+    url_new_image: 'http://masters.place:5000/var/data/',
+    url_new: 'http://masters.place:5000/',
+    url_image: 'https://masters.place/images/',
+    pg_data: {
+      user: 'client',
+      host: '5.35.5.23',
+      database: 'postgres',
+      password: 'client123',
+      port: 5432,
+    }
   }
 }
 const nextConfig = withPWA({

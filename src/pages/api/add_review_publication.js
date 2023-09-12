@@ -1,26 +1,20 @@
-import postgres from "postgres"
+const { Client } = require('pg')
 
-export default async function handler(req, res) {
-  const sql = postgres('postgres://bobozeranski:ZdxF36OgaSAK@ep-yellow-mountain-679652.eu-central-1.aws.neon.tech/neondb?sslmode=require&options=project%3Dep-yellow-mountain-679652')
-  const rev ={
-    id: req.body.id,    
-    review: req.body.review
-  }
-  
-  const result = await sql`
-    update images 
-    set ${
-      sql(rev, 'review')
-    }
-    where id = ${rev.id} 
+export default async function handler(req, res) { 
+ 
+  const client = new Client(process.env.pg_data)
 
-    returning *
-  `
-
-  if (result.length > 0) {
+  await client.connect();
+  const { rows } = await client.query(`
+      UPDATE "images" 
+      SET "review" = $1
+      WHERE "id" = $2
+    `,[req.body.review,req.body.id]
+  );
+  client.end()
+  if (rows.length > 0) {
     res.end('Отзыв  добавлен')
   } else {
     res.end(null)
-  }
-  
+  }  
 }

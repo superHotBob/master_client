@@ -72,7 +72,7 @@ export default function Header({ sel, text, mes, col = my_tema[0].color, select,
       {text ?
         <h4 style={mes ? new_text_mes : new_text}>
           {mes ? <Image
-            src={process.env.url + 'var/data/' + name + '/main.jpg'}
+            src={process.env.url_image  + name + '.jpg'}
             alt="menu"
             className={styles.image_master}
             width={39} height={40}

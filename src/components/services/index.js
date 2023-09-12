@@ -6,7 +6,7 @@ export default function Services({ color, name}) {
 
     if (error) return <div>ошибка загрузки</div>
     if (isLoading) return <h3 className={styles.upload__message}>Загрузка услуг...</h3>
-    if(data) {
+    if(data.length) {
         return <>
         {Object.entries(data[0]).map(i => i[1]?.length > 0 ? i[0] : null).filter(i => i)?.map((i) =>
             <div className={styles.data} key={i}>

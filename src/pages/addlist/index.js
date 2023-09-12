@@ -46,7 +46,7 @@ const services__name = {
     макияж: 'макияж'
 }
 
-import { useSWRConfig } from 'swr' 
+
 import Event from '@/components/event'
 
 export default function AddList() {
@@ -67,9 +67,7 @@ export default function AddList() {
     
    
     useEffect(() => {
-        const prof = JSON.parse(localStorage.getItem('profile'))
-       
-        
+        const prof = JSON.parse(localStorage.getItem('profile'))        
         setnikname(prof.nikname)
         setColor([... my_tema[prof.tema].color])
         setServices(prof.services)
@@ -130,7 +128,7 @@ export default function AddList() {
             method: 'post',
         })
         .then(res => res.json())
-        .then(res => res[0].id)
+        .then(res => res)
         let data = new FormData()
         let file_name = id + '.jpg'
         data.append('file', e.target.files[0], file_name)
@@ -189,7 +187,7 @@ export default function AddList() {
                             id={i.id}
                             onClick={SetForTag} title="добавить комментарий"
                             className={styles.sertificats}
-                            style={{ border: i.id === +activeImage ? "2px solid " + color[1] : '', backgroundImage: "url(" + url + "/var/data/" + nikname + '/' + i.id + '.jpg' }}
+                            style={{ border: i.id === +activeImage ? "2px solid " + color[1] : '', backgroundImage: "url(https://masters.place/images/" + i.id + '.jpg' }}
                         />
                     )}
                 </form>

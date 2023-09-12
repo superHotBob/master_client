@@ -1,68 +1,69 @@
-import postgres from "postgres"
+const { Client } = require('pg')
 
 export default async function handler(req, res) {
-    const sql = postgres(`postgres://bobozeranski:${process.env.DATABASE_API}@ep-yellow-mountain-679652.eu-central-1.aws.neon.tech/neondb?sslmode=require&options=project%3Dep-yellow-mountain-679652`)
-    console.log(req.query.newnikname, req.query.oldnikname)
-    await sql`
-        update clients 
-        set nikname = ${req.query.newnikname}    
-        where nikname =  ${req.query.oldnikname}  
+    const client = new Client(process.env.pg_data)
+
+    await client.connect();
+
+    await client.query(`
+        update "clients" 
+        set nikname = $1    
+        where nikname =  $2  
         returning *      
-    `
+    `, [req.query.newnikname,req.query.oldnikname]);
+
     console.log(1)
-    await sql`
-        update users 
-        set nikname = ${req.query.newnikname}    
-        where nikname =  ${req.query.oldnikname}  
-        returning  *     
-    `
-    console.log(2)
-    await sql`
-        update services 
-        set nikname = ${req.query.newnikname}    
-        where nikname =  ${req.query.oldnikname}  
+    await client.query(`
+        update "masters" 
+        set nikname = $1    
+        where nikname =  $2  
         returning *      
-    `
+    `, [req.query.newnikname,req.query.oldnikname]);
+    console.log(2)
+    await client.query(`
+        update "services" 
+        set nikname = $1    
+        where nikname =  $2  
+        returning *      
+    `, [req.query.newnikname,req.query.oldnikname]);
     console.log(3)
-    await sql`
-        update schedule 
-        set nikname = ${req.query.newnikname}    
-        where nikname =  ${req.query.oldnikname}  
-        returning  *     
-    `
+    await client.query(`
+        update "schedule" 
+        set nikname = $1    
+        where nikname =  $2  
+        returning *      
+    `, [req.query.newnikname,req.query.oldnikname]);
     console.log(4)
-    await sql`
-        update adminchat 
-        set sendler_nikname = ${req.query.newnikname},
-            recipient_nikname =  ${req.query.newnikname}
-        where recipient_nikname =  ${req.query.oldnikname} or sendler_nikname = ${req.query.oldnikname}
+    await client.query(`
+        update "adminchat" 
+        set sendler_nikname = $1, recipient_nikname =  $1
+        where recipient_nikname =  $2 or sendler_nikname = $2
         returning  *     
-    `
+    `, [req.query.newnikname,req.query.oldnikname]);
     console.log(5)
 
-    await sql`
-        update chat 
-        set sendler_nikname = ${req.query.newnikname},
-            recipient_nikname =  ${req.query.newnikname}
-        where recipient_nikname =  ${req.query.oldnikname} or sendler_nikname = ${req.query.oldnikname}
+    await client.query(`
+        update "chat" 
+        set sendler_nikname = $1, recipient_nikname =  $1
+        where recipient_nikname =  $2 or sendler_nikname = $2
         returning  *     
-    `
+    `, [req.query.newnikname,req.query.oldnikname]);
     console.log(6)
-    await sql`
-        update images 
-        set nikname = ${req.query.newnikname}    
-        where nikname =  ${req.query.oldnikname}  
-        returning  *     
-    `
+    await client.query(`
+        update "images" 
+        set nikname = $1    
+        where nikname =  $2  
+        returning *      
+    `, [req.query.newnikname,req.query.oldnikname]);
     console.log(7)
-    await sql`
-        update orders 
-        set master = ${req.query.newnikname}    
-        where master =  ${req.query.oldnikname}  
-        returning  *     
-    `
-    fetch(`https://masters-client.onrender.com/rename_master_dir?oldname=${req.query.oldnikname}&newname=${req.query.newnikname}`)
-    .then(res => console.log('Папка мастера переименована'))
+    await client.query(`
+        update "orders" 
+        set master = $1    
+        where master =  $2  
+        returning *      
+    `, [req.query.newnikname,req.query.oldnikname]);
+    fetch(`http://localhost:5000/rename_master_icon?oldname=${req.query.oldnikname}&newname=${req.query.newnikname}`)
+        .then(res => console.log('Папка мастера переименована'))
 
     res.status(200).send('Ok')
 

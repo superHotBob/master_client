@@ -1,22 +1,16 @@
-import postgres from "postgres"
-
+const { Client } = require('pg')
 export default async function handler(req, res) {
-  const sql = postgres('postgres://bobozeranski:ZdxF36OgaSAK@ep-yellow-mountain-679652.eu-central-1.aws.neon.tech/neondb?sslmode=require&options=project%3Dep-yellow-mountain-679652')
-  
   let new_date = Date.parse(req.body.event_date)
-
-  console.log(new_date)
-
-  const result = await sql`
-  insert into events (
-    master_nikname, date_event,event_text
-  ) values (
-    ${req.body.nikname},   
-    ${new_date},
-    ${req.body.text}   
-  )
-  returning *
-   `
-
-    res.status(200).json(result)  
+  const client = new Client({
+    user: 'client',
+    host: '5.35.5.23',
+    database: 'postgres',
+    password: 'client123',
+    port: 5432,
+  })  
+  await client.connect();
+  await client.query(
+    `INSERT INTO "events" ("master_nikname", "date_event","event_text")  
+    VALUES ($1, $2,$3)`, [req.body.nikname, new_date,req.body.text]);  
+  res.status(200).json([])
 }

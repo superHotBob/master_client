@@ -1,33 +1,39 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import postgres from "postgres"
+const { Client } = require('pg')
 
 export default async function handler(req, res) {
-  const sql = postgres(`postgres://bobozeranski:${process.env.DATABASE_API}@ep-yellow-mountain-679652.eu-central-1.aws.neon.tech/neondb?sslmode=require&options=project%3Dep-yellow-mountain-679652`)
+  
+  const pgclient = new Client(process.env.pg_data)
 
-  const client = {
-    nikname: req.body.nikname,
-    name: req.body.name,    
-    text: req.body.text,    
-  } 
-  const new_client = await sql`
-    update clients set ${sql(client, 'name', 'text', 'nikname')}    
-    where nikname =  ${client.nikname}
-    returning name, text, nikname, status  
-  `
-  await sql`
-    update adminchat
-    set recipient = ${client.name}    
-    where recipient_nikname =  ${client.nikname}    
-  `
-  await sql`
-    update chat
-    set recipient = ${client.name},
-    set sendler =  ${client.name}
-    where recipient_nikname =  ${client.nikname} or  sendler_nikname =  ${client.nikname}  
-  `
- 
-  if (new_client.length > 0) {
-    res.status(200).json(new_client[0])
+  await pgclient.connect();
+
+  const { rows } = await pgclient.query(`
+    UPDATE "clients"
+    SET "name" = $1 ,"nikname" = $2 ,"text" = $3
+    where "nikname" = $2
+    returning "nikname" , "name", "text" , "saved_image", "status"
+  `, [req.body.name, req.body.nikname, req.body.text]
+  );
+  
+  await pgclient.query(`
+      UPDATE "adminchat"
+      SET "recipient" = case when "recipient" != $3 then $1 else $3 end,
+          "sendler" = case when "sendler" != $3 then $1 else $3 end
+      WHERE "recipient_nikname" = $2  or "sendler_nikname" = $2
+    `, [req.body.name, req.body.nikname,'администратор']
+  );
+
+  await pgclient.query(`
+    UPDATE "chat"
+    SET "recipient" = case when "recipient_nikname" != $2 then $1 else null end,
+        "sendler" = case when "sendler_nikname" != $2 then $1 else null end
+    WHERE "recipient_nikname" = $2 and "sendler_nikname" = $2
+  `, [req.body.name, req.body.nikname]
+  );
+
+  await pgclient.end();
+  if (rows.length > 0) {
+    res.status(200).json(rows[0])
   } else {
     console.log('Error')
   }
