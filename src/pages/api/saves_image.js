@@ -1,17 +1,20 @@
 const { Client } = require('pg')
 
-export default async function handler(req, res) { 
+export default async function handler(req, res) {
+
   const client = new Client(process.env.pg_data)
-  await client.connect();
-  const { rows } = await pgclient.query(`
+
+  await client.connect()
+
+  const { rows } = await client.query(`
     UPDATE "clients"
-    SET "saved_image" = $1 
-    WHERE "nikname" = $2
-    returning "id" 
+      SET "saved_image" = $1 
+      WHERE "nikname" = $2
+      returning  id  
   `, [req.body.image, req.body.nikname]
   );
   
-  await client.end(); 
+  client.end(); 
 
   if (rows.length > 0) {
     res.status(200).json(rows[0].image)

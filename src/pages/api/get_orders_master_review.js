@@ -1,16 +1,22 @@
-import postgres from "postgres"
+const { Client } = require('pg')
 
 export default async function handler(req, res) {
-  const sql = postgres('postgres://bobozeranski:ZdxF36OgaSAK@ep-yellow-mountain-679652.eu-central-1.aws.neon.tech/neondb?sslmode=require&options=project%3Dep-yellow-mountain-679652')
 
-  const result = await sql`
-  select *
-  from orders
-  where master = ${req.query.nikname} and review is not NULL
-  `
   
-  if (result.length) {
-    res.status(200).json(result)
+  const client = new Client(process.env.pg_data)
+
+  await client.connect();
+
+  const { rows } = await client.query(`
+    select *
+    from "orders"
+    where "master" = $1 and "review" is not NULL
+  `,[req.query.nikname])
+
+  client.end()
+  
+  if (rows.length) {
+    res.status(200).json(rows)
   } else {
     res.end("Error")
   }

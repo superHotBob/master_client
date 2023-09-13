@@ -10,7 +10,7 @@ export default async function handler(req, res) {
         where phone =  $2  
         returning phone      
       `,[req.body.password,req.body.tel]);
-      await client.end();   
+  client.end();   
   if (result.length > 0) {
     res.status(200).json(result[0])
   } else {

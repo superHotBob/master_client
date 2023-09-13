@@ -79,7 +79,7 @@ export default function Client() {
                                 onClick={() => goToMaster(i.nikname)}
                                 alt="image"
                                 onLoad={() => loaded(i.id)}
-                                src={process.env.url_image + i.nikname + '/' + i.id + '.jpg'}
+                                src={process.env.url_image +  i.id + '.jpg'}
                             />
                             <span
                                 className={styles.save__image}
@@ -96,7 +96,7 @@ export default function Client() {
                                 title={'Master ' + i.nikname}
                                 onClick={() => goToMaster(i.nikname)}
                                 alt="image"
-                                src={process.env.url_image + i.nikname + '/' + i.id + '.jpg'}
+                                src={process.env.url_image  + i.id + '.jpg'}
                                 onLoad={() => loaded(i.id)}
                             />
                             <span

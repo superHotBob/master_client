@@ -3,14 +3,14 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setprofile } from '@/reduser'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useEffect, useState, useRef } from 'react'
-import Navi from '@/components/navi'
+import { useEffect, useState } from 'react'
+
 
 
 
 
 export default function EditProfile() {
-    const profile = useSelector(state => state.counter.profile)
+    const profile =  useSelector(state => state.counter.profile)
     const router = useRouter()
     const dispatch = useDispatch()
     const [my_profile, setmy_profile] = useState({})    
@@ -21,17 +21,13 @@ export default function EditProfile() {
     
     useEffect(() => {
         const prof = JSON.parse(localStorage.getItem('profile'))        
-        setmy_profile(my_profile=>(
-            {...my_profile,...prof}
-        ))        
-        setSelectedFile('https://masters.place/images/' + profile.nikname + '.jpg')       
+        setmy_profile(prof)           
+        setSelectedFile(process.env.url_image + prof.nikname + '.jpg')       
     }, [])   
     function Return() {
         const prof = JSON.parse(localStorage.getItem('profile'))
-        setmy_profile(my_profile=>(
-            {...my_profile,...prof}
-        )) 
-        setSelectedFile(process.env.url_new_image + prof.nikname + '/main.jpg')
+        setmy_profile(prof) 
+        setSelectedFile(process.env.url_image + my_profile.nikname + '.jpg')  
         router.back()
     }
     const EditClient = async () => {
@@ -71,8 +67,7 @@ export default function EditProfile() {
             method: 'POST',
         })
         .then(res => res.json())
-        .then(res => {
-            // setMessage('Профиль мастера создан')
+        .then(res => {            
             localStorage.setItem('profile', JSON.stringify(res[0]))
             router.push('/editprofile')
 
@@ -97,7 +92,7 @@ export default function EditProfile() {
     }
 
     return (
-        <main className={styles.main}>
+        <>
             <header className={styles.header}>
                 <dialog 
                     onClick={() => setMessage()} 
@@ -107,12 +102,12 @@ export default function EditProfile() {
                     <p>{message}</p>
                 </dialog>
                 <span onClick={Return}>Отмена</span>
-                <span>{profile.nikname}</span>
+                <span>{my_profile.nikname}</span>
                 <span onClick={EditClient}>Принять</span>
             </header>
             <form style={{ height: '106px' }} className={styles.image}>
                 <Image
-                    src={file ? file : 'https://masters.place/images/' + profile.nikname + '.jpg'}
+                    src={file ? file : process.env.url_image + my_profile.nikname + '.jpg'}
                     alt="фото"
                     title='заменить изображение'
                     height={file ? 106 : 50}
@@ -122,7 +117,7 @@ export default function EditProfile() {
                     title="Клик для выбора иконки"
                     type="file"
                     name="image"
-                    onChange={(e) => SelectUpload(e)}
+                    onChange={SelectUpload}
                     accept=".jpg"
                 />
             </form>
@@ -150,7 +145,7 @@ export default function EditProfile() {
                    
                 
             </section>
-            <Navi />
-        </main>
+            {/* <Navi /> */}
+        </>
     )
 }

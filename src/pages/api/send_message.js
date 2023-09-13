@@ -18,21 +18,7 @@ export default async function handler(req, res) {
       chat = +max_chat[0].max + 1
 
     }
-    await sql`
-      insert into adminchat (recipient,recipient_nikname,sendler,sendler_nikname,ms_text,ms_date,chat,read) 
-      values (
-        ${req.body.recipient},
-        ${req.body.recipient_nikname},
-        ${req.body.sendler},
-        ${req.body.sendler_nikname},     
-        ${req.body.ms_text},
-        ${req.body.ms_date},
-        ${chat},
-        'false'
-      
-      )  
-      returning *
-    `
+   
 
     client.query(`
         INSERT INTO "adminchat" (recipient,recipient_nikname,sendler,sendler_nikname,ms_text,ms_date,chat,read)
@@ -49,26 +35,10 @@ export default async function handler(req, res) {
     if (req.body.chat) {
       chat = req.body.chat
     } else {
-      const max_chat = await sql`
-        select Max(chat) from chat
-      `
-      chat = max_chat[0].max + 1
-
+      const { rows } = await client.query("select Max(chat) from chat")
+      chat = rows[0].max + 1
     }
-    const result = await sql`
-    insert into chat (recipient,recipient_nikname,sendler,sendler_nikname,ms_text,ms_date,chat, read) 
-    values (
-      ${req.body.recipient},
-      ${req.body.recipient_nikname},
-      ${req.body.sendler},
-      ${req.body.sendler_nikname},     
-      ${req.body.ms_text},
-      ${req.body.ms_date},
-      ${chat},
-      'false'
-    )  
-    returning *
-  `
+    
    await client.query(`
       INSERT INTO "chat" (recipient,recipient_nikname,sendler,sendler_nikname,ms_text,ms_date,chat,read)
       VALUES($1,$2,$3,$4,$5,$6,$7,$8)
@@ -77,7 +47,5 @@ export default async function handler(req, res) {
     );
     await client.end();
     res.send('Ok')
-
   }
-
 }
