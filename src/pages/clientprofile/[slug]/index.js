@@ -30,9 +30,9 @@ export default function Client() {
     function goToMaster(a) {
         router.push(`/${a}`)
     }
-    function loaded(a) {
-        document.getElementById(a).style.opacity = 1
-    }
+    // function loaded(a) {
+    //     document.getElementById(a).style.opacity = 1
+    // }
     function deleteImage(a) {
         let pro = JSON.parse(localStorage.getItem('profile'))
         let new_saved = [...pro.saved_image]
@@ -78,7 +78,7 @@ export default function Client() {
                                 title={'Master ' + i.nikname}
                                 onClick={() => goToMaster(i.nikname)}
                                 alt="image"
-                                onLoad={() => loaded(i.id)}
+                                // onLoad={() => loaded(i.id)}
                                 src={process.env.url_image +  i.id + '.jpg'}
                             />
                             <span
@@ -97,7 +97,7 @@ export default function Client() {
                                 onClick={() => goToMaster(i.nikname)}
                                 alt="image"
                                 src={process.env.url_image  + i.id + '.jpg'}
-                                onLoad={() => loaded(i.id)}
+                                // onLoad={() => loaded(i.id)}
                             />
                             <span
                                 className={styles.save__image}

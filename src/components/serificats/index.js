@@ -2,29 +2,25 @@ import styles from './sertificats.module.css'
 import { useState, useEffect } from 'react'
 import useSWR from 'swr'
 
-const url = 'https://masters-client.onrender.com'
-
 
 export default function Sertificats({ nikname , nav}) {
-  const { data, error, isLoading } = useSWR(nav === 2 ? `${url}/getsertificats?dir=${nikname}`: null)
+  const { data, isLoading } = useSWR(nav === 2 ? `/api/get_sertificats?nikname=${nikname}`: null)
   const [image, viewImage] = useState()
   const [tag, setTag] = useState()
 
 
-
   function viewBigImage(a) {
-    viewImage(a)
-   
+    if(!a) {
+      return viewImage()
+    }
+    viewImage(a['id'])
+    setTag(a['review'])
+    console.log(a)
   }
-  function GetText(a) {
-    let new_file = nikname + '/' + a.replace('https://masters-client.onrender.com/var/data/', '')
-    fetch(`${url}/readtext?file=${new_file}`)
-      .then(res => res.text())
-      .then(res => setTag(res))
-  }
+ 
 
-  if (error) return <div>Сертификатов нет</div>
-  if (isLoading) return <h4 className={styles.upload_message}>Загрузка сертификатов...</h4>
+  if (data?.length === 0) return <h4 className={styles.upload__message}>Сертификатов нет</h4>
+  if (isLoading) return <h4 className={styles.upload__message}>Загрузка сертификатов...</h4>
 
   return (
     <>
@@ -32,24 +28,20 @@ export default function Sertificats({ nikname , nav}) {
         {data?.map(i =>
           <img
             key={i}
-            alt="image"
-           
-            onClick={() => {
-              viewBigImage(i)
-              GetText(i)
-            }}
+            alt="image"           
+            onClick={() => viewBigImage(i)}
             className={styles.image}
-            src={url + '/var/data/' + nikname + '/' + i  }
+            src={process.env.url_image + i.id + '.jpg' }
           />
         )}
       </div>
       {image ?
         <div className={styles.main__detail} >
           <div className={styles.detail} id={image + 'aaa'}>
-            <h3 onClick={() => viewBigImage()} />
+            <h3 onClick={() => viewBigImage(false)} />
             <img
               alt="my_image"
-              src={url + '/var/data/' + nikname + '/' + image}
+              src={process.env.url_image + image + '.jpg' }
               width="100%"
               id={image}
               height="auto"

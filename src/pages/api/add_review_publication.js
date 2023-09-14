@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   const { rows } = await client.query(`
       UPDATE "images" 
       SET "review" = $1
-      WHERE "id" = $2
+      WHERE "id" = +$2
     `,[req.body.review,req.body.id]
   );
   client.end()

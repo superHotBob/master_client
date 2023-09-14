@@ -105,7 +105,7 @@ export default function Master() {
                     {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
                         .map((i, index) => <span key={i} onClick={() => setNavView(index)} style={+nav_view === index ? { ...active, backgroundColor: color[1] } : null}>{i}</span>)}
                 </nav>
-                {nav_view === 3 ? <Reviews nikname={slug} color={color} /> :
+                {nav_view === 3 ? <Reviews nikname={slug} nav={nav_view} /> :
                     nav_view === 1 ? <Services name={slug} color={color} nav={nav_view} /> :
                         nav_view === 0 ? <Lenta nikname={slug} color={color} name={profile.name} /> :
                             <Sertificats nav={nav_view} nikname={slug} />}

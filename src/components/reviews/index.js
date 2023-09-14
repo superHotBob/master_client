@@ -6,15 +6,18 @@ import star from '../../../public/star-small.svg'
 import star_gray from '../../../public/star-gray.svg'
 import { Convert_Date } from '@/profile'
 import useSWR from 'swr'
-const fetcher = (...args) => fetch(...args).then(res => res.json())
 
-export default function Reviews({ nikname, color }) {
 
-    const { data: reviews, isLoading } = useSWR(`/api/get_orders_master_review?nikname=${nikname}`, fetcher)
+export default function Reviews({ nikname, nav }) {
+
+    const { data: reviews, isLoading } = useSWR(nav === 3 ?`/api/get_orders_master_review?nikname=${nikname}`:null)
     const [view, setView] = useState(null)
 
     if (isLoading) {
-        return <h3> Загрузка отзывыв...</h3>
+        return <h4 className={styles.mess}> Загрузка отзывыв...</h4>
+    }
+    if (reviews?.length === 0) {
+        return <h4 className={styles.mess}> Отзывов  пока нет</h4>
     }
 
     return <>

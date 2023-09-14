@@ -148,7 +148,7 @@ export default function Enter() {
                             autoFocus: true
                         }}
                         countryCodeEditable={false}
-                        onlyCountries={['by', 'ua']}
+                        onlyCountries={['by', 'ru']}
                         value={phone}
                         prefix='+'
                         containerStyle={{
