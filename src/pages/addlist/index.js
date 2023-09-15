@@ -4,7 +4,7 @@ import Menu_icon from '../../components/icons/menu'
 import styles from './addlist.module.css'
 import { url, my_tema } from '@/data.'
 import DatePicker from "react-datepicker";
-import useSWR from 'swr'
+import useSWR, { useSWRConfig } from 'swr'
 
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale, setDefaultLocale } from "react-datepicker";
@@ -52,7 +52,7 @@ import Event from '@/components/event'
 export default function AddList() {
     
     const my_ref = useRef(null)
-    const [lists, setlists] = useState([])
+    // const [lists, setlists] = useState([])
     const [nikname, setnikname] = useState()
     const [color, setColor] = useState([])
     const [services, setServices] = useState()
@@ -62,8 +62,8 @@ export default function AddList() {
     const [selector, setSelector] = useState(true)
    
 
-   
-  
+    const { data: lists } = useSWR(`/api/get_images?nikname=${nikname}`)
+    const { mutate } = useSWRConfig()
     
    
     useEffect(() => {
@@ -72,9 +72,9 @@ export default function AddList() {
         setColor([... my_tema[prof.tema].color])
         setServices(prof.services)
         settag(prof.services[0])
-        fetch(`/api/get_images?nikname=${prof.nikname}`)
-        .then(res => res.json())
-        .then(res => setlists(res))
+        // fetch(`/api/get_images?nikname=${prof.nikname}`)
+        // .then(res => res.json())
+        // .then(res => setlists(res))
     }, [])
    
     function SetForTag(e) {
@@ -123,6 +123,7 @@ export default function AddList() {
                 master_name: prof.name
             }),
             headers: {
+                'Authorization': 'master',
                 'Content-Type': 'application/json',
             },
             method: 'post',
@@ -132,16 +133,13 @@ export default function AddList() {
         let data = new FormData()
         let file_name = id + '.jpg'
         data.append('file', e.target.files[0], file_name)
-        fetch(`${url}/upl?name=${nikname}`, {
+        fetch(`${process.env.url_new}upl?name=${nikname}`, {
             body: data,
-            method: 'post',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+            method: 'post'          
         })
-            .then(res => {
-                setlists(lists => [...lists, { 'id': id, 'service': services__name[tag], 'nikname': nikname }])
+            .then(res => {               
                 setmessage('Публикация отправлена на модерацию')
+                mutate(`/api/get_images?nikname=${nikname}`)
                 setTimeout(() => setmessage(''), 2000)
             })
             .catch(err => console.log(err))
@@ -225,8 +223,8 @@ export default function AddList() {
                 </label>
 
             </>
-                :
-                <Event nikname={nikname} color={color} />
+            :
+            <Event nikname={nikname} color={color} />
             }
         </main>
     )

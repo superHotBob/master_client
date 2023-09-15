@@ -21,7 +21,7 @@ export default async function handler(req, res) {
 
   
 
-  client.end();
+  await client.end();
  
   res.send(id[0]['id'])
 

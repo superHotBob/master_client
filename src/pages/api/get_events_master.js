@@ -5,7 +5,7 @@ export default async function handler(req, res) {
 
   await client.connect();
   const { rows } = await client.query(`
-        select  date_event,event_id, event_text     
+        select  date_event, id, event_text     
         from "events" 
         where master_nikname = $1   and date_event >= $2              
       `,[req.query.nikname,Date.now()])
