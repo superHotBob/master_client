@@ -17,7 +17,7 @@ export default function DisplayPublications() {
     const [delete_images, setDeleteImages] = useState([])
 
 
-
+console.log(delete_images)
 
 
 
@@ -64,7 +64,7 @@ export default function DisplayPublications() {
 
     function SaveImages() {
         for (const i of delete_images) {
-            fetch(`/api/delete_images_time?img_date=${i}`)
+            fetch(`/api/delete_images?img_date=${i}`)
         }
         for (const [index, i] of imagesone.entries()) {
             fetch(`/api/update_image_rating?id=${i.id}&rating=${images.length - delete_images.length - index * 2 + 1}`)

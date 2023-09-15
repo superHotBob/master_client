@@ -133,9 +133,11 @@ export default function AddList() {
         let data = new FormData()
         let file_name = id + '.jpg'
         data.append('file', e.target.files[0], file_name)
-        fetch(`${process.env.url_new}upl?name=${nikname}`, {
+        fetch(`http://5.35.4.213:5000/upl?name=${nikname}`,
+        {
             body: data,
-            method: 'post'          
+            method: 'post',
+            mode: 'cors'         
         })
             .then(res => {               
                 setmessage('Публикация отправлена на модерацию')

@@ -74,7 +74,8 @@ export default function AddSertificat({ nikname, view, color }) {
         fetch(`${process.env.url_new}upl?name=${nikname}`,
             {
                 body: data,
-                method: 'post'              
+                method: 'post' ,
+                mode: 'cors'            
             })
             .then(res => {
                 setmessage('Сертификат отправлен на модерацию')
