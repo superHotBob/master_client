@@ -9,7 +9,9 @@ export default async function handler(req, res) {
         where "nikname" =  $2  
         returning *      
       `,[stars,req.query.nikname])
-      client.end()
+
+      
+  await client.end()
   if (rows.length > 0) {
     res.status(200).json(rows[0])
   } else {

@@ -6,13 +6,13 @@ import { setlocation } from '@/reduser'
 import Image from 'next/image'
 import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps'
 import icon_close from '../../../public/close.svg'
-// import { load } from '@2gis/mapgl';
 
 
 
 
 
-const API_KEY = "89caab37-749d-4e30-8fdf-e8045542f060"
+
+
 export default function Location({ loc_master, close, nikname }) {
     const dispatch = useDispatch()
 
@@ -21,11 +21,7 @@ export default function Location({ loc_master, close, nikname }) {
         document.getElementsByClassName('ymaps-2-1-79-copyright')[0].style.display = 'none'
         document.getElementsByClassName('ymaps-2-1-79-gotoymaps')[0].style.display = 'none'
     }
-    function UpdateLocation(a) {
-        console.log(a)
-        // fetch(`https://geocode-maps.yandex.ru/1.x/?apikey=${API_KEY}&geocode=Каменогорская+88&lang=ru_RU&format=json`)
-        // .then(res=>res.json())
-        // .then(res=>console.log('responce',res))
+    function UpdateLocation(a) {      
         fetch('/api/edit_location_master', {
             method: 'Post',
             body: JSON.stringify({

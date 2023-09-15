@@ -8,7 +8,6 @@
     position: relative;
     z-index: 101;
 }
-
 .images {
     display: grid;
     grid-template-columns: auto auto auto auto;
@@ -35,9 +34,7 @@
     margin: 20px 0;
     position: relative;
     color: #fff;
-
 }
-
 .selector {
     font-weight: 400;
     font-size: 14px;
@@ -59,7 +56,6 @@
     text-align: center;
     cursor: pointer;
 }
-
 .events a {
     width: 90%;
     margin: 8px auto;
@@ -74,11 +70,11 @@
     line-height: 29px;
     display: block;   
     text-align: left;
-
 }
 .events a:first-of-type {
     height: 80px;
     margin-top: 16px;
+    text-align: center;
 }
 .message {
     margin: 30vh auto;

@@ -30,6 +30,11 @@
     text-align: center;
     line-height: 18px;    
     border-radius: 100%;
+    cursor: pointer;
+}
+.left__arrow:hover, .sertificats img:hover {
+    transform: scale(1.3);
+    transition: all 0.5s;
 }
 
 .header a:first-of-type svg {

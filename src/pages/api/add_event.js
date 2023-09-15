@@ -6,5 +6,6 @@ export default async function handler(req, res) {
   await client.query(
     `INSERT INTO "events" ("master_nikname", "date_event","event_text")  
     VALUES ($1, $2, $3)`, [req.body.nikname, new_date,req.body.text]);  
+  await client.end()  
   res.status(200).json([])
 }

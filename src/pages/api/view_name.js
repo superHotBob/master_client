@@ -11,7 +11,8 @@ export default async function handler(req, res) {
         from "clients"
         where "nikname" = $1
    `,[req.query.nam]);
-    client.end();
-    console.log(rows)
+
+    await client.end();
+    
     res.status(200).json(rows)
 }

@@ -26,7 +26,7 @@ export default async function handler(req, res) {
         , [ipAddress, date_enter, 'Минск', req.query.phone]
     )
    
-    client.end()    
+    await client.end()    
 
     res.status(200).json(rows)
 }

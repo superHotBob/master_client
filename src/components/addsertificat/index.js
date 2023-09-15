@@ -17,7 +17,7 @@ export default function AddSertificat({ nikname, view, color }) {
 
     const { data: sertificats } = useSWR(`/api/get_sertificats?nikname=${nikname}`)
 
-    
+
     function deleteSertif(e) {
         e.stopPropagation()
         fetch(`/api/delete_images?id=${e.target.id}`)
@@ -29,7 +29,7 @@ export default function AddSertificat({ nikname, view, color }) {
             })
             .catch(err => console.log(err))
     }
-  
+
     function SaveTagSertificate() {
         console.log(active)
         fetch('/api/add_review_publication', {
@@ -70,15 +70,12 @@ export default function AddSertificat({ nikname, view, color }) {
         let data = new FormData()
         let file_name = id + '.jpg'
         data.append('file', e.target.files[0], file_name)
-        fetch(`http://masters.place:5000/upl?name=${nikname}`,
+        fetch(`http://5.35.4.213:5000/upl?name=${nikname}`,
             {
                 body: data,
                 method: 'post',
-                headers: {
-                    'Authorization': 'master'
-                }
             })
-            .then(res => {               
+            .then(res => {
                 setmessage('Сертификат отправлен на модерацию')
                 mutate(`/api/get_sertificats?nikname=${nikname}`)
                 setTimeout(() => setmessage(''), 2000)
@@ -142,25 +139,18 @@ export default function AddSertificat({ nikname, view, color }) {
 
             </form>
             <label className={styles.addtag}>
-                {active ?
-                    <>
-                        Расскажите о сертификате подробнее...
-                        <textarea
-                            ref={my_ref}
-                            maxLength="500"
-                            placeholder='Ваш комментарий'
-                            rows={10}
-                           
-                           
-                            style={{ borderColor: color[1] }}
-                        />
-                        <div onClick={SaveTagSertificate} style={{ ...active_button, backgroundColor: color[1] }}>
-                            Сохранить
-                        </div>
-                    </> : 'Выберите сертификат для добавления комментария'}
+                Выберите сертификат и добавте комментарий
+                <textarea
+                    ref={my_ref}
+                    maxLength="500"
+                    placeholder='Ваш комментарий'
+                    rows={10}
+                    style={{ borderColor: color[1] }}
+                />
+                <div onClick={SaveTagSertificate} style={{ ...active_button, backgroundColor: color[1] }}>
+                    Сохранить
+                </div>
             </label>
-
-
         </main>
     )
 }

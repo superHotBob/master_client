@@ -64,7 +64,7 @@ export default function Chat() {
                             className={styles.chat}
                         >
                             <Image width={55} height={55}
-                            src={process.env.url + 'var/data/' + (i.sendler_nikname === name ? i.recipient_nikname : i.sendler_nikname) + '/main.jpg'} 
+                            src={process.env.url_image + (i.sendler_nikname === name ? i.recipient_nikname : i.sendler_nikname) + '.jpg'} 
                             alt="master" 
                             />
                             <div>

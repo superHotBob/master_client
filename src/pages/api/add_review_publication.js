@@ -11,7 +11,7 @@ export default async function handler(req, res) {
       WHERE "id" = +$2
     `,[req.body.review,req.body.id]
   );
-  client.end()
+  await client.end()
   if (rows.length > 0) {
     res.end('Отзыв  добавлен')
   } else {

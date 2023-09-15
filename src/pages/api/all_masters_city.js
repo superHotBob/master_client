@@ -12,7 +12,9 @@ export default async function handler(req, res) {
         where $1 = ANY (services) and city = $2 
         order by rating DESC
    `,[req.query.service, req.query.city]);
+
     await client.end();
+    
     if (result.length>0) {
         res.status(200).json(result)
     } else {

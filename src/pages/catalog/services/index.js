@@ -4,12 +4,9 @@ import styles from './services.module.css'
 import { useDispatch } from 'react-redux'
 import { setservice } from '@/reduser'
 import { useRouter } from 'next/router'
-
+import { my_data } from '@/data.'
 import useSWR from 'swr'
 import { useSelector } from 'react-redux'
-
-
-const images = ['маникюр', 'педикюр', 'макияж', 'ресницы', 'брови', 'депиляция', 'массаж', 'стрижка', 'окрашивание', 'прически', 'барбер', 'чистка']
 
 
 const sel = {
@@ -17,7 +14,6 @@ const sel = {
     fontWeight: 600,
     color: '#fff'
 }
-
 const My_Events = () => {
     const city = useSelector(state=>state.counter.city)
     const { data: events } = useSWR(`/api/get_events?city=${city.toLowerCase()}`)
@@ -42,7 +38,7 @@ export default function Services() {
 
 
     function ToService(event) {
-        if( images.includes(event.target.id)) {
+        if( my_data.category.includes(event.target.id)) {
             dispatch(setservice(event.target.id))
             router.push(`/masternear/${event.target.id}`)
         }
@@ -57,12 +53,12 @@ export default function Services() {
             </div>
             {selector ? 
                 <div className={styles.images} onClick={ToService}>
-                    {images.map(i =>
+                    {my_data.category.map(i =>
                         <img key={i} id={i} alt="image" src={'/' + i + '.svg'} width='100%' height='auto' />
 
                     )}
                 </div>
-                    :
+               :
                 <My_Events />
             }
         </>

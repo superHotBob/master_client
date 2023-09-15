@@ -1,11 +1,11 @@
 const { Client } = require('pg')
 
 export default async function handler(req, res) {  
-  const pgclient = new Client(process.env.pg_data)
+  const client = new Client(process.env.pg_data)
 
-  await pgclient.connect();
+  await client.connect();
 
-  const { rows: admin} = await pgclient.query(`
+  const { rows: admin} = await client.query(`
     SELECT * FROM (
       SELECT distinct on ("chat")  *         
       from  "adminchat"       
@@ -16,7 +16,7 @@ export default async function handler(req, res) {
     `,[req.query.nikname]
   );
 
-  const { rows: client} = await pgclient.query(`
+  const { rows: client_mess} = await client.query(`
     SELECT * FROM (
       SELECT distinct on ("chat")  *         
       from  "chat"       
@@ -26,16 +26,14 @@ export default async function handler(req, res) {
     ) "chat"
     `,[req.query.nikname]
   );
-  
-
-  
+    
   const result = {
     admin: admin,
-    client: client,
+    client: client_mess,
     // subscribe: subscribe
   } 
 
-  await pgclient.end(); 
+  await client.end(); 
   res.status(200).json(result)
 
 }
