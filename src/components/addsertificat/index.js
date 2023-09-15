@@ -74,6 +74,9 @@ export default function AddSertificat({ nikname, view, color }) {
             {
                 body: data,
                 method: 'post',
+                headers: {
+                'Content-Type': 'application/json',
+            }
             })
             .then(res => {
                 setmessage('Сертификат отправлен на модерацию')

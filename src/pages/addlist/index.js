@@ -135,6 +135,9 @@ export default function AddList() {
         fetch(`${url}/upl?name=${nikname}`, {
             body: data,
             method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
         })
             .then(res => {
                 setlists(lists => [...lists, { 'id': id, 'service': services__name[tag], 'nikname': nikname }])
