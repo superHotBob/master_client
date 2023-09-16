@@ -49,6 +49,7 @@ export default function EditProfile() {
             localStorage.setItem("profile", JSON.stringify(res))
             dispatch(setprofile(res))
             setMessage('Ваш профиль изменён')
+            router.back()
         })
         .catch(err => setMessage("Ошибка сохранения "))
     }
@@ -88,7 +89,8 @@ export default function EditProfile() {
             body: data,
             method: 'post',
         }).then(res => console.log('file is good'))
-        setSelectedFile(process.env.url_image + profile.nikname + '.jpg')      
+        setSelectedFile(process.env.url_image + profile.nikname + '.jpg') 
+        router.back()     
     }
 
     return (

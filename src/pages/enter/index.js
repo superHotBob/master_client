@@ -49,7 +49,7 @@ export default function Enter() {
                 }
             })
         function Call() {
-            fetch(`${process.env.url_new}call`, {
+            fetch(`/api/get_code`, {
                 body: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ export default function Enter() {
 
     async function sendCode() {
         const data = { tel: phone, number: +number.join('') }
-        fetch(`${process.env.url_new}code`, {
+        fetch(`/api/get_code`, {
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',

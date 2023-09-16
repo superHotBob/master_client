@@ -29,7 +29,7 @@ export default async function handler(req, res) {
     );
    
       
-    fetch(`http://masters.place:5000/createclientfolder?dir=${nikname}`)
+    fetch(`http://masters.place:5000/createclienticon?name=${nikname}`)
     .then(res => console.log('Иконка клиента создана'))
    
 
