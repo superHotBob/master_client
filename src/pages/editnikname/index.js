@@ -39,16 +39,15 @@ export default function EditNikname() {
             return
         }    
     }
-    async function ChangeNikname() {
-        console.log('dfsd')
-        let ch = await fetch(`/api/edit_nikname?newnikname=${newnikname}&oldnikname=${profile.nikname}`)
+    async function ChangeNikname() { 
+        if( !profile.nikname) {return;}       
+        await fetch(`/api/edit_nikname?newnikname=${newnikname}&oldnikname=${profile.nikname}`)
         .then(res=>res.text())
         .then(res=>{
             EditLocalStorage('nikname', newnikname)
             setcopyring('Nikname изменён. Выдите из акаунта и войдите снова.')
             setTimeout(()=>setcopyring(''),3000)
-        })
-        
+        })        
     }
     return (
         <>
@@ -66,7 +65,7 @@ export default function EditNikname() {
             <input type="text" onChange={ViewCurrentName} minLength={4} placeholder='Новый nikname'/>
             <span id="name"/>
             <span onClick={CopyLink}>Скопировать ссылку</span>
-            {copyring ? <h2>Скопировано в буфер</h2> : null}
+            {copyring ? <h2>{copyring}</h2> : null}
             </section>
 
         </>

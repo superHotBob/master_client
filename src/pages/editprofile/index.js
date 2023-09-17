@@ -119,7 +119,7 @@ export default function EditProfile() {
         const result = await response.json()
         localStorage.setItem("profile", JSON.stringify(result));
         dispatch(setprofile(result))
-      
+        router.back()
         
     }
    
@@ -133,12 +133,20 @@ export default function EditProfile() {
     }
 
     function UploadToServer() {        
-        let data = new FormData()
-        data.append('file', file_for_upload, `${profile.nikname}.jpg`)
-        fetch(`http://masters.place:5000/upl?name=${profile.nikname}`, {
-            body: data,
-            method: 'post',
-        }).then(res => console.log('file is good'))
+        let formData = new FormData()
+        formData.append('file', file_for_upload, `${profile.nikname}.jpg`)
+        
+        // fetch('/api/replace_icon', {
+        //     method: 'POST',
+        //     body: formData,
+        //   })
+        //   .then(res => res.json())
+        //   .then(res=>console.log(res))
+    
+        // fetch(`http://masters.place:5000/upl?name=${profile.nikname}`, {
+        //     body: data,
+        //     method: 'post',
+        // }).then(res => console.log('file is good'))
         setSelectedFile(process.env.url_image + profile.nikname + '.jpg')
     }
     return (

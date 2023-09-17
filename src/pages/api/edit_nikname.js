@@ -7,62 +7,63 @@ export default async function handler(req, res) {
 
     await client.query(`
         update "clients" 
-        set nikname = $1    
-        where nikname =  $2  
+        set "nikname" = $1    
+        where "nikname" =  $2  
         returning *      
-    `, [req.query.newnikname,req.query.oldnikname]);
+    `, [req.query.newnikname, req.query.oldnikname]);
 
     console.log(1)
     await client.query(`
         update "masters" 
-        set nikname = $1    
-        where nikname =  $2  
+        set "nikname" = $1    
+        where "nikname" =  $2  
         returning *      
-    `, [req.query.newnikname,req.query.oldnikname]);
+    `, [req.query.newnikname, req.query.oldnikname]);
     console.log(2)
     await client.query(`
         update "services" 
-        set nikname = $1    
-        where nikname =  $2  
+        set "nikname" = $1    
+        where "nikname" =  $2  
         returning *      
-    `, [req.query.newnikname,req.query.oldnikname]);
+    `, [req.query.newnikname, req.query.oldnikname]);
     console.log(3)
     await client.query(`
         update "schedule" 
-        set nikname = $1    
-        where nikname =  $2  
-        returning *      
-    `, [req.query.newnikname,req.query.oldnikname]);
+        set "nikname" = $1    
+        where "nikname" =  $2               
+    `, [req.query.newnikname, req.query.oldnikname]);
     console.log(4)
-    await client.query(`
-        update "adminchat" 
-        set sendler_nikname = $1, recipient_nikname =  $1
-        where recipient_nikname =  $2 or sendler_nikname = $2
-        returning  *     
-    `, [req.query.newnikname,req.query.oldnikname]);
-    console.log(5)
+
 
     await client.query(`
-        update "chat" 
-        set sendler_nikname = $1, recipient_nikname =  $1
-        where recipient_nikname =  $2 or sendler_nikname = $2
-        returning  *     
-    `, [req.query.newnikname,req.query.oldnikname]);
+        UPDATE "adminchat"
+        SET "recipient_nikname" = case when "recipient_nikname" != $3 then $1 else $3 end,
+            "sendler_nikname" = case when "sendler_nikname" != $3 then $1 else $3 end
+        WHERE "recipient_nikname" = $2  or "sendler_nikname" = $2
+        `, [req.body.newnikname, req.body.nikname, 'администратор']
+    );
+    console.log(5)
+    await client.query(`
+        UPDATE "chat"
+        SET "recipient_nikname" = case when "recipient_nikname" != $2 then $1 else null end,
+            "sendler_nikname" = case when "sendler_nikname" != $2 then $1 else null end
+        WHERE "recipient_nikname" = $2 and "sendler_nikname" = $2
+         `, [req.query.newnikname, req.query.oldnikname]
+    );    
     console.log(6)
     await client.query(`
         update "images" 
         set nikname = $1    
-        where nikname =  $2  
-        returning *      
-    `, [req.query.newnikname,req.query.oldnikname]);
+        where nikname =  $2             
+    `, [req.query.newnikname, req.query.oldnikname]);
     console.log(7)
     await client.query(`
         update "orders" 
-        set master = $1    
-        where master =  $2  
-        returning *      
-    `, [req.query.newnikname,req.query.oldnikname]);
-    fetch(`http://masters.place:5000/rename_master_icon?oldname=${req.query.oldnikname}&newname=${req.query.newnikname}`)
+        set "master" = $1    
+        where "master" =  $2             
+    `, [req.query.newnikname, req.query.oldnikname]);
+    console.log(8)
+    fetch(`http://5.35.4.213:5000/rename_master_icon?oldname=${req.query.oldnikname}&newname=${req.query.newnikname}`)
         .then(res => console.log('Папка мастера переименована'))
 
     res.status(200).send('Ok')

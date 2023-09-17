@@ -56,6 +56,8 @@
 .main_block h2 {
     text-align: center;
     line-height: 30px;
+    margin: 40px auto;
+    width: 80%;
 }
 .main_block span:last-of-type {
     cursor: pointer;

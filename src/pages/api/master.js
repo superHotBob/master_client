@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   `,[req.query.nikname]);
   
   await client.end();
-  if (result.length) {
+  if (result.length >0 ) {
     res.status(200).json(result[0]) 
   } else {
     res.status(500).send([])

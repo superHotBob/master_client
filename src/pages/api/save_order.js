@@ -30,9 +30,9 @@ export default async function handler(req, res) {
     my_chat = +chat[0]['chat']
   }
 
-  const order = req.body.order.map(i => i.split(':')).map(i => i[0]).join()
+  // const order = req.body.order.map(i => i.split(':')).map(i => i[0]).join()
 
-  const text = `Cоздан заказ ; ${save_order[0]['id']};${order};
+  const text = `Cоздан заказ ; ${save_order[0]['id']};${req.body.order};
   Детали заказа:;
   Дата встречи: ${req.body.date.replace(/,/g, ' , ')}; 
   Адрес встечи: ${req.body.address};
@@ -57,6 +57,5 @@ export default async function handler(req, res) {
   `, [req.body.master]);
 
   client.end();
-
   res.send('Ok');
 }
