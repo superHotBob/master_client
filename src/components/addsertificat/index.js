@@ -30,11 +30,10 @@ export default function AddSertificat({ nikname, view, color }) {
             .catch(err => console.log(err))
     }
 
-    function SaveTagSertificate() {
-        console.log(active)
+    function SaveTagSertificate() {        
         fetch('/api/add_review_publication', {
             body: JSON.stringify({
-                id: active.id,
+                id: active,
                 review: my_ref.current.value
             }),
             headers: {
@@ -71,7 +70,7 @@ export default function AddSertificat({ nikname, view, color }) {
         let data = new FormData()
         let file_name = id + '.jpg'
         data.append('file', e.target.files[0], file_name)
-        fetch(`${process.env.url_new}upl?name=${nikname}`,
+        fetch(`http://admin.masters.place/upl?name=${nikname}`,
             {
                 body: data,
                 method: 'post' ,
@@ -85,8 +84,8 @@ export default function AddSertificat({ nikname, view, color }) {
             .catch(err => console.log(err))
     }
 
-    function SetForTag(i) {
-        setactive(i)
+    function SetForTag(i) {       
+        setactive(i.id)       
         my_ref.current.value = i.review
     }
     return (
@@ -95,7 +94,6 @@ export default function AddSertificat({ nikname, view, color }) {
                 <div
                     onClick={() => view(false)}
                     className={styles.left__arrow}
-
                 >
                     <Menu_icon color={color[1]} />
                 </div>
@@ -112,17 +110,17 @@ export default function AddSertificat({ nikname, view, color }) {
                         type="file"
                         name="image"
                         style={{ display: 'none' }}
-                        accept=".jpg,.png,.webp"
+                        accept=".jpg"
                         onChange={selectUpload}
                     />
                 </label>
                 {sertificats?.map(i =>
                     <div
-                        key={i}
+                        key={i.id}
                         className={styles.sertificats}
                         style={{
-                            border: active.review === i.review ? `4px solid ${color[1]}` : null,
-                            backgroundImage: "url(" + process.env.url_image + i.id + '.jpg'
+                            border: +active === i.id ? `4px solid ${color[1]}` : null,
+                            backgroundImage: "url(" + process.env.url_image + i.id + '.jpg' + ")"
                         }}
                     >
                         <span onClick={() => SetForTag(i)} title="Добавить комментарий">

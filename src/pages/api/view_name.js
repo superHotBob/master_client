@@ -7,12 +7,15 @@ export default async function handler(req, res) {
   await client.connect();
 
     const { rows } = await client.query(`
-        select nikname
+        select Count(nikname)
         from "clients"
-        where "nikname" = $1
-   `,[req.query.nam]);
+        where "nikname" LIKE $1 
+       
+   `,[req.query.name + '%']);
+
+   console.log(rows[0].count)
 
     await client.end();
     
-    res.status(200).json(rows)
+    res.status(200).send(rows[0].count)
 }

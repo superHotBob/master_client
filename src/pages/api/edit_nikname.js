@@ -34,23 +34,33 @@ export default async function handler(req, res) {
     `, [req.query.newnikname, req.query.oldnikname]);
     console.log(4)
 
-
     await client.query(`
         UPDATE "adminchat"
-        SET "recipient_nikname" = case when "recipient_nikname" != $3 then $1 else $3 end,
-            "sendler_nikname" = case when "sendler_nikname" != $3 then $1 else $3 end
-        WHERE "recipient_nikname" = $2  or "sendler_nikname" = $2
-        `, [req.body.newnikname, req.body.nikname, 'администратор']
+        SET "recipient_nikname" = $1
+        where  "recipient_nikname" = $2      
+    `, [req.query.newnikname, req.query.oldnikname]
+    );
+    console.log(5)
+    await client.query(`
+        UPDATE "adminchat"
+        SET "sendler_nikname" = $1
+        where  "sendler_nikname" = $2       
+    `, [req.query.newnikname, req.query.oldnikname]
+    );
+    await client.query(`
+        UPDATE "chat"
+        SET "recipient_nikname" = $1
+        where  "recipient_nikname" = $2      
+        `, [req.query.newnikname, req.query.oldnikname]
     );
     console.log(5)
     await client.query(`
         UPDATE "chat"
-        SET "recipient_nikname" = case when "recipient_nikname" != $2 then $1 else null end,
-            "sendler_nikname" = case when "sendler_nikname" != $2 then $1 else null end
-        WHERE "recipient_nikname" = $2 and "sendler_nikname" = $2
-         `, [req.query.newnikname, req.query.oldnikname]
-    );    
-    console.log(6)
+        SET "sendler_nikname" = $1
+        where  "sendler_nikname" = $2       
+    `, [req.query.newnikname, req.query.oldnikname]
+    );
+
     await client.query(`
         update "images" 
         set nikname = $1    

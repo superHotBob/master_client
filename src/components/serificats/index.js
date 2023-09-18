@@ -27,7 +27,7 @@ export default function Sertificats({ nikname , nav}) {
       <div className={styles.sertificat_main}>
         {data?.map(i =>
           <img
-            key={i}
+            key={i.id}
             alt="image"           
             onClick={() => viewBigImage(i)}
             className={styles.image}

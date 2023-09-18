@@ -22,11 +22,11 @@ export default function EditNikname() {
         setnewnikname(e.target.value)
         if(e.target.value.length > 3) {
             fetch(`/api/view_name?name=${e.target.value}`)
-            .then(res=>res.json())
+            .then(res=>res.text())
             .then(res=>{
-                if( res.length != 0 ) {
+                if( +res > 0 ) {
                     document.getElementById("name").style.display = 'block'
-                    document.getElementById("name").style.color = 'red'
+                    document.getElementById("name").style.color = 'red'                   
                     document.getElementById("name").innerText = "недопустимый nikname"
                     
                 } else {
@@ -45,7 +45,7 @@ export default function EditNikname() {
         .then(res=>res.text())
         .then(res=>{
             EditLocalStorage('nikname', newnikname)
-            setcopyring('Nikname изменён. Выдите из акаунта и войдите снова.')
+            setcopyring('Nikname изменён. ')
             setTimeout(()=>setcopyring(''),3000)
         })        
     }
