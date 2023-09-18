@@ -1,8 +1,8 @@
 import styles from './services.module.css'
 import useSWR from 'swr'
 
-export default function Services({ color, name}) {     
-    const { data, error, isLoading } = useSWR(`/api/master_service?nikname=${name}`)  
+export default function Services({ color, name, view}) {     
+    const { data, error, isLoading } = useSWR(`/api/master_service?nikname=${name}&view=${view}`)  
 
     if (error) return <div>ошибка загрузки</div>
     if (isLoading) return <h3 className={styles.upload__message}>Загрузка услуг...</h3>

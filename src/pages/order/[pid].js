@@ -30,36 +30,37 @@ export default function Order() {
         })
         if (response.status === 200) {
             setresult('Ваш заказ отменён')
-            EditSchedule()
+            router.push('/masterrecords')
+            // EditSchedule()
         }
 
     }
 
-    async function EditSchedule() {
-        const my_data = {
-            nikname: order.master,
-            month: order.date_order.split(',')[1].toLowerCase()
-        }
-        await fetch(`/api/get_schedule?nikname=${my_data.nikname}&month=${my_data.month}`)
-            .then(res => res.json())
-            .then(data => {
-                let new_schedule = data;
-                let new_days = new_schedule[order.date_order.split(',')[0] - 1] + ',' + order.date_order.split(',')[2];
-                new_schedule[order.date_order.split(',')[0] - 1] = new_days;
-                my_data['schedule'] = new_schedule;
+    // async function EditSchedule() {
+    //     const my_data = {
+    //         nikname: order.master,
+    //         month: order.date_order.split(',')[1].toLowerCase()
+    //     }
+    //     await fetch(`/api/get_schedule?nikname=${my_data.nikname}&month=${my_data.month}`)
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             let new_schedule = data;
+    //             let new_days = new_schedule[order.date_order.split(',')[0] - 1] + ',' + order.date_order.split(',')[2];
+    //             new_schedule[order.date_order.split(',')[0] - 1] = new_days;
+    //             my_data['schedule'] = new_schedule;
 
-            })
+    //         })
 
-        fetch('/api/edit_schedule', {
-            body: JSON.stringify(my_data),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            method: 'POST',
-        })
-        .then(res => router.push('/masterrecords'))
+    //     fetch('/api/edit_schedule', {
+    //         body: JSON.stringify(my_data),
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         method: 'POST',
+    //     })
+    //     .then(res => router.push('/masterrecords'))
 
-    }
+    // }
 
     return (
         <main className={styles.main}>

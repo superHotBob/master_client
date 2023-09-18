@@ -39,30 +39,32 @@ export default function Client() {
     const [profile, setProfile] = useState()
     const [nav_view, setNavView] = useState('Лента')
     const [newSertificat, AddNewSertificat] = useState(false)
-    const [lists, setlists] = useState()    
+    // const [lists, setlists] = useState()    
     const tema = useSelector(state=>state.counter.tema)
     const dispatch = useDispatch()
    
     useEffect(() => {
-        const pro = JSON.parse(localStorage.getItem('profile'))
-        // if (pro.nikname !== pid) {
-        //     return () => router.push('/enter')
-        // }
-        // setTema(my_tema[+pro?.tema].color)
-        dispatch(settema(my_tema[+pro?.tema].color))
+        const pro = JSON.parse(localStorage.getItem('profile'))       
         if (pro) {
-            function GetLists() {
-                fetch(`/api/get_images?nikname=${pid}`)
-                    .then(res => res.json())
-                    .then(res => setlists(res))
-            }
+            dispatch(settema(my_tema[+pro?.tema].color))
+            // function GetLists() {
+            //     fetch(`/api/get_images?nikname=${pid}`)
+            //         .then(res => res.json())
+            //         .then(res => setlists(res))
+            // }
             // GetLists()
             setProfile(pro)
         } else {
-            router.push('/enter')
+            router.push('/')
         }
         return ()=>dispatch(settema(my_tema[0].color))
     }, [pid,router])
+
+    const viewService = () => {
+        setView(false)
+        window.scrollTo(0, 0)
+
+    }
     
 
     
@@ -83,10 +85,10 @@ export default function Client() {
                 <section className={styles.lenta}>
                     <Message color={tema} text={text[nav_view]} page="masterprofile" />
                     {nav_view === 'Услуги' ? <>
-                        <div onClick={() => setView(false)} className={styles.uslugi_plus} style={{ backgroundColor: tema[1] }}>
+                        <div onClick={() => viewService(false)} className={styles.uslugi_plus} style={{ backgroundColor: tema[1] }}>
                             Редактировать категории и услуги
                         </div>
-                        <Services color={tema} name={pid} />
+                        <Services color={tema} name={pid} view={view}/>
                         <AddService view={view} setView={setView} color={tema} />
 
                     </> :

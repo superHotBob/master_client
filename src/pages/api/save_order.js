@@ -6,9 +6,10 @@ export default async function handler(req, res) {
 
   await client.connect()
 
-  await client.query(`
+  const {rows: save_order } = await client.query(`
     insert into "orders" ( master, client,neworder,price,date_order,master_name,client_name,order_month ) 
-    values ($1,$2,$3,$4,$5,$6,$7,$8)    
+    values ($1,$2,$3,$4,$5,$6,$7,$8) 
+    returning *   
   `, [req.body.master, req.body.client, req.body.order, req.body.price,
      req.body.date, req.body.master_name, req.body.client_name, req.body.month]
   );
@@ -31,18 +32,21 @@ export default async function handler(req, res) {
   }
 
   // const order = req.body.order.map(i => i.split(':')).map(i => i[0]).join()
-
+ 
   const text = `Cоздан заказ ; ${save_order[0]['id']};${req.body.order};
   Детали заказа:;
   Дата встречи: ${req.body.date.replace(/,/g, ' , ')}; 
   Адрес встечи: ${req.body.address};
   ${req.body.price}`
   const date = Date.now()
-  await client.query(`
+  const {rows} = await client.query(`
     insert into "chat" (recipient,recipient_nikname,sendler,sendler_nikname,ms_text,ms_date,chat) 
     values ($1,$2,$3,$4,$5,$6,$7)  
     returning *
   `, [req.body.client_name, req.body.client, req.body.master_name, req.body.master, text, date, my_chat]);
+
+
+
 
   await client.query(`
     update "clients" 
@@ -56,6 +60,6 @@ export default async function handler(req, res) {
     where "nikname" = $1
   `, [req.body.master]);
 
-  client.end();
+  await client.end();
   res.send('Ok');
 }

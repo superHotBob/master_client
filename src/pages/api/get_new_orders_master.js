@@ -15,8 +15,8 @@ export default async function handler(req, res) {
 
   let count = rows[0].count
 
-
-  client.end() 
+  
+  await client.end() 
   res.status(200).send(count)
   
 

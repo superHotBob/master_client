@@ -160,7 +160,7 @@ export default function Messages() {
                                     title={i.sendler}
                                     src={i.sendler === 'администратор' ?
                                         "/image/администратор.jpg" :
-                                        process.env.url_image + i.sendler_nikname + '/main.jpg'
+                                        process.env.url_image + i.sendler_nikname + '.jpg'
                                     }
                                     height={50} width={50}
                                     alt="master"

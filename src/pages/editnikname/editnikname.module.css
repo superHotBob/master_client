@@ -11,13 +11,14 @@
 .header img {
     cursor: pointer;
 }
-.header span {
+.header span, .header button {
     color: #282828;
     font-weight: 500;
     opacity: 0;
+    background-color: inherit;
 }
 .header span:first-of-type,
-.header span:last-of-type {
+.header button {
     color: #3D4EEA;
     cursor: pointer;
 }

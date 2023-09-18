@@ -73,7 +73,7 @@ export default function EditProfile() {
         }else {
             setName(pro.name),
             setText(pro.text),
-            setCity(pro.city),
+            setCity(pro.city ? pro.city : 'Минск'),
             setCurrency(my_currency[current_symbol.indexOf(pro.currency)] || 'Белорусский рубль'),
             setAddress(pro.address)
             setSelectedFile(process.env.url_image + pro.nikname + '.jpg')
@@ -102,7 +102,7 @@ export default function EditProfile() {
             nikname: nikname,
             currency: current_symbol[my_currency.indexOf(currency)],
             address: address,
-            city: city,
+            city: city ? city : 'минск',
             color: color,
             tema: my_tema.map(i=>i.color).indexOf(color),
             locations: location,
@@ -235,7 +235,7 @@ export default function EditProfile() {
                 <section className={styles.inputs}>
                     <label>
                        Выберите город
-                        <select value={city} className={styles.select} onChange={handleLocation}>
+                        <select value={city} defaultValue='Минск' className={styles.select} onChange={handleLocation}>
                             {data?.map(i=><option key={i.city} value={i.city.toLowerCase()}>
                                 {i.city}
                                 </option>

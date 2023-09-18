@@ -32,6 +32,7 @@ export default function AddService({ view, setView, color }) {
         let pro = JSON.parse(localStorage.getItem("profile"))
         setProfile(pro)
         GetServices(pro.nikname, pro)
+       
     }, [])
 
 
