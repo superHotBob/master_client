@@ -119,7 +119,7 @@ export default function EditProfile() {
         const result = await response.json()
         localStorage.setItem("profile", JSON.stringify(result));
         dispatch(setprofile(result))
-        router.back()
+        router.push(`/masterprofile/${nikname}`)
         
     }
    

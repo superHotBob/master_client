@@ -94,6 +94,7 @@ export default function AddSertificat({ nikname, view, color }) {
                 <div
                     onClick={() => view(false)}
                     className={styles.left__arrow}
+
                 >
                     <Menu_icon color={color[1]} />
                 </div>
