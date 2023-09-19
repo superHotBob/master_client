@@ -226,7 +226,7 @@ export default function AddList() {
 
             </>
             :
-            <Event nikname={nikname} color={color} />
+            <Event nikname={nikname} color={color} sel={selector} />
             }
         </main>
     )

@@ -13,10 +13,12 @@ export default async function handler(req, res) {
   `,[req.query.nikname]);
 
  
-  client.end();  
-  if (rows.length) {
+ 
+  if (rows.length  > 0) {
+    await client.end();  
     res.status(200).json(rows) 
   } else {
+    await client.end();  
     res.status(200).json([])
   }  
 }

@@ -20,6 +20,8 @@ export default async function handler(req, res) {
     where +date_event > $1  and city = $2
     `,[curr_date,req.query.city]);
 
+    await client.end();
+
     if (rows.length > 0) {
       res.status(200).json(rows)
     } else {

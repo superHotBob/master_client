@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     where "event_id" = $1
     returning *
   `,[req.query.id])
-
+  await client.end();
   if (rows.length > 0) {
     res.end('Мероприятие удалено')
   } else {

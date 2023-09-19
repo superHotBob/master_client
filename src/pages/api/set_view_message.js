@@ -13,7 +13,8 @@ export default async function handler(req, res) {
       SET "read" = true
       where "sendler_nikname" =  $1 and recipient_nikname = $2
       `, [req.query.abonent, req.query.nikname]
-    );  
+    ); 
+    await client.end() 
     res.send('Ok')
   } else {   
     await client.query(`
@@ -22,7 +23,7 @@ export default async function handler(req, res) {
       where "sendler_nikname" =  $1 and recipient_nikname = $2
       `, [req.query.abonent, req.query.nikname]
     );  
-    client.end()
+    await client.end()
     res.send('Ok')
   }
 }

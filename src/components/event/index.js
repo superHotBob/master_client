@@ -20,14 +20,15 @@ const active = {
     cursor: 'pointer',
     margin: '20px auto 0',
 }
-export default function Event({nikname,color}) {
+export default function Event({color, sel}) {
     const [startDate, setStartDate] = useState(new Date())
+    let pro = JSON.parse(localStorage.getItem('profile'))
     const textarea = useRef(null)
     const [ message, setmessage ] = useState()
-    const { data } = useSWR(`/api/get_events_master?nikname=${nikname}`)
+    const { data } = useSWR(sel ? null : `/api/get_events_master?nikname=${pro.nikname}`,{refreshWhenHidden : false})
     
     const body = {
-        nikname: nikname,      
+        nikname: pro?.nikname,      
         event_date: startDate
     }
    
@@ -57,11 +58,12 @@ export default function Event({nikname,color}) {
             setTimeout(() => setmessage(''), 2000)
         })
     }
-    if( data['event_id'] ) return <div className={styles.message}>
+    if( data ) return <div className={styles.message}>
         У вас уже есть мероприятие. Удалите его , что-бы создать новое.
         <Link href='/event' style={{ ...active, backgroundColor: color[1] }}>Посмотреть</Link>
         <button onClick={DeleteEvent} style={{ ...active, backgroundColor: 'red' }}>Удалить</button>
         </div>
+   
     return (
         <div className={styles.date} style={{ borderColor: color[1] }}>
             <h3>Дата и время </h3>

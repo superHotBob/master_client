@@ -63,8 +63,8 @@ export default async function handler(req, res) {
 
     await client.query(`
         update "images" 
-        set nikname = $1    
-        where nikname =  $2             
+        set "nikname" = $1    
+        where "nikname" =  $2             
     `, [req.query.newnikname, req.query.oldnikname]);
     console.log(7)
     await client.query(`

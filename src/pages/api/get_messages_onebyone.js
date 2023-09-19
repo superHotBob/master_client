@@ -24,11 +24,9 @@ export default async function handler(req, res) {
       where "nikname" = $1      
     `,[req.query.nikname]);
    
-    // const dd = date_reg[0]['registration']
-    // let d = new Date(dd)
-    console.log(admin)
-    console.log(Date.parse(date_reg[0]?.registration))
-    const subscribe = await client.query(`
+   
+   
+    const { rows: subscribe } = await client.query(`
         select * 
         from  "adminchat"
         where "chat" = 0 and ("recipient" = $1 or "recipient" = $2 ) and "ms_date" > $3
@@ -36,7 +34,7 @@ export default async function handler(req, res) {
     `,[req.query.status,'all',Date.parse(date_reg[0]?.registration)]); 
 
     const admin_subscribe = admin.concat(subscribe)
-   
+    await client.end()
     if (subscribe.length > 0) {    
       res.status(200).json(admin_subscribe)
     } else {
@@ -50,7 +48,7 @@ export default async function handler(req, res) {
       "recipient_nikname" = $1 and "sendler_nikname" =  $2)                      
     `,[req.query.abonent,req.query.nikname]);
 
-    client.end()
+    await client.end()
 
     if (result.length > 0) {
       res.status(200).json(result)

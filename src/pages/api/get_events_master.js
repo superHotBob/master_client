@@ -5,13 +5,13 @@ export default async function handler(req, res) {
 
   await client.connect();
   const { rows } = await client.query(`
-        select  date_event, id, event_text     
+        select * 
         from "events" 
-        where master_nikname = $1   and date_event >= $2              
+        where "master_nikname" = $1   and "date_event" >= $2              
       `,[req.query.nikname,Date.now()])
 
   await client.end();    
-  if (rows.length) {
+  if (rows.length > 0) {
     res.status(200).json(rows[0])
   } else {
     res.status(200).json({})

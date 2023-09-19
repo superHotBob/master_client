@@ -49,7 +49,7 @@ export default function EditProfile() {
     const [cur, setCur] = useState(false)
     const [color, setColor] = useState(my_tema[0].color)
     const [currency, setCurrency] = useState('BYN')
-    const [city, setCity] = useState('Минск')
+    const [city, setCity] = useState('минск')
     const [address, setAddress] = useState()
     const [address_full, setAddress_full] = useState()
     const [loc, selectLoc] = useState(false)
@@ -73,7 +73,7 @@ export default function EditProfile() {
         }else {
             setName(pro.name),
             setText(pro.text),
-            setCity(pro.city ? pro.city : 'Минск'),
+            setCity(pro.city ? pro.city : 'минск'),
             setCurrency(my_currency[current_symbol.indexOf(pro.currency)] || 'Белорусский рубль'),
             setAddress(pro.address)
             setSelectedFile(process.env.url_image + pro.nikname + '.jpg')
