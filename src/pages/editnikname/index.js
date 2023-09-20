@@ -48,8 +48,8 @@ export default function EditNikname() {
         }
     }
     async function ChangeNikname() {
-        if (!profile.nikname) { return; }
-        if( document.getElementById("change").style.opacity === 0) { return; }
+        // if (!profile.nikname) { return; }
+        // if( document.getElementById("change").style.opacity === 1) { return; }
 
         await fetch(`/api/edit_nikname?newnikname=${newnikname}&oldnikname=${profile.nikname}`)
             .then(res => res.text())
@@ -57,6 +57,7 @@ export default function EditNikname() {
                 EditLocalStorage('nikname', newnikname)
                 setcopyring('Nikname изменён. ')
                 setTimeout(() => setcopyring(''), 3000)
+                router.push(`/${newnikname}`)
             })
     }
     return (

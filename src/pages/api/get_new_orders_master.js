@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     select
     COUNT(*) 
     from "orders"
-    where "master" = $1 and read = false
+    where "master" = $1 and "read" = false
   `,[req.query.nikname]);
 
   let count = rows[0].count

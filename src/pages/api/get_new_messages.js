@@ -14,8 +14,8 @@ export default async function handler(req, res) {
   const { rows: admin } = await client.query(`
         select COUNT(*) 
         from  "adminchat"       
-        where "recipient_nikname" = $1 and "read" = $2            
-        `,[req.query.nikname,false])
+        where "recipient_nikname" = $1 and "read" = false           
+        `,[req.query.nikname])
 
   const { rows: admin_all } = await client.query(`
       select MIN(ms_date) 
@@ -26,11 +26,11 @@ export default async function handler(req, res) {
   const {rows: subscribe } = await client.query(`
       select COUNT(*) 
       from  "adminchat"       
-      where "chat" = $1 and "ms_date" > $2 and "read" = $3 and ("recipient" = $4 or recipient = $5)              
+      where "chat" = $1 and "ms_date" > $2 and "read" = $3 and ("recipient" = $4 or "recipient" = $5)              
     `,[0,admin_all[0].min,false,req.query.status,'all']);
 
   const result = +admin[0].count + +client_count[0].count + +subscribe[0].count
-  console.log(+client_count[0].count, +admin[0].count, subscribe[0].count)
+  console.log(admin, admin_all, subscribe)  
 
   await client.end();
   res.status(200).send(result)

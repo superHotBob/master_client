@@ -33,7 +33,8 @@ export default async function handler(req, res) {
     .then(res => console.log('Иконка клиента создана'))
    
 
-    res.status(200).json(result[0])   
+   
+
     const {rows: max_chat } = await client.query("SELECT Max(chat) from adminchat");
     let chat = +max_chat[0].max + 1;
     let date = Date.now();
@@ -44,6 +45,8 @@ export default async function handler(req, res) {
       returning *
       `, [nikname,nikname,date,chat]      
     );
+    await client.end();  
+    res.status(200).json(result[0])  
 
   } else if (result[0].status === 'master' && result[0].blocked === '0') {
     if (result[0].client_password === req.body.password) {
@@ -53,8 +56,11 @@ export default async function handler(req, res) {
           from "masters"
           where phone = $1
         `,[+req.body.tel]);
+        await client.end();   
+
       res.status(200).json(result[0])
     } else {
+      await client.end(); 
       res.status(200).json([])
     }
   } else if (result[0].status === 'client' && result[0].blocked === '0') {
@@ -65,12 +71,14 @@ export default async function handler(req, res) {
           from "clients"
           where phone = $1
         `,[+req.body.tel]);
+        await client.end(); 
       res.status(200).json(result[0])
     } else {
+      await client.end(); 
       res.status(200).json([])
     }   
   } else  {
-
+    await client.end(); 
     res.status(404).json([])
   } 
 

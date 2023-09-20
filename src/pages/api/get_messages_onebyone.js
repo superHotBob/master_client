@@ -34,10 +34,12 @@ export default async function handler(req, res) {
     `,[req.query.status,'all',Date.parse(date_reg[0]?.registration)]); 
 
     const admin_subscribe = admin.concat(subscribe)
-    await client.end()
-    if (subscribe.length > 0) {    
+   
+    if (subscribe.length > 0) {  
+      await client.end()  
       res.status(200).json(admin_subscribe)
     } else {
+      await client.end()
       res.status(200).json(admin)
     }
   } else {

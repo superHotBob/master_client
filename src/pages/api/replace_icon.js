@@ -26,7 +26,7 @@ export default async function POST(req,res) {
    
     // // console.log('data',req.body.data)
     fetch(`http://localhost:5000/upl?name=${req.query.name}`, {
-        body: buffer,
+        body: req.body.formData,
         method: 'post',
     }).then(res => res.text()).then(res=>console.log(res))
 

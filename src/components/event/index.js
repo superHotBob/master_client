@@ -25,7 +25,7 @@ export default function Event({color, sel}) {
     let pro = JSON.parse(localStorage.getItem('profile'))
     const textarea = useRef(null)
     const [ message, setmessage ] = useState()
-    const { data } = useSWR(sel ? null : `/api/get_events_master?nikname=${pro.nikname}`,{refreshWhenHidden : false})
+    const { data } = useSWR(sel ? null : `/api/get_events_master?nikname=${pro.nikname}`,{refreshWhenHidden : true})
     
     const body = {
         nikname: pro?.nikname,      
@@ -52,8 +52,7 @@ export default function Event({color, sel}) {
     function DeleteEvent() {
         fetch(`/api/delete_event?id=${data.event_id}`)
         .then(res=>res.text())
-        .then(res => {
-            console.log(res)
+        .then(res => {           
             setmessage(res)
             setTimeout(() => setmessage(''), 2000)
         })

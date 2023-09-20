@@ -73,9 +73,12 @@ export default async function handler(req, res) {
         where "master" =  $2             
     `, [req.query.newnikname, req.query.oldnikname]);
     console.log(8)
-    fetch(`http://5.35.4.213:5000/rename_master_icon?oldname=${req.query.oldnikname}&newname=${req.query.newnikname}`)
-        .then(res => console.log('Папка мастера переименована'))
+    fetch(`http://admin.masters.place/rename_master_icon?oldname=${req.query.oldnikname}&newname=${req.query.newnikname}`)
+    .then(res => res.text())       
+    .then(res => console.log(res))
 
-    res.status(200).send('Ok')
+    await client.end();
+
+    res.status(200).send('Nikname изменён')
 
 }

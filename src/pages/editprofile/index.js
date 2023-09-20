@@ -139,14 +139,18 @@ export default function EditProfile() {
         // fetch('/api/replace_icon', {
         //     method: 'POST',
         //     body: formData,
+
         //   })
         //   .then(res => res.json())
         //   .then(res=>console.log(res))
     
-        // fetch(`http://masters.place:5000/upl?name=${profile.nikname}`, {
-        //     body: data,
-        //     method: 'post',
-        // }).then(res => console.log('file is good'))
+        fetch(`http://admin.masters.place/upl?name=${profile.nikname}`, {
+            body: formData,
+            method: 'post',
+            headers: {
+                'Access-Control-Allow-Headers': '*'
+            }
+        }).then(res => console.log('file is good'))
         setSelectedFile(process.env.url_image + profile.nikname + '.jpg')
     }
     return (
