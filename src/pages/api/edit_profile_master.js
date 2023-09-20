@@ -1,4 +1,5 @@
 const { Client } = require('pg')
+
 export default async function handler(req, res) {
 
     const client = new Client(process.env.pg_data)
@@ -28,14 +29,14 @@ export default async function handler(req, res) {
         where  "recipient_nikname" = $2       
         `, [req.body.name, req.body.nikname]
     );
-    console.log(5)
+    
     await client.query(`
         UPDATE "adminchat"
         SET "sendler" = $1
         where  "sendler_nikname" = $2       
         `, [req.body.name, req.body.nikname]
     );
-    console.log(5 - 1)
+    
 
     await client.query(`
         UPDATE "chat"
@@ -43,20 +44,20 @@ export default async function handler(req, res) {
         where  "recipient_nikname" = $2       
         `, [req.body.name, req.body.nikname]
     );
-    console.log(5)
+    
     await client.query(`
         UPDATE "chat"
         SET "sendler" = $1
         where  "sendler_nikname" = $2       
         `, [req.body.name, req.body.nikname]
     );
-    console.log(5 - 1)
+    
     await client.query(`
         update "images" 
         set master_name = $1    
         where nikname =  $2             
     `, [req.body.name, req.body.nikname]);
-    console.log(7)
+    
     await client.end()
 
     if (result_master.length > 0) {

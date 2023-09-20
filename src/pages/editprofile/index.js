@@ -12,7 +12,7 @@ import Link from 'next/link'
 
 import { my_tema } from '@/data.'
 
-const  url = 'https://masters-client.onrender.com/'
+
 
 const active_currency = {
     backgroundColor: '#3D4EEA',
@@ -145,12 +145,11 @@ export default function EditProfile() {
         //   .then(res=>console.log(res))
     
         fetch(`http://admin.masters.place/upl?name=${profile.nikname}`, {
-            body: formData,
-            method: 'post',
-            headers: {
-                'Access-Control-Allow-Headers': '*'
-            }
-        }).then(res => console.log('file is good'))
+            method: 'POST',
+            body: formData          
+        })
+        .then(res=>res.text())
+        .then(res => console.log(res))
         setSelectedFile(process.env.url_image + profile.nikname + '.jpg')
     }
     return (

@@ -12,12 +12,15 @@ export default function EditNikname() {
     const profile = useSelector(state => state.counter.profile)
     const [newnikname, setnewnikname] = useState()
     const [copyring, setcopyring] = useState('')
+
     useEffect(() => setnewnikname(profile.nikname), [profile])
+
     function CopyLink() {
         navigator.clipboard.writeText(`${location.origin}/${newnikname}`);
         setcopyring('Скопировано в буфер')
         setTimeout(() => setcopyring(''), 3000)
     }
+    
     function ViewCurrentName(e) {
         setnewnikname(e.target.value)
 
