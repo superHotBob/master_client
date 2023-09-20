@@ -82,15 +82,16 @@ export default function EditProfile() {
         set_file_for_upload(e.target.files[0])
     }
 
-    function UploadToServer() {
-        let data = new FormData()       
-        data.append('file', file_for_upload, `${my_profile.nikname}.jpg`)
-        fetch(`http://masters.place:5000/upl?name=${my_profile.nikname}`, {
-            body: data,
-            method: 'post',
-        }).then(res => console.log('file is good'))
-        setSelectedFile(process.env.url_image + profile.nikname + '.jpg') 
-        router.back()     
+    const UploadToServer = () => {        
+        let formData = new FormData()
+        formData.append('file', file_for_upload, `${my_profile.nikname}.jpg`)        
+        fetch('/api/replace_icon', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(res => res.text())
+        .then(res=>console.log(res))       
+        setSelectedFile(process.env.url_image + my_profile.nikname + '.jpg')
     }
 
     return (

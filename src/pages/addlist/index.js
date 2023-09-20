@@ -133,18 +133,18 @@ export default function AddList() {
         let data = new FormData()
         let file_name = id + '.jpg'
         data.append('file', e.target.files[0], file_name)
-        fetch(`http://5.35.4.213:5000/upl?name=${nikname}`,
-        {
-            body: data,
-            method: 'post',
-            mode: 'cors'         
+        fetch('/api/replace_icon', {
+            method: 'POST',
+            body: formData,
         })
-            .then(res => {               
-                setmessage('Публикация отправлена на модерацию')
-                mutate(`/api/get_images?nikname=${nikname}`)
-                setTimeout(() => setmessage(''), 2000)
+        .then(res => res.text())
+        .then(res => {
+            setmessage('Публикация отправлена на модерацию')
+            mutate(`/api/get_images?nikname=${nikname}`)
+            setTimeout(() => setmessage(''), 2000)
             })
-            .catch(err => console.log(err))
+        .catch(err => console.log(err))
+       
     }
     
    

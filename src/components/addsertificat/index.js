@@ -30,7 +30,7 @@ export default function AddSertificat({ nikname, view, color }) {
             .catch(err => console.log(err))
     }
 
-    function SaveTagSertificate() {        
+    function SaveTagSertificate() {
         fetch('/api/add_review_publication', {
             body: JSON.stringify({
                 id: active,
@@ -70,88 +70,90 @@ export default function AddSertificat({ nikname, view, color }) {
         let data = new FormData()
         let file_name = id + '.jpg'
         data.append('file', e.target.files[0], file_name)
-        fetch(`http://admin.masters.place/upl?name=${nikname}`,
-            {
-                body: data,
-                method: 'post' ,
-                mode: 'cors'            
-            })
-            .then(res => {
+
+        fetch('/api/replace_icon', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(res => res.text())
+        .then(res => {
                 setmessage('Сертификат отправлен на модерацию')
                 mutate(`/api/get_sertificats?nikname=${nikname}`)
                 setTimeout(() => setmessage(''), 2000)
             })
-            .catch(err => console.log(err))
+        .catch(err => console.log(err))
     }
 
-    function SetForTag(i) {       
-        setactive(i.id)       
-        my_ref.current.value = i.review
-    }
-    return (
-        <main className={styles.main}>
-            <header className={styles.header}>
-                <div
-                    onClick={() => view(false)}
-                    className={styles.left__arrow}
 
-                >
-                    <Menu_icon color={color[1]} />
-                </div>
-                <span>Добавить сертификат</span>
-                <span style={{ color: color[1] }}></span>
-            </header>
-            <dialog open={message} className={styles.message}>
-                {message}
-            </dialog>
-            <form className={styles.main__form}>
-                <label title='Добавить сертификат' className={styles.sertificat__upload} style={{ color: color[1], backgroundColor: color[2] }}>
-                    +
-                    <input
-                        type="file"
-                        name="image"
-                        style={{ display: 'none' }}
-                        accept=".jpg"
-                        onChange={selectUpload}
-                    />
-                </label>
-                {sertificats?.map(i =>
-                    <div
-                        key={i.id}
-                        className={styles.sertificats}
-                        style={{
-                            border: +active === i.id ? `4px solid ${color[1]}` : null,
-                            backgroundImage: "url(" + process.env.url_image + i.id + '.jpg' + ")"
-                        }}
-                    >
-                        <span onClick={() => SetForTag(i)} title="Добавить комментарий">
-                            <img
-                                src='/trash.svg'
-                                height={24}
-                                title="удалить сертификат"
-                                width={24}
-                                id={i.id}
-                                alt="trash"
-                                onClick={deleteSertif}
-                            />
-                        </span>
-                    </div>
-                )}
 
-            </form>
-            <label className={styles.addtag}>
-                Выберите сертификат и добавте комментарий
-                <textarea
-                    ref={my_ref}
-                    maxLength="500"
-                    placeholder='Ваш комментарий'
-                    rows={10}
-                    style={{ borderColor: color[1] }}
+function SetForTag(i) {
+    setactive(i.id)
+    my_ref.current.value = i.review
+}
+return (
+    <main className={styles.main}>
+        <header className={styles.header}>
+            <div
+                onClick={() => view(false)}
+                className={styles.left__arrow}
+
+            >
+                <Menu_icon color={color[1]} />
+            </div>
+            <span>Добавить сертификат</span>
+            <span style={{ color: color[1] }}></span>
+        </header>
+        <dialog open={message} className={styles.message}>
+            {message}
+        </dialog>
+        <form className={styles.main__form}>
+            <label title='Добавить сертификат' className={styles.sertificat__upload} style={{ color: color[1], backgroundColor: color[2] }}>
+                +
+                <input
+                    type="file"
+                    name="image"
+                    style={{ display: 'none' }}
+                    accept=".jpg"
+                    onChange={selectUpload}
                 />
-                <div onClick={SaveTagSertificate} style={{ ...active_button, backgroundColor: color[1] }}>
-                    Сохранить
-                </div>
             </label>
-        </main>
-    )
+            {sertificats?.map(i =>
+                <div
+                    key={i.id}
+                    className={styles.sertificats}
+                    style={{
+                        border: +active === i.id ? `4px solid ${color[1]}` : null,
+                        backgroundImage: "url(" + process.env.url_image + i.id + '.jpg' + ")"
+                    }}
+                >
+                    <span onClick={() => SetForTag(i)} title="Добавить комментарий">
+                        <img
+                            src='/trash.svg'
+                            height={24}
+                            title="удалить сертификат"
+                            width={24}
+                            id={i.id}
+                            alt="trash"
+                            onClick={deleteSertif}
+                        />
+                    </span>
+                </div>
+            )}
+
+        </form>
+        <label className={styles.addtag}>
+            Выберите сертификат и добавте комментарий
+            <textarea
+                ref={my_ref}
+                maxLength="500"
+                placeholder='Ваш комментарий'
+                rows={10}
+                style={{ borderColor: color[1] }}
+            />
+            <div onClick={SaveTagSertificate} style={{ ...active_button, backgroundColor: color[1] }}>
+                Сохранить
+            </div>
+        </label>
+    </main>
+)
 }

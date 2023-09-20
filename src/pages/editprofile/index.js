@@ -94,7 +94,7 @@ export default function EditProfile() {
         setColor(my_tema[+pro.tema].color)
         router.push(`/${pro.nikname}`)
     }
-    const EditMaster = async () => {
+    const editMaster = async () => {
         const data = {
             status: profile.status,
             name: name,           
@@ -115,7 +115,7 @@ export default function EditProfile() {
             },
             method: 'POST',
         })
-        if (file_for_upload) { UploadToServer() }
+        if (file_for_upload) { uploadToServer() }
         const result = await response.json()
         localStorage.setItem("profile", JSON.stringify(result));
         dispatch(setprofile(result))
@@ -134,23 +134,13 @@ export default function EditProfile() {
 
     const uploadToServer = () => {        
         let formData = new FormData()
-        formData.append('file', file_for_upload, `${profile.nikname}.jpg`)
-        // formData.append(`${profile.nikname}.jpg`, file_for_upload)
-        
+        formData.append('file', file_for_upload, `${profile.nikname}.jpg`)        
         fetch('/api/replace_icon', {
             method: 'POST',
             body: formData,
-
-          })
-          .then(res => res.text())
-          .then(res=>console.log(res))
-    
-        // fetch(`http://admin.masters.place/upl?name=${profile.nikname}`, {
-        //     method: 'POST',
-        //     body: formData          
-        // })
-        // .then(res=>res.text())
-        // .then(res => console.log(res))
+        })
+        .then(res => res.text())
+        .then(res=>console.log(res))       
         setSelectedFile(process.env.url_image + profile.nikname + '.jpg')
     }
     return (
@@ -165,7 +155,7 @@ export default function EditProfile() {
                 </dialog>
                 <span onClick={Return} style={{ color: color[1] }}>Отмена</span>
                 <span>{nikname}</span>
-                <span onClick={uploadToServer} style={{ color: color[1] }}>Принять</span>
+                <span onClick={editMaster} style={{ color: color[1] }}>Принять</span>
             </header>
             <div className={styles.image} style={{ background: color[0] }}>
                 <span onClick={() => viewTemaBlock(true)}>Изменить обложку</span>
