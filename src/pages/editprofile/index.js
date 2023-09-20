@@ -132,24 +132,25 @@ export default function EditProfile() {
         setAddress_full({ ...address_full, ...{ 'тип': e.target.value } })
     }
 
-    function UploadToServer() {        
+    const uploadToServer = () => {        
         let formData = new FormData()
         formData.append('file', file_for_upload, `${profile.nikname}.jpg`)
+        // formData.append(`${profile.nikname}.jpg`, file_for_upload)
         
-        // fetch('/api/replace_icon', {
-        //     method: 'POST',
-        //     body: formData,
-
-        //   })
-        //   .then(res => res.json())
-        //   .then(res=>console.log(res))
-    
-        fetch(`http://admin.masters.place/upl?name=${profile.nikname}`, {
+        fetch('/api/replace_icon', {
             method: 'POST',
-            body: formData          
-        })
-        .then(res=>res.text())
-        .then(res => console.log(res))
+            body: formData,
+
+          })
+          .then(res => res.text())
+          .then(res=>console.log(res))
+    
+        // fetch(`http://admin.masters.place/upl?name=${profile.nikname}`, {
+        //     method: 'POST',
+        //     body: formData          
+        // })
+        // .then(res=>res.text())
+        // .then(res => console.log(res))
         setSelectedFile(process.env.url_image + profile.nikname + '.jpg')
     }
     return (
@@ -164,7 +165,7 @@ export default function EditProfile() {
                 </dialog>
                 <span onClick={Return} style={{ color: color[1] }}>Отмена</span>
                 <span>{nikname}</span>
-                <span onClick={EditMaster} style={{ color: color[1] }}>Принять</span>
+                <span onClick={uploadToServer} style={{ color: color[1] }}>Принять</span>
             </header>
             <div className={styles.image} style={{ background: color[0] }}>
                 <span onClick={() => viewTemaBlock(true)}>Изменить обложку</span>

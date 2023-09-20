@@ -1,35 +1,29 @@
 import fs from "fs";
-import { NextResponse } from 'next/server'
+import { Formidable } from 'formidable';
 
 
-// export const config = {
-//     api: {
-//         bodyParser: false,
-//     },
-// };
-export default async function POST(req,res) {
-    // const formData = await req.formData();
-   
-    // console.log(req)
-    
-    const buffer = await req;
-    
-    // const formDataEntryValues = Array.from(formData.values());
-    // for (const formDataEntryValue of formDataEntryValues) {
-    //   if (typeof formDataEntryValue === "object" && "arrayBuffer" in formDataEntryValue) {
-    //     const file = formDataEntryValue 
-    //     const buffer = Buffer.from(await file.arrayBuffer());
-    //     fs.writeFileSync(`../data/images/${file.name}`, buffer);
-    //   }
-    // }
-    
-   
-    // // console.log('data',req.body.data)
-    fetch(`http://localhost:5000/upl?name=${req.query.name}`, {
-        body: req.body.formData,
-        method: 'post',
-    }).then(res => res.text()).then(res=>console.log(res))
+export async function POST(req, res) {
+    const form = new Formidable();
+    form.parse(req, function (err, fields, files) {
+       
+        const oldpath = files.file[0].filepath
+       
+        const newpath = '../../data/images/' + files.file[0].originalFilename;
+        fs.rename(oldpath, newpath, function (err) {
+            if (err) throw err;
+            res.write('File uploaded and moved!');
+            res.end();
+        });
+        res.write('File uploaded');
+        res.end();
+    });
 
+    res.send('Файл загружен');
 
-    res.status(200).json([])
 }
+export default POST;
+export const config = {
+    api: {
+        bodyParser: false,
+    },
+};
