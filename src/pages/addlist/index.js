@@ -135,7 +135,7 @@ export default function AddList() {
         data.append('file', e.target.files[0], file_name)
         fetch('/api/replace_icon', {
             method: 'POST',
-            body: formData,
+            body: data,
         })
         .then(res => res.text())
         .then(res => {

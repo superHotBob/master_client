@@ -73,7 +73,7 @@ export default function AddSertificat({ nikname, view, color }) {
 
         fetch('/api/replace_icon', {
             method: 'POST',
-            body: formData,
+            body: data,
         })
         .then(res => res.text())
         .then(res => {
