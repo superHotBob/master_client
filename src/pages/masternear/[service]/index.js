@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react'
 import FilterServices from '@/components/filterServices'
 import Message from '@/components/message'
 import useSWR from 'swr'
+import CitySelect from '@/components/city'
 
 
 const sel = {
@@ -49,7 +50,7 @@ export default function MasterNear() {
                     ваш город, что бы увидеть список мастеров.'
                 />
             </div>
-            <Link className={styles.city} href='/city'>Ваш город {my_city}</Link>
+            <CitySelect city={city} />
             <div className={styles.selector}>
                 <Link href={`/masternear/${service}`} style={sel}>Список</Link>
                 <Link href="/masternear/city" >На карте</Link>

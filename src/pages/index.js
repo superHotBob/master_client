@@ -1,13 +1,10 @@
-import Link from 'next/link'
 import styles from '@/styles/Home.module.css'
 import { useEffect, useState, useRef } from 'react'
 import { useSelector } from 'react-redux'
 import FilterServices from '@/components/filterServices'
 import Message from '@/components/message'
 import ViewImage from '@/components/viewimage'
-import position from '../../public/position.svg'
-import Image from 'next/image'
-
+import CitySelect from '@/components/city'
 
 export default function Home() {
   const service = useSelector(state => state.counter.service)
@@ -42,21 +39,17 @@ export default function Home() {
       })
   }, [service])
 
-
-
-
   const View = (a, b, c, d, e) => viewImage({ text: d, name: a, image: b, master_name: c, date: e })
 
   return (
     <>
-
       <section className={styles.section} >
         <Message page="main" text='Masters.place показывает самые крутые и 
             актуальные работы мастеров в вашем городе. 
             Вы можете выбрать понравившуюся работу и 
             написать мастеру !'
         />
-        <Link className={styles.city} href="/city">Ваш город {city}</Link>
+        <CitySelect city={city} />
         <FilterServices />
         <div className={styles.images} id="myDiv" ref={ref}>
           <div className={styles.images_one}>

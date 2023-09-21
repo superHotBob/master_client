@@ -155,7 +155,9 @@
 
 .addtag button {
     display: block;
-
+}
+.publ {
+    margin-top: 16px;
 }
 
 .message {

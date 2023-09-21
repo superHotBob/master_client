@@ -122,28 +122,26 @@ export default function DisplayPublications() {
     return (
         <>
             <header className={styles.header}>
-                <div
+                <span
                     onClick={() => router.back()}
                     className={styles.left__arrow}
 
                 >
                     <Menu_icon color={color[1]} />
-                </div>
-                <span>Показ публицаций</span>
+                </span>
+                <span>Показ публикаций</span>
                 <span style={{ color: color[1] }} onClick={SaveImages}>Принять</span>
             </header>
             <section>
                 <p className={styles.text}>
                     {`Вы можете выбрать порядок публикаций. 
-                    Перетаксикайте публикации зажатием.`}
+                    Перетаскивайте публикации зажатием.`}
                 </p>
             </section>
             <div className={styles.all_drop}>
                 <DragDropContext onDragEnd={onDragEnd} >
-                    <Droppable
-                        droppableId="delete"
-                        
-                    >
+                    <Droppable droppableId="delete">
+                    
                         {provided => (
                             <div
                                 className={styles.delete}
@@ -155,15 +153,8 @@ export default function DisplayPublications() {
                             </div>
                         )}
                     </Droppable>
-
-
                     <div className={styles.main_images}>
-
-                        <Droppable
-                            droppableId="one"
-                           
-
-                        >
+                        <Droppable droppableId="one">                         
                             {(provided, snapshot) => (
                                 <div
                                     className={styles.images}
@@ -202,10 +193,8 @@ export default function DisplayPublications() {
                                 </div>
                             )}
                         </Droppable>
-
-                        <Droppable
-                            droppableId="two"                            
-                        >
+                        <Droppable droppableId="two" >                                 
+                       
                             {provided => (
                                 <div
                                     className={styles.images}
@@ -241,11 +230,7 @@ export default function DisplayPublications() {
                                 </div>
                             )}
                         </Droppable>
-
-
                     </div>
-
-
                 </DragDropContext>
             </div>
             <h2 id="message" className={styles.message}>Принято</h2>

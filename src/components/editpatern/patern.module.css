@@ -106,8 +106,9 @@ div.add {
 }
 .time input {
     color: inherit;
-    font-weight: 500;    
-}
+    font-weight: 500; 
+    font-family: '__Rubik_7303a2'
+}    
 .time b {
     font-size: 64px;
     font-weight: 500;

@@ -160,10 +160,10 @@ export default function Enter() {
                         searchStyle={{
                             border: 'none', borderRight: '1px solid #3D4EEA'
                         }}
-                        buttonStyle={{ borderTopLeftRadius: '6px', borderBottomLeftRadius: '6px' }}
+                        buttonStyle={{border: 'none', borderTopLeftRadius: '6px', borderBottomLeftRadius: '6px' }}
                         placeholder='номер телефона'
                         onChange={phone => setPhone(phone)}
-                        inputStyle={{ border: 'none', borderRight: 'none', height: 'auto' }}
+                        inputStyle={{fontFamily: '__Rubik_7303a2', border: 'none', borderRight: 'none', height: 'auto' }}
                     />
                     {message ?
                         <h3 className={styles.error} >

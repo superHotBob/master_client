@@ -1,9 +1,10 @@
-import DatePicker from "react-datepicker";
+import DatePicker, { registerLocale
+} from "react-datepicker";
 import useSWR, { useSWRConfig } from 'swr'
 import { useState , useRef } from "react";
 import styles from './event.module.css'
 import "react-datepicker/dist/react-datepicker.css";
-import { registerLocale } from "react-datepicker";
+
 import ru from 'date-fns/locale/ru';
 import Link from "next/link";
 registerLocale('ru', ru)

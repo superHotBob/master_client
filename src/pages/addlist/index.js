@@ -1,36 +1,16 @@
 import Message from '@/components/message'
-import { useEffect, useState, useRef, forwardRef } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import Menu_icon from '../../components/icons/menu'
 import styles from './addlist.module.css'
-import { url, my_tema } from '@/data.'
-import DatePicker from "react-datepicker";
+import { my_tema } from '@/data.'
 import useSWR, { useSWRConfig } from 'swr'
-
-import "react-datepicker/dist/react-datepicker.css";
-import { registerLocale, setDefaultLocale } from "react-datepicker";
-import ru from 'date-fns/locale/ru';
-registerLocale('ru', ru)
-
 
 const active = {
     color: "#fff",
     borderRadius: "4px",
     fontWeight: 500
 }
-// const services__name = {
-//     барбер: 'barber',
-//     прически: 'pricheski',
-//     массаж: 'massaj',
-//     маникюр: 'manikur',
-//     педикюр: 'pedikur',
-//     окрашивание: 'okrashivanie',
-//     чистка: 'chistka',
-//     стрижка: 'strijka',
-//     брови: 'brovi',
-//     ресницы: 'resnici',
-//     депиляция: 'depiliaciy',
-//     макияж: 'makiaj'
-// }
+
 const services__name = {
     барбер: 'барбер',
     прически: 'прически',
@@ -51,13 +31,12 @@ import Event from '@/components/event'
 
 export default function AddList() {
 
-    const my_ref = useRef(null)
-    // const [lists, setlists] = useState([])
+    const my_ref = useRef(null)   
     const [nikname, setnikname] = useState()
     const [color, setColor] = useState([])
     const [services, setServices] = useState()
     const [tag, settag] = useState()
-    const [activeImage, setActiveImage] = useState()
+    const [activeImage, setActiveImage] = useState(null)
     const [message, setmessage] = useState('')
     const [selector, setSelector] = useState(true)
 
@@ -80,7 +59,10 @@ export default function AddList() {
     function SetForTag(e) {
         setActiveImage(e.target.id)
         let text = images.filter(i => i.id === +e.target.id)[0]['review']
-        text ? my_ref.current.value = text : my_ref.current.value = 'Ваш комментарий'
+        if(activeImage) {
+             text ? my_ref.current.value = text : my_ref.current.value = ''
+        }
+       
     }
 
 
@@ -145,13 +127,13 @@ export default function AddList() {
     function deleteImage(e) {
         e.stopPropagation()
         fetch(`/api/delete_images?id=${e.target.id}`)
-            .then(res => res.text())
-            .then(res => {
-                setmessage('Изображение удалён0')
-                mutate(`/api/get_images?nikname=${nikname}`)
-                setTimeout(() => setmessage(''), 2000)
-            })
-            .catch(err => console.log(err))
+        .then(res => res.text())
+        .then(res => {
+            setmessage('Изображение удалён0')
+            mutate(`/api/get_images?nikname=${nikname}`)
+            setTimeout(() => setmessage(''), 2000)
+        })
+        .catch(err => console.log(err))
     }
 
     return (
@@ -218,7 +200,8 @@ export default function AddList() {
                             style={{backgroundColor: tag === i ? color[1] : null }}
                             onClick={() => {
                                 settag(i)
-                                setActiveImage(i)
+                               
+                                setActiveImage(null)
                             }}
                         >
                             {i}
@@ -226,7 +209,7 @@ export default function AddList() {
                     )}
                 </section>
 
-                <label className={styles.addtag}>
+                {activeImage ? <label className={styles.addtag}>
                     Добавьте комментарий к публикации
                     <textarea
                         ref={my_ref}
@@ -235,10 +218,10 @@ export default function AddList() {
                         rows={10}
                         style={{ borderColor: color[1] }}
                     />
-                    <button onClick={SaveTag} style={{ ...active, backgroundColor: color[1] }}>
+                    <button  onClick={SaveTag} style={{ ...active, backgroundColor: color[1] }}>
                         Сохранить
                     </button>
-                </label>
+                </label> : <p className={styles.publ}>Выберите публикацию для добавления комментария</p>}
 
             </>
                 :

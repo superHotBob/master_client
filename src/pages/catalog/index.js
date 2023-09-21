@@ -6,6 +6,7 @@ import { setservice } from '../../reduser.js'
 import { useRouter } from 'next/router'
 import { my_data } from '@/data.'
 import Information from '@/components/information'
+import CitySelect from '@/components/city'
 
 export default function Catalog() {
     const dispatch = useDispatch()
@@ -21,7 +22,7 @@ export default function Catalog() {
     return (
         <>
                 <section className={styles.section}>
-                <Link className={styles.city} href="/city">Ваш город {city}</Link>
+                <CitySelect city={city} />
                 <Link href="/event" className={styles.model}>
                     СТАНЬ МOДЕЛЬЮ БЕCПЛАТНO
                 </Link>
