@@ -30,7 +30,7 @@ export default async function handler(req, res) {
     `,[0,admin_all[0].min,false,req.query.status,'all']);
 
   const result = +admin[0].count + +client_count[0].count + +subscribe[0].count
-  console.log(admin, admin_all, subscribe)  
+  
 
   await client.end();
   res.status(200).send(result)

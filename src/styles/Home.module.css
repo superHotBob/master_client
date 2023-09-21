@@ -10,8 +10,15 @@
   line-height: 46px;
   letter-spacing: 0px;
   text-align: center;
+  margin-bottom: 16px;
+  cursor: pointer;
   display: block;
 }
+.city::after {
+  content: url('/position.svg');  
+  transform: translate(10px, 5px);
+}
+
 .my_city {
   color: inherit;
   vertical-align: middle;
@@ -22,10 +29,7 @@
   display: inline-block;
 }
 
-.city::after {
-  content: url('/position.svg');  
-  transform: translate(10px, 5px);
-}
+
 
 .images {
   display: flex;

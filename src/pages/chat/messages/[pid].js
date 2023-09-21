@@ -123,15 +123,16 @@ export default function Messages() {
     }
     function ReadText(a, b) {
         if (a.includes(';')) {
-            let ss = a.split(';')
+            let ss = a.replace(':',': ').split(';')
+            
             return <div style={{ color: b }} className={styles.order}>
                 <p>Создан заказ
                     {b === '#fff' ?
-                        <Link style={{ color: '#fff' }} href={'/order/' + ss[1]}>{' '} #{ss[1]} -</Link>
+                        <Link style={{ color: '#fff' }} href={'/order/' + ss[1].trim()}>{' '} #{ss[1]} -</Link>
                         :
                         <Link style={{ color: '#3D4EEA' }} href={'/clientprofile/' + profile.nikname + '/orders'}>{' '} #{ss[1]} -</Link>}
                 </p>
-                <p>{ss[2]}</p>
+                <p>{ss[2]} BYN</p>
                 <p className={styles.details}>Детали заказа</p>
                 <p>{ss[4]}</p>
                 <p>{ss[5]}</p>

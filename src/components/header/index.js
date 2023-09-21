@@ -86,7 +86,7 @@ export default function Header({ sel, text, mes, col = my_tema[0].color, select,
           <h2>place</h2>
         </div>
       }
-      {mes ? <Image
+      {mes && name != 'администратор' ? <Image
         src={call}
         alt="phone"
         style={{ transform: 'transitionX(20px)' }}

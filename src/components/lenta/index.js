@@ -50,9 +50,9 @@ export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2A
 
     return ( <>
         {events ? <>
-        {Object.keys(events).length ? <div onClick={() => setViewText(true)} className={styles.model} style={{ background: color[1] }}>
+        {events.length > 0 ? <div onClick={() => setViewText(true)} className={styles.model} style={{ background: color[1] }}>
             <h3>Нужна модель</h3>
-            <span>{My_Date(events.date_event)}, бесплатно</span>
+            <span>{My_Date(events[0].date_event)}, бесплатно</span>
         </div> : null}</>
         : null}
         <dialog open={message} className={styles.message}>
@@ -85,16 +85,14 @@ export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2A
                     </div>
                 )}
             </div>
-
         </div>
         {model ?
             <div className={styles.need_model_main}>
                 <div className={styles.need_model_data}>
-                    <Image alt="arrow" src={arrow_down} height={20} width={20} onClick={() => setViewText(false)} />
-                   
+                    <Image alt="arrow" src={arrow_down} height={20} width={20} onClick={() => setViewText(false)} />                   
                     <h4>Нужна модель бесплатно</h4>
-                    <h4 className={styles.date}>{My_Date(events.date_event)}</h4>
-                    <p className={styles.text}>{events.event_text}</p>
+                    <h4 className={styles.date}>{My_Date(events[0].date_event)}</h4>
+                    <p className={styles.text}>{events[0].event_text}</p>
                     {profile.status === 'client' ? <Link href="/" className={styles.add}>Подать заявку</Link>: null}
                 </div>
             </div>

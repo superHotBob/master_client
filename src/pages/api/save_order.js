@@ -39,7 +39,7 @@ export default async function handler(req, res) {
   Адрес встечи: ${req.body.address};
   ${req.body.price}`
   const date = Date.now()
-  const {rows} = await client.query(`
+  await client.query(`
     insert into "chat" (recipient,recipient_nikname,sendler,sendler_nikname,ms_text,ms_date,chat) 
     values ($1,$2,$3,$4,$5,$6,$7)  
     returning *

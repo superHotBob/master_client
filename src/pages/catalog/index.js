@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from './catalog.module.css'
-import position from '../../../public/position.svg'
 import { useDispatch, useSelector } from 'react-redux'
 import { setservice } from '../../reduser.js'
 import { useRouter } from 'next/router'
@@ -22,9 +21,7 @@ export default function Catalog() {
     return (
         <>
                 <section className={styles.section}>
-                <Link className={styles.city} href="/city"> Ваш город {city}
-                    <Image alt="Picture of the author" src={position} width={20} height={20} />
-                </Link>
+                <Link className={styles.city} href="/city">Ваш город {city}</Link>
                 <Link href="/event" className={styles.model}>
                     СТАНЬ МOДЕЛЬЮ БЕCПЛАТНO
                 </Link>

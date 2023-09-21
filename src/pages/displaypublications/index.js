@@ -17,7 +17,7 @@ export default function DisplayPublications() {
     const [delete_images, setDeleteImages] = useState([])
 
 
-console.log(delete_images)
+
 
 
 

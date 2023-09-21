@@ -73,6 +73,12 @@ export default async function handler(req, res) {
         where "master" =  $2             
     `, [req.query.newnikname, req.query.oldnikname]);
     console.log(8)
+    await client.query(`
+        update "events"
+        set "master_nikname" = $1
+        where "master_nikname" =  $2             
+    `, [req.query.newnikname, req.query.oldnikname]);
+
     fetch(`http://admin.masters.place/rename_master_icon?oldname=${req.query.oldnikname}&newname=${req.query.newnikname}`)
     .then(res => res.text())       
     .then(res => console.log(res))

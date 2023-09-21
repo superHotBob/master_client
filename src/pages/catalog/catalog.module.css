@@ -42,17 +42,15 @@
     margin-bottom: 16px;
     cursor: pointer;
     display: block;
-}
-
-.city img {
-    vertical-align: middle;
-    margin-left: 5px;   
-}
+  }
+  .city::after {
+    content: url('/position.svg');  
+    transform: translate(10px, 5px);
+  }
 
 .images {
     display: grid;
-    grid-template-columns: auto auto auto auto;
-    
+    grid-template-columns: auto auto auto auto;    
 }
 
 .images img {

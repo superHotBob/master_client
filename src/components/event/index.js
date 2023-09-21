@@ -1,9 +1,9 @@
 import DatePicker from "react-datepicker";
-import useSWR from 'swr'
+import useSWR, { useSWRConfig } from 'swr'
 import { useState , useRef } from "react";
 import styles from './event.module.css'
 import "react-datepicker/dist/react-datepicker.css";
-import { registerLocale, setDefaultLocale } from "react-datepicker";
+import { registerLocale } from "react-datepicker";
 import ru from 'date-fns/locale/ru';
 import Link from "next/link";
 registerLocale('ru', ru)
@@ -24,8 +24,10 @@ export default function Event({color, sel}) {
     const [startDate, setStartDate] = useState(new Date())
     let pro = JSON.parse(localStorage.getItem('profile'))
     const textarea = useRef(null)
-    const [ message, setmessage ] = useState()
+    const [ message, setmessage ] = useState('')
+
     const { data } = useSWR(sel ? null : `/api/get_events_master?nikname=${pro.nikname}`,{refreshWhenHidden : true})
+    const { mutate } = useSWRConfig()
     
     const body = {
         nikname: pro?.nikname,      
@@ -45,19 +47,21 @@ export default function Event({color, sel}) {
         .then(res => {            
             setmessage('Мероприятие  сохранено')
             setTimeout(() => setmessage(''), 2000)
+            mutate(`/api/get_events_master?nikname=${pro.nikname}`)
         })
         .catch(err => console.log(err))
 
     }
     function DeleteEvent() {
-        fetch(`/api/delete_event?id=${data.event_id}`)
+        fetch(`/api/delete_event?id=${data[0].id}`)
         .then(res=>res.text())
         .then(res => {           
             setmessage(res)
             setTimeout(() => setmessage(''), 2000)
+            mutate(`/api/get_events_master?nikname=${pro.nikname}`)
         })
     }
-    if( data ) return <div className={styles.message}>
+    if( data?.length > 0 ) return <div className={styles.message}>
         У вас уже есть мероприятие. Удалите его , что-бы создать новое.
         <Link href='/event' style={{ ...active, backgroundColor: color[1] }}>Посмотреть</Link>
         <button onClick={DeleteEvent} style={{ ...active, backgroundColor: 'red' }}>Удалить</button>

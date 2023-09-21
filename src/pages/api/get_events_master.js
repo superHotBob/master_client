@@ -12,8 +12,8 @@ export default async function handler(req, res) {
 
   await client.end();    
   if (rows.length > 0) {
-    res.status(200).json(rows[0])
+    res.status(200).json(rows)
   } else {
-    res.status(200).json({})
+    res.status(200).json([])
   }
 }
