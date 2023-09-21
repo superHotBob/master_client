@@ -3,9 +3,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import styles from './near.module.css'
-import { useSelector, useDispatch } from 'react-redux'
-import { setmaster, setservice } from '@/reduser'
-import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
 import FilterServices from '@/components/filterServices'
 import Message from '@/components/message'
 import useSWR from 'swr'
@@ -21,13 +20,13 @@ export default function MasterNear() {
    
     const router = useRouter()
     const { service } = router.query   
-    const my_city = useSelector((state) => state.counter.city)
+    const city = useSelector((state) => state.counter.city)
     const services = useSelector((state) => state.counter.service)   
        
    
 
     const { data, error, isLoading } = useSWR('/api/all_masters_city?' + new URLSearchParams({
-        city: my_city.toLowerCase(),
+        city: city.toLowerCase(),
         service:  service}))
     
     useEffect(()=>{
