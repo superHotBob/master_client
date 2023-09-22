@@ -104,7 +104,10 @@ export default function AddList() {
                 service: services__name[tag],
                 city: prof.city,
                 master_name: prof.name
-            })
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
         })
             .then(res => res.json())
             .then(res => res)
@@ -129,7 +132,7 @@ export default function AddList() {
         fetch(`/api/delete_images?id=${e.target.id}`)
         .then(res => res.text())
         .then(res => {
-            setmessage('Изображение удалён0')
+            setmessage('Изображение удалёнo')
             mutate(`/api/get_images?nikname=${nikname}`)
             setTimeout(() => setmessage(''), 2000)
         })

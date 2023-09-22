@@ -1,8 +1,6 @@
 import Image from 'next/image'
-import Link from 'next/link'
 import styles from './header.module.css'
 import call from '../../../public/call.svg'
-import arrow from '../../../public/arrow_back.svg'
 import { useSelector, useDispatch } from 'react-redux'
 import Menu from '../menu'
 import { useState, useEffect } from 'react'
@@ -11,14 +9,15 @@ import { setprofile } from '@/reduser'
 import Menu_icon from '../../components/icons/menu.js'
 import useSWR from 'swr'
 import { my_tema } from '@/data.'
+import Messages from '../messages'
 
 
 const new_text = {
   color: '##282828', 
   lineHeight: '26px',
   display: 'inline-block',
-
 }
+
 const new_text_mes = {
   color: '##282828',  
   lineHeight: '26px',
@@ -30,9 +29,9 @@ const new_text_mes = {
 export default function Header({ sel, text, mes, col = my_tema[0].color, select,view_time ,name}) {
   const profile = useSelector((state) => state.counter.profile)
   const [menu, menuView] = useState(false)
-  const { data } = useSWR(profile.status === 'master' ?
-  `/api/get_new_orders_master?nikname=${profile.nikname}`
-  : null, {loadingTimeout:3000})
+  const [phone, setphone] = useState()
+  const { data } = useSWR(profile.status === 'master' ? `/api/get_new_orders_master?nikname=${profile.nikname}`
+  : null, {loadingTimeout:5000})
 
   const dispatch = useDispatch()
   const router = useRouter()
@@ -41,11 +40,18 @@ export default function Header({ sel, text, mes, col = my_tema[0].color, select,
     let pro = JSON.parse(localStorage.getItem("profile"))
     if (!profile.status) {
       dispatch(setprofile(pro))
-    }
-   
+    }   
   }, [profile.status, dispatch])
 
-  
+  const getPhone = () => {
+    if(phone) {
+      setphone(null)
+      return;
+    }
+    fetch(`/api/get_phone?name=${name}`)
+    .then(res=>res.json()
+    .then(res=>setphone(res)))
+  }
 
   const ToBack = (e) => {
     e.stopPropagation()
@@ -92,6 +98,7 @@ export default function Header({ sel, text, mes, col = my_tema[0].color, select,
         style={{ transform: 'transitionX(20px)' }}
         className={styles.call}
         width={10} height={10}
+        onClick={getPhone}
       /> : null}    
       <div
         className={styles.left__arrow}
@@ -102,6 +109,7 @@ export default function Header({ sel, text, mes, col = my_tema[0].color, select,
         <Menu_icon  color={menu ? col[2] || '#3D4EEA' : col[1] || '#3D4EEA'} type={menu ? 'close' : 'menu'} />
       </div>     
       {menu ? <Menu  count={data} profile={profile} /> : null}
+      {phone ? <Messages phone={phone} name={text} /> : null }
     </header>
   )
 }

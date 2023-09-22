@@ -1,0 +1,12 @@
+.main_message {
+    position: absolute;
+    top: 30vh;
+    left: calc(50% - 150px);
+    height: auto;
+    width: 300px;
+    padding: 10px;
+    background-color: aliceblue;
+    border-radius: 5px;
+    line-height: 20px;
+    border: 1px solid #3D4EEA;
+}

@@ -19,6 +19,8 @@ const rubik = Rubik({
   style: ['normal'],
   display: 'auto',
 })
+export default function MyApp({ Component, pageProps }) {
+//  const { slug } = router.query  
 const my_path = ['informations', 'informations/aboutservice',
   'newpassword',
   'succesregistration',
@@ -26,16 +28,17 @@ const my_path = ['informations', 'informations/aboutservice',
   'masterrecords',
   'confirmation',
   'addlist',
-  'calendar',
+  'chat',
+  'calendar', 
    'city', 'masternear', 'masternear/city', 'editprofile', 'addmasterorder']
-export default function MyApp({ Component, pageProps }) {
+
   const router = useRouter()
-  const { slug } = router.query
+ 
   const pathname = usePathname()
   
-  if(slug ) {
-    my_path.push(slug)
-  }
+  // if(slug ) {
+  //   my_path.push(slug)
+  // }
   
   return (
     <SWRConfig value={{ provider: () => new Map(),

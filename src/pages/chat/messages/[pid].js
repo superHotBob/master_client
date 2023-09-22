@@ -23,6 +23,8 @@ export default function Messages() {
 
     const color = useSelector(state => state.counter.profile['color'])
 
+    
+
     const profile = useSelector(state => state.counter.profile)
 
     const { data: dialog } = useSWR(`/api/get_messages_onebyone?nikname=${profile.nikname}&abonent=${pid}&status=${profile.status}`,
@@ -42,11 +44,7 @@ export default function Messages() {
     )
     setTimeout(() => Movie(), 500)
 
-    const { data: read } = useSWR(()=> 
-        dialog.sort((a,b)=>+b.ms_date - a.ms_date)[0].read ? null :
-        dialog.sort((a,b)=>+b.ms_date - a.ms_date)[0].recipient_nikname === profile.nikname ? 
-        `/api/set_view_message?nikname=${profile.nikname}&abonent=${pid}`: null
-    )    
+  
 
 
   
@@ -144,7 +142,7 @@ export default function Messages() {
     }
     return (
         <main className={styles.main}>
-            <Header sel='/chat' text={router.query.name} name={pid} mes="1" color={color} />
+            <Header sel='/chat' text={router.query.name} name={pid} mes="1" color={color} />            
             <section className={styles.section} id="section">
                 {dialog?.sort((a, b) => a.ms_date - b.ms_date).map(i =>
                     <div key={i.ms_date} className={styles.message}>

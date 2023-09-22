@@ -10,15 +10,18 @@ export default async function handler(req, res) {
       where "nikname" = $1`,[req.body.nikname]
   ); 
   let my_rat = rows[0]['max'] ? +rows[0]['max'] + 1 : 1
+
+
+ 
   
-  const { rows:id } = await client.query(
-    `INSERT INTO "images" ("nikname","service","city","img_date","master_name", "rating")  
+  const { rows:id } = await client.query(`
+    INSERT INTO "images" (nikname,service,city,img_date,master_name,rating)  
       VALUES ($1,$2,$3,$4,$5,$6)
       returning id
     `, [req.body.nikname,req.body.service,req.body.city,date,req.body.master_name,my_rat ]
     
   ); 
-
+ 
   
 
   await client.end();

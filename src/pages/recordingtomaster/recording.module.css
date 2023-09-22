@@ -20,7 +20,7 @@
 
 .category span {
     display: inline-block;
-    width: fit-content;
+    width: auto;
     height: 27px;
     padding: 0 10px;
     text-align: center;

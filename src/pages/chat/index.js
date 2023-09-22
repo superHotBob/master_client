@@ -17,7 +17,7 @@ export default function Chat() {
     
     if (error) return router.push('/')
 
-    const options = { month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+    const options = { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' };
 
     function My_Date(a) {        
         const message_date = new Date(+a)
