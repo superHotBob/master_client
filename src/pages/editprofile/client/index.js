@@ -76,22 +76,27 @@ export default function EditProfile() {
         .catch(err => setMessage("Ошибка создания профиля мастера"))
     }
    
-    function SelectUpload(e) {
+    function SelectUpload(e) {        
+        if(e.target.files[0].size > 300000) {
+            setMessage('Размер изображения больше 300кб')
+            return ;
+        }
         let url = URL.createObjectURL(e.target.files[0])
         setSelectedFile(url)
         set_file_for_upload(e.target.files[0])
     }
 
-    const UploadToServer = () => {        
+    const UploadToServer = () => {   
+       
         let formData = new FormData()
         formData.append('file', file_for_upload, `${my_profile.nikname}.jpg`)        
-        fetch('/api/replace_icon', {
-            method: 'POST',
-            body: formData,
-        })
-        .then(res => res.text())
-        .then(res=>console.log(res))       
-        setSelectedFile(process.env.url_image + my_profile.nikname + '.jpg')
+        // fetch('/api/replace_icon', {
+        //     method: 'POST',
+        //     body: formData,
+        // })
+        // .then(res => res.text())
+        // .then(res=>console.log(res))       
+        // setSelectedFile(process.env.url_image + my_profile.nikname + '.jpg')
     }
 
     return (

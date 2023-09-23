@@ -13,7 +13,7 @@ export default async function handler(req, res) {
         returning *      
       `,[req.query.rating,req.query.id]);
 
-  client.end();    
+  await client.end();    
   if (rows.length > 0) {
     res.status(200).json(rows[0])
   } else {

@@ -94,7 +94,11 @@ export default function AddList() {
 
 
     async function selectUpload(e) {
-        // e.preventDefault()
+        if(e.target.files[0].size > 1000000) {
+            setmessage('Размер изображения больше 1 MB')
+            setTimeout(() => setmessage(''), 2000)
+            return ;
+        }
         if (!e.target.files[0]) return
         const prof = JSON.parse(localStorage.getItem('profile'))
         let id = await fetch('/api/add_image', {

@@ -13,11 +13,9 @@ export default async function handler(req, res) {
     limit $3 offset $4
   `,[req.query.city,req.query.service, req.query.limit,req.query.offset ]);
 
-  client.end();
-  if (rows.length) {
-    res.status(200).json(rows)
-  } else {
-    res.json([])
-  }
+  await client.end();
+ 
+  res.status(200).json(rows)
+
 
 }

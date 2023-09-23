@@ -62,10 +62,12 @@ export default function DisplayPublications() {
 
 
 
-    function SaveImages() {
-        for (const i of delete_images) {
-            fetch(`/api/delete_images?img_date=${i}`)
+    function submit() {
+        if(delete_images.length > 0) {
+          fetch(`/api/delete_images_dnd?ids=${delete_images}`) 
         }
+        
+      
         for (const [index, i] of imagesone.entries()) {
             fetch(`/api/update_image_rating?id=${i.id}&rating=${images.length - delete_images.length - index * 2 + 1}`)
         }
@@ -91,7 +93,7 @@ export default function DisplayPublications() {
         }
         if (result.destination.droppableId === 'delete') {
             let result_new = result.source.droppableId === 'one' ? imagesone : imagestwo;
-            let new_images = result_new.filter(i => i.img_date !== result.draggableId)
+            let new_images = result_new.filter(i => (i.id +'') !== result.draggableId)
             setDeleteImages(delete_images => ([...delete_images, result.draggableId]))
             if (result.source.droppableId === 'one') {
                 setImagesOne(new_images)
@@ -130,7 +132,7 @@ export default function DisplayPublications() {
                     <Menu_icon color={color[1]} />
                 </span>
                 <span>Показ публикаций</span>
-                <span style={{ color: color[1] }} onClick={SaveImages}>Принять</span>
+                <span style={{ color: color[1] }} onClick={submit}>Принять</span>
             </header>
             <section>
                 <p className={styles.text}>
@@ -164,8 +166,8 @@ export default function DisplayPublications() {
                                 >
                                     {imagesone?.map((i, index) =>
                                         <Draggable
-                                            key={i.img_date}
-                                            draggableId={i.img_date}
+                                            key={i.id}
+                                            draggableId={i.id+''}
                                             index={index}
                                             
                                            
@@ -203,8 +205,8 @@ export default function DisplayPublications() {
                                 >
                                     {imagestwo?.map((i, index) =>
                                         <Draggable
-                                            key={i.img_date}
-                                            draggableId={i.img_date}
+                                            key={i.id}
+                                            draggableId={i.id+''}
                                             index={index}
                                         >
                                             {(provided, snapshot) => {

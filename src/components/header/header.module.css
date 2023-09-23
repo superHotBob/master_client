@@ -12,7 +12,8 @@
   }  
   .header h2:last-of-type {
     color: #3D4EEA;
-    display: inline-block;    
+    display: inline-block; 
+    vertical-align: text-bottom;   
   }
   .shadow_arrow {
     height: 40px;
@@ -20,6 +21,7 @@
   }
   .header h2:first-of-type {   
     display: inline-block;
+    vertical-align: text-bottom;   
   }
   
   .header div img {
@@ -55,11 +57,11 @@
     transform: translate(-4px, -2px);
   }
   .logo {
-    width: fit-content;    
+    width: auto;    
   }
   .logo::before {
     content: url('/logo.svg');
-    transform: translate(-6px,6px);
+    transform: translate(-6px,2px);
   }
   .header img:last-of-type {
     float: right;

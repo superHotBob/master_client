@@ -44,7 +44,7 @@
     justify-content: center;
     flex-wrap: wrap;
     align-items: center;
-    width: fit-content;
+    width: auto;
   }
   
   .section p span:first-of-type {

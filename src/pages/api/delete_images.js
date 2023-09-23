@@ -12,7 +12,7 @@ export default async function handler(req, res) {
     `,[req.query.id]
   );
 
-  client.end()
+  
 
   fetch(`http://localhost:5000/delete_image?id=${req.query.id}`, { headers: {    
     'Authorization': 'master'
@@ -20,6 +20,8 @@ export default async function handler(req, res) {
   )
   .then(res=>res.text())
   .then(res=>console.log(res))
+
+  await client.end()
   
   if (rows.length) {
     res.status(200).text("Удалено")
