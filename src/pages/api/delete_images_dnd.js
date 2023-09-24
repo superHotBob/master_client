@@ -14,11 +14,11 @@ export default async function handler(req, res) {
     const { rows } = await client.query(`  
         delete from "images"
         where id = $1 
-        `,[+req.query.id]
+        `,[+i]
     ); 
     rows.push(i) 
 
-    fetch(`http://localhost:5000/delete_image?id=${+req.query.id}`, { headers: {    
+    fetch(`http://localhost:5000/delete_image?id=${+i}`, { headers: {    
         'Authorization': 'master'
         },}
     )
