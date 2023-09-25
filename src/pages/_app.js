@@ -33,7 +33,7 @@ const my_path = ['informations', 'informations/aboutservice',
    'city', 'masternear', 'masternear/city', 'editprofile', 'addmasterorder']
 
   const router = useRouter()
- 
+  const { slug } = router.query
   const pathname = usePathname()
   
   // if(slug ) {
@@ -49,7 +49,7 @@ const my_path = ['informations', 'informations/aboutservice',
           <meta name="description" content="Master app" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link rel="icon" href="/favicon.ico" />
-          <title>masters.place</title>
+          <title>{slug ? slug : 'masters.place'}</title>
           <link rel="apple-touch-icon" href="icons/android-chrome-192x192.png" />
           <meta name="application-name" content="PWA App" />
           <meta name="mobile-web-app-capable" content="yes" />

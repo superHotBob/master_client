@@ -27,18 +27,10 @@ export default function MasterNear() {
 
     const { data, error, isLoading } = useSWR('/api/all_masters_city?' + new URLSearchParams({
         city: city.toLowerCase(),
-        service:  service}))
+        service:  service})
+    )
     
-    useEffect(()=>{
-       router.push(`/masternear/${services}`)
-       
-        },[services])
-
-    // function ViewNewMaster(a) {
-    //     router.push(`/${a}`)
-    //     let master = data.filter(i => i.nikname === a)
-    //     dispatch(setmaster(master[0]))
-    // }   
+    useEffect(()=>{router.push(`/masternear/${services}`)},[services]) 
    
     return (
         <>
@@ -49,8 +41,10 @@ export default function MasterNear() {
                     ваш город, что бы увидеть список мастеров.'
                 />
             </div>
-            <CitySelect city={city} />
-            <div className={styles.selector}>
+            <div style={{margin: '0 16px'}}>
+                <CitySelect city={city} />
+            </div>            
+            <div className={styles.selector}>                
                 <Link href={`/masternear/${service}`} style={sel}>Список</Link>
                 <Link href="/masternear/city" >На карте</Link>
             </div>

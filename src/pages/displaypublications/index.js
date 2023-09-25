@@ -17,7 +17,7 @@ export default function DisplayPublications() {
     const [delete_images, setDeleteImages] = useState([])
 
 
-
+    console.log(imagesone)
 
 
 
@@ -37,10 +37,12 @@ export default function DisplayPublications() {
         if (block === 'one') {
             setImagesOne(result_end)
             setImagesTwo(result_start)
+             console.log(imagesone)
         } else {
             setImagesOne(result_start)
             setImagesTwo(result_end)
         }
+       
     };
 
     useEffect(() => {
@@ -51,23 +53,15 @@ export default function DisplayPublications() {
         fetch(`/api/get_images?nikname=${pro.nikname}`)
             .then(res => res.json())
             .then(res => {
-                setImagesOne(res.filter((i, index) => (index + 1) % 2 != 0));
+                setImagesOne(res.filter((i, index) => (index + 1) % 2 != 0))
                 setImagesTwo(res.filter((i, index) => (index + 1) % 2 === 0))
-                setImages(res);
-
-
+                setImages(res)
             })
-
     }, [])
-
-
-
     function submit() {
-        if(delete_images.length > 0) {
-          fetch(`/api/delete_images_dnd?ids=${delete_images}`) 
+        if (delete_images.length > 0) {
+            fetch(`/api/delete_images_dnd?ids=${delete_images}`)
         }
-        
-      
         for (const [index, i] of imagesone.entries()) {
             fetch(`/api/update_image_rating?id=${i.id}&rating=${images.length - delete_images.length - index * 2 + 1}`)
         }
@@ -76,7 +70,7 @@ export default function DisplayPublications() {
                 .then(res => res.json())
                 .then(res => {
                     document.getElementById('message').style.display = 'block',
-                        setTimeout(() => document.getElementById('message').style.display = 'none', 2000)
+                    setTimeout(() => document.getElementById('message').style.display = 'none', 2000)
                 })
         }
 
@@ -93,7 +87,7 @@ export default function DisplayPublications() {
         }
         if (result.destination.droppableId === 'delete') {
             let result_new = result.source.droppableId === 'one' ? imagesone : imagestwo;
-            let new_images = result_new.filter(i => (i.id +'') !== result.draggableId)
+            let new_images = result_new.filter(i => (i.id + '') !== result.draggableId)
             setDeleteImages(delete_images => ([...delete_images, result.draggableId]))
             if (result.source.droppableId === 'one') {
                 setImagesOne(new_images)
@@ -127,23 +121,22 @@ export default function DisplayPublications() {
                 <span
                     onClick={() => router.back()}
                     className={styles.left__arrow}
+                    style={{ color: color[1] }}
 
-                >
-                    <Menu_icon color={color[1]} />
+                >&#10094;
+                    {/* <Menu_icon color={color[1]} /> */}
                 </span>
                 <span>Показ публикаций</span>
                 <span style={{ color: color[1] }} onClick={submit}>Принять</span>
             </header>
-            <section>
-                <p className={styles.text}>
-                    {`Вы можете выбрать порядок публикаций. 
-                    Перетаскивайте публикации зажатием.`}
-                </p>
-            </section>
+            <p className={styles.text}>
+                {`Вы можете выбрать порядок публикаций.Перетаскивайте 
+                     публикации зажатием.`}
+            </p>
             <div className={styles.all_drop}>
                 <DragDropContext onDragEnd={onDragEnd} >
                     <Droppable droppableId="delete">
-                    
+
                         {provided => (
                             <div
                                 className={styles.delete}
@@ -156,7 +149,7 @@ export default function DisplayPublications() {
                         )}
                     </Droppable>
                     <div className={styles.main_images}>
-                        <Droppable droppableId="one">                         
+                        <Droppable droppableId="one">
                             {(provided, snapshot) => (
                                 <div
                                     className={styles.images}
@@ -167,10 +160,10 @@ export default function DisplayPublications() {
                                     {imagesone?.map((i, index) =>
                                         <Draggable
                                             key={i.id}
-                                            draggableId={i.id+''}
+                                            draggableId={i.id + ''}
                                             index={index}
-                                            
-                                           
+                                            style={{overflowAnchor: "none"}}
+
                                         >
                                             {(provided, snapshot) => {
                                                 const style = {
@@ -195,8 +188,8 @@ export default function DisplayPublications() {
                                 </div>
                             )}
                         </Droppable>
-                        <Droppable droppableId="two" >                                 
-                       
+                        <Droppable droppableId="two" >
+
                             {provided => (
                                 <div
                                     className={styles.images}
@@ -206,7 +199,7 @@ export default function DisplayPublications() {
                                     {imagestwo?.map((i, index) =>
                                         <Draggable
                                             key={i.id}
-                                            draggableId={i.id+''}
+                                            draggableId={i.id + ''}
                                             index={index}
                                         >
                                             {(provided, snapshot) => {
@@ -222,7 +215,7 @@ export default function DisplayPublications() {
                                                         className={styles.image}
                                                         style={style}
                                                         alt={i.nikname}
-                                                        src={process.env.url_image  + i.id + ".jpg"}
+                                                        src={process.env.url_image + i.id + ".jpg"}
                                                     />
                                                 )
                                             }}

@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     height: 46px;
-    padding: 11px;   
+    padding: 16px;   
     align-items: center;
     font-weight: 500;
     font-size: 16px;
@@ -20,16 +20,10 @@
 }
 .header span:first-child {
     width: 20%;
-}
-
-.left__arrow svg {
+    font-weight: 300;
     cursor: pointer;
+    transform: scaleY(0.85);
 }
-.left__arrow svg:hover {
-    transform: scale(1.3);
-    transition: all 0.5s;
-}
-
 .text {
     margin: 16px 16px 26px;
     text-align: center;
@@ -38,6 +32,7 @@
     font-weight: 400;
     line-height: 17px;
 }
+
 .main_images {
     display: flex;
     justify-content: space-between;

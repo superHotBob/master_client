@@ -42,7 +42,7 @@ export default function Home() {
   const View = (a, b, c, d, e) => viewImage({ text: d, name: a, image: b, master_name: c, date: e })
 
   return (
-    <>
+   
       <section className={styles.section} >
         <Message page="main" text='Masters.place показывает самые крутые и 
             актуальные работы мастеров в вашем городе. 
@@ -90,6 +90,6 @@ export default function Home() {
           null
         }
       </section>
-    </>
+    
   )
 }

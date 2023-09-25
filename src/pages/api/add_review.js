@@ -29,7 +29,7 @@ export default async function handler(req, res) {
  
   const ave = (+average[0].avg).toFixed(1)
   
-  const {rows: update_stars } = await client.query(`
+  await client.query(`
     update "masters" 
     set "stars" = $1
     where "nikname" = $2
@@ -49,9 +49,9 @@ export default async function handler(req, res) {
   )
   await client.end()
   if (result.length > 0) {
-    res.end('Отзыв  добавлен')
+    res.send('Отзыв  добавлен')
   } else {
-    res.end(null)
+    res.send(null)
   }
   
 }

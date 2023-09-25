@@ -92,8 +92,9 @@
     justify-content: center;
     align-items: center;
     height: 100%;
+    cursor: pointer;
     border-radius: 5px;
-    background-color: rgb(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .sertificats span img {

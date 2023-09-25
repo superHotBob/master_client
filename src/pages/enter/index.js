@@ -34,7 +34,7 @@ export default function Enter() {
 
     const firstCall = () => {
         const data = { tel: phone }
-        // setBack("await.gif")
+       
 
         fetch(`/api/check_client?phone=${phone}`)
             .then(res => res.json())
@@ -117,6 +117,7 @@ export default function Enter() {
             sendCode()
         }
     };
+  
     function Number(a, b) {
         let nmb = number
         nmb[b] = a
@@ -162,7 +163,9 @@ export default function Enter() {
                         }}
                         buttonStyle={{border: 'none', borderTopLeftRadius: '6px', borderBottomLeftRadius: '6px' }}
                         placeholder='номер телефона'
+                       
                         onChange={phone => setPhone(phone)}
+                       
                         inputStyle={{fontFamily: '__Rubik_7303a2', border: 'none', borderRight: 'none', height: 'auto' }}
                     />
                     {message ?

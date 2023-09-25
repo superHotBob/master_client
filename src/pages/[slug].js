@@ -1,7 +1,5 @@
 import { useRouter } from 'next/router'
-import Head from 'next/head'
 import styles from '../styles/master.module.css'
-
 import Header from '@/components/header'
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -16,7 +14,7 @@ import MasterHeader from '@/components/masterheader'
 import { my_tema } from '@/data.'
 import useSWR from 'swr'
 import { useEffect } from 'react'
-import Navi from '@/components/navi'
+
 import Information from '@/components/information'
 
 
@@ -66,10 +64,10 @@ export default function Master() {
 
     return (
         <>
-            <Head><title>{slug}</title></Head>
+           
             {profile ? <Header text={slug} sel={'/masternear/' + service} col={color} /> : null}
             {profile ? <MasterHeader profile={profile} slug={slug} /> : null}
-            {profile && <> 
+            {profile &&
                 <section className={styles.section_main}>
                 {message ? <div className={styles.dialog}>
                     <div >
@@ -111,9 +109,8 @@ export default function Master() {
                             <Sertificats nav={nav_view} nikname={slug} />}
                  <Information/> 
             </section>
-           
-            <Navi />
-            </>}           
+          
+            }           
         </>
     )
 }

@@ -183,9 +183,13 @@ export default function AddList() {
                         <div
                             key={i.id}                                                    
                             className={styles.sertificats}
-                            style={{ border: i.id === +activeImage ? "2px solid " + color[1] : '', backgroundImage: "url(https://masters.place/images/" + i.id + '.jpg' }}
+                            style={{ backgroundImage: "url(https://masters.place/images/" + i.id + '.jpg' }}
                         >
-                            <span  id={i.id}   onClick={SetForTag} title="Добавить комментарий">
+                            <span  
+                                id={i.id}   
+                                onClick={SetForTag} title="Добавить комментарий"
+                                style={{ opacity: i.id === +activeImage ? 0.5 : 1 }}
+                            >
                                 <img
                                     src='/trash.svg'
                                     height={24}
