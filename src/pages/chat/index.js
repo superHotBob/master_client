@@ -34,7 +34,7 @@ export default function Chat() {
                 {data?.admin.map(i =>
                     <Link
                         href={`/chat/messages/администратор?chat=${i.chat}`}
-                        key={i.recipient}
+                        key={i.chat}
                         className={styles.chat}
                     >
                         <img src="/image/администратор.jpg" alt="master" />
@@ -60,7 +60,7 @@ export default function Chat() {
                     {data?.client.map(i =>
                         <Link
                             href={'/chat/messages/' + (i.sendler_nikname === name ? i.recipient_nikname : i.sendler_nikname) + '?name=' + (i.sendler_nikname === name  ? i.recipient : i.sendler)}
-                            key={i.recipient}
+                            key={i.chat}
                             className={styles.chat}
                         >
                             <Image width={55} height={55}

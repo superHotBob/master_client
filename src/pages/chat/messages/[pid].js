@@ -4,7 +4,7 @@ import Link from "next/link"
 import styles from './messages.module.css'
 import { useSelector } from "react-redux"
 import { useRouter } from "next/router"
-import useSWR from 'swr'
+import useSWR , { mutate } from 'swr'
 import Image from 'next/image'
 
 const options = {
@@ -91,13 +91,9 @@ export default function Messages() {
                 chat: (dialog.length > 0 && dialog[0].chat != 0) ? dialog.filter(i=>i.recipient_nikname ===  profile.nikname)[0].chat : null,
                 ms_text: ref.current.value,
                 sendler: profile.name,
-                sendler_nikname: profile.nikname,
-                recipient_nikname: 'администратор',
-                recipient: 'администратор',
-                ms_date: Date.now(),
-
+                sendler_nikname: profile.nikname           
             }
-            fetch('/api/send_message', {
+            fetch('/api/send_message_admin', {
                 body: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json',
@@ -111,6 +107,7 @@ export default function Messages() {
                 .catch(err => console.log(err))
         }
     }
+    
     function My_Date(a) {
         const d = new Date(a)
         const n = new Date()

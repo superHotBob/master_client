@@ -1,23 +1,69 @@
-
+const IP = require('ip')
 export default async function handler(req, res) {
+  const ipAddress = IP.address()
 
-    let calls = {}
-    const code = 1234
-   
-        //     client.call.send({to: req.body.tel})
-        //    .then((responce) => {
-        //         calls[req.body.tel] = +responce.code
-        //         console.log(responce.code)       
-        //         res.end("OK")   
-        //     })
-        
-        
-    
-   
-  if (req.body.tel = 1234) {
-    res.end("OK")
+  // let ips = []
+  // let calls = {}
+  // const code = 1234
+
+  // ips.push(ipAddress)
+
+ 
+
+  // if(calls[req.body.tel] === +req.body.number ){
+  //   console.log('1',ipAddress,ips,calls) 
+  //   res.status(200).end("OK")
+  // } else if( calls[req.body.tel] === undefined ){ 
+  //     //     client.call.send({to: req.body.tel})
+  //     //    .then((responce) => {
+  //     //         calls[req.body.tel] = +responce.code
+  //     //         console.log(responce.code)       
+  //     //         res.end("OK")   
+  //     //     })
+
+  //     calls[req.body.tel] = code
+  //     console.log('2',ipAddress,ips,calls) 
+  //     res.status(200).json([])      
+  // } else if( calls[req.body.tel] != +req.body.number ) {
+  //     //     client.call.send({to: req.body.tel})
+  //     //    .then((responce) => {
+  //     //         calls[req.body.tel] = +responce.code
+  //     //         console.log(responce.code)       
+  //     //         res.end("OK")   
+  //     //     })
+
+  //     calls[req.body.tel] = code
+  //     console.log('3',ipAddress,ips,calls) 
+  //     res.status(200).json([])      
+
+  // } else {
+  //   console.log('4',ipAddress,ips,calls) 
+  //   res.status(400).json([])
+  // }
+  // console.log('4',ipAddress,ips,calls) 
+  const st = await fetch('http://localhost:5000/call', {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    method: 'POST',
+    body: JSON.stringify({
+      tel: req.body.tel,
+      code: req.body.number,
+      ip: ipAddress
+    })
+  }).then(res=>res.text())
+
+
+  console.log('Ansver',st)
+
+  if ( st === 'Code is good' ) {
+    res.status(200).send(st)
+  } else if ( st === 'Enter code' ) {
+    res.status(400).send(st) 
+  } else if( st === 'Many attempt') {
+    res.status(500).send(st)
   } else {
-    res.json([])
+    res.status(404).send('code is fall')
   }
 
 }

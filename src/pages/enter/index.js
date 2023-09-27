@@ -34,8 +34,6 @@ export default function Enter() {
 
     const firstCall = () => {
         const data = { tel: phone }
-       
-
         fetch(`/api/check_client?phone=${phone}`)
             .then(res => res.json())
             .then(res => {
@@ -57,7 +55,7 @@ export default function Enter() {
                 method: 'POST',
             })
                 .then(res => {
-                    if (res.status === 200) {
+                    if (res.status === 400) {
                         setSelect('Подтвердить'),
                             // setBack("logo-main.svg"),
                             setTimeout(() => document.getElementById(0).focus(), 500)
@@ -100,6 +98,12 @@ export default function Enter() {
                 if (res.status === 200) {
                     dispatch(setphone(phone))
                     router.push('newpassword')
+                } else if (res.status === 404) {
+                    setSelect('Подтвердить')
+                    setMessage('Не верный код')
+                } else if (res.status === 500) {
+                    setMessage('Вы исчерпали лимит попыток')
+                    setT(60)    
                 } else {
                     setMessage('Не верный код')
                 }
@@ -113,11 +117,11 @@ export default function Enter() {
                 document.getElementById(b - 1).focus()
             }
         }
-        if(e.key === 'Enter' && b === 3 ) {
+        if (e.key === 'Enter' && b === 3) {
             sendCode()
         }
     };
-  
+
     function Number(a, b) {
         let nmb = number
         nmb[b] = a
@@ -134,7 +138,7 @@ export default function Enter() {
     }
     return (
         <section className={styles.section} style={{ backgroundImage: `url(${back})` }}>
-            <Header text={select} sel="/enter" />           
+            <Header text={select} sel="/enter" />
             {select === 'Вход' ?
                 <div className={styles.inputs}>
                     <h3 className={styles.registration}>
@@ -161,12 +165,12 @@ export default function Enter() {
                         searchStyle={{
                             border: 'none', borderRight: '1px solid #3D4EEA'
                         }}
-                        buttonStyle={{border: 'none', borderTopLeftRadius: '6px', borderBottomLeftRadius: '6px' }}
+                        buttonStyle={{ border: 'none', borderTopLeftRadius: '6px', borderBottomLeftRadius: '6px' }}
                         placeholder='номер телефона'
-                       
+
                         onChange={phone => setPhone(phone)}
-                       
-                        inputStyle={{fontFamily: '__Rubik_7303a2', border: 'none', borderRight: 'none', height: 'auto' }}
+
+                        inputStyle={{ fontFamily: '__Rubik_7303a2', border: 'none', borderRight: 'none', height: 'auto' }}
                     />
                     {message ?
                         <h3 className={styles.error} >
@@ -206,11 +210,15 @@ export default function Enter() {
                             />)}
                     </div>
                     {message ?
-                        <h3 className={styles.error} >Не верный код</h3>
+                        <>
+                            <h3 className={styles.error} >Не верный код</h3>
+                            <div className={styles.button} onClick={sendCode}>Подтвердить</div>
+                        </>
                         :
                         <>
                             <div className={styles.button} onClick={sendCode}>Подтвердить</div>
                             <h6>Не получили звонок?</h6>
+
                         </>
                     }
                     <h4 onClick={Reload}>Повторить попытку</h4>

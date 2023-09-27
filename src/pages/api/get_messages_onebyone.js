@@ -24,8 +24,8 @@ export default async function handler(req, res) {
       await client.query(`
         update "adminchat"
         set "read" = true
-        where "id" = $1
-      `,[i])
+        where "id" = $1 and "sendler" = $2
+      `,[i,'администратор'])
     }
     
     const { rows: date_reg } = await client.query(`

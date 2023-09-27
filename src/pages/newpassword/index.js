@@ -53,13 +53,9 @@ export default function Password() {
                 method: 'POST',
             })
                 .then(res => {
-                    setMessage('Пароль изменен')
+                    setMessage('Пароль изменен. Войдите с новым паролем.')
                     dispatch(setpassword(''))
-                    setTimeout(() => {
-                        router.push('/enter')
-
-                    }, 2000);
-
+                    setTimeout(() => {router.push('/enter')}, 4000);
                 })
         } else {
             const response = await fetch('/api/enter_phone', {

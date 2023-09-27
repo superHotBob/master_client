@@ -26,15 +26,14 @@
     height: 100%;
     text-align: left;
     max-width: 500px;
-    border-top-right-radius: 8px;
-    border-top-left-radius: 8px;
+   
   }
   .detail h5::first-letter {
     text-transform: capitalize;
   }
   .detail h3 {
     cursor: pointer;
-    text-align: right;
+    text-align: center;
     padding-right: 10px;
     margin-bottom: 5px;
     color: #ccc;
