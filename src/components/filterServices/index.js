@@ -16,9 +16,11 @@ export default function FilterServices() {
     const dispatch = useDispatch()
     const my_service = useSelector(state=>state.counter.service)   
 
-    function setFilter(e) {        
-        dispatch(setservice(e.target.id))
-        setViewFilter(false)
+    function setFilter(e) {   
+        if(e.target.id) {    
+            dispatch(setservice(e.target.id))
+            setViewFilter(false)
+        }
     }    
     return (
         <div className={styles.main__filter}>

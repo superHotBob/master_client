@@ -66,8 +66,8 @@ export default async function handler(req, res) {
       await client.query(`
         update "chat"
         set "read" = true
-        where "id" = $1
-      `,[i])
+        where "id" = $1 and "sendler_nikname" != $2
+      `,[i, req.query.nikname])
     }
     
 

@@ -59,7 +59,11 @@
   margin-top: 20px;
   filter: grayscale(100%) !important;
 }
-
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
 
 .my_map div.ymaps-2-1-79-map-copyrights-promo {

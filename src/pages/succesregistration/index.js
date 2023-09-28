@@ -5,7 +5,8 @@ import { useEffect } from 'react'
 export default function Succes() {
     const router = useRouter
     useEffect(()=>{
-        setTimeout(()=>router.push('/'),5000)
+        const set = setTimeout(()=>router.push('/'),5000)
+        return ()=>clearTimeout.set;
     },[])
     return (
 

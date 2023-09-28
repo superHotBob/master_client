@@ -1,6 +1,8 @@
 .map {
     position: absolute;
-    top: 73px;
+    top: 0;
+    padding-top: 56px;
+    height: 100vh;
     left: 0;
     background-color: #fff;
     z-index: 101;   
