@@ -65,8 +65,11 @@ export default function Master() {
     return (
         <>
            
-            {profile ? <Header text={slug} sel={'/masternear/' + service} col={color} /> : null}
-            {profile ? <MasterHeader profile={profile} slug={slug} /> : null}
+            {profile ? 
+            <>
+                <Header text={slug} sel={'/masternear/' + service} col={color} /> 
+                <MasterHeader profile={profile} slug={slug} /> 
+            </> : null}
             {profile &&
                 <section className={styles.section_main}>
                 {message ? <div className={styles.dialog}>
@@ -80,9 +83,7 @@ export default function Master() {
                         </h4>
                         <Link href="/enter">Войти</Link>
                     </div>
-                </div>
-                    : null
-                }
+                </div> : null}
                 <div className={styles.buttons}>
                     <div onClick={() => LinkTo(`/chat/messages/${slug}?name=${profile.name}`)} style={{ backgroundColor: color[1] }} >
                         <span title="Отправить сообщение мастеру">
@@ -107,7 +108,7 @@ export default function Master() {
                     nav_view === 1 ? <Services name={slug} color={color} nav={nav_view} /> :
                         nav_view === 0 ? <Lenta nikname={slug} color={color} name={profile.name} /> :
                             <Sertificats nav={nav_view} nikname={slug} />}
-                 <Information/> 
+                <Information/> 
             </section>
           
             }           

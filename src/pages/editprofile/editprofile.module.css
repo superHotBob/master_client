@@ -301,7 +301,7 @@ div.tema {
 }
 
 .currency button {
-  width: fit-content;
+  width: auto;
 }
 
 .tema button {
@@ -434,12 +434,24 @@ div.tema {
 }
 
 .place h4 {
-  font-weight: 400;
-  width: fit-content;
+  font-weight: 400; 
   border: 1px solid #ddd;
   padding: 15px 5px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.place h4 span {
+  padding: 5px 10px;
+  margin: 10px;
+  color: #fff;
+  font-family: inherit;
+  border-radius: 5px;
+  background-color: #3D6DEA;
+}
+.place h4 span:last-of-type {
+  background-color: red;
+  
 }
 
 .place h4:hover {

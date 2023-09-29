@@ -292,12 +292,18 @@ export default function EditProfile() {
                     </label>
                 </section>
                 <div className={styles.place} >
-                    <h4 onClick={() => selectLoc(true)}>
+                    <h4>
                         Выбрать локацию
-                        {loc ? <> <b>[{(+location[0]).toFixed(4)}</b>,<b>{(+location[1]).toFixed(4)}]</b></>: null}
+                        <span onClick={() => selectLoc(true)}>ДА</span>
+                        <span onClick={() => selectLoc(false)}>НЕТ</span>                        
                     </h4>
                 </div>
-                {loc ? <Location nikname={profile.nikname} loc_master={location} close={selectLoc} /> : null}
+                {loc ? <Location 
+                    nikname={profile.nikname} 
+                    loc_master={location} 
+                    close={selectLoc} 
+                    place={city + ' ' + address + ' ' + address_full.дом}
+                /> : null}
             </div> : null}
             {tema ?
                 <div className={styles.main_tema}>

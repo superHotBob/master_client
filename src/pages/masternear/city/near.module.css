@@ -1,4 +1,6 @@
-
+.main_city {
+  height: 100vh;
+}
 .message {
   width: calc(100% - 32px);
   margin: 16px auto 0;

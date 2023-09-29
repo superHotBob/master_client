@@ -21,6 +21,7 @@
     font-size:  12px;
     line-height: 22px;
     text-align: center;
+    text-transform: capitalize;
   }
   .section h4::first-letter {
     text-transform: capitalize;
