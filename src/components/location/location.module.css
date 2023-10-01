@@ -16,15 +16,12 @@
     max-width: 500px;
     background-color: #fff;
 }
-.map img {
-   
+.close {   
     display: block;
-    z-index: 200;
-    
+    z-index: 200;    
     background-color: #fff;
     margin: 8px auto;
-    padding: 4px;
-   
+    padding: 4px;   
     cursor: pointer;
     border: 1px solid #3D4EEA;
     border-radius: 50%;

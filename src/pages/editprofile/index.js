@@ -302,7 +302,7 @@ export default function EditProfile() {
                     nikname={profile.nikname} 
                     loc_master={location} 
                     close={selectLoc} 
-                    place={city + ' ' + address + ' ' + address_full.дом}
+                    place={city + ' , ' + address + ' , ' + address_full.дом}
                 /> : null}
             </div> : null}
             {tema ?
@@ -337,11 +337,9 @@ export default function EditProfile() {
                                     >
                                         {i}
                                     </span>
-
                                     {index === 0 && <span className={styles.img_currency} style={{  color: currency === i ? '#fff' : '#000' }}>BYN</span>}
                                     {index === 1 && <span className={styles.img_currency} style={{  color: currency === i ? '#fff' : '#000' }}>₽</span>}
                                     {index === 2 && <span className={styles.img_currency} style={{  color: currency === i ? '#fff' : '#000' }}>₸</span>}
-
                                 </div>
                             )}
                         </div>

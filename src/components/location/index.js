@@ -1,6 +1,8 @@
 import styles from './location.module.css'
 import { useEffect, useRef, useState } from 'react'
 import React from 'react'
+import ReactDOM from "react-dom";
+import ReactDOMServer from "react-dom/server";
 import { useDispatch } from 'react-redux'
 import { setlocation } from '@/reduser'
 import Image from 'next/image'
@@ -14,6 +16,9 @@ const API_KEY = "89caab37-749d-4e30-8fdf-e8045542f060"
 
 
 function Mymap({ loc_master, nikname, place }) {
+
+
+
     const dispatch = useDispatch()
 
     const [loc, setLoc] = useState(loc_master)
@@ -54,10 +59,13 @@ function Mymap({ loc_master, nikname, place }) {
         behaviors: ["default", "scrollZoom", "onclick"],
 
     };
-    function getCoord(place){
+    function getCoord(place) {
+        if (!place) {
+            return;
+        }
 
         console.log(place)
-        const  myGeocoder = ymaps.geocode(place);
+        const myGeocoder = ymaps.geocode(place);
 
         myGeocoder.then(
 
@@ -69,21 +77,43 @@ function Mymap({ loc_master, nikname, place }) {
             },
 
             function (err) {
-
                 console.log('Ошибка');
-
             }
 
         );
-    }
-
+    }    
+    const placeMark = (a, b) => {
+        if(ymaps){
+            const Layout = a.createClass(`<img class="img" style=" border-radius: 50%; border: 3px solid #3D4EEA" height="44px" width="44px" src=${process.env.url_image + b + '.jpg'} />`, 
+            // {
+            //     build: function () {
+            //         Layout.superclass.build.call(this);
+            //         const element = this.getParentElement().getElementsByClassName("img")[0];
+                
+            //         const bigShape = {
+            //             type: 'Circle',
+            //             coordinates: [0,0],
+            //             radius: 50,
+            //         };
+            //         // Зададим фигуру активной области.
+            //         this.getData().options.set('shape',bigShape );                
+            //         this.getData().geoObject.events.add('click',function() {Bob(b)},this)
+                
+            //     }
+            
+            // }
+            
+            );
+            return Layout;
+        }
+    };
 
     return (
         <>
             <Map id="mymap"
                 modules={["Clusterer", "Polygon", "GeoObject", "geoQuery", "control.ZoomControl", "control.FullscreenControl", "Placemark", "geocode",
                     "geoObject.addon.balloon", "borders", "ObjectManager", 'geoObject.addon.balloon', 'clusterer.addon.balloon',
-                    'templateLayoutFactory']}
+                    "templateLayoutFactory"]}
                 options={{ set: defaultState }}
                 state={{
                     center: loc_master,
@@ -93,49 +123,35 @@ function Mymap({ loc_master, nikname, place }) {
                 }}
                 width='100%'
                 height="75vh"
-
-            >
-
-                <Placemark geometry={loc}
-                    modules={
-                        ['geoObject.addon.balloon', 'geoObject.addon.hint']
+                onLoad={(e) => {                  
+                    ymaps.current = e
+                }}
+                instanceRef={ymaps => {
+                    if (ymaps) {
+                        Map.current = ymaps;
                     }
-
-                    options={{
-                        draggable: true,
-                        iconLayout: 'default#image',
-                        iconImageHref: '/master.svg',
-                        iconImageSize: [40, 40],
-                        preset: "islands#yellowDotIcon",
-                    }}
+                }}
+            >
+                {ymaps ? <Placemark geometry={loc}
+                    modules={
+                        ['geoObject.addon.balloon', 'geoObject.addon.hint', "templateLayoutFactory"]
+                    }
+                    options={{iconLayout: placeMark(ymaps.templateLayoutFactory, nikname)}}
                     onLoad={() => ViewGrayScale()}
-                    // onDragStart={(e) =>
-                    //     console.log(e.get("target").geometry.getCoordinates())
-                    // }
-                    // onDragEnd={(e) => {
-                    //     console.log(e.get("target").geometry.getCoordinates())
-                    //     dispatch(setlocation(e.get("target").geometry.getCoordinates()))
-                    // }}
-                    // onClick={(e) => UpdateLocation(e.get("target").geometry.getCoordinates())}
-                />
+                /> : null}
             </Map>
-
-
         </>
     )
 }
 
 
 export default function Location({ loc_master, close, nikname, place }) {
-   
     return (
         <div className={styles.map}>
-
-
             <div className={styles.my_map} >
-                <Image src={icon_close} onClick={() => close(false)} alt="close" width={20} height={20} />
+                <Image className={styles.close} src={icon_close} onClick={() => close(false)} alt="close" width={20} height={20} />
                 <YMaps query={{ apikey: API_KEY }}>
-                    <Mymap place={place} loc_master={loc_master} nikname={nikname}/>
+                    <Mymap place={place} loc_master={loc_master} nikname={nikname} />
                 </YMaps>
             </div>
         </div>

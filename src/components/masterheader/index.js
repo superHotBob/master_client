@@ -30,7 +30,7 @@ export default function MasterHeader({ profile, slug }) {
                 {viewText ? <h5 className={styles.text}>{profile?.text}</h5> : null}
                 <span style={{ color: color }} className={styles.view_text} onClick={() => setViewText(!viewText)}>{viewText ? 'Скрыть описание' : 'Описание'}</span>
             </section>
-            {mapview ? <Location nikname={profile?.nikname} loc_master={profile?.locations} close={setmapview} /> : null}
+            {mapview ? <Location nikname={slug} loc_master={profile?.locations} close={setmapview} /> : null}
         </>
     )
 }

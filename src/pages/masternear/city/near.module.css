@@ -1,5 +1,5 @@
 .main_city {
-  height: 100vh;
+  height: minmax(100vh, max-content);
 }
 .message {
   width: calc(100% - 32px);
