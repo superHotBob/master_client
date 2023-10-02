@@ -90,9 +90,10 @@ const MapComponent = ({ setRadius }) => {
         }, 500)
     }
     function SetFilterCluster() {
-        setView(2)
-        setMapHeight('300px')
         setZoom(13)
+        setView(2)
+        setMapHeight('200px')
+       
         setTimeout(() => {
             let coord = Map.current.getBounds()           
             let new_masters = [...masters]
@@ -106,6 +107,7 @@ const MapComponent = ({ setRadius }) => {
             let radius = ymaps.coordSystem.geo.getDistance(center, coord[1])
             setRadius(Math.ceil(radius.toFixed(0) / 1000))
         }, 500)
+        
     }
 
     function closeView() {
@@ -113,12 +115,14 @@ const MapComponent = ({ setRadius }) => {
         setMapHeight(window.innerHeight - 300)
         selectMaster(null)       
     }
-    function ViewMaster(a, b, c) {
-        setView(c)
-        setMapHeight('300px')
-        selectMaster(a)
+    function ViewMaster(a) {
+        setZoom(15)
         setCenter(masters?.filter(i => i.nikname === a)[0].locations)
-        setZoom(b)
+        setMapHeight('200px')
+        setView(1)
+        selectMaster(a)
+       
+       
         setTimeout(() => {
             let coord = Map.current.getBounds()
             const center = Map.current.getCenter()
@@ -176,8 +180,8 @@ const MapComponent = ({ setRadius }) => {
                 
                     const bigShape = {
                         type: 'Circle',
-                        coordinates: [0,0],
-                        radius: 50,
+                        coordinates: [20,20],
+                        radius: 22,
                     };
                     // Зададим фигуру активной области.
                     this.getData().options.set('shape',bigShape );                
@@ -204,14 +208,15 @@ const MapComponent = ({ setRadius }) => {
                     behaviors: ["default", "scrollZoom", "multiTouch", "drag"]
                 }}
                 width="100%"
-                height={view ? "300px" : mapHeight}
+                height= { mapHeight }
                 instanceRef={yamap => {
                     if (yamap) {
                         Map.current = yamap;
                     }
                 }}
                 onLoad={OnLoadMap}
-                onWheel={getRadius}                
+                onWheel={getRadius}
+                onTouchend= {getRadius}               
             >
                 <Clusterer
                     options={{
@@ -220,7 +225,7 @@ const MapComponent = ({ setRadius }) => {
                         hasBallon: false,
                         isPropagationStopped: true,                       
                         hasHint: false,
-                        zoomMargin: [40,60],
+                        zoomMargin: [40],
                         gridSize: 128,
                         clusterIcons: [{
                             href: '/master.svg',
@@ -253,21 +258,19 @@ const MapComponent = ({ setRadius }) => {
                                 strokeColor: 'blue',
                             }}
                             options={{
-                                iconLayout:  placeMark( ymaps.templateLayoutFactory,i.nikname)
+                                iconLayout:  placeMark( ymaps.templateLayoutFactory,i.nikname),
 
                                 // iconLayout: 'default#image',
                                 // iconImageHref: zoom >= 12 ? process.env.url_image + i.nikname + '.jpg' : '/master1.svg',
                                 // iconImageSize: [40, 40],
-                                // iconOffset: [0, 20]
+                                iconOffset: [-20, -20]
                             }}
                             onClick={(e) => {
                                 e.stopPropagation()
-                                ViewMaster(i.nikname, 13, 1)
-                                
+                                ViewMaster(i.nikname)                                
                             }}
-
                         />)}
-                        </>:null}
+                    </>:null}
                 </Clusterer>
             </Map>
             {view === 2 ?

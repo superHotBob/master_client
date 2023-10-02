@@ -1,5 +1,5 @@
 import Header from "@/components/header"
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import Link from "next/link"
 import styles from './messages.module.css'
 import { useSelector } from "react-redux"
@@ -20,6 +20,7 @@ export default function Messages() {
     const ref = useRef()
     const router = useRouter()
     const { pid } = router.query
+    const [link, setlink] = useState(null)
 
     const color = useSelector(state => state.counter.profile['color'])
 
@@ -107,7 +108,26 @@ export default function Messages() {
                 .catch(err => console.log(err))
         }
     }
-    
+    function FindLink(text) {
+        var urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
+        return text.replace(urlRegex, function (url) {
+            var hyperlink = url;
+            // if (!hyperlink.match('^https?:\/\/')) {
+            //   hyperlink = 'http://' + hyperlink;
+             
+            // }
+        //    if( text.match(urlRegex)) {
+        //     setlink('<a href="' + hyperlink + '" target="_blank" rel="noopener noreferrer">' + url + '</a>')
+        //    }else {
+        //     return;
+        //    }
+
+            
+            return '<a href="' + hyperlink + '" target="_blank" rel="noopener noreferrer">' + url + '</a>'
+          });
+        
+    }
+    console.log('xvcx.<a>gdfg</a>dfgdf'.split('<a>').map(i=>i.split('</a>')))
     function My_Date(a) {
         const d = new Date(a)
         const n = new Date()
@@ -134,6 +154,9 @@ export default function Messages() {
                 <h4>{ss[6]} BYN</h4>
             </div>
         } else {
+            // let text = FindLink(a)
+            // console.log(text)
+            // console.log(text.split('='))
             return a
         }
     }
@@ -162,7 +185,9 @@ export default function Messages() {
                                     alt="master"
                                 />
                                 <div className={styles.master}>
-                                    {ReadText(i.ms_text, '#000')}
+                                   {ReadText(i.ms_text, '#000')}
+                                  
+                                    
                                     <span>
                                         {My_Date(+i.ms_date)}
                                     </span>
