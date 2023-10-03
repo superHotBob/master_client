@@ -39,7 +39,7 @@ export default function Calendar() {
 
     const [monthSchedule, setMonthSchedule] = useState([])
     const [patern, setPatern] = useState([])
-    const [view, setView] = useState(false)
+    const [viewPatern, setViewPatern] = useState(false)
     const [message, setMessage] = useState(false)
     const [profile, setProfile] = useState()
     const day = new Date(year, month, 1)
@@ -61,7 +61,7 @@ export default function Calendar() {
             return;
         }
 
-    }, [view])
+    }, [])
 
     useEffect(() => {
         let current_month = my_months[month].toLocaleLowerCase()
@@ -133,7 +133,7 @@ export default function Calendar() {
             let count = monthSchedule[day].split(',').length
             return count
         }
-        return 0
+        return false
     }
     function setActiveDay(e) {
         if (monthSchedule[e.target.id - 1]) {
@@ -189,8 +189,7 @@ export default function Calendar() {
                                 key={i}
                                 id={i}
                                 style={{
-                                    color: +active_num === i ?
-                                        '#fff' : '#000',
+                                    color: +active_num === i ? '#fff' : '#000',
                                     backgroundColor: +active_num === i ? "#3D4EEA" : "#ECEEFD"
                                 }}
                             >{i}
@@ -218,7 +217,7 @@ export default function Calendar() {
                         </span>
                     )}
                 </div>
-                {!view && <div className={styles.button} onClick={() => setView(true)}>
+                {!viewPatern && <div className={styles.button} onClick={() => setViewPatern(true)}>
                     Редактировать шаблон времени +
                 </div>}
                 <dialog open={message} className={styles.message}>
@@ -226,12 +225,12 @@ export default function Calendar() {
                 </dialog>
             </section>
         </> : null}
-        {view &&
+        {viewPatern &&
             <EditPatern
-                view={view}
-                setView={setView}
+                view={viewPatern}
+                setView={setViewPatern}
                 color={pro.color}
-                old_patern={patern}
+                old_patern={init_patern}
                 nikname={pro.nikname}
             />
         }
