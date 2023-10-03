@@ -46,26 +46,25 @@ export default function Enter() {
                     router.push('/enterpassword')
                 }
             })
-        function Call() {
-            fetch(`/api/get_code`, {
+        async function Call() {
+            const res = await fetch(`/api/get_code`, {
                 body: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 method: 'POST',
             })
-                .then(res => {
-                    if (res.status === 400) {
-                        setSelect('Подтвердить'),
-                            // setBack("logo-main.svg"),
-                            setTimeout(() => document.getElementById(0).focus(), 500)
-                        dispatch(setphone(phone))
+            const txt = await res.text()
 
-                    } else {
-                        setT(60)
-                        // setBack("logo-main.svg")
-                    }
-                })
+            if (res.status === 400) {
+                setSelect('Подтвердить'),
+                    setTimeout(() => document.getElementById(0).focus(), 500),
+                    dispatch(setphone(phone))
+            } else {
+                setT(+txt)
+                
+            }
+
         }
 
     }
@@ -103,7 +102,7 @@ export default function Enter() {
                     setMessage('Не верный код')
                 } else if (res.status === 500) {
                     setMessage('Вы исчерпали лимит попыток')
-                    setT(60)    
+                    setT(60)
                 } else {
                     setMessage('Не верный код')
                 }

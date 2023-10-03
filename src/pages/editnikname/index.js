@@ -20,14 +20,17 @@ export default function EditNikname() {
         setcopyring('Скопировано в буфер')
         setTimeout(() => setcopyring(''), 3000)
     }
-    
+
     function ViewCurrentName(e) {
         setnewnikname(e.target.value)
+        let str = e.target.value
 
-        if (e.target.value.indexOf(' ') >= 0) {
+        const regex = /[/ //.//;//://-//*//?//$//%/]/g;
+        const found = str.match(regex);
+        if (found?.length > 0) {
             document.getElementById("name").style.display = 'block'
             document.getElementById("name").style.color = 'red'
-            document.getElementById("name").innerText = "Пробелы не допускаются"
+            document.getElementById("name").innerText = "Только буквы и цифры"
             document.getElementById("change").style.opacity = 0
             return;
         }
@@ -51,7 +54,7 @@ export default function EditNikname() {
         }
     }
     async function ChangeNikname() {
-        // if (!profile.nikname) { return; }
+        if (!profile.nikname) { return; }
         // if( document.getElementById("change").style.opacity === 1) { return; }
 
         await fetch(`/api/edit_nikname?newnikname=${newnikname}&oldnikname=${profile.nikname}`)
@@ -82,7 +85,6 @@ export default function EditNikname() {
                     onChange={ViewCurrentName}
                     minLength={4}
                     placeholder='Новый nikname'
-
                     required
                 />
 

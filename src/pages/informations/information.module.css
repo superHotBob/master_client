@@ -32,7 +32,12 @@
     cursor: pointer;
 }
 .links {
-    padding: 23px;
+    padding: 0 23px;
+}
+.links a {
+    font-size: 20px;
+    font-weight: 500;
+    margin-top: 20px;
 }
 .main a img {
     margin-right: 19px;
@@ -46,8 +51,8 @@
     margin-bottom: 8px;
 }
 .links p {
-    font-size: 12px;
+    
     line-height: 17px;
     font-weight: 400;
-    margin-bottom: 26px;
+    margin: 0  0 10px 35px;
 }

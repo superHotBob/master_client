@@ -51,17 +51,19 @@ export default async function handler(req, res) {
       code: req.body.number,
       ip: ipAddress
     })
-  }).then(res=>res.text())
+  })
+  const txt = await st.text();
+ 
 
 
-  console.log('Ansver',st)
+  
 
-  if ( st === 'Code is good' ) {
+  if ( txt === 'Code is good' ) {
     res.status(200).send(st)
-  } else if ( st === 'Enter code' ) {
+  } else if ( txt === 'Enter code' ) {
     res.status(400).send(st) 
-  } else if( st === 'Many attempt') {
-    res.status(500).send(st)
+  } else if( st.status === 500) {
+    res.status(500).send(txt)
   } else {
     res.status(404).send('code is fall')
   }

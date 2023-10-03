@@ -6,7 +6,7 @@ export default function Information() {
             <h3 className={styles.information}>Информация</h3>
             {['Помощь', 'О сервисе', 'Контакты', 'Пользовательское соглашение',
                 "Политика обработки персональных данных", 'Публичная оферта'].map((i, index) =>
-                    <Link key={index} className={styles.info} href="/">{i}</Link>
+                    <Link key={index} className={styles.info} href="/informations">{i}</Link>
                 )}
             <span className={styles.agreement}>© 2022 – 2023 Некоммерческая организация. Все права защищены.</span>
         </>
