@@ -62,9 +62,16 @@ export default function EditPatern({view,setView,old_patern,nikname}) {
             }
         }       
     }
-    function Number(a, b) {
+    function Number(a, b,c) {
+       if(b === 1) {
+        if(  +document.getElementsByTagName('input')[0].value === 2 && +a > 3 ){
+            document.getElementsByTagName('input')[b].value = '' 
+            return;
+        }
+       } 
+        
        
-       if(!isNaN(a)) {        
+       if(!isNaN(a) && +a <=c) {        
             if (a !=='' && b < 3) {
                     document.getElementsByTagName('input')[b + 1].focus()
             }
@@ -78,7 +85,7 @@ export default function EditPatern({view,setView,old_patern,nikname}) {
                 <header className={styles.header} >
                     <Menu_icon type="arrow_button" color="#000" setView={()=>setView(false)} />
                     <h4>Шаблон времени</h4>
-                    <span onClick={SavePatern} >Сохранить</span>
+                    <span onClick={SavePatern}>Сохранить</span>
                 </header> 
                 <Message text={`Вы можете создавать и удалять до двенадцати
                  временых окон для записи.
@@ -105,36 +112,40 @@ export default function EditPatern({view,setView,old_patern,nikname}) {
                 </section>
                 {viewForm ? 
                     <div className={styles.time}>
+                       
                         <input 
                             type="text" 
                             autoFocus
                             onKeyDown={(e)=>handleKeyDown(e,0)} 
-                            pattern="[0-1]*"                         
+                            pattern="[0-2]*"                         
                             inputMode='numeric' 
-                            required  maxLength={1}  onChange={(e) => Number(e.target.value,0)} 
+                            required  
+                            maxLength={1}  
+                            onChange={(e) => Number(e.target.value,0,2)} 
                         />
                         <input 
                             type="text" 
                             onKeyDown={(e)=>handleKeyDown(e,1)} 
                             pattern="[0-9]*"                         
                             inputMode='numeric' 
-                            required  maxLength={1}  onChange={(e) => Number(e.target.value,1)}  
+                            required  maxLength={1}  onChange={(e) => Number(e.target.value,1,9)}  
                         />
                         <b>:</b>
                         <input 
                             type="text" 
                             onKeyDown={(e)=>handleKeyDown(e,2)} 
-                            pattern="[0-9]*"                         
+                            pattern="[0-5]*"                         
                             inputMode='numeric' 
-                            required  maxLength={1}  onChange={(e) => Number(e.target.value,2)} 
+                            required  maxLength={1}  onChange={(e) => Number(e.target.value,2,5)} 
                         />
                         <input 
                             type="text" 
                             onKeyDown={(e)=>handleKeyDown(e,3)} 
                             pattern="[0-9]*"                         
                             inputMode='numeric' 
-                            required  maxLength={1}  onChange={(e) => Number(e.target.value,3)} 
+                            required  maxLength={1}  onChange={(e) => Number(e.target.value,3,9)} 
                         />
+                       
                         <div  onClick={SetPatern}>
                             Добавить время для записей
                         </div>
