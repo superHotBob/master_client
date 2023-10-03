@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import Message from '@/components/message'
 import EditPatern from '@/components/editpatern'
 import Menu_icon from '@/components/icons/menu'
-
+import useSWR, { useSWRConfig } from 'swr'
 const activ_month = {
     color: '#282828',
 }
@@ -14,15 +14,17 @@ const activ_month = {
 
 
 export default function Calendar() {
-
+    const { mutate } = useSWRConfig()
     const pro = useSelector(state => state.counter.profile)
     const dispatch = useDispatch()
-    console.log('this is calendar block')
+
 
     const days = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"]
     const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-        'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-        'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+        'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь', 'Январь', 'Февраль',
+        'Март', 'Апрель', 'Май', 'Июнь',
+        'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь', 'Январь', 'Февраль',
+        'Март', 'Апрель', 'Май', 'Июнь',
         'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
 
     const d = new Date()
@@ -35,7 +37,7 @@ export default function Calendar() {
     const [active_num, setActive_Num] = useState()
     const all_days = new Date(year, month + 1, 0)
 
-    const [mnt, setMnt] = useState([])
+    const [monthSchedule, setMonthSchedule] = useState([])
     const [patern, setPatern] = useState([])
     const [view, setView] = useState(false)
     const [message, setMessage] = useState(false)
@@ -45,19 +47,22 @@ export default function Calendar() {
 
     const router = useRouter()
 
+    const { data: init_patern } = useSWR(pro ? `/api/get_patern?nikname=${pro.nikname}` : null, 
+        {onSuccess: () => setPatern(init_patern)}
+    )
+
+
+
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem('profile'))
         dispatch(setprofile(pro))
-
         if (!pro) {
             router.push('/')
             return;
         }
-        // setProfile(pro)
-        fetch(`/api/get_patern?nikname=${pro.nikname}`)
-            .then(res => res.json())
-            .then(data => setPatern(data))
+
     }, [view])
+
     useEffect(() => {
         let current_month = my_months[month].toLocaleLowerCase()
         let pro = JSON.parse(localStorage.getItem('profile'))
@@ -73,9 +78,9 @@ export default function Calendar() {
                 if (res.length === 0) {
                     let new_arr = Array.from({ length: all_days.getDate() }, (v, i) => "")
                     console.log(new_arr)
-                    setMnt(new_arr)
+                    setMonthSchedule(new_arr)
                 } else {
-                    setMnt(res)
+                    setMonthSchedule(res)
                 }
             })
     }, [month])
@@ -84,7 +89,7 @@ export default function Calendar() {
         const data = {
             nikname: pro.nikname,
             month: my_months[month].toLocaleLowerCase(),
-            schedule: mnt
+            schedule: monthSchedule
         }
         fetch('/api/edit_schedule', {
             body: JSON.stringify(data),
@@ -94,6 +99,7 @@ export default function Calendar() {
             method: 'POST',
         }).then(res => {
             setMessage(true)
+            mutate(`/api/get_patern?nikname=${pro.nikname}`)
             setTimeout(() => setMessage(false), 3000)
         })
 
@@ -102,38 +108,41 @@ export default function Calendar() {
     function SetActiveTime(a) {
         if (!active_num) { return 0 }
 
-        let act_day = mnt[active_num - 1]
+        let act_day = monthSchedule[active_num - 1]
         if (!act_day) {
             act_day = a
-            mnt[active_num - 1] = act_day
+            monthSchedule[active_num - 1] = act_day
             setActive_Day(a)
-            console.log(mnt)
-            return setMnt([...mnt])
+            return setMonthSchedule([...monthSchedule])
         }
         if (act_day.split(',').some(i => i === a)) {
             let t = act_day.split(',').filter(i => i !== a).join()
-            mnt[active_num - 1] = t
+            monthSchedule[active_num - 1] = t
             setActive_Day(t)
-            return setMnt([...mnt])
+            return setMonthSchedule([...monthSchedule])
         } else {
             let t = act_day + ',' + a
-            mnt[active_num - 1] = t
+            monthSchedule[active_num - 1] = t
             setActive_Day(t)
-            return setMnt([...mnt])
+            return setMonthSchedule([...monthSchedule])
         }
     }
 
-    function Count(a) {
-        if (mnt[a]) {
-            let l = mnt[a].split(',').length
-            return l
+    function Count(day) {
+        if (monthSchedule[day]) {
+            let count = monthSchedule[day].split(',').length
+            return count
         }
         return 0
     }
     function setActiveDay(e) {
-        setActive_Day(mnt[e.target.id - 1])
-        setActive_Num(e.target.id)
-        console.log(e.target.id)
+        if (monthSchedule[e.target.id - 1]) {
+            let old_patern = monthSchedule[e.target.id - 1].split(',')
+            let new_patern = [...new Set(init_patern.concat(old_patern))].sort()
+            setPatern(new_patern)
+        }
+        setActive_Day(monthSchedule[e.target.id - 1])
+        setActive_Num(e.target.id)        
     }
     function SetMonth(a) {
         if (a === 'Январь') {
@@ -141,6 +150,7 @@ export default function Calendar() {
         } else {
             let m = my_months.findIndex(i => i === a)
             setMonth(m)
+            mutate(`/api/get_patern?nikname=${pro.nikname}`)
         }
     }
 
@@ -160,23 +170,29 @@ export default function Calendar() {
                 />
                 <div className={styles.mounth}>
                     {months.splice(month ? month - 1 : 0, 3).map(i =>
-                        <span onClick={() => SetMonth(i)} style={i === my_months[month] ? activ_month : null} key={i}>{i}</span>
+                        <span onClick={() => SetMonth(i)}
+                            style={i === my_months[month] ? activ_month : null}
+                            key={i}
+                        >{i}</span>
                     )}
                 </div>
                 <div className={styles.week}>
                     {days.map(i => <span key={i}>{i}</span>)}
                 </div>
-
                 <div className={styles.days} onClick={setActiveDay}>
-                    {Array.from({ length: v }, (v, i) => i + 1).map(i => <span key={i} style={{ opacity: 0 }}>{i}</span>)}
-
+                    {Array.from({ length: v }, (v, i) => i + 1).map(i =>
+                        <span key={i} style={{ opacity: 0 }}>{i}</span>
+                    )}
                     {Array.from({ length: all_days.getDate() }, (v, i) => i + 1)
                         .map((i, index) =>
                             <button
-
                                 key={i}
                                 id={i}
-                                style={{ color: +active_num === i ? '#fff' : '#000', backgroundColor: +active_num === i ? "#3D4EEA" : "#ECEEFD" }}
+                                style={{
+                                    color: +active_num === i ?
+                                        '#fff' : '#000',
+                                    backgroundColor: +active_num === i ? "#3D4EEA" : "#ECEEFD"
+                                }}
                             >{i}
                                 <b
                                     className={styles.count}
@@ -184,10 +200,7 @@ export default function Calendar() {
                                         backgroundColor: +active_num === i ? "#8B95F2" : "#3D4EEA",
                                         display: Count(index) ? 'inline-block' : 'none'
                                     }}
-
-                                >
-                                    {Count(index)}
-                                </b>
+                                >{Count(index)}</b>
                             </button>
                         )}
                 </div>
@@ -205,25 +218,22 @@ export default function Calendar() {
                         </span>
                     )}
                 </div>
-                {!view ? <div className={styles.button} onClick={() => setView(true)}>
+                {!view && <div className={styles.button} onClick={() => setView(true)}>
                     Редактировать шаблон времени +
-                </div> : null}
+                </div>}
                 <dialog open={message} className={styles.message}>
                     Календарь  сохранен
                 </dialog>
             </section>
         </> : null}
-        {view ?
+        {view &&
             <EditPatern
                 view={view}
                 setView={setView}
                 color={pro.color}
                 old_patern={patern}
                 nikname={pro.nikname}
-            /> : null
+            />
         }
-
-
     </>
-
 }
