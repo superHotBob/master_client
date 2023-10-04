@@ -41,6 +41,8 @@ export default function Calendar() {
     const [patern, setPatern] = useState([])
     const [viewPatern, setViewPatern] = useState(false)
     const [message, setMessage] = useState(false)
+    const [orders, setOrders] = useState([])
+    const [timeOrders, setTimeOrders] = useState([])
     
     const day = new Date(year, month, 1)
     let v = days.indexOf(days[day.getDay() - 1]) === -1 ? 6 : days.indexOf(days[day.getDay() - 1])
@@ -48,7 +50,11 @@ export default function Calendar() {
     const router = useRouter()
 
     
-
+    function getOrders(a) {       
+        fetch(`/api/get_master_orders?nikname=${pro.nikname}&month=${a}`)
+        .then(res => res.json())
+        .then(res => setOrders(res))
+    }
 
 
     function getPatern() {       
@@ -63,6 +69,7 @@ export default function Calendar() {
             return;
         }
         getPatern()
+        
     }, [])
     useEffect(() => {
         let current_month = my_months[month].toLocaleLowerCase()        
@@ -72,7 +79,7 @@ export default function Calendar() {
         }
         setActive_Day()
         setActive_Num()
-
+        getOrders(month + 1)
 
         fetch(`/api/get_schedule?month=${current_month}&nikname=${pro.nikname}`)
             .then(res => res.json())
@@ -101,7 +108,7 @@ export default function Calendar() {
             },
             method: 'POST',
         }).then(res => {
-            setMessage(true)
+            setMessage('Календарь сохранён')
             getPatern()
             setTimeout(() => setMessage(false), 3000)
         })
@@ -110,6 +117,13 @@ export default function Calendar() {
 
     function SetActiveTime(a) {
         if (!active_num) { return 0 }
+
+        if(timeOrders.includes(a)) {
+            setMessage('Время занято')
+           
+            setTimeout(() => setMessage(false), 2000)
+            return;
+        }
 
         let act_day = monthSchedule[active_num - 1]
         if (!act_day) {
@@ -138,7 +152,11 @@ export default function Calendar() {
         }
         return false
     }
-    function setActiveDay(e) {
+    function setActiveDay(e) {    
+        
+        let day_orders = orders.filter(i=>i[0] === e.target.id).map(i=>i[2])
+        setTimeOrders(day_orders)
+        console.log(day_orders,e.target.id)
         if (monthSchedule[e.target.id - 1]) {
             let old_patern = monthSchedule[e.target.id - 1].split(',')
             const edit_patern = [...patern]
@@ -228,7 +246,7 @@ export default function Calendar() {
                     Редактировать шаблон времени +
                 </Link>}
                 <dialog open={message} className={styles.message}>
-                    Календарь  сохранен
+                   {message}
                 </dialog>
             </section>
         </> : null}

@@ -90,13 +90,13 @@ export default function EditProfile() {
        
         let formData = new FormData()
         formData.append('file', file_for_upload, `${my_profile.nikname}.jpg`)        
-        // fetch('/api/replace_icon', {
-        //     method: 'POST',
-        //     body: formData,
-        // })
-        // .then(res => res.text())
-        // .then(res=>console.log(res))       
-        // setSelectedFile(process.env.url_image + my_profile.nikname + '.jpg')
+        fetch('/api/replace_icon', {
+            method: 'POST',
+            body: formData,
+        })
+        .then(res => res.text())
+        .then(res=>console.log(res))       
+        setSelectedFile(process.env.url_image + my_profile.nikname + '.jpg')
     }
 
     return (
