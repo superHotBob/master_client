@@ -7,15 +7,16 @@ export default async function handler(req, res) {
 
   await client.connect()
   
-  const { rows:result } = await client.query(`
-   select (patern) 
-   from  "schedule"       
-   where nikname =  $1  
+  const { rows } = await client.query(`
+    select patern 
+    from  "schedule"       
+    where "nikname" =  $1  
   `,[req.query.nikname]);
+ 
 
   await client.end();
-  if (result.length > 0) {
-    res.status(200).json(result[0].patern)
+  if (rows.length > 0) {
+    res.status(200).json(rows[0].patern)
   } else {
     res.status(500).json([])
   }

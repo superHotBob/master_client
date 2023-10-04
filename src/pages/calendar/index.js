@@ -1,12 +1,12 @@
-import { useSelector, useDispatch } from 'react-redux'
-import { setprofile } from '@/reduser'
+import { useSelector } from 'react-redux'
+
 import styles from './calendar.module.css'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Message from '@/components/message'
-import EditPatern from '@/components/editpatern'
+
 import Menu_icon from '@/components/icons/menu'
-import useSWR, { useSWRConfig } from 'swr'
+import Link from 'next/link'
 const activ_month = {
     color: '#282828',
 }
@@ -14,9 +14,9 @@ const activ_month = {
 
 
 export default function Calendar() {
-    const { mutate } = useSWRConfig()
+
     const pro = useSelector(state => state.counter.profile)
-    const dispatch = useDispatch()
+   
 
 
     const days = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"]
@@ -41,49 +41,52 @@ export default function Calendar() {
     const [patern, setPatern] = useState([])
     const [viewPatern, setViewPatern] = useState(false)
     const [message, setMessage] = useState(false)
-    const [profile, setProfile] = useState()
+    
     const day = new Date(year, month, 1)
     let v = days.indexOf(days[day.getDay() - 1]) === -1 ? 6 : days.indexOf(days[day.getDay() - 1])
 
     const router = useRouter()
 
-    const { data: init_patern } = useSWR(pro ? `/api/get_patern?nikname=${pro.nikname}` : null, 
-        {onSuccess: () => setPatern(init_patern)}
-    )
+    
 
 
+
+    function getPatern() {       
+        fetch(`/api/get_patern?nikname=${pro.nikname}`)
+        .then(res => res.json())
+        .then(res => setPatern(res))
+    }
 
     useEffect(() => {
-        let pro = JSON.parse(localStorage.getItem('profile'))
-        dispatch(setprofile(pro))
         if (!pro) {
             router.push('/')
             return;
         }
-
+        getPatern()
     }, [])
-
     useEffect(() => {
-        let current_month = my_months[month].toLocaleLowerCase()
-        let pro = JSON.parse(localStorage.getItem('profile'))
+        let current_month = my_months[month].toLocaleLowerCase()        
         if (!pro) {
             router.push('/')
             return;
         }
         setActive_Day()
         setActive_Num()
+
+
         fetch(`/api/get_schedule?month=${current_month}&nikname=${pro.nikname}`)
             .then(res => res.json())
             .then(res => {
                 if (res.length === 0) {
                     let new_arr = Array.from({ length: all_days.getDate() }, (v, i) => "")
-                    console.log(new_arr)
                     setMonthSchedule(new_arr)
                 } else {
                     setMonthSchedule(res)
                 }
             })
-    }, [month])
+
+
+    }, [month, viewPatern])
 
     function SaveSchedule() {
         const data = {
@@ -99,7 +102,7 @@ export default function Calendar() {
             method: 'POST',
         }).then(res => {
             setMessage(true)
-            mutate(`/api/get_patern?nikname=${pro.nikname}`)
+            getPatern()
             setTimeout(() => setMessage(false), 3000)
         })
 
@@ -138,11 +141,14 @@ export default function Calendar() {
     function setActiveDay(e) {
         if (monthSchedule[e.target.id - 1]) {
             let old_patern = monthSchedule[e.target.id - 1].split(',')
-            let new_patern = [...new Set(init_patern.concat(old_patern))].sort()
+            const edit_patern = [...patern]
+            let new_patern = [...new Set(edit_patern.concat(old_patern))].sort()
             setPatern(new_patern)
+        } else {
+            getPatern()
         }
         setActive_Day(monthSchedule[e.target.id - 1])
-        setActive_Num(e.target.id)        
+        setActive_Num(e.target.id)
     }
     function SetMonth(a) {
         if (a === 'Январь') {
@@ -150,14 +156,15 @@ export default function Calendar() {
         } else {
             let m = my_months.findIndex(i => i === a)
             setMonth(m)
-            mutate(`/api/get_patern?nikname=${pro.nikname}`)
         }
+        getPatern()
     }
+
 
     return <>
         {Object.keys(pro).length > 0 ? <>
             <header className={styles.header} >
-                <Menu_icon type="arrow" color='#3D4EEA' />
+                <Menu_icon type="/" color='#3D4EEA' />
                 <h4>Календарь работы</h4>
                 <span onClick={SaveSchedule}>Сохранить</span>
             </header>
@@ -217,22 +224,22 @@ export default function Calendar() {
                         </span>
                     )}
                 </div>
-                {!viewPatern && <div className={styles.button} onClick={() => setViewPatern(true)}>
+                {!viewPatern && <Link className={styles.button} href='/editpatern' >
                     Редактировать шаблон времени +
-                </div>}
+                </Link>}
                 <dialog open={message} className={styles.message}>
                     Календарь  сохранен
                 </dialog>
             </section>
         </> : null}
-        {viewPatern &&
+        {/* {viewPatern &&
             <EditPatern
                 view={viewPatern}
-                setView={setViewPatern}
+                setView={SetViewPatern}
                 color={pro.color}
-                old_patern={init_patern}
+                old_patern={data}
                 nikname={pro.nikname}
             />
-        }
+        } */}
     </>
 }

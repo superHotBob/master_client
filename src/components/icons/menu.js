@@ -43,9 +43,13 @@ export default function Menu_icon({ color, type, setView }) {
             <path d="M3 16.8235C3 14 3.4 14 5 14C6.6 14 7 14 7 17C7 20 6.6 20 5 20C3.25 20 3 20 3 16.8235Z" stroke={color} strokeWidth="1.5" strokeLinecap="round" stroke-linejoin="round" />
         </svg>
     }  else if (type === 'arrow_button') {
-        return <svg style={{ cursor: 'pointer' }} onClick={() => setView(true)} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        return <svg style={{ cursor: 'pointer' }} onClick={() => router.back()} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M15 7L10 12L15 17" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
+    } else if (type === '/') {
+        return <svg style={{ cursor: 'pointer' }} onClick={() => router.push('/')} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 7L10 12L15 17" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
     } else {
         return <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M15 7L10 12L15 17" stroke={color} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

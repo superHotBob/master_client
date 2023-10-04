@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import Head from 'next/head'
 import Navi from '@/components/navi'
 import { useRouter } from 'next/router'
-import { SWRConfig } from 'swr'
+import { SWRConfig, useSWRConfig } from 'swr'
 import Header from '@/components/header'
 import { usePathname } from "next/navigation"
 
@@ -20,6 +20,8 @@ const rubik = Rubik({
   display: 'auto',
 })
 export default function MyApp({ Component, pageProps }) {
+  const { mutate } = useSWRConfig()
+ 
 //  const { slug } = router.query  
 const my_path = ['informations', 'informations/aboutservice',
   'newpassword',

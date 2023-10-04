@@ -1,0 +1,162 @@
+.mainpatern,
+.mainnew {
+    width: 100%;
+    max-width: 500px;
+    height: 0;
+    overflow: auto;
+    position: absolute;
+    top: 100vh;
+    left: 0;
+    background-color: #fff;
+    z-index: 101;
+    transition: all 0.5s;
+}
+
+
+.mainnew {
+    height: 100vh;
+    top: 0;
+    transition: all 0.5s;
+    padding: 0 16px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    height: 46px;
+    padding: 11px 0;
+    align-items: center;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.header span {
+    color: #3D4EEA;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.paterns {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    
+}
+
+.paterns div {
+    width: calc(50% - 8px);
+    height: 42px;
+    border-radius: 8px;
+    padding: 8px 8px 8px 12px;
+    justify-content: space-between;
+    background-color: #F8F8F8;
+    display: flex;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    align-items: center;
+    position: relative;
+}
+.paterns div b {
+    color: inherit;
+    font-weight: 500;
+}
+div.add {
+    background-color: #3D4EEA;
+    color: #fff;
+}
+.delete {
+    position: absolute;
+    display: inline-block;
+    top: 7.5px;
+    left: 8px;
+    width: calc(100% - 16px);
+    height: calc(100% - 15px);
+    background: #FD4D4D;
+    border-radius: 4px;
+    color: #fff;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    line-height: 27px;
+}
+.paterns div img {
+    cursor: pointer;
+}
+.paterns div b:last-of-type {
+    cursor: pointer;
+    margin-right: 6px;
+    font-size: 25px;
+}
+
+.time {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 10px;
+    margin: 10px auto;
+    width: 343px;
+    height: auto;
+    padding: 10px;
+    justify-content: center;
+    background: #ECEEFD;
+    border-radius: 16px;
+    color: #3D4EEA;
+
+}
+.time input {
+    color: inherit;
+    font-weight: 500; 
+    font-family: '__Rubik_7303a2'
+}    
+.time b {
+    font-size: 64px;
+    font-weight: 500;
+    margin-right: 10px;
+    height: 88px;
+    color: inherit;
+}
+.time div {
+    width: 100%;
+    height: 36px;
+    margin: 24px auto 0;
+    border-radius: 6px;
+    color: #fff;
+    text-align: center;
+    line-height: 36px;
+    cursor: pointer;
+}
+
+.time input {
+    align-items: center;
+    padding: 8px 0 8px 10px;
+    border: none;
+    font-size: 64px;
+    font-weight: 500;
+    width: 60px;
+    margin: 10px 10px 10px 0;
+    height: 80px;
+    outline: none;
+    background: #FFFFFF;
+    border-radius: 8px;
+}
+.time div {
+    font-size: 16px;
+    font-weight: 500;
+    color: #fff;
+    background-color: #3D4EEA;
+}
+.message {
+    position: absolute;
+    top: 350px;
+    z-index: 200;
+    left: calc(50% - 150px);
+    padding: 30px 10px;
+    width: 300px;
+    border: none;
+    font-weight: 500;
+    background: #FFFFFF;
+    box-shadow: 0px -4px 30px rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    text-align: center;
+}

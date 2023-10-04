@@ -1,21 +1,25 @@
 import styles from './patern.module.css'
-import trash from '../../../public/trash.svg'
 import trash_blk from '../../../public/trash_blk.svg'
 import Image from 'next/image'
-
-import { useEffect, useState, useRef } from 'react'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 import Menu_icon from '@/components/icons/menu'
-import Message from '../message'
+import Message from '@/components/message'
 
 
-export default function EditPatern({ view, setView, old_patern, nikname }) {
+export default function EditPatern() {
+
     const [patern, setPatern] = useState()
     const [viewForm, setViewForm] = useState(false)
     const [message, setMessage] = useState(false)
     const [del, setDel] = useState(false)
+    const router = useRouter()   
+  
 
     useEffect(() => {
-        setPatern([...old_patern])
+        fetch(`/api/get_patern?nikname=${JSON.parse(localStorage.getItem('profile')).nikname}`)
+        .then(res=>res.json())
+        .then(res=>setPatern(res))       
         window.onscroll = function () { window.scrollTo(0, 0); }
         return () => window.onscroll = function () { }
     }, [])
@@ -38,9 +42,10 @@ export default function EditPatern({ view, setView, old_patern, nikname }) {
         }
     }
     function SavePatern() {
+        let pro = JSON.parse(localStorage.getItem('profile'))
         let data = {
             patern: patern,
-            nikname: nikname
+            nikname: pro.nikname
         }
         fetch('/api/edit_patern', {
             body: JSON.stringify(data),
@@ -79,9 +84,9 @@ export default function EditPatern({ view, setView, old_patern, nikname }) {
 
     }
     return (
-        <main className={!view ? styles.mainpatern : styles.mainnew}>
+        <main className={ styles.mainnew}>
             <header className={styles.header} >
-                <Menu_icon type="arrow_button" color="#000" setView={() => setView(false)} />
+                <Menu_icon type="arrow_button" color="#000"  />
                 <h4>Шаблон времени</h4>
                 <span onClick={SavePatern}>Сохранить</span>
             </header>
