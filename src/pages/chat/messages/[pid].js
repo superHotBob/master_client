@@ -21,10 +21,7 @@ export default function Messages() {
     const router = useRouter()
     const { pid } = router.query
     const [link, setlink] = useState(null)
-
-    const color = useSelector(state => state.counter.profile['color'])
-
-    
+    const color = useSelector(state => state.counter.profile['color'])    
 
     const profile = useSelector(state => state.counter.profile)
 
@@ -32,8 +29,7 @@ export default function Messages() {
         {
             refreshInterval: 5000, onSuccess:
             () => {
-                    let ch = JSON.parse(localStorage.getItem("chat"))
-                   
+                    let ch = JSON.parse(localStorage.getItem("chat"))                   
                     let new_ch = ch ? ch : {}
                     new_ch[pid] = Date.now()
                     localStorage.setItem('chat', JSON.stringify(new_ch))
@@ -44,10 +40,6 @@ export default function Messages() {
         }
     )
     setTimeout(() => Movie(), 500)
-
-  
-
-
   
     function Movie() {  
         if( document.getElementById("section"))  {   
@@ -109,25 +101,17 @@ export default function Messages() {
         }
     }
     function FindLink(text) {
-        var urlRegex = /(((https?:\/\/)|(www\.))[^\s]+)/g;
-        return text.replace(urlRegex, function (url) {
-            var hyperlink = url;
-            // if (!hyperlink.match('^https?:\/\/')) {
-            //   hyperlink = 'http://' + hyperlink;
-             
-            // }
-        //    if( text.match(urlRegex)) {
-        //     setlink('<a href="' + hyperlink + '" target="_blank" rel="noopener noreferrer">' + url + '</a>')
-        //    }else {
-        //     return;
-        //    }
-
-            
-            return '<a href="' + hyperlink + '" target="_blank" rel="noopener noreferrer">' + url + '</a>'
-          });
+        let match = text.match(/\bhttps?\:\/\/(\S+)\b/);    
+       
+        if(match) {           
+            return <a href = {match[0]} >{match[1]}</a>
+        }
+        
+      
+      
         
     }
-    console.log('xvcx.<a>gdfg</a>dfgdf'.split('<a>').map(i=>i.split('</a>')))
+   
     function My_Date(a) {
         const d = new Date(a)
         const n = new Date()
@@ -154,10 +138,13 @@ export default function Messages() {
                 <h4>{ss[6]} BYN</h4>
             </div>
         } else {
-            // let text = FindLink(a)
-            // console.log(text)
-            // console.log(text.split('='))
-            return a
+            let match = a.match(/\bhttps?\:\/\/(\S+)\b/);
+            if(match) {
+                let new_str = a.replace(match[0] + '.', '')               
+                return new_str
+            } else {
+                return a
+            }        
         }
     }
     return (
@@ -169,6 +156,7 @@ export default function Messages() {
                         {i.sendler === profile.name ?
                             <div className={styles.wrap_client}>
                                 {ReadText(i.ms_text, '#fff')}
+                                {FindLink(i.ms_text)}
                                 <p>{My_Date(+i.ms_date)}
                                     {i.read ? <Image height={20} width={20} alt="check" src="/check_to.svg" /> : null}
                                 </p>
@@ -186,11 +174,11 @@ export default function Messages() {
                                 />
                                 <div className={styles.master}>
                                    {ReadText(i.ms_text, '#000')}
+                                   {FindLink(i.ms_text)}
+                                   
                                   
                                     
-                                    <span>
-                                        {My_Date(+i.ms_date)}
-                                    </span>
+                                    <span>{My_Date(+i.ms_date)}</span>
                                 </div>
                             </div>
                         }
