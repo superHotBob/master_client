@@ -18,7 +18,7 @@ export default function Menu({ count, profile }) {
 
     const dispatch = useDispatch()
     const router = useRouter()
-    const { data, error, isLoading } = useSWR(`/api/get_new_messages?nikname=${profile.nikname}&status=${profile.status}`)
+    const { data } = useSWR(profile.status ? `/api/get_new_messages?nikname=${profile.nikname}&status=${profile.status}`: null)
 
 
 

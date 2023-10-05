@@ -17,7 +17,7 @@ const activ_month = {
     color: '#282828',
 }
 
-export default function SelectDate({ name, price, order, close, nikname }) {
+export default function SelectDate({ nikname }) {
 
     const days = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"]
     const months = ['Декабрь', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь',

@@ -13,6 +13,7 @@ import { usePathname } from "next/navigation"
 
 
 
+
 const rubik = Rubik({
   weight: ['300', '400', '500', '700', '800'],
   subsets: ['cyrillic'],
@@ -20,9 +21,9 @@ const rubik = Rubik({
   display: 'auto',
 })
 export default function MyApp({ Component, pageProps }) {
-  const { mutate } = useSWRConfig()
- 
-//  const { slug } = router.query  
+
+
+
 const my_path = ['informations', 'informations/aboutservice',
   'newpassword',
   'succesregistration',

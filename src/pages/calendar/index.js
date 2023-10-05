@@ -13,11 +13,11 @@ const activ_month = {
 
 
 
-export default function Calendar() {
+export default function Calendar({profile}) {
 
     const pro = useSelector(state => state.counter.profile)
    
-
+    // const pro = {}
 
     const days = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"]
     const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
@@ -64,6 +64,7 @@ export default function Calendar() {
     }
 
     useEffect(() => {
+        // console.log('calendar',JSON.parse(localStorage.getItem('profile')))
         if (!pro) {
             router.push('/')
             return;
@@ -80,10 +81,14 @@ export default function Calendar() {
         setActive_Day()
         setActive_Num()
         getOrders(month + 1)
+    //     const { data } = useSWR([`${url}/get_entres?phone=${phone}`, 
+    //     { headers: { Authorization: localStorage.getItem('name') } }],
+    // ([url,token]) => fetcher(url,token))
+
 
         fetch(`/api/get_schedule?month=${current_month}&nikname=${pro.nikname}`)
-            .then(res => res.json())
-            .then(res => {
+        .then(res => res.json())
+        .then(res => {
                 if (res.length === 0) {
                     let new_arr = Array.from({ length: all_days.getDate() }, (v, i) => "")
                     setMonthSchedule(new_arr)

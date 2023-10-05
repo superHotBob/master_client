@@ -87,6 +87,10 @@
     color:#5E2AF0;
     display: block;
 }
+.wrap_client a {
+    color: #8B95F2;
+    display: block;
+}
 .wrap_client p, .master span {
     color: rgba(255, 255, 255, 0.6);
     text-align: right;
