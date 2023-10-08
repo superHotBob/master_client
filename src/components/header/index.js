@@ -109,7 +109,7 @@ export default function Header({ sel, text, mes, col = my_tema[0].color, select,
         <Menu_icon  color={menu ? col[2] || '#3D4EEA' : col[1] || '#3D4EEA'} type={menu ? 'close' : 'menu'} />
       </div>     
       {menu ? <Menu  count={data} profile={profile} /> : null}
-      {phone ? <Messages phone={phone} name={text} /> : null }
+      {phone ? <Messages phone={phone} name={text} nikname={name} close={getPhone} /> : null }
     </header>
   )
 }

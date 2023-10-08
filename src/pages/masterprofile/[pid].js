@@ -88,7 +88,7 @@ export default function Client() {
                         <div onClick={() => viewService(false)} className={styles.uslugi_plus} style={{ backgroundColor: tema[1] }}>
                             Редактировать категории и услуги
                         </div>
-                        <Services color={tema} name={pid} view={view}/>
+                        <Services currency={profile.currency} color={tema} name={pid} view={view}/>
                         <AddService view={view} setView={setView} color={tema} />
 
                     </> :

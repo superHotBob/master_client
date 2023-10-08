@@ -66,7 +66,7 @@ const MapComponent = ({ setRadius }) => {
     useEffect(() => {
         setMapHeight(window.innerHeight - 300)
         setFilterMasters(masters)
-        setZoom(11)
+        setZoom(10.8)
         setCenter(loc)
         // if (masters) {
         //     let mast = masters.filter(i => i.services.includes(service) ? i : null)
@@ -90,9 +90,9 @@ const MapComponent = ({ setRadius }) => {
         }, 500)
     }
     function SetFilterCluster() {
-        setZoom(13)
+        setZoom(12.5)
         setView(2)
-        setMapHeight('200px')
+        setMapHeight(window.innerWidth > 500 ? '400px' : '350px' )
        
         setTimeout(() => {
             let coord = Map.current.getBounds()           
@@ -118,7 +118,7 @@ const MapComponent = ({ setRadius }) => {
     function ViewMaster(a) {
         setZoom(15)
         setCenter(masters?.filter(i => i.nikname === a)[0].locations)
-        setMapHeight('200px')
+        setMapHeight(window.innerWidth > 500 ? '300px' : '200px' )
         setView(1)
         selectMaster(a)
        
@@ -165,9 +165,7 @@ const MapComponent = ({ setRadius }) => {
             setRadius(Math.ceil(radius.toFixed(0) / 1000))
         }
     }
-    function Bob(b) {
-        console.log(b)
-    }
+    function Bob(b) {}
 
     const placeMark = (a,b) => {        
         const Layout = a.createClass(zoom > 12 ? `<img style=" border-radius: 50%; border: 3px solid #3D4EEA" height="44px" width="44px" src=${process.env.url_image + b + '.jpg'} />` : 
@@ -208,7 +206,7 @@ const MapComponent = ({ setRadius }) => {
                     behaviors: ["default", "scrollZoom", "multiTouch", "drag"]
                 }}
                 width="100%"
-                height= { mapHeight }
+                height= {  mapHeight }
                 instanceRef={yamap => {
                     if (yamap) {
                         Map.current = yamap;

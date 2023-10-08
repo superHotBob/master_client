@@ -45,3 +45,8 @@
     top: 34px;
     right: 0;
 }
+.error {
+   transform: translate(0, 200px);
+    text-align: center;
+    color: red;
+}

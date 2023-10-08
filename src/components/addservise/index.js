@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { my_data } from '@/data.'
 import { useEffect, useState, useRef } from 'react'
 import Menu_icon from '@/components/icons/menu'
+import Messages from '../messages'
 
 
 const style_one = {
@@ -19,7 +20,8 @@ const style_two = {
 
 export default function AddService({ view, setView, color }) {
     const cost = useRef(null)
-    const serv = useRef(null)    
+    const serv = useRef(null)
+    const review = useRef(null)    
     const [profile, setProfile] = useState()
     const [viewFilter, setViewFilter] = useState(false)
     const [addUsluga, setaddUsluga] = useState([])
@@ -31,15 +33,12 @@ export default function AddService({ view, setView, color }) {
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem("profile"))
         setProfile(pro)
-        GetServices(pro.nikname, pro)
-       
-    }, [])
-
+        GetServices(pro.nikname, pro)   
+    }, [])    
 
     async function GetServices(a, b) {
-        const response = await fetch(`/api/master_service?nikname=${a}`, {
-            headers: { 'Content-Type': 'application/json' }
-        })
+        const response = await fetch(`/api/master_service?nikname=${a}`)
+       
         const result = await response.json()       
         if (result.length > 0) {
             let new_serv = Object.entries(result[0])            
@@ -94,13 +93,14 @@ export default function AddService({ view, setView, color }) {
     }
     function SetAddUsluga(a) {
         setaddUsluga([a])
-        console.log(addUsluga)
+        
     }
     function SaveNewService(event, a, b) {
        
         event.preventDefault()
         let new_services = services
-        new_services[b][1] = [...new_services[b][1], `${serv.current.value}:${cost.current.value}`].filter(i => i)        // // setServices([...services])
+        new_services[b][1] = [...new_services[b][1], `${serv.current.value}:${cost.current.value}:${review.current.value}`]
+        .filter(i => i)      
         setServices([...services])
         setaddUsluga(false)
     }
@@ -154,7 +154,7 @@ export default function AddService({ view, setView, color }) {
             </div>
             {services?.map((i, b) =>
                 <div className={styles.data} key={i[0]} style={{ display: i[1]?.length > 0 ? 'block' : 'none' }}>
-                    {i[1] && i[1].length > 0 ?
+                    {i[1] && i[1].length > 0 ?                        
                         <h3
                             id={i}
                             className={styles.type}
@@ -165,21 +165,16 @@ export default function AddService({ view, setView, color }) {
                                 <span>Удалить категорию?</span>
                                 <button onClick={() => DeleteCat(i[0])}>Удалить</button>
                                 <button onClick={() => DeleteMessage(i[0] + 'del', '100%')}>Отмена</button>
-
                             </p>
-
-                        </h3>
-
-
-                        : null
+                        </h3>: null
                     }
 
-                    {i[1]?.map((services, c) =>
+                    {i[1]?.map((service, c) =>
                         <React.Fragment key={c}>
-                            {services.split(',').map((service, index) =>
-                                <h5 className={styles.service} key={index} style={{ display: service.length > 0 ? 'flex' : 'none' }}>
+                            {/* {services.split(',').map((service, index) => */}
+                                <h5 className={styles.service}  style={{ display: service.length > 0 ? 'flex' : 'none' }}>
                                     <span style={{ color: color[1] }}>{service.split(':')[0]}</span>
-                                    <span style={{ color: color[1] }}>{service.split(':')[1]} BYN</span>
+                                    <span style={{ color: color[1] }}>{service.split(':')[1]} {profile.currency}</span>
                                     <Image src={trash_blk} width={29} height={29} alt="trash" onClick={() => DeleteMessage(service + 'del', 0)} />
                                     <p id={service + 'del'} className={styles.delete__message}>
                                         <b>Удалить услугу?</b>
@@ -187,7 +182,7 @@ export default function AddService({ view, setView, color }) {
                                         <button onClick={() => DeleteMessage(service + 'del', '100%')}>Отмена</button>
                                     </p>
                                 </h5>
-                            )}
+                            {/* )} */}
                         </React.Fragment>
                     )}
                     <div className={styles.button_add} style={{ backgroundColor: color[2], color: color[1] }}>
@@ -201,7 +196,7 @@ export default function AddService({ view, setView, color }) {
                                     style={{ borderColor: color[1]}} 
                                     ref={serv} 
                                     type="text" 
-                                    maxLength={80} 
+                                    maxLength={50} 
                                     placeholder='Название услуги' 
                                 />
                                 <input 
@@ -212,6 +207,12 @@ export default function AddService({ view, setView, color }) {
                                     pattern="[0-9]*" 
                                     inputMode='numeric' 
                                     required 
+                                />
+                                <textarea 
+                                    maxLength={200} 
+                                    ref={review}
+                                    rows={4} cols={40} 
+                                    placeholder='Описание услуги до 200 символов'
                                 />
                                 <b style={{ color: color[1] }}>{profile.currency}</b>
                                 <button type='submit'
@@ -232,7 +233,7 @@ export default function AddService({ view, setView, color }) {
 
                 </div>
             )}
-            {message ? <p className={styles.message}>{message}</p> : null}
+            {message && <Messages close={viewMessage}  text={message}/>} 
 
         </div>
     )

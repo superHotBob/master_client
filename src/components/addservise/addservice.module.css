@@ -273,10 +273,12 @@
 
 
 
-.inputs__new__services input {
+.inputs__new__services input, 
+.inputs__new__services textarea {
     border: 1px solid #ddd;
     padding: 10px;
     font-size: 14px;
+    font-family: 'inter', sans-serif;
     width: calc(32% - 10px);
     display: inline-block;
     height: 46px;
@@ -284,9 +286,18 @@
     border: 2px solid #3D4EEA;
     border-radius: 4px;
 }
+.inputs__new__services textarea {
+    width: 100%;
+    margin-top: 10px;
+    outline: none;
+    color: inherit;
+   
+}
 
-.inputs__new__services input::placeholder {
+.inputs__new__services input::placeholder, .inputs__new__services textarea::placeholder {
     color: #8B95F2;
+    opacity: 0.5;
+
 }
 
 .inputs__new__services input:first-of-type {
@@ -302,28 +313,7 @@
     height: 36px;
     color: #fff;
     line-height: 36px;
-
-    /* Оригинал/UI */
-
     background: #3D4EEA;
     border-radius: 6px;
 }
 
-.message {
-    margin: 30px auto;
-    text-align: center;
-    font-size: 25px;
-    font-weight: 500;
-    color: red;
-    position: absolute;
-    top: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
-    width: 300px;
-    height: 100px;
-    left: calc(50% - 150px);
-    border-radius: 8px;
-    box-shadow: 0px 0px 9px #E6E6E6;
-}

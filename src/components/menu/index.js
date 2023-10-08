@@ -28,11 +28,10 @@ export default function Menu({ count, profile }) {
     }
     function ExitFromAccount() {
         dispatch(setprofile({}))
-        localStorage.clear()
+        localStorage.clear()       
+        document.cookie = 'key=; Max-Age=0'       
         router.push('/')
     }
-
-
     return (
         <>
             {profile.status === 'master' ?

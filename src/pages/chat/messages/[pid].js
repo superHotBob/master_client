@@ -73,8 +73,6 @@ export default function Messages() {
             })
                 .then(res => {
                     let d = Date.now()
-                    // addMessage(messages => [...messages, data ])
-
                     Movie()
                     ref.current.value = ''
                 })
@@ -101,14 +99,10 @@ export default function Messages() {
         }
     }
     function FindLink(text) {
-        let match = text.match(/\bhttps?\:\/\/(\S+)\b/);    
-       
+        let match = text.match(/\bhttps?\:\/\/(\S+)\b/);       
         if(match) {           
             return <a href = {match[0]} >{match[1]}</a>
-        }
-        
-      
-      
+        }    
         
     }
    
@@ -174,8 +168,7 @@ export default function Messages() {
                                 />
                                 <div className={styles.master}>
                                    {ReadText(i.ms_text, '#000')}
-                                   {FindLink(i.ms_text)}
-                                   
+                                   {FindLink(i.ms_text)}                    
                                   
                                     
                                     <span>{My_Date(+i.ms_date)}</span>

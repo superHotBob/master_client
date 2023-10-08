@@ -58,7 +58,7 @@ export default function Password() {
                     setTimeout(() => {router.push('/enter')}, 4000);
                 })
         } else {
-            const response = await fetch('/api/enter_phone', {
+            const response = await fetch('/api/enter_password', {
                 body: JSON.stringify(data),
                 headers: {
                     'Content-Type': 'application/json',

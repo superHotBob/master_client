@@ -22,14 +22,13 @@ export default function EnterPassword() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = { tel: phone, password: passRef.current.value }
-        // setBack("await.gif")
+        const data = { tel: phone, password: passRef.current.value }      
         setMessage('')
 
-        const response = await fetch('/api/enter_phone', {
+        const response = await fetch('/api/enter_password', {
             body: JSON.stringify(data),
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'                
             },
             method: 'POST',
         })
@@ -37,20 +36,16 @@ export default function EnterPassword() {
         if (result.length === 0) {
             setMessage('Пароль не верный')
             setBack('logo-main.svg')
-        } else if (result.blocked != '0') {
-            localStorage.setItem("profile", JSON.stringify(result))
-            dispatch(setprofile(result))
-           
-            router.push('/')
         } else {
-            router.push('/404')
+            localStorage.setItem("profile", JSON.stringify(result))
+            dispatch(setprofile(result))           
+            router.push('/')
         }
     }
 
     return (
         <section className={styles.section} style={{ backgroundImage: `url(${back})` }}>
-            <Header text='Вход' sel="/enter" />
-            
+            <Header text='Вход' sel="/enter" />            
             <form onSubmit={handleSubmit} className={styles.inputs_password}>
                 <h3 className={styles.registration}>Вход по номеру телефона</h3>
                 <p>Введите пароль вашего  аккаунта.</p>

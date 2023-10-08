@@ -25,12 +25,15 @@ export default function EditNikname() {
         setnewnikname(e.target.value)
         let str = e.target.value
 
-        const regex = /[/ //.//;//://-//*//?//$//%/]/g;
+        const regex = /[/А-я,ё// //.//;//://-//*//?//$//%/]/g;
+
+       
+      
         const found = str.match(regex);
         if (found?.length > 0) {
             document.getElementById("name").style.display = 'block'
             document.getElementById("name").style.color = 'red'
-            document.getElementById("name").innerText = "Только буквы и цифры"
+            document.getElementById("name").innerText = "Только латинские буквы,цифры, дефис и нижнее подчёркивание"
             document.getElementById("change").style.opacity = 0
             return;
         }

@@ -1,28 +1,43 @@
+import Image from 'next/image'
 import styles from './services.module.css'
 import useSWR from 'swr'
+import { Fragment, useState } from 'react'
 
-export default function Services({ color, name, view}) {     
-    const { data, error, isLoading } = useSWR(`/api/master_service?nikname=${name}&view=${view}`)  
-
-    if (error) return <div>ошибка загрузки</div>
+export default function Services({ color, name, view, currency }) {
+    const [viewReview, setViewReview] = useState()
+    const { data, error, isLoading } = useSWR(`/api/master_service?nikname=${name}&view=${view}`)
+   
+    console.log(currency)
+    if (error) return <div>Ошибка загрузки</div>
     if (isLoading) return <h3 className={styles.upload__message}>Загрузка услуг...</h3>
-    if(data.length) {
+    if (data.length) {
         return <>
-        {Object.entries(data[0]).map(i => i[1]?.length > 0 ? i[0] : null).filter(i => i)?.map((i) =>
-            <div className={styles.data} key={i}>
-                <h3 className={styles.type}>{i}</h3>
-                {data[0][i]?.map((a, index) =>
-                    <div key={index} style={{ background: color[2], borderRadius: 4, color: 'inherit' }}>
-                        {a.split(',').map((s, index) => <h5 className={styles.service} key={index}>
-                            <span>{s.split(':')[0]}</span>
-                            <span>{s.split(':')[1]} BYN</span>
-                        </h5>)}
-                    </div>
-                )}
-            </div>
-        )}
+            {Object.entries(data[0]).map(i => i[1]?.length > 0 ? i[0] : null).filter(i => i)?.map((i,ind) =>
+                <div className={styles.data} key={i}>
+                    <h3 className={styles.type}>{i}</h3>
+                    {data[0][i]?.map((a, index) =>
+                        <div key={index} className={styles.all_service}>
+                            <Fragment key={a}>
+                                <h5 className={styles.service} >
+                                    <span>{a.split(':')[0]}</span>
+                                    <span>{a.split(':')[1]} {currency}</span>
+                                    <Image
+                                        src='/chevron_up.svg'
+                                        height={26}
+                                        width={26}
+                                        className={index + 1 === viewReview ? styles.image : styles.image_rotate}
+                                        alt='arrow'
+                                        onClick={() => setViewReview(viewReview === index + 1  ? 0 :  index + 1)}
+                                    />
+                                </h5>
+                                {index + 1  === viewReview ? a.split(':')[2] : ''}
+                            </Fragment>
+                        </div>
+                    )}
+                </div>
+            )}
 
-    </>
+        </>
     }
-    
+
 }

@@ -6,16 +6,25 @@ import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import useSWR from 'swr'
 
+
+
 export default function Chat() {
     const router = useRouter()
     const name = useSelector(state => state.counter.profile['nikname'])
     const status = useSelector(state => state.counter.profile['status'])
-    const { data, error } = useSWR(`/api/get_messages?nikname=${name}&status=${status}`, { refreshInterval: 30000 })
+  
+    const { data, error } = useSWR('/api/get_messages?' + new URLSearchParams({
+            nikname: name,
+            status: status,
+        }).toString(),
+        { refreshInterval: 30000,shouldRetryOnError : true,
+            onError: ()=> router.push('/')
+        }
+    )
 
-   
+
     
     
-    if (error) return router.push('/')
 
     const options = { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' };
 

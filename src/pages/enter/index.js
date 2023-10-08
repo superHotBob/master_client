@@ -34,6 +34,8 @@ export default function Enter() {
 
     const firstCall = () => {
         const data = { tel: phone }
+
+        
         fetch(`/api/check_client?phone=${phone}`)
             .then(res => res.json())
             .then(res => {
@@ -177,7 +179,7 @@ export default function Enter() {
                             можно будет через  <b>{t}</b> сек.
                         </h3> :
                         <>
-                            <button disabled={phone?.length != 12} className={styles.button} onClick={firstCall}>
+                            <button disabled={phone?.length < 11} className={styles.button} onClick={firstCall}>
                                 Войти
                             </button>
                             <div className={styles.colaboration}>

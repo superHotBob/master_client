@@ -27,7 +27,9 @@
     width: 30%;
     cursor: pointer;
 }
-
+.main header b {
+    text-align: left;
+}
 .main header span:last-of-type {
     text-align: right;
 }

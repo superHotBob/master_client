@@ -1,14 +1,12 @@
 const { Client } = require('pg')
+const { NextResponse } =  require('next/server')
 
 export default async function handler(req, res) { 
-  const client = new Client({
-    user: 'client',
-    host: '5.35.5.23',
-    database: 'postgres',
-    password: 'client123',
-    port: 5432,
-  })
+  const client = new Client(process.env.pg_data)
   await client.connect();
   const { rows } = await client.query('SELECT * FROM "city"')  
-  res.status(200).json(rows) 
+  await client.end()  
+ 
+  return res.json(rows) 
+  
 }
