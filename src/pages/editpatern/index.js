@@ -1,27 +1,25 @@
 import styles from './patern.module.css'
 import trash_blk from '../../../public/trash_blk.svg'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import Menu_icon from '@/components/icons/menu'
 import Message from '@/components/message'
+import Messages from '@/components/messages'
 
 
 export default function EditPatern() {
 
     const [patern, setPatern] = useState()
     const [viewForm, setViewForm] = useState(false)
-    const [message, setMessage] = useState(false)
+    const [message, setMessage] = useState('')
     const [del, setDel] = useState(false)
-    const router = useRouter()   
+     
   
 
     useEffect(() => {
         fetch(`/api/get_patern?nikname=${JSON.parse(localStorage.getItem('profile')).nikname}`)
         .then(res=>res.json())
-        .then(res=>setPatern(res))       
-        window.onscroll = function () { window.scrollTo(0, 0); }
-        return () => window.onscroll = function () { }
+        .then(res=>setPatern(res))      
     }, [])
 
     function DeletePatern(a) {
@@ -53,9 +51,11 @@ export default function EditPatern() {
                 'Content-Type': 'application/json',
             },
             method: 'POST',
-        }).then((res) => {
-            setMessage(res)
-            setTimeout(() => setMessage(false), 3000)
+        })
+        .then(res=>res.text())
+        .then((res) => {
+            setMessage(res)           
+            setTimeout(() => setMessage(''), 3000)
         })
 
     }
@@ -86,22 +86,22 @@ export default function EditPatern() {
     return (
         <main className={ styles.mainnew}>
             <header className={styles.header} >
+                <span>
                 <Menu_icon type="arrow_button" color="#000"  />
+                </span>
+                
                 <h4>Шаблон времени</h4>
                 <span onClick={SavePatern}>Сохранить</span>
             </header>
             <Message text={`Вы можете создавать и удалять до двенадцати
                  временых окон для записи.
                 `}
-            />
-            <dialog open={message} className={styles.message}>
-                Шаблон  сохранен
-            </dialog>
+            />           
             <section className={styles.paterns}>
-                {patern?.sort().map(i =>
+                {patern?.sort().map((i, index) =>
                     <div key={i}>
                         {i}
-                        <Image src={trash_blk} width={29} height={29} alt="trash" onClick={() => setDel(i)} />
+                        {index ? <Image src={trash_blk} width={29} height={29} alt="trash" onClick={() => setDel(i)} />:null}
                         {del === i ? <span className={styles.delete} onClick={() => DeletePatern(i)}>Удалить</span> : null}
                     </div>)}
                 {patern?.length < 12 ? <div className={styles.add}>
@@ -155,7 +155,7 @@ export default function EditPatern() {
                 : null}
 
 
-
+                {message ? <Messages text={message} close={setMessage}/> : null}
         </main>
     )
 }

@@ -291,6 +291,8 @@
     margin-top: 10px;
     outline: none;
     color: inherit;
+    min-height: 100px;
+    height: auto;
    
 }
 

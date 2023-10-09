@@ -7,6 +7,7 @@ import Message from '@/components/message'
 
 import Menu_icon from '@/components/icons/menu'
 import Link from 'next/link'
+import Messages from '@/components/messages'
 const activ_month = {
     color: '#282828',
 }
@@ -255,14 +256,7 @@ export default function Calendar({profile}) {
                 </dialog>
             </section>
         </> : null}
-        {/* {viewPatern &&
-            <EditPatern
-                view={viewPatern}
-                setView={SetViewPatern}
-                color={pro.color}
-                old_patern={data}
-                nikname={pro.nikname}
-            />
-        } */}
+        {message ? <Messages text={message} close={setMessage} />:null}
+       
     </>
 }

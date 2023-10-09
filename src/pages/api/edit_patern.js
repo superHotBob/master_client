@@ -17,8 +17,8 @@ export default async function handler(req, res) {
   console.log(result)
   await client.end()
   if (result.length > 0) {
-    res.status(200).json({message:'Шаблон сохранён'})
+    res.status(200).send('Шаблон сохранён')
   } else {
-    res.status(500).json({message:'Ошибка сохранения шаблона'})
+    res.status(500).send('Ошибка сохранения шаблона')
   }
 }

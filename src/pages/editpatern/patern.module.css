@@ -33,8 +33,19 @@
 .header span {
     color: #3D4EEA;
     cursor: pointer;
+    width: 33%;
+    text-align: right;
     font-weight: 500;
 }
+.header span:first-of-type {
+    text-align: left;
+   
+}
+.header h4 {
+    text-align: center; 
+    width: 33%;
+}
+
 
 .paterns {
     display: flex;
@@ -145,18 +156,4 @@ div.add {
     font-weight: 500;
     color: #fff;
     background-color: #3D4EEA;
-}
-.message {
-    position: absolute;
-    top: 350px;
-    z-index: 200;
-    left: calc(50% - 150px);
-    padding: 30px 10px;
-    width: 300px;
-    border: none;
-    font-weight: 500;
-    background: #FFFFFF;
-    box-shadow: 0px -4px 30px rgba(0, 0, 0, 0.25);
-    border-radius: 8px;
-    text-align: center;
 }

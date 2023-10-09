@@ -47,7 +47,7 @@ export default function Navi({ save, color }) {
     
     return (        
         <div className={styles.total} style={{ top: height }}>
-            <div className={styles.main_navi} style={{ backgroundColor: tema[1],backgroundSize: '200%'}}>
+            <div className={styles.main_navi} style={{ backgroundColor: tema[1]}}>
                 <Link title='на главную страницу' href="/" className={pathname === '/' ? styles.home : styles.dashboard}>
                     <Image alt="home" src={pathname === '/' ? home : home_wh} height={20} width={20} />
                 </Link>

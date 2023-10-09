@@ -12,8 +12,8 @@
     height: 58px;
     width: max-content;    
     border-radius: 30px;
-    /* background: linear-gradient(90deg, #3D4EEA 0%, #3D4EEA 100%); */
-    background-size: 200%;
+    background-color: #3D4EEA ;
+    
     padding: 6px 3px;
     display: flex;
     justify-content: space-between;

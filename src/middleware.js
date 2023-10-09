@@ -45,5 +45,5 @@ export async function middleware(request, res) {
 
 // console.log(Math.random().toString(36).slice(-8))
 export const config = {
-  matcher: [  '/api/get_messages']
+  matcher: [  '/api/get_messages','/api/set_patern']
 };

@@ -211,7 +211,7 @@ export default function AddService({ view, setView, color }) {
                                 <textarea 
                                     maxLength={200} 
                                     ref={review}
-                                    rows={4} cols={40} 
+                                    rows={5} cols={40} 
                                     placeholder='Описание услуги до 200 символов'
                                 />
                                 <b style={{ color: color[1] }}>{profile.currency}</b>
