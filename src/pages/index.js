@@ -17,12 +17,6 @@ export default function Home() {
   const servref = useRef(service)
 
   useEffect(() => {
-    // for( const i of Array(1000)) {
-    //   fetch('http://masters.place:5000/ip').then(res=>res.text()).then(res=>console.log(res))
-
-    // } 
-
-
     if (servref.current != service) {
       setdata([])
       servref.current = service
@@ -39,7 +33,17 @@ export default function Home() {
       })
   }, [service])
 
-  const View = (a, b, c, d, e) => viewImage({ text: d, name: a, image: b, master_name: c, date: e })
+  // const View = (a, b, c, d, e) => viewImage({ text: d, name: a, image: b, master_name: c, date: e })
+
+  const viewNewImage = (e) => {   
+    viewImage({ 
+      name: JSON.parse(e.target.id).nikname, 
+      image: process.env.url_image + JSON.parse(e.target.id).id + '.jpg', 
+      master_name:JSON.parse(e.target.id).master_name,  
+      text: JSON.parse(e.target.id).review, 
+      date: JSON.parse(e.target.id).img_date
+    })
+  }
 
   return (
    
@@ -51,14 +55,14 @@ export default function Home() {
         />
         <CitySelect city={city} />
         <FilterServices />
-        <div className={styles.images} id="myDiv" ref={ref}>
+        <div className={styles.images} id="myDiv" ref={ref} onClick={viewNewImage}>
           <div className={styles.images_one}>
             {data?.filter((i, index) => index % 2 === 0).map((i, index) =>
               <img
                 alt="abc"
                 key={i.id}
-                id={i.id}
-                onClick={() => View(i.nikname, process.env.url_image + i.id + '.jpg', i.master_name, i.review, i.img_date)}
+                id={JSON.stringify(i)}
+                // onClick={() => View(i.nikname, process.env.url_image + i.id + '.jpg', i.master_name, i.review, i.img_date)}
                 loading={index > 3 ? 'lazy' : 'eager'}
                 src={process.env.url_image + i.id + '.jpg'}
                 title={i.master_name}
@@ -70,8 +74,8 @@ export default function Home() {
               <img
                 alt="abc"
                 key={i.id}
-                id={i.id}
-                onClick={() => View(i.nikname, process.env.url_image + i.id + '.jpg', i.master_name, i.review, i.img_date)}
+                id={JSON.stringify(i)}
+                // onClick={() => View(i.nikname, process.env.url_image + i.id + '.jpg', i.master_name, i.review, i.img_date)}
                 loading={index > 3 ? 'lazy' : 'eager'}
                 src={process.env.url_image + i.id + '.jpg'}
                 title={i.master_name}

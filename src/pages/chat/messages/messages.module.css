@@ -83,14 +83,15 @@
     padding: 10px 10px 0 10px ;
     min-height: 60px;
 }
-.master a {
+.master a, .wrap_client a {
     color:#5E2AF0;
     display: block;
+    text-decoration: underline !important;
 }
+
 .wrap_client a {
-    color: #8B95F2;
-    display: block;
-}
+    color:#8B95F2;
+}   
 .wrap_client p, .master span {
     color: rgba(255, 255, 255, 0.6);
     text-align: right;
@@ -118,6 +119,9 @@
     color: inherit;
     letter-spacing: -0.5px;
 
+}
+p.order_create {
+    margin-bottom: 10px;
 }
 
 .order h4 {

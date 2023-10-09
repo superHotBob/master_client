@@ -32,16 +32,27 @@
     color: #D0D0D0;
     font-size: 12px;
 }
-.uslugi {
-    display: flex;
-    justify-content: space-between;
-    margin: 8px 0;    
+.uslugi {  
+    margin: 8px 0; 
+    font-size: 12px;   
 }
 .uslugi span:last-of-type {
-    font-weight: 500;    
+    font-weight: 500;  
+    display: inline-block;
+    width: 20%; 
+    font-size: 16px;  
+    text-align: right; 
+}
+.uslugi span:first-of-type {
+    display: inline-block;
+    width: 80%;
+    font-weight: 500;
+    font-size: 16px;  
+    margin-bottom: 10px;
 }
 .uslugi span::first-letter {
     text-transform: capitalize;
+   
 }
 
 .summa {

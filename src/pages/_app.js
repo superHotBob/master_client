@@ -39,9 +39,7 @@ const my_path = ['informations', 'informations/aboutservice',
   const { slug } = router.query
   const pathname = usePathname()
   
-  // if(slug ) {
-  //   my_path.push(slug)
-  // }
+ 
   
   return (
     <SWRConfig value={{ provider: () => new Map(),

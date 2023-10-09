@@ -10,7 +10,7 @@ import SelectDate from '@/components/selectdate'
 export function Bov() {
     return (
         <section className={styles.colaboration}>Нажмая на кнопку, вы соглашаетесь с <br />
-            <Link href="/#">Условиями обработки персональных данных</Link> и 
+            <Link href="/#">Условиями обработки персональных данных</Link> и
             <Link href="/#">Пользовательским соглашением</Link>
         </section>
 
@@ -38,6 +38,7 @@ export default function Recording() {
         if (master.phone === null) {
             router.push('/')
         }
+        console.log(master)
         if (!router.query.nikname) { return; }
         async function GetServices() {
             const response = await fetch(`/api/master_service?nikname=${router.query.nikname}`)
@@ -50,13 +51,14 @@ export default function Recording() {
             let new_services = new_cat.filter(i => i[1].length)?.filter(i => i[0] === all_category.filter(i => i ? 1 : 0)[0])[0][1]
             setFilterServices(new_services)
         }
-        GetServices()       
+        GetServices()
     }, [router.query, nikname, master])
 
-    function SetActiveCategory(a) {       
+    function SetActiveCategory(a) {
         set_Active_Category(a)
         let new_services = services?.filter(i => i[0] === a)[0][1]
         setFilterServices(new_services)
+        console.log(filterServices)
     }
 
     function Cost(a) {
@@ -70,7 +72,6 @@ export default function Recording() {
     }
 
     function AddOrder(a) {
-
         if (orders.includes(a)) {
             let ord = orders.filter(i => i == a ? 0 : 1)
             addOrder(ord)
@@ -95,7 +96,7 @@ export default function Recording() {
             return 'услуг'
         }
     }
-    function ConfirmOrder(a) {       
+    function ConfirmOrder(a) {
         dispatch(setorder(a))
         router.push('/confirmation')
     }
@@ -112,14 +113,14 @@ export default function Recording() {
                                 style={active_category === i ?
                                     {
                                         color: '#fff',
-                                        fontWeight: 500,                                        
+                                        fontWeight: 500,
                                         backgroundColor: '#3D4EEA',
                                     } : null}
                             >
                                 {i}
                                 <b
                                     className={active_category == i ? styles.active_count : null}
-                                    style={{verticalAlign: 'text-top', display: CountCategory(i) === '' ? 'none' : 'inline-block' }}
+                                    style={{ verticalAlign: 'text-top', display: CountCategory(i) === '' ? 'none' : 'inline-block' }}
                                 >
                                     {CountCategory(i)}
                                 </b>
@@ -132,11 +133,13 @@ export default function Recording() {
                         className={orders.includes(i) ? styles.active_service : styles.service}
                         onClick={() => AddOrder(i)}
                     >
-                        {i.split(':').map((a, index) => <span key={index}>{a}{' '}{index ? 'BYN' : ""}</span>)}
+                        <div className={styles.one_service} >
+                            <span>{i.split(':')[0]}</span>
+                            <span>{i.split(':')[1]} {master.currency}</span>
+                        </div>
+                        {i.split(':')[2]}
                     </div>
                 )}
-
-
             </>
                 :
                 <SelectDate
@@ -151,10 +154,10 @@ export default function Recording() {
                 <h4>Ваш заказ
                     {orders.length ? <span className={styles.world_for_count}>{orders.length} {World(orders.length)}</span> : null}
                 </h4>
-                <p>Услуги и товары ({orders.length})<span>{Cost(orders)} BYN</span></p>
+                <p>Услуги и товары ({orders.length})<span>{Cost(orders)} {master.currency}</span></p>
 
                 {/* <Link href="/#" title="Скидка 10% от заказа">Скидка</Link> */}
-                <h3>Общая стоимость<span>{Cost(orders)} BYN</span></h3>
+                <h3>Общая стоимость<span>{Cost(orders)} {master.currency}</span></h3>
                 {view ?
                     <div onClick={() => setView(orders.length > 0 ? false : true)}>Выбрать дату</div>
                     :

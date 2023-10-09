@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { useState, useRef } from 'react'
+import { useState, useRef, Fragment } from 'react'
 import React from 'react'
 import styles from './order.module.css'
 import star from '../../../public/star-small.svg'
@@ -75,7 +75,12 @@ export default function ClientOrder({ order, active, close }) {
                     <span>Стоимость {order.price} BYN</span>
                     <h5>Дополнительное описание</h5>
                     <div className={styles.review}>
-                        {order.neworder.split(',').map((i, index) => <span key={index}>{(index + 1 + '. ' + i.split(':')[0])}</span>)}
+                        {order.neworder.split(',').map((i, index) =>
+                            <Fragment key={index}>
+                            <span >{(index + 1 + '. ' + i.split(':')[0])}</span>
+                            {i.split(':')[2]}
+                            </Fragment> 
+                        )}
                     </div>
                     {active ?
                         <button onClick={DeleteOrder}><b>Отменить заказ</b></button>

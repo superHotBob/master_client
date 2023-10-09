@@ -119,11 +119,11 @@ export default function Messages() {
             let ss = a.replace(':',': ').split(';')
             
             return <div style={{ color: b }} className={styles.order}>
-                <p>Создан заказ
+                <p className={styles.order_create}>Создан заказ
                     {b === '#fff' ?
-                        <Link style={{ color: '#fff' }} href={'/order/' + ss[1].trim()}>{' '} #{ss[1]} -</Link>
+                        <Link style={{marginLeft: '10px', display: 'inline-block', color: '#fff' }} href={'/order/' + ss[1].trim()}>{' '} #{ss[1]} -</Link>
                         :
-                        <Link style={{ color: '#3D4EEA' }} href={'/clientprofile/' + profile.nikname + '/orders'}>{' '} #{ss[1]} -</Link>}
+                        <Link style={{display: 'inline-block', color: '#3D4EEA' }} href={'/clientprofile/' + profile.nikname + '/orders'}>{' '} #{ss[1]} -</Link>}
                 </p>
                 <p>{ss[2]} BYN</p>
                 <p className={styles.details}>Детали заказа</p>

@@ -4,10 +4,10 @@ import useSWR from 'swr'
 import { Fragment, useState } from 'react'
 
 export default function Services({ color, name, view, currency }) {
-    const [viewReview, setViewReview] = useState()
+    const [viewReview, setViewReview] = useState({})
     const { data, error, isLoading } = useSWR(`/api/master_service?nikname=${name}&view=${view}`)
    
-    console.log(currency)
+    
     if (error) return <div>Ошибка загрузки</div>
     if (isLoading) return <h3 className={styles.upload__message}>Загрузка услуг...</h3>
     if (data.length) {
@@ -25,12 +25,16 @@ export default function Services({ color, name, view, currency }) {
                                         src='/chevron_up.svg'
                                         height={26}
                                         width={26}
-                                        className={index + 1 === viewReview ? styles.image : styles.image_rotate}
+                                        className={viewReview.id === index + 1 && viewReview.service === i ? styles.image : styles.image_rotate}
                                         alt='arrow'
-                                        onClick={() => setViewReview(viewReview === index + 1  ? 0 :  index + 1)}
+                                        onClick={() => 
+                                            setViewReview(viewReview.id === index + 1 && viewReview.service === i  
+                                            ? {} 
+                                            :  
+                                            {...viewReview,id:index + 1,service: i})}
                                     />
                                 </h5>
-                                {index + 1  === viewReview ? a.split(':')[2] : ''}
+                                {viewReview.id === index + 1 && viewReview.service === i ? a.split(':')[2] : ''}
                             </Fragment>
                         </div>
                     )}

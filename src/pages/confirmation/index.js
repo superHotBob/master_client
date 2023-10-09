@@ -29,7 +29,7 @@ export default function Confirmation() {
             const data = {
                 client: profile.nikname ,
                 client_name:  profile.name,
-                master: master.nikname,
+                nikname: master.nikname,
                 master_name: master.name,
                 price: Cost(order),
                 order: order.join(','),
@@ -52,7 +52,7 @@ export default function Confirmation() {
             const data = {
                 client: profile.nikname ,
                 client_name:  profile.name,
-                master: profile.nikname,
+                nikname: profile.nikname,
                 master_name: profile.name,
                 price: Cost(order),
                 order: order.join(','),
@@ -155,8 +155,11 @@ export default function Confirmation() {
                 <h4>Услуги:</h4>
                 {order?.map((i,index) =>
                     <p className={styles.uslugi} key={index}>
-                        {i.split(':').map((a, index) => <span key={index}>{a} {index === 1 ? ' BYN' : null}</span>)}
-                    </p>)}
+                        <span>{i.split(':')[0]}</span><span>{i.split(':')[1]} {master.currency}</span>
+                   
+                    {i.split(':')[2]}
+                    </p>
+                )}
                 <h4>Адрес:</h4>
                 Ул. {master.address}, дом {data?.дом}, кв.{data?.квартира}, этаж {data?.этаж}
                 <h4>Дата: </h4>
