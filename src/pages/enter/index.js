@@ -139,7 +139,7 @@ export default function Enter() {
     }
     return (
         <section className={styles.section} style={{ backgroundImage: `url(${back})` }}>
-            <Header text={select} sel="/enter" />
+            <Header text={select} sel="back" />
             {select === 'Вход' ?
                 <div className={styles.inputs}>
                     <h3 className={styles.registration}>

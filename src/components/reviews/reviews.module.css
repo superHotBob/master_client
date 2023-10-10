@@ -28,7 +28,7 @@
     width: 40%;
     font-weight: 500;
     font-size:  16px;
-    line-height: 26px;
+    line-height: 18px;
     color: #000;    
 }
 .service {
@@ -37,7 +37,7 @@
     font: 600 14px/16px 'Rubil', sans-serif;
 }
 .message {
-    height: fit-content;
+    height: max-content;
     
     font-weight: 400;
     font-size:  14px;

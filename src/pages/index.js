@@ -33,7 +33,7 @@ export default function Home() {
       })
   }, [service])
 
-  // const View = (a, b, c, d, e) => viewImage({ text: d, name: a, image: b, master_name: c, date: e })
+  
 
   const viewNewImage = (e) => {   
     viewImage({ 
@@ -45,8 +45,7 @@ export default function Home() {
     })
   }
 
-  return (
-   
+  return (   
       <section className={styles.section} >
         <Message page="main" text='Masters.place показывает самые крутые и 
             актуальные работы мастеров в вашем городе. 

@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   
   const { rows:result } = await client.query(`
     update "orders" 
-    set "stars" = $2 , "review" = $3    
+    set "stars" = $2 ,"review" = $3    
     where "id" = $1
     returning *
   `,[req.body.id,req.body.stars,req.body.review])
@@ -49,9 +49,9 @@ export default async function handler(req, res) {
   )
   await client.end()
   if (result.length > 0) {
-    res.send('Отзыв  добавлен')
+    res.status(200).send('Отзыв  добавлен')
   } else {
-    res.send(null)
+    res.status(500).send("Ошибка добавления отзыва")
   }
   
 }

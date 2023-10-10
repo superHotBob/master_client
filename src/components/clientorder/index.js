@@ -6,6 +6,7 @@ import star from '../../../public/star-small.svg'
 import star_gray from '../../../public/star-gray.svg'
 import Image from 'next/image'
 import { Convert_Date } from '@/profile'
+import Messages from '../messages'
 
 const review = {
     backgroundColor: '#3D4EEA',
@@ -60,7 +61,8 @@ export default function ClientOrder({ order, active, close }) {
     return (
         <section className={styles.data} >
             <header>
-                <b onClick={close} /><span>#{order.id}</span>
+                <b onClick={close} />
+                <span>#{order.id}</span>
             </header>
             {new_review ?
                 <>
@@ -77,8 +79,8 @@ export default function ClientOrder({ order, active, close }) {
                     <div className={styles.review}>
                         {order.neworder.split(',').map((i, index) =>
                             <Fragment key={index}>
-                            <span >{(index + 1 + '. ' + i.split(':')[0])}</span>
-                            {i.split(':')[2]}
+                                <span >{(index + 1 + '. ' + i.split(':')[0])}</span>
+                                {i.split(':')[2]}
                             </Fragment> 
                         )}
                     </div>
@@ -88,13 +90,13 @@ export default function ClientOrder({ order, active, close }) {
                         order.review ? 
 
                        <div className={styles.result}>
-                        <span>Отзыв</span>
-                        {order.review}
+                            <span>Отзыв</span>
+                            {order.review}
                         </div>
                         :
                         <button style={review} onClick={() => setreview(false)}>Оставить отзыв</button>
                     }
-                    {result ? <p className={styles.res}>{result}</p> : null}
+                    
                 </>
                 :
                 <div className={styles.my_review}>
@@ -103,7 +105,7 @@ export default function ClientOrder({ order, active, close }) {
                         <textarea ref={ref} className={styles.my_text} placeholder="Расскажите о заказе" rows={6} />
                     </label>
                     <div className={styles.stars}>
-                        {[1, 2, 3, 4, 5].map(i => <React.Fragment key={i}>{
+                        {[1, 2, 3, 4, 5].map(i => <Fragment key={i}>{
                             stars >= i ? <Image 
                                 alt="star"
                                 onClick={() => SetStars(i)}
@@ -115,7 +117,7 @@ export default function ClientOrder({ order, active, close }) {
                                 src={star_gray}
                                 width={25} height={24}
                         />
-                        }</React.Fragment>
+                        }</Fragment>
 
                         )}
                     </div>
@@ -123,6 +125,7 @@ export default function ClientOrder({ order, active, close }) {
                     <button style={review} onClick={SendReview}>Оставить отзыв</button>}
                 </div>
             }
+            {result ? <Messages text={result} close={setresult} /> : null}
         </section>
     )
 }

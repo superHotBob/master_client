@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState , Fragment} from 'react'
 import React from 'react'
 import styles from './reviews.module.css'
 import star from '../../../public/star-small.svg'
@@ -30,7 +30,7 @@ export default function Reviews({ nikname, nav }) {
                         {Convert_Date(i.date_order)}
                     </span>
                     <div className={styles.stars}>
-                        {[1, 2, 3, 4, 5].map(a => <React.Fragment key={a}>{
+                        {[1, 2, 3, 4, 5].map(a => <Fragment key={a}>{
                             i.stars >= a ?
                                 <Image
                                     alt="star"
@@ -43,7 +43,7 @@ export default function Reviews({ nikname, nav }) {
                                     src={star_gray}
                                     width={15} height={14}
                                 />
-                        }</React.Fragment>
+                        }</Fragment>
 
                         )}
                     </div>
@@ -51,10 +51,10 @@ export default function Reviews({ nikname, nav }) {
                 <p className={styles.service}>
                     {i.neworder.replace(/[0-9]/g, '').replace(':', '')}, {i.price} BYN
                 </p>
-                <p className={styles.message}>{view === i.id ? i.review : i.review.slice(0, 145) + '...'}</p>
-                <span  onClick={() => setView(view === i.id ? null : i.id)}>
+                <p className={styles.message}>{view === i.id ? i.review : i.review.length > 80 ? i.review.slice(0, 145) + '...': i.review}</p>
+                {i.review.length > 80 ? <span  onClick={() => setView(view === i.id ? null : i.id)}>
                     {view != i.id ? 'подробнее' : 'скрыть'}
-                </span>
+                </span> : null }
             </div>)}
 
 

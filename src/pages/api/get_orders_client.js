@@ -6,18 +6,18 @@ export default async function handler(req, res) {
 
   await client.connect();
   const { rows } = await client.query(`
-    select *
+    select id,master,master_name,date_order,neworder,order_month,price,read,review
     from "orders"
     where "client" = $1 
     order by id desc 
   `,[req.query.nikname]);
 
-  client.end();
+   await client.end();
 
   if (rows.length) {
     res.status(200).json(rows)
   } else {
-    res.end("Error")
+    res.status(500).json([])
   }
 
 }

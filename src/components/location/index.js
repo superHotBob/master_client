@@ -1,8 +1,7 @@
 import styles from './location.module.css'
 import { useEffect, useRef, useState } from 'react'
 import React from 'react'
-import ReactDOM from "react-dom";
-import ReactDOMServer from "react-dom/server";
+
 import { useDispatch } from 'react-redux'
 import { setlocation } from '@/reduser'
 import Image from 'next/image'

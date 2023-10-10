@@ -11,11 +11,11 @@ export default async function handler(req, res) {
     from "orders"
     where master = $1 and date_order like $2
   `,[req.query.nikname,mon]);
-  client.end();
-  if (rows.length) {
+  await client.end();
+  if (rows.length>0) {
     res.status(200).json(rows)
   } else {
-    res.json([])
+    res.status(500).json([])
   }
 
 }

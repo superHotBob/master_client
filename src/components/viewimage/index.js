@@ -1,15 +1,15 @@
 import styles from './viewimage.module.css'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import Link from 'next/link'
 import Image from 'next/image'
-
+import icon_close from '../../../public/close.svg'
 
 export default function ViewImage({ view_image, viewImage, pid = null, service }) {
 
    
     const status = useSelector(state => state.counter.profile['status'])
-    const [tag, setTag] = useState('')
+   
    
     useEffect(() => {
         document.getElementById("main").style.top = window.scrollY + 'px'
@@ -26,7 +26,7 @@ export default function ViewImage({ view_image, viewImage, pid = null, service }
     return (
         <div className={styles.main__detail} id="main">
             <div className={styles.detail}>
-                <h3 onClick={() => viewImage(false)} />
+            <Image className={styles.close} src={icon_close} onClick={() => viewImage(false)} alt="close" width={20} height={20} />
                 <img
                     alt="image"
                     src={view_image.image}

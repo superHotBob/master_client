@@ -13,9 +13,9 @@ export default async function handler(req, res) {
     where "master" = $1 and "review" is not NULL
   `,[req.query.nikname])
 
-  client.end()
+  await client.end()
   
-  if (rows.length) {
+  if (rows.length > 0) {
     res.status(200).json(rows)
   } else {
     res.status(200).json([])

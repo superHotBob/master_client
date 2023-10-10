@@ -90,9 +90,9 @@ const MapComponent = ({ setRadius }) => {
         }, 500)
     }
     function SetFilterCluster() {
-        setZoom(12.5)
-        setView(2)
-        setMapHeight(window.innerWidth > 500 ? '400px' : '350px' )
+        // setZoom(12.5)
+        // setView(2)
+        // setMapHeight(window.innerWidth > 500 ? '400px' : '350px' )
        
         setTimeout(() => {
             let coord = Map.current.getBounds()           
@@ -102,7 +102,7 @@ const MapComponent = ({ setRadius }) => {
                 .filter(i => { return coord[1][0] - i.locations[0] > 0 })
                 .filter(i => { return coord[0][0] - i.locations[0] < 0 })
             setFilterMasters(new_masters)
-            
+            selectMaster(new_masters)
             const center = Map.current.getCenter()
             let radius = ymaps.coordSystem.geo.getDistance(center, coord[1])
             setRadius(Math.ceil(radius.toFixed(0) / 1000))
@@ -120,9 +120,7 @@ const MapComponent = ({ setRadius }) => {
         setCenter(masters?.filter(i => i.nikname === a)[0].locations)
         setMapHeight(window.innerWidth > 500 ? '300px' : '200px' )
         setView(1)
-        selectMaster(a)
-       
-       
+        selectMaster(a)       
         setTimeout(() => {
             let coord = Map.current.getBounds()
             const center = Map.current.getCenter()
@@ -149,19 +147,16 @@ const MapComponent = ({ setRadius }) => {
         //     }
 
         // );
-        if (view != 0) {
-            SetFilterCluster()
-        }
+        // if (view != 0) {
+        //     SetFilterCluster()
+        // }
         // setZoom(Map.current.getZoom())
         if (Map.current) {
             const bounds = Map.current.getBounds()
             const center = Map.current.getCenter()
             const zoom = Map.current.getZoom()
-            setZoom(zoom)
-            // const rightPoint = [center[0], bounds[1][1]]
-            // const leftPoint = [center[0], bounds[0][0]]
-            let radius = ymaps.coordSystem.geo.getDistance(center, bounds[1])
-            // console.log(radius)
+            setZoom(zoom)          
+            let radius = ymaps.coordSystem.geo.getDistance(center, bounds[1])           
             setRadius(Math.ceil(radius.toFixed(0) / 1000))
         }
     }
@@ -173,8 +168,7 @@ const MapComponent = ({ setRadius }) => {
               
               {
                 build: function () {
-                    Layout.superclass.build.call(this);
-                    const element = this.getParentElement().getElementsByClassName("img")[0];
+                    Layout.superclass.build.call(this); 
                 
                     const bigShape = {
                         type: 'Circle',
@@ -212,9 +206,9 @@ const MapComponent = ({ setRadius }) => {
                         Map.current = yamap;
                     }
                 }}
-                onLoad={OnLoadMap}
-                onWheel={getRadius}
-                onTouchend= {getRadius}               
+                onLoad = {OnLoadMap}
+                onWheel = {getRadius}
+                onTouchend = {getRadius}               
             >
                 <Clusterer
                     options={{
@@ -232,7 +226,12 @@ const MapComponent = ({ setRadius }) => {
                            
                         }]
                     }}
-                    onClick={SetFilterCluster}
+                    onClick={()=>{
+                        SetFilterCluster()
+                        setZoom(12.5)
+                        setView(2)
+                        setMapHeight(window.innerWidth > 500 ? '400px' : '350px' )
+                    }}
 
 
                     instanceRef={ymaps => {
@@ -318,7 +317,7 @@ export default function MasterNear() {
     const my_city = useSelector((state) => state.counter.city)
     const service = useSelector((state) => state.counter.service)
 
-    const dispatch = useDispatch()
+    
     const [viewFilter, setViewFilter] = useState(false)
     const [zoom, setZoom] = useState(11)
     const [master, selectMaster] = useState()

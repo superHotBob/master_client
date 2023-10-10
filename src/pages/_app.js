@@ -57,7 +57,7 @@ const my_path = ['informations', 'informations/aboutservice',
         </Head>
         <main className={rubik.className}> 
         {pathname ? 
-          (pathname === '/' ? <Header  /> : pathname === '/catalog' || pathname === '/catalog/services' ?  <Header sel='/' /> : null) 
+          (pathname === '/' ? <Header sel="back" /> : pathname === '/catalog' || pathname === '/catalog/services' ?  <Header sel='/' /> : null) 
           : null
         }    
           <Component {...pageProps} />
