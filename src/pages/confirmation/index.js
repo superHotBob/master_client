@@ -27,9 +27,9 @@ export default function Confirmation() {
        
         if(profile.status === 'client') {
             const data = {
-                client: profile.nikname ,
+                nikname: profile.nikname ,
                 client_name:  profile.name,
-                nikname: master.nikname,
+                master_nikname: master.nikname,
                 master_name: master.name,
                 price: Cost(order),
                 order: order.join(','),

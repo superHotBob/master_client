@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     insert into "orders" ( master, client,neworder,price,date_order,master_name,client_name,order_month ) 
     values ($1,$2,$3,$4,$5,$6,$7,$8) 
     returning *   
-  `, [req.body.nikname, req.body.client, req.body.order, req.body.price,
+  `, [req.body.master_nikname, req.body.nikname, req.body.order, req.body.price,
      req.body.date, req.body.master_name, req.body.client_name, req.body.month]
   );
 
@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     from "chat"
     where (recipient_nikname = $1 and sendler_nikname = $2 ) or 
     (recipient_nikname = $2 and sendler_nikname = $1 )
-  `, [req.body.nikname, req.body.client]);
+  `, [req.body.master_nikname, req.body.nikname]);
 
   let my_chat = null
   if (chat.length === 0) {
@@ -43,7 +43,7 @@ export default async function handler(req, res) {
     insert into "chat" (recipient,recipient_nikname,sendler,sendler_nikname,ms_text,ms_date,chat) 
     values ($1,$2,$3,$4,$5,$6,$7)  
     returning *
-  `, [req.body.client_name, req.body.client, req.body.master_name, req.body.nikname, text, date, my_chat]);
+  `, [req.body.client_name, req.body.nikname, req.body.master_name, req.body.master_nikname, text, date, my_chat]);
 
 
 

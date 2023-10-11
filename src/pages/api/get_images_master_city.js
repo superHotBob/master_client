@@ -15,7 +15,7 @@ export default async function handler(req, res) {
 
   await client.end();
  
-  res.status(200).json(rows)
+  res.status(200).json({one: rows.filter((i, index) => index % 2 === 0), two: rows.filter((i, index) => index % 2 !== 0)})
 
 
 }

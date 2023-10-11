@@ -250,10 +250,7 @@ export default function Calendar({profile}) {
                 </div>
                 {!viewPatern && <Link className={styles.button} href='/editpatern' >
                     Редактировать шаблон времени +
-                </Link>}
-                <dialog open={message} className={styles.message}>
-                   {message}
-                </dialog>
+                </Link>}               
             </section>
         </> : null}
         {message ? <Messages text={message} close={setMessage} />:null}

@@ -24,13 +24,13 @@ export default async function handler(req, res) {
     const { rows: max_id } = await client.query("SELECT Max(id) from clients");
 
     const nikname = max_id[0].max + 1;
-
+    const key = Math.random().toString(36).slice(-12)
 
     const { rows: result } = await client.query(
-      `INSERT INTO "clients" ("phone","nikname", "id", "client_password","name", "text")  
-      VALUES ($1,$2,$3,$4,$5,$6)
+      `INSERT INTO "clients" ("phone","nikname", "id", "client_password","name", "text","key")  
+      VALUES ($1,$2,$3,$4,$5,$6,$7)
       returning *
-      `, [+req.body.tel, nikname, nikname, req.body.password, nikname, 'Добрый день']
+      `, [+req.body.tel, nikname, nikname, req.body.password, nikname, 'Добрый день',key]
     );
 
 
@@ -50,6 +50,7 @@ export default async function handler(req, res) {
       returning *
       `, [nikname, nikname, date, chat]
     );
+    res.setHeader('Set-Cookie', `key=${key}; Path=/;`)
     await client.end();
     res.status(200).json(result[0])
 

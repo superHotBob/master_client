@@ -210,6 +210,7 @@ export default function AddService({ view, setView, color }) {
                                 />
                                 <textarea 
                                     maxLength={200} 
+                                    style={{ borderColor: color[1]}} 
                                     ref={review}
                                     rows={5} cols={40} 
                                     placeholder='Описание услуги до 200 символов'

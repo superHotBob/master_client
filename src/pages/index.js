@@ -6,13 +6,14 @@ import Message from '@/components/message'
 import ViewImage from '@/components/viewimage'
 import CitySelect from '@/components/city'
 import Image from 'next/image'
+
+
 export default function Home() {
   const service = useSelector(state => state.counter.service)
   const city = useSelector(state => state.counter.city)
   const [view_image, viewImage] = useState(false)
-  const [data, setdata] = useState([])
-
-
+  const [data, setdata] = useState({})
+ 
   const ref = useRef(null)
   const servref = useRef(service)
 
@@ -24,8 +25,9 @@ export default function Home() {
     fetch(`/api/get_images_master_city?service=${service}&city=${city.toLowerCase()}&limit=100&offset=${0}`)
       .then(res => res.json())
       .then(res => {
-        if (res.length > 0) {
-          setdata(data => ([...data, ...res]))
+        if (res['one']) {
+          setdata(res)
+          console.log(res['one'])
         } else {
           return;
         }
@@ -56,7 +58,7 @@ export default function Home() {
       <FilterServices />
       <div className={styles.images} id="myDiv" ref={ref} onClick={viewNewImage}>
         <div className={styles.images_one}>
-          {data?.filter((i, index) => index % 2 === 0).map((i, index) =>
+          {data['one']?.map(i =>
             <Image
               alt="abc"
               key={i.id}
@@ -77,7 +79,7 @@ export default function Home() {
           )}
         </div>
         <div className={styles.images_one}>
-          {data?.filter((i, index) => index % 2 !== 0).map((i, index) =>
+          {data['two']?.map(i =>
             <Image
               alt="abc"
               key={i.id}

@@ -297,7 +297,7 @@
 }
 
 .inputs__new__services input::placeholder, .inputs__new__services textarea::placeholder {
-    color: #8B95F2;
+    color: inherit;
     opacity: 0.5;
 
 }

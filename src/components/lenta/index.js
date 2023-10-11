@@ -7,6 +7,7 @@ import { useState } from 'react'
 import useSWR from 'swr'
 import ViewImage from '../viewimage'
 import { My_Date } from '@/profile'
+import Messages from '../messages'
 
 export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2AF0)', '#3D4EEA', '#ECEEFD'], nikname, name }) {
     
@@ -24,7 +25,7 @@ export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2A
         let pro = JSON.parse(localStorage.getItem('profile'))
         let new_saved = [...pro.saved_image]
         const add_image = [...new_saved, a]
-        fetch('/api/saves_image', {
+        fetch('/api/save_image', {
             body: JSON.stringify({ image: add_image, nikname: profile.nikname }),
             headers: {
                 'Content-Type': 'application/json',
@@ -49,15 +50,15 @@ export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2A
     }
 
     return ( <>
-        {events ? <>
+        {events ? 
+        <>
         {events.length > 0 ? <div onClick={() => setViewText(true)} className={styles.model} style={{ background: color[1] }}>
             <h3>Нужна модель</h3>
             <span>{My_Date(events[0].date_event)}, бесплатно</span>
-        </div> : null}</>
+        </div> : null}
+        </>
         : null}
-        <dialog open={message} className={styles.message}>
-            Изображение сохранено
-        </dialog>
+       
         <div className={styles.images}>
             <div className={styles.part_images}>
                 {image?.filter((i, index) => index % 2 === 0).map(i =>
@@ -98,6 +99,7 @@ export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2A
             </div>
             : null}
         {view_image ? <ViewImage view_image={view_image} viewImage={viewImage}  pid={name} /> : null}
+        {message ? <Messages text="Изображение сохранено" /> : null }
 
     </>) 
 }
