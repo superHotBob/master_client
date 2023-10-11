@@ -49,10 +49,11 @@ const my_path = ['informations', 'informations/aboutservice',
         <Head>
           <meta name="description" content="Master app" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <meta name="color-scheme" content="dark light" />
           <link rel="icon" href="/favicon.ico" />
           <title>{slug ? slug : 'masters.place'}</title>
           <link rel="apple-touch-icon" href="icons/android-chrome-192x192.png" />
-          <meta name="application-name" content="PWA App" />
+          <meta name="application-name" lang='ru' content="master.place" />
           <meta name="mobile-web-app-capable" content="yes" />
         </Head>
         <main className={rubik.className}> 

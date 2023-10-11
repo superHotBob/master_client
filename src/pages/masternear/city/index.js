@@ -20,9 +20,7 @@ const sel = {
 
 const API_KEY = "89caab37-749d-4e30-8fdf-e8045542f060"
 
-const MapComponent = ({ setRadius }) => {
-    const router = useRouter()
-    const { pid } = router.query
+const MapComponent = ({ setRadius, my_zoom }) => {      
     const loc = useSelector((state => state.counter.location))
     const my_city = useSelector((state) => state.counter.city)
     const service = useSelector((state) => state.counter.service)
@@ -32,7 +30,7 @@ const MapComponent = ({ setRadius }) => {
     const [master, selectMaster] = useState()
     const [view, setView] = useState(0)
     const [filter_masters, setFilterMasters] = useState([])
-
+    console.log(my_zoom)
     const ymaps = useYMaps([
         "Map",
         "option.Manager",
@@ -44,7 +42,7 @@ const MapComponent = ({ setRadius }) => {
         "geoQuery"
     ])
 
-    const { data: masters, mutate } = useSWR(`/api/all_masters_city?city=${my_city.toLowerCase()}&service=${service}`)
+    const { data: masters } = useSWR(`/api/all_masters_city?city=${my_city.toLowerCase()}&service=${service}`)
 
 
     // useEffect(() => {
@@ -67,18 +65,14 @@ const MapComponent = ({ setRadius }) => {
         setMapHeight(window.innerHeight - 300)
         setFilterMasters(masters)
         setZoom(10.8)
-        setCenter(loc)
-        // if (masters) {
-        //     let mast = masters.filter(i => i.services.includes(service) ? i : null)
-        //     setFilterMasters(mast)
-        // }
-
+        setCenter(loc)       
     }, [])
+    useEffect(()=>setZoom(my_zoom),[my_zoom])
 
 
 
     function OnLoadMap() {
-        let coord = Map.current.getBounds()       
+       
         setTimeout(() => {
             document.getElementsByClassName('ymaps-2-1-79-ground-pane')[0].style.filter = 'grayscale(1)'
             document.getElementsByClassName('ymaps-2-1-79-copyright')[0].style.display = 'none'
@@ -348,9 +342,7 @@ export default function MasterNear() {
             <div className={styles.main__filter}>
                 {veiw_select ? null : <>
                     <span>Мастера в радиусе {radius} км</span>
-                    <span onClick={() => setViewFilter(true)}>
-                        радиус поиска
-                    </span>
+                    <span onClick={() => setViewFilter(true)}>радиус поиска</span>                    
                 </>}
                 {viewFilter ? <div className={styles.all__filter}>
                     <h6 onClick={() => setViewFilter(false)} />
@@ -364,7 +356,7 @@ export default function MasterNear() {
                         max="11"
                         onChange={e => {
                             setZoom(20 - e.target.value),
-                                setRadius(e.target.value)
+                            setRadius(e.target.value)
                         }}
                     />
 
@@ -377,13 +369,16 @@ export default function MasterNear() {
                         setRadius={setRadius}
                         set_view_select={set_view_select}
                         master={master}
-                        zoom={zoom}
+                        my_zoom={zoom}
                         masters={masters}
                     />
                 </YMaps>
                 {/* <Image alt="close" className={styles.close} src={arrow_down} width={25} height={25}
                     onClick={openView}
-                /> */}
+                />
+                <div>
+
+                </div> */}
             </div>
 
         </div>

@@ -1,5 +1,5 @@
 .main_city {
-  height: minmax(100vh, max-content);
+  min-height: 100vh;
   padding-bottom: 10px;
 }
 .message {

@@ -1,6 +1,13 @@
 import { NextResponse } from 'next/server';
 
+
+
+
 export async function middleware(request, res) {
+
+  
+
+ console.log(Math.random().toString(36).slice(-12))
 
   if (request.nextUrl.pathname === '/enter') {
 
@@ -9,7 +16,7 @@ export async function middleware(request, res) {
     return response
   }
 
-  // console.log(Math.random().toString(36).slice(-12))
+  console.log(Math.random().toString(36).slice(-12))
   const response = NextResponse.next()
   const key = request.cookies.get('key')
   response.cookies.set('key', '0123456789')

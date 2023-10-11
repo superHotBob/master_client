@@ -2,8 +2,6 @@ import styles from './location.module.css'
 import { useEffect, useRef, useState } from 'react'
 import React from 'react'
 
-import { useDispatch } from 'react-redux'
-import { setlocation } from '@/reduser'
 import Image from 'next/image'
 import { useYMaps, YMaps, Map, Placemark } from '@pbe/react-yandex-maps'
 import icon_close from '../../../public/close.svg'
@@ -18,7 +16,7 @@ function Mymap({ loc_master, nikname, place }) {
 
 
 
-    const dispatch = useDispatch()
+   
 
     const [loc, setLoc] = useState(loc_master)
 
@@ -63,7 +61,7 @@ function Mymap({ loc_master, nikname, place }) {
             return;
         }
 
-        console.log(place)
+      
         const myGeocoder = ymaps.geocode(place);
 
         myGeocoder.then(
@@ -121,7 +119,7 @@ function Mymap({ loc_master, nikname, place }) {
                     behaviors: ["default", "scrollZoom", "multiTouch", "drag", "onclick"]
                 }}
                 width='100%'
-                height="75vh"
+                height="85vh"
                 onLoad={(e) => {                  
                     ymaps.current = e
                 }}

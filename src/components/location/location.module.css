@@ -1,8 +1,8 @@
 .map {
     position: absolute;
     top: 0;
-    padding-top: 56px;
-    height: 94vh;
+    
+    height: 100vh;
     left: 0;
     background-color: #fff;
     z-index: 101;   
@@ -20,11 +20,9 @@
     display: block;
     z-index: 200;    
     background-color: #fff;
-    margin: 8px auto;
-    padding: 4px;   
+    margin: 8px auto;   
     cursor: pointer;
-    border: 1px solid #3D4EEA;
-    border-radius: 50%;
+   
 }
 .map img:hover {
     transform: scale(1.1);

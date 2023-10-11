@@ -23,6 +23,7 @@
 .central_message img:last-of-type {
     display: block;
     margin: 0 auto 24px;
+    border-radius: 50%;
 }
 .central_message p {
     line-height: 17px;

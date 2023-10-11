@@ -14,7 +14,7 @@ import MasterHeader from '@/components/masterheader'
 import { my_tema } from '@/data.'
 import useSWR from 'swr'
 import { useEffect } from 'react'
-import { useId } from 'react';
+
 import Information from '@/components/information'
 
 
@@ -23,8 +23,6 @@ const active = {
     padding: '0 20px',
     fontWeight: 500
 }
-
-
 
 export default function Master() {
     const router = useRouter()
@@ -36,9 +34,7 @@ export default function Master() {
     const dispatch = useDispatch()
     const my_profile = useSelector(state => state.counter.profile)
     const service = useSelector(state => state.counter.service)
-    const passwordHintId = useId();
-
-        console.log(passwordHintId)
+   
     useEffect(() => {
        
         setNavView(0)
