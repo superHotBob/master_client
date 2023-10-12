@@ -31,7 +31,7 @@ const my_path = ['informations', 'informations/aboutservice',
   'masterrecords',
   'confirmation',
   'addlist',
-  'chat',
+ 
   'calendar', 
    'city', 'masternear', 'masternear/city', 'editprofile', 'addmasterorder']
 

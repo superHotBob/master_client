@@ -99,7 +99,7 @@ export default function Lenta({ color= ['linear-gradient(to left, #3D4EEA, #5E2A
             </div>
             : null}
         {view_image ? <ViewImage view_image={view_image} viewImage={viewImage}  pid={name} /> : null}
-        {message ? <Messages text="Изображение сохранено" /> : null }
+        {message ? <Messages close={setMessage} text="Изображение сохранено" /> : null }
 
     </>) 
 }

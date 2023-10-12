@@ -172,11 +172,9 @@ export default function Confirmation() {
                 <div onClick={SaveOrder}>Записаться</div>
                 <Bov />
                 {goodorder ? <div className={styles.goodorder}>
-                    <h3>master.place</h3>
-                    <h1>УСПЕШНО</h1>
-                    <h4>
-                        Заказ создан, свяжитесь с мастером, что-бы <br /> не потерять друг-друга.
-                    </h4>
+                    <h3>masters.place</h3>
+                    <h1>УСПЕШНО!</h1>
+                    <h4>Заказ создан, свяжитесь с мастером, что-бы <br /> не потерять друг-друга.</h4>
                     <Link href={`/chat/messages/${master.nikname}?name=${master.name}`}>Открыть чат с мастером</Link>
                     <h6 onClick={() => router.push(`/${master.nikname}`)}>Закрыть</h6>
                 </div> : null}

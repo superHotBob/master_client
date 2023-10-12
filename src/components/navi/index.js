@@ -60,21 +60,24 @@ export default function Navi({ save, color }) {
                         title="в чат" 
                         className={styles.message} 
                         style={pathname === '/chat' ?  chat : null}
-                    /> : 
-                null}
+                    /> : null
+                }
                 {prof.status === 'client' ?
                     <Link
-                        href={'/clientprofile/' + prof.nikname }
+                        href={'/clientprofile/' + prof.nikname  }
                         title="сохранённое"
                         className={styles.stroke}
                         style={(router.asPath.includes('orders') || !router.asPath.includes(prof.nikname)) ? null : saved}
-                    />: null}
+                    /> : null
+                }
                 <Link
-                    href={prof.status ? "/" + prof.status + "profile/" + prof.nikname : "/enter"}
-                    title="в профиль"
+                    href={prof.status  === 'master' ? "/masterprofile/" + prof.nikname : 
+                    prof.status  === 'client' ? "/clientprofile/" + prof.nikname + "/orders" :
+                    "/enter"}
+                    title="в проффиль"
                     className={styles.enter}
                     style={prof.status ?
-                        (router.asPath.includes('clientprofile') || router.asPath.includes('masterprofile/') ? active : active_two) : null}
+                        (router.asPath.includes('orders') || router.asPath.includes('masterprofile/') ? active : active_two) : null}
                 >
                     Вход
                 </Link>
