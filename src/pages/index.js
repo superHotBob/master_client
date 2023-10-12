@@ -21,13 +21,16 @@ export default function Home() {
   const servref = useRef(service)
   const view_ref = useRef(2)
 
-  
-  function handleScroll () {
-    console.log('bottom',ref.current.getBoundingClientRect().bottom)
-    console.log(window.scrollY.toFixed(0), view_ref.current,view)
-   
+ 
+  function handleScroll (event) {
+    
+    setview(view_ref.current)
     // console.log(ref.current.offsetHeight,ref.current.offsetTop,window.innerHeight)
-       
+    // console.log(ref.current.offsetTop)
+    // if(view_ref.current === 2) {
+    //   setview(3)
+    //   view_ref.current = view_ref.current + 1
+    // } else {
       if(ref.current.getBoundingClientRect().bottom.toFixed(0) < window.innerHeight) {       
         view_ref.current = view_ref.current + 1
         
@@ -39,7 +42,7 @@ export default function Home() {
     
   };
   useEffect(() => {
-    // console.log('bottom',ref.current.getBoundingClientRect().bottom.toFixed(0) - window.innerHeight)
+    console.log('bottom',ref.current.getBoundingClientRect().bottom.toFixed(0) - window.innerHeight)
     if(ref.current.getBoundingClientRect().bottom.toFixed(0) < window.innerHeight) {
       setview(3)
       view_ref.current = view_ref.current + 1
