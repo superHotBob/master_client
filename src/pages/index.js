@@ -6,6 +6,7 @@ import Message from '@/components/message'
 import ViewImage from '@/components/viewimage'
 import CitySelect from '@/components/city'
 import Image from 'next/image'
+import { current } from '@reduxjs/toolkit'
 
 
 export default function Home() {
@@ -13,32 +14,37 @@ export default function Home() {
   const city = useSelector(state => state.counter.city)
   const [view_image, viewImage] = useState(false)
   const [data, setdata] = useState({})
+
   const [view, setview] = useState(2)
  
   const ref = useRef(null)
   const servref = useRef(service)
   const view_ref = useRef(2)
 
- 
+  
   function handleScroll () {
+    console.log('bottom',ref.current.getBoundingClientRect().bottom)
+    console.log(window.scrollY.toFixed(0), view_ref.current,view)
    
-    setview(view_ref.current)
-    if(view_ref.current === 2) {
-      setview(3)
-      view_ref.current = view_ref.current + 1
-    } else {
-      if(+(window.scrollY/130).toFixed(0) > +view_ref.current) {       
-        view_ref.current = view_ref.current + 1       
+    // console.log(ref.current.offsetHeight,ref.current.offsetTop,window.innerHeight)
+       
+      if(ref.current.getBoundingClientRect().bottom.toFixed(0) < window.innerHeight) {       
+        view_ref.current = view_ref.current + 1
+        
       }
-    }
+    
      
      
    
     
   };
   useEffect(() => {
-    
-
+    // console.log('bottom',ref.current.getBoundingClientRect().bottom.toFixed(0) - window.innerHeight)
+    if(ref.current.getBoundingClientRect().bottom.toFixed(0) < window.innerHeight) {
+      setview(3)
+      view_ref.current = view_ref.current + 1
+    }
+   
     window.addEventListener('scroll', handleScroll);
 
     return () => {
@@ -55,12 +61,10 @@ export default function Home() {
       .then(res => res.json())
       .then(res => {
         if (res['one']) {
-          setdata(res)
-          console.log(res['one'])
+          setdata(res)          
         } else {
           return;
         }
-
       })
   }, [service])
 
