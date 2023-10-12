@@ -13,9 +13,38 @@ export default function Home() {
   const city = useSelector(state => state.counter.city)
   const [view_image, viewImage] = useState(false)
   const [data, setdata] = useState({})
+  const [view, setview] = useState(2)
  
   const ref = useRef(null)
   const servref = useRef(service)
+  const view_ref = useRef(2)
+
+ 
+  function handleScroll () {
+   
+    setview(view_ref.current)
+    if(view_ref.current === 2) {
+      setview(3)
+      view_ref.current = view_ref.current + 1
+    } else {
+      if(+(window.scrollY/130).toFixed(0) > +view_ref.current) {       
+        view_ref.current = view_ref.current + 1       
+      }
+    }
+     
+     
+   
+    
+  };
+  useEffect(() => {
+    
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     if (servref.current != service) {
@@ -56,18 +85,18 @@ export default function Home() {
       />
       <CitySelect city={city} />
       <FilterServices />
-      <div className={styles.images} id="myDiv" ref={ref} onClick={viewNewImage}>
+      <div className={styles.images} id="myDiv" ref={ref} onClick={viewNewImage} >
         <div className={styles.images_one}>
-          {data['one']?.map(i =>
-            <Image
+          {data['one']?.map((i,index) =>
+          <>
+             {index < view ? <Image
               alt="abc"
               key={i.id}
               id={JSON.stringify(i)}
               // onClick={() => View(i.nikname, process.env.url_image + i.id + '.jpg', i.master_name, i.review, i.img_date)}
-              // loading={index > 3 ? 'lazy' : 'eager'}
+              loading='lazy'
               src={process.env.url_image + i.id + '.jpg'}
-              title={i.master_name}
-              priority={true}
+              title={i.master_name}             
               sizes="100vw"
               style={{
                 width: '100%',
@@ -75,28 +104,30 @@ export default function Home() {
               }}
               width={500}
               height={300}
-            />
+            />: null}
+            </>
           )}
         </div>
         <div className={styles.images_one}>
-          {data['two']?.map(i =>
-            <Image
+          {data['two']?.map((i,index) =>
+          <>
+             {index < view ? <Image
               alt="abc"
               key={i.id}
               id={JSON.stringify(i)}
               // onClick={() => View(i.nikname, process.env.url_image + i.id + '.jpg', i.master_name, i.review, i.img_date)}
-              // loading={index > 3 ? 'lazy' : 'eager'}
+              loading='lazy'
               src={process.env.url_image + i.id + '.jpg'}
               title={i.master_name}
-              sizes="100vw"
-              priority={true}
+              sizes="100vw"              
               style={{
                 width: '100%',
                 height: 'auto',
               }}
               width={500}
               height={300}
-            />
+            />: null}
+            </>
           )}
         </div>
       </div>

@@ -35,11 +35,11 @@ export async function middleware(request, res) {
       }
     }  
   } else {
-    return new NextResponse.json(200, { error: 'Internal Server Error' }, { status: 500 })
+    return NextResponse.redirect(`${request.nextUrl.origin}/enter`)
   }
 }
 
 
 export const config = {
-  matcher: ['/api/get_messages', '/api/save_image','/api/set_patern', '/api/save_order','/clientprofile/:path','/editprofile/client']
+  matcher: ['/api/get_messages','/api/get_orders_client','/api/get_new_messages', '/api/save_image','/api/set_patern', '/api/save_order','/clientprofile/:path']
 };
