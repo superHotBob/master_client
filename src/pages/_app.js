@@ -56,7 +56,7 @@ const my_path = ['informations', 'informations/aboutservice',
           <meta name="application-name" lang='ru' content="master.place" />
           <meta name="mobile-web-app-capable" content="yes" />
         </Head>
-        <main className={rubik.className}> 
+        <main className={rubik.className} style={{position: 'relative'}}> 
         {pathname ? 
           (pathname === '/' ? <Header sel="back" /> : pathname === '/catalog' || pathname === '/catalog/services' ?  <Header sel='/' /> : null) 
           : null

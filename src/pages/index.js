@@ -1,5 +1,5 @@
 import styles from '@/styles/Home.module.css'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, Fragment } from 'react'
 import { useSelector } from 'react-redux'
 import FilterServices from '@/components/filterServices'
 import Message from '@/components/message'
@@ -95,10 +95,10 @@ export default function Home() {
       <div className={styles.images} id="myDiv" ref={ref} onClick={viewNewImage} >
         <div className={styles.images_one}>
           {data['one']?.map((i,index) =>
-          <>
+          <Fragment  key={i.id}>
              {index < view ? <Image
               alt="abc"
-              key={i.id}
+             
               id={JSON.stringify(i)}
               // onClick={() => View(i.nikname, process.env.url_image + i.id + '.jpg', i.master_name, i.review, i.img_date)}
               loading='lazy'
@@ -112,12 +112,12 @@ export default function Home() {
               width={500}
               height={300}
             />: null}
-            </>
+            </Fragment>
           )}
         </div>
         <div className={styles.images_one}>
           {data['two']?.map((i,index) =>
-          <>
+          <Fragment  key={i.id}>
              {index < view ? <Image
               alt="abc"
               key={i.id}
@@ -134,7 +134,7 @@ export default function Home() {
               width={500}
               height={300}
             />: null}
-            </>
+            </Fragment>
           )}
         </div>
       </div>

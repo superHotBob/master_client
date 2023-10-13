@@ -2,7 +2,7 @@ import Header from '@/components/header'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import styles from './near.module.css'
+import styles from '../city/near.module.css'
 import { useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import FilterServices from '@/components/filterServices'
@@ -52,13 +52,15 @@ export default function MasterNear() {
                 <FilterServices />
                 {data?.map(i =>
                     <Link key={i.name} className={styles.master} href={'/' + i.nikname}>
-                        <p className={styles.name_stars} >
-                            <span>{i.name}</span>
+                        <div>
+                        <p>
+                            <b>{i.name}</b>
                             <span className={styles.pro}>MASTER</span>
                             {i.stars != 0.0 ? <span className={styles.stars}>{i.stars}</span> : null}
                         </p>
                         <h4>{i.address}</h4>
                         <h5>{i.services.map(a => <span key={a} className={styles.service}>{a}</span>)}</h5>
+                        </div>
                         <Image src={process.env.url_image + i.nikname + '.jpg'} width={60} height={60} alt="image" />
                     </Link>
                 )}

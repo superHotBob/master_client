@@ -20,7 +20,7 @@ const sel = {
 
 const API_KEY = "89caab37-749d-4e30-8fdf-e8045542f060"
 
-const MapComponent = ({ setRadius, my_zoom }) => {      
+const MapComponent = ({ setRadius, my_zoom , setzoom}) => {
     const loc = useSelector((state => state.counter.location))
     const my_city = useSelector((state) => state.counter.city)
     const service = useSelector((state) => state.counter.service)
@@ -65,14 +65,13 @@ const MapComponent = ({ setRadius, my_zoom }) => {
         setMapHeight(window.innerHeight - 300)
         setFilterMasters(masters)
         setZoom(10.8)
-        setCenter(loc)       
+        setCenter(loc)
     }, [])
-    useEffect(()=>setZoom(my_zoom),[my_zoom])
+    useEffect(() => setZoom(my_zoom), [my_zoom])
 
 
 
     function OnLoadMap() {
-       
         setTimeout(() => {
             document.getElementsByClassName('ymaps-2-1-79-ground-pane')[0].style.filter = 'grayscale(1)'
             document.getElementsByClassName('ymaps-2-1-79-copyright')[0].style.display = 'none'
@@ -83,13 +82,17 @@ const MapComponent = ({ setRadius, my_zoom }) => {
             document.getElementById('my_map').style.opacity = '1';
         }, 500)
     }
-    function SetFilterCluster() {
-        // setZoom(12.5)
-        // setView(2)
-        // setMapHeight(window.innerWidth > 500 ? '400px' : '350px' )
-       
+    function SetFilterCluster(a) { 
+        if(a) {           
+            setTimeout(() => {
+                let coord = Map.current.getBounds()
+                const center = Map.current.getCenter()
+                let radius = ymaps.coordSystem.geo.getDistance(center, coord[1])
+                setRadius(Math.ceil(radius.toFixed(0) / 1000))
+            }, 1000)           
+        }      
         setTimeout(() => {
-            let coord = Map.current.getBounds()           
+            let coord = Map.current.getBounds()
             let new_masters = [...masters]
                 .filter(i => { return coord[1][1] - i.locations[1] > 0 })
                 .filter(i => { return coord[0][1] - i.locations[1] < 0 })
@@ -101,20 +104,19 @@ const MapComponent = ({ setRadius, my_zoom }) => {
             let radius = ymaps.coordSystem.geo.getDistance(center, coord[1])
             setRadius(Math.ceil(radius.toFixed(0) / 1000))
         }, 500)
-        
     }
 
     function closeView() {
         setView(0)
         setMapHeight(window.innerHeight - 300)
-        selectMaster(null)       
+        selectMaster(null)
     }
     function ViewMaster(a) {
         setZoom(15)
         setCenter(masters?.filter(i => i.nikname === a)[0].locations)
-        setMapHeight(window.innerWidth > 500 ? '300px' : '200px' )
+        setMapHeight(window.innerWidth > 500 ? '300px' : '200px')
         setView(1)
-        selectMaster(a)       
+        selectMaster(a)
         setTimeout(() => {
             let coord = Map.current.getBounds()
             const center = Map.current.getCenter()
@@ -149,35 +151,36 @@ const MapComponent = ({ setRadius, my_zoom }) => {
             const bounds = Map.current.getBounds()
             const center = Map.current.getCenter()
             const zoom = Map.current.getZoom()
-            setZoom(zoom)          
-            let radius = ymaps.coordSystem.geo.getDistance(center, bounds[1])           
+            setZoom(zoom)
+            let radius = ymaps.coordSystem.geo.getDistance(center, bounds[1])
             setRadius(Math.ceil(radius.toFixed(0) / 1000))
         }
+        SetFilterCluster()
     }
-    function Bob(b) {}
+    function Bob(b) { }
 
-    const placeMark = (a,b) => {        
-        const Layout = a.createClass(zoom > 12 ? `<img style=" border-radius: 50%; border: 3px solid #3D4EEA" height="44px" width="44px" src=${process.env.url_image + b + '.jpg'} />` : 
-              '<img src="/master.svg" height="40px" width="40px"/>',
-              
-              {
+    const placeMark = (a, b) => {
+        const Layout = a.createClass(zoom > 12 ? `<img style=" border-radius: 50%; border: 3px solid #3D4EEA" height="44px" width="44px" src=${process.env.url_image + b + '.jpg'} />` :
+            '<img src="/master.svg" height="40px" width="40px"/>',
+
+            {
                 build: function () {
-                    Layout.superclass.build.call(this); 
-                
+                    Layout.superclass.build.call(this);
+
                     const bigShape = {
                         type: 'Circle',
-                        coordinates: [20,20],
+                        coordinates: [20, 20],
                         radius: 22,
                     };
                     // Зададим фигуру активной области.
-                    this.getData().options.set('shape',bigShape );                
-                    this.getData().geoObject.events.add('click',function() {Bob(b)},this)
-                
+                    this.getData().options.set('shape', bigShape);
+                    this.getData().geoObject.events.add('click', function () { Bob(b) }, this)
+
                 }
-            
+
             }
-            
-            );
+
+        );
         return Layout;
     };
 
@@ -187,44 +190,43 @@ const MapComponent = ({ setRadius, my_zoom }) => {
                 modules={["Clusterer", "Polygon", "GeoObject", "geoQuery", "control.ZoomControl", "control.FullscreenControl", "Placemark", "geocode",
                     "geoObject.addon.balloon", "borders", "ObjectManager", 'geoObject.addon.balloon', 'clusterer.addon.balloon',
                     'templateLayoutFactory']}
-                state={{
-                    // center: master ? masters?.filter(i => i.nikname === master)[0].locations : loc,
+                state={{                    
                     center: center,
-                    zoom: zoom,
+                    zoom: my_zoom,
                     behaviors: ["default", "scrollZoom", "multiTouch", "drag"]
                 }}
                 width="100%"
-                height= {  mapHeight }
+                height={mapHeight}
                 instanceRef={yamap => {
                     if (yamap) {
                         Map.current = yamap;
                     }
                 }}
-                onLoad = {OnLoadMap}
-                onWheel = {getRadius}
-                onTouchend = {getRadius}               
+                onLoad={OnLoadMap}
+                onWheel={getRadius}
+                onTouchEnd={getRadius}
+                // onMouseUp={SetFilterCluster}
             >
                 <Clusterer
                     options={{
                         preset: 'islands#invertedVioletClusterIcons',
                         groupByCoordinates: false,
                         hasBallon: false,
-                        isPropagationStopped: true,                       
+                        isPropagationStopped: true,
                         hasHint: false,
-                        zoomMargin: [40],
+                        zoomMargin: [40],                        
                         gridSize: 128,
                         clusterIcons: [{
                             href: '/master.svg',
                             size: [40, 40],
                             offset: [-20, -20],
-                           
                         }]
                     }}
-                    onClick={()=>{
+                    onClick={() => {
                         SetFilterCluster()
-                        setZoom(12.5)
+                        setzoom(12.5)
                         setView(2)
-                        setMapHeight(window.innerWidth > 500 ? '400px' : '350px' )
+                        setMapHeight(window.innerWidth > 500 ? '400px' : '350px')
                     }}
 
 
@@ -235,33 +237,42 @@ const MapComponent = ({ setRadius, my_zoom }) => {
                     }}
 
                 >
-                        {ymaps ? <>
+                    {ymaps ? <>
 
                         {masters?.map(i =>
-                        <Placemark geometry={i.locations} key={i.nikname}
-                            modules={
-                                ['geoObject.addon.balloon', 'geoObject.addon.hint']
-                            }
+                            <Placemark geometry={i.locations} key={i.nikname}
+                                modules={
+                                    ['geoObject.addon.balloon', 'geoObject.addon.hint']
+                                }
 
-                            properties={{
-                                hintContent: `<p style="border: none;color: blue;font-size: 17px;padding: 5px">${i.name}</p>`,
-                                preset: "twirl#blueStretchyIcon",
-                                strokeColor: 'blue',
-                            }}
-                            options={{
-                                iconLayout:  placeMark( ymaps.templateLayoutFactory,i.nikname),
+                                properties={{
+                                    hintContent: `<p style="border: none;color: blue;font-size: 17px;padding: 5px">${i.name}</p>`,
+                                    preset: "twirl#blueStretchyIcon",
+                                    strokeColor: 'blue',
+                                }}
+                                options={{
+                                    iconLayout: placeMark(ymaps.templateLayoutFactory, i.nikname),
 
-                                // iconLayout: 'default#image',
-                                // iconImageHref: zoom >= 12 ? process.env.url_image + i.nikname + '.jpg' : '/master1.svg',
-                                // iconImageSize: [40, 40],
-                                iconOffset: [-20, -20]
-                            }}
-                            onClick={(e) => {
-                                e.stopPropagation()
-                                ViewMaster(i.nikname)                                
-                            }}
-                        />)}
-                    </>:null}
+                                    // iconLayout: 'default#image',
+                                    // iconImageHref: zoom >= 12 ? process.env.url_image + i.nikname + '.jpg' : '/master1.svg',
+                                    // iconImageSize: [40, 40],
+                                    iconOffset: [-20, -20]
+                                }}
+                                // onClick={(e) => {
+                                //     e.stopPropagation()
+                                //     ViewMaster(i.nikname)
+                                // }}
+                                onClick={() => {
+                                    SetFilterCluster(i.locations)
+                                    setCenter(i.locations)
+                                    setzoom(17)
+                                    // setZoom(12.5)
+                                    // setView(2)
+                                    setMapHeight(window.innerWidth > 500 ? '400px' : '350px')
+                                }}
+            
+                            />)}
+                    </> : null}
                 </Clusterer>
             </Map>
             {view === 2 ?
@@ -271,13 +282,15 @@ const MapComponent = ({ setRadius, my_zoom }) => {
                     />
                     {filter_masters?.map(i =>
                         <Link key={i.nikname} className={styles.master} href={`/${i.nikname}`}>
-                            <p style={{ width: '75%' }}>
-                                <b>{i.name}</b>
-                                <span className={styles.pro}>MASTER</span>
-                                {i.stars != '0.0' ? <span className={styles.stars}>{i.stars}</span> : null}
-                            </p>
-                            <h4>{i.address}</h4>
-                            <h5>{i.services.map(a => <span key={a} className={styles.service}>{a}</span>)}</h5>
+                            <div>
+                                <p>
+                                    <b>{i.name}</b>
+                                    <span className={styles.pro}>MASTER</span>
+                                    {i.stars != '0.0' ? <span className={styles.stars}>{i.stars}</span> : null}
+                                </p>
+                                <h4>{i.address}</h4>
+                                <h5>{i.services.map(a => <span key={a} className={styles.service}>{a}</span>)}</h5>
+                            </div>
                             <Image src={process.env.url_image + i.nikname + '.jpg'} width={60} height={60} alt="main_image" />
                         </Link>)}
                 </section>
@@ -288,13 +301,15 @@ const MapComponent = ({ setRadius, my_zoom }) => {
                         />
                         {masters?.filter(i => i.nikname === master).map(i =>
                             <Link key={i.nikname} className={styles.master} href={`/${i.nikname}`}>
-                                <p style={{ width: '75%' }}>
-                                    <b>{i.name}</b>
-                                    <span className={styles.pro}>MASTER</span>
-                                    {i.stars != '0.0' ? <span className={styles.stars}>{i.stars}</span> : null}
-                                </p>
-                                <h4>{i.address}</h4>
-                                <h5>{i.services.map(a => <span key={a} className={styles.service}>{a}</span>)}</h5>
+                                <div>
+                                    <p>
+                                        <b>{i.name}</b>
+                                        <span className={styles.pro}>MASTER</span>
+                                        {i.stars != '0.0' ? <span className={styles.stars}>{i.stars}</span> : null}
+                                    </p>
+                                    <h4>{i.address}</h4>
+                                    <h5>{i.services.map(a => <span key={a} className={styles.service}>{a}</span>)}</h5>
+                                </div>
                                 <Image src={process.env.url_image + i.nikname + '.jpg'} width={60} height={60} alt="main_image" />
                             </Link>)}
                     </section>
@@ -311,7 +326,7 @@ export default function MasterNear() {
     const my_city = useSelector((state) => state.counter.city)
     const service = useSelector((state) => state.counter.service)
 
-    
+
     const [viewFilter, setViewFilter] = useState(false)
     const [zoom, setZoom] = useState(11)
     const [master, selectMaster] = useState()
@@ -324,11 +339,9 @@ export default function MasterNear() {
 
     return (
         <div className={styles.main_city}>
-            {/* <Script src={'https://api-maps.yandex.ru/3.0/?apikey=89caab37-749d-4e30-8fdf-e8045542f060&lang=ru_RU'} /> */}
-
             <Header sel="/catalog" text="Мастера рядом " />
             <div className={styles.message}>
-                <Message page="city" text='Masters.place позволяет познакомиться  с 
+                <Message page="masternear" text='Masters.place позволяет познакомиться  с 
                     мастерами вашего города. Для этого нужно выбрать 
                     ваш город, что бы увидеть список мастеров.
                 ' />
@@ -342,7 +355,7 @@ export default function MasterNear() {
             <div className={styles.main__filter}>
                 {veiw_select ? null : <>
                     <span>Мастера в радиусе {radius} км</span>
-                    <span onClick={() => setViewFilter(true)}>радиус поиска</span>                    
+                    <span onClick={() => setViewFilter(true)}>радиус поиска</span>
                 </>}
                 {viewFilter ? <div className={styles.all__filter}>
                     <h6 onClick={() => setViewFilter(false)} />
@@ -371,6 +384,7 @@ export default function MasterNear() {
                         master={master}
                         my_zoom={zoom}
                         masters={masters}
+                        setzoom={setZoom}
                     />
                 </YMaps>
                 {/* <Image alt="close" className={styles.close} src={arrow_down} width={25} height={25}
