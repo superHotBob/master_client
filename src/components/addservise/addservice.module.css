@@ -25,14 +25,16 @@
     height: 46px;
     padding: 11px 0;
     align-items: center;
-    font-weight: 400;
+    font-weight: 500;
     font-size: 16px;
+    margin-bottom: 16px;
+    transform: translateX(-4px);
 }
 
 
 .header span {
     color: #282828;
-    font-weight: 600;
+   
 }
 
 .header span:first-of-type,
@@ -41,18 +43,14 @@
     cursor: pointer;
 }
 
-.header span:first-of-type {
-    font-weight: 400;
-}
+
 
 .button {
     display: block;
     width: 100%;
-    margin: 0 auto;
-    text-align: left;
+    margin: 0 auto;   
     padding: 10px;
-    height: auto;
-    text-align: center;
+    height: auto;   
     background: #ECEEFD;
     border-radius: 4px;
     font-weight: 500;

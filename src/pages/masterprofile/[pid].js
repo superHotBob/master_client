@@ -63,14 +63,7 @@ export default function Client() {
     const viewService = () => {
         setView(false)
         window.scrollTo(0, 0)
-
     }
-    
-
-    
-
-
-
     return (
         <>
             <Head><title>{pid}</title></Head>

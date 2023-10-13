@@ -157,7 +157,7 @@ const MapComponent = ({ setRadius, my_zoom , setzoom}) => {
         }
         SetFilterCluster()
     }
-    function Bob(b) { }
+    function Bob() { }
 
     const placeMark = (a, b) => {
         const Layout = a.createClass(zoom > 12 ? `<img style=" border-radius: 50%; border: 3px solid #3D4EEA" height="44px" width="44px" src=${process.env.url_image + b + '.jpg'} />` :
@@ -166,7 +166,6 @@ const MapComponent = ({ setRadius, my_zoom , setzoom}) => {
             {
                 build: function () {
                     Layout.superclass.build.call(this);
-
                     const bigShape = {
                         type: 'Circle',
                         coordinates: [20, 20],
@@ -204,7 +203,7 @@ const MapComponent = ({ setRadius, my_zoom , setzoom}) => {
                 }}
                 onLoad={OnLoadMap}
                 onWheel={getRadius}
-                onTouchEnd={getRadius}
+                onTouchMove={SetFilterCluster}
                 // onMouseUp={SetFilterCluster}
             >
                 <Clusterer

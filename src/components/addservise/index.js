@@ -129,7 +129,10 @@ export default function AddService({ view, setView, color }) {
         <div className={view ? styles.mainservice : styles.mainnew}>
             {profile ?
                 <header className={styles.header}>
-                    <Menu_icon type="arrow_button" color={color[1]} setView={setView} />
+                    <div onClick={()=>setView(true)}>
+                        <Menu_icon type="arrow_button_close" color={color[1]} />
+                    </div>
+                    
                     <h4 onClick={() => setView(true)}>Добавить услугу</h4>
                     <span onClick={SaveServices} style={{ color: color[1] }}>Сохранить</span>
                 </header> : null}

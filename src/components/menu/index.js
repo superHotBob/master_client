@@ -29,7 +29,9 @@ export default function Menu({ count, profile }) {
     function ExitFromAccount() {
         dispatch(setprofile({}))
         localStorage.clear()       
-        document.cookie = 'key=; Max-Age=0'       
+        document.cookie = 'key=; expires=Thu, 01 Jan 1970 00:00:00 GMT'
+        document.cookie = 'nikname=; expires=Thu, 01 Jan 1970 00:00:00 GMT'   
+
         router.push('/')
     }
     return (

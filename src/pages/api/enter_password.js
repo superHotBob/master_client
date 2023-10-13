@@ -72,8 +72,9 @@ export default async function handler(req, res) {
 
 
       await client.end();
-
-      res.setHeader('Set-Cookie', `key=${key[0].key}; Path=/;`)
+      res.setHeader('Set-Cookie', [`key=${key[0].key}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`,
+       `nikname=${result[0].nikname}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`])
+     
 
 
       res.status(200).json(result[0])
@@ -92,7 +93,9 @@ export default async function handler(req, res) {
       await client.end();
 
 
-      res.setHeader('Set-Cookie', `key=${result[0].key}; Path=/;`)
+      res.setHeader('Set-Cookie', `nikname=${result[0].nikname}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`)
+      res.setHeader('Set-Cookie', `key=${key[0].key}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`)
+
 
       res.status(200).json(result[0])
     } else {
