@@ -10,7 +10,7 @@ import useSWR from 'swr'
 
 export default function Reviews({ nikname, nav }) {
 
-    const { data: reviews, isLoading } = useSWR(nav === 3 ?`/api/get_orders_master_review?nikname=${nikname}`:null)
+    const { data: reviews, isLoading } = useSWR(`/api/get_orders_master_review?nikname=${nikname}`)
     const [view, setView] = useState(null)
 
     if (isLoading) {

@@ -10,6 +10,7 @@
   font-size:  14px;
   line-height: 17px; 
   vertical-align: middle;
+  text-align: center;
 }
 .main__filter span:first-of-type::first-letter {
   text-transform: uppercase;

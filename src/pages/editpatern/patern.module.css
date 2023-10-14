@@ -28,22 +28,19 @@
     align-items: center;
     font-weight: 400;
     font-size: 16px;
+    margin-bottom: 16px;
 }
 
 .header span {
     color: #3D4EEA;
-    cursor: pointer;
-    width: 33%;
+    cursor: pointer;    
     text-align: right;
     font-weight: 500;
 }
-.header span:first-of-type {
-    text-align: left;
-   
-}
+
 .header h4 {
     text-align: center; 
-    width: 33%;
+   
 }
 
 

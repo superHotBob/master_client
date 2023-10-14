@@ -111,8 +111,7 @@ export default function Client() {
                         {newSertificat ? <AddSertificat setView={setView} color={tema} nikname={profile.nikname} view={AddNewSertificat} /> : null}
 
 
-                    </> :
-                    nav_view === 'Отзывы' ? <Reviews color={tema} nikname={profile.nikname} /> : null}
+                    </> : <Reviews color={tema} nikname={profile.nikname} /> }
                 </section>
                 
             </> : null}

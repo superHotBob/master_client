@@ -13,13 +13,13 @@ export default function EditPatern() {
     const [viewForm, setViewForm] = useState(false)
     const [message, setMessage] = useState('')
     const [del, setDel] = useState(false)
-     
-  
+
+
 
     useEffect(() => {
         fetch(`/api/get_patern?nikname=${JSON.parse(localStorage.getItem('profile')).nikname}`)
-        .then(res=>res.json())
-        .then(res=>setPatern(res))      
+            .then(res => res.json())
+            .then(res => setPatern(res))
     }, [])
 
     function DeletePatern(a) {
@@ -52,11 +52,11 @@ export default function EditPatern() {
             },
             method: 'POST',
         })
-        .then(res=>res.text())
-        .then((res) => {
-            setMessage(res)           
-            setTimeout(() => setMessage(''), 3000)
-        })
+            .then(res => res.text())
+            .then((res) => {
+                setMessage(res)
+                setTimeout(() => setMessage(''), 3000)
+            })
 
     }
     const handleKeyDown = (e, b) => {
@@ -84,24 +84,23 @@ export default function EditPatern() {
 
     }
     return (
-        <main className={ styles.mainnew}>
+        <main className={styles.mainnew}>
             <header className={styles.header} >
-                <span>
-                <Menu_icon type="arrow_button" color="#000"  />
-                </span>
-                
+
+                <Menu_icon type="arrow_button" color="#000" />
+
                 <h4>Шаблон времени</h4>
                 <span onClick={SavePatern}>Сохранить</span>
             </header>
             <Message text={`Вы можете создавать и удалять до двенадцати
                  временых окон для записи.
                 `}
-            />           
+            />
             <section className={styles.paterns}>
                 {patern?.sort().map((i, index) =>
                     <div key={i}>
                         {i}
-                        {index ? <Image src={trash_blk} width={29} height={29} alt="trash" onClick={() => setDel(i)} />:null}
+                        {index ? <Image src={trash_blk} width={29} height={29} alt="trash" onClick={() => setDel(i)} /> : null}
                         {del === i ? <span className={styles.delete} onClick={() => DeletePatern(i)}>Удалить</span> : null}
                     </div>)}
                 {patern?.length < 12 ? <div className={styles.add}>
@@ -155,7 +154,7 @@ export default function EditPatern() {
                 : null}
 
 
-                {message ? <Messages text={message} close={setMessage}/> : null}
+            {message ? <Messages text={message} close={setMessage} /> : null}
         </main>
     )
 }

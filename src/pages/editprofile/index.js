@@ -191,7 +191,7 @@ export default function EditProfile() {
                 </h6>
                 <div className={styles.nikname}>
                     <span>masters.place/</span>
-                    <input disabled type="text" value={nikname} onChange={e => setNikname(e.target.value)} />                    
+                    <b>{nikname}</b>                    
                 </div>
                 <label>
                     Имя и фамилия
