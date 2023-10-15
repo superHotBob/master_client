@@ -30,7 +30,7 @@ const MapComponent = ({ setRadius, my_zoom , setzoom}) => {
     const [master, selectMaster] = useState()
     const [view, setView] = useState(0)
     const [filter_masters, setFilterMasters] = useState([])
-    console.log(my_zoom)
+   
     const ymaps = useYMaps([
         "Map",
         "option.Manager",
@@ -67,7 +67,7 @@ const MapComponent = ({ setRadius, my_zoom , setzoom}) => {
         setZoom(10.8)
         setCenter(loc)
     }, [])
-    useEffect(() => setZoom(my_zoom), [my_zoom])
+    // useEffect(() => setZoom(my_zoom), [my_zoom])
 
 
 
@@ -81,29 +81,39 @@ const MapComponent = ({ setRadius, my_zoom , setzoom}) => {
             document.getElementsByClassName('ymaps-2-1-79-gototech')[0].style.display = 'none';
             document.getElementById('my_map').style.opacity = '1';
         }, 500)
+        console.log((my_zoom))
+    }
+
+    function filter_all_masters() {
+        let coord = Map.current.getBounds()
+        let new_masters = [...masters]
+        .filter(i => { return coord[1][1] - i.locations[1] > 0 })
+        .filter(i => { return coord[0][1] - i.locations[1] < 0 })
+        .filter(i => { return coord[1][0] - i.locations[0] > 0 })
+        .filter(i => { return coord[0][0] - i.locations[0] < 0 })
+        setFilterMasters(new_masters)
+        selectMaster(new_masters)
+       
+        const center = Map.current.getCenter()
+        let radius = ymaps.coordSystem.geo.getDistance(center, coord[1])
+        setRadius(Math.ceil(radius.toFixed(0) / 1000))
     }
     function SetFilterCluster(a) { 
-        if(a) {           
+        setView(2)
+        if(a){                
             setTimeout(() => {
                 let coord = Map.current.getBounds()
                 const center = Map.current.getCenter()
                 let radius = ymaps.coordSystem.geo.getDistance(center, coord[1])
-                setRadius(Math.ceil(radius.toFixed(0) / 1000))
-            }, 1000)           
-        }      
-        setTimeout(() => {
-            let coord = Map.current.getBounds()
-            let new_masters = [...masters]
-                .filter(i => { return coord[1][1] - i.locations[1] > 0 })
-                .filter(i => { return coord[0][1] - i.locations[1] < 0 })
-                .filter(i => { return coord[1][0] - i.locations[0] > 0 })
-                .filter(i => { return coord[0][0] - i.locations[0] < 0 })
-            setFilterMasters(new_masters)
-            selectMaster(new_masters)
-            const center = Map.current.getCenter()
-            let radius = ymaps.coordSystem.geo.getDistance(center, coord[1])
-            setRadius(Math.ceil(radius.toFixed(0) / 1000))
-        }, 500)
+                setRadius(Math.ceil(radius.toFixed(0) / 1000))       
+                 
+            }, 1000) 
+            filter_all_masters()
+            setzoom(17)            
+        } else {
+            setTimeout(() => filter_all_masters(), 500)  
+                 
+        }    
     }
 
     function closeView() {
@@ -146,7 +156,7 @@ const MapComponent = ({ setRadius, my_zoom , setzoom}) => {
         // if (view != 0) {
         //     SetFilterCluster()
         // }
-        // setZoom(Map.current.getZoom())
+        setzoom(Map.current.getZoom())
         if (Map.current) {
             const bounds = Map.current.getBounds()
             const center = Map.current.getCenter()
@@ -157,10 +167,11 @@ const MapComponent = ({ setRadius, my_zoom , setzoom}) => {
         }
         SetFilterCluster()
     }
-    function Bob() { }
+    function Bob() { setzoom(17) }
 
     const placeMark = (a, b) => {
-        const Layout = a.createClass(zoom > 12 ? `<img style=" border-radius: 50%; border: 3px solid #3D4EEA" height="44px" width="44px" src=${process.env.url_image + b + '.jpg'} />` :
+        const Layout = a.createClass(my_zoom > 12 ? 
+            `<img style=" border-radius: 50%; border: 3px solid #3D4EEA" height="44px" width="44px" src=${process.env.url_image + b + '.jpg'} />` :
             '<img src="/master.svg" height="40px" width="40px"/>',
 
             {
@@ -191,7 +202,7 @@ const MapComponent = ({ setRadius, my_zoom , setzoom}) => {
                     'templateLayoutFactory']}
                 state={{                    
                     center: center,
-                    zoom: my_zoom,
+                    zoom: zoom,
                     behaviors: ["default", "scrollZoom", "multiTouch", "drag"]
                 }}
                 width="100%"
@@ -214,17 +225,18 @@ const MapComponent = ({ setRadius, my_zoom , setzoom}) => {
                         isPropagationStopped: true,
                         hasHint: false,
                         zoomMargin: [40],                        
-                        gridSize: 128,
+                        gridSize: 64,
                         clusterIcons: [{
                             href: '/master.svg',
                             size: [40, 40],
                             offset: [-20, -20],
                         }]
                     }}
-                    onClick={() => {
-                        SetFilterCluster()
-                        setzoom(12.5)
-                        setView(2)
+                    onClick={(event) => {
+                        SetFilterCluster() 
+                        event.stopPropagation()                      
+                        setZoom(15)
+                        console.log('cluster', 16)
                         setMapHeight(window.innerWidth > 500 ? '400px' : '350px')
                     }}
 
@@ -261,12 +273,13 @@ const MapComponent = ({ setRadius, my_zoom , setzoom}) => {
                                 //     e.stopPropagation()
                                 //     ViewMaster(i.nikname)
                                 // }}
-                                onClick={() => {
+                                onClick={(event) => {
                                     SetFilterCluster(i.locations)
                                     setCenter(i.locations)
-                                    setzoom(17)
-                                    // setZoom(12.5)
-                                    // setView(2)
+                                    setZoom(17)
+                                    event.stopPropagation()    
+                                   
+                                   
                                     setMapHeight(window.innerWidth > 500 ? '400px' : '350px')
                                 }}
             
@@ -274,9 +287,12 @@ const MapComponent = ({ setRadius, my_zoom , setzoom}) => {
                     </> : null}
                 </Clusterer>
             </Map>
-            {view === 2 ?
+            {view === 2 ? 
                 <section className={styles.section}>
-                    <Image alt="close" className={styles.close} src={arrow_down} width={25} height={25}
+                    <Image alt="close" 
+                        className={styles.close} 
+                        src={arrow_down} 
+                        width={25} height={25}
                         onClick={closeView}
                     />
                     {filter_masters?.map(i =>
@@ -293,7 +309,9 @@ const MapComponent = ({ setRadius, my_zoom , setzoom}) => {
                             <Image src={process.env.url_image + i.nikname + '.jpg'} width={60} height={60} alt="main_image" />
                         </Link>)}
                 </section>
-                : view == 1 ?
+                : null
+            }
+                {/* : view == 1 ?
                     <section className={styles.section}>
                         <Image alt="close" className={styles.close} src={arrow_down} width={25} height={25}
                             onClick={closeView}
@@ -312,7 +330,7 @@ const MapComponent = ({ setRadius, my_zoom , setzoom}) => {
                                 <Image src={process.env.url_image + i.nikname + '.jpg'} width={60} height={60} alt="main_image" />
                             </Link>)}
                     </section>
-                    : null}
+                    : null} */}
         </>
     );
 };

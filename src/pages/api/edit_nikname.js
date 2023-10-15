@@ -79,11 +79,21 @@ export default async function handler(req, res) {
         where "master_nikname" =  $2             
     `, [req.query.newnikname, req.query.oldnikname]);
 
+    const { rows: key } = await client.query(`
+        select key          
+        from "clients"
+        where "nikname" = $1
+    `, [req.query.newnikname]);
+    
+
     fetch(`http://admin.masters.place/rename_master_icon?oldname=${req.query.oldnikname}&newname=${req.query.newnikname}`)
-    .then(res => res.text())       
-    .then(res => console.log(res))
+        .then(res => res.text())
+        .then(res => console.log(res))
 
     await client.end();
+
+    res.setHeader('Set-Cookie', [`key=${key[0].key}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`,
+    `nikname=${req.query.newnikname}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`])
 
     res.status(200).send('Nikname изменён')
 

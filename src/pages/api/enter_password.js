@@ -30,7 +30,7 @@ export default async function handler(req, res) {
       `INSERT INTO "clients" ("phone","nikname", "id", "client_password","name", "text","key")  
       VALUES ($1,$2,$3,$4,$5,$6,$7)
       returning *
-      `, [+req.body.tel, nikname, nikname, req.body.password, nikname, 'Добрый день',key]
+      `, [+req.body.tel, nikname, nikname, req.body.password, nikname, 'Добрый день', key]
     );
 
 
@@ -68,13 +68,13 @@ export default async function handler(req, res) {
         from "clients"
         where "phone" = $1
       `, [+req.body.tel]);
-    
+
 
 
       await client.end();
       res.setHeader('Set-Cookie', [`key=${key[0].key}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`,
-       `nikname=${result[0].nikname}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`])
-     
+      `nikname=${result[0].nikname}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`])
+
 
 
       res.status(200).json(result[0])
@@ -90,11 +90,18 @@ export default async function handler(req, res) {
           from "clients"
           where phone = $1
         `, [+req.body.tel]);
+
+
+      const { rows: key } = await client.query(`
+        select key          
+        from "clients"
+        where "phone" = $1
+      `, [+req.body.tel]);
       await client.end();
 
 
       res.setHeader('Set-Cookie', [`key=${key[0].key}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`,
-       `nikname=${result[0].nikname}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`])
+      `nikname=${result[0].nikname}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`])
 
 
       res.status(200).json(result[0])

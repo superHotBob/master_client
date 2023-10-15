@@ -30,13 +30,12 @@ export default function Master() {
     const [message, setmessage] = useState(false)
     const [nav_view, setNavView] = useState(10)
     const [color, setColor] = useState(my_tema[0].color)
-
+   
     const dispatch = useDispatch()
     const my_profile = useSelector(state => state.counter.profile)
     const service = useSelector(state => state.counter.service)
-   
+
     useEffect(() => {
-       
         setNavView(0)
         return () => dispatch(settema(my_tema[0].color))
     }, [])
@@ -44,14 +43,14 @@ export default function Master() {
         {
             onSuccess: (profile) => profile.status ?
                 (
-                    
+
                     dispatch(setmaster({ ...profile, nikname: slug })),
                     dispatch(settema(my_tema[+profile.tema].color)),
                     setColor(my_tema[+profile.tema].color)
                 )
                 : router.push('/404')
         })
-  
+
     function LinkTo(a) {
         if (my_profile.status === 'client') {
             router.push(a)
@@ -63,54 +62,57 @@ export default function Master() {
 
     return (
         <>
-           
-            {profile ? 
-            <>
-                <Header text={slug} sel={'/masternear/' + service} col={color} /> 
-                <MasterHeader profile={profile} slug={slug} /> 
-            </> : null}
+
+            {profile ?
+                <>
+                    <Header text={slug} sel={'/masternear/' + service} col={color} />
+                    <MasterHeader profile={profile} slug={slug} />
+                </> : null}
             {profile &&
                 <section className={styles.section_main}>
-                {message ? <div className={styles.dialog}>
-                    <div >
-                        <span onClick={() => setmessage(false)}>закрыть</span>
-                        <h4>
-                            Эта функция доступна только<br />
-                            зарегистрированным пользователям. Для<br />
-                            продолжения войдите или зарегистрируйте<br />
-                            аккаунт.
-                        </h4>
-                        <Link href="/enter">Войти</Link>
-                    </div>
-                </div> : null}
-                <div className={styles.buttons}>
-                    <div onClick={() => LinkTo(`/chat/messages/${slug}?name=${profile.name}`)} style={{ backgroundColor: color[1] }} >
-                        <span title="Отправить сообщение мастеру">
+                    {message ? <div className={styles.dialog}>
+                        <div >
+                            <span onClick={() => setmessage(false)}>закрыть</span>
+                            <h4>
+                                Эта функция доступна только<br />
+                                зарегистрированным пользователям. Для<br />
+                                продолжения войдите или зарегистрируйте<br />
+                                аккаунт.
+                            </h4>
+                            <Link href="/enter">Войти</Link>
+                        </div>
+                    </div> : null}
+                    <div className={styles.buttons}>
+                        <div onClick={() => LinkTo(`/chat/messages/${slug}?name=${profile.name}`)}
+                            style={{ backgroundColor: color[1] }}
+                        >
+
                             Сообщения
                             <Menu_icon type="chat" color={color[2]} />
-                        </span>
-                    </div>
-                    <div onClick={() => LinkTo(`/recordingtomaster?nikname=${slug}&name=${profile.name}`)}
-                        style={{ backgroundColor: color[1] }}
-                    >
-                        <span title='Запись к мастеру'>
+
+                        </div>
+                        <div onClick={() => LinkTo(`/recordingtomaster?nikname=${slug}&name=${profile.name}`)}
+                            style={{ backgroundColor: color[1] }}
+                        >
+
                             Запись к мастеру
                             <Menu_icon type="edit" color={color[2]} />
-                        </span>
+
+                        </div>
                     </div>
-                </div>
-                <nav className={styles.navigation}>
-                    {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
-                        .map((i, index) => <span key={i} onClick={() => setNavView(index)} style={+nav_view === index ? { ...active, backgroundColor: color[1] } : null}>{i}</span>)}
-                </nav>
-                {nav_view === 3 ? <Reviews nikname={slug} nav={nav_view} /> :
-                    nav_view === 1 ? <Services currency={profile.currency} name={slug} color={color} nav={nav_view} /> :
+                    <nav className={styles.navigation}>
+                        {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
+                            .map((i, index) => <span key={i} onClick={() => setNavView(index)} style={+nav_view === index ? { ...active, backgroundColor: color[1] } : null}>{i}</span>)}
+                    </nav>
+                    {nav_view === 3 ? <Reviews nikname={slug} nav={nav_view} /> :
+                        nav_view === 1 ? <Services currency={profile.currency} name={slug} color={color} nav={nav_view} /> :
                         nav_view === 0 ? <Lenta nikname={slug} color={color} name={profile.name} /> :
-                            <Sertificats nav={nav_view} nikname={slug} />}
-                <Information/> 
-            </section>
-          
-            }           
+                        <Sertificats nav={nav_view} nikname={slug} />
+                    }
+                    <Information />
+                </section>
+
+            }
         </>
     )
 }
