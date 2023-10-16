@@ -15,7 +15,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 16px;
+  margin: 16px 16px 24px;
   height: 27px;
 }
 
@@ -53,6 +53,7 @@
 .month {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 16px;
 }
 .month span {
   display: inline-block;
@@ -83,7 +84,7 @@
 }
 
 .week span {
-  padding: 15px 0;
+  padding: 0 0 16px;
   display: inline-block;
   width: 4.5vw;
   font-weight: 500;

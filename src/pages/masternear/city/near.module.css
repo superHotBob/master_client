@@ -1,6 +1,5 @@
 .main_city {
-  min-height: 100vh;
-  padding-bottom: 10px;
+  min-height: 100vh;  
 }
 .message {
   width: calc(100% - 32px);
@@ -270,10 +269,13 @@
   width: 65%;
 }
 
-.close {
+.close, .open {
   margin: 5px auto;
   display: block;
   cursor: pointer;
+}
+.open {
+  transform: rotate(180deg);
 }
 
 .range {
