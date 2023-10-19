@@ -58,9 +58,12 @@ export default async function handler(req, res) {
     if (result[0].client_password === req.body.password) {
       const { rows: result } = await client.query(`
           select 
-            name,status,city,stars,locations,nikname,text,address,address_full,currency,services,tema
+          masters.address,masters.city,masters.currency,masters.locations,masters.name,masters.nikname,
+          masters.services,masters.stars,masters.status,masters.tema,masters.text,
+          clients.confid
           from "masters"
-          where phone = $1
+          left join "clients" on masters.phone = clients.phone
+          where masters.phone = $1
         `, [+req.body.tel]);
 
       const { rows: key } = await client.query(`
@@ -86,7 +89,7 @@ export default async function handler(req, res) {
     if (result[0].client_password === req.body.password) {
       const { rows: result } = await client.query(`
           select 
-            status,nikname,name,text,id,saved_image,key
+            status,nikname,name,text,id,saved_image,key,confid
           from "clients"
           where phone = $1
         `, [+req.body.tel]);

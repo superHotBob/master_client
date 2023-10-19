@@ -1,6 +1,5 @@
 import Header from "@/components/header"
 import { useRef, useState } from "react"
-import Link from "next/link"
 import styles from './messages.module.css'
 import { useSelector } from "react-redux"
 import { useRouter } from "next/router"
@@ -20,8 +19,7 @@ const options = {
 export default function Messages() {
     const ref = useRef()
     const router = useRouter()
-    const { pid } = router.query
-    const [link, setlink] = useState(null)
+    const { pid } = router.query    
     const color = useSelector(state => state.counter.profile['color'])    
 
     const profile = useSelector(state => state.counter.profile)
@@ -123,8 +121,7 @@ export default function Messages() {
                 {dialog?.sort((a, b) => a.ms_date - b.ms_date).map(i =>
                     <div key={i.ms_date} className={styles.message}>
                         {i.sendler === profile.name ?
-                            <div className={styles.wrap_client}>
-                              
+                            <div className={styles.wrap_client}>                              
                                 <OrderMessage id={i.ms_text} color="#fff" />
                                 {FindLink(i.ms_text)}
                                 <p>{My_Date(+i.ms_date)}
@@ -144,8 +141,7 @@ export default function Messages() {
                                 />
                                 <div className={styles.master}>                                  
                                    <OrderMessage id={i.ms_text} color="#000" profile={profile} />
-                                   {FindLink(i.ms_text)}                    
-                                  
+                                   {FindLink(i.ms_text)}      
                                     
                                     <span>{My_Date(+i.ms_date)}</span>
                                 </div>
@@ -153,14 +149,11 @@ export default function Messages() {
                         }
                     </div>
                 )}
-
             </section>
-
             <div className={styles.input}>
                 <input type="text" placeholder="Ваше сообщение" ref={ref} />
                 <button onClick={SendMessage} title="отправить сообщение" />
             </div>
-
         </main>
     )
 }

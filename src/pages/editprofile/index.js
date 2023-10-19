@@ -67,7 +67,7 @@ export default function EditProfile() {
     }    
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem('profile'))
-        console.log(my_tema[+pro.tema])
+        console.log(pro.confid)
         if (!pro) {
             return () => router.push('/enter')
         }else {
@@ -135,7 +135,16 @@ export default function EditProfile() {
     function SetAddressFull(e) {
         setAddress_full({ ...address_full, ...{ 'тип': e.target.value } })
     }
-
+    function PoliticReplace(a) {
+        fetch(`/api/update_confid?confid=${a}&nikname=${profile.nikname}`)
+        .then(res=>res.json())
+        .then(res=> {
+            let pro = JSON.parse(localStorage.getItem('profile'))
+            pro['confid'] = a 
+            localStorage.setItem("profile", JSON.stringify(pro))
+            dispatch(setprofile(pro))
+        })
+    }
     const uploadToServer = () => {        
         let formData = new FormData()
         formData.append('file', file_for_upload, `${profile.nikname}.jpg`)        
@@ -216,6 +225,11 @@ export default function EditProfile() {
                 <div className={styles.tema} style={{ background: color[0] }}>                    
                     <button onClick={() => viewTemaBlock(true)}>Изменить</button>
                 </div>
+                { profile.confid ? 
+                    <div className={styles.confid_politic_false} onClick={()=>PoliticReplace(false)}/>
+                    :    
+                    <div className={styles.confid_politic_true} onClick={()=>PoliticReplace(true)}/>
+                }        
                 <div className={styles.connect_master} />               
             </section>
             {master_address ? 

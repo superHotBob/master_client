@@ -235,7 +235,9 @@ div.nikname,
 }
 
 div.connect_master,
-div.connect_master_connect,
+div.create_master,
+div.confid_politic_true,
+div.confid_politic_false,
 div.currency,
 div.tema {
   background: #8B95F2;
@@ -251,6 +253,11 @@ div.tema {
   border: none;
 }
 
+div.confid_politic_false, 
+div.confid_politic_true {
+  background-color: #ccc;
+}
+
 div.currency {
   background: #D0D0D0;
 }
@@ -262,7 +269,7 @@ div.tema {
 .currency button,
 .tema button {
   height: 34px;
-  width: 112px;
+  min-width: 124px;
   border-radius: 6px;
   padding: 6px;
   background: rgba(255, 255, 255, 0.2);
@@ -271,7 +278,9 @@ div.tema {
 }
 
 .connect_master::after,
-.connect_master_connect::after {
+.confid_politic_true::after,
+.confid_politic_false::after,
+.create_master::after {
   content: 'Подключен';
   height: 22px;
   width: 112px;
@@ -281,21 +290,33 @@ div.tema {
   padding: 6px;
   background: rgba(255, 255, 255, 0.2);
   border: none;
+  cursor: pointer;
 }
-
+.confid_politic_true::after {
+  content: 'Разрешить';
+  background-color:  rgb(255, 99, 71, 0.9);
+}
+.confid_politic_false::after {
+  content: 'Запретить';
+  background-color:  rgb(255, 0, 0, 0.9);
+}
 .tema::before {
   content: 'Тема профиля';
 
 }
 
-.connect_master_connect::after {
+.create_master::after {
   content: 'Подключить';
   cursor: pointer;
 }
 
 .connect_master::before,
-.connect_master_connect::before {
+.create_master::before {
   content: 'Аккаунт мастера';
+
+}
+.confid_politic_true::before ,.confid_politic_false::before {
+  content: 'Показ номера телефона';
 
 }
 

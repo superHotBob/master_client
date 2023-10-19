@@ -49,7 +49,7 @@ export default function Header({ sel, text, mes, col = my_tema[0].color, select,
       return;
     }
     fetch(`/api/get_phone?name=${name}`)
-    .then(res=>res.json()
+    .then(res=>res.text()
     .then(res=>setphone(res)))
   }
 

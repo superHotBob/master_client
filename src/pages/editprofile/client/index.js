@@ -22,7 +22,8 @@ export default function EditProfile() {
     useEffect(() => {
         const prof = JSON.parse(localStorage.getItem('profile'))        
         setmy_profile(prof)           
-        setSelectedFile(process.env.url_image + prof.nikname + '.jpg')       
+        setSelectedFile(process.env.url_image + prof.nikname + '.jpg')
+            
     }, [])   
     function Return() {
         const prof = JSON.parse(localStorage.getItem('profile'))
@@ -71,7 +72,6 @@ export default function EditProfile() {
         .then(res => {            
             localStorage.setItem('profile', JSON.stringify(res[0]))
             router.push('/editprofile')
-
         })
         .catch(err => setMessage("Ошибка создания профиля мастера"))
     }
@@ -85,9 +85,15 @@ export default function EditProfile() {
         setSelectedFile(url)
         set_file_for_upload(e.target.files[0])
     }
-
-    const UploadToServer = () => {   
-       
+    function PoliticReplace(a) {
+        fetch(`/api/update_confid?confid=${a}&nikname=${my_profile.nikname}`)
+        .then(res=>res.json())
+        .then(res=> {
+            localStorage.setItem("profile", JSON.stringify(res))
+            dispatch(setprofile(res))
+        })
+    }
+    const UploadToServer = () => {        
         let formData = new FormData()
         formData.append('file', file_for_upload, `${my_profile.nikname}.jpg`)        
         fetch('/api/replace_icon', {
@@ -149,11 +155,16 @@ export default function EditProfile() {
                     rows={3} 
                     onChange={e => setmy_profile(my_profile=>({...my_profile,...{'text': e.target.value}}))} />
                 </label>
-                <div className={styles.connect_master_connect} onClick={CreateNewMaster}/>            
+                <div className={styles.create_master} onClick={CreateNewMaster}/>
+                { profile.confid ? 
+                    <div className={styles.confid_politic_false} onClick={()=>PoliticReplace(false)}/>
+                    :    
+                    <div className={styles.confid_politic_true} onClick={()=>PoliticReplace(true)}/>
+                }        
                    
                 
             </section>
-            {/* <Navi /> */}
+           
         </>
     )
 }

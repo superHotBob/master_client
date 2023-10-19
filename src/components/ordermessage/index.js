@@ -18,7 +18,7 @@ export default function OrderMessage({ id, color }) {
             <h5>Дата встречи:</h5>
             <p>{Convert_Date(order?.date_order)}</p>
             <h5>Адрес встречи:</h5>
-            <p>Ул. {order.улица} , дом: {order.дом} , кв: {order.квартира} </p>
+            <p>Ул. {order.улица} , дом {order.дом} , кв. {order.квартира} </p>
             <p>Сумма: {order.price} BYN</p>
             <Link className={styles.link} style={{ color: color }} href={'/order/' + id}>Подробнее</Link>
         </div>
