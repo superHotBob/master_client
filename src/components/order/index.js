@@ -10,7 +10,7 @@ export default function Order({order, profile = 0}) {
     const router = useRouter()
     const dispatch = useDispatch()
 
-    console.log(profile)
+   
 
     function ViewOrder(a) {        
         dispatch(setorder(order))

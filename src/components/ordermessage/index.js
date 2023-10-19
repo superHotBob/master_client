@@ -21,7 +21,14 @@ export default function OrderMessage({ id, color }) {
             <Link className={styles.link} style={{ color: color }} href={'/order/' + id}>Подробнее</Link>
         </div>
     } else {
-        return id
+        let match = id.match(/\bhttps?\:\/\/(\S+)\b/);
+        if(match) {
+            let new_str = id.replace(match[0] + '.', '')               
+            return new_str
+        } else {
+            return id
+        }        
+       
     }
 
 }

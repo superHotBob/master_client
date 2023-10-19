@@ -144,12 +144,12 @@ export default function Records() {
                             href={`/recordingtomaster?name=${profile.name}&nikname=${profile.nikname}`}
                             style={{ backgroundColor: my_tema[+profile.tema].color[1] }}
                         >Добавить запись +</Link>
-                        {orders?.map(i => <Order order={i}  profile={profile.tema} />)}
+                        {orders?.map(i => <Order order={i} key={i.id}  profile={profile.tema} />)}
                     </section>
                     :
                     <section className={styles.section}>
                         {all_orders.sort((a, b) => a.id - b.id < 0 ? 1 : -1)
-                        .map(i =><Order order={i}  profile={profile.tema} />                       
+                        .map(i =><Order order={i} key={i.id}  profile={profile.tema} />                       
                         )}
                     </section>
                 }

@@ -115,51 +115,7 @@ export default function Messages() {
         }
         return d.toLocaleDateString('ru-RU', options)
     }
-    async function ReadText(a, b) {
-
-        console.log(typeof +a)
-        if(typeof +a === 'number') {
-       
-           
-
-            return <div style={{ color: b }} className={styles.order}>
-           
-               ${a}
-                 {b === '#fff' ?
-                        <Link style={{marginLeft: '10px', display: 'inline-block', color: '#fff' }} href={'/order/' + a}>Подробнее</Link>
-                        :
-                        <Link style={{display: 'inline-block', color: '#3D4EEA' }} href={'/clientprofile/' + profile.nikname + '/orders'}>Подробнее</Link>
-                    }
-            
-            </div>
-        }
-        if (a.includes(';')) {
-            let ss = a.replaceAll(':',': ').split(';')
-            
-            return <div style={{ color: b }} className={styles.order}>
-                <h5 className={styles.order_create}>Создан заказ </h5>                  
-                <p className={styles.details}>Детали заказа</p>
-                <p>{ss[2].replaceAll(',',``)} BYN</p>
-                
-                <p>{ss[4]}</p>
-                <p>{ss[5]}</p>
-                <p>{ss[6]} BYN</p>
-                {b === '#fff' ?
-                        <Link style={{marginLeft: '10px', display: 'inline-block', color: '#fff' }} href={'/order/' + ss[1].trim()}>Подробнее</Link>
-                        :
-                        <Link style={{display: 'inline-block', color: '#3D4EEA' }} href={'/clientprofile/' + profile.nikname + '/orders'}>Подробнее</Link>
-                    }
-            </div>
-        } else {
-            let match = a.match(/\bhttps?\:\/\/(\S+)\b/);
-            if(match) {
-                let new_str = a.replace(match[0] + '.', '')               
-                return new_str
-            } else {
-                return a
-            }        
-        }
-    }
+    
     return (
         <main className={styles.main}>
             <Header sel='/chat' text={router.query.name} name={pid} mes="1" color={color} />            
@@ -168,7 +124,7 @@ export default function Messages() {
                     <div key={i.ms_date} className={styles.message}>
                         {i.sendler === profile.name ?
                             <div className={styles.wrap_client}>
-                                {/* {ReadText(i.ms_text, '#fff')} */}
+                              
                                 <OrderMessage id={i.ms_text} color="#fff" />
                                 {FindLink(i.ms_text)}
                                 <p>{My_Date(+i.ms_date)}
@@ -186,8 +142,7 @@ export default function Messages() {
                                     height={50} width={50}
                                     alt="sendler"
                                 />
-                                <div className={styles.master}>
-                                   {/* {ReadText(i.ms_text, '#000')} */}
+                                <div className={styles.master}>                                  
                                    <OrderMessage id={i.ms_text} color="#000" profile={profile} />
                                    {FindLink(i.ms_text)}                    
                                   
