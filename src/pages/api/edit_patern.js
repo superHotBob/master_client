@@ -14,7 +14,7 @@ export default async function handler(req, res) {
     `,[req.body.patern,req.body.nikname]);
   
      
-  console.log(result)
+ 
   await client.end()
   if (result.length > 0) {
     res.status(200).send('Шаблон сохранён')

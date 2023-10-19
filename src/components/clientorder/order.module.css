@@ -44,10 +44,17 @@
     font-size: 16px;
     margin: 16px 0 0;
 }
-.data .review span {
-    display: block;
-    margin-top: 5px;
+.review p {
     text-transform: capitalize;
+    margin-top: 5px;
+    
+}
+.data .review span {
+    margin: 5px 0 9px 18px;
+    inline-size: 80%;
+    overflow-wrap: break-word;
+    font-size: 12px;
+    
 }
 
 .data button {

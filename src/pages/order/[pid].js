@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import useSWR from 'swr'
 import { Convert_Date, NewOrder } from '@/profile'
+import { Detail } from '@/components/clientorder'
 
 export default function Order() {
 
@@ -11,13 +12,14 @@ export default function Order() {
     const [result, setresult] = useState(false)
     const { pid } = router.query
 
-    const { data: order } = useSWR(`/api/get_order_master?id=${pid}`)
+    const { data: order } = useSWR(pid ? `/api/get_order_master?id=${pid}` : null)
+
+    
    
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem("profile"))
-        setColor(pro.color)
-       
-    }, [])
+        setColor(pro.color)       
+    }, [router,order])
    
     async function DeleteOrder() {
         const my_data = { id: order.id, nikname: order.master }
@@ -30,8 +32,8 @@ export default function Order() {
         })
         if (response.status === 200) {
             setresult('Ваш заказ отменён')
-            router.push('/masterrecords')
-            // EditSchedule()
+            router.back()
+           
         }
 
     }
@@ -73,21 +75,7 @@ export default function Order() {
 
             <section className={styles.data} style={{ color: color ? color[1] : null }}>
                 <h5>Клиент</h5>
-                <span style={{ fontWeight: 400 }}>
-                    {order?.client === order?.master ? 
-                        <b>Мой заказ</b> : <>
-                        <b style={{ fontWeight: 500, color: '#3D4EEA' }}>
-                            {order?.client}
-                        </b>{' '}({order?.client_name})</>
-                    }
-                </span>
-                <h5>Дата и время</h5>
-                <span>{Convert_Date(order?.date_order)}</span>
-                <h5>Услуги и стоимость</h5>
-                <span>{order?.new_order}</span>
-                <span>Стоимость {order?.price} BYN</span>
-                <h5>Дополнительное описание</h5>
-                <span>{order?.neworder.replace(/[0-9]/g, '  ').replace(/:/g, ' ')}</span>
+                <Detail order={order} />             
                 {NewOrder(order?.date_order) ?
                     <button onClick={DeleteOrder}>
                         <b>Отменить заказ</b>
@@ -97,9 +85,8 @@ export default function Order() {
                         Отзыв
                         <h3>{order?.review}</h3>
                     </div>
-                }
+                } 
             </section>
-
             {result ? <p>{result}</p> : null}
         </main>
     )

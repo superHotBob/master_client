@@ -3,7 +3,7 @@ import arrow_down from '../../../public/arrow_down.svg'
 import Link from 'next/link'
 import { useSelector } from 'react-redux'
 import React, { useState, useEffect } from 'react'
-import { Map, Placemark, Clusterer, useYMaps } from '@pbe/react-yandex-maps'
+import {YMap, Map, Placemark, Clusterer, useYMaps } from '@pbe/react-yandex-maps'
 import styles from '../../pages/masternear/city/near.module.css'
 import useSWR from 'swr'
 
@@ -15,7 +15,7 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
     const [center, setCenter] = useState()
     const [zoom, setZoom] = useState(15)
     const [mapHeight, setMapHeight] = useState()
-    // const [master, selectMaster] = useState()
+   
     const [viewMasters, setViewMasters] = useState(0)
     const [filter_masters, setFilterMasters] = useState([])
 
@@ -31,7 +31,7 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
     ])
 
     const { data: masters } = useSWR(`/api/all_masters_city?city=${my_city.toLowerCase()}&service=${service}`)
-
+    console.log('divHeight',divHeight)
 
     // useEffect(() => {
     //     setMapHeight(window.innerHeight - 300)
@@ -51,7 +51,7 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
 
     useEffect(() => {
         console.log(divHeight)
-        setMapHeight(divHeight-20)
+        setMapHeight(divHeight)
         // setFilterMasters([])
         setZoom(10.8)
         setCenter(loc)
@@ -70,14 +70,11 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
             document.getElementsByClassName('ymaps-2-1-79-gototech')[0].style.display = 'none';
             document.getElementById('my_map').style.opacity = '1';
         }, 500)
-        console.log((my_zoom))
+       
     }
 
     function filter_all_masters() {
-
         let coord = Map.current.getBounds()
-
-
         let new_masters = [...masters]
             .filter(i => { return coord[1][1] - i.locations[1] > 0 })
             .filter(i => { return coord[0][1] - i.locations[1] < 0 })
@@ -85,26 +82,23 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
             .filter(i => { return coord[0][0] - i.locations[0] < 0 })
         setFilterMasters(new_masters)
         // selectMaster(new_masters)
-        console.log(new_masters)
+       
         const center = Map.current.getCenter()
         let radius = ymaps.coordSystem.geo.getDistance(center, coord[1])
         setRadius(Math.ceil(radius.toFixed(0) / 1000))
     }
     function SetFilterCluster(a) {
-        // setView(2)
+      
         if (a) {
             setTimeout(() => {
                 let coord = Map.current.getBounds()
                 const center = Map.current.getCenter()
                 let radius = ymaps.coordSystem.geo.getDistance(center, coord[1])
                 setRadius(Math.ceil(radius.toFixed(0) / 1000))
-
-            }, 1000)
-            // filter_all_masters()
+            }, 1000)           
             setzoom(17)
         } else {
             setTimeout(() => filter_all_masters(), 500)
-
         }
     }
 
@@ -121,16 +115,10 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
         setMapHeight(window.innerWidth > 500 ? '300px' : '300px')
     }
 
-    function closeView() {
-        if(filter_masters.length>0) {        
+    function closeView() {        
         setViewMasters([])
         setFilterMasters([])
-        setMapHeight(divHeight)
-        } else {
-            SetFilterCluster()
-            setMapHeight(window.innerWidth > 500 ? 350 : 350)
-        }
-        // selectMaster(null)
+        setMapHeight(divHeight)       
     }
     // function ViewMaster(a) {
     //     setZoom(15)
@@ -147,7 +135,10 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
     // }
     const getRadius = async (a) => {
         // const geo = await ymaps.geoQuery(ymaps.geocode('Минск')).getLength()
-        // var myGeocoder = ymaps.geocode(" Минск Тикоцкого 9");
+        // var myGeocoder = ymaps.geocode('МИнск');
+        // // var geocoder = await ymaps.geocode(await ymaps.GeoPoint(37.588395, 55.762718), {results: 1});
+
+        // console.log(geo)
         // myGeocoder.then(
         //     function (res) {
         //         console.log('Координаты объекта :' + res.geoObjects.get(0).geometry.getCoordinates());
@@ -156,18 +147,17 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
         //         alert('Ошибка');
         //     }
         // );
-        // if (view != 0) {
-        //     SetFilterCluster()
-        // }
-        console.log(a)
+        // // if (view != 0) {
+        // //     SetFilterCluster()
+        // // }
+       
         setzoom(Map.current.getZoom())
         if (Map.current) {
             const bounds = Map.current.getBounds()
             const center = Map.current.getCenter()
             const zoom = Map.current.getZoom()
-            setZoom(zoom)
-            console.log(zoom)
-            let radius = ymaps.coordSystem.geo.getDistance(center, bounds[1])
+            setZoom(zoom)           
+            let radius = ymaps.coordSystem.geo.getDistance(center, bounds[1])/1.2            
             setRadius(Math.ceil(radius.toFixed(0) / 1000))
         }
         SetFilterCluster()
@@ -186,15 +176,11 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
                         type: 'Circle',
                         coordinates: [20, 20],
                         radius: 22,
-                    };
-                    // Зададим фигуру активной области.
+                    };                   
                     this.getData().options.set('shape', bigShape);
                     this.getData().geoObject.events.add('click', function () { Bob(b) }, this)
-
                 }
-
             }
-
         );
         return Layout;
     };
@@ -288,12 +274,12 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
             </Map>
 
 
-            <Image alt="close"
-                className={filter_masters.length != 0 ?  styles.close : styles.open}
+            {filter_masters.length ? <Image alt="close"
+                className={styles.close}
                 src={arrow_down}
                 width={25} height={25}
                 onClick={closeView}
-            />
+            /> : null}
             {filter_masters.length > 0 ? <>
             <section className={styles.section}>
                 {filter_masters?.map(i =>
@@ -314,26 +300,7 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
             </section>
             </>: null}
 
-            {/* : view == 1 ?
-                    <section className={styles.section}>
-                        <Image alt="close" className={styles.close} src={arrow_down} width={25} height={25}
-                            onClick={closeView}
-                        />
-                        {masters?.filter(i => i.nikname === master).map(i =>
-                            <Link key={i.nikname} className={styles.master} href={`/${i.nikname}`}>
-                                <div>
-                                    <p>
-                                        <b>{i.name}</b>
-                                        <span className={styles.pro}>MASTER</span>
-                                        {i.stars != '0.0' ? <span className={styles.stars}>{i.stars}</span> : null}
-                                    </p>
-                                    <h4>{i.address}</h4>
-                                    <h5>{i.services.map(a => <span key={a} className={styles.service}>{a}</span>)}</h5>
-                                </div>
-                                <Image src={process.env.url_image + i.nikname + '.jpg'} width={60} height={60} alt="main_image" />
-                            </Link>)}
-                    </section>
-                    : null} */}
+           
         </>
     );
 };

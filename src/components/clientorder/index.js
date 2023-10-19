@@ -10,10 +10,42 @@ import Messages from '../messages'
 
 const review = {
     backgroundColor: '#3D4EEA',
-    fontWeight: 500,    
+    fontWeight: 500,
 }
 
-export default function ClientOrder({ order, active, close }) {
+
+function Detail({order}) {
+    return <>
+        <h5>Дата и время</h5>
+        <span>{Convert_Date(order?.date_order)}</span>
+        <h5>Услуги и стоимость</h5>
+        <span>{order?.text}</span>
+        <span>Стоимость {order?.price} BYN</span>
+        <h5>Дополнительное описание</h5>
+        {order?.myorder ?
+            <div className={styles.review}>
+                {order?.myorder.map((i, index) =>
+                    <Fragment key={index}>
+                        <p >{(index + 1 + '. ' + i.split(':')[0])}</p>
+                        <span>{i.split(':')[2]}</span>
+                    </Fragment>
+                )}
+            </div>
+            :
+            <div className={styles.review}>
+                {order?.neworder.split(',').map((i, index) =>
+                    <Fragment key={index}>
+                        <p>{(index + 1 + '. ' + i.split(':')[0])}</p>
+                        {i.split(':')[2]}
+                    </Fragment>
+                )}
+            </div>
+        }
+    </>
+}
+
+
+function ClientOrder({ order, active, close }) {
     const [new_review, setreview] = useState(true)
     const [result, setresult] = useState(false)
     const [stars, setstars] = useState(0)
@@ -21,7 +53,7 @@ export default function ClientOrder({ order, active, close }) {
     async function SendReview() {
         const data = {
             review: ref.current.
-            value, id: order.id,
+                value, id: order.id,
             stars: stars,
             nikname: order.master
         }
@@ -52,7 +84,7 @@ export default function ClientOrder({ order, active, close }) {
                 'Content-Type': 'application/json',
             },
             method: 'POST',
-        })        
+        })
         if (response.status === 200) {
             setresult('Ваш заказ отменён')
         }
@@ -70,33 +102,45 @@ export default function ClientOrder({ order, active, close }) {
                     <h5 style={{ fontWeight: 400 }}>
                         <Link href={'/' + order.master} style={{ color: '#3D4EEA' }}>{order.master_name || order.master}{' '}</Link>({order.master})
                     </h5>
-                    <h5>Дата и время</h5>
+                    <Detail order={order} />
+                    {/* <h5>Дата и время</h5>
                     <span>{Convert_Date(order.date_order)}</span>
                     <h5>Услуги и стоимость</h5>
                     <span>{order.text}</span>
                     <span>Стоимость {order.price} BYN</span>
                     <h5>Дополнительное описание</h5>
-                    <div className={styles.review}>
-                        {order.neworder.split(',').map((i, index) =>
-                            <Fragment key={index}>
-                                <span >{(index + 1 + '. ' + i.split(':')[0])}</span>
-                                {i.split(':')[2]}
-                            </Fragment> 
-                        )}
-                    </div>
+                    {order.myorder ?
+                        <div className={styles.review}>
+                            {order.myorder.map((i, index) =>
+                                <Fragment key={index}>
+                                    <p >{(index + 1 + '. ' + i.split(':')[0])}</p>
+                                    <span>{i.split(':')[2]}</span>
+                                </Fragment>
+                            )}
+                        </div>
+                        :
+                        <div className={styles.review}>
+                            {order.neworder.split(',').map((i, index) =>
+                                <Fragment key={index}>
+                                    <p>{(index + 1 + '. ' + i.split(':')[0])}</p>
+                                    {i.split(':')[2]}
+                                </Fragment>
+                            )}
+                        </div>
+                    } */}
                     {active ?
                         <button onClick={DeleteOrder}><b>Отменить заказ</b></button>
                         :
-                        order.review ? 
+                        order.review ?
 
-                       <div className={styles.result}>
-                            <span>Отзыв</span>
-                            {order.review}
-                        </div>
-                        :
-                        <button style={review} onClick={() => setreview(false)}>Оставить отзыв</button>
+                            <div className={styles.result}>
+                                <span>Отзыв</span>
+                                {order.review}
+                            </div>
+                            :
+                            <button style={review} onClick={() => setreview(false)}>Оставить отзыв</button>
                     }
-                    
+
                 </>
                 :
                 <div className={styles.my_review}>
@@ -106,26 +150,28 @@ export default function ClientOrder({ order, active, close }) {
                     </label>
                     <div className={styles.stars}>
                         {[1, 2, 3, 4, 5].map(i => <Fragment key={i}>{
-                            stars >= i ? <Image 
+                            stars >= i ? <Image
                                 alt="star"
                                 onClick={() => SetStars(i)}
                                 src={star}
                                 width={25} height={24}
-                            /> : <Image 
+                            /> : <Image
                                 alt="star"
                                 onClick={() => SetStars(i)}
                                 src={star_gray}
                                 width={25} height={24}
-                        />
+                            />
                         }</Fragment>
 
                         )}
                     </div>
                     {result ? <p className={styles.result}>{result}</p> :
-                    <button style={review} onClick={SendReview}>Оставить отзыв</button>}
+                        <button style={review} onClick={SendReview}>Оставить отзыв</button>}
                 </div>
             }
             {result ? <Messages text={result} close={setresult} /> : null}
         </section>
     )
 }
+
+export { ClientOrder, Detail };

@@ -4,9 +4,11 @@ import Link from 'next/link'
 import Header from '@/components/header'
 import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
-import ClientOrder from '@/components/clientorder'
+import { ClientOrder } from '@/components/clientorder'
 import { Convert_Date, NewOrder } from '@/profile'
 
+import { useDispatch } from 'react-redux'
+import { setorder } from '@/reduser'
 
 const sel = {
     background: 'linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)',
@@ -15,65 +17,77 @@ const sel = {
     color: '#fff'
 }
 export default function Client() {
-    const router = useRouter()    
+    const dispatch = useDispatch()
+    const router = useRouter()
     const { slug } = router.query
     const profile = useSelector((state) => state.counter.profile)
     const [data, setData] = useState([])
     const [viewOrder, setviewOrder] = useState(false)
     const [orderIndex, setOrderIndex] = useState()
-   
-   
+
+
 
     const close = () => setviewOrder(false)
 
-    useEffect(() => {        
-        if(Object.keys(profile).length === 0) {
+    useEffect(() => {
+        if (Object.keys(profile).length === 0) {
             router.push('/')
         } else {
             fetch(`/api/get_orders_client?nikname=${slug}`)
-            .then(res => res.json())
-            .then(res => setData(res))
+                .then(res => res.json())
+                .then(res => {
+                    setData(res)
+                    console.log(res)
+                })
         }
-          
-        
-    }, [slug,router])
-   
+
+
+    }, [slug, router])
+
 
     function SetViewOrder(a) {
         setviewOrder(true)
         setOrderIndex(a)
         window.scrollTo(0, 0);
     }
-  
+    function ViewOrder(a) {        
+        dispatch(setorder(a))
+        router.push('/order/' + a.id)
+    }
     return (
         <>
             <Header text={profile.nikname} sel="back" />
             <div className={styles.profile}>
-                <img src={ process.env.url_image + slug + '.jpg'} alt="client" />
-                <h2>{profile.name}</h2> 
+                <img src={process.env.url_image + slug + '.jpg'} alt="client" />
+                <h2>{profile.name}</h2>
                 <p>{profile.text}</p>
             </div>
             <div className={styles.selector}>
                 <Link href={`/clientprofile/${slug}`} >Сохранённое</Link>
                 <Link href={`/clientprofile/${slug}/orders`} style={sel}>Заказы</Link>
             </div>
-            {data?.map((i, index) =>
-                <div
-                    onClick={() => SetViewOrder(index)}
-                    key={i.id}
-                    className={styles.order}
-                >
-                    <p>
-                        <span className={NewOrder(i.date_order) ? styles.active : null}>
-                            {Convert_Date(i.date_order)}
-                        </span>
-                        <span>#{i.id}</span>
-                    </p>
-                    <h3><span>{i.master_name || i.master}</span><span>{i.price} BYN</span></h3>
-                    <h6>{i.neworder.split(',').map((i, index) => <span key={index}>{((index > 0 ? ' , ' : ' ') + i.split(':')[0])}</span>)}</h6>
+            <section>
+                {data?.map((i, index) =>
+                    // <Order order={i} profile={0} />
+                    <div
+                        onClick={() => SetViewOrder(index)}
+                        key={i.id}
+                        className={styles.order}
+                    >
+                        <p>
+                            <span className={NewOrder(i.date_order) ? styles.active : null}>
+                                {Convert_Date(i.date_order)}
+                            </span>
+                            <span>#{i.id}</span>
+                        </p>
+                        <h3><span>{i.master_name || i.master}</span><span>{i.price} BYN</span></h3>
+                        {i.myorder ?
+                        <h6>{i.myorder.map((i, index) => <p key={index}>{i.split(':')[0]}</p>)}</h6>:
+                        <h6>{i.neworder.split(':').map((i, index) => <span key={index}>{((index > 0 ? ' , ' : ' ') + i.split(':')[0])}</span>)}</h6>}
 
-                </div>
-            )}
+                    </div>
+                )}
+            </section>
             {viewOrder ? <ClientOrder order={data[orderIndex]} active={NewOrder(data[orderIndex].date_order)} close={close} /> : null}
         </>
     )

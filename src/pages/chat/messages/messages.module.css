@@ -85,8 +85,10 @@
 }
 .master a, .wrap_client a {
     color:#5E2AF0;
-    display: block;
-    text-decoration: underline !important;
+    
+    padding: 10px;
+    width: 100%;
+  
 }
 
 .wrap_client a {
@@ -120,8 +122,13 @@
     letter-spacing: -0.5px;
 
 }
-p.order_create {
+h5.order_create {
     margin-bottom: 10px;
+    font-size: 16px;
+
+}
+.order_create a {
+    margin-left: 10px;
 }
 
 .order h4 {

@@ -6,7 +6,7 @@ export default async function handler(req, res) {
 
   await client.connect();
   const { rows } = await client.query(`
-    select id,master,master_name,date_order,neworder,order_month,price,read,review
+    select id,master,master_name,date_order,neworder,order_month,price,read,review,myorder
     from "orders"
     where "client" = $1 
     order by id desc 
@@ -14,7 +14,7 @@ export default async function handler(req, res) {
 
    await client.end();
 
-  if (rows.length) {
+  if (rows.length > 0) {
     res.status(200).json(rows)
   } else {
     res.status(500).json([])

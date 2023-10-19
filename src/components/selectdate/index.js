@@ -128,7 +128,7 @@ export default function SelectDate({ nikname }) {
                 minute: '2-digit',
             });           
             dispatch(setdate(`${active_day},${my_months[month]},${a}`))
-            // dispatch(setdate(new_date))
+           
         } else {
             return
         }
@@ -210,9 +210,9 @@ export default function SelectDate({ nikname }) {
                     </span>
                 )}
             </div>
-            {saved ? <div className={styles.await}>
+            {/* {saved ? <div className={styles.await}>
                 <Image alt="await" src='/await.gif' width={150} height={150} />
-            </div> : null}
+            </div> : null} */}
 
         </>
     )

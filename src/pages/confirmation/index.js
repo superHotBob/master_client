@@ -19,7 +19,7 @@ export default function Confirmation() {
     const [goodorder, setgoodorder] = useState(false)
     const [address, setaddress] = useState()
     const { data } = useSWR(`/api/get_full_address?nikname=${master.nikname}`)
-    
+    console.log(order)
     
     const SaveOrder = () => {
         // const profile = JSON.parse(localStorage.getItem('profile'))        
@@ -33,6 +33,7 @@ export default function Confirmation() {
                 master_name: master.name,
                 price: Cost(order),
                 order: order.join(','),
+                myorder: order,
                 date: date,
                 address:  address,
                 month: month

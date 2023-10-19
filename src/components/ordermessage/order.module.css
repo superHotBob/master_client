@@ -1,0 +1,21 @@
+.order p {
+    margin: 3px 0 7px;
+    text-align: left;
+    color: inherit;
+}
+
+.order h5,
+.link {
+    color: inherit;
+}   
+
+.link {
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid #000;
+    margin: 10px 0;
+    display: block;
+}
+.link {
+    border-color: inherit;
+}

@@ -6,6 +6,7 @@ import { useSelector } from "react-redux"
 import { useRouter } from "next/router"
 import useSWR , { mutate } from 'swr'
 import Image from 'next/image'
+import OrderMessage from "@/components/ordermessage"
 
 const options = {
     month: 'long',
@@ -114,22 +115,40 @@ export default function Messages() {
         }
         return d.toLocaleDateString('ru-RU', options)
     }
-    function ReadText(a, b) {
+    async function ReadText(a, b) {
+
+        console.log(typeof +a)
+        if(typeof +a === 'number') {
+       
+           
+
+            return <div style={{ color: b }} className={styles.order}>
+           
+               ${a}
+                 {b === '#fff' ?
+                        <Link style={{marginLeft: '10px', display: 'inline-block', color: '#fff' }} href={'/order/' + a}>Подробнее</Link>
+                        :
+                        <Link style={{display: 'inline-block', color: '#3D4EEA' }} href={'/clientprofile/' + profile.nikname + '/orders'}>Подробнее</Link>
+                    }
+            
+            </div>
+        }
         if (a.includes(';')) {
-            let ss = a.replace(':',': ').split(';')
+            let ss = a.replaceAll(':',': ').split(';')
             
             return <div style={{ color: b }} className={styles.order}>
-                <p className={styles.order_create}>Создан заказ
-                    {b === '#fff' ?
-                        <Link style={{marginLeft: '10px', display: 'inline-block', color: '#fff' }} href={'/order/' + ss[1].trim()}>{' '} #{ss[1]} -</Link>
-                        :
-                        <Link style={{display: 'inline-block', color: '#3D4EEA' }} href={'/clientprofile/' + profile.nikname + '/orders'}>{' '} #{ss[1]} -</Link>}
-                </p>
-                <p>{ss[2]} BYN</p>
+                <h5 className={styles.order_create}>Создан заказ </h5>                  
                 <p className={styles.details}>Детали заказа</p>
+                <p>{ss[2].replaceAll(',',``)} BYN</p>
+                
                 <p>{ss[4]}</p>
                 <p>{ss[5]}</p>
-                <h4>{ss[6]} BYN</h4>
+                <p>{ss[6]} BYN</p>
+                {b === '#fff' ?
+                        <Link style={{marginLeft: '10px', display: 'inline-block', color: '#fff' }} href={'/order/' + ss[1].trim()}>Подробнее</Link>
+                        :
+                        <Link style={{display: 'inline-block', color: '#3D4EEA' }} href={'/clientprofile/' + profile.nikname + '/orders'}>Подробнее</Link>
+                    }
             </div>
         } else {
             let match = a.match(/\bhttps?\:\/\/(\S+)\b/);
@@ -149,7 +168,8 @@ export default function Messages() {
                     <div key={i.ms_date} className={styles.message}>
                         {i.sendler === profile.name ?
                             <div className={styles.wrap_client}>
-                                {ReadText(i.ms_text, '#fff')}
+                                {/* {ReadText(i.ms_text, '#fff')} */}
+                                <OrderMessage id={i.ms_text} color="#fff" />
                                 {FindLink(i.ms_text)}
                                 <p>{My_Date(+i.ms_date)}
                                     {i.read ? <Image height={20} width={20} alt="check" src="/check_to.svg" /> : null}
@@ -164,10 +184,11 @@ export default function Messages() {
                                         process.env.url_image + i.sendler_nikname + '.jpg'
                                     }
                                     height={50} width={50}
-                                    alt="master"
+                                    alt="sendler"
                                 />
                                 <div className={styles.master}>
-                                   {ReadText(i.ms_text, '#000')}
+                                   {/* {ReadText(i.ms_text, '#000')} */}
+                                   <OrderMessage id={i.ms_text} color="#000" profile={profile} />
                                    {FindLink(i.ms_text)}                    
                                   
                                     

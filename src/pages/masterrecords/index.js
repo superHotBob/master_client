@@ -3,10 +3,9 @@ import Link from 'next/link'
 import styles from './records.module.css'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
-import { useDispatch } from 'react-redux'
-import { setorder } from '@/reduser'
 import { Convert_Date } from '@/profile'
 import { my_tema } from '@/data.'
+import Order from '@/components/order'
 
 
 const activ_month = {
@@ -25,7 +24,7 @@ export default function Records() {
     let v = days.indexOf(days[day.getDay() - 1]) === -1 ? 6 : days.indexOf(days[day.getDay() - 1])
 
     const all_days = new Date(year, month, 0)
-    const dispatch = useDispatch()
+   
     const router = useRouter()
     const [selector, setSelector] = useState(true)
     const [active_day, setActive_Day] = useState()
@@ -67,18 +66,12 @@ export default function Records() {
 
     function FilterDay(event) {
         setActive_Day(event.target.id)
-
-
         let result = all_orders
             .filter(i => +i.date_order.split(',')[0] === +event.target.id)
             .filter(i => i.date_order.split(',')[1] === my_months[month])
         setOrders(result)
     }
-    function ViewOrder(a) {
-        let current_order = orders.filter(i => i.id === a)
-        dispatch(setorder(current_order[0]))
-        router.push('/order/' + a)
-    }
+
 
     function Count(a) {
         let s = false_days.filter(i => i === a).length
@@ -94,7 +87,7 @@ export default function Records() {
         setActive_Day()
     }
 
-   
+
 
     return (
         <>
@@ -131,9 +124,11 @@ export default function Records() {
                                     >
                                         {i}
                                         {Count(i) > 0 ?
-                                            <b style={{ backgroundColor: +active_day === +i ? my_tema[+profile.tema].color[2] : my_tema[+profile.tema].color[1], 
-                                            color: +active_day === +i ? my_tema[+profile.tema].color[1]: '#fff', 
-                                            display: Count(i) ? 'inline-block' : 'none' }} className={styles.count}>
+                                            <b style={{
+                                                backgroundColor: +active_day === +i ? my_tema[+profile.tema].color[2] : my_tema[+profile.tema].color[1],
+                                                color: +active_day === +i ? my_tema[+profile.tema].color[1] : '#fff',
+                                                display: Count(i) ? 'inline-block' : 'none'
+                                            }} className={styles.count}>
                                                 {Count(i)}
                                             </b>
                                             : null}
@@ -149,55 +144,13 @@ export default function Records() {
                             href={`/recordingtomaster?name=${profile.name}&nikname=${profile.nikname}`}
                             style={{ backgroundColor: my_tema[+profile.tema].color[1] }}
                         >Добавить запись +</Link>
-                        {orders?.map(i =>
-                            <div
-                                onClick={() => ViewOrder(i.id)}
-                                key={i.id}
-                                className={styles.order}
-                            >
-                                <p>
-                                    <span className={i.read ? null : styles.active}>
-                                        {Convert_Date(i.date_order)}
-                                    </span>
-                                    <span>#{i.id}</span>
-                                </p>
-                                <h3>
-                                    <span style={{ color: my_tema[+profile.tema].color[1] }}>
-                                        {i.client === i.master ? <b>Мой заказ</b> : i.client_name}
-                                    </span>
-                                    <span style={{ color: my_tema[+profile.tema].color[1] }}>{i.price} BYN</span>
-                                </h3>
-                                <h6 style={{ color: my_tema[+profile.tema].color[1] }}>
-                                    {i.neworder.replace(/[0-9]/g, ' ').replace(/:/g, ' ')}
-                                </h6>
-                            </div>
-                        )}
-
+                        {orders?.map(i => <Order order={i}  profile={profile.tema} />)}
                     </section>
                     :
                     <section className={styles.section}>
-                        {all_orders.sort((a, b) => a.id - b.id < 0 ? 1 : -1).map(i =>
-                            <div
-                                onClick={() => router.push('/order/' + i.id)}
-                                key={i.id}
-                                className={styles.order}
-                            >
-                                <p>
-                                    <span className={i.read ? null : styles.active}>
-                                        {Convert_Date(i.date_order)}
-                                    </span>
-                                    <span>#{i.id}</span>
-                                </p>
-                                <h3>
-                                    <span style={{ color: my_tema[+profile.tema].color[1] }}>
-                                        {i.client_name || i.client}
-                                    </span>
-                                    <span style={{ color: my_tema[+profile.tema].color[1] }}>{i.price} BYN</span>
-                                </h3>
-                                <h6 style={{ color: my_tema[+profile.tema].color[1] }}>{i.neworder.replace(/[0-9]/g, '  ').replace(/:/g, ' ')}</h6>
-                            </div>
+                        {all_orders.sort((a, b) => a.id - b.id < 0 ? 1 : -1)
+                        .map(i =><Order order={i}  profile={profile.tema} />                       
                         )}
-
                     </section>
                 }
 

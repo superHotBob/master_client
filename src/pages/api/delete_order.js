@@ -12,6 +12,11 @@ export default async function handler(req, res) {
     returning *
   `, [req.body.id])
 
+  const {rows: message } = await client.query(`
+    delete from "chat"
+    where "ms_text" = $1
+  `,[req.body.id])
+
   
 
   let month = rows[0].date_order.split(",")[1].toLowerCase()

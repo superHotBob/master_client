@@ -37,8 +37,7 @@ export default function Recording() {
     useEffect(() => {
         if (master.phone === null) {
             router.push('/')
-        }
-        console.log(master)
+        }       
         if (!router.query.nikname) { return; }
         async function GetServices() {
             const response = await fetch(`/api/master_service?nikname=${router.query.nikname}`)

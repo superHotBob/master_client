@@ -1,0 +1,59 @@
+.order {
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    min-height: 100px;
+    margin: 8px 0;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 9px #E6E6E6;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .order h3 {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    line-height: 26px;
+  }
+  
+  .order h6 {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 17px;
+    color: #282828;
+  }
+  
+  .order p {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    color: #fff;
+    font-weight: 400;
+    font-size: 12px;
+    width: 18px;
+    height: 18px;
+    line-height: 19px;
+    border-radius: 100%;
+  
+  }
+  
+  .order p span {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 25px;
+    color: #3D4EEA;
+  }
+  
+  .order p span:last-of-type::before {
+    content: 'Заказ';
+    color: #282828;
+    padding-right: 5px;
+  }
+  

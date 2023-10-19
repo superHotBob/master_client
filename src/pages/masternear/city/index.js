@@ -23,20 +23,19 @@ export default function MasterNear() {
     const service = useSelector((state) => state.counter.service)
     const [viewRange, setViewRange] = useState(false)
     const [zoom, setZoom] = useState(11)
-    const [master, selectMaster] = useState()
-    const [masters, setMasters] = useState()
-
+  
     const [veiw_select, set_view_select] = useState(false)
 
     const [radius, setRadius] = useState(10)
     const [mapHeight, setMapHeight] = useState()
    
-    console.log('radius', radius)
+   
+
 
     useEffect(() => {
-        console.log(window.innerHeight - document.getElementById('my_map').getBoundingClientRect().top)
-        setMapHeight(window.innerHeight - document.getElementById('my_map').getBoundingClientRect().top - 25)
-    }, [mapHeight])
+        console.log(window.innerHeight,document.getElementById('my_map').getBoundingClientRect().top)
+        setMapHeight(window.innerHeight - document.getElementById('my_map').getBoundingClientRect().top)
+    }, [])
 
     return (
         <div className={styles.main_city}>
@@ -68,22 +67,22 @@ export default function MasterNear() {
                         min="1"
                         max="11"
                         onChange={e => {
-                            setZoom(20 - e.target.value),
-                                setRadius(e.target.value)
+                           setZoom(20 - e.target.value),
+                           setRadius(e.target.value)
                         }}
                     />
 
                 </div> : null}
             </div>
-            <div className={styles.my_map} id="my_map" style={{ minHeight: mapHeight }}>
+            <div className={styles.my_map} id="my_map">
                 <YMaps query={{ apikey: API_KEY }}>
                     {mapHeight &&
                     <MapComponent
                         setRadius={setRadius}
                         set_view_select={set_view_select}
-                        master={master}
+                        // master={master}
                         my_zoom={zoom}
-                        masters={masters}
+                        // masters={masters}
                         setzoom={setZoom}
                         divHeight={mapHeight}
                     />}
