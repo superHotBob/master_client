@@ -14,29 +14,34 @@ const activ_month = {
 
 
 
-export default function Calendar({profile}) {
-
+export default function Calendar({ profile }) {
+    const router = useRouter()
     const pro = useSelector(state => state.counter.profile)
-   
+
     // const pro = {}
 
     const days = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"]
-    const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-        'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь', 'Январь', 'Февраль',
-        'Март', 'Апрель', 'Май', 'Июнь',
-        'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь', 'Январь', 'Февраль',
-        'Март', 'Апрель', 'Май', 'Июнь',
-        'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
+    const months = ['Декабрь', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'].map(i => i.toLowerCase())
+    // const months = [
+    //     'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+    //     'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь', 
+    //     'Январь', 'Февраль','Март', 'Апрель', 'Май', 'Июнь',
+    //     'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь',
+    //     'Январь', 'Февраль','Март', 'Апрель', 'Май', 'Июнь',
+    //     'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь',
+    //     'Январь', 'Февраль','Март', 'Апрель', 'Май', 'Июнь',
+    //     'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
+    // ]
 
     const d = new Date()
-    const year = d.getFullYear()
+    // const year = d.getFullYear()
     const mon = d.getMonth()
 
     const [month, setMonth] = useState(mon)
     const my_months = [...months]
     const [active_day, setActive_Day] = useState()
     const [active_num, setActive_Num] = useState()
-    const all_days = new Date(year, month + 1, 0)
+
 
     const [monthSchedule, setMonthSchedule] = useState([])
     const [patern, setPatern] = useState([])
@@ -44,21 +49,25 @@ export default function Calendar({profile}) {
     const [message, setMessage] = useState(false)
     const [orders, setOrders] = useState([])
     const [timeOrders, setTimeOrders] = useState([])
-    
-    const day = new Date(year, month, 1)
+
+    const [curmonth, setcurmonth] = useState(d.getMonth() + 1)
+    const [year, setyear] = useState(new Date().getFullYear())
+    const all_days = new Date(year, curmonth, 0)
+
+
+    const day = new Date(year, curmonth - 1, 1)
     let v = days.indexOf(days[day.getDay() - 1]) === -1 ? 6 : days.indexOf(days[day.getDay() - 1])
 
-    const router = useRouter()
 
-    
-    function getOrders(a) {       
-        fetch(`/api/get_master_orders?nikname=${pro.nikname}&month=${a}`)
+
+
+    function getOrders(a) {
+        fetch(`/api/get_master_orders?nikname=${pro.nikname}&month=${a}&${year}`)
         .then(res => res.json())
         .then(res => setOrders(res))
     }
 
-
-    function getPatern() {       
+    function getPatern() {
         fetch(`/api/get_patern?nikname=${pro.nikname}`)
         .then(res => res.json())
         .then(res => setPatern(res))
@@ -71,10 +80,10 @@ export default function Calendar({profile}) {
             return;
         }
         getPatern()
-        
+
     }, [])
     useEffect(() => {
-        let current_month = my_months[month].toLocaleLowerCase()        
+      
         if (!pro) {
             router.push('/')
             return;
@@ -82,14 +91,9 @@ export default function Calendar({profile}) {
         setActive_Day()
         setActive_Num()
         getOrders(month + 1)
-    //     const { data } = useSWR([`${url}/get_entres?phone=${phone}`, 
-    //     { headers: { Authorization: localStorage.getItem('name') } }],
-    // ([url,token]) => fetcher(url,token))
-
-
-        fetch(`/api/get_schedule?month=${current_month}&nikname=${pro.nikname}`)
-        .then(res => res.json())
-        .then(res => {
+        fetch(`/api/get_schedule?month=${my_months[curmonth]}&nikname=${pro.nikname}&year=${year}`)
+            .then(res => res.json())
+            .then(res => {
                 if (res.length === 0) {
                     let new_arr = Array.from({ length: all_days.getDate() }, (v, i) => "")
                     setMonthSchedule(new_arr)
@@ -99,13 +103,14 @@ export default function Calendar({profile}) {
             })
 
 
-    }, [month, viewPatern])
+    }, [curmonth, viewPatern])
 
     function SaveSchedule() {
         const data = {
             nikname: pro.nikname,
-            month: my_months[month].toLocaleLowerCase(),
-            schedule: monthSchedule
+            month: my_months[curmonth].toLocaleLowerCase(),
+            schedule: monthSchedule,
+            year: year
         }
         fetch('/api/edit_schedule', {
             body: JSON.stringify(data),
@@ -124,9 +129,9 @@ export default function Calendar({profile}) {
     function SetActiveTime(a) {
         if (!active_num) { return 0 }
 
-        if(timeOrders.includes(a)) {
+        if (timeOrders.includes(a)) {
             setMessage('Время занято')
-           
+
             setTimeout(() => setMessage(false), 2000)
             return;
         }
@@ -158,11 +163,11 @@ export default function Calendar({profile}) {
         }
         return false
     }
-    function setActiveDay(e) {    
-        
-        let day_orders = orders.filter(i=>i[0] === e.target.id).map(i=>i[2])
+    function setActiveDay(e) {
+
+        let day_orders = orders.filter(i => i[0] === e.target.id).map(i => i[2])
         setTimeOrders(day_orders)
-        console.log(day_orders,e.target.id)
+        console.log(day_orders, e.target.id)
         if (monthSchedule[e.target.id - 1]) {
             let old_patern = monthSchedule[e.target.id - 1].split(',')
             const edit_patern = [...patern]
@@ -174,19 +179,24 @@ export default function Calendar({profile}) {
         setActive_Day(monthSchedule[e.target.id - 1])
         setActive_Num(e.target.id)
     }
-    function SetMonth(a) {
-        if (a === 'Январь') {
-            setMonth(12)
+    function set(a) {
+        if (a === 1) {
+            if (curmonth === 12) {
+                setyear(year + 1)
+            }
+            setcurmonth(curmonth == 12 ? 1 : curmonth + 1)
         } else {
-            let m = my_months.findIndex(i => i === a)
-            setMonth(m)
+            if (curmonth === 1) {
+                setyear(year - 1)
+            }
+            setcurmonth(curmonth == 1 ? 12 : curmonth - 1)
         }
-        getPatern()
     }
+   
 
 
     return <>
-        {Object.keys(pro).length > 0 ? <>
+        {Object.keys(pro).length > 0 && <>
             <header className={styles.header} >
                 <Menu_icon type="/" color='#3D4EEA' />
                 <h4>Календарь работы</h4>
@@ -199,13 +209,17 @@ export default function Calendar({profile}) {
                         вы указали рабочим.
                     '
                 />
-                <div className={styles.mounth}>
-                    {months.splice(month ? month - 1 : 0, 3).map(i =>
-                        <span onClick={() => SetMonth(i)}
-                            style={i === my_months[month] ? activ_month : null}
-                            key={i}
-                        >{i}</span>
-                    )}
+               
+                <div className={styles.month}>
+                    <button onClick={() => set(-1)} >
+                        {my_months[curmonth - 1]}
+                    </button>
+                    <button style={activ_month}>
+                        {my_months[curmonth]}
+                    </button>
+                    <button onClick={() => set(1)} >
+                        {my_months[curmonth === 12 ? 1 : curmonth + 1]}
+                    </button>
                 </div>
                 <div className={styles.week}>
                     {days.map(i => <span key={i}>{i}</span>)}
@@ -250,10 +264,10 @@ export default function Calendar({profile}) {
                 </div>
                 {!viewPatern && <Link className={styles.button} href='/editpatern' >
                     Редактировать шаблон времени +
-                </Link>}               
+                </Link>}
             </section>
-        </> : null}
-        {message ? <Messages text={message} close={setMessage} />:null}
-       
+        </>}
+        {message ? <Messages text={message} close={setMessage} /> : null}
+
     </>
 }

@@ -8,9 +8,7 @@ import { my_tema } from '@/data.'
 
 export default function Order({order, profile = 0}) {
     const router = useRouter()
-    const dispatch = useDispatch()
-
-   
+    const dispatch = useDispatch()  
 
     function ViewOrder(a) {        
         dispatch(setorder(order))

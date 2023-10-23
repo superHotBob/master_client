@@ -26,16 +26,10 @@ export default function Messages() {
 
     const { data: dialog } = useSWR(`/api/get_messages_onebyone?nikname=${profile.nikname}&abonent=${pid}&status=${profile.status}`,
         {
-            refreshInterval: 5000, onSuccess:
-            () => {
-                    let ch = JSON.parse(localStorage.getItem("chat"))                   
-                    let new_ch = ch ? ch : {}
-                    new_ch[pid] = Date.now()
-                    localStorage.setItem('chat', JSON.stringify(new_ch))
-            },compare(a,b){
-               
-                return a?.length === b?.length
-            }
+            refreshInterval: 5000, 
+            onSuccess: () => {         
+                if(pid === 'администратор') {localStorage.setItem('chat', Date.now())}                   
+            },compare(a,b){ return a?.length === b?.length }
         }
     )
     setTimeout(() => Movie(), 500)

@@ -9,8 +9,8 @@ export default async function handler(req, res) {
   const { rows } = await client.query(`
     select *
     from "orders"
-    where "master" = $1
-  `,[req.query.nikname])
+    where "master" = $1 and "order_month" = $2 and "year" = $3
+  `,[req.query.nikname,req.query.month,req.query.year])
 
   await client.end()
 

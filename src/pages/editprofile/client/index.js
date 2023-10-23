@@ -124,6 +124,7 @@ export default function EditProfile() {
                     src={file ? file : process.env.url_image + my_profile.nikname + '.jpg'}
                     alt="фото"
                     title='заменить изображение'
+                    priority={true}
                     height={file ? 106 : 50}
                     width={file ? 106 : 50}
                 />

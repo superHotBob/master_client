@@ -12,7 +12,8 @@ export default async function handler(req, res) {
     where "nikname" =  $1              
   `, [req.query.nikname]);
 
-  client.end()
+  await client.end()
+ 
 
   if (rows.length > 0) {
     res.status(200).json(rows[0].address_full)

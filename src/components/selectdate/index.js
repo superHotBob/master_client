@@ -1,9 +1,9 @@
 import styles from './selectdate.module.css'
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import Link from 'next/link'
 import { setdate } from '@/reduser'
-import Image from 'next/image'
+import { months } from '@/profile'
+
 const active = {
     backgroundColor: '#3D4EEA',
     color: '#fff'
@@ -18,10 +18,7 @@ const activ_month = {
 }
 
 export default function SelectDate({ nikname }) {
-
-    const days = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"]
-    const months = ['Декабрь', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь',
-        'Октябрь', 'Ноябрь', 'Декабрь']
+    const days = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"]  
     const dispatch = useDispatch()
     const d = new Date()
     const mon = d.getMonth() + 1
@@ -32,7 +29,15 @@ export default function SelectDate({ nikname }) {
     const [active_day, setActive_Day] = useState()
     const [active_time, setActive_Time] = useState()
 
-    const [saved, setSaved] = useState(false)
+
+
+
+
+    const [curmonth, setcurmonth] = useState(d.getMonth() + 1)
+    const [year, setyear] = useState(new Date().getFullYear())
+
+
+
 
 
     const [patern, setPatern] = useState([])
@@ -41,24 +46,14 @@ export default function SelectDate({ nikname }) {
 
     const all_days = new Date(2023, month, 0)
     const profile = useSelector(state => state.counter.profile)
-    const year = new Date().getFullYear()
-    const day = new Date(year, month - 1, 1)
+
+    const day = new Date(year, curmonth - 1, 1)
     let v = days.indexOf(days[day.getDay() - 1]) === -1 ? 6 : days.indexOf(days[day.getDay() - 1])
 
 
-    // async function GetDate() {
-    //     const response = await fetch(`/api/date_services_master?master=${nikname}`, {
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         method: 'get',
-    //     })
-    //     const result = await response.json()
-    //     let new_result = result.map(i => i.date_order.split(','))
-    //     set_false_date(new_result)
-    // }
+   
 
-    useEffect(() => {
+    useEffect(() => {       
         setSchedule()
         let day = d.getDate()
 
@@ -67,12 +62,13 @@ export default function SelectDate({ nikname }) {
         } else {
             let all_day = Array.from({ length: day }, (v, i) => i + 1)
             set_false_days(all_day)
-        }   
+        }
 
-        fetch(`/api/get_schedule?nikname=${nikname}&month=${my_months[month].toLowerCase()}`)
-        .then(res => res.json())
-        .then(data => setSchedule([...data])                
-    )}, [month])
+        fetch(`/api/get_schedule?nikname=${nikname}&month=${my_months[curmonth]}&year=${year}`)
+            .then(res => res.json())
+            .then(data => setSchedule([...data])
+            )
+    }, [curmonth])
 
 
     // function Next(a) {
@@ -98,14 +94,14 @@ export default function SelectDate({ nikname }) {
     //     }
     // }
 
-    function Count(a) {       
-        return a ? a.split(',').filter(i=>i).length : null
+    function Count(a) {
+        return a ? a.split(',').filter(i => i).length : null
     }
     function Set_Active_Day(a, b, index) {
         if (!b) {
             return;
         } else {
-            setActive_Day(index+1)
+            setActive_Day(index + 1)
             setActive_Time()
             setPatern(schedule[index].split(',').sort())
             // let flsT = false_date.filter(i => i[1] === months[month]).filter(i => +i[0] === a).map(i => +i[2])
@@ -115,45 +111,81 @@ export default function SelectDate({ nikname }) {
     }
     function Set_Active_Time(a) {
         const dt = new Date()
-        setActive_Time(a)       
-        dispatch(setdate(`${active_day},${my_months[month]},${a}`))
+        setActive_Time(a)
+        dispatch(setdate(`${active_day},${my_months[curmonth]},${a},${year}`))
+        console.log(`${active_day},${my_months[curmonth]},${a},${year}`)
         if (schedule[active_day - 1]?.split(',').includes(a)) {
             setActive_Time(a)
             const tm = a.split(':')
-            const date_ord = new Date(dt.getFullYear(), month, active_day, tm[0], tm[1]);
+            const date_ord = new Date(dt.getFullYear(), curmonth, active_day, tm[0], tm[1]);
             const new_date = Date.parse(date_ord)
             const date = new Date(new_date)
             const formattedDate = date.toLocaleDateString('ru-RU', {
                 year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit',
                 minute: '2-digit',
-            });           
-            dispatch(setdate(`${active_day},${my_months[month]},${a}`))
-           
+            });
+            // dispatch(setdate(`${active_day},${my_months[month]},${a}`))
+
         } else {
             return
         }
 
     }
+  
+
+    function set(a) {
+        if (a === 1) {
+            if (curmonth === 12) {
+                setyear(year + 1)
+            }
+            setcurmonth(curmonth == 12 ? 1 : curmonth + 1)
+        } else {
+            if (curmonth === 1) {
+                setyear(year - 1)
+            }
+            setcurmonth(curmonth == 1 ? 12 : curmonth - 1)
+        }
+        setSchedule([])
+        setActive_Day()
+        setActive_Time()
+        setPatern([])
+    }
     function SetMonth(a) {
         setSchedule([])
         setActive_Day()
         setActive_Time()
-        let m = my_months.findIndex(i => i === a)
-        setMonth(m)
+        if (a === 'Январь') {
+            setMonth(12)
+        } else {
+            let m = my_months.findIndex(i => i === a)
+            console.log(m)
+            setMonth(m)
+        }
         setPatern([])
     }
-    const  disabled = (a) => Date.parse(new Date(year, month-1, a)) < Date.parse(new Date())
+    const disabled = (a) => Date.parse(new Date(year, curmonth - 1, a)) < Date.parse(new Date())
 
-    
+
     return (
-        <>           
-            <h3 className={styles.date}>Ближайшие даты</h3>
-            <div className={styles.month}>
+        <>
+            <h3 className={styles.date}>Ближайшие даты {year} {curmonth}</h3>
+            {/* <div className={styles.month}>
                 {months.splice(month ? month - 1 : 0, 3).map(i =>
                     <button onClick={() => SetMonth(i)} style={i === my_months[month] ? activ_month : null} key={i}>
                         {i}
                     </button>
                 )}
+            </div> */}
+            <div className={styles.month}>
+                <button onClick={() => set(-1)} >
+                    {my_months[curmonth - 1]}
+                </button>
+                <button style={activ_month}>
+                    {my_months[curmonth]}
+                </button>
+                <button onClick={() => set(1)} >
+                    {my_months[curmonth === 12 ? 1 : curmonth + 1]}
+                </button>
             </div>
             <div className={styles.week}>
                 {days.map(i => <span key={i}>{i}</span>)}
@@ -184,35 +216,35 @@ export default function SelectDate({ nikname }) {
                             onClick={() => Set_Active_Day(i, Count(i), index)}
                             key={index}
                             style={active_day === index + 1 ? (Count(i) === 0 ? false_day : active) : null}
-                            disabled={disabled(index+1)}
+                            disabled={disabled(index + 1)}
                         >{index + 1}
                             <b
                                 className={styles.count}
-                                style={{ display: Count(i) ? 'inline-block' : 'none',
-                                backgroundColor : !Count(i) ? null:  active_day === index + 1 ? '#8B95F2' : '#3D4EEA' }}
+                                style={{
+                                    display: Count(i) ? 'inline-block' : 'none',
+                                    backgroundColor: !Count(i) ? null : active_day === index + 1 ? '#8B95F2' : '#3D4EEA'
+                                }}
                             >{Count(i)}</b>
 
                         </button>
                     )}
-                    
+
                 </div>
 
             </div>
             <h3 className={styles.date}>Свободное время {!schedule?.length ? 'отсувствует' : ''}</h3>
             <div className={styles.time}>
-                {patern?.filter(i=>i).map(i =>
+                {patern?.filter(i => i).map(i =>
                     <span
                         onClick={() => Set_Active_Time(i)}
                         key={i}
-                        style={active_time === i ? active  : { backgroundColor: '#fff', border: '1px solid #d0d0d0' }}
+                        style={active_time === i ? active : { backgroundColor: '#fff', border: '1px solid #d0d0d0' }}
                     >
                         {i}
                     </span>
                 )}
             </div>
-            {/* {saved ? <div className={styles.await}>
-                <Image alt="await" src='/await.gif' width={150} height={150} />
-            </div> : null} */}
+
 
         </>
     )

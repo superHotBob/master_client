@@ -1,4 +1,5 @@
-const months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
+const week = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"] 
+const months = ['декабрь','январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'].map(i=>i.toLowerCase())
 const my_profile = {
   get: () => {
     const result = localStorage.getItem('profile')
@@ -19,7 +20,7 @@ function Convert_Date(a) {
     const tm = d[2].split(':')   
    
     if (tm[0] === '00') {
-      const date_ord = new Date(dt.getFullYear(), months.indexOf(d[1]), d[0])
+      const date_ord = new Date(dt.getFullYear(), months.indexOf(d[1])-1, d[0])
       const formattedDate = date_ord.toLocaleDateString('ru-RU', {
         month: 'long', day: 'numeric'
       })
@@ -29,7 +30,7 @@ function Convert_Date(a) {
       return null
 
     } else {
-      const date_ord = new Date(dt.getFullYear(), months.indexOf(d[1]), d[0], tm[0], tm[1])
+      const date_ord = new Date(dt.getFullYear(), months.indexOf(d[1])-1, d[0], tm[0], tm[1])
       const formattedDate = date_ord.toLocaleDateString('ru-RU', {
         month: 'long', day: 'numeric', hour: '2-digit',
         minute: '2-digit',
@@ -53,13 +54,9 @@ function NewOrder(a) {
      
       return true;
   } else if ( mon === d.getMonth() && +date_order[0] >=  d.getDate()) {
-      if( +date_order[2].split(':')[0] > d.getHours()) {
-         
-          return true;
-      } else {
-         
-           return true;
-      }
+    if( +date_order[2].split(':')[0] > d.getHours()) {         
+      return true;
+    } else {return true;}
      
   } else {
      
@@ -81,4 +78,4 @@ function My_Date(a) {
     }
     return message_date.toLocaleDateString('ru-RU', options)
 }
-export { Convert_Date, EditLocalStorage, NewOrder, My_Date, months }
+export { Convert_Date, EditLocalStorage, NewOrder, My_Date, months, week }

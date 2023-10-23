@@ -53,19 +53,22 @@
   justify-content: space-between;
   margin-bottom: 16px;
 }
-.month span {
+.month button {
   display: inline-block;
-  width: 25%;
+  width: 20%;
+  text-transform: capitalize;
   font-weight: 400;
-  color: #d0d0d0;
   text-align: center;
+  font-size: 16px;
+  color: #d0d0d0;
   cursor: pointer;
+  background-color: #fff;
 }
-.month span:last-of-type {
-  text-align: right;
-}
-.month span:first-of-type {
+.month button:first-of-type {
   text-align: left;
+}
+.month button:last-of-type {
+  text-align: right;
 }
 
 .days::-webkit-scrollbar {

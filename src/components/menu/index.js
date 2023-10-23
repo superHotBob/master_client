@@ -15,10 +15,12 @@ const login = {
 }
 
 export default function Menu({ count, profile }) {
-
+    const chat = JSON.parse(localStorage.getItem('chat'))
     const dispatch = useDispatch()
     const router = useRouter()
-    const { data } = useSWR(profile.status ? `/api/get_new_messages?nikname=${profile.nikname}&status=${profile.status}`: null)
+    const { data } = useSWR(profile.status ? `
+        /api/get_new_messages?nikname=${profile.nikname}&status=${profile.status}&chat=${chat}
+        `: null)
 
 
 
@@ -28,7 +30,7 @@ export default function Menu({ count, profile }) {
     }
     function ExitFromAccount() {
         dispatch(setprofile({}))
-        localStorage.clear()       
+        localStorage.removeItem('profile')       
         document.cookie = 'key=; expires=Thu, 01 Jan 1970 00:00:00 GMT'
         document.cookie = 'nikname=; expires=Thu, 01 Jan 1970 00:00:00 GMT'
         router.push('/')

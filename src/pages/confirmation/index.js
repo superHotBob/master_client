@@ -18,12 +18,16 @@ export default function Confirmation() {
     const date = useSelector(state => state.counter.date_order)
     const [goodorder, setgoodorder] = useState(false)
     const [address, setaddress] = useState()
-    const { data } = useSWR(`/api/get_full_address?nikname=${master.nikname}`)
-    console.log(order)
     
+    const { data:full_address } = useSWR(`/api/get_full_address?nikname=${master.nikname}`)
+   
+   
     const SaveOrder = () => {
         // const profile = JSON.parse(localStorage.getItem('profile'))        
         const month =  months.indexOf(date.split(',')[1]) + 1
+        const year = date.split(',')[3]
+
+        
        
         if(profile.status === 'client') {
             const data = {
@@ -36,7 +40,8 @@ export default function Confirmation() {
                 myorder: order,
                 date: date,
                 address:  address,
-                month: month
+                month: month,
+                year:year
             }
             fetch('/api/save_order', {
                 body: JSON.stringify(data),
@@ -59,7 +64,8 @@ export default function Confirmation() {
                 order: order.join(','),
                 date: date,
                 address:  address,
-                month: month
+                month: month,
+                year: year
             }
             fetch('/api/save_order_master', {
                 body: JSON.stringify(data),
@@ -80,9 +86,10 @@ export default function Confirmation() {
     async function EditSchedule(a) {
         const my_data = {
             nikname: a,
-            month: date.split(',')[1].toLowerCase()            
+            month: date.split(',')[1].toLowerCase(),
+            year: date.split(',')[3]            
         } 
-        await  fetch(`/api/get_schedule?nikname=${a}&month=${my_data.month}`)
+        await  fetch(`/api/get_schedule?nikname=${a}&month=${my_data.month}&year=${my_data.year}`)
         .then(res => res.json())
         .then(data =>{
             let new_schedule = data;
@@ -104,8 +111,9 @@ export default function Confirmation() {
     }
 
     useEffect(()=>{
-        setaddress('Ул. ' + master.address  + ', дом ' + data?.дом + ', кв.' + data?.квартира + ', этаж ' + data?.этаж)
-    },[data])
+        setaddress('Ул. ' + master.address  + ', дом ' + full_address?.дом + ', кв.' + full_address?.квартира + ', этаж ' + full_address?.этаж)
+    },[full_address])
+    
     function World(a) {
         if (a > 1 && a < 5) {
             return 'услуги'
@@ -126,18 +134,17 @@ export default function Confirmation() {
         } else {
             () => router.push('/')
         }
-
     }
        
     function Order_Date(a) { 
         if(a) {            
             const dt = new Date()
             let d = a.split(',')      
-            const tm = d[2].split(':')           
-            const date_ord = new Date(dt.getFullYear(),months.indexOf(d[1]), d[0], tm[0],tm[1]);
-                     
+            const tm = d[2].split(':')  
+            console.log(d,tm,months.indexOf(d[1]))               
+            const date_ord = new Date(d[3],months.indexOf(d[1]) - 1 , d[0], tm[0],tm[1])            
             const formattedDate = date_ord.toLocaleDateString('ru-RU', { month: 'long', day: 'numeric', hour:   '2-digit',
-            minute: '2-digit', });
+            minute: '2-digit', })
             return formattedDate
         } else {
             return 
@@ -162,7 +169,7 @@ export default function Confirmation() {
                     </p>
                 )}
                 <h4>Адрес:</h4>
-                Ул. {master.address}, дом {data?.дом}, кв.{data?.квартира}, этаж {data?.этаж}
+                Ул. <span className={styles.street}>{master.address}</span>, дом {full_address?.дом}, кв {full_address?.квартира}  этаж {full_address?.этаж}
                 <h4>Дата: </h4>
                 <span className={styles.date}>{Order_Date(date)}</span>
                 <h3>Сумма</h3>

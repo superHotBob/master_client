@@ -41,10 +41,28 @@
     margin: 26px 0 12px;
 }
 
-.mounth {
+.month {
     display: flex;
     justify-content: space-between;
     margin: 24px 0 5px;
+}
+
+.month button {
+    display: inline-block;
+    width: 20%;
+    text-transform: capitalize;
+    font-weight: 400;
+    text-align: center;
+    font-size: 16px;
+    color: #d0d0d0;
+    cursor: pointer;
+    background-color: #fff;
+}
+.month button:first-of-type {
+    text-align: left;
+}
+.month button:last-of-type {
+    text-align: right;
 }
 
 

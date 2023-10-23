@@ -7,15 +7,12 @@ export default async function handler(req, res) {
   await client.connect();
 
   const { rows } = await client.query(`
-    select COUNT(*) from "orders"
-    where "master" = $1 and "read" = false
-  `,[req.query.nikname]);
+    select *
+    from "orders"
+    where "master" = $1 
+    order by "id" desc
+  `,[req.query.nikname])
 
-  let count = rows[0].count
-
-  
-  await client.end() 
-  res.status(200).send(count)
-  
-
+   await client.end() 
+    res.status(200).json(rows)
 }

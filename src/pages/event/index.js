@@ -3,14 +3,11 @@ import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import styles from './event.module.css'
 import useSWR from 'swr'
-import { url } from '@/data.'
-
-
 
 
 export default function Event() {
     const router = useRouter()   
-    const  status  = useSelector(state=>state.counter.profile['status'])
+    const status = useSelector(state=>state.counter.profile['status'])
     const city = useSelector(state=>state.counter.city)
     const { data } = useSWR(`/api/get_events?city=${city.toLowerCase()}`)
     

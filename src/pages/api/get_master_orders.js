@@ -18,6 +18,6 @@ export default async function handler(req, res) {
   if (rows.length > 0) {
     res.status(200).json(rows.map(i=>i.date_order.split(',')))
   } else {
-    res.status(500).json([])
+    res.status(200).json([])
   }
 }
