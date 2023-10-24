@@ -67,8 +67,8 @@ export default function Client() {
                         className={styles.order}
                     >
                         <p>
-                            <span className={NewOrder(i.date_order, i.order_month,i.year) ? styles.active : null}>
-                                {Convert_Date(i.date_order)}
+                            <span className={NewOrder(i.date_order, i.order_month, i.year) ? styles.active : null}>
+                                {Convert_Date(i.date_order, i.order_month, i.year)}
                             </span>
                             <span>#{i.id}</span>
                         </p>

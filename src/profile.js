@@ -12,14 +12,14 @@ const my_profile = {
   }
 
 }
-function Convert_Date(a) {
+function Convert_Date(a,b,c) {  
   if (a) {
     const dt = new Date()
     let d = a.split(',')
     const tm = d[2].split(':')
 
     if (tm[0] === '00') {
-      const date_ord = new Date(dt.getFullYear(), months.indexOf(d[1]) - 1, d[0])
+      const date_ord = new Date(c, b-1, d[0])
       const formattedDate = date_ord.toLocaleDateString('ru-RU', {
         month: 'long', day: 'numeric'
       })
@@ -29,7 +29,7 @@ function Convert_Date(a) {
       return null
 
     } else {
-      const date_ord = new Date(dt.getFullYear(), months.indexOf(d[1]) - 1, d[0], tm[0], tm[1])
+      const date_ord = new Date(c, b-1, d[0], tm[0], tm[1])
       const formattedDate = date_ord.toLocaleDateString('ru-RU', {
         month: 'long', day: 'numeric', hour: '2-digit',
         minute: '2-digit',

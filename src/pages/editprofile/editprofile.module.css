@@ -294,7 +294,7 @@ div.tema {
 }
 .confid_politic_true::after {
   content: 'Разрешить';
-  background-color:  rgb(255, 99, 71, 0.9);
+  background-color:  rgb(255, 99, 71);
 }
 .confid_politic_false::after {
   content: 'Запретить';

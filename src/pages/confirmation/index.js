@@ -40,7 +40,7 @@ export default function Confirmation() {
                 myorder: order,
                 date: date,
                 address:  address,
-                month: month,
+                month: month === 0 ? 12 : month,
                 year:year
             }
             fetch('/api/save_order', {
@@ -64,7 +64,7 @@ export default function Confirmation() {
                 order: order.join(','),
                 date: date,
                 address:  address,
-                month: month,
+                month: month === 0 ? 12 : month,
                 year: year
             }
             fetch('/api/save_order_master', {

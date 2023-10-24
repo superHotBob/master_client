@@ -16,7 +16,7 @@ export default function OrderMessage({ id, color }) {
             <h5 className={styles.details}>Детали заказа:</h5>
             <p>{order.myorder?.map(i => i.split(':')[0]) + '.'}</p>
             <h5>Дата встречи:</h5>
-            <p>{Convert_Date(order?.date_order)}</p>
+            <p>{Convert_Date(order?.date_order, order?.order_month, order?.year)}</p>
             <h5>Адрес встречи:</h5>
             <p>Ул. {order.улица} , дом {order.дом} , кв. {order.квартира} </p>
             <p>Сумма: {order.price} BYN</p>

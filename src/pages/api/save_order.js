@@ -54,13 +54,13 @@ export default async function handler(req, res) {
 
   await client.query(`
     update "clients" 
-    set "rating" = rating + 1 
+    set "rating" = "rating" + 1 
     where "nikname" = $1
   `, [req.body.nikname]);
 
   await client.query(`
     update "masters" 
-    set "rating" = rating + 1 
+    set "rating" = "rating" + 1 
     where "nikname" = $1
   `, [req.body.nikname]);
 

@@ -17,7 +17,7 @@ const review = {
 function Detail({ order }) {
     return <>
         <h5>Дата и время</h5>
-        <span>{Convert_Date(order?.date_order)}</span>
+        <span>{Convert_Date(order?.date_order, order?.order_month, order?.year)}</span>
         <h5>Услуги и стоимость</h5>
         <span>{order?.text}</span>
         <span>Стоимость {order?.price} BYN</span>
@@ -53,7 +53,7 @@ function ClientOrder({ order, active, close }) {
     async function SendReview() {
         const data = {
             review: ref.current.
-                value, id: order.id,
+            value, id: order.id,
             stars: stars,
             nikname: order.master
         }
@@ -105,14 +105,16 @@ function ClientOrder({ order, active, close }) {
                     <Detail order={order} />                   
                     {active ?
                         <button onClick={DeleteOrder}><b>Отменить заказ</b></button>
-                        : <>
+                        : 
+                        <>
                             {order.review ?
                                 <div className={styles.result}>
                                     <span>Отзыв</span>
                                     {order.review}
                                 </div>
                                 :
-                                <button style={review} onClick={() => setreview(false)}>Оставить отзыв</button>}
+                                <button style={review} onClick={() => setreview(false)}>Оставить отзыв</button>
+                            }
                         </>
                     }
 

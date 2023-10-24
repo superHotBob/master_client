@@ -113,7 +113,7 @@ export default function SelectDate({ nikname }) {
         const dt = new Date()
         setActive_Time(a)
         dispatch(setdate(`${active_day},${my_months[curmonth]},${a},${year}`))
-        console.log(`${active_day},${my_months[curmonth]},${a},${year}`)
+       
         if (schedule[active_day - 1]?.split(',').includes(a)) {
             setActive_Time(a)
             const tm = a.split(':')
@@ -168,14 +168,7 @@ export default function SelectDate({ nikname }) {
 
     return (
         <>
-            <h3 className={styles.date}>Ближайшие даты {year} {curmonth}</h3>
-            {/* <div className={styles.month}>
-                {months.splice(month ? month - 1 : 0, 3).map(i =>
-                    <button onClick={() => SetMonth(i)} style={i === my_months[month] ? activ_month : null} key={i}>
-                        {i}
-                    </button>
-                )}
-            </div> */}
+            <h3 className={styles.date}>Ближайшие даты </h3>           
             <div className={styles.month}>
                 <button onClick={() => set(-1)} >
                     {my_months[curmonth - 1]}
@@ -190,25 +183,7 @@ export default function SelectDate({ nikname }) {
             <div className={styles.week}>
                 {days.map(i => <span key={i}>{i}</span>)}
             </div>
-            <div className={styles.all_days}>
-                {/* <div className={styles.days}>
-                    {Array.from({ length: v }, (v, i) => i + 1).map(i => <span key={i} style={{ opacity: 0 }}>{i}</span>)}
-                    {Array.from({ length: all_days.getDate() }, (v, i) => i + 1)
-                        .map((i,index) =>
-                            <span
-                                onClick={() => Set_Active_Day(i, Count(i),index)}
-                                key={i}
-                                style={active_day === i ? active : (Count(i) === 0 ? false_day : null)}
-
-                            >{i}
-                                <b
-                                    className={styles.count}
-                                    style={{ display: Count(i) ? 'inline-block' : 'none' }}
-                                >{Count(i)}</b>
-
-                            </span>
-                        )}
-                </div> */}
+            <div className={styles.all_days}>               
                 <div className={styles.days}>
                     {Array.from({ length: v }, (v, i) => i + 1).map(i => <span key={i} style={{ opacity: 0 }}>{i}</span>)}
                     {schedule?.map((i, index) =>
