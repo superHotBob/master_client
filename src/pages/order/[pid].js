@@ -51,7 +51,7 @@ export default function Order() {
                 <span>#{pid}</span>
                 <span style={{ color: color ? color[1] : null }}>Готово</span>
             </header>
-            <section className={styles.data} style={{ color: color ? color[1] : null }}>
+            {order ? <section className={styles.data} style={{ color: color ? color[1] : null }}>
                 <h5>Клиент</h5>
                 <Detail order={order} />             
                 {NewOrder(order?.date_order, order?.order_month, order?.year ) ?
@@ -64,7 +64,7 @@ export default function Order() {
                         <h3>{order?.review}</h3>
                     </div>
                 } 
-            </section>
+            </section> : null}
             {result ? <p>{result}</p> : null}
         </main>
     )
