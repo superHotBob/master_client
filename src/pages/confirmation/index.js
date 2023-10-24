@@ -18,7 +18,7 @@ export default function Confirmation() {
     const date = useSelector(state => state.counter.date_order)
     const [goodorder, setgoodorder] = useState(false)
     const [address, setaddress] = useState()
-    
+
     const { data:full_address } = useSWR(`/api/get_full_address?nikname=${master.nikname}`)
    
    
@@ -58,7 +58,7 @@ export default function Confirmation() {
             const data = {
                 client: profile.nikname ,
                 client_name:  profile.name,
-                nikname: profile.nikname,
+                master: profile.nikname,
                 master_name: profile.name,
                 price: Cost(order),
                 order: order.join(','),
@@ -141,7 +141,7 @@ export default function Confirmation() {
             const dt = new Date()
             let d = a.split(',')      
             const tm = d[2].split(':')  
-            console.log(d,tm,months.indexOf(d[1]))               
+                        
             const date_ord = new Date(d[3],months.indexOf(d[1]) - 1 , d[0], tm[0],tm[1])            
             const formattedDate = date_ord.toLocaleDateString('ru-RU', { month: 'long', day: 'numeric', hour:   '2-digit',
             minute: '2-digit', })

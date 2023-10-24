@@ -14,7 +14,7 @@ const review = {
 }
 
 
-function Detail({order}) {
+function Detail({ order }) {
     return <>
         <h5>Дата и время</h5>
         <span>{Convert_Date(order?.date_order)}</span>
@@ -102,43 +102,18 @@ function ClientOrder({ order, active, close }) {
                     <h5 style={{ fontWeight: 400 }}>
                         <Link href={'/' + order.master} style={{ color: '#3D4EEA' }}>{order.master_name || order.master}{' '}</Link>({order.master})
                     </h5>
-                    <Detail order={order} />
-                    {/* <h5>Дата и время</h5>
-                    <span>{Convert_Date(order.date_order)}</span>
-                    <h5>Услуги и стоимость</h5>
-                    <span>{order.text}</span>
-                    <span>Стоимость {order.price} BYN</span>
-                    <h5>Дополнительное описание</h5>
-                    {order.myorder ?
-                        <div className={styles.review}>
-                            {order.myorder.map((i, index) =>
-                                <Fragment key={index}>
-                                    <p >{(index + 1 + '. ' + i.split(':')[0])}</p>
-                                    <span>{i.split(':')[2]}</span>
-                                </Fragment>
-                            )}
-                        </div>
-                        :
-                        <div className={styles.review}>
-                            {order.neworder.split(',').map((i, index) =>
-                                <Fragment key={index}>
-                                    <p>{(index + 1 + '. ' + i.split(':')[0])}</p>
-                                    {i.split(':')[2]}
-                                </Fragment>
-                            )}
-                        </div>
-                    } */}
+                    <Detail order={order} />                   
                     {active ?
                         <button onClick={DeleteOrder}><b>Отменить заказ</b></button>
-                        :
-                        order.review ?
-
-                            <div className={styles.result}>
-                                <span>Отзыв</span>
-                                {order.review}
-                            </div>
-                            :
-                            <button style={review} onClick={() => setreview(false)}>Оставить отзыв</button>
+                        : <>
+                            {order.review ?
+                                <div className={styles.result}>
+                                    <span>Отзыв</span>
+                                    {order.review}
+                                </div>
+                                :
+                                <button style={review} onClick={() => setreview(false)}>Оставить отзыв</button>}
+                        </>
                     }
 
                 </>

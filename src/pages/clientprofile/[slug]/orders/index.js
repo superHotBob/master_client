@@ -8,7 +8,7 @@ import { ClientOrder } from '@/components/clientorder'
 import { Convert_Date, NewOrder } from '@/profile'
 
 import { useDispatch } from 'react-redux'
-import { setorder } from '@/reduser'
+
 
 const sel = {
     background: 'linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)',
@@ -34,14 +34,9 @@ export default function Client() {
             router.push('/')
         } else {
             fetch(`/api/get_orders_client?nikname=${slug}`)
-                .then(res => res.json())
-                .then(res => {
-                    setData(res)
-                    console.log(res)
-                })
+            .then(res => res.json())
+            .then(res => setData(res))
         }
-
-
     }, [slug, router])
 
 
@@ -50,10 +45,7 @@ export default function Client() {
         setOrderIndex(a)
         window.scrollTo(0, 0);
     }
-    function ViewOrder(a) {        
-        dispatch(setorder(a))
-        router.push('/order/' + a.id)
-    }
+  
     return (
         <>
             <Header text={profile.nikname} sel="back" />
@@ -75,7 +67,7 @@ export default function Client() {
                         className={styles.order}
                     >
                         <p>
-                            <span className={NewOrder(i.date_order) ? styles.active : null}>
+                            <span className={NewOrder(i.date_order, i.order_month,i.year) ? styles.active : null}>
                                 {Convert_Date(i.date_order)}
                             </span>
                             <span>#{i.id}</span>
@@ -88,7 +80,14 @@ export default function Client() {
                     </div>
                 )}
             </section>
-            {viewOrder ? <ClientOrder order={data[orderIndex]} active={NewOrder(data[orderIndex].date_order)} close={close} /> : null}
+            {viewOrder ? 
+                <ClientOrder 
+                    order={data[orderIndex]} 
+                    active={NewOrder(data[orderIndex].date_order,data[orderIndex].order_month,data[orderIndex].year)} 
+                    close={close} 
+                /> 
+                : null
+            }
         </>
     )
 }
