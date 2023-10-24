@@ -54,7 +54,7 @@ export default function Order() {
             <section className={styles.data} style={{ color: color ? color[1] : null }}>
                 <h5>Клиент</h5>
                 <Detail order={order} />             
-                {NewOrder(order['date_order'], order['order_month'], order['year'] ) ?
+                {NewOrder(order?.date_order, order?.order_month, order?.year ) ?
                     <button onClick={DeleteOrder}>
                         <b>Отменить заказ</b>
                     </button>
