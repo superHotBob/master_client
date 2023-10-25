@@ -48,16 +48,16 @@ export default function Navi({ save, color }) {
     return (        
         <div className={styles.total} style={{ top: height }}>
             <div className={styles.main_navi} style={{ backgroundColor: tema[1]}}>
-                <Link title='на главную страницу' href="/" className={pathname === '/' ? styles.home : styles.dashboard}>
+                <Link title='Главная страница' href="/" className={pathname === '/' ? styles.home : styles.dashboard}>
                     <Image alt="home" priority={true} src={pathname === '/' ? home : home_wh} height={20} width={20} />
                 </Link>
-                <Link title="в каталог" href="/catalog" className={pathname === '/catalog' ? styles.home : styles.dashboard}>
+                <Link title="Каталог" href="/catalog" className={pathname === '/catalog' ? styles.home : styles.dashboard}>
                     <Image alt="catalog"  priority={true} src={pathname === '/catalog' ? dashboard_bl : dashboard} height={20} width={20} />
                 </Link>
                 {prof.status ? 
                     <Link 
                         href="/chat" 
-                        title="в чат" 
+                        title="Чат" 
                         className={styles.message} 
                         style={pathname === '/chat' ?  chat : null}
                     /> : null
@@ -65,7 +65,7 @@ export default function Navi({ save, color }) {
                 {prof.status === 'client' ?
                     <Link
                         href={'/clientprofile/' + prof.nikname  }
-                        title="сохранённое"
+                        title="Сохранённые публикации"
                         className={styles.stroke}
                         style={(router.asPath.includes('orders') || !router.asPath.includes(prof.nikname)) ? null : saved}
                     /> : null
@@ -74,7 +74,7 @@ export default function Navi({ save, color }) {
                     href={prof.status  === 'master' ? "/masterprofile/" + prof.nikname : 
                     prof.status  === 'client' ? "/clientprofile/" + prof.nikname + "/orders" :
                     "/enter"}
-                    title="в проффиль"
+                    title="Мой профиль"
                     className={styles.enter}
                     style={prof.status ?
                         (router.asPath.includes('orders') || router.asPath.includes('masterprofile/') ? active : active_two) : null}

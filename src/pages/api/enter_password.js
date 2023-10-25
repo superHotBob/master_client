@@ -59,7 +59,7 @@ export default async function handler(req, res) {
       const { rows: result } = await client.query(`
           select 
           masters.address,masters.city,masters.currency,masters.locations,masters.name,masters.nikname,
-          masters.services,masters.stars,masters.status,masters.tema,masters.text,
+          masters.services,masters.stars,masters.status,masters.tema,masters.text,masters.address_full,
           clients.confid
           from "masters"
           left join "clients" on masters.phone = clients.phone

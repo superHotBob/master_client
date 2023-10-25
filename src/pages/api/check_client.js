@@ -8,25 +8,18 @@ export default async function handler(req, res) {
     await client.connect()
 
     const { rows }  = await client.query(`
-        select *
+        select phone, blocked
         from  "clients"
-        where "phone" = $1`
-        ,[req.query.phone]
-    );
-
-   
-   
+        where "phone" = $1 
+        `,[req.query.phone]
+    );   
     let date_enter = Date.now()
-    const ipAddress = IP.address()
-
-   
+    const ipAddress = IP.address()   
     await client.query(
         `INSERT INTO "history" ("ip", "date_enter", "city" , "phone")  
         VALUES ($1, $2,$3,$4)`
         , [ipAddress, date_enter, 'Минск', req.query.phone]
-    )
-   
-    await client.end()    
-
+    )   
+    await client.end() 
     res.status(200).json(rows)
 }

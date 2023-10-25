@@ -23,55 +23,61 @@ export default function Enter() {
 
 
 
-
-
     useEffect(() => {
-        setPhone(my_phone)
+        setPhone(my_phone)       
         if (password === 'new') {
             setSelect('Восстановление пароля')
+            Call()
         }
-    }, [])
+        console.log('ffff',my_phone,password)
+    }, [password, my_phone])
+
+   
 
     const firstCall = () => {
-        const data = { tel: phone }
-
-        
         fetch(`/api/check_client?phone=${phone}`)
             .then(res => res.json())
             .then(res => {
-                if (res.length === 0 || password === 'new') {
+                if(password === 'new') {
                     Call()
+                    return ;
+                }
+                if (res.length === 0) {
+                    Call();                    
                 } else if (res[0].blocked != '0') {
                     router.push('/enter')
                 } else {
                     dispatch(setphone(phone))
                     router.push('/enterpassword')
                 }
-            })
-        async function Call() {
-            const res = await fetch(`/api/get_code`, {
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                method: 'POST',
-            })
-            const txt = await res.text()
+        })
+    }
 
-            if (res.status === 400) {
-                setSelect('Подтвердить'),
-                    setTimeout(() => document.getElementById(0).focus(), 500),
-                    dispatch(setphone(phone))
-            } else {
-                setT(+txt)
-                
-            }
+    async function Call() {
+        const data = { tel: phone || my_phone}
 
+        console.log('data',data)
+        const res = await fetch(`/api/get_code`, {
+            body: JSON.stringify(data),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+        })
+        const txt = await res.text()
+
+        if (res.status === 400) {
+            setSelect('Подтвердить'),
+            setTimeout(() => document.getElementById(0).focus(), 500),
+            dispatch(setphone(phone))
+        } else {
+            setT(+txt)
         }
 
     }
-    useEffect(() => {
 
+
+    useEffect(() => {
         if (t > 0) {
             let timer = setInterval(() => {
                 setT(t - 1)
@@ -88,7 +94,7 @@ export default function Enter() {
 
     async function sendCode() {
         const data = { tel: phone, number: +number.join('') }
-        fetch(`/api/get_code`, {
+        fetch('/api/get_code', {
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
@@ -101,7 +107,7 @@ export default function Enter() {
                     router.push('newpassword')
                 } else if (res.status === 404) {
                     setSelect('Подтвердить')
-                    setMessage('Не верный код')
+                    // setMessage('Не верный код')
                 } else if (res.status === 500) {
                     setMessage('Вы исчерпали лимит попыток')
                     setT(60)
@@ -114,7 +120,7 @@ export default function Enter() {
 
     const handleKeyDown = (e, b) => {
         if (e.key === 'Backspace') {
-            if (!e.target.value > 0 && b > 0) {
+            if (!e.target.value >= 0 && b >= 0) {
                 document.getElementById(b - 1).focus()
             }
         }

@@ -15,6 +15,8 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
     const [center, setCenter] = useState()
     const [zoom, setZoom] = useState(15)
     const [mapHeight, setMapHeight] = useState()
+
+    const [address, setaddres] = useState()
    
     const [viewMasters, setViewMasters] = useState(0)
     const [filter_masters, setFilterMasters] = useState([])
@@ -163,8 +165,19 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
         SetFilterCluster()
     }
     function Bob() { setzoom(17) }
-
-    const placeMark = (a, b) => {
+    async function getAddress(a) {       
+        const geocoder = ymaps.geocode(a.map(i=>+i));        
+        geocoder.then(
+            function (res) {
+                const address = res.geoObjects.get(0).getAddressLine()                
+                setaddres(address)             
+            },
+            function (err) {
+                console.log('Ошибка');
+            }
+        )     
+    }        
+    const placeMark = (a, b, c) => {
         const Layout = a.createClass(zoom > 12 ?
             `<img style=" border-radius: 50%; border: 3px solid #3D4EEA" height="44px" width="44px" src=${process.env.url_image + b + '.jpg'} />` :
             '<img src="/master.svg" height="40px" width="40px"/>',
@@ -178,7 +191,8 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
                         radius: 22,
                     };                   
                     this.getData().options.set('shape', bigShape);
-                    this.getData().geoObject.events.add('click', function () { Bob(b) }, this)
+                    this.getData().geoObject.events.add('click', function () { Bob(b) }, this);
+                    this.getData().geoObject.events.add('mouseenter', function () { getAddress(c) }, this)
                 }
             }
         );
@@ -206,7 +220,7 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
                 onLoad={OnLoadMap}
                 onWheel={() => getRadius()}
                 onTouchMove={SetFilterCluster}
-            // onMouseUp={SetFilterCluster}
+           
             >
                 <Clusterer
                     options={{
@@ -247,15 +261,15 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
                                 }
 
                                 properties={{
-                                    hintContent: `<p style="border: none;color: blue;font-size: 17px;padding: 5px">
-                                    ${i.name}<br/>
-                                    ${i.address}
-                                    </p>`,
+                                    hintContent: `<div style="border: none; color: blue; padding: 5px">
+                                    <h3 style="font-weight: 600">Мастер:${i.name}</h3>
+                                    <address>г.${address}</address>                                   
+                                    </div>`,
                                     preset: "twirl#blueStretchyIcon",
                                     strokeColor: 'blue',
                                 }}
                                 options={{
-                                    iconLayout: placeMark(ymaps.templateLayoutFactory, i.nikname),
+                                    iconLayout: placeMark(ymaps.templateLayoutFactory, i.nikname,i.locations),
 
                                     // iconLayout: 'default#image',
                                     // iconImageHref: zoom >= 12 ? process.env.url_image + i.nikname + '.jpg' : '/master1.svg',

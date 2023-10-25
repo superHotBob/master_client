@@ -3,7 +3,7 @@ import styles from '../enter/enter.module.css'
 import { useRouter } from 'next/router'
 import { useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setprofile, setpassword } from '@/reduser'
+import { setprofile, setpassword, setphone } from '@/reduser'
 
 
 
@@ -16,8 +16,8 @@ export default function EnterPassword() {
     const passRef = useRef()
 
     const ReplacePassword = () => {
-        dispatch(setpassword('new'))
-        router.push('/enter')
+        dispatch(setpassword('new'))       
+        router.back()
     }
 
     const handleSubmit = async (e) => {

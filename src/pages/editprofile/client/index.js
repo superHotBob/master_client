@@ -48,8 +48,7 @@ export default function EditProfile() {
         .then(res => res.json())
         .then(res => {
             localStorage.setItem("profile", JSON.stringify(res))
-            dispatch(setprofile(res))
-            setMessage('Ваш профиль изменён')
+            dispatch(setprofile(res))           
             router.push(`/clientprofile/${my_profile.nikname}`)
         })
         .catch(err => setMessage("Ошибка сохранения "))

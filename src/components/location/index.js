@@ -8,6 +8,7 @@ import icon_close from '../../../public/close.svg'
 
 
 
+
 const API_KEY = "89caab37-749d-4e30-8fdf-e8045542f060"
 
 
@@ -19,6 +20,7 @@ function Mymap({ loc_master, nikname, place }) {
    
 
     const [loc, setLoc] = useState(loc_master)
+    const [my_address, setaddres] = useState()
 
 
     const ymaps = useYMaps([
@@ -56,23 +58,39 @@ function Mymap({ loc_master, nikname, place }) {
         behaviors: ["default", "scrollZoom", "onclick"],
 
     };
+
+    // useEffect(()=>getCoord("Минск"),[ymaps])
     function getCoord(place) {
         if (!place) {
             return;
-        }
-
+        }      
       
         const myGeocoder = ymaps.geocode(place);
 
-        myGeocoder.then(
 
+        function getAddress(a) {
+
+        const geocoder = ymaps.geocode(a);
+        geocoder.then(
             function (res) {
-
+                const address = res.geoObjects.get(0).getAddressLine()
+                console.log(address) 
+                setaddres(address)              
+            },
+            function (err) {
+                console.log('Ошибка');
+            }
+        )
+       
+        }    
+        myGeocoder.then(
+            function (res) {
                 const my_loc = res.geoObjects.get(0).geometry.getCoordinates();
                 setLoc(my_loc)
                 updateLocation(my_loc)
+                getAddress(my_loc)
+                console.log(my_loc)
             },
-
             function (err) {
                 console.log('Ошибка');
             }
@@ -137,6 +155,7 @@ function Mymap({ loc_master, nikname, place }) {
                     onLoad={() => ViewGrayScale()}
                 /> : null}
             </Map>
+            {my_address && <p>Адрес: г. {my_address}</p>}
         </>
     )
 }
@@ -150,6 +169,7 @@ export default function Location({ loc_master, close, nikname, place }) {
                 <YMaps query={{ apikey: API_KEY }}>
                     <Mymap place={place} loc_master={loc_master} nikname={nikname} />
                 </YMaps>
+               
             </div>
         </div>
     )

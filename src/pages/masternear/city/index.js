@@ -32,8 +32,7 @@ export default function MasterNear() {
    
 
 
-    useEffect(() => {
-        console.log(window.innerHeight,document.getElementById('my_map').getBoundingClientRect().top)
+    useEffect(() => {        
         setMapHeight(window.innerHeight - document.getElementById('my_map').getBoundingClientRect().top)
     }, [])
 
