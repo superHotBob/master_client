@@ -6,22 +6,11 @@ import Image from 'next/image'
 import { useYMaps, YMaps, Map, Placemark } from '@pbe/react-yandex-maps'
 import icon_close from '../../../public/close.svg'
 
-
-
-
 const API_KEY = "89caab37-749d-4e30-8fdf-e8045542f060"
 
-
-
-function Mymap({ loc_master, nikname, place }) {
-
-
-
-   
+function Mymap({ loc_master, nikname, place, setaddres, address}) {   
 
     const [loc, setLoc] = useState(loc_master)
-    const [my_address, setaddres] = useState()
-
 
     const ymaps = useYMaps([
         "Map",
@@ -51,15 +40,7 @@ function Mymap({ loc_master, nikname, place }) {
                 'Content-Type': 'application/json',
             }
         }).then(res => res.json())
-    }
-
-    const defaultState = {
-        controls: [],
-        behaviors: ["default", "scrollZoom", "onclick"],
-
-    };
-
-    // useEffect(()=>getCoord("Минск"),[ymaps])
+    }  
     function getCoord(place) {
         if (!place) {
             return;
@@ -88,8 +69,7 @@ function Mymap({ loc_master, nikname, place }) {
                 const my_loc = res.geoObjects.get(0).geometry.getCoordinates();
                 setLoc(my_loc)
                 updateLocation(my_loc)
-                getAddress(my_loc)
-                console.log(my_loc)
+                getAddress(my_loc)                
             },
             function (err) {
                 console.log('Ошибка');
@@ -100,23 +80,23 @@ function Mymap({ loc_master, nikname, place }) {
     const placeMark = (a, b) => {
         if(ymaps){
             const Layout = a.createClass(`<img class="img" style=" border-radius: 50%; border: 3px solid #3D4EEA" height="44px" width="44px" src=${process.env.url_image + b + '.jpg'} />`, 
-            // {
-            //     build: function () {
-            //         Layout.superclass.build.call(this);
-            //         const element = this.getParentElement().getElementsByClassName("img")[0];
+            {
+               build: function () {
+                   Layout.superclass.build.call(this);
+                   const element = this.getParentElement().getElementsByClassName("img")[0];
                 
-            //         const bigShape = {
-            //             type: 'Circle',
-            //             coordinates: [0,0],
-            //             radius: 50,
-            //         };
-            //         // Зададим фигуру активной области.
-            //         this.getData().options.set('shape',bigShape );                
-            //         this.getData().geoObject.events.add('click',function() {Bob(b)},this)
+                    const bigShape = {
+                        type: 'Circle',
+                        coordinates: [0,0],
+                        radius: 50,
+                    };
+                    // Зададим фигуру активной области.
+                    this.getData().options.set('shape',bigShape );                
+                    this.getData().geoObject.events.add('click',function() {Bob(b)},this)
                 
-            //     }
+                }
             
-            // }
+            }
             
             );
             return Layout;
@@ -128,11 +108,10 @@ function Mymap({ loc_master, nikname, place }) {
             <Map id="mymap"
                 modules={["Clusterer", "Polygon", "GeoObject", "geoQuery", "control.ZoomControl", "control.FullscreenControl", "Placemark", "geocode",
                     "geoObject.addon.balloon", "borders", "ObjectManager", 'geoObject.addon.balloon', 'clusterer.addon.balloon',
-                    "templateLayoutFactory"]}
-                options={{ set: defaultState }}
+                    "templateLayoutFactory"]}               
                 state={{
                     center: loc_master,
-                    zoom: 12,
+                    zoom: 11,
                     controls: [],
                     behaviors: ["default", "scrollZoom", "multiTouch", "drag", "onclick"]
                 }}
@@ -155,21 +134,28 @@ function Mymap({ loc_master, nikname, place }) {
                     onLoad={() => ViewGrayScale()}
                 /> : null}
             </Map>
-            {my_address && <p>Адрес: г. {my_address}</p>}
+            {address && <p>Адрес: г. {address}</p>}
         </>
     )
 }
 
 
-export default function Location({ loc_master, close, nikname, place }) {
+export default function Location({ loc_master, close, nikname, place, address, setaddres }) {
+    useEffect(()=>window.scrollTo(0,0),[])
+   
     return (
         <div className={styles.map}>
             <div className={styles.my_map} >
                 <Image className={styles.close} src={icon_close} onClick={() => close(false)} alt="close" width={20} height={20} />
                 <YMaps query={{ apikey: API_KEY }}>
-                    <Mymap place={place} loc_master={loc_master} nikname={nikname} />
-                </YMaps>
-               
+                    <Mymap 
+                        place={place} 
+                        loc_master={loc_master}
+                        nikname={nikname} 
+                        setaddres={setaddres}
+                        address={address}
+                    />
+                </YMaps>               
             </div>
         </div>
     )

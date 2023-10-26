@@ -23,7 +23,7 @@ export default function Order({order, profile = 0}) {
         >
             <p>
                 <span className={order.read ? null : styles.active}>
-                    {Convert_Date(order.date_order)}
+                    {Convert_Date(order.date_order,order.order_month,order.year)}
                 </span>
                 <span>#{order.id}</span>
             </p>

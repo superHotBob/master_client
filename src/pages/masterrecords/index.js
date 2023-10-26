@@ -49,6 +49,7 @@ export default function Records() {
             .then(res => {
                 const new_result = [...res]
                 let month_result = new_result.filter(i => i.date_order.includes(months[curmonth]))
+               
                 let flsd = month_result.map(i => +i.date_order.split(',')[0])
                 set_false_days(flsd)
                 setOrders(res)
@@ -56,10 +57,14 @@ export default function Records() {
     }, [curmonth])
 
 
-    const FilterDay = e => setActive_Day(+e.target.id)
+    const FilterDay = e => {
+        setActive_Day(+e.target.id)
+       
+    }
 
-    function Count(a) {
-        let s = false_days.filter(i => i === a).length
+    function Count(a) {  
+        
+        let s = orders?.filter(i => +i.date_order.split(',')[0] === a).length       
         return s
     }
     function set(a) {
@@ -138,9 +143,9 @@ export default function Records() {
                         </div>
                         <p className={styles.all_records}>
                             Все записи на сеансы
-                            <span style={{ color: my_tema[+profile.tema].color[1] }}>
-                                {active_day ? Convert_Date(` ${active_day},${my_months[curmonth]},${'00:00'}`) : null}
-                            </span>
+                            { Count(active_day) > 0 ? <span style={{ color: my_tema[+profile.tema].color[1] }}>
+                                {active_day ?  months[curmonth] + " , "  + active_day   : null}
+                            </span> :null}
                         </p>
                         <Link
                             href={`/recordingtomaster?name=${profile.name}&nikname=${profile.nikname}`}

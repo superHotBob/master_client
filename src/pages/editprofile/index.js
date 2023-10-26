@@ -53,6 +53,7 @@ export default function EditProfile() {
     const [address, setAddress] = useState()
     const [address_full, setAddress_full] = useState()
     const [loc, selectLoc] = useState(false)
+    
     const { data } = useSWR(master_address ? '/api/get_cities':null)
    
    
@@ -66,8 +67,7 @@ export default function EditProfile() {
         }    
     }    
     useEffect(() => {
-        let pro = JSON.parse(localStorage.getItem('profile'))
-        console.log(pro.confid)
+        let pro = JSON.parse(localStorage.getItem('profile'))       
         if (!pro) {
             return () => router.push('/enter')
         }else {
@@ -257,14 +257,14 @@ export default function EditProfile() {
                         {/* <input style={{ fontSize: 14 }} type="text" value={city} onChange={(e) => setCity(e.target.value)} /> */}
                     </label>
                     <label>
-                        Улица
+                        Проспект, улица, переулок, тракт
                         <input                           
                             type="text" value={address}
                             onChange={(e) => setAddress(e.target.value)}
                         />
                     </label>
                     <label>
-                        Номер дома
+                        Номер дома / корпус
                         <input 
                             type="text"
                             value={address_full.дом}
@@ -306,15 +306,15 @@ export default function EditProfile() {
                     </label>
                 </section>
                 <div className={styles.place} >
-                    <h4>
-                        Выбрать локацию
-                        <span onClick={() => selectLoc(true)}>ДА</span>
-                        <span onClick={() => selectLoc(false)}>НЕТ</span>                        
+                    <h4 onClick={() => selectLoc(true)}>
+                        Выбрать локацию                                        
                     </h4>
                 </div>
                 {loc ? <Location 
-                    nikname={profile.nikname} 
+                    nikname={nikname} 
                     loc_master={location} 
+                    setaddress={setAddress}
+                    address={address}
                     close={selectLoc} 
                     place={city + ' , ' + address + ' , ' + address_full.дом}
                 /> : null}

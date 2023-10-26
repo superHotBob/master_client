@@ -459,25 +459,11 @@ div.tema {
   padding: 15px 5px;
   border-radius: 5px;
   cursor: pointer;
+  text-align: center;
 }
-
-.place h4 span {
-  padding: 5px 10px;
-  margin: 10px;
-  color: #fff;
-  font-family: inherit;
-  border-radius: 5px;
-  background-color: #3D6DEA;
-}
-.place h4 span:last-of-type {
-  background-color: red;
-  
-}
-
 .place h4:hover {
   box-shadow: 0 0 12px 2px #ddd;
 }
-
 .place h4 b {
   margin: 0 10px;
   font-weight: 400;

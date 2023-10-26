@@ -128,7 +128,7 @@
 }
 
 .need_model_data img {
-    margin: 0 auto;
+    margin: 0 5px 5px 99%;
     display: block;
     cursor: pointer;
 }

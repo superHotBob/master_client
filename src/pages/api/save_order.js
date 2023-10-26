@@ -36,11 +36,7 @@ export default async function handler(req, res) {
 
 
 
-  const text = save_order[0]['id'];
-  // Детали заказа:;
-  // Дата встречи: ${Convert_Date(req.body.date)}; 
-  // Адрес встечи: ${req.body.address};
-  // ${req.body.price}`
+  const text = save_order[0]['id']; 
   const date = Date.now()
 
   await client.query(`
@@ -54,15 +50,15 @@ export default async function handler(req, res) {
 
   await client.query(`
     update "clients" 
-    set "rating" = "rating" + 1 
+    set "rating" = rating::int + 1 
     where "nikname" = $1
-  `, [req.body.nikname]);
+  `, [req.body.master_nikname]);
 
   await client.query(`
     update "masters" 
-    set "rating" = "rating" + 1 
+    set "rating" = rating::int + 1 
     where "nikname" = $1
-  `, [req.body.nikname]);
+  `, [req.body.master_nikname]);
 
   await client.end();
   res.send('Ok');

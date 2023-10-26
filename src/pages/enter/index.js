@@ -27,9 +27,8 @@ export default function Enter() {
         setPhone(my_phone)       
         if (password === 'new') {
             setSelect('Восстановление пароля')
-            Call()
-        }
-        console.log('ffff',my_phone,password)
+            firstCall()         
+        }        
     }, [password, my_phone])
 
    
@@ -39,8 +38,7 @@ export default function Enter() {
             .then(res => res.json())
             .then(res => {
                 if(password === 'new') {
-                    Call()
-                    return ;
+                    Call()                   
                 }
                 if (res.length === 0) {
                     Call();                    
@@ -55,7 +53,6 @@ export default function Enter() {
 
     async function Call() {
         const data = { tel: phone || my_phone}
-
         console.log('data',data)
         const res = await fetch(`/api/get_code`, {
             body: JSON.stringify(data),
@@ -65,6 +62,7 @@ export default function Enter() {
             method: 'POST',
         })
         const txt = await res.text()
+        
 
         if (res.status === 400) {
             setSelect('Подтвердить'),
@@ -72,6 +70,7 @@ export default function Enter() {
             dispatch(setphone(phone))
         } else {
             setT(+txt)
+            console.log(txt)
         }
 
     }

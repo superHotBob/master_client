@@ -16,7 +16,7 @@ export default async function handler(req, res) {
   const txt = await st.text();
  
 
-
+  console.log(txt)
   
 
   if ( txt === 'Code is good' ) {
