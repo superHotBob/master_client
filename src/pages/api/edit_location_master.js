@@ -10,13 +10,13 @@ export default async function handler(req, res) {
         set "locations" = $1  
         where "nikname" =  $2
         returning locations    
-      `,[req.body.locations,req.body.nikname])
+      `, [req.body.locations, req.body.nikname])
 
-  console.log(rows)
-  await client.end();    
+
+  await client.end();
   if (rows.length > 0) {
     res.status(200).json(rows[0])
   } else {
-    res.status(500).json({message:'Error'})
+    res.status(500).json({ message: 'Error' })
   }
 }

@@ -41,7 +41,7 @@ export default function Lenta({ color = ['linear-gradient(to left, #3D4EEA, #5E2
     const ViewImageClick = (a) => {
         viewImage({
             name: a.nikname,
-            image: process.env.url_images + a.id + '.jpg',
+            image: process.env.url_image + a.id + '.jpg',
             master_name: name,
             date: a.img_date,
             text: a.review,

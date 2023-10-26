@@ -159,13 +159,13 @@ export default function EditProfile() {
     return (
         <>
             <header className={styles.header}>
-                <dialog
+                {/* <dialog
                     onClick={() => setMessage()}
                     open={message ? 'open' : false}
                     className={message ? styles.active_dialog : styles.passive_dialog}
                 >
                     <b className={styles.message}>{message}</b>
-                </dialog>
+                </dialog> */}
                 <span onClick={Return} style={{ color: color[1] }}>Отмена</span>
                 <span>{nikname}</span>
                 <span onClick={editMaster} style={{ color: color[1] }}>Принять</span>

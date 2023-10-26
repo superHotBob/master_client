@@ -33,7 +33,7 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
     ])
 
     const { data: masters } = useSWR(`/api/all_masters_city?city=${my_city.toLowerCase()}&service=${service}`)
-    console.log('divHeight',divHeight)
+    
 
     // useEffect(() => {
     //     setMapHeight(window.innerHeight - 300)
@@ -51,13 +51,12 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
     //     //     .then(data => setMasters(data))
     // }, [my_city])
 
-    useEffect(() => {
-        console.log(divHeight)
-        setMapHeight(divHeight)
-        // setFilterMasters([])
+    useEffect(() => {        
+        setMapHeight(divHeight)       
         setZoom(10.8)
         setCenter(loc)
     }, [])
+
     useEffect(() => setZoom(my_zoom), [my_zoom])
 
 
@@ -110,9 +109,9 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
         setCenter(a)
         setZoom(17)
         setzoom(17)
-        // getRadius(17)
+       
         SetFilterCluster()
-        console.log('placemark')
+       
         // SetFilterCluster(i.locations)                                 
         setMapHeight(window.innerWidth > 500 ? '300px' : '300px')
     }
@@ -122,19 +121,7 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
         setFilterMasters([])
         setMapHeight(divHeight)       
     }
-    // function ViewMaster(a) {
-    //     setZoom(15)
-    //     setCenter(masters?.filter(i => i.nikname === a)[0].locations)
-    //     setMapHeight(window.innerWidth > 500 ? '300px' : '200px')
-    //     setView(1)
-    //     selectMaster(a)
-    //     setTimeout(() => {
-    //         let coord = Map.current.getBounds()
-    //         const center = Map.current.getCenter()
-    //         let radius = ymaps.coordSystem.geo.getDistance(center, coord[1])
-    //         setRadius(Math.ceil(radius.toFixed(0) / 1000))
-    //     }, 1000)
-    // }
+    
     const getRadius = async (a) => {
         // const geo = await ymaps.geoQuery(ymaps.geocode('Минск')).getLength()
         // var myGeocoder = ymaps.geocode('МИнск');
@@ -240,8 +227,7 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
                     onClick={(event) => {
                         SetFilterCluster()
                         event.stopPropagation()
-                        setZoom(15)
-                        console.log('cluster')
+                        setZoom(15)                       
                         setMapHeight(window.innerWidth > 500 ? '400px' : '350px')
                     }}
 
@@ -256,10 +242,7 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
                     {ymaps ? <>
                         {masters?.map(i =>
                             <Placemark geometry={i.locations} key={i.nikname}
-                                modules={
-                                    ['geoObject.addon.balloon', 'geoObject.addon.hint']
-                                }
-
+                                modules={['geoObject.addon.balloon', 'geoObject.addon.hint']}
                                 properties={{
                                     hintContent: `<div style="border: none; color: blue; padding: 5px">
                                     <h3 style="font-weight: 600">Мастер:${i.name}</h3>
@@ -269,32 +252,26 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
                                     strokeColor: 'blue',
                                 }}
                                 options={{
-                                    iconLayout: placeMark(ymaps.templateLayoutFactory, i.nikname,i.locations),
-
-                                    // iconLayout: 'default#image',
-                                    // iconImageHref: zoom >= 12 ? process.env.url_image + i.nikname + '.jpg' : '/master1.svg',
-                                    // iconImageSize: [40, 40],
+                                    iconLayout: placeMark(ymaps.templateLayoutFactory, i.nikname,i.locations),                                   
                                     iconOffset: [-20, -20]
-                                }}
-                                // onClick={(e) => {
-                                //     e.stopPropagation()
-                                //     ViewMaster(i.nikname)
-                                // }}
+                                }}                               
                                 onClick={event => ViewMaster(event, i.locations)}
-
-                            />)}
+                            />
+                        )}
                     </> : null}
                 </Clusterer>
             </Map>
 
 
-            {filter_masters.length ? <Image alt="close"
-                className={styles.close}
-                src={arrow_down}
-                width={25} height={25}
-                onClick={closeView}
-            /> : null}
-            {filter_masters.length > 0 ? <>
+            {filter_masters.length ? 
+                <Image alt="close"
+                    className={styles.close}
+                    src={arrow_down}
+                    width={25} height={25}
+                    onClick={closeView}
+                /> : null
+            }
+            {filter_masters.length > 0 ? 
             <section className={styles.section}>
                 {filter_masters?.map(i =>
                     <Link key={i.nikname} className={styles.master} href={`/${i.nikname}`}>
@@ -309,10 +286,8 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
                         </div>
                         <Image src={process.env.url_image + i.nikname + '.jpg'} width={60} height={60} alt="master" />
                     </Link>
-                )}
-               
-            </section>
-            </>: null}
+                )}               
+            </section> : null}
 
            
         </>

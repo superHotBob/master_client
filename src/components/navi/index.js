@@ -49,10 +49,10 @@ export default function Navi({ save, color }) {
         <div className={styles.total} style={{ top: height }}>
             <div className={styles.main_navi} style={{ backgroundColor: tema[1]}}>
                 <Link title='Главная страница' href="/" className={pathname === '/' ? styles.home : styles.dashboard}>
-                    <Image alt="home" priority={true} src={pathname === '/' ? home : home_wh} height={20} width={20} />
+                    <Image  alt="home"  src={pathname === '/' ? home : home_wh} height={20} width={20} />
                 </Link>
                 <Link title="Каталог" href="/catalog" className={pathname === '/catalog' ? styles.home : styles.dashboard}>
-                    <Image alt="catalog"  priority={true} src={pathname === '/catalog' ? dashboard_bl : dashboard} height={20} width={20} />
+                    <Image alt="catalog"  src={pathname === '/catalog' ? dashboard_bl : dashboard} height={20} width={20} />
                 </Link>
                 {prof.status ? 
                     <Link 

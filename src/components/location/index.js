@@ -8,9 +8,10 @@ import icon_close from '../../../public/close.svg'
 
 const API_KEY = "89caab37-749d-4e30-8fdf-e8045542f060"
 
-function Mymap({ loc_master, nikname, place, setaddres, address}) {   
+function Mymap({ loc_master, nikname, place }) {   
 
     const [loc, setLoc] = useState(loc_master)
+    const [address , setaddress] = useState()
 
     const ymaps = useYMaps([
         "Map",
@@ -45,25 +46,22 @@ function Mymap({ loc_master, nikname, place, setaddres, address}) {
         if (!place) {
             return;
         }      
-      
-        const myGeocoder = ymaps.geocode(place);
-
-
+        
         function getAddress(a) {
-
         const geocoder = ymaps.geocode(a);
         geocoder.then(
             function (res) {
                 const address = res.geoObjects.get(0).getAddressLine()
                 console.log(address) 
-                setaddres(address)              
+                setaddress(address)              
             },
             function (err) {
                 console.log('Ошибка');
             }
         )
        
-        }    
+        }
+        const myGeocoder = ymaps.geocode(place);    
         myGeocoder.then(
             function (res) {
                 const my_loc = res.geoObjects.get(0).geometry.getCoordinates();

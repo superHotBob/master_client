@@ -68,7 +68,7 @@
 
 .days span,
 .days button,
-.time span {
+.time button {
     color: #3D4EEA;   
     justify-content: center;
     width: 11vw;
@@ -93,7 +93,7 @@
     justify-content: center;
     gap: 8px;
 }
-.time span {
+.time button {
     width: 30vw;
     max-width: 148px;
 
