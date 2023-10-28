@@ -7,10 +7,10 @@ export default async function handler(req, res) {
 
   const { rows } = await client.query(`
         update "masters" 
-        set "locations" = $1  
+        set "locations" = $1, "address" = $3 
         where "nikname" =  $2
-        returning locations    
-      `, [req.body.locations, req.body.nikname])
+        returning locations, address    
+      `, [req.body.locations, req.body.nikname,req.body.address])
 
 
   await client.end();

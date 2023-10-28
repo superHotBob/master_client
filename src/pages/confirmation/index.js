@@ -169,7 +169,7 @@ export default function Confirmation() {
                     </p>
                 )}
                 <h4>Адрес:</h4>
-                Ул. <span className={styles.street}>{master.address}</span>, дом {full_address?.дом}, кв {full_address?.квартира}  этаж {full_address?.этаж}
+                <span className={styles.street}>{master.address}</span>, кв {full_address?.квартира}  этаж {full_address?.этаж}
                 <h4>Дата: </h4>
                 <span className={styles.date}>{Order_Date(date)}</span>
                 <h3>Сумма</h3>

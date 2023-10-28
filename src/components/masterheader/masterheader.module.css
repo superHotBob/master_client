@@ -20,8 +20,7 @@
     color: #282828;   
     font-size:  12px;
     line-height: 22px;
-    text-align: center;
-    text-transform: capitalize;
+    text-align: center;    
   }
   .section h4::first-letter {
     text-transform: capitalize;

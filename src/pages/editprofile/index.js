@@ -100,12 +100,10 @@ export default function EditProfile() {
             name: name,           
             text: text,
             nikname: nikname,
-            currency: current_symbol[my_currency.indexOf(currency)],
-            address: address,
+            currency: current_symbol[my_currency.indexOf(currency)],           
             city: city ? city : 'минск',
             color: color,
-            tema: my_tema.map(i=>i.color).indexOf(color),
-            locations: location,
+            tema: my_tema.map(i=>i.color).indexOf(color),            
             address_full: address_full
         }
         const response = await fetch('/api/edit_profile_master', {
@@ -158,14 +156,7 @@ export default function EditProfile() {
     }
     return (
         <>
-            <header className={styles.header}>
-                {/* <dialog
-                    onClick={() => setMessage()}
-                    open={message ? 'open' : false}
-                    className={message ? styles.active_dialog : styles.passive_dialog}
-                >
-                    <b className={styles.message}>{message}</b>
-                </dialog> */}
+            <header className={styles.header}>             
                 <span onClick={Return} style={{ color: color[1] }}>Отмена</span>
                 <span>{nikname}</span>
                 <span onClick={editMaster} style={{ color: color[1] }}>Принять</span>
@@ -211,7 +202,7 @@ export default function EditProfile() {
                     <span className={styles.change} onClick={() => setMasterAddress(true)}>Изменить</span>
                 </h6>
                 <div className={styles.address}>
-                    <span>{address}{' , '}{address_full?.дом}</span>
+                    <span>{address}</span>
                 </div>
                 <label>
                     Краткая информация
@@ -312,9 +303,7 @@ export default function EditProfile() {
                 </div>
                 {loc ? <Location 
                     nikname={nikname} 
-                    loc_master={location} 
-                    setaddress={setAddress}
-                    address={address}
+                    loc_master={location}                 
                     close={selectLoc} 
                     place={city + ' , ' + address + ' , ' + address_full.дом}
                 /> : null}

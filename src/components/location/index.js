@@ -10,7 +10,7 @@ const API_KEY = "89caab37-749d-4e30-8fdf-e8045542f060"
 
 function Mymap({ loc_master, nikname, place }) {   
 
-    const [loc, setLoc] = useState(loc_master)
+    const [location, setLoc] = useState(loc_master)
     const [address , setaddress] = useState()
 
     const ymaps = useYMaps([
@@ -30,12 +30,13 @@ function Mymap({ loc_master, nikname, place }) {
         document.getElementsByClassName('ymaps-2-1-79-gotoymaps')[0].style.display = 'none'
         getCoord(place)
     }
-    function updateLocation(a) {
+    function updateLocation(a,b) {
         fetch('/api/edit_location_master', {
             method: 'Post',
             body: JSON.stringify({
                 nikname: nikname,
-                locations: a
+                locations: a,
+                address: b
             }),
             headers: {
                 'Content-Type': 'application/json',
@@ -51,9 +52,9 @@ function Mymap({ loc_master, nikname, place }) {
         const geocoder = ymaps.geocode(a);
         geocoder.then(
             function (res) {
-                const address = res.geoObjects.get(0).getAddressLine()
-                console.log(address) 
-                setaddress(address)              
+                const address = res.geoObjects.get(0).getAddressLine()               
+                setaddress(address) 
+                updateLocation(a,address)             
             },
             function (err) {
                 console.log('Ошибка');
@@ -66,7 +67,7 @@ function Mymap({ loc_master, nikname, place }) {
             function (res) {
                 const my_loc = res.geoObjects.get(0).geometry.getCoordinates();
                 setLoc(my_loc)
-                updateLocation(my_loc)
+               
                 getAddress(my_loc)                
             },
             function (err) {
@@ -124,7 +125,7 @@ function Mymap({ loc_master, nikname, place }) {
                     }
                 }}
             >
-                {ymaps ? <Placemark geometry={loc}
+                {ymaps ? <Placemark geometry={location}
                     modules={
                         ['geoObject.addon.balloon', 'geoObject.addon.hint', "templateLayoutFactory"]
                     }
@@ -149,9 +150,8 @@ export default function Location({ loc_master, close, nikname, place, address, s
                     <Mymap 
                         place={place} 
                         loc_master={loc_master}
-                        nikname={nikname} 
-                        setaddres={setaddres}
-                        address={address}
+                        nikname={nikname}
+                       
                     />
                 </YMaps>               
             </div>

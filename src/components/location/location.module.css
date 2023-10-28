@@ -17,10 +17,11 @@
     background-color: #fff;
 }
 .close {   
-    display: block;
-    z-index: 200;    
-    background-color: #fff;
-    margin: 8px auto;   
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 200;
+    background-color: #fff;   
     cursor: pointer;
    
 }

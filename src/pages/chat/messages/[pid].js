@@ -79,9 +79,7 @@ export default function Messages() {
             }
             fetch('/api/send_message_admin', {
                 body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: {'Content-Type': 'application/json'},
                 method: 'POST',
             })
                 .then(res => {
