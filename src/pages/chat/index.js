@@ -58,13 +58,15 @@ export default function Chat() {
                         </div>
                     </Link>
                 )}
-                {data?.admin.length === 0 ? <Link href='/chat/messages/администратор' className={styles.chat}>
-                    <img src="/image/администратор.jpg" alt="master" />
-                    <div>
-                        <p><b>Администратор</b><span>{'12:33'}</span></p>
-                        <span>Отвечу на любые вопросы</span>
-                    </div>
-                </Link> : null}
+                {data?.admin.length === 0 ? 
+                    <Link href='/chat/messages/администратор' className={styles.chat}>
+                        <img src="/image/администратор.jpg" alt="master" />
+                        {/* <div>
+                            <p><b>Администратор</b><span>{'12:33'}</span></p>
+                            <span>Отвечу на любые вопросы</span>
+                        </div> */}
+                    </Link> 
+                : null}
                 <div>
                     {data?.client.map(i =>
                         <Link
@@ -72,9 +74,11 @@ export default function Chat() {
                             key={i.chat}
                             className={styles.chat}
                         >
-                            <Image width={55} height={55}
-                            src={process.env.url_image + (i.sendler_nikname === name ? i.recipient_nikname : i.sendler_nikname) + '.jpg'} 
-                            alt="master" 
+                            <Image 
+                                width={55} 
+                                height={55}
+                                src={process.env.url_image + (i.sendler_nikname === name ? i.recipient_nikname : i.sendler_nikname) + '.jpg'} 
+                                alt="master" 
                             />
                             <div>
                                 <p>
@@ -82,7 +86,7 @@ export default function Chat() {
                                     <span>{My_Date(i.ms_date)}</span>
                                 </p>
                                 <h6 className={i.read  ? null :  i.sendler_nikname === name ? null:  styles.new_message }>
-                                    {i.ms_text}
+                                {!isNaN(i.ms_text) ? "Заказ №: " : null}{i.ms_text}
                                 </h6>
                             </div>
                         </Link>

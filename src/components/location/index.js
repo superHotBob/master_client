@@ -75,7 +75,8 @@ function Mymap({ loc_master, nikname, place }) {
             }
 
         );
-    }    
+    }  
+    function Bob() {return;}  
     const placeMark = (a, b) => {
         if(ymaps){
             const Layout = a.createClass(`<img class="img" style=" border-radius: 50%; border: 3px solid #3D4EEA" height="44px" width="44px" src=${process.env.url_image + b + '.jpg'} />`, 

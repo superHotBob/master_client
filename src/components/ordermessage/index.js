@@ -8,9 +8,7 @@ import { Convert_Date } from '@/profile'
 export default function OrderMessage({ id, color }) {
     const { data: order, isLoading } = useSWR( !isNaN(id) ? `/api/get_order?id=${id}` : null)
     if(isLoading) return <p>Загрузка...</p>
-    if (!isNaN(id)) {        
-       
-       
+    if (!isNaN(id)) {       
         return <div style={{ color: color }} className={styles.order}>
             <p className={styles.order_create}>Создан заказ </p>
             <h5 className={styles.details}>Детали заказа:</h5>

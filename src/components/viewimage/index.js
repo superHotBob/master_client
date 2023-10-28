@@ -7,14 +7,14 @@ import icon_close from '../../../public/close.svg'
 
 export default function ViewImage({ view_image, viewImage, pid = null, service }) {
 
-   
+
     const status = useSelector(state => state.counter.profile['status'])
-   
-   
+
+
     useEffect(() => {
         document.getElementById("main").style.top = window.scrollY + 'px'
         document.getElementById("main").style.opacity = 1
-       
+
     }, [])
 
     function ConvertDate(a) {
@@ -26,7 +26,11 @@ export default function ViewImage({ view_image, viewImage, pid = null, service }
     return (
         <div className={styles.main__detail} id="main">
             <div className={styles.detail}>
-            <Image className={styles.close} src={icon_close} onClick={() => viewImage(false)} alt="close" width={20} height={20} />
+                <Image
+                    className={styles.close}
+                    src={icon_close}
+                    onClick={() => viewImage(false)} alt="close" width={20} height={20}
+                />
                 <img
                     alt="image"
                     src={view_image.image}
