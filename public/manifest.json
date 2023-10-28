@@ -1,6 +1,6 @@
 {
-    "name": "master.place",
-    "short_name": "master",
+    "name": "masters.place",
+    "short_name": "masters",
     "icons": [
         {
           "src": "icons/icon-72x72.png",
