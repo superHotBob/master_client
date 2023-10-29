@@ -12,29 +12,21 @@ const activ_month = {
     color: '#282828',
 }
 
-
+import useSWR from 'swr'
+import Succes from '../succesregistration'
 
 export default function Calendar({ profile }) {
     const router = useRouter()
     const pro = useSelector(state => state.counter.profile)
 
-    // const pro = {}
+   
 
     const days = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"]
     const months = ['Декабрь', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'].map(i => i.toLowerCase())
-    // const months = [
-    //     'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
-    //     'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь', 
-    //     'Январь', 'Февраль','Март', 'Апрель', 'Май', 'Июнь',
-    //     'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь',
-    //     'Январь', 'Февраль','Март', 'Апрель', 'Май', 'Июнь',
-    //     'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь',
-    //     'Январь', 'Февраль','Март', 'Апрель', 'Май', 'Июнь',
-    //     'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
-    // ]
+  
 
     const d = new Date()
-    // const year = d.getFullYear()
+   
     const mon = d.getMonth()
 
     const [month, setMonth] = useState(mon)
@@ -58,7 +50,12 @@ export default function Calendar({ profile }) {
     const day = new Date(year, curmonth - 1, 1)
     let v = days.indexOf(days[day.getDay() - 1]) === -1 ? 6 : days.indexOf(days[day.getDay() - 1])
 
-
+    const { data: old_patern} = useSWR(pro.nikname ?  `/api/get_patern?nikname=${pro.nikname}` : null,
+        {
+            onSuccess: (old_patern) => {
+            setPatern(old_patern)
+        }}
+    )
 
 
     function getOrders(a) {
@@ -67,19 +64,19 @@ export default function Calendar({ profile }) {
         .then(res => setOrders(res))
     }
 
-    function getPatern() {
-        fetch(`/api/get_patern?nikname=${pro.nikname}`)
-        .then(res => res.json())
-        .then(res => setPatern(res))
-    }
+    // function getPatern(a) {
+    //     fetch(`/api/get_patern?nikname=${a}`)
+    //     .then(res => res.json())
+    //     .then(res => setPatern(res))
+    // }
 
-    useEffect(() => {
-        // console.log('calendar',JSON.parse(localStorage.getItem('profile')))
-        if (!pro) {
+    useEffect(() => {        
+        if (!pro.nikname) {
             router.push('/')
             return;
         }
-        getPatern()
+        
+        // getPatern(pro.nikname)
 
     }, [])
     useEffect(() => {
@@ -120,7 +117,7 @@ export default function Calendar({ profile }) {
             method: 'POST',
         }).then(res => {
             setMessage('Календарь сохранён')
-            getPatern()
+            // getPatern()
             setTimeout(() => setMessage(false), 3000)
         })
 
@@ -164,17 +161,15 @@ export default function Calendar({ profile }) {
         return false
     }
     function setActiveDay(e) {
-
         let day_orders = orders.filter(i => i[0] === e.target.id).map(i => i[2])
-        setTimeOrders(day_orders)
-        console.log(day_orders, e.target.id)
+        setTimeOrders(day_orders)       
         if (monthSchedule[e.target.id - 1]) {
             let old_patern = monthSchedule[e.target.id - 1].split(',')
             const edit_patern = [...patern]
             let new_patern = [...new Set(edit_patern.concat(old_patern))].sort()
             setPatern(new_patern)
         } else {
-            getPatern()
+            // getPatern()
         }
         setActive_Day(monthSchedule[e.target.id - 1])
         setActive_Num(e.target.id)

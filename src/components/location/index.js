@@ -140,9 +140,9 @@ function Mymap({ loc_master, nikname, place }) {
 }
 
 
-export default function Location({ loc_master, close, nikname, place, address, setaddres }) {
+export default function Location({ loc_master, close, nikname, place }) {
     useEffect(()=>window.scrollTo(0,0),[])
-   
+    console.log(nikname)
     return (
         <div className={styles.map}>
             <div className={styles.my_map} >

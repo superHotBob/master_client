@@ -38,21 +38,14 @@ export default function Client() {
     const [view, setView] = useState(true)
     const [profile, setProfile] = useState()
     const [nav_view, setNavView] = useState('Лента')
-    const [newSertificat, AddNewSertificat] = useState(false)
-    // const [lists, setlists] = useState()    
+    const [newSertificat, AddNewSertificat] = useState(false)   
     const tema = useSelector(state=>state.counter.tema)
     const dispatch = useDispatch()
    
     useEffect(() => {
         const pro = JSON.parse(localStorage.getItem('profile'))       
         if (pro) {
-            dispatch(settema(my_tema[+pro?.tema].color))
-            // function GetLists() {
-            //     fetch(`/api/get_images?nikname=${pid}`)
-            //         .then(res => res.json())
-            //         .then(res => setlists(res))
-            // }
-            // GetLists()
+            dispatch(settema(my_tema[+pro?.tema].color))          
             setProfile(pro)
         } else {
             router.push('/')
@@ -69,7 +62,7 @@ export default function Client() {
             <Head><title>{pid}</title></Head>
             {profile ? <>
             <Header sel='back' text='Мой профиль' col={tema} />
-            <MasterHeader profile={profile} master={pid} />
+            <MasterHeader profile={profile} slug={pid} />
             <nav className={styles.navigation} >
                 {['Лента', 'Услуги', 'Сертификаты', 'Отзывы']
                     .map(i => <span key={i} onClick={() => setNavView(i)} style={nav_view === i ? { ...nav_active, background: tema[1] } : null}>{i}</span>)}

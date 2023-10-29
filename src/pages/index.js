@@ -31,7 +31,7 @@ export default function Home() {
     //   setview(3)
     //   view_ref.current = view_ref.current + 1
     // } else {
-      if(ref.current.getBoundingClientRect().bottom.toFixed(0) < window.innerHeight) {       
+      if(ref.current?.getBoundingClientRect().bottom.toFixed(0) < window.innerHeight) {       
         view_ref.current = view_ref.current + 1
         
       }
@@ -42,7 +42,7 @@ export default function Home() {
     
   };
   useEffect(() => {
-    console.log('bottom',ref.current.getBoundingClientRect().bottom.toFixed(0) - window.innerHeight)
+    // console.log('bottom',ref.current.getBoundingClientRect().bottom.toFixed(0) - window.innerHeight)
     if(ref.current.getBoundingClientRect().bottom.toFixed(0) < window.innerHeight) {
       setview(3)
       view_ref.current = view_ref.current + 1
@@ -138,16 +138,13 @@ export default function Home() {
           )}
         </div>
       </div>
-      {view_image ?
+      {view_image &&
         <ViewImage
           service={service}
           view_image={view_image}
           url_image={process.env.url_image}
           viewImage={viewImage}
-        />
-        :
-        null
-      }
+        />}
     </section>
 
   )

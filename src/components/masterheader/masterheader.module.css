@@ -6,25 +6,23 @@
     margin: 0 16px;
   }
   
-  .section h4::before {
+  .section address::before {
     content: url('/location.svg');
     display: inline-block;
     transform: translate(-7px, 4px);
     cursor: pointer;
   }
-  .section h4::before:hover {
+  .section address::before:hover {
     transform: scale(1.1);
   }
-  .section h4 {
+  .section address {
     margin: 0 0 5px;
     color: #282828;   
     font-size:  12px;
     line-height: 22px;
     text-align: center;    
   }
-  .section h4::first-letter {
-    text-transform: capitalize;
-  }
+ 
  
   .image .image_master {
     border-radius: 100%;
@@ -83,13 +81,14 @@
   }
   
   .text {
-    text-align: center;
+    text-align: justify;
     font-weight: 400;
     font-size: 12px;
     line-height: 17px;
     color: #282828;
-    width: 80%;
+    max-width: 80%;
     margin: 0 auto;
+    display: inline-block;
   }
   
   .view_text {
@@ -99,6 +98,7 @@
     font-weight: 400;
     font-size: 12px;
     line-height: 17px;
+    cursor: pointer;
   }
   
   .image {

@@ -56,4 +56,13 @@
     color: #282828;
     padding-right: 5px;
   }
+  .active::before {
+    content: 'Новый';
+    color: #fff;
+    background: #FD4D4D;
+    border-radius: 4px;
+    padding: 0 6px;
+    margin: 0 5px 0 0;
+    transform: translateY(-1px);
+  }
   
