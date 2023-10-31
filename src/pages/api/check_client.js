@@ -11,7 +11,7 @@ export default async function handler(req, res) {
         select phone, blocked
         from  "clients"
         where "phone" = $1 
-        `,[req.query.phone]
+        `,[+req.query.phone]
     );   
     let date_enter = Date.now()
     const ipAddress = IP.address()   

@@ -10,7 +10,7 @@
     content: url('/location.svg');
     display: inline-block;
     transform: translate(-7px, 4px);
-    cursor: pointer;
+   
   }
   .section address::before:hover {
     transform: scale(1.1);
@@ -20,7 +20,9 @@
     color: #282828;   
     font-size:  12px;
     line-height: 22px;
-    text-align: center;    
+    text-align: center;  
+    cursor: pointer;
+    color: #3D4EEA;  
   }
  
  

@@ -51,6 +51,7 @@ export default function EditProfile() {
     const [currency, setCurrency] = useState('BYN')
     const [city, setCity] = useState('минск')
     const [address, setAddress] = useState()
+    const [street , setstreet] = useState()
     const [address_full, setAddress_full] = useState()
     const [loc, selectLoc] = useState(false)
     
@@ -79,6 +80,7 @@ export default function EditProfile() {
             setSelectedFile(process.env.url_image + pro.nikname + '.jpg')
             setAddress_full(address_full => ({ ...address_full, ...pro.address_full })),
             setNikname(pro.nikname),
+            setstreet(pro.address?.split(',')[1])
             setColor(pro.tema ? my_tema[+pro.tema].color : my_tema[0].color)
         }
 
@@ -96,7 +98,7 @@ export default function EditProfile() {
     }
     const editMaster = async () => {
         const data = {
-            status: profile.status,
+            status: 'master',
             name: name,           
             text: text,
             nikname: nikname,
@@ -245,13 +247,14 @@ export default function EditProfile() {
                             )}
                             <option value={0}>Нет в списке</option>
                         </select>
-                        {/* <input style={{ fontSize: 14 }} type="text" value={city} onChange={(e) => setCity(e.target.value)} /> */}
+                       
                     </label>
                     <label>
                         Проспект, улица, переулок, тракт
                         <input                           
-                            type="text" value={address}
-                            onChange={(e) => setAddress(e.target.value)}
+                            type="text" value={street}
+                            onChange={(e) => setstreet(e.target.value)}
+                            placeholder='улица Ленина или проспект Независимости'
                         />
                     </label>
                     <label>
@@ -305,7 +308,7 @@ export default function EditProfile() {
                     nikname={nikname} 
                     loc_master={location}                 
                     close={selectLoc} 
-                    place={city + ' , ' + address + ' , ' + address_full.дом}
+                    place={city + ' , ' + street + ' , ' + address_full.дом}
                 /> : null}
             </div> : null}
             {tema ?

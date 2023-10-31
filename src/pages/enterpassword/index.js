@@ -16,14 +16,15 @@ export default function EnterPassword() {
     const passRef = useRef()
 
     const ReplacePassword = () => {
-        dispatch(setpassword('new'))       
+        dispatch(setpassword('new'))
+        dispatch(setphone(router.query.phone))       
         router.push('/enter')
     }
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        const data = { tel: phone, password: passRef.current.value }      
-        setMessage('')
+        e.preventDefault();       
+        const data = { tel: +router.query.phone, password: passRef.current.value }      
+        setMessage('')      
 
         const response = await fetch('/api/enter_password', {
             body: JSON.stringify(data),

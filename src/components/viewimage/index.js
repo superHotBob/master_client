@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import Link from 'next/link'
 import Image from 'next/image'
-import icon_close from '../../../public/close.svg'
+import icon_close from '../../../public/chevron_down.svg'
 
 export default function ViewImage({ view_image, viewImage, pid = null, service }) {
 
@@ -14,8 +14,12 @@ export default function ViewImage({ view_image, viewImage, pid = null, service }
     useEffect(() => {
         document.getElementById("main").style.top = window.scrollY + 'px'
         document.getElementById("main").style.opacity = 1
-
     }, [])
+
+    const ViewImage = () => {
+        document.getElementById("main").style.opacity = 0
+        setTimeout(()=>viewImage(false),500)
+    }
 
     function ConvertDate(a) {
         const date = new Date(+a);
@@ -29,7 +33,10 @@ export default function ViewImage({ view_image, viewImage, pid = null, service }
                 <Image
                     className={styles.close}
                     src={icon_close}
-                    onClick={() => viewImage(false)} alt="close" width={20} height={20}
+                    onClick={ViewImage} 
+                    alt="close" 
+                    width={20} 
+                    height={20}
                 />
                 <img
                     alt="image"

@@ -72,12 +72,11 @@ export default function Master() {
                 <section className={styles.section_main}>
                     {message ? <div className={styles.dialog}>
                         <div >
-                            <span onClick={() => setmessage(false)}>закрыть</span>
+                            <span onClick={() => setmessage(false)}/>
                             <h4>
-                                Эта функция доступна только<br />
-                                зарегистрированным пользователям. Для<br />
-                                продолжения войдите или зарегистрируйте<br />
-                                аккаунт.
+                                Эта функция доступна пользователям, <br/> 
+                                зарегистрированным в качестве kлиента . <br/>
+                                Для продолжения войдите или зарегистрируйте <br/> аккаунт.
                             </h4>
                             <Link href="/enter">Войти</Link>
                         </div>

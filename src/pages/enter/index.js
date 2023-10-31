@@ -26,14 +26,17 @@ export default function Enter() {
     useEffect(() => {
         setPhone(my_phone)       
         if (password === 'new') {
-            setSelect('Восстановление пароля')
-            firstCall()         
+            Call() 
+            setSelect('Восстановление пароля')          
         }        
-    }, [password, my_phone])
+    }, [])
 
    
 
-    const firstCall = () => {
+    const checkClient = () => {
+        if(!phone) {
+            return;
+        }
         fetch(`/api/check_client?phone=${phone}`)
             .then(res => res.json())
             .then(res => {
@@ -45,15 +48,14 @@ export default function Enter() {
                 } else if (res[0].blocked != '0') {
                     router.push('/enter')
                 } else {
-                    dispatch(setphone(phone))
-                    router.push('/enterpassword')
+                    // dispatch(setphone(phone))
+                    router.push(`/enterpassword?phone=${phone}`)
                 }
         })
     }
 
     async function Call() {
-        const data = { tel: phone || my_phone}
-        console.log('data',data)
+        const data = { tel: phone || my_phone}        
         const res = await fetch(`/api/get_code`, {
             body: JSON.stringify(data),
             headers: {
@@ -62,11 +64,11 @@ export default function Enter() {
             method: 'POST',
         })
         const txt = await res.text()
-        
+       
 
         if (res.status === 400) {
             setSelect('Подтвердить'),
-            setTimeout(() => document.getElementById(0).focus(), 500),
+            setTimeout(() => document.getElementById(1).focus(), 500),
             dispatch(setphone(phone))
         } else {
             setT(+txt)
@@ -93,6 +95,7 @@ export default function Enter() {
 
     async function sendCode() {
         const data = { tel: phone, number: +number.join('') }
+       
         fetch('/api/get_code', {
             body: JSON.stringify(data),
             headers: {
@@ -106,7 +109,7 @@ export default function Enter() {
                     router.push('newpassword')
                 } else if (res.status === 404) {
                     setSelect('Подтвердить')
-                    // setMessage('Не верный код')
+                   setMessage('Не верный код')
                 } else if (res.status === 500) {
                     setMessage('Вы исчерпали лимит попыток')
                     setT(60)
@@ -118,23 +121,40 @@ export default function Enter() {
 
 
     const handleKeyDown = (e, b) => {
-        if (e.key === 'Backspace') {
-            if (!e.target.value >= 0 && b >= 0) {
-                document.getElementById(b - 1).focus()
+       
+        if (e.key === 'Backspace') {            
+            if(b === 1) {
+                document.getElementById("1").value = null
+                return;
             }
+            if(e.target.value !='') {
+                document.getElementById(b).value = null
+            } else {
+                document.getElementById(b - 1).focus()
+            }         
+           
         }
-        if (e.key === 'Enter' && b === 3) {
+        if (e.key === 'Enter' && b === 4) {
             sendCode()
         }
     };
 
-    function Number(a, b) {
-        let nmb = number
-        nmb[b] = a
-        setNumber(nmb)
-        if (a > 0 && b < 3) {
-            document.getElementById(b + 1).focus()
+    function Number(e, b) {
+        if (e.key === 'Backspace' ) {
+            return;
         }
+        if( b === 4) {
+            let nmb = number
+            nmb[b] = e.target.value       
+            setNumber(nmb)
+            return;
+        }    
+        let nmb = number
+        nmb[b-1] = e.target.value       
+        setNumber(nmb)
+        // if (+e.target.value > 0 && b < 4) {
+            document.getElementById(b + 1).focus()
+        // }
     }
     function Reload() {
         setNumber([, , ,])
@@ -184,7 +204,7 @@ export default function Enter() {
                             можно будет через  <b>{t}</b> сек.
                         </h3> :
                         <>
-                            <button disabled={phone?.length < 11} className={styles.button} onClick={firstCall}>
+                            <button disabled={phone?.length < 11} className={styles.button} onClick={checkClient}>
                                 Войти
                             </button>
                             <div className={styles.colaboration}>
@@ -204,15 +224,17 @@ export default function Enter() {
                     <h4>+{phone}</h4>
                     <h5>Например +7 XXX XXX  <span>12 34</span></h5>
                     <div className={styles.numbers} >
-                        {[0, 1, 2, 3].map(i =>
+                        {[1, 2, 3, 4].map(i =>
                             <input
                                 id={i}
-                                key={i}
-                                onKeyDown={(e) => handleKeyDown(e, i)}
+                                key={i}                               
                                 pattern="[0-9]*"
                                 type="text"
                                 inputMode='numeric'
-                                required maxLength={1} onChange={(e) => Number(e.target.value, i)}
+                                required
+                                maxLength={1} 
+                                onChange={(e) => Number(e, i)}
+                                onKeyDown={(e) => handleKeyDown(e, i)}
                             />)}
                     </div>
                     {message ?

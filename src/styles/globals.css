@@ -30,6 +30,7 @@ main {
   position: relative;
   background-color: #fff;
   max-width: 500px;
+  padding-bottom: 10px;
 }
 button:focus {
   border: 1px sold #3D4EEA;

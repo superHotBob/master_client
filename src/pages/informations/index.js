@@ -15,7 +15,7 @@ export default function Informations() {
         <main className={styles.main}>
             <Header text="Информация" sel="back" />
             <section className={styles.links}>
-                <Link href="/C">
+                {/* <Link href="/C">
                     <Image src={eye} width={20} height={20} alt="eye" />
                     Помощь
                 </Link>
@@ -25,14 +25,14 @@ export default function Informations() {
                     О сервисе
                     
                 </Link>
-                <p>Супер сервис</p>
+                <p>Супер сервис</p> */}
                 <Link href="/informations">
                     <Image src={message} width={20} height={20} alt="heat" />
                     Контакты
                 </Link>
                 <p>+375 00 000 00 00</p>
                 <p>+375 11 000 00 00</p>
-                <Link href="/informations">
+                {/* <Link href="/informations">
                     <Image src={paper} width={20} height={20} alt="heat" />
                     Пользовательское соглашение
                 </Link>
@@ -46,7 +46,7 @@ export default function Informations() {
                     <Image src={flag} width={20} height={20} alt="heat" />
                     Публичная оферта
                 </Link>
-                <p>Сами не знаем, что это.</p>
+                <p>Сами не знаем, что это.</p> */}
             </section>
 
 
