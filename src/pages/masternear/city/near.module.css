@@ -63,7 +63,7 @@
 .section {
   display: flex;
   flex-direction: column;
-  padding-bottom: 60px; 
+  padding: 0 16px 60px; 
 }
 
 
@@ -123,8 +123,8 @@
   border-radius: 50%;
 }
 .master {
-  width: calc(100% - 32px);
-  max-width: 468px;
+  width: 100%;
+ 
   margin: 0 auto 10px; 
 }
 .master h4 {
