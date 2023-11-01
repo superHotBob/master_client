@@ -62,10 +62,10 @@
 .master {
   margin: 20px 1rem 10px;
   text-align: left;
-  flex-grow: 2;
+  
 }
 
-.master img {
+div.master img {
   border-radius: 50%;
   margin-right: 12px;
   

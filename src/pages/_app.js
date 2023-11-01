@@ -47,13 +47,13 @@ const my_path = ['informations', 'informations/aboutservice',
     }}>
       <Provider store={store}>
         <Head>
-          <meta name="description" content="Master app" />
+          <meta name="description" content="Лучшие  маникюр, прически , массаж, педикюр, окрашивание, депиляция, барбер, стрижка, брови  в вашем городе" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="color-scheme" content="dark light" />
           <link rel="icon" href="/favicon.ico" />
           <title>{slug ? slug : 'masters.place'}</title>
           <link rel="apple-touch-icon" href="icons/android-chrome-192x192.png" />
-          <meta name="application-name" lang='ru' content="master.place" />
+          <meta name="application-name" lang='ru' content="masters.place" />
           <meta name="mobile-web-app-capable" content="yes" />
         </Head>
         <main className={rubik.className} style={{position: 'relative'}}> 
