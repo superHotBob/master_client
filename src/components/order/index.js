@@ -39,11 +39,11 @@ export default function Order({order, profile = 0}) {
             </h3>
             {order.myorder ?
                 <h6 style={{ color: my_tema[profile].color[1] }}>
-                    {order.myorder.map((a, index) => <span key={index}>{a.split(":")[0]}.</span>)}
+                    {order.myorder.map((a, index) => <span key={index}>{a.split("~")[0]}.</span>)}
                 </h6>
                 :
                 <h6 style={{ color: my_tema[profile].color[1] }}>
-                    {order.neworder.replace(/[0-9]/g, ' ').replace(/:/g, ' ')}
+                    {order.neworder.replace(/[0-9]/g, ' ').replace(/~/g, ' ')}
                 </h6>
             }
         </div>

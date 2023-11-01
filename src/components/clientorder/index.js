@@ -26,8 +26,8 @@ function Detail({ order }) {
             <div className={styles.review}>
                 {order?.myorder.map((i, index) =>
                     <Fragment key={index}>
-                        <p >{(index + 1 + '. ' + i.split(':')[0])}</p>
-                        <span>{i.split(':')[2]}</span>
+                        <p >{(index + 1 + '. ' + i.split('~')[0])}</p>
+                        <span>{i.split('~')[2]}</span>
                     </Fragment>
                 )}
             </div>
@@ -35,7 +35,7 @@ function Detail({ order }) {
             <div className={styles.review}>
                 {order?.neworder.split(',').map((i, index) =>
                     <Fragment key={index}>
-                        <p>{(index + 1 + '. ' + i.split(':')[0])}</p>
+                        <p>{(index + 1 + '. ' + i.split('~')[0])}</p>
                         {i.split(':')[2]}
                     </Fragment>
                 )}

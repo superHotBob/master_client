@@ -6,7 +6,7 @@ import Message from '@/components/message'
 import ViewImage from '@/components/viewimage'
 import CitySelect from '@/components/city'
 import Image from 'next/image'
-import { current } from '@reduxjs/toolkit'
+
 
 
 export default function Home() {
@@ -16,43 +16,27 @@ export default function Home() {
   const [data, setdata] = useState({})
 
   const [view, setview] = useState(2)
- 
+
   const ref = useRef(null)
   const servref = useRef(service)
   const view_ref = useRef(2)
 
- 
-  function handleScroll (event) {
-    
+
+  function handleScroll(event) {
+
     setview(view_ref.current)
-    // console.log(ref.current.offsetHeight,ref.current.offsetTop,window.innerHeight)
-    // console.log(ref.current.offsetTop)
-    // if(view_ref.current === 2) {
-    //   setview(3)
-    //   view_ref.current = view_ref.current + 1
-    // } else {
-      if(ref.current?.getBoundingClientRect().bottom.toFixed(0) < window.innerHeight) {       
-        view_ref.current = view_ref.current + 1
-        
-      }
-    
-     
-     
-   
-    
+    if (ref.current?.getBoundingClientRect().bottom.toFixed(0) < window.innerHeight) {
+      view_ref.current = view_ref.current + 1
+    }
   };
-  useEffect(() => {
-    // console.log('bottom',ref.current.getBoundingClientRect().bottom.toFixed(0) - window.innerHeight)
-    if(ref.current.getBoundingClientRect().bottom.toFixed(0) < window.innerHeight) {
+
+  useEffect(() => {   
+    if (ref.current.getBoundingClientRect().bottom.toFixed(0) < window.innerHeight) {
       setview(3)
       view_ref.current = view_ref.current + 1
     }
-   
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
   }, []);
 
   useEffect(() => {
@@ -60,11 +44,11 @@ export default function Home() {
       setdata([])
       servref.current = service
     }
-    fetch(`/api/get_images_master_city?service=${service}&city=${city.toLowerCase()}&limit=100&offset=${0}`)
+    fetch(`/api/get_images_master_city?service=${service}&city=${city.toLowerCase()}`)
       .then(res => res.json())
       .then(res => {
         if (res['one']) {
-          setdata(res)          
+          setdata(res)
         } else {
           return;
         }
@@ -94,46 +78,46 @@ export default function Home() {
       <FilterServices />
       <div className={styles.images} id="myDiv" ref={ref} onClick={viewNewImage} >
         <div className={styles.images_one}>
-          {data['one']?.map((i,index) =>
-          <Fragment  key={i.id}>
-             {index < view ? <Image
-              alt="abc"
-             
-              id={JSON.stringify(i)}
-              // onClick={() => View(i.nikname, process.env.url_image + i.id + '.jpg', i.master_name, i.review, i.img_date)}
-              loading='lazy'
-              src={process.env.url_image + i.id + '.jpg'}
-              title={i.master_name}             
-              sizes="100vw"
-              style={{
-                width: '100%',
-                height: 'auto',
-              }}
-              width={500}
-              height={300}
-            />: null}
+          {data['one']?.map((i, index) =>
+            <Fragment key={i.id}>
+              {index < view ? <Image
+                alt="abc"
+
+                id={JSON.stringify(i)}
+                // onClick={() => View(i.nikname, process.env.url_image + i.id + '.jpg', i.master_name, i.review, i.img_date)}
+                loading='lazy'
+                src={process.env.url_image + i.id + '.jpg'}
+                title={i.master_name}
+                sizes="100vw"
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                }}
+                width={500}
+                height={300}
+              /> : null}
             </Fragment>
           )}
         </div>
         <div className={styles.images_one}>
-          {data['two']?.map((i,index) =>
-          <Fragment  key={i.id}>
-             {index < view ? <Image
-              alt="abc"
-              key={i.id}
-              id={JSON.stringify(i)}
-              // onClick={() => View(i.nikname, process.env.url_image + i.id + '.jpg', i.master_name, i.review, i.img_date)}
-              loading='lazy'
-              src={process.env.url_image + i.id + '.jpg'}
-              title={i.master_name}
-              sizes="100vw"              
-              style={{
-                width: '100%',
-                height: 'auto',
-              }}
-              width={500}
-              height={300}
-            />: null}
+          {data['two']?.map((i, index) =>
+            <Fragment key={i.id}>
+              {index < view ? <Image
+                alt="abc"
+                key={i.id}
+                id={JSON.stringify(i)}
+                // onClick={() => View(i.nikname, process.env.url_image + i.id + '.jpg', i.master_name, i.review, i.img_date)}
+                loading='lazy'
+                src={process.env.url_image + i.id + '.jpg'}
+                title={i.master_name}
+                sizes="100vw"
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                }}
+                width={500}
+                height={300}
+              /> : null}
             </Fragment>
           )}
         </div>

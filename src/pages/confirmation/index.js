@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import useSWR from 'swr'
 import { useRouter } from 'next/router'
 import styles from './confirmation.module.css'
-import { Bov } from '../recordingtomaster'
+import { Collaboration } from '../recordingtomaster'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import { months } from '@/profile'
@@ -27,7 +27,7 @@ export default function Confirmation() {
         const month =  months.indexOf(date.split(',')[1]) + 1
         const year = date.split(',')[3]
 
-        
+       
        
         if(profile.status === 'client') {
             const data = {
@@ -128,7 +128,7 @@ export default function Confirmation() {
 
     function Cost() {
         if (order.length > 0) {
-            let cost = order.map(i => +i.split(':')[1])
+            let cost = order.map(i => +i.split('~')[1])
             let sum = cost.reduce((i, a) => a + i)
             return sum
         } else {
@@ -163,9 +163,9 @@ export default function Confirmation() {
                 <h4>Услуги:</h4>
                 {order?.map((i,index) =>
                     <p className={styles.uslugi} key={index}>
-                        <span>{i.split(':')[0]}</span><span>{i.split(':')[1]} {master.currency}</span>
+                        <span>{i.split('~')[0]}</span><span>{i.split('~')[1]} {master.currency}</span>
                    
-                    {i.split(':')[2]}
+                    {i.split('~')[2]}
                     </p>
                 )}
                 <h4>Адрес:</h4>
@@ -178,7 +178,7 @@ export default function Confirmation() {
                
                 <h3>Общая стоимость<span>{Cost(order)} BYN</span></h3>
                 <div onClick={SaveOrder}>Записаться</div>
-                <Bov />
+                <Collaboration />
                 {goodorder ? <div className={styles.goodorder}>
                     <h3>masters.place</h3>
                     <h1>УСПЕШНО!</h1>

@@ -1,14 +1,15 @@
 .order p {
     margin: 3px 0 7px;
-    text-align: left;
+    text-align: left !important;
     color: inherit;
 }
-
+.order {
+    text-align: left;
+}
 .order h5,
 .link {
     color: inherit;
-}   
-
+}
 .link {
     border-radius: 5px;
     text-align: center;

@@ -19,8 +19,8 @@ export default function Services({ color, name, view, currency }) {
                         <div key={index} className={styles.all_service}>
                             <Fragment key={a}>
                                 <h5 className={styles.service} >
-                                    <span>{a.split(':')[0]}</span>
-                                    <span>{a.split(':')[1]} {currency}</span>
+                                    <span>{a.split('~')[0]}</span>
+                                    <span>{a.split('~')[1]} {currency}</span>
                                     <Image
                                         src='/chevron_up.svg'
                                         height={26}
@@ -34,7 +34,7 @@ export default function Services({ color, name, view, currency }) {
                                             {...viewReview,id:index + 1,service: i})}
                                     />
                                 </h5>
-                                {viewReview.id === index + 1 && viewReview.service === i ? a.split(':')[2] : ''}
+                                {viewReview.id === index + 1 && viewReview.service === i ? a.split('~')[2] : ''}
                             </Fragment>
                         </div>
                     )}

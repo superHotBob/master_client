@@ -12,7 +12,7 @@ export default function OrderMessage({ id, color }) {
         return <div style={{ color: color }} className={styles.order}>
             <p className={styles.order_create}>Создан заказ </p>
             <h5 className={styles.details}>Детали заказа:</h5>
-            <p>{order.myorder?.map(i => i.split(':')[0]) + '.'}</p>
+            <p>{order.myorder?.map(i => i.split('~')[0]) + '.'}</p>
             <h5>Дата встречи:</h5>
             <p>{Convert_Date(order?.date_order, order?.order_month, order?.year)}</p>
             <h5>Адрес встречи:</h5>

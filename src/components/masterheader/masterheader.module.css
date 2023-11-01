@@ -23,21 +23,12 @@
     text-align: center;  
     cursor: pointer;
     color: #3D4EEA;  
-  }
- 
- 
+  } 
   .image .image_master {
     border-radius: 100%;
     transform: translateY(50px);
-    border: 3px solid #fff;
-    background-color: #fff;
-    background-position: center;
-    background-size: cover;
-    height: 105px;
-    width: 105px;
-    margin: 0 auto;
-  }
-  
+    border: 3px solid #fff;  
+  }  
   .name_stars {
     margin: 60px auto 8px;
     display: flex;

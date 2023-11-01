@@ -2,7 +2,6 @@ import Header from '@/components/header'
 import Link from 'next/link'
 import styles from './records.module.css'
 import { useState, useEffect } from 'react'
-import { Convert_Date } from '@/profile'
 import { my_tema } from '@/data.'
 import Order from '@/components/order'
 import { months, week } from '@/profile'
@@ -48,8 +47,7 @@ export default function Records() {
             .then(res => res.json())
             .then(res => {
                 const new_result = [...res]
-                let month_result = new_result.filter(i => i.date_order.includes(months[curmonth]))
-               
+                let month_result = new_result.filter(i => i.date_order.includes(months[curmonth]))               
                 let flsd = month_result.map(i => +i.date_order.split(',')[0])
                 set_false_days(flsd)
                 setOrders(res)

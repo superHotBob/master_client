@@ -9,16 +9,14 @@ import { my_tema } from '@/data.'
 export default function MasterHeader({ profile, slug }) {   
     const [gradient, color, background] = my_tema[+profile.tema].color
     const [viewText, setViewText] = useState(true)
-    const [mapview, setmapview] = useState(false)
-    console.log(slug)
+    const [mapview, setmapview] = useState(false)   
     return (
         <>
             <section className={styles.section}>
                 <div className={styles.image} style={{ background: gradient,backgroundSize: '200%' }}>                  
                     <Image
                         src={'https://masters.place/images/' + (profile?.nikname || slug) + '.jpg'}
-                        alt="фото"
-                        style={{ transform: 'translateY(50px)' }}
+                        alt="фото"                      
                         title='Иконка мастера'
                         height={106}
                         width={106}

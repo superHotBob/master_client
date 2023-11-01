@@ -60,7 +60,7 @@ export default function Client() {
             </div>
             <section>
                 {data?.map((i, index) =>
-                    // <Order order={i} profile={0} />
+                   
                     <div
                         onClick={() => SetViewOrder(index)}
                         key={i.id}
@@ -74,8 +74,8 @@ export default function Client() {
                         </p>
                         <h3><span>{i.master_name || i.master}</span><span>{i.price} BYN</span></h3>
                         {i.myorder ?
-                        <h6>{i.myorder.map((i, index) => <p key={index}>{i.split(':')[0]}</p>)}</h6>:
-                        <h6>{i.neworder.split(':').map((i, index) => <span key={index}>{((index > 0 ? ' , ' : ' ') + i.split(':')[0])}</span>)}</h6>}
+                        <h6>{i.myorder.map((i, index) => <p key={index}>{i.split('~')[0]}</p>)}</h6>:
+                        <h6>{i.neworder.split('~').map((i, index) => <span key={index}>{((index > 0 ? ' , ' : ' ') + i.split(':')[0])}</span>)}</h6>}
 
                     </div>
                 )}

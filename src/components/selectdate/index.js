@@ -17,14 +17,14 @@ const activ_month = {
     color: '#282828',
 }
 
-export default function SelectDate({ nikname }) {
+export default function SelectDate({ nikname, order }) {
     const days = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"]
     const dispatch = useDispatch()
     const d = new Date()
     const mon = d.getMonth() + 1
     const [month, setMonth] = useState(mon)
     const my_months = [...months]
-    const [false_times, set_false_time] = useState([])
+   
     const [false_days, set_false_days] = useState([])
     const [active_day, setActive_Day] = useState()
     const [active_time, setActive_Time] = useState()
@@ -50,7 +50,7 @@ export default function SelectDate({ nikname }) {
     const day = new Date(year, curmonth - 1, 1)
     let v = days.indexOf(days[day.getDay() - 1]) === -1 ? 6 : days.indexOf(days[day.getDay() - 1])
 
-
+    console.log(order)
 
 
     useEffect(() => {

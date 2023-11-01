@@ -99,7 +99,7 @@ export default function AddService({ view, setView, color }) {
        
         event.preventDefault()
         let new_services = services
-        new_services[b][1] = [...new_services[b][1], `${serv.current.value}:${cost.current.value}:${review.current.value}`]
+        new_services[b][1] = [...new_services[b][1], `${serv.current.value}~${cost.current.value}~${review.current.value}`]
         .filter(i => i)      
         setServices([...services])
         setaddUsluga(false)
@@ -176,8 +176,8 @@ export default function AddService({ view, setView, color }) {
                         <React.Fragment key={c}>
                             {/* {services.split(',').map((service, index) => */}
                                 <h5 className={styles.service}  style={{ display: service.length > 0 ? 'flex' : 'none' }}>
-                                    <span style={{ color: color[1] }}>{service.split(':')[0]}</span>
-                                    <span style={{ color: color[1] }}>{service.split(':')[1]} {profile.currency}</span>
+                                    <span style={{ color: color[1] }}>{service.split('~')[0]}</span>
+                                    <span style={{ color: color[1] }}>{service.split('~')[1]} {profile.currency}</span>
                                     <Image src={trash_blk} width={29} height={29} alt="trash" onClick={() => DeleteMessage(service + 'del', 0)} />
                                     <p id={service + 'del'} className={styles.delete__message}>
                                         <b>Удалить услугу?</b>

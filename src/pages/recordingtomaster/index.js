@@ -7,7 +7,7 @@ import { setmaster, setorder } from '@/reduser'
 import Link from 'next/link'
 import SelectDate from '@/components/selectdate'
 
-export function Bov() {
+export function Collaboration() {
     return (
         <section className={styles.colaboration}>Нажмая на кнопку, вы соглашаетесь с <br />
             <Link href="/#">Условиями обработки персональных данных</Link> и
@@ -37,7 +37,7 @@ export default function Recording() {
     useEffect(() => {
         if (master.phone === null) {
             router.push('/')
-        }       
+        }
         if (!router.query.nikname) { return; }
         async function GetServices() {
             const response = await fetch(`/api/master_service?nikname=${router.query.nikname}`)
@@ -57,14 +57,14 @@ export default function Recording() {
         set_Active_Category(a)
         let new_services = services?.filter(i => i[0] === a)[0][1]
         setFilterServices(new_services)
-        console.log(filterServices)
+        
     }
 
     function Cost(a) {
         if (a.length === 0) {
             return 0
         } else {
-            let cost = orders.map(i => +i.split(':')[1])
+            let cost = orders.map(i => +i.split('~')[1])
             let sum = cost.reduce((i, a) => a + i)
             return sum
         }
@@ -133,10 +133,10 @@ export default function Recording() {
                         onClick={() => AddOrder(i)}
                     >
                         <div className={styles.one_service} >
-                            <span>{i.split(':')[0]}</span>
-                            <span>{i.split(':')[1]} {master.currency}</span>
+                            <span>{i.split('~')[0]}</span>
+                            <span>{i.split('~')[1]} {master.currency}</span>
                         </div>
-                        {i.split(':')[2]}
+                        {i.split('~')[2]}
                     </div>
                 )}
             </>
@@ -145,8 +145,8 @@ export default function Recording() {
                     name={name}
                     nikname={nikname}
                     order={orders}
-                    close={setView}
-                    price={Cost(orders)}
+                    // close={setView}
+                    // price={Cost(orders)}
                 />
             }
             <div className={styles.order}>
@@ -155,14 +155,14 @@ export default function Recording() {
                 </h4>
                 <p>Услуги и товары ({orders.length})<span>{Cost(orders)} {master.currency}</span></p>
 
-                {/* <Link href="/#" title="Скидка 10% от заказа">Скидка</Link> */}
+
                 <h3>Общая стоимость<span>{Cost(orders)} {master.currency}</span></h3>
                 {view ?
                     <div onClick={() => setView(orders.length > 0 ? false : true)}>Выбрать дату</div>
                     :
                     <div onClick={() => ConfirmOrder([...orders])}>Записаться</div>
                 }
-                <Bov />
+                <Collaboration />
 
             </div>
 

@@ -1,5 +1,5 @@
 import Header from "@/components/header"
-import { useRef, useState } from "react"
+import { useRef } from "react"
 import styles from './messages.module.css'
 import { useSelector } from "react-redux"
 import { useRouter } from "next/router"
@@ -40,8 +40,7 @@ export default function Messages() {
         objDiv.scrollTop = objDiv.scrollHeight;
         }
     }   
-    function SendMessage() {
-        const d = new Date()
+    function SendMessage() {       
         if (!ref.current.value) {
             return
         }
@@ -110,7 +109,7 @@ export default function Messages() {
         <main className={styles.main}>
             <Header sel='/chat' text={router.query.name} name={pid} mes="1" color={color} />            
             <section className={styles.section} id="section">
-                {dialog?.sort((a, b) => a.ms_date - b.ms_date).map(i =>
+                {dialog?.map(i =>
                     <div key={i.ms_date} className={styles.message}>
                         {i.sendler === profile.name ?
                             <div className={styles.wrap_client}>                              
@@ -133,9 +132,8 @@ export default function Messages() {
                                 />
                                 <div className={styles.master}>                                  
                                    <OrderMessage id={i.ms_text} color="#000" profile={profile} />
-                                   {FindLink(i.ms_text)}      
-                                    
-                                    <span>{My_Date(+i.ms_date)}</span>
+                                   {FindLink(i.ms_text)}                                    
+                                   <span>{My_Date(+i.ms_date)}</span>
                                 </div>
                             </div>
                         }
