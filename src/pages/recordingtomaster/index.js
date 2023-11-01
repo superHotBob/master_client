@@ -100,8 +100,7 @@ export default function Recording() {
         router.push('/confirmation')
     }
 
-    return (
-        <main className={styles.main}>
+    return (<>       
             <Header text="Запись к мастеру" sel={"/" + nikname} select={setView} view_time={!view} />
             {view ? <>
                 <div className={styles.category}>
@@ -163,9 +162,7 @@ export default function Recording() {
                     <div onClick={() => ConfirmOrder([...orders])}>Записаться</div>
                 }
                 <Collaboration />
-
-            </div>
-
-        </main>
+            </div>        
+        </>
     )
 }

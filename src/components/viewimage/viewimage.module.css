@@ -1,15 +1,13 @@
-.detail img {
+.detail div img {
   border-radius: 0;
+  object-fit: cover;
 }
-.main__detail {
-  width: 100%;
-  max-width: 500px;
-  min-height: 150vh;
+.main__detail { 
+  width: min(100% ,500px);
+  height: 100vh;
   position: absolute;
-  z-index: 120;
-  height: 100%;
-  padding-top: 117px;
-  top: 0;
+  z-index: 120; 
+  padding-top: 12vh; 
   opacity: 0;
   left: 0;
   transition: opacity 0.5s;
@@ -21,8 +19,8 @@
   transition: opacity 0.5s;
   background-color: #fff; 
   text-align: center;
-  max-width: 500px;
-  padding-bottom: 10px;
+  max-width: 500px; 
+  height: 88vh; 
 }
 
 .detail h5::first-letter {
@@ -49,8 +47,11 @@
   color: #fff;
   text-align: center;
   width: calc(100% - 32px);
-  top: 590px;
-  margin: 26px auto 2rem;
+ 
+  position: absolute;
+  left: 16px;
+  bottom: 32px;
+  
   line-height: 46px;
   background: #3D4EEA;
   border-radius: 6px;
@@ -61,11 +62,13 @@
 .master {
   margin: 20px 1rem 10px;
   text-align: left;
+  flex-grow: 2;
 }
 
 .master img {
   border-radius: 50%;
   margin-right: 12px;
+  
 }
 
 .master span:first-of-type {
@@ -82,11 +85,13 @@
 .detail h6 {
   padding: 0 1rem;
   text-align: left;
+  flex-grow: 1;
 }
 
 .close {
   margin: 10px 0;
   cursor: pointer;
+ 
 }
 
 .detail h6 {

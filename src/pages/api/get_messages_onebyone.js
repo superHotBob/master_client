@@ -58,7 +58,7 @@ export default async function handler(req, res) {
       from  "chat"
       where ("sendler_nikname" = $1 and "recipient_nikname" =  $2  ) or (
       "recipient_nikname" = $1 and "sendler_nikname" =  $2)  
-      order by "ms_date" DESC                    
+      order by "ms_date" ASC                    
     `,[req.query.abonent,req.query.nikname]);
 
     const no_read_messages = result.filter(i=>i.read === false).map(i=>i.id)

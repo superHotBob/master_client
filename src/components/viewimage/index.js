@@ -14,6 +14,9 @@ export default function ViewImage({ view_image, viewImage, pid = null, service }
     useEffect(() => {
         document.getElementById("main").style.top = window.scrollY + 'px'
         document.getElementById("main").style.opacity = 1
+       
+        
+        
     }, [])
 
     const ViewImage = () => {
@@ -38,20 +41,26 @@ export default function ViewImage({ view_image, viewImage, pid = null, service }
                     width={20} 
                     height={20}
                 />
-                <img
-                    alt="image"
-                    src={view_image.image}
-                    width="100%"
-                    id={view_image.image}
-                    height="auto"
-                />
+               
+                <div style={{height: "400px",position: 'relative'}}>
+                    <Image
+                        alt="image"
+                        src={view_image.image}                 
+                        id={view_image.image}
+                        fill={true}
+                    />
+                </div>
                 <div className={styles.master} >
-                    <Image alt="image" src={'https://masters.place/images/' + view_image.name + '.jpg'} width={26} height={26} />
+                    <Image 
+                        alt="image" 
+                        src={'https://masters.place/images/' + view_image.name + '.jpg'} 
+                        width={26} height={26} 
+                    />
                     <span>{pid || view_image.master_name}</span>
                     <span>{ConvertDate(+view_image.date)}</span>
                 </div>
                 {pid ? null : <h5>{service}</h5>}
-                <h6>{view_image.text}</h6>
+                <h6>{view_image.text}</h6>               
                 {pid ?
                     <Link
                         style={{ display: status === 'client' ? 'block' : 'none' }}
@@ -59,8 +68,11 @@ export default function ViewImage({ view_image, viewImage, pid = null, service }
                         href={`/chat/messages/${view_image.name}?name=${view_image.master_name}`}
                     >
                         Отправить сообщение мастеру
-                    </Link> :
-                    <Link className={styles.toprofilemaster} href={'/' + view_image.name} >Перейти в профиль мастера</Link>
+                    </Link> 
+                    :
+                    <Link className={styles.toprofilemaster} href={'/' + view_image.name} >
+                        Перейти в профиль мастера
+                    </Link>
                 }
             </div>
         </div>
