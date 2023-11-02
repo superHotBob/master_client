@@ -5,11 +5,12 @@
 .main__detail { 
   width: min(100% ,500px);
   height: 100vh;
-  position: absolute;
+  position: fixed;
   z-index: 120; 
   padding-top: 12vh; 
   opacity: 0;
-  left: 0;
+ 
+  top: 0;
   transition: opacity 0.5s;
   background-color: rgba(0, 0, 0, 0.6);
 }
@@ -46,36 +47,30 @@
   display: block;
   color: #fff;
   text-align: center;
-  width: calc(100% - 32px);
- 
+  width: calc(100% - 32px); 
   position: absolute;
   left: 16px;
   bottom: 32px;
-  margin-top: 26px;
-  
+  margin-top: 20px;  
   line-height: 46px;
   background: #3D4EEA;
   border-radius: 6px;
   font-weight: 500;
 }
 
-
 .master {
   margin: 20px 1rem 10px;
-  text-align: left;
-  
+  text-align: left;  
 }
 
 div.master img {
   border-radius: 50%;
-  margin-right: 12px;
-  
+  margin-right: 12px;  
 }
 
 .master span:first-of-type {
   vertical-align: super;
 }
-
 .master span:last-of-type {
   float: right;
   line-height: 30px;
@@ -91,8 +86,7 @@ div.master img {
 
 .close {
   margin: 10px 0;
-  cursor: pointer;
- 
+  cursor: pointer; 
 }
 
 .detail h6 {

@@ -4,21 +4,24 @@
     max-width: 500px;
     z-index: 100;
     border-radius: 30px;
-   
+    -webkit-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+
 }
 
 .main_navi {
     margin: 0 auto;
     height: 58px;
-    width: max-content;    
+    width: max-content;
     border-radius: 30px;
-    background-color: #3D4EEA ;
-    
+    background-color: #3D4EEA;
+
     padding: 6px 3px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-   
+
 }
 
 .enter {

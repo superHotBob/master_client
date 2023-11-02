@@ -9,10 +9,9 @@ export default function ViewImage({ view_image, viewImage, pid = null, service }
 
 
     const status = useSelector(state => state.counter.profile['status'])
+   
 
-
-    useEffect(() => {
-        document.getElementById("main").style.top = window.scrollY + 'px'
+    useEffect(() => {      
         document.getElementById("main").style.opacity = 1
         const height_text = document.getElementById("text").clientHeight;
         document.getElementById("image").style.height = window.innerHeight - 310 - height_text + 'px'        

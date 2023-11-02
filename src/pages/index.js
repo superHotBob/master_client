@@ -21,16 +21,14 @@ export default function Home() {
   const servref = useRef(service)
   const view_ref = useRef(2)
 
-
-  function handleScroll(event) {
-
+  function handleScroll() {
     setview(view_ref.current)
     if (ref.current?.getBoundingClientRect().bottom.toFixed(0) < window.innerHeight) {
       view_ref.current = view_ref.current + 1
     }
   };
 
-  useEffect(() => {   
+  useEffect(() => {
     if (ref.current.getBoundingClientRect().bottom.toFixed(0) < window.innerHeight) {
       setview(3)
       view_ref.current = view_ref.current + 1
@@ -67,7 +65,7 @@ export default function Home() {
     })
   }
 
-  return (
+  return (<>
     <section className={styles.section} >
       <Message page="main" text='Masters.place показывает самые крутые и 
             актуальные работы мастеров в вашем городе. 
@@ -122,14 +120,16 @@ export default function Home() {
           )}
         </div>
       </div>
-      {view_image &&
-        <ViewImage
-          service={service}
-          view_image={view_image}
-          url_image={process.env.url_image}
-          viewImage={viewImage}
-        />}
     </section>
+    {view_image &&
+    <ViewImage
+      service={service}
+      view_image={view_image}
+      url_image={process.env.url_image}
+      viewImage={viewImage}
+    />}
+    </>
+  
 
   )
 }
