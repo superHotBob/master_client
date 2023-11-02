@@ -14,10 +14,9 @@ export default function ViewImage({ view_image, viewImage, pid = null, service }
     useEffect(() => {
         document.getElementById("main").style.top = window.scrollY + 'px'
         document.getElementById("main").style.opacity = 1
-       
-        
-        
-    }, [])
+        const height_text = document.getElementById("text").clientHeight;
+        document.getElementById("image").style.height = window.innerHeight - 310 - height_text + 'px'        
+    }, [viewImage])
 
     const ViewImage = () => {
         document.getElementById("main").style.opacity = 0
@@ -42,7 +41,7 @@ export default function ViewImage({ view_image, viewImage, pid = null, service }
                     height={20}
                 />
                
-                <div style={{height: "400px",position: 'relative'}}>
+                <div style={{position: 'relative'}} id="image">
                     <Image
                         alt="image"
                         src={view_image.image}                 
@@ -60,7 +59,7 @@ export default function ViewImage({ view_image, viewImage, pid = null, service }
                     <span>{ConvertDate(+view_image.date)}</span>
                 </div>
                 {pid ? null : <h5>{service}</h5>}
-                <h6>{view_image.text}</h6>               
+                <h6 id="text">{view_image.text}</h6>               
                 {pid ?
                     <Link
                         style={{ display: status === 'client' ? 'block' : 'none' }}
