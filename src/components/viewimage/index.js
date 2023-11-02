@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import icon_close from '../../../public/chevron_down.svg'
 
-export default function ViewImage({ view_image, viewImage, pid = null, service }) {
+export default function ViewImage({ view_image, viewImage, pid = null, service, marg = 0 }) {
 
 
     const status = useSelector(state => state.counter.profile['status'])
@@ -29,7 +29,7 @@ export default function ViewImage({ view_image, viewImage, pid = null, service }
     }
 
     return (
-        <div className={styles.main__detail} id="main">
+        <div className={styles.main__detail} id="main" style={{marginLeft:marg}}>
             <div className={styles.detail}>
                 <Image
                     className={styles.close}

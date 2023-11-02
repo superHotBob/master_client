@@ -1,11 +1,6 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 const { Client } = require('pg')
 
-
-
-
 export default async function handler(req, res) {
-
 
   const client = new Client(process.env.pg_data)
   await client.connect()
@@ -17,8 +12,6 @@ export default async function handler(req, res) {
     where "phone" = $1
     `, [+req.body.tel]
   );
-
-
 
   if (result.length === 0) {
     const { rows: max_id } = await client.query("SELECT Max(id) from clients");
@@ -37,9 +30,6 @@ export default async function handler(req, res) {
     fetch(`http://masters.place:5000/createclienticon?name=${nikname}`)
       .then(res => console.log('Иконка клиента создана'))
 
-
-
-
     const { rows: max_chat } = await client.query("SELECT Max(chat) from adminchat");
     let chat = +max_chat[0].max + 1;
     let date = Date.now();
@@ -50,7 +40,8 @@ export default async function handler(req, res) {
       returning *
       `, [nikname, nikname, date, chat]
     );
-    res.setHeader('Set-Cookie', `key=${key}; Path=/;`)
+    res.setHeader('Set-Cookie', [`key=${key}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`,
+    `nikname=${nikname}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`])
     await client.end();
     res.status(200).json(result[0])
 
@@ -66,17 +57,17 @@ export default async function handler(req, res) {
           where masters.phone = $1
         `, [+req.body.tel]);
 
-      const { rows: key } = await client.query(`
-        select key          
+      const { rows: key_nik } = await client.query(`
+        select key,nikname          
         from "clients"
         where "phone" = $1
       `, [+req.body.tel]);
 
-
+     
 
       await client.end();
-      res.setHeader('Set-Cookie', [`key=${key[0].key}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`,
-      `nikname=${result[0].nikname}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`])
+      res.setHeader('Set-Cookie', [`key=${key_nik[0].key}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`,
+      `nikname=${key_nik[0].nikname}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`])
 
 
 
@@ -95,17 +86,17 @@ export default async function handler(req, res) {
         `, [+req.body.tel]);
 
 
-      const { rows: key } = await client.query(`
-        select key          
+      const { rows: key_nik } = await client.query(`
+        select key,nikname          
         from "clients"
         where "phone" = $1
       `, [+req.body.tel]);
+
+    
+
       await client.end();
-
-
-      res.setHeader('Set-Cookie', [`key=${key[0].key}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`,
-      `nikname=${result[0].nikname}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`])
-
+      res.setHeader('Set-Cookie', [`key=${key_nik[0].key}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`,
+      `nikname=${key_nik[0].nikname}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`])
 
       res.status(200).json(result[0])
     } else {
@@ -116,6 +107,4 @@ export default async function handler(req, res) {
     await client.end();
     res.status(404).json([])
   }
-
-
 }

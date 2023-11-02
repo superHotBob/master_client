@@ -9,7 +9,7 @@ import ViewImage from '../viewimage'
 import { My_Date } from '@/profile'
 import Messages from '../messages'
 
-export default function Lenta({ color = ['linear-gradient(to left, #3D4EEA, #5E2AF0)', '#3D4EEA', '#ECEEFD'], nikname, name }) {
+export default function Lenta({ color, nikname, name }) {
 
     const [model, setViewText] = useState(false)
     const [view_image, viewImage] = useState(false)
@@ -74,8 +74,10 @@ export default function Lenta({ color = ['linear-gradient(to left, #3D4EEA, #5E2
             <div className={styles.part_images}>
                 {image?.filter((i, index) => index % 2 !== 0).map(i =>
                     <div key={i.id}>
-                        <img alt="image" onClick={() => ViewImageClick(i)}
-                            src={process.env.url_image + i.id + '.jpg'} />
+                        <img alt="image" 
+                            onClick={() => ViewImageClick(i)}
+                            src={process.env.url_image + i.id + '.jpg'} 
+                        />
                         {profile.status === 'client' ?
                             <span
                                 className={styles.save__image}
@@ -101,8 +103,9 @@ export default function Lenta({ color = ['linear-gradient(to left, #3D4EEA, #5E2
                     {profile.status === 'client' ? <Link href="/" className={styles.add}>Подать заявку</Link> : null}
                 </div>
             </div>
-            : null}
-        {view_image ? <ViewImage view_image={view_image} viewImage={viewImage} pid={name} /> : null}
+            : null
+        }
+        {view_image ? <ViewImage marg={'-16px'} view_image={view_image} viewImage={viewImage} pid={name} /> : null}
         {message ? <Messages close={setMessage} text="Изображение сохранено" /> : null}
 
     </>)

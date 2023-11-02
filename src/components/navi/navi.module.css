@@ -16,12 +16,10 @@
     width: max-content;
     border-radius: 30px;
     background-color: #3D4EEA;
-
     padding: 6px 3px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-
 }
 
 .enter {
