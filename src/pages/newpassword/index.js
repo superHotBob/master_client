@@ -88,8 +88,8 @@ export default function Password() {
             </h3>
             <div className={password === 'new' ? styles.inputs_password : styles.inputs}>
                 <form onSubmit={handleSubmit}>
-                    <input required ref={onepassword} placeholder='Пароль (8 символов)' type="password" minLength={8} maxLength={8} />
-                    <input required ref={twopassword} placeholder='Подтвердить пароль' type="password" minLength={8} maxLength={8} />
+                    <input required ref={onepassword} placeholder='Пароль (не менее 8 символов)' type="password" minLength={8}  />
+                    <input required ref={twopassword} placeholder='Подтвердить пароль' type="password" minLength={8}  />
                     <button className={styles.button} type="submit">
                         {password === 'new' ? 'Восстановить пароль' : 'Завершить регистрацию'}
                     </button>

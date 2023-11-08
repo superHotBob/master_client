@@ -122,7 +122,8 @@ export default function Enter() {
 
     const handleKeyDown = (e, b) => {
        
-        if (e.key === 'Backspace') {            
+        if (e.key === 'Backspace') { 
+           
             if(b === 1) {
                 document.getElementById("1").value = null
                 return;
@@ -132,7 +133,16 @@ export default function Enter() {
             } else {
                 document.getElementById(b - 1).focus()
             }         
-           
+            // if (e.target.value && b > 1) {
+            //     document.getElementById(b).value = null
+            //     // let nmb = number
+            //     // nmb[b-1] = ''      
+            //     // setNumber(nmb)
+            //     // console.log(number)
+            //     // 
+            // } else {
+            //     // document.getElementById(b - 1).focus()
+            // }
         }
         if (e.key === 'Enter' && b === 4) {
             sendCode()

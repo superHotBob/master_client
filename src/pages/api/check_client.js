@@ -13,6 +13,7 @@ export default async function handler(req, res) {
         where "phone" = $1 
         `,[+req.query.phone]
     );   
+
     let date_enter = Date.now()
     const ipAddress = IP.address()   
     await client.query(

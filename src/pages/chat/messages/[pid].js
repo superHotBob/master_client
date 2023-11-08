@@ -1,5 +1,5 @@
 import Header from "@/components/header"
-import { useRef } from "react"
+import { useEffect, useRef } from "react"
 import styles from './messages.module.css'
 import { useSelector } from "react-redux"
 import { useRouter } from "next/router"
@@ -27,13 +27,13 @@ export default function Messages() {
     const { data: dialog } = useSWR(`/api/get_messages_onebyone?nikname=${profile.nikname}&abonent=${pid}&status=${profile.status}`,
         {
             refreshInterval: 5000, 
-            onSuccess: () => {         
+            onSuccess: () => { 
+                             
                 if(pid === 'администратор') {localStorage.setItem('chat', Date.now())}                   
             },compare(a,b){ return a?.length === b?.length }
         }
     )
-    setTimeout(() => Movie(), 500)
-  
+    setTimeout(() => Movie(), 500)   
     function Movie() {  
         if( document.getElementById("section"))  {   
         const objDiv = document.getElementById("section");
@@ -89,10 +89,14 @@ export default function Messages() {
         }
     }
     function FindLink(text) {
-        let match = text.match(/\bhttps?\:\/\/(\S+)\b/);       
-        if(match) {           
-            return <a href = {match[0]} >{match[1]}</a>
-        }    
+        let match = text.match(/\bhttps?\:\/\/(\S+)\b/);  
+        if(match) {       
+            console.log(match[0],match[1])  
+            let text_split = text.split(match[0])   
+            return <><p>{text_split[0]}</p><a href={match[0]}>{match[1]}</a><b style={{fontWeight: 400}}>{text_split[1]}</b></>
+        } else {
+            return text
+        }
         
     }
    
@@ -114,7 +118,7 @@ export default function Messages() {
                         {i.sendler === profile.name ?
                             <div className={styles.wrap_client}>                              
                                 <OrderMessage id={i.ms_text} color="#fff" />
-                                {FindLink(i.ms_text)}
+                                {FindLink(i.ms_text)}  
                                 <p>{My_Date(+i.ms_date)}
                                     {i.read ? <Image height={20} width={20} alt="check" src="/check_to.svg" /> : null}
                                 </p>
@@ -131,9 +135,9 @@ export default function Messages() {
                                     alt="sendler"
                                 />
                                 <div className={styles.master}>                                  
-                                   <OrderMessage id={i.ms_text} color="#000" profile={profile} />
-                                   {FindLink(i.ms_text)}                                    
-                                   <span>{My_Date(+i.ms_date)}</span>
+                                 <OrderMessage id={i.ms_text} color="#000" profile={profile} />
+                                 {FindLink(i.ms_text)}                          
+                                 <span>{My_Date(+i.ms_date)}</span>
                                 </div>
                             </div>
                         }

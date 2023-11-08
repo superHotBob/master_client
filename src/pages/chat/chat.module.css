@@ -30,6 +30,10 @@
     letter-spacing: 0px;
     color: #D0D0D0;
     float: right;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 220px;
 }
 .chat h6 {    
     padding-right: 15px; 

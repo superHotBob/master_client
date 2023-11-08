@@ -8,7 +8,7 @@ export default async function handler(req, res) {
     const {rows: result } = await client.query(`
         select nikname, name,stars,address, services,locations
         from "masters" 
-        where $1 = ANY (services) and city = $2 
+        where $1 = ANY (services) and city = $2 and buy = true
         order by rating DESC
    `,[req.query.service, req.query.city]);
 

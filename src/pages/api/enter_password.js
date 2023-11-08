@@ -6,12 +6,12 @@ export default async function handler(req, res) {
   await client.connect()
 
   const { rows: result } = await client.query(
-    `select 
-      status,blocked,id,nikname,client_password  
-    from  "clients"     
-    where "phone" = $1
+    `select status, blocked, id, nikname, client_password from  "clients"     
+     where "phone" = $1
     `, [+req.body.tel]
   );
+
+  console.log(result)
 
   if (result.length === 0) {
     const { rows: max_id } = await client.query("SELECT Max(id) from clients");
@@ -22,7 +22,7 @@ export default async function handler(req, res) {
     const { rows: result } = await client.query(
       `INSERT INTO "clients" ("phone","nikname", "id", "client_password","name", "text","key")  
       VALUES ($1,$2,$3,$4,$5,$6,$7)
-      returning *
+      returning nikname,name,text,key, status, saved_image,id, key
       `, [+req.body.tel, nikname, nikname, req.body.password, nikname, 'Добрый день', key]
     );
 
@@ -34,11 +34,26 @@ export default async function handler(req, res) {
     let chat = +max_chat[0].max + 1;
     let date = Date.now();
 
+    const text = `Мы рады приветствовать вас в числе зарегистрированных 
+                  пользователей!
+                  Этот диалог является вашим надежным каналом технической 
+                  поддержки, где вы можете свободно задавать любые вопросы,
+                  волнующие вас.Оставьте ваш запрос здесь, и мы обязательно 
+                  предоставим ответ в кратчайшие сроки.
+                  
+                  Приглашаем вас стать частью нашего сообщества в Telegram: 
+                  https://t.me/pixeleuro
+                  На канале каждый участник имеет возможность делиться 
+                  своими идеями и предложениями по новым функциям, 
+                  которые мы могли бы внедрить.Ваш взгляд и мнение имеют 
+                  огромное значение для нас, и мы с нетерпением ждем вашего
+                   активного участия.`
+
     await client.query(
-      `INSERT INTO "adminchat" ("recipient","recipient_nikname","ms_date","chat")  
-        VALUES ($1,$2,$3,$4)
+      `INSERT INTO "adminchat" ("recipient","recipient_nikname","ms_date","chat",ms_text)  
+        VALUES ($1,$2,$3,$4,$5)
       returning *
-      `, [nikname, nikname, date, chat]
+      `, [nikname, nikname, date, chat,text]
     );
     res.setHeader('Set-Cookie', [`key=${key}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`,
     `nikname=${nikname}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`])
@@ -63,7 +78,7 @@ export default async function handler(req, res) {
         where "phone" = $1
       `, [+req.body.tel]);
 
-     
+
 
       await client.end();
       res.setHeader('Set-Cookie', [`key=${key_nik[0].key}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`,
@@ -92,7 +107,7 @@ export default async function handler(req, res) {
         where "phone" = $1
       `, [+req.body.tel]);
 
-    
+
 
       await client.end();
       res.setHeader('Set-Cookie', [`key=${key_nik[0].key}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`,

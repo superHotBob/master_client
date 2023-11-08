@@ -84,22 +84,22 @@
     min-height: 60px;
 }
 .master a, .wrap_client a {
-    color:#5E2AF0;    
-    padding: 10px;
-    width: 100%;
-  
+    color:#5E2AF0;
 }
 
 .wrap_client a {
     color:#8B95F2;
 }   
-.wrap_client p, .master span {
+.wrap_client p, .master span  {
     color: rgba(255, 255, 255, 0.6);
     text-align: right;
     font-size: 12px;
     line-height: 25px;
     display: block;
     
+}
+.wrap_client span {
+    color: #fff;
 }
 .wrap_client p img {
     

@@ -15,6 +15,7 @@ export default async function handler(req, res) {
       select * from  "adminchat"       
       where ("sendler_nikname"  =  $1 and "recipient_nikname" = $2 ) or 
       ("sendler_nikname"  =  $2  and  "recipient_nikname" = $1) 
+      order by "ms_date" ASC   
       `,[req.query.nikname,'администратор']
     ); 
 
