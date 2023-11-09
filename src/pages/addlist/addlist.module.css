@@ -56,23 +56,19 @@
     color: #3D4EEA;
 }
 
-.main__form {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-}
+
 
 .sertificat__upload,
 .sertificats {
-    height: 28vw;
-    max-height: 145px;
+    height: calc(100vw - 32px);
+    max-height: calc(500px - 32px);
     background: #ECEEFD;
     border-radius: 8px;
     margin-bottom: calc(5% - 10px);
 }
 
 .sertificat__upload {
-    font-size: 25px;
+    font-size: 125px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -103,6 +99,12 @@
     border: 1px solid #fff;
     padding: 5px;
     border-radius: 5px;
+}
+
+.main__form img {
+   width: calc(100vw - 32px);
+   max-width: calc(500px - 32px);
+   border-radius: 8px;
 }
 
 .sertificats label {

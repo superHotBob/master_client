@@ -134,7 +134,10 @@ function Mymap({ loc_master, nikname, place }) {
                     onLoad={() => ViewGrayScale()}
                 /> : null}
             </Map>
-            {address && <p>Адрес: г. {address}</p>}
+            {address && <div>
+                <p>Адрес: г. {address}</p>
+                <button className={styles.confirm} >Сохранить</button>
+            </div>}
         </>
     )
 }

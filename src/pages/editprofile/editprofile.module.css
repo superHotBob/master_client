@@ -208,8 +208,6 @@ div.nikname,
   font-size: 14px;
 }
 
-
-
 .nikname span {
   color: gray;
 }
@@ -244,6 +242,7 @@ div.tema {
   font-size: 1em;
   margin: 8px 0 0;
   font-weight: 500;
+  
   display: flex;
   height: 54px;
   justify-content: space-between;
@@ -269,6 +268,7 @@ div.tema {
   height: 34px;
   min-width: 124px;
   border-radius: 6px;
+  font-size: 1em;
   padding: 6px;
   background: rgba(255, 255, 255, 0.2);
   border: none;

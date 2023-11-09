@@ -230,7 +230,7 @@ export default function EditProfile() {
                 <header className={styles.header}>
                     <Image src={arrow} alt="back" onClick={() => setMasterAddress(false)} />
                     <h4>Адрес приема клиентов</h4>
-                    <span style={{ opacity: 0 }}>Пр</span>
+                    <span>Принять</span>
                 </header>
                 <p>{`Укажите настоящее имя и фамилию, что бы лояльно 
                     расположить мастеров или клиентов к вам. 
@@ -295,7 +295,7 @@ export default function EditProfile() {
                     <label>
                         Номер квартиры
                         <input  type="text" value={address_full.квартира}
-                            onChange={(e) => setAddress_full(address_full => ({ ...address_full, ...{ 'квартира': e.target.value } }))}
+                            onChange={(e) => setAddress_full({ ...address_full, ...{ 'квартира': e.target.value } })}
                         />
                     </label>
                 </section>

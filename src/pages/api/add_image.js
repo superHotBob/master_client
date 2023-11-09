@@ -1,13 +1,14 @@
 const { Client } = require('pg')
 
 export default async function handler(req, res) {  
+  const { nikname, service, city, master_name, review} = req.body
   
   const date = Date.now()
   const client = new Client(process.env.pg_data)
   await client.connect();
   const { rows } = await client.query(`
       SELECT MAX("rating") from images
-      where "nikname" = $1`,[req.body.nikname]
+      where "nikname" = $1`,[nikname]
   ); 
   let my_rat = rows[0]['max'] ? +rows[0]['max'] + 1 : 1
 
@@ -15,10 +16,10 @@ export default async function handler(req, res) {
  
   
   const { rows:id } = await client.query(`
-    INSERT INTO "images" (nikname,service,city,img_date,master_name,rating)  
-      VALUES ($1,$2,$3,$4,$5,$6)
+    INSERT INTO "images" (nikname,service,city,img_date,master_name,rating,review)  
+      VALUES ($1,$2,$3,$4,$5,$6,$7)
       returning id
-    `, [req.body.nikname,req.body.service,req.body.city,date,req.body.master_name,my_rat ]
+    `, [nikname, service, city, date, master_name, my_rat, review ]
     
   ); 
  
