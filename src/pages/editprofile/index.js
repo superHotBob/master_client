@@ -230,13 +230,9 @@ export default function EditProfile() {
                 <header className={styles.header}>
                     <Image src={arrow} alt="back" onClick={() => setMasterAddress(false)} />
                     <h4>Адрес приема клиентов</h4>
-                    <span>Принять</span>
+                    <button onClick={() => selectLoc(true)}>Принять</button>
                 </header>
-                <p>{`Укажите настоящее имя и фамилию, что бы лояльно 
-                    расположить мастеров или клиентов к вам. 
-                    Это поможет сделать наш сервис более настоящим.
-                    `}
-                </p>
+               
                 <section className={styles.inputs}>
                     <label>
                        Выберите город
@@ -300,9 +296,9 @@ export default function EditProfile() {
                     </label>
                 </section>
                 <div className={styles.place} >
-                    <h4 onClick={() => selectLoc(true)}>
+                    <button onClick={() => selectLoc(true)}>
                         Выбрать локацию                                        
-                    </h4>
+                    </button>
                 </div>
                 {loc ? <Location 
                     nikname={nikname} 

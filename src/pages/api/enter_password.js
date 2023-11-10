@@ -56,7 +56,7 @@ export default async function handler(req, res) {
       `, [nikname, nikname, date, chat,text]
     );
     res.setHeader('Set-Cookie', [`key=${key}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`,
-    `nikname=${nikname}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`])
+    `nikname=${nikname}; Expires = Mon, 21 Oct 2024 07:28:00 GMT; Path=/;`])
     await client.end();
     res.status(200).json(result[0])
 
@@ -82,7 +82,7 @@ export default async function handler(req, res) {
 
       await client.end();
       res.setHeader('Set-Cookie', [`key=${key_nik[0].key}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`,
-      `nikname=${key_nik[0].nikname}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`])
+      `nikname=${key_nik[0].nikname}; Expires = Mon, 21 Oct 2024 07:28:00 GMT; Path=/;`])
 
 
 

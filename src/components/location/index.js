@@ -136,7 +136,7 @@ function Mymap({ loc_master, nikname, place }) {
             </Map>
             {address && <div>
                 <p>Адрес: г. {address}</p>
-                <button className={styles.confirm} >Сохранить</button>
+                
             </div>}
         </>
     )
@@ -144,8 +144,7 @@ function Mymap({ loc_master, nikname, place }) {
 
 
 export default function Location({ loc_master, close, nikname, place }) {
-    useEffect(()=>window.scrollTo(0,0),[])
-    console.log(nikname)
+    useEffect(()=>window.scrollTo(0,0),[])    
     return (
         <div className={styles.map}>
             <div className={styles.my_map} >
@@ -157,7 +156,8 @@ export default function Location({ loc_master, close, nikname, place }) {
                         nikname={nikname}
                        
                     />
-                </YMaps>               
+                </YMaps> 
+                <button onClick={() => close(false)} className={styles.confirm} >Сохранить</button>              
             </div>
         </div>
     )

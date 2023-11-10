@@ -280,21 +280,23 @@ div.tema {
 .confid_politic_false::after,
 .create_master::after {
   content: 'Подключен';
-  height: 22px;
-  width: 112px;
+  width: 130px;
   text-align: center;
   border-radius: 6px;
-  line-height: 22px;
+  line-height: 26px;
   padding: 6px;
   background: rgba(255, 255, 255, 0.2);
   border: none;
   cursor: pointer;
+  box-sizing: border-box;
 }
 .confid_politic_true::after {
+  width: 130px;
   content: 'Разрешить';
   background-color:  rgb(255, 99, 71);
 }
 .confid_politic_false::after {
+  width: 130px;
   content: 'Запретить';
   background-color:  rgb(255, 0, 0, 0.9);
 }
@@ -318,8 +320,10 @@ div.tema {
 
 }
 
-.currency button {
-  width: auto;
+.currency button, 
+.tema button, 
+.connect_master {
+  width: 130px;
 }
 
 .tema button {
@@ -354,8 +358,9 @@ div.tema {
 }
 
 .header span:first-of-type,
-.header span:last-of-type {
+.header button {
   color: #3D4EEA;
+  background-color: inherit;
   cursor: pointer;
 }
 
@@ -439,11 +444,7 @@ div.tema {
   font-size: 20px;
 }
 
-.place img {
-  vertical-align: middle;
-  cursor: pointer;
-  margin: 16px;
-}
+
 
 .place {
   padding: 16px;
@@ -451,23 +452,20 @@ div.tema {
 
 }
 
-.place h4 {
-  font-weight: 400; 
+.place button {  
   border: 1px solid #ddd;
   padding: 15px 5px;
   border-radius: 5px;
-  cursor: pointer;
+  width: 100%;
   text-align: center;
+  display: block;
 }
-.place h4:hover {
+.place button:hover {
   box-shadow: 0 0 12px 2px #ddd;
 }
-.place h4 b {
-  margin: 0 10px;
-  font-weight: 400;
-}
 
-.place h4::before {
+
+.place button::before {
   content: url('/location.svg');
   display: inline-block;
   margin-left: 10px;
