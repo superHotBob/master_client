@@ -71,7 +71,7 @@ export default function AddSertificat({ nikname, view, color }) {
         let file_name = id + '.jpg'
         data.append('file', e.target.files[0], file_name)
 
-        fetch('/api/replace_icon', {
+        fetch('/api/add_image_to_server', {
             method: 'POST',
             body: data,
         })

@@ -117,7 +117,7 @@ export default function AddList() {
         let data = new FormData()
         let file_name = id + '.jpg'
         data.append('file', file_for_upload, file_name)
-        fetch('/api/replace_icon', {
+        fetch('/api/add_image_to_server', {
             method: 'POST',
             body: data,
         })

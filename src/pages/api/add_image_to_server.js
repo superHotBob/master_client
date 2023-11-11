@@ -13,15 +13,17 @@ export async function POST(req, res) {
         const newpath = '../../data/images/' + 10 + files.file[0].originalFilename;
         const newpath_1 = '../../data/images/' + files.file[0].originalFilename;
         fs.rename(oldpath, newpath, async function (err) {
-            if (err) throw err;           
+            if (err) throw err;
+            const metadata = await sharp(newpath).metadata();
+            const ratio = (metadata.width/metadata.height).toFixed(2);
             sharp(newpath)
-            .resize(200, 200)
+            .resize(500, 500/ratio)
             .toFile(newpath_1, function(err){
 
                 fs.unlink(newpath, async (err) => {
                     if (err) {
     
-                        console.log('Ошибка удаления изображения');
+                        console.log('Ошибка записи изображения');
                     }
                 });    
 
