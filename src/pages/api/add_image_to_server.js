@@ -16,8 +16,9 @@ export async function POST(req, res) {
             if (err) throw err;
             const metadata = await sharp(newpath).metadata();
             const ratio = (metadata.width/metadata.height).toFixed(2);
+          
             sharp(newpath)
-            .resize(500, 500/ratio)
+            .resize(500, +(500/ratio).toFixed(0))
             .toFile(newpath_1, function(err){
 
                 fs.unlink(newpath, async (err) => {
