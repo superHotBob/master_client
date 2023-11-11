@@ -59,12 +59,7 @@ export default function AddList() {
        
     // }
 
-    function SelectUpload(e) {        
-        if(e.target.files[0].size > 1000000) {
-            setmessage('Размер изображения больше 1 MB')
-            setTimeout(() => setmessage(''), 2000)
-            return ;
-        }
+    function SelectUpload(e) {      
         let url = URL.createObjectURL(e.target.files[0])       
         setSelectedFile(url)
         set_file_for_upload(e.target.files[0])
