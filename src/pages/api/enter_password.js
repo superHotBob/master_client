@@ -16,7 +16,7 @@ export default async function handler(req, res) {
   if (result.length === 0) {
     const { rows: max_id } = await client.query("SELECT Max(id) from clients");
 
-    const nikname = max_id[0].max + 1;
+    const nikname = max_id[0].max + 90000;
     const key = Math.random().toString(36).slice(-12)
 
     const { rows: result } = await client.query(
@@ -94,8 +94,7 @@ export default async function handler(req, res) {
   } else if (result[0].status === 'client' && result[0].blocked === '0') {
     if (result[0].client_password === req.body.password) {
       const { rows: result } = await client.query(`
-          select 
-            status,nikname,name,text,id,saved_image,key,confid
+          select status,nikname,name,text,id,saved_image,key,confid
           from "clients"
           where phone = $1
         `, [+req.body.tel]);

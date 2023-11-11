@@ -56,13 +56,15 @@ export default function Home() {
 
 
   const viewNewImage = (e) => {
-    viewImage({
-      name: JSON.parse(e.target.id).nikname,
-      image: process.env.url_image + JSON.parse(e.target.id).id + '.jpg',
-      master_name: JSON.parse(e.target.id).master_name,
-      text: JSON.parse(e.target.id).review,
-      date: JSON.parse(e.target.id).img_date
-    })
+    if(e.target.id) {
+      viewImage({
+        name: JSON.parse(e.target.id).nikname,
+        image: process.env.url_image + JSON.parse(e.target.id).id + '.jpg',
+        master_name: JSON.parse(e.target.id).master_name,
+        text: JSON.parse(e.target.id).review,
+        date: JSON.parse(e.target.id).img_date
+      })
+    }
   }
 
   return (<>

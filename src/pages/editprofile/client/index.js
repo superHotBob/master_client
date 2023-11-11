@@ -76,10 +76,6 @@ export default function EditProfile() {
     }
    
     function SelectUpload(e) {        
-        if(e.target.files[0].size > 300000) {
-            setMessage('Размер изображения больше 300кб')
-            return ;
-        }
         let url = URL.createObjectURL(e.target.files[0])
         setSelectedFile(url)
         set_file_for_upload(e.target.files[0])
