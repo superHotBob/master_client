@@ -39,14 +39,17 @@ export default function Lenta({ color, nikname, name }) {
         })
     }
     const ViewImageClick = (a) => {
+        const rating = document.getElementById(a.id).height/document.getElementById(a.id).width
         viewImage({
             name: a.nikname,
             image: process.env.url_image + a.id + '.jpg',
             master_name: name,
             date: a.img_date,
             text: a.review,
-            service: a.service
+            service: a.service,
+            rating: rating.toFixed(2)
         })
+        console.log(rating.toFixed(2))
     }
 
     return (<>
@@ -61,8 +64,11 @@ export default function Lenta({ color, nikname, name }) {
             <div className={styles.part_images}>
                 {image?.filter((i, index) => index % 2 === 0).map(i =>
                     <div key={i.id}>
-                        <img alt="image" onClick={() => ViewImageClick(i)}
-                            src={process.env.url_image + i.id + '.jpg'} />
+                        <img alt="image" 
+                            onClick={() => ViewImageClick(i)}
+                            src={process.env.url_image + i.id + '.jpg'} 
+                            id={i.id}
+                        />
                         {profile.status === 'client' ?
                             <span
                                 className={styles.save__image}
@@ -77,6 +83,7 @@ export default function Lenta({ color, nikname, name }) {
                         <img alt="image" 
                             onClick={() => ViewImageClick(i)}
                             src={process.env.url_image + i.id + '.jpg'} 
+                            id={i.id}
                         />
                         {profile.status === 'client' ?
                             <span

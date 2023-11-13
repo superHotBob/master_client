@@ -90,14 +90,16 @@ export default function EditProfile() {
     }
     const UploadToServer = () => {        
         let formData = new FormData()
-        formData.append('file', file_for_upload, `${my_profile.nikname}.jpg`)        
+        const type = file_for_upload.name.split('.')[1]
+        formData.append('file', file_for_upload, `${my_profile.nikname}.${type}`) 
+        formData.append('name', my_profile.nikname)           
         fetch('/api/replace_icon', {
             method: 'POST',
             body: formData,
         })
         .then(res => res.text())
         .then(res=>console.log(res))       
-        setSelectedFile(process.env.url_image + my_profile.nikname + '.jpg')
+        setSelectedFile(process.env.url_image + my_profile.nikname + '.' + type)
     }
 
     return (
@@ -112,12 +114,12 @@ export default function EditProfile() {
                 </dialog>
                 <span onClick={Return}>Отмена</span>
                 <span>{my_profile.nikname}</span>
-                <span onClick={EditClient}>Принять</span>
+                <button onClick={EditClient}>Принять</button>
             </header>
             <form style={{ height: '106px' }} className={styles.image}>
                 <Image
                     src={file ? file : process.env.url_image + my_profile.nikname + '.jpg'}
-                    alt="фото"
+                    alt="фото клиента"
                     title='заменить изображение'
                     priority={true}
                     height={file ? 106 : 50}
@@ -128,7 +130,7 @@ export default function EditProfile() {
                     type="file"
                     name="image"
                     onChange={SelectUpload}
-                    accept=".jpg"
+                    accept="image/png, image/jpeg" 
                 />
             </form>
             <p className={styles.name}>{my_profile.name || 'Ваше имя'}</p>

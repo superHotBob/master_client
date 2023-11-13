@@ -56,13 +56,17 @@ export default function Home() {
 
 
   const viewNewImage = (e) => {
+  
     if(e.target.id) {
+      const rating = document.getElementById(e.target.id).height/document.getElementById(e.target.id).width
+      console.log(rating)
       viewImage({
         name: JSON.parse(e.target.id).nikname,
         image: process.env.url_image + JSON.parse(e.target.id).id + '.jpg',
         master_name: JSON.parse(e.target.id).master_name,
         text: JSON.parse(e.target.id).review,
-        date: JSON.parse(e.target.id).img_date
+        date: JSON.parse(e.target.id).img_date,
+        rating: rating
       })
     }
   }

@@ -78,7 +78,7 @@ export default function EditProfile() {
             setCurrency(my_currency[current_symbol.indexOf(pro.currency)] || 'Белорусский рубль'),
             setAddress(pro.address)
             setSelectedFile(process.env.url_image + pro.nikname + '.jpg')
-            setAddress_full(address_full => ({ ...address_full, ...pro.address_full })),
+            setAddress_full(pro.address_full),
             setNikname(pro.nikname),
             setstreet(pro.address?.split(',')[1])
             setColor(pro.tema ? my_tema[+pro.tema].color : my_tema[0].color)
@@ -103,10 +103,8 @@ export default function EditProfile() {
             text: text,
             nikname: nikname,
             currency: current_symbol[my_currency.indexOf(currency)],           
-            city: city ? city : 'минск',
-            color: color,
-            tema: my_tema.map(i=>i.color).indexOf(color),            
-            address_full: address_full
+            city: city ? city : 'минск',           
+            tema: my_tema.map(i=>i.color).indexOf(color),           
         }
         const response = await fetch('/api/edit_profile_master', {
             body: JSON.stringify(data),
@@ -124,8 +122,8 @@ export default function EditProfile() {
     }
    
     function selectUpload(e) {  
-        if(e.target.files[0].size > 300000) {
-            setMessage('Размер изображения больше 300кб')
+        if(e.target.files[0].size > 1000000) {
+            setMessage('Размер изображения больше 1 мб')
             return ;
         }      
         let url = URL.createObjectURL(e.target.files[0])
@@ -161,7 +159,7 @@ export default function EditProfile() {
             <header className={styles.header}>             
                 <span onClick={Return} style={{ color: color[1] }}>Отмена</span>
                 <span>{nikname}</span>
-                <span onClick={editMaster} style={{ color: color[1] }}>Принять</span>
+                <button onClick={editMaster} style={{ color: color[1] }}>Принять</button>
             </header>
             <div className={styles.image} style={{ background: color[0] }}>
                 <span onClick={() => viewTemaBlock(true)}>Изменить обложку</span>
@@ -304,6 +302,7 @@ export default function EditProfile() {
                     nikname={nikname} 
                     loc_master={location}                 
                     close={selectLoc} 
+                    address_total={address_full}
                     place={city + ' , ' + street + ' , ' + address_full.дом}
                 /> : null}
             </div> : null}

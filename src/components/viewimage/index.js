@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import icon_close from '../../../public/chevron_down.svg'
 
-export default function ViewImage({ view_image, viewImage, pid = null, service, marg = 0 }) {
+export default function ViewImage({rating, view_image, viewImage, pid = null, service, marg = 0 }) {
 
 
     const status = useSelector(state => state.counter.profile['status'])
@@ -14,6 +14,7 @@ export default function ViewImage({ view_image, viewImage, pid = null, service, 
     useEffect(() => {      
         document.getElementById("main").style.opacity = 1
         const height_text = document.getElementById("text").clientHeight;
+       
         document.getElementById("image").style.height = window.innerHeight - 310 - height_text + 'px'        
     }, [viewImage])
 
@@ -46,6 +47,8 @@ export default function ViewImage({ view_image, viewImage, pid = null, service, 
                         src={view_image.image}                 
                         id={view_image.image}
                         fill={true}
+                        
+                        
                     />
                 </div>
                 <div className={styles.master} >

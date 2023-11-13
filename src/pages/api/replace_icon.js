@@ -8,33 +8,40 @@ export async function POST(req, res) {
 
         const oldpath = files.file[0].filepath
 
-        const file = files.file[0]  
-      
+        const file = files.file[0]
+        
+
         const newpath = '../../data/images/' + 10 + files.file[0].originalFilename;
-        const newpath_1 = '../../data/images/' + files.file[0].originalFilename;
+        const newpath_1 = '../../data/images/' + fields.name[0] + '.jpg';
         fs.rename(oldpath, newpath, async function (err) {
-            if (err) throw err;           
+            if (err) throw err;
             sharp(newpath)
-            .resize(200, 200)
-            .toFile(newpath_1, function(err){
+                .resize(200, 200)
+                .toFormat('jpeg')
+                .jpeg({
+                    quality: 100,
+                    chromaSubsampling: '4:4:4',
+                    force: true
+                })
+                .toFile(newpath_1, function (err) {
 
-                fs.unlink(newpath, async (err) => {
-                    if (err) {
-    
-                        console.log('Ошибка удаления изображения');
-                    }
-                });    
+                    fs.unlink(newpath, async (err) => {
+                        if (err) {
 
-            });
-           
-        res.write('File uploaded and moved!');
+                            console.log('Ошибка удаления изображения');
+                        }
+                    });
+
+                });
+
+            res.write('File uploaded and moved!');
+            res.end();
+        });
+        res.write('File uploaded');
         res.end();
     });
-    res.write('File uploaded');
-    res.end();
-});
 
-res.send('Файл загружен');
+    res.send('Файл загружен');
 
 }
 export default POST;

@@ -1,6 +1,7 @@
 const { Client } = require('pg')
 
 export default async function handler(req, res) {
+    const {nikname, name, text,currency,tema,city} = req.body;
 
     const client = new Client(process.env.pg_data)
     await client.connect();
@@ -9,32 +10,30 @@ export default async function handler(req, res) {
 
     const { rows: result_master } = await client.query(`
       update "masters"
-      set city = $2, name = $3, text = $4, 
-      nikname = $1, currency = $5 , address_full = $6,tema = $7   
+      set city = $2, name = $3, text = $4, currency = $5 , tema = $6
       where "nikname" =  $1
       returning  nikname,name,text,currency,status,address,city,tema,locations, stars, services, address_full
-    `, [req.body.nikname, req.body.city, req.body.name,
-    req.body.text, req.body.currency, req.body.address_full, req.body.tema]
+    `, [nikname, city, name, text, currency,  tema]
     );
     await client.query(`
             update "clients" 
             set "name" = $1    
             where "nikname" =  $2           
-    `, [req.body.name, req.body.nikname]);
+    `, [name, nikname]);
 
 
     await client.query(`
         UPDATE "adminchat"
         SET "recipient" = $1
         where  "recipient_nikname" = $2       
-        `, [req.body.name, req.body.nikname]
+        `, [name, nikname]
     );
     
     await client.query(`
         UPDATE "adminchat"
         SET "sendler" = $1
         where  "sendler_nikname" = $2       
-        `, [req.body.name, req.body.nikname]
+        `, [ name, nikname]
     );
     
 
@@ -42,21 +41,21 @@ export default async function handler(req, res) {
         UPDATE "chat"
         SET "recipient" = $1
         where  "recipient_nikname" = $2       
-        `, [req.body.name, req.body.nikname]
+        `, [name, nikname]
     );
     
     await client.query(`
         UPDATE "chat"
         SET "sendler" = $1
         where  "sendler_nikname" = $2       
-        `, [req.body.name, req.body.nikname]
+        `, [name, nikname]
     );
     
     await client.query(`
         update "images" 
         set master_name = $1    
         where nikname =  $2             
-    `, [req.body.name, req.body.nikname]);
+    `, [name, nikname]);
     
     await client.end()
 

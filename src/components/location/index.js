@@ -8,11 +8,11 @@ import icon_close from '../../../public/close.svg'
 
 const API_KEY = "89caab37-749d-4e30-8fdf-e8045542f060"
 
-function Mymap({ loc_master, nikname, place }) {   
+function Mymap({ loc_master, nikname, place, address_total }) {   
 
     const [location, setLoc] = useState(loc_master)
     const [address , setaddress] = useState()
-
+   
     const ymaps = useYMaps([
         "Map",
         "option.Manager",
@@ -36,18 +36,21 @@ function Mymap({ loc_master, nikname, place }) {
             body: JSON.stringify({
                 nikname: nikname,
                 locations: a,
-                address: b
+                address: b,
+                address_full: address_total
             }),
             headers: {
                 'Content-Type': 'application/json',
             }
-        }).then(res => res.json())
+        })
+        .then(res => res.json())
+        .then(res=>localStorage.setItem("profile", JSON.stringify(res)))
     }  
     function getCoord(place) {
         if (!place) {
             return;
         }      
-        
+       
         function getAddress(a) {
         const geocoder = ymaps.geocode(a);
         geocoder.then(
@@ -130,7 +133,7 @@ function Mymap({ loc_master, nikname, place }) {
                     modules={
                         ['geoObject.addon.balloon', 'geoObject.addon.hint', "templateLayoutFactory"]
                     }
-                    options={{iconLayout: placeMark(ymaps.templateLayoutFactory, nikname)}}
+                    options={{iconLayout: placeMark(ymaps.templateLayoutFactory, nikname),iconOffset: [-20, -20]}}
                     onLoad={() => ViewGrayScale()}
                 /> : null}
             </Map>
@@ -143,7 +146,7 @@ function Mymap({ loc_master, nikname, place }) {
 }
 
 
-export default function Location({ loc_master, close, nikname, place }) {
+export default function Location({ loc_master, close, nikname, place, address_total }) {
     useEffect(()=>window.scrollTo(0,0),[])    
     return (
         <div className={styles.map}>
@@ -154,10 +157,10 @@ export default function Location({ loc_master, close, nikname, place }) {
                         place={place} 
                         loc_master={loc_master}
                         nikname={nikname}
-                       
+                        address_total={address_total}
                     />
                 </YMaps> 
-                <button onClick={() => close(false)} className={styles.confirm} >Сохранить</button>              
+                {/* <button onClick={() => close(false)} className={styles.confirm} >Сохранить</button>               */}
             </div>
         </div>
     )

@@ -78,10 +78,8 @@ export default function MasterNear() {
                     {mapHeight &&
                     <MapComponent
                         setRadius={setRadius}
-                        set_view_select={set_view_select}
-                        // master={master}
-                        my_zoom={zoom}
-                        // masters={masters}
+                        set_view_select={set_view_select}                       
+                        my_zoom={zoom}                       
                         setzoom={setZoom}
                         divHeight={mapHeight}
                     />}

@@ -91,7 +91,11 @@ export default function AddList() {
     // }
 
 
-    async function Upload() {       
+    async function Upload() {  
+        if(e.target.files[0].size > 2000000) {
+            setmessage('Размер изображения больше 2 мб')
+            return ;
+        }           
         if (!file_for_upload) return
         const prof = JSON.parse(localStorage.getItem('profile'))
         let id = await fetch('/api/add_image', {
@@ -110,8 +114,10 @@ export default function AddList() {
         .then(res => res.json())
         .then(res => res)       
         let data = new FormData()
-        let file_name = id + '.jpg'
-        data.append('file', file_for_upload, file_name)
+        const type = file_for_upload.name.split('.')[1]
+        formData.append('file', file_for_upload, `${my_profile.nikname}.${type}`) 
+        formData.append('name', my_profile.nikname)           
+        
         fetch('/api/add_image_to_server', {
             method: 'POST',
             body: data,
@@ -119,17 +125,7 @@ export default function AddList() {
         .then(res => res.text())                 
         .catch(err => console.log(err))
     }
-    // function deleteImage(e) {
-    //     e.stopPropagation()
-    //     fetch(`/api/delete_images?id=${e.target.id}`)
-    //     .then(res => res.text())
-    //     .then(res => {
-    //         setmessage('Изображение удалёнo')
-    //         mutate(`/api/get_images?nikname=${nikname}`)
-    //         setTimeout(() => setmessage(''), 2000)
-    //     })
-    //     .catch(err => console.log(err))
-    // }
+  
 
     return (
         <main className={styles.main}>

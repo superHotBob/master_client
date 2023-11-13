@@ -48,8 +48,8 @@
     border-radius: 100%;
 }
 
-.header a:first-of-type svg {
-    transform: translate(-4px, -2px);
+.header img {
+    cursor: pointer;
 }
 
 .header span:last-of-type {
