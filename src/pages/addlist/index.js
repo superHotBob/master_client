@@ -92,7 +92,8 @@ export default function AddList() {
 
 
     async function Upload() {  
-        if(e.target.files[0].size > 2000000) {
+        
+        if(file_for_upload.size > 2000000) {
             setmessage('Размер изображения больше 2 мб')
             return ;
         }           
