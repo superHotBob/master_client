@@ -116,8 +116,8 @@ export default function AddList() {
         .then(res => res)       
         let data = new FormData()
         const type = file_for_upload.name.split('.')[1]
-        formData.append('file', file_for_upload, `${my_profile.nikname}.${type}`) 
-        formData.append('name', my_profile.nikname)           
+        data.append('file', file_for_upload, `${id}.${type}`) 
+        data.append('name', id)           
         
         fetch('/api/add_image_to_server', {
             method: 'POST',
