@@ -117,13 +117,13 @@ export default function AddList() {
         let data = new FormData()
         const type = file_for_upload.name.split('.')[1]
         data.append('file', file_for_upload, `${id}.${type}`) 
-        data.append('name', id)           
-        
+        data.append('name', id)       
         fetch('/api/add_image_to_server', {
             method: 'POST',
             body: data,
         })
-        .then(res => res.text())                 
+        .then(res => res.text())
+        .then(res=>setSelectedFile(''))                 
         .catch(err => console.log(err))
     }
   
@@ -160,7 +160,7 @@ export default function AddList() {
                             type="file"
                             name="image"
                             style={{ display: 'none' }}
-                            accept=".jpg"
+                            accept=".jpg,.png"
                             onChange={(e) => SelectUpload(e)}
                         />
                     </label>}

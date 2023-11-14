@@ -19,11 +19,13 @@ export default async function handler(req, res) {
     const nikname = max_id[0].max + 90000;
     const key = Math.random().toString(36).slice(-12)
 
+    console.log(nikname, max_id[0].max)
+
     const { rows: result } = await client.query(
       `INSERT INTO "clients" ("phone","nikname", "id", "client_password","name", "text","key")  
       VALUES ($1,$2,$3,$4,$5,$6,$7)
       returning nikname,name,text,key, status, saved_image,id, key
-      `, [+req.body.tel, nikname, nikname, req.body.password, nikname, 'Добрый день', key]
+      `, [+req.body.tel, nikname, max_id[0].max + 1 , req.body.password, nikname, 'Добрый день', key]
     );
 
 
