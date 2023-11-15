@@ -52,7 +52,7 @@ export default function EditProfile() {
     const [city, setCity] = useState('минск')
     const [address, setAddress] = useState()
     const [street , setstreet] = useState()
-    const [address_full, setAddress_full] = useState()
+    const [address_full, setAddress_full] = useState({})
     const [loc, selectLoc] = useState(false)
     
     const { data } = useSWR(master_address ? '/api/get_cities':null)
@@ -144,11 +144,13 @@ export default function EditProfile() {
         })
     }
     const uploadToServer = () => {        
-        let formData = new FormData()
-        formData.append('file', file_for_upload, `${profile.nikname}.jpg`)        
+        let data = new FormData()       
+        const type = file_for_upload.name.split('.')[1]
+        data.append('file', file_for_upload, `${profile.nikname}.${type}`) 
+        data.append('name', profile.nikname)              
         fetch('/api/replace_icon', {
             method: 'POST',
-            body: formData,
+            body: data,
         })
         .then(res => res.text())
         .then(res=>console.log(res))       
@@ -178,7 +180,7 @@ export default function EditProfile() {
                         name="image"
                         style={{ transform: 'translateY(-106px)' }}
                         onChange={selectUpload}
-                        accept=".jpg"
+                        accept=".jpg,.png"
                     />
                 </form>
 
@@ -255,41 +257,41 @@ export default function EditProfile() {
                         Номер дома / корпус
                         <input 
                             type="text"
-                            value={address_full.дом}
+                            value={address_full?.дом}
                             onChange={(e) => setAddress_full({ ...address_full, ...{ 'дом': e.target.value } })}
                         />
                     </label>
                     <label className={styles.radio}>
                         Квартира
                         <input type="radio" name="type_house" value="квартира"
-                            checked={address_full.тип === "квартира"}
+                            checked={address_full?.тип === "квартира"}
                             onChange={SetAddressFull}
                         />
                     </label>
                     <label className={styles.radio}>
                         Частный дом
                         <input type="radio" name="type_house" value="частный дом"
-                            checked={address_full.тип === "частный дом"}
+                            checked={address_full?.тип === "частный дом"}
                             onChange={SetAddressFull}
                         />
                     </label>
                     <label className={styles.radio}>
                         Комерческое помещение
                         <input type="radio" name="type_house" value="комерческое помещение"
-                            checked={address_full.тип === "комерческое помещение"}
+                            checked={address_full?.тип === "комерческое помещение"}
                             onChange={SetAddressFull}
                         />
                     </label>
                     <label>
                         Этаж
-                        <input  type="text" value={address_full.этаж}
-                            onChange={(e) => setAddress_full({ ...address_full, ...{ 'этаж': e.target.value } })}
+                        <input  type="text" value={address_full?.этаж}
+                            onChange={(e) => setAddress_full({ ...address_full,'этаж': e.target.value })}
                         />
                     </label>
                     <label>
                         Номер квартиры
-                        <input  type="text" value={address_full.квартира}
-                            onChange={(e) => setAddress_full({ ...address_full, ...{ 'квартира': e.target.value } })}
+                        <input  type="text" value={address_full?.квартира}
+                            onChange={(e) => setAddress_full({ ...address_full,'квартира': e.target.value })}
                         />
                     </label>
                 </section>
