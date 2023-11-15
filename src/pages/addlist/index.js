@@ -93,8 +93,10 @@ export default function AddList() {
 
     async function Upload() {  
         
-        if(file_for_upload.size > 1000000) {
+        if(file_for_upload.size > 1000000) {           
             setmessage('Размер изображения больше 1 мб')
+            setInterval(()=>setmessage(''),2000)
+            setSelectedFile('')
             return ;
         }           
         if (!file_for_upload) return
