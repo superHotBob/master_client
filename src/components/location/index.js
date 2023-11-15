@@ -8,7 +8,7 @@ import icon_close from '../../../public/close.svg'
 
 const API_KEY = "89caab37-749d-4e30-8fdf-e8045542f060"
 
-function Mymap({ loc_master, nikname, place, address_total }) {   
+function Mymap({ loc_master, nikname, place, address_total, city }) {   
 
     const [location, setLoc] = useState(loc_master)
     const [address , setaddress] = useState()
@@ -37,6 +37,7 @@ function Mymap({ loc_master, nikname, place, address_total }) {
                 nikname: nikname,
                 locations: a,
                 address: b,
+                city: city,
                 address_full: address_total
             }),
             headers: {
@@ -146,7 +147,7 @@ function Mymap({ loc_master, nikname, place, address_total }) {
 }
 
 
-export default function Location({ loc_master, close, nikname, place, address_total }) {
+export default function Location({ loc_master, close, nikname, place, address_total, city }) {
     useEffect(()=>window.scrollTo(0,0),[])    
     return (
         <div className={styles.map}>
@@ -158,6 +159,7 @@ export default function Location({ loc_master, close, nikname, place, address_to
                         loc_master={loc_master}
                         nikname={nikname}
                         address_total={address_total}
+                        city={city}
                     />
                 </YMaps> 
                 {/* <button onClick={() => close(false)} className={styles.confirm} >Сохранить</button>               */}

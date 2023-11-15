@@ -68,7 +68,7 @@ export default function AddSertificat({ nikname, view, color }) {
             .then(res => res.json())
             .then(res => res)
         let data = new FormData()       
-        const type =  e.target.files[0].name.split('.')[1]
+        const type =  e.target.files[0].name.split('.')[1]       
         data.append('file',  e.target.files[0], `${id}.${type}`) 
         data.append('name', id)       
 

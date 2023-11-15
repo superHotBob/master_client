@@ -146,8 +146,7 @@ export default function EditProfile() {
     }
     const uploadToServer = () => {        
         let data = new FormData()       
-        const type = file_for_upload.name.split('.')[1]
-        console.log(type)
+        const type = file_for_upload.name.split('.')[1]       
         data.append('file', file_for_upload, `${profile.nikname}.${type}`) 
         data.append('name', profile.nikname)              
         fetch('/api/replace_icon', {
@@ -306,6 +305,7 @@ export default function EditProfile() {
                     nikname={nikname} 
                     loc_master={location}                 
                     close={selectLoc} 
+                    city = { city}
                     address_total={address_full}
                     place={city + ' , ' + street + ' , ' + address_full.дом}
                 /> : null}

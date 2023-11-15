@@ -19,7 +19,7 @@ export default async function handler(req, res) {
     rows.push(i) 
 
     fetch(`http://localhost:5000/delete_image?id=${+i}`, { headers: {    
-        'Authorization': 'master'
+        'Authorization': 'Admin'
         },}
     )
     .then(res=>res.text())
