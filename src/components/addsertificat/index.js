@@ -49,8 +49,13 @@ export default function AddSertificat({ nikname, view, color }) {
             .catch(err => console.log(err))
     }
     async function selectUpload(e) {
-        // e.preventDefault()
         if (!e.target.files[0]) return
+        if(e.target.files[0].size > 1000000) {
+            console.log(e.target.files[0].size)
+            setMessage('Размер изображения больше 1 мб')
+            return ;
+        }      
+       
         const prof = JSON.parse(localStorage.getItem('profile'))
         let id = await fetch('/api/add_image', {
             body: JSON.stringify({
