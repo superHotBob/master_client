@@ -86,7 +86,7 @@ export default async function handler(req, res) {
     `, [req.query.newnikname]);
     
 
-    fetch(`http://admin.masters.place/rename_master_icon?oldname=${req.query.oldnikname}&newname=${req.query.newnikname}`)
+    fetch(`https://admin.masters.place/rename_master_icon?oldname=${req.query.oldnikname}&newname=${req.query.newnikname}`)
         .then(res => res.text())
         .then(res => console.log(res))
 

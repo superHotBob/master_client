@@ -67,9 +67,10 @@ export default function AddSertificat({ nikname, view, color }) {
         })
             .then(res => res.json())
             .then(res => res)
-        let data = new FormData()
-        let file_name = id + '.jpg'
-        data.append('file', e.target.files[0], file_name)
+        let data = new FormData()       
+        const type =  e.target.files[0].name.split('.')[1]
+        data.append('file',  e.target.files[0], `${id}.${type}`) 
+        data.append('name', id)       
 
         fetch('/api/add_image_to_server', {
             method: 'POST',

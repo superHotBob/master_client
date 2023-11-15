@@ -123,6 +123,7 @@ export default function EditProfile() {
    
     function selectUpload(e) {  
         if(e.target.files[0].size > 1000000) {
+            console.log(e.target.files[0].size)
             setMessage('Размер изображения больше 1 мб')
             return ;
         }      
@@ -146,6 +147,7 @@ export default function EditProfile() {
     const uploadToServer = () => {        
         let data = new FormData()       
         const type = file_for_upload.name.split('.')[1]
+        console.log(type)
         data.append('file', file_for_upload, `${profile.nikname}.${type}`) 
         data.append('name', profile.nikname)              
         fetch('/api/replace_icon', {
@@ -180,7 +182,7 @@ export default function EditProfile() {
                         name="image"
                         style={{ transform: 'translateY(-106px)' }}
                         onChange={selectUpload}
-                        accept=".jpg,.png"
+                        accept="image/*"
                     />
                 </form>
 
