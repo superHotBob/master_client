@@ -27,8 +27,8 @@ export default function EditNikname() {
 
         const regex = /[/А-я,ё// //.//;//://-//*//?//$//%/]/g;
 
-       
-      
+
+
         const found = str.match(regex);
         if (found?.length > 0) {
             document.getElementById("name").style.display = 'block'
@@ -60,7 +60,7 @@ export default function EditNikname() {
         if (!profile.nikname) { return; }
         // if( document.getElementById("change").style.opacity === 1) { return; }
 
-        await fetch(`/api/edit_nikname?newnikname=${newnikname}&oldnikname=${profile.nikname}`)
+        fetch(`/api/edit_nikname?newnikname=${newnikname}&oldnikname=${profile.nikname}`)
             .then(res => res.text())
             .then(res => {
                 EditLocalStorage('nikname', newnikname)

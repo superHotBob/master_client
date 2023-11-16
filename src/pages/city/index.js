@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
 import { setcity, setlocation } from '../../reduser.js'
 import useSWR from 'swr'
-const fetcher = (...args) => fetch(...args).then(res => res.json())
+
 
 export default function City() {
     const [myCitys, setMyCitys] = useState()
@@ -17,23 +17,23 @@ export default function City() {
     const ref = useRef()
     const addref = useRef()
     const dispatch = useDispatch()
-    const { data, isLoading } = useSWR('/api/get_cities', fetcher)
+    const { data, isLoading } = useSWR('/api/get_cities')
 
-   
+
 
 
     function setMyCity() {
         setfindcity(selCity)
         let new_data = [...data]
-        let loc = new_data.filter(i => i.city === selCity)       
+        let loc = new_data.filter(i => i.city === selCity)
         dispatch(setcity(selCity))
         dispatch(setlocation([+loc[0].lat, +loc[0].lon]))
         router.back()
     }
-    useEffect(()=>{
-        data?.filter(i=>i.city.includes(findcity))
+    useEffect(() => {
+        data?.filter(i => i.city.includes(findcity))
 
-    },[findcity])
+    }, [findcity])
     // function selectCity(e) {
     //     if (e.target.value) {
     //         let cc = myCitys.filter(i => i.toLowerCase().includes(e.target.value) ? i : null)
@@ -78,23 +78,21 @@ export default function City() {
                 onChange={(e) => setfindcity(e.target.value)}
             />
             <section className={styles.section}>
-               
-                    {data?.filter(i=> findcity ? i.city.toLowerCase().includes(findcity.toLowerCase()): i).sort((a, b) => { return a.city.toLowerCase() < b.city.toLowerCase() ? -1 : 1 }).map(i =>
-                        <label className={styles.city} key={i.city}>
-                            <span>{i.city}</span>
-                            <span className={i.city === selCity ? styles.enabled : styles.disabled}></span>
-                            <input type="radio" checked={i.city === selCity} value={selCity} name="city" onChange={() => setSelCity(i.city)} />
-                        </label>
-                    )}
-                    {isLoading ? <h5>Загружаем города...</h5> : null}
-               
-                {/* <div>
-                    Нет в списке.<br/>
-                    <label>Добавить город
-                    <input placeholder='Введите ваш город' className={styles.addcity } ref={addref} type="text" />
+
+                {data?.filter(i => findcity ? i.city.toLowerCase().includes(findcity.toLowerCase()) : i).sort((a, b) => { return a.city.toLowerCase() < b.city.toLowerCase() ? -1 : 1 }).map(i =>
+                    <label className={styles.city} key={i.city}>
+                        <div>
+                            <b>{i.city}</b>
+                            <span>{i.country}</span>
+                        </div>      
+
+                        <span className={i.city === selCity ? styles.enabled : styles.disabled}></span>
+                        <input type="radio" checked={i.city === selCity} value={selCity} name="city" onChange={() => setSelCity(i.city)} />
                     </label>
-                    <button onClick={AddCity} className={styles.seachcity}>Добавить</button>
-                </div> */}
+                )}
+                {isLoading ? <h5>Загружаем города...</h5> : null}
+
+
             </section>
         </>
     )

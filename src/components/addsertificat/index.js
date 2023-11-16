@@ -82,8 +82,7 @@ export default function AddSertificat({ nikname, view, color }) {
             body: data,
         })
         .then(res => res.text())
-        .then(res => {
-                setmessage('Сертификат отправлен на модерацию')
+        .then(res => {                
                 mutate(`/api/get_sertificats?nikname=${nikname}`)
                 setTimeout(() => setmessage(''), 2000)
             })

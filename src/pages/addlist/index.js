@@ -50,14 +50,7 @@ export default function AddList() {
         settag(prof.services[0])       
     }, [])
 
-    // function SetForTag(e) {
-    //     setActiveImage(e.target.id)
-    //     let text = images.filter(i => i.id === +e.target.id)[0]['review']
-    //     if(activeImage) {
-    //          text ? my_ref.current.value = text : my_ref.current.value = ''
-    //     }
-       
-    // }
+   
 
     function SelectUpload(e) {      
         let url = URL.createObjectURL(e.target.files[0])       
@@ -66,29 +59,7 @@ export default function AddList() {
     }
 
 
-    // function SaveTag() {
-    //     if (my_ref.current.value.length < 5) {
-    //         setmessage('Слишком короткий! Минимум 10 букв')
-    //         setTimeout(() => setmessage(''), 2000)
-    //         return;
-    //     }
-    //     fetch('/api/add_review_publication', {
-    //         body: JSON.stringify({
-    //             id: activeImage,
-    //             review: my_ref.current.value
-    //         }),
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         method: 'post',
-    //     })
-    //         .then(res => {
-    //             my_ref.current.value
-    //             setmessage('Коментарий сохранён.')
-    //             setTimeout(() => setmessage(''), 2000)
-    //         })
-    //         .catch(err => console.log(err))
-    // }
+   
 
 
     async function Upload() {  
@@ -119,7 +90,14 @@ export default function AddList() {
         let data = new FormData()
         const type = file_for_upload.name.split('.')[1]
         data.append('file', file_for_upload, `${id}.${type}`) 
-        data.append('name', id)       
+        data.append('name', id) 
+        // fetch('http://localhost:5000/upload', {
+        //     method: 'POST',
+        //     body: data,
+        // })
+        // .then(res => res.text())
+        // .then(res=>setSelectedFile(''))                 
+        // .catch(err => console.log(err))      
         fetch('/api/add_image_to_server', {
             method: 'POST',
             body: data,

@@ -77,13 +77,19 @@
     font-weight: 500;
     font-size:  14px;
     line-height: 17px;
-    margin: 31px 0 0;
+   
     color: #000;
+    height: 48px;
     background-color: #fff;
 }
-.city span::first-letter {
+.city div b {
     text-transform: capitalize;
     color: #000;
+    display: block;
+}
+.city div span {
+    color: #D0D0D0;
+    font-weight: 400;
 }
 .city input {
     height: 16px;    
