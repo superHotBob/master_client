@@ -22,8 +22,8 @@ export default function Messages() {
     const { pid } = router.query
     
 
-    const profile = useSelector(state => state.counter.profile)
-    const { color, name, status, nikname } = profile
+    // const profile = useSelector(state => state.counter.profile)
+    const { color, name, status, nikname, phone } = useSelector(state => state.counter.profile)
 
     const { data: dialog } = useSWR(`/api/get_messages_onebyone?nikname=${nikname}&abonent=${pid}&status=${status}`,
         {
@@ -55,7 +55,7 @@ export default function Messages() {
                 recipient_nikname: pid,
                 recipient: router.query.name,
                 ms_date: Date.now(),
-                phone: profile.phone
+                phone: phone
             }
             fetch('/api/send_message', {
                 body: JSON.stringify(data),
@@ -113,7 +113,7 @@ export default function Messages() {
         if (message_date.getDate() === current_date.getDate()) {
             return message_date.toLocaleDateString('ru-RU', options).slice(-5)
         }
-        return d.toLocaleDateString('ru-RU', options)
+        return message_date.toLocaleDateString('ru-RU', options)
     }
 
     return (
@@ -144,7 +144,7 @@ export default function Messages() {
                                     alt="sendler"
                                 />
                                 <div className={styles.master}>
-                                    <OrderMessage id={i.ms_text} color="#000" profile={profile} />
+                                    <OrderMessage id={i.ms_text} color="#000" />
                                     {FindLink(i.ms_text)}
                                     <span>{My_Date(+i.ms_date)}</span>
                                 </div>

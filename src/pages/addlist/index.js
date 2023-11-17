@@ -113,7 +113,7 @@ export default function AddList() {
             <header className={styles.header}>
                 <Menu_icon color={color[1]} type="arrow" />
                 <span >Добавить публикацию</span>
-                <img onClick={Upload} src='/upload.svg' height={20} width={18} alt='upload' />
+                <img onClick={Upload} src='/upload.svg' height={30} width={30} alt='upload' title='опубликовать' />
             </header>
             <Message text="Вы можете опубликовать работу или создать пост о 
                 поиске моделей, который будет отображаться в 
@@ -143,30 +143,7 @@ export default function AddList() {
                             accept=".jpg,.png"
                             onChange={(e) => SelectUpload(e)}
                         />
-                    </label>}
-                    {/* {images?.filter(i => i.service === tag.toLowerCase()).map(i =>
-                        <div
-                            key={i.id}                                                    
-                            className={styles.sertificats}
-                            style={{ backgroundImage: "url(https://masters.place/images/" + i.id + '.jpg' }}
-                        >
-                            <span  
-                                id={i.id}   
-                                onClick={SetForTag} title="Добавить комментарий"
-                                style={{ opacity: i.id === +activeImage ? 0.5 : 1 }}
-                            >
-                                <img
-                                    src='/trash.svg'
-                                    height={24}
-                                    title="удалить изображение"
-                                    width={24}
-                                    id={i.id}
-                                    alt="trash"
-                                    onClick={deleteImage}
-                                />
-                            </span>
-                        </div>
-                    )} */}
+                    </label>}                   
                 </form>
                 <section className={styles.services}>
                     {services?.map(i =>
@@ -186,10 +163,11 @@ export default function AddList() {
                         ref={my_ref}
                         maxLength="500"
                         placeholder='Ваш комментарий'
-                        rows={10}
+                        rows={5}
                         style={{ borderColor: color[1] }}
                     />                  
                 </label> 
+                <button disabled={!file} className={styles.uploading} onClick={Upload}>Опубликовать</button>
 
             </>
                 :
