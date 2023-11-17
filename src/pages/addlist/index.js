@@ -64,12 +64,12 @@ export default function AddList() {
 
     async function Upload() {  
         
-        if(file_for_upload.size > 1000000) {           
-            setmessage('Размер изображения больше 1 мб')
-            setInterval(()=>setmessage(''),2000)
-            setSelectedFile('')
-            return ;
-        }           
+        // if(file_for_upload.size > 1000000) {           
+        //     setmessage('Размер изображения больше 1 мб')
+        //     setInterval(()=>setmessage(''),2000)
+        //     setSelectedFile('')
+        //     return ;
+        // }           
         if (!file_for_upload) return
         const prof = JSON.parse(localStorage.getItem('profile'))
         let id = await fetch('/api/add_image', {
@@ -91,20 +91,20 @@ export default function AddList() {
         const type = file_for_upload.name.split('.')[1]
         data.append('file', file_for_upload, `${id}.${type}`) 
         data.append('name', id) 
-        // fetch('http://localhost:5000/upload', {
-        //     method: 'POST',
-        //     body: data,
-        // })
-        // .then(res => res.text())
-        // .then(res=>setSelectedFile(''))                 
-        // .catch(err => console.log(err))      
-        fetch('/api/add_image_to_server', {
+        fetch('https://admin.masters.place/upload', {
             method: 'POST',
             body: data,
         })
         .then(res => res.text())
         .then(res=>setSelectedFile(''))                 
-        .catch(err => console.log(err))
+        .catch(err => console.log(err))      
+        // fetch('/api/add_image_to_server', {
+        //     method: 'POST',
+        //     body: data,
+        // })
+        // .then(res => res.text())
+        // .then(res=>setSelectedFile(''))                 
+        // .catch(err => console.log(err))
     }
   
 
