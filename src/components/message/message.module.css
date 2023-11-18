@@ -10,6 +10,11 @@
   line-height: 17px; 
   position: relative;
 }
+.message h1 {
+  font-size: inherit;
+  font-weight: 400;
+  color: inherit;
+}
 .message svg {
   position: absolute;
   top: 10px;

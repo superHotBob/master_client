@@ -27,7 +27,7 @@ export default function Message ({ text, page, color = ['linear-gradient(to left
     return <>
         {view ? 
         <div className={styles.message} style={{color: color[1],background:color[2]}} onClick={closeMessage}>
-            {text}
+            <h1>{text}</h1>
             <Menu_icon color={color[1]}  type='close__message' />
         </div> : null}
     </>

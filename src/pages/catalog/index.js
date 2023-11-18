@@ -7,21 +7,23 @@ import { useRouter } from 'next/router'
 import { my_data } from '@/data.'
 import Information from '@/components/information'
 import CitySelect from '@/components/city'
+import Head from 'next/head'
 
 export default function Catalog() {
     const dispatch = useDispatch()
     const router = useRouter()
     const city = useSelector(state => state.counter.city)
     const ToService = (e) => {
-        if(e.target.id){
-        dispatch(setservice(e.target.id))
-        router.push(`/masternear/${e.target.id}`)
+        if (e.target.id) {
+            dispatch(setservice(e.target.id))
+            router.push(`/masternear/${e.target.id}`)
         }
     }
 
     return (
         <>
-                <section className={styles.section}>
+            <Head><title>Каталог мастеров в вашем городе</title>  </Head>        
+            <section className={styles.section}>
                 <CitySelect city={city} />
                 <Link href="/event" className={styles.model}>
                     СТАНЬ МOДЕЛЬЮ БЕCПЛАТНO

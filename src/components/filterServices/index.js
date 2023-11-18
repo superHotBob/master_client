@@ -24,7 +24,7 @@ export default function FilterServices() {
     }    
     return (
         <div className={styles.main__filter}>
-            <span>{my_service}</span>
+            <h2>{my_service}</h2>
             <span onClick={() => setViewFilter(!viewFilter)}>
                 фильтр по услугам
             </span>

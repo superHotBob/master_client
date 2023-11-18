@@ -52,7 +52,7 @@ export default function AddSertificat({ nikname, view, color }) {
         if (!e.target.files[0]) return
         if(e.target.files[0].size > 1000000) {
             console.log(e.target.files[0].size)
-            setMessage('Размер изображения больше 1 мб')
+            setmessage('Размер изображения больше 1 мб')
             return ;
         }      
        

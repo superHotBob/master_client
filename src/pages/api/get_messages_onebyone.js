@@ -6,6 +6,8 @@ export default async function handler(req, res) {
  
   const client = new Client(process.env.pg_data)
 
+  const {nikname, status, abonent} = req.query
+
   await client.connect();
 
  
@@ -16,7 +18,7 @@ export default async function handler(req, res) {
       where ("sendler_nikname"  =  $1 and "recipient_nikname" = $2 ) or 
       ("sendler_nikname"  =  $2  and  "recipient_nikname" = $1) 
       order by "ms_date" ASC   
-      `,[req.query.nikname,'администратор']
+      `,[nikname,'администратор']
     ); 
 
     const no_read_messages = admin.filter(i=>i.read === false).map(i=>i.id)
@@ -33,7 +35,7 @@ export default async function handler(req, res) {
       select registration 
       from "clients"
       where "nikname" = $1      
-    `,[req.query.nikname]);
+    `,[nikname]);
    
    
    
@@ -42,7 +44,7 @@ export default async function handler(req, res) {
         from  "adminchat"
         where "chat" = 0 and ("recipient" = $1 or "recipient" = $2 ) and "ms_date" > $3
          
-    `,[req.query.status,'all',Date.parse(date_reg[0]?.registration)]); 
+    `,[status,'all',Date.parse(date_reg[0]?.registration)]); 
 
     const admin_subscribe = admin.concat(subscribe)
    
@@ -60,7 +62,7 @@ export default async function handler(req, res) {
       where ("sendler_nikname" = $1 and "recipient_nikname" =  $2  ) or (
       "recipient_nikname" = $1 and "sendler_nikname" =  $2)  
       order by "ms_date" ASC                    
-    `,[req.query.abonent,req.query.nikname]);
+    `,[abonent,nikname]);
 
     const no_read_messages = result.filter(i=>i.read === false).map(i=>i.id)
 
@@ -69,7 +71,7 @@ export default async function handler(req, res) {
         update "chat"
         set "read" = true
         where "id" = $1 and "sendler_nikname" != $2
-      `,[i, req.query.nikname])
+      `,[i, nikname])
     }
     
 
@@ -78,7 +80,7 @@ export default async function handler(req, res) {
     if (result.length > 0) {
       res.status(200).json(result)
     } else {
-      res.status(500).json([])
+      res.status(200).json([])
     }
   }
 

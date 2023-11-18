@@ -100,7 +100,7 @@ export default function Messages() {
 
     }
     function ViewMasterProfile(a) {
-        if (profile.status === 'client' && a != 'администратор') {
+        if (status === 'client' && a != 'администратор') {
             router.push(window.location.origin + '/' + a)
             return;
         }

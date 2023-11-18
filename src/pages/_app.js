@@ -47,7 +47,7 @@ const my_path = ['informations', 'informations/aboutservice',
     }}>
       <Provider store={store}>
         <Head>
-          <meta name="description" content="Лучшие  маникюр, прически , массаж, педикюр, окрашивание, депиляция, барбер, стрижка, брови  в вашем городе" />
+          <meta name="description" content="Лучшие мастера в вашем городе: маникюр, прически , массаж, педикюр, окрашивание, депиляция, барбер, стрижка, брови  в вашем городе" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="color-scheme" content="dark light" />
           <link rel="icon" href="/favicon.ico" />

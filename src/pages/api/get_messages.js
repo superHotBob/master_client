@@ -3,6 +3,8 @@ const { Client } = require('pg')
 export default async function handler(req, res) {  
   const client = new Client(process.env.pg_data)
 
+  const {nikname, status} = req.query
+
   await client.connect();
 
   const { rows: admin} = await client.query(`
@@ -12,7 +14,7 @@ export default async function handler(req, res) {
       WHERE "recipient_nikname" = $1 or "sendler_nikname" =  $1
       order by "chat", "ms_date" desc
     ) "chat"
-    `,[req.query.nikname]
+    `,[nikname]
   );
 
   const { rows: client_mess} = await client.query(`
@@ -23,7 +25,7 @@ export default async function handler(req, res) {
       or "sendler_nikname" =  $1     
       order by "chat", "ms_date" desc
     ) "chat"
-    `,[req.query.nikname]
+    `,[nikname]
   );
 
   
@@ -35,7 +37,7 @@ export default async function handler(req, res) {
       WHERE  ("recipient" = $1 or "recipient" = $2) and "ms_date" - $3 > 0   
       order by "chat", "ms_date" desc
     ) "chat"
-    `,["all",req.query.status,+admin[0].ms_date]
+    `,["all",status,+admin[0].ms_date]
   );
 
   

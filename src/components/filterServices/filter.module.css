@@ -2,7 +2,7 @@
   margin: 21px 0;  
 }
 
-.main__filter span {
+.main__filter span , .main__filter h2{
   display: inline-block; 
   color: #8B95F2; 
   font-weight: 500;
@@ -11,7 +11,7 @@
   vertical-align: middle;
   text-align: center;
 }
-.main__filter span:first-of-type::first-letter {
+.main__filter h2:first-of-type::first-letter {
   text-transform: uppercase;
   padding-left: 15px;
 }

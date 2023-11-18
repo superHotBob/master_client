@@ -6,6 +6,7 @@ import Message from '@/components/message'
 import ViewImage from '@/components/viewimage'
 import CitySelect from '@/components/city'
 import Image from 'next/image'
+import Head from 'next/head'
 
 
 
@@ -72,6 +73,9 @@ export default function Home() {
   }
 
   return (<>
+  <Head>
+    <title>Лучшие мастера: {service}</title>
+  </Head>
     <section className={styles.section} >
       <Message page="main" text='Masters.place показывает самые крутые и 
             актуальные работы мастеров в вашем городе. 
