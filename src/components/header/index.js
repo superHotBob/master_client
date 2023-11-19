@@ -88,8 +88,8 @@ export default function Header({ sel, text, mes, col = my_tema[0].color, select,
         </h4>
         :
         <div className={styles.logo}>
-          <h2>masters.</h2>
-          <h2>place</h2>
+          <b>masters.</b>
+          <b>place</b>
         </div>
       }
       {mes && name != 'администратор' ? <Image

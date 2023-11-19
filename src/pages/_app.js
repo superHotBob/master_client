@@ -47,10 +47,14 @@ const my_path = ['informations', 'informations/aboutservice',
     }}>
       <Provider store={store}>
         <Head>
-          <meta name="description" content="Лучшие мастера в вашем городе: маникюр, прически , массаж, педикюр, окрашивание, депиляция, барбер, стрижка, брови  в вашем городе" />
+          <meta name="description" 
+          content="Лучшие мастера в вашем городе: маникюр, прически , массаж, педикюр, окрашивание, депиляция, барбер, стрижка, брови  в вашем городе" 
+          />
+          <meta name="keywords" content="маникюр,	парикмахер, парикмахерские услуги, стрижки, прически, укладки, выпрямления, лечение, косметология, маникюр, педикюр, депиляция, низкие цены, Белорусь, сложное окрашивание, омбре, балаяж, шатуш, калифорнийское мелирование"></meta>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="color-scheme" content="dark light" />
           <link rel="icon" href="/favicon.ico" />
+          <link rel="canonical" href="https://masters.place"/>
           <title>{slug ? slug : 'masters.place'}</title>
           <link rel="apple-touch-icon" href="icons/android-chrome-192x192.png" />
           <meta name="application-name" lang='ru' content="masters.place" />

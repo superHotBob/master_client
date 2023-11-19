@@ -30,8 +30,38 @@ export default function City() {
         dispatch(setlocation([+loc[0].lat, +loc[0].lon]))
         router.back()
     }
-    useEffect(() => data?.filter(i => i.city.includes(findcity)), [findcity])
-  
+    useEffect(() => {
+        data?.filter(i => i.city.includes(findcity))
+
+    }, [findcity])
+    // function selectCity(e) {
+    //     if (e.target.value) {
+    //         let cc = myCitys.filter(i => i.toLowerCase().includes(e.target.value) ? i : null)
+    //         setMyCitys(cc)
+    //     } else {
+    //         setMyCitys(citys)
+    //     }
+    // }
+    // const AddCity = async () => {
+    //     let new_city = await fetch(`https://api.api-ninjas.com/v1/geocoding?city=${addref.current.value}&country=BY`,
+    //         {
+    //             headers: { 'X-Api-Key': 'xxDz7cf1MDoWKvKJ7p9uLA==msmQGP675Gxdy2i4' },
+    //             contentType: 'application/json'
+    //         })
+    //         .then(res => res.json())
+    //     console.log(new_city)
+    //     let data = { city: addref.current.value, lon: new_city[0].longitude, lat: new_city[0].latitude }
+    //     fetch('/api/add_city', {
+    //         body: JSON.stringify(data),
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //         },
+    //         method: 'POST',
+    //     })
+    //     .then(res => res.json())
+    //     .then(res => router.reload())
+
+    // }
 
     return (
         <>

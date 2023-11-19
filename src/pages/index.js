@@ -74,7 +74,7 @@ export default function Home() {
 
   return (<>
   <Head>
-    <title>Лучшие мастера: {service}</title>
+    <title>Лучшие мастера маникюра , причёски, макияжа , массажа в вашем городе</title>
   </Head>
     <section className={styles.section} >
       <Message page="main" text='Masters.place показывает самые крутые и 

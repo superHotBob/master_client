@@ -10,17 +10,21 @@
     align-items: center;
     justify-content: space-between;
   }  
-  .header h2:last-of-type {
+  .header b:last-of-type {
     color: #3D4EEA;
-    display: inline-block; 
+    display: inline-block;
+    font-size: 22px;
+    line-height: 33px;
     vertical-align: text-bottom;   
   }
   .shadow_arrow {
     height: 40px;
     width: 40px;
   }
-  .header h2:first-of-type {   
+  .header b:first-of-type {   
     display: inline-block;
+    font-size: 22px;
+    line-height: 33px;
     vertical-align: text-bottom;   
   }
   
