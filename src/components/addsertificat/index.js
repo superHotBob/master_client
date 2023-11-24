@@ -50,14 +50,14 @@ export default function AddSertificat({ nikname, view, color }) {
     }
     async function selectUpload(e) {
         if (!e.target.files[0]) return
-        if(e.target.files[0].size > 1000000) {
-            console.log(e.target.files[0].size)
-            setmessage('Размер изображения больше 1 мб')
-            return ;
-        }      
+        // if(e.target.files[0].size > 1000000) {
+        //     console.log(e.target.files[0].size)
+        //     setmessage('Размер изображения больше 1 мб')
+        //     return ;
+        // }      
        
         const prof = JSON.parse(localStorage.getItem('profile'))
-        let id = await fetch('/api/add_image', {
+        let res = await fetch('/api/add_image_to_base', {
             body: JSON.stringify({
                 nikname: prof.nikname,
                 service: 'sertificat',
@@ -70,12 +70,17 @@ export default function AddSertificat({ nikname, view, color }) {
             },
             method: 'post',
         })
-            .then(res => res.json())
-            .then(res => res)
+        .then(res => res.json())
+        .then(res => res)
+        if(res === 0) {
+            return;
+        }
+
+       
         let data = new FormData()       
         const type =  e.target.files[0].name.split('.')[1]       
-        data.append('file',  e.target.files[0], `${id}.${type}`) 
-        data.append('name', id)       
+        data.append('file',  e.target.files[0], `${res.id}.${type}`) 
+        data.append('name', res.id)       
 
         fetch('/api/add_image_to_server', {
             method: 'POST',

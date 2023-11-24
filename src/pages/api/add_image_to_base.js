@@ -7,13 +7,20 @@ export default async function handler(req, res) {
   const client = new Client(process.env.pg_data)
   await client.connect();
   const { rows } = await client.query(`
-      SELECT MAX("rating") from images
-      where "nikname" = $1`,[nikname]
+    SELECT MAX("rating"), Count(*) from images
+    where "nikname" = $1`,[nikname]
   ); 
+
+  if(rows[0]['count']>100) {
+    await client.end();
+ 
+    res.send(0)
+    return;
+  }
   let my_rat = rows[0]['max'] ? +rows[0]['max'] + 1 : 1
 
-
- 
+  
+  
   
   const { rows:id } = await client.query(`
     INSERT INTO "images" (nikname,service,city,img_date,master_name,rating,review)  
@@ -27,7 +34,7 @@ export default async function handler(req, res) {
 
   await client.end();
  
-  res.send(id[0]['id'])
+  res.send({'id': id[0]['id'] ,'count': rows[0]['count'] })
 
 
 

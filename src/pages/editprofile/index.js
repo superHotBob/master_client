@@ -40,7 +40,7 @@ export default function EditProfile() {
     const [name, setName] = useState('')
     const [nikname, setNikname] = useState()
     const [text, setText] = useState()
-    const [file, setSelectedFile] = useState('/camera_wh.svg')
+    const [file, setSelectedFile] = useState()
     const [file_for_upload, set_file_for_upload] = useState(null)
 
     const [message, setMessage] = useState()
@@ -122,9 +122,8 @@ export default function EditProfile() {
     }
    
     function selectUpload(e) {  
-        if(e.target.files[0].size > 1000000) {
-            console.log(e.target.files[0].size)
-            setMessage('Размер изображения больше 1 мб')
+        if(e.target.files[0].size > 3000000) {           
+            setMessage('Размер изображения больше 3 мб')
             return ;
         }      
         let url = URL.createObjectURL(e.target.files[0])
@@ -160,7 +159,7 @@ export default function EditProfile() {
     return (
         <>
             <header className={styles.header}>             
-                <span onClick={Return} style={{ color: color[1] }}>Отмена</span>
+                <button onClick={Return} style={{ color: color[1] }}>Отмена</button>
                 <span>{nikname}</span>
                 <button onClick={editMaster} style={{ color: color[1] }}>Принять</button>
             </header>

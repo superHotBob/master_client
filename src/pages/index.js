@@ -59,8 +59,7 @@ export default function Home() {
   const viewNewImage = (e) => {
   
     if(e.target.id) {
-      const rating = document.getElementById(e.target.id).height/document.getElementById(e.target.id).width
-      console.log(rating)
+      const rating = document.getElementById(e.target.id).height/document.getElementById(e.target.id).width     
       viewImage({
         name: JSON.parse(e.target.id).nikname,
         image: process.env.url_image + JSON.parse(e.target.id).id + '.jpg',
@@ -74,7 +73,7 @@ export default function Home() {
 
   return (<>
   <Head>
-    <title>Лучшие мастера маникюра , причёски, макияжа , массажа в вашем городе</title>
+    <title>Лучшие мастера маникюра , причёски, макияжа и т.п.  в вашем городе</title>
   </Head>
     <section className={styles.section} >
       <Message page="main" text='Masters.place показывает самые крутые и 
