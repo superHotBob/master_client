@@ -16,7 +16,7 @@ export default function Lenta({ color, nikname, name }) {
     const [message, setMessage] = useState(false)
     const profile = useSelector(state => state.counter.profile)
 
-    const { data: image } = useSWR(view_image ? null : `/api/get_images?nikname=${nikname}`)
+    const { data: image } = useSWR(`/api/get_images?nikname=${nikname}`)
     const { data: events } = useSWR(view_image ? null : `/api/get_events_master?nikname=${nikname}`)
 
 
@@ -40,6 +40,7 @@ export default function Lenta({ color, nikname, name }) {
     }
     const ViewImageClick = (a) => {
         const rating = document.getElementById(a.id).height/document.getElementById(a.id).width
+        console.log(rating)
         viewImage({
             name: a.nikname,
             image: process.env.url_image + a.id + '.jpg',
@@ -49,15 +50,17 @@ export default function Lenta({ color, nikname, name }) {
             service: a.service,
             rating: rating.toFixed(2)
         })
-        console.log(rating.toFixed(2))
+        
     }
 
-    return (<>
+    return <>
 
-        {events?.length > 0 ? <div onClick={() => setViewText(true)} className={styles.model} style={{ background: color[1] }}>
-            <h3>Нужна модель</h3>
-            <span>{My_Date(events[0].date_event)}, бесплатно</span>
-        </div> : null}
+        {events?.length ? 
+            <div onClick={() => setViewText(true)} className={styles.model} style={{ background: color[1] }}>
+                <h3>Нужна модель</h3>
+                <span>{My_Date(events[0].date_event)}, бесплатно</span>
+            </div> 
+        : null}
 
 
         <div className={styles.images}>
@@ -115,5 +118,5 @@ export default function Lenta({ color, nikname, name }) {
         {view_image ? <ViewImage marg={'-16px'} view_image={view_image} viewImage={viewImage} pid={name} /> : null}
         {message ? <Messages close={setMessage} text="Изображение сохранено" /> : null}
 
-    </>)
+    </>
 }

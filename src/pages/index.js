@@ -88,10 +88,8 @@ export default function Home() {
           {data['one']?.map((i, index) =>
             <Fragment key={i.id}>
               {index < view ? <Image
-                alt="abc"
-
-                id={JSON.stringify(i)}
-                // onClick={() => View(i.nikname, process.env.url_image + i.id + '.jpg', i.master_name, i.review, i.img_date)}
+                alt="Изображение мастера"
+                id={JSON.stringify(i)}              
                 loading='lazy'
                 src={process.env.url_image + i.id + '.jpg'}
                 title={i.master_name}
@@ -110,10 +108,9 @@ export default function Home() {
           {data['two']?.map((i, index) =>
             <Fragment key={i.id}>
               {index < view ? <Image
-                alt="abc"
+                alt="Изображение мастера"
                 key={i.id}
-                id={JSON.stringify(i)}
-                // onClick={() => View(i.nikname, process.env.url_image + i.id + '.jpg', i.master_name, i.review, i.img_date)}
+                id={JSON.stringify(i)}               
                 loading='lazy'
                 src={process.env.url_image + i.id + '.jpg'}
                 title={i.master_name}
@@ -131,12 +128,12 @@ export default function Home() {
       </div>
     </section>
     {view_image &&
-    <ViewImage
-      service={service}
-      view_image={view_image}
-      url_image={process.env.url_image}
-      viewImage={viewImage}
-    />}
+      <ViewImage
+        service={service}
+        view_image={view_image}       
+        viewImage={viewImage}
+      />
+    }
     </>
   
 

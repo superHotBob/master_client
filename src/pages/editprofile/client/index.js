@@ -115,7 +115,7 @@ export default function EditProfile() {
             </header>
             <form style={{ height: '106px' }} className={styles.image}>
                 <Image
-                    src={file ? file : process.env.url_image + nikname + '.jpg'}
+                    src={file}
                     alt="фото клиента"
                     title='Заменить иконку профиля'
                     priority={true}

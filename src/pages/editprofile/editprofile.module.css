@@ -197,29 +197,30 @@
   padding: 12px 6px;
   background-color: #fff;
   outline: none;
-
   font-size: 14px;
   line-height: 17px;
 }
 
-div.nikname,
-.address {
+div.nikname {
   line-height: 40px;
   font-size: 14px;
+}
+.address span {
+  font-size: 14px;
+}
+
+.address {
+  display: flex;
+  align-items: center;
 }
 
 .nikname span {
   color: gray;
 }
 
-.nikname b {
- 
-  color: #3D4EEA;
- 
- 
-  font-weight: 500;
- 
-  
+.nikname b { 
+  color: #3D4EEA; 
+  font-weight: 500;  
   font-size: 14px;
 }
 

@@ -13,9 +13,16 @@ export default function ViewImage({rating, view_image, viewImage, pid = null, se
 
     useEffect(() => {      
         document.getElementById("main").style.opacity = 1
-        const height_text = document.getElementById("text").clientHeight;
-       
-        document.getElementById("image").style.height = window.innerHeight - 310 - height_text + 'px'        
+        const height_text = document.getElementById("text").clientHeight   
+        console.log(view_image.rating)    
+        let width_img = document.getElementById("image").offsetWidth
+        console.log(width_img*view_image.rating)
+        document.getElementById("image").style.height = (width_img*view_image.rating).toFixed(0) + 'px'    
+        window.scroll({
+            top: 0,
+           
+            behavior: "smooth",
+          }); 
     }, [viewImage])
 
     const ViewImage = () => {
