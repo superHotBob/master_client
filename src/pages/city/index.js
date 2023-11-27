@@ -1,67 +1,41 @@
 import Image from 'next/image'
 import styles from './city.module.css'
 import arrow from '../../../public/arrow_back_bold.svg'
-import { useState, useRef, useEffect } from 'react'
+import { useState,  useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setcity, setlocation } from '../../reduser.js'
 import useSWR from 'swr'
 
 
-export default function City() {
-    const [myCitys, setMyCitys] = useState()
+export default function City({data}) {   
     const [selCity, setSelCity] = useState()
-    const [findcity, setfindcity] = useState()
-    const my_city = useSelector(state => state.counter.city)
-    const router = useRouter()
-    const ref = useRef()
-    const addref = useRef()
+    const [findcity, setfindcity] = useState()   
+    const router = useRouter()   
     const dispatch = useDispatch()
-    const { data, isLoading } = useSWR('/api/get_cities')
+
+
+    // const { data, isLoading } = useSWR('/api/get_cities')
 
 
 
 
-    function setMyCity() {
+    async function setMyCity() {
         setfindcity(selCity)
-        let new_data = [...data]
-        let loc = new_data.filter(i => i.city === selCity)
+        // let new_data = [...data]
+        // let loc = new_data.filter(i => i.city === selCity)
+        const res = await fetch(`/api/get_citi_coord?city=${selCity}`)
+        const data = await res.json()
         dispatch(setcity(selCity))
-        dispatch(setlocation([+loc[0].lat, +loc[0].lon]))
+        dispatch(setlocation([+data[0].lat, +data[0].lon]))
         router.back()
     }
     useEffect(() => {
         data?.filter(i => i.city.includes(findcity))
-
     }, [findcity])
-    // function selectCity(e) {
-    //     if (e.target.value) {
-    //         let cc = myCitys.filter(i => i.toLowerCase().includes(e.target.value) ? i : null)
-    //         setMyCitys(cc)
-    //     } else {
-    //         setMyCitys(citys)
-    //     }
-    // }
-    // const AddCity = async () => {
-    //     let new_city = await fetch(`https://api.api-ninjas.com/v1/geocoding?city=${addref.current.value}&country=BY`,
-    //         {
-    //             headers: { 'X-Api-Key': 'xxDz7cf1MDoWKvKJ7p9uLA==msmQGP675Gxdy2i4' },
-    //             contentType: 'application/json'
-    //         })
-    //         .then(res => res.json())
-    //     console.log(new_city)
-    //     let data = { city: addref.current.value, lon: new_city[0].longitude, lat: new_city[0].latitude }
-    //     fetch('/api/add_city', {
-    //         body: JSON.stringify(data),
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         },
-    //         method: 'POST',
-    //     })
-    //     .then(res => res.json())
-    //     .then(res => router.reload())
-
-    // }
+   
+   
+   
 
     return (
         <>
@@ -90,10 +64,18 @@ export default function City() {
                         <input type="radio" checked={i.city === selCity} value={selCity} name="city" onChange={() => setSelCity(i.city)} />
                     </label>
                 )}
-                {isLoading ? <h5>Загружаем города...</h5> : null}
+                {/* {isLoading ? <h5>Загружаем города...</h5> : null} */}
 
 
             </section>
         </>
     )
 }
+
+export async function getServerSideProps() {    
+    
+    const res = await fetch('http://localhost:3000/api/get_cities')
+    const data = await res.json()
+   
+    return { props: { data } }
+  }

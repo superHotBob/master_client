@@ -12,15 +12,13 @@ export default function ViewImage({rating, view_image, viewImage, pid = null, se
    
 
     useEffect(() => {      
-        document.getElementById("main").style.opacity = 1
-        const height_text = document.getElementById("text").clientHeight   
-        console.log(view_image.rating)    
+        document.getElementById("main").style.opacity = 1       
+        
         let width_img = document.getElementById("image").offsetWidth
-        console.log(width_img*view_image.rating)
+       
         document.getElementById("image").style.height = (width_img*view_image.rating).toFixed(0) + 'px'    
         window.scroll({
-            top: 0,
-           
+            top: 0,           
             behavior: "smooth",
           }); 
     }, [viewImage])
@@ -46,22 +44,20 @@ export default function ViewImage({rating, view_image, viewImage, pid = null, se
                     alt="close" 
                     width={20} 
                     height={20}
-                />
-               
+                />               
                 <div style={{position: 'relative'}} id="image">
                     <Image
                         alt="image"
                         src={view_image.image}                 
                         id={view_image.image}
-                        fill={true}
-                        
+                        fill={true}   
                         
                     />
                 </div>
                 <div className={styles.master} >
                     <Image 
-                        alt="image" 
-                        src={'https://masters.place/images/' + view_image.name + '.jpg'} 
+                        alt="иконка мастера" 
+                        src={`https://masters.place/images/${view_image.name}.jpg`} 
                         width={26} height={26} 
                     />
                     <span>{pid || view_image.master_name}</span>
