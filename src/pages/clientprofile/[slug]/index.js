@@ -27,9 +27,7 @@ export default function Client() {
     }, [])
 
 
-    function goToMaster(a) {
-        router.push(`/${a}`)
-    }
+    const goToMaster = (a) => router.push(`/${a}`) 
     // function loaded(a) {
     //     document.getElementById(a).style.opacity = 1
     // }
@@ -57,19 +55,14 @@ export default function Client() {
         <>
             <Header text={profile.nikname} sel="back" />
             <div className={styles.profile}>
-                <img src={'https://masters.place/images/' + slug + '.jpg'} alt="client" height={50} />
+                <img src={process.env.url_image + slug + '.jpg'} alt="client" height={50} />
                 <h2>{profile.name}</h2>
                 <p>{profile.text}</p>
             </div>
             <div className={styles.selector}>
                 <Link href={`/clientprofile/${slug}`} style={sel}>Сохранённое</Link>
                 <Link href={`/clientprofile/${slug}/orders`}>Заказы</Link>
-            </div>
-            {/* <div className={styles.message} >
-                        Здесь будут храниться ваши сохраненные работы <br />
-                        мастеров, что бы не терять понравившееся из виду. <br />
-                        Хотите что-то присмотреть?
-                    </div> */}
+            </div>           
             <div className={styles.images}>
                 <section>
                     {data?.filter((i, index) => index % 2 === 0).map(i =>

@@ -19,10 +19,11 @@
     line-height:  17px;
 }
 
-.header h4:last-child {
+.header button {
     color: #3D4EEA;
-    cursor: pointer;
-}
+    font-size: 16px;
+    background-color: #fff;
+}    
 .header img {
     cursor: pointer;
     margin-right: 55px;

@@ -29,7 +29,7 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {   
+  useEffect(() => {    
     if (ref.current.getBoundingClientRect().bottom.toFixed(0) < window.innerHeight) {
       setview(3)
       view_ref.current = view_ref.current + 1
@@ -52,14 +52,15 @@ export default function Home() {
           return;
         }
       })
+   
   }, [service])
 
 
 
   const viewNewImage = (e) => {
-  
-    if(e.target.id) {
-      const rating = document.getElementById(e.target.id).height/document.getElementById(e.target.id).width     
+
+    if (e.target.id) {
+      const rating = document.getElementById(e.target.id).height / document.getElementById(e.target.id).width
       viewImage({
         name: JSON.parse(e.target.id).nikname,
         image: process.env.url_image + JSON.parse(e.target.id).id + '.jpg',
@@ -72,9 +73,9 @@ export default function Home() {
   }
 
   return (<>
-  <Head>
-    <title>Лучшие мастера маникюра , причёски, макияжа и т.п.  в вашем городе</title>
-  </Head>
+    <Head>
+      <title>Лучшие мастера маникюра , причёски, макияжа и т.п.  в вашем городе</title>
+    </Head>
     <section className={styles.section} >
       <Message page="main" text='Masters.place показывает самые крутые и 
             актуальные работы мастеров в вашем городе. 
@@ -89,7 +90,7 @@ export default function Home() {
             <Fragment key={i.id}>
               {index < view ? <Image
                 alt="Изображение мастера"
-                id={JSON.stringify(i)}              
+                id={JSON.stringify(i)}
                 loading='lazy'
                 src={process.env.url_image + i.id + '.jpg'}
                 title={i.master_name}
@@ -110,7 +111,7 @@ export default function Home() {
               {index < view ? <Image
                 alt="Изображение мастера"
                 key={i.id}
-                id={JSON.stringify(i)}               
+                id={JSON.stringify(i)}
                 loading='lazy'
                 src={process.env.url_image + i.id + '.jpg'}
                 title={i.master_name}
@@ -130,12 +131,12 @@ export default function Home() {
     {view_image &&
       <ViewImage
         service={service}
-        view_image={view_image}       
+        view_image={view_image}
         viewImage={viewImage}
       />
     }
-    </>
-  
+  </>
+
 
   )
 }

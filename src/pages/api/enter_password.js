@@ -11,18 +11,18 @@ export default async function handler(req, res) {
     `, [+req.body.tel]
   );
 
-  console.log(result)
+ 
 
   if (result.length === 0) {
-    const { rows: max_id } = await client.query("SELECT Max(id) from clients");
+    const { rows: max_id } = await client.query("SELECT Max(id) FROM clients");
 
     const nikname = max_id[0].max + 90000;
     const key = Math.random().toString(36).slice(-12)
 
-    console.log(nikname, max_id[0].max)
+  
 
-    const { rows: result } = await client.query(
-      `INSERT INTO "clients" ("phone","nikname", "id", "client_password","name", "text","key")  
+    const { rows: result } = await client.query(`
+      INSERT INTO "clients" ("phone","nikname", "id", "client_password","name", "text","key")  
       VALUES ($1,$2,$3,$4,$5,$6,$7)
       returning nikname,name,text,key, status, saved_image,id, key
       `, [+req.body.tel, nikname, max_id[0].max + 1 , req.body.password, nikname, 'Добрый день', key]
@@ -49,42 +49,39 @@ export default async function handler(req, res) {
                   своими идеями и предложениями по новым функциям, 
                   которые мы могли бы внедрить.Ваш взгляд и мнение имеют 
                   огромное значение для нас, и мы с нетерпением ждем вашего
-                   активного участия.`
+                  активного участия.`
 
     await client.query(
       `INSERT INTO "adminchat" ("recipient","recipient_nikname","ms_date","chat",ms_text)  
-        VALUES ($1,$2,$3,$4,$5)
+      VALUES ($1,$2,$3,$4,$5)
       returning *
       `, [nikname, nikname, date, chat,text]
     );
-    res.setHeader('Set-Cookie', [`key=${key}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`,
-    `nikname=${nikname}; Expires = Mon, 21 Oct 2024 07:28:00 GMT; Path=/;`])
+    res.setHeader('Set-Cookie', [`key=${key}; Expires=Wed, 21 Oct 2025 07:28:00 GMT; Path=/;`,
+    `nikname=${nikname}; expires=Tue, 19 Jan 2038 03:14:07 GMT; Path=/;`])
     await client.end();
     res.status(200).json(result[0])
 
   } else if (result[0].status === 'master' && result[0].blocked === '0') {
     if (result[0].client_password === req.body.password) {
       const { rows: result } = await client.query(`
-          select 
+          SELECT 
           masters.address,masters.city,masters.currency,masters.locations,masters.name,masters.nikname,
           masters.services,masters.stars,masters.status,masters.tema,masters.text,masters.address_full,
           clients.confid
-          from "masters"
+          FROM "masters"
           left join "clients" on masters.phone = clients.phone
           where masters.phone = $1
         `, [+req.body.tel]);
 
       const { rows: key_nik } = await client.query(`
-        select key,nikname          
-        from "clients"
-        where "phone" = $1
-      `, [+req.body.tel]);
+      SELECT key,nikname FROM "clients" WHERE "phone" = $1 `, [+req.body.tel]);
 
 
 
       await client.end();
-      res.setHeader('Set-Cookie', [`key=${key_nik[0].key}; Expires=Wed, 21 Oct 2024 07:28:00 GMT; Path=/;`,
-      `nikname=${key_nik[0].nikname}; Expires = Mon, 21 Oct 2024 07:28:00 GMT; Path=/;`])
+      res.setHeader('Set-Cookie', [`key=${key_nik[0].key}; Expires=Wed, 21 Oct 2025 07:28:00 GMT; Path=/;`,
+      `nikname=${key_nik[0].nikname}; expires=Tue, 19 Jan 2038 03:14:07 GMT; Path=/;`])
 
 
 
@@ -103,9 +100,7 @@ export default async function handler(req, res) {
 
 
       const { rows: key_nik } = await client.query(`
-        select key,nikname          
-        from "clients"
-        where "phone" = $1
+        select key,nikname from "clients" where "phone" = $1
       `, [+req.body.tel]);
 
 

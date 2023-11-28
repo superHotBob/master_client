@@ -5,7 +5,7 @@ import { useState,  useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 import { setcity, setlocation } from '../../reduser.js'
-import useSWR from 'swr'
+
 
 
 export default function City({data}) {   
@@ -15,7 +15,7 @@ export default function City({data}) {
     const dispatch = useDispatch()
 
 
-    // const { data, isLoading } = useSWR('/api/get_cities')
+   
 
 
 
@@ -41,8 +41,8 @@ export default function City({data}) {
         <>
             <header className={styles.header}>
                 <Image src={arrow} alt="back" onClick={() => router.back()} />
-                <h4>Выбор города</h4>
-                <h4 onClick={setMyCity}>Принять</h4>
+                Выбор города
+                <button onClick={setMyCity}>Принять</button>
             </header>
             <input
                 className={styles.seachcity}
@@ -64,7 +64,7 @@ export default function City({data}) {
                         <input type="radio" checked={i.city === selCity} value={selCity} name="city" onChange={() => setSelCity(i.city)} />
                     </label>
                 )}
-                {/* {isLoading ? <h5>Загружаем города...</h5> : null} */}
+               
 
 
             </section>
