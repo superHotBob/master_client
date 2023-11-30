@@ -1,4 +1,4 @@
-// const IP = require('ip')
+
 const { Client } = require('pg')
 
 
@@ -14,15 +14,15 @@ export default async function handler(req, res) {
         `, [+req.query.phone]
     );
 
-   let responce = await fetch('https://ipgeolocation.abstractapi.com/v1/?api_key=ecc713e733a64a24bd32521c2f47be98')
+   let responce = await fetch('https://ipgeolocation.abstractapi.com/v1/?api_key=ecc713e733a64a24bd32521c2f47be98&fields=city,ip_address')
    let data = await responce.json()    
    
-
+    
     let date_enter = Date.now()
-    // const ipAddress = IP.address()
+   
     await client.query(
         `INSERT INTO "history" ("ip", "date_enter", "city" , "phone")  
-        VALUES ($1, $2,$3,$4)`
+        VALUES ($1, $2, $3, $4)`
         , [data.ip_address, date_enter, data.city, req.query.phone]
     )
     await client.end()

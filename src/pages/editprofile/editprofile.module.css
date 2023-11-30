@@ -266,8 +266,8 @@ div.tema {
 
 .currency button,
 .tema button {
-  height: 34px;
-  min-width: 124px;
+  height: 38px;
+  width: 130px;
   border-radius: 6px;
   font-size: 1em;
   padding: 6px;

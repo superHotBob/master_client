@@ -3,12 +3,12 @@ import styles from '../enter/enter.module.css'
 import { useRouter } from 'next/router'
 import { useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { setprofile, setpassword, setphone } from '@/reduser'
+import { setprofile, setpassword, setphone, setcity } from '@/reduser'
 
 
 
 export default function EnterPassword() {
-    const phone = useSelector(state => state.counter.phone)
+    
     const dispatch = useDispatch()
     const router = useRouter()
     const [back, setBack] = useState('logo-main.svg')
@@ -39,7 +39,8 @@ export default function EnterPassword() {
             setBack('logo-main.svg')
         } else {
             localStorage.setItem("profile", JSON.stringify(result))
-            dispatch(setprofile(result))           
+            dispatch(setprofile(result)) 
+            dispatch(setcity(result.city))          
             router.push('/')
         }
     }

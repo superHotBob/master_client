@@ -2,13 +2,15 @@ const { Client } = require('pg')
 
 export default async function handler(req, res) {
 
+  const {tel, password } = req.body
+
   const client = new Client(process.env.pg_data)
   await client.connect()
 
   const { rows: result } = await client.query(
     `select status, blocked, id, nikname, client_password from  "clients"     
      where "phone" = $1
-    `, [+req.body.tel]
+    `, [+tel]
   );
 
  
@@ -25,7 +27,7 @@ export default async function handler(req, res) {
       INSERT INTO "clients" ("phone","nikname", "id", "client_password","name", "text","key")  
       VALUES ($1,$2,$3,$4,$5,$6,$7)
       returning nikname,name,text,key, status, saved_image,id, key
-      `, [+req.body.tel, nikname, max_id[0].max + 1 , req.body.password, nikname, 'Добрый день', key]
+      `, [+tel, nikname, max_id[0].max + 1 , password, nikname, 'Добрый день', key]
     );
 
 
@@ -63,7 +65,7 @@ export default async function handler(req, res) {
     res.status(200).json(result[0])
 
   } else if (result[0].status === 'master' && result[0].blocked === '0') {
-    if (result[0].client_password === req.body.password) {
+    if (result[0].client_password === password) {
       const { rows: result } = await client.query(`
           SELECT 
           masters.address,masters.city,masters.currency,masters.locations,masters.name,masters.nikname,
@@ -72,10 +74,10 @@ export default async function handler(req, res) {
           FROM "masters"
           left join "clients" on masters.phone = clients.phone
           where masters.phone = $1
-        `, [+req.body.tel]);
+        `, [+tel]);
 
       const { rows: key_nik } = await client.query(`
-      SELECT key,nikname FROM "clients" WHERE "phone" = $1 `, [+req.body.tel]);
+      SELECT key,nikname FROM "clients" WHERE "phone" = $1 `, [+tel]);
 
 
 
@@ -91,17 +93,17 @@ export default async function handler(req, res) {
       res.status(200).json([])
     }
   } else if (result[0].status === 'client' && result[0].blocked === '0') {
-    if (result[0].client_password === req.body.password) {
+    if (result[0].client_password === password) {
       const { rows: result } = await client.query(`
           select status,nikname,name,text,id,saved_image,key,confid
           from "clients"
           where phone = $1
-        `, [+req.body.tel]);
+        `, [+tel]);
 
 
       const { rows: key_nik } = await client.query(`
         select key,nikname from "clients" where "phone" = $1
-      `, [+req.body.tel]);
+      `, [+tel]);
 
 
 

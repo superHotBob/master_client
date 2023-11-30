@@ -11,8 +11,8 @@ export default function Enter() {
 
     const [phone, setPhone] = useState()
     const dispatch = useDispatch()
-    const password = useSelector(state => state.counter.password)
-    const my_phone = useSelector(state => state.counter.phone)
+    const { password, my_phone } = useSelector(state => state.counter)
+    
 
     const router = useRouter()
     const [number, setNumber] = useState([, , ,])
@@ -34,9 +34,7 @@ export default function Enter() {
    
 
     const checkClient = () => {
-        if(!phone) {
-            return;
-        }
+        if(!phone) return;
         fetch(`/api/check_client?phone=${phone}`)
             .then(res => res.json())
             .then(res => {
@@ -48,7 +46,7 @@ export default function Enter() {
                 } else if (res[0].blocked != '0') {
                     router.push('/enter')
                 } else {
-                    // dispatch(setphone(phone))
+                   
                     router.push(`/enterpassword?phone=${phone}`)
                 }
         })
@@ -132,17 +130,8 @@ export default function Enter() {
                 document.getElementById(b).value = null
             } else {
                 document.getElementById(b - 1).focus()
-            }         
-            // if (e.target.value && b > 1) {
-            //     document.getElementById(b).value = null
-            //     // let nmb = number
-            //     // nmb[b-1] = ''      
-            //     // setNumber(nmb)
-            //     // console.log(number)
-            //     // 
-            // } else {
-            //     // document.getElementById(b - 1).focus()
-            // }
+            }
+          
         }
         if (e.key === 'Enter' && b === 4) {
             sendCode()
@@ -219,8 +208,8 @@ export default function Enter() {
                             </button>
                             <div className={styles.colaboration}>
                                 Нажмая на кнопку, вы соглашаетесь с<br />
-                                <span style={{ color: "#3D4EEA" }}>Условиями обработки персональных <br />
-                                    данных</span>  и <span style={{ color: "#3D4EEA" }}>Пользовательским соглашением</span>
+                                <a>Условиями обработки персональных <br />
+                                данных</a>  и <a>Пользовательским соглашением</a>
                             </div>
                         </>}
                 </div>

@@ -67,6 +67,9 @@
     width: 300px;
     margin: 0 auto 20px;
 }
+.colaboration a {
+    color: #3D4EEA
+}
 
 .inputs_password input {
     height: 46px ;

@@ -11,8 +11,7 @@ import Head from 'next/head'
 
 
 export default function Home() {
-  const service = useSelector(state => state.counter.service)
-  const city = useSelector(state => state.counter.city)
+  const { service, city } = useSelector(state => state.counter)
   const [view_image, viewImage] = useState(false)
   const [data, setdata] = useState({})
 
@@ -29,7 +28,9 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {    
+  useEffect(() => { 
+   
+           
     if (ref.current.getBoundingClientRect().bottom.toFixed(0) < window.innerHeight) {
       setview(3)
       view_ref.current = view_ref.current + 1
@@ -42,7 +43,7 @@ export default function Home() {
     if (servref.current != service) {
       setdata([])
       servref.current = service
-    }
+    }   
     fetch(`/api/get_images_master_city?service=${service}&city=${city.toLowerCase()}`)
       .then(res => res.json())
       .then(res => {
@@ -74,7 +75,7 @@ export default function Home() {
 
   return (<>
     <Head>
-      <title>Лучшие мастера маникюра , причёски, макияжа и т.п.  в вашем городе</title>
+      <title>Лучшие мастера маникюра , причёски, макияжа , массажа и др.  рядом с вами</title>
     </Head>
     <section className={styles.section} >
       <Message page="main" text='Masters.place показывает самые крутые и 

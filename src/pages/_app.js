@@ -25,21 +25,13 @@ export default function MyApp({ Component, pageProps }) {
 
 
 const my_path = ['informations', 'informations/aboutservice',
-  'newpassword',
-  'succesregistration',
-  'displaypublications',
-  'masterrecords',
-  'confirmation',
-  'addlist',
- 
-  'calendar', 
-   'city', 'masternear', 'masternear/city', 'editprofile', 'addmasterorder']
+  'newpassword','succesregistration','displaypublications',
+  'masterrecords','confirmation','addlist','calendar', 
+  'city', 'masternear', 'masternear/city', 'editprofile', 'addmasterorder']
 
   const router = useRouter()
   const { slug } = router.query
-  const pathname = usePathname()
-  
- 
+  const pathname = usePathname() 
   
   return (
     <SWRConfig value={{ provider: () => new Map(),
@@ -61,7 +53,7 @@ const my_path = ['informations', 'informations/aboutservice',
           <meta name="application-name" lang='ru' content="masters.place" />
           <meta name="mobile-web-app-capable" content="yes" />
         </Head>
-        <main className={rubik.className} style={{position: 'relative'}}> 
+        <main className={rubik.className} > 
         {pathname ? 
           (pathname === '/' ? <Header sel="back" /> : pathname === '/catalog' || pathname === '/catalog/services' ?  <Header sel='/' /> : null) 
           : null

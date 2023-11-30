@@ -15,3 +15,7 @@
     content: url('/position.svg');  
     transform: translate(10px, 5px);
   }
+  .city span {
+    color: inherit;
+    text-transform: capitalize;
+  }
