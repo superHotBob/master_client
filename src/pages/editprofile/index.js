@@ -53,22 +53,25 @@ export default function EditProfile() {
     const [address, setAddress] = useState()
     const [street , setstreet] = useState()
     const [address_full, setAddress_full] = useState({})
-    const [loc, selectLoc] = useState(false)
+    const [view_Loc, set_View_Loc] = useState(false)
     
     const { data } = useSWR(master_address ? '/api/get_cities':null)
    
    
    
-    function handleLocation(event) {  
+    async function handleLocation(event) {  
         if(event.target.value !=='0'){  
             setCity(event.target.value)
-            let loc = data.filter(i=>i.city.toLowerCase()===event.target.value).map(i=>i.lat + ',' + i.lon)[0].split(',')
-            
-            dispatch(setlocation(loc))
+            let response = await fetch(`/api/get_citi_coord?city=${event.target.value}`)
+            let loc = await response.json()
+            // let loc = data.filter(i=>i.city.toLowerCase()===event.target.value).map(i=>i.lat + ',' + i.lon)[0].split(',')
+            console.log(Object.values(loc[0]))
+            dispatch(setlocation(Object.values(loc[0])))
         }    
     }    
     useEffect(() => {
-        let pro = JSON.parse(localStorage.getItem('profile'))       
+        let pro = JSON.parse(localStorage.getItem('profile')) 
+        dispatch(setlocation(pro.locations))      
         if (!pro) {
             return () => router.push('/enter')
         }else {
@@ -80,7 +83,7 @@ export default function EditProfile() {
             setSelectedFile(process.env.url_image + pro.nikname + '.jpg')
             setAddress_full(pro.address_full),
             setNikname(pro.nikname),
-            setstreet(pro.address?.split(',')[1])
+            setstreet(pro.address.split(',').length === 3 ? pro.address.split(',')[1] :pro.address.split(',')[2] )
             setColor(pro.tema ? my_tema[+pro.tema].color : my_tema[0].color)
         }
 
@@ -103,7 +106,7 @@ export default function EditProfile() {
             text: text,
             nikname: nikname,
             currency: current_symbol[my_currency.indexOf(currency)],           
-            city: city ? city : 'минск',           
+            city: city ? city.toLowerCase() : 'минск',           
             tema: my_tema.map(i=>i.color).indexOf(color),           
         }
         const response = await fetch('/api/edit_profile_master', {
@@ -167,7 +170,7 @@ export default function EditProfile() {
                 <span onClick={() => viewTemaBlock(true)}>Изменить обложку</span>
                 <form  className={styles.profile_image}>
                     <Image
-                        src={file}
+                        src={file? file : process.env.url_image + profile.nikname + '.jpg'}
                         alt="фото"
                         style={{ transform: 'translate(0)' }}
                         title='заменить изображение'
@@ -230,14 +233,14 @@ export default function EditProfile() {
                 <header className={styles.header}>
                     <Image src={arrow} alt="back" onClick={() => setMasterAddress(false)} />
                     <h4>Адрес приема клиентов</h4>
-                    <button onClick={() => selectLoc(true)}>Принять</button>
+                    <button onClick={() => set_View_Loc(true)}>Принять</button>
                 </header>
                
                 <section className={styles.inputs}>
                     <label>
                        Выберите город
                         <select value={city} defaultValue='Минск' className={styles.select} onChange={handleLocation}>
-                            {data?.map(i=><option key={i.city} value={i.city.toLowerCase()}>
+                            {data?.map(i=><option key={i.city} value={i.city}>
                                 {i.city}
                                 </option>
                             )}
@@ -296,15 +299,15 @@ export default function EditProfile() {
                     </label>
                 </section>
                 <div className={styles.place} >
-                    <button onClick={() => selectLoc(true)}>
+                    <button onClick={() => set_View_Loc(true)}>
                         Выбрать локацию                                        
                     </button>
                 </div>
-                {loc ? <Location 
+                {view_Loc ? <Location 
                     nikname={nikname} 
                     loc_master={location}                 
-                    close={selectLoc} 
-                    city = { city}
+                    close={set_View_Loc} 
+                    city = { city }
                     address_total={address_full}
                     place={city + ' , ' + street + ' , ' + address_full.дом}
                 /> : null}

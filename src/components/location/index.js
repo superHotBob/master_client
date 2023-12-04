@@ -37,7 +37,7 @@ function Mymap({ loc_master, nikname, place, address_total, city }) {
                 nikname: nikname,
                 locations: a,
                 address: b,
-                city: city,
+                city: city.toLowerCase(),
                 address_full: address_total
             }),
             headers: {
@@ -56,7 +56,8 @@ function Mymap({ loc_master, nikname, place, address_total, city }) {
         const geocoder = ymaps.geocode(a);
         geocoder.then(
             function (res) {
-                const address = res.geoObjects.get(0).getAddressLine()               
+                const address = res.geoObjects.get(0).getAddressLine() 
+                console.log(address)              
                 setaddress(address) 
                 updateLocation(a,address)             
             },
@@ -139,7 +140,7 @@ function Mymap({ loc_master, nikname, place, address_total, city }) {
                 /> : null}
             </Map>
             {address && <div>
-                <p>Адрес: г. {address}</p>
+                <p>Адрес: {address}</p>
                 
             </div>}
         </>
@@ -148,6 +149,7 @@ function Mymap({ loc_master, nikname, place, address_total, city }) {
 
 
 export default function Location({ loc_master, close, nikname, place, address_total, city }) {
+    console.log(loc_master)
     useEffect(()=>window.scrollTo(0,0),[])    
     return (
         <div className={styles.map}>

@@ -28,7 +28,7 @@ export default function Catalog() {
                 <Link href="/event" className={styles.model}>
                     СТАНЬ МOДЕЛЬЮ БЕCПЛАТНO
                 </Link>
-                <Link href="/" className={styles.master}>
+                <Link href="/become" className={styles.master}>
                     СТАНЬ МАСТЕРОМ
                 </Link>
                 <div className={styles.images} onClick={ToService}>

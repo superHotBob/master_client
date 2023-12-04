@@ -26,7 +26,7 @@ export default function MyApp({ Component, pageProps }) {
 
 const my_path = ['informations', 'informations/aboutservice',
   'newpassword','succesregistration','displaypublications',
-  'masterrecords','confirmation','addlist','calendar', 
+  'masterrecords','confirmation','addlist','calendar', 'become',
   'city', 'masternear', 'masternear/city', 'editprofile', 'addmasterorder']
 
   const router = useRouter()

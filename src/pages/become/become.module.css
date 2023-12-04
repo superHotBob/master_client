@@ -1,0 +1,50 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    height: 46px;
+    padding: 11px;
+    padding-left: 21px;
+    align-items: center;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 17px;
+}
+
+.header button {
+    color: #3D4EEA;
+    font-size: 16px;
+    background-color: #fff;
+}
+
+.header img {
+    cursor: pointer;
+    margin-right: 55px;
+}
+
+.main_section {
+    margin: 0 16px;
+}
+
+.main_section span {
+    font-size: 12px;
+    line-height: 17px;
+    font-weight: 400px;
+    display: block;
+    margin-bottom: 26px;
+}
+
+.main_section p {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 26px;
+    margin: 26px 0;
+}
+
+.main_section h4 {
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 17px;
+    color: #3D4EEA;
+    margin: 16px 0 26px;
+}
