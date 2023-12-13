@@ -111,15 +111,22 @@
 
 
 .inputs {
-  margin: 24px 16px 0;
+  margin: 16px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: auto;
   font-size: 12px;
 }
+.inputs a {
+  display: block;
+  line-height: 44px;
+  font-size: 14px;
+}
+
 
 .inputs div,
+.inputs label a,
 .inputs input,
 .inputs select,
 .submitProfile input,
@@ -153,27 +160,43 @@
   background-size: 33px;
   cursor: pointer;
 }
+.inputs label .city {
+  text-transform: capitalize;
+}
 
 
-
-.inputs h6 {
+.inputs p {
   display: flex;
   justify-content: space-between;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 12px; 
+  align-items: center;
+}
+.inputs p a {
+  line-height: 17px;
 }
 
 .inputs label input[type="radio"] {
   width: 20px;
   height: 20px;
+  appearance: none;
+  border-radius: 50%;
+  outline: 1px solid #3D6DEA;
+  border: 3px solid #fff;
   display: inline;
   float: right;
 }
+.inputs label input[type="radio"]:checked {
+  background-color: #3D4EEA;
+}
 .inputs label input[type="text"] {
   font-size: 14px;
+  line-height: 44px;
 }
 .radio {
   height: 31px;
+  
+
   margin: 6px 0;
   font-weight: 500;
   font-size: 14px;
@@ -189,7 +212,7 @@
 .change::after {
   content: url('/arrow_right.svg');
   height: 12px;
-  transform: translate(9px, 2px);
+  transform: translate(9px, 1px);
 }
 
 .inputs textarea {
@@ -352,6 +375,10 @@ div.tema {
   line-height: 26px;
   font-weight: 500;
 }
+.header a {
+  display: flex;
+  align-items: center;
+}
 
 .header button {
   color: #3D4EEA;
@@ -448,21 +475,22 @@ div.tema {
 
 }
 
-.place button {  
-  border: 1px solid #ddd;
+.location {  
+ background-color: #3D4EEA;
+ color: #fff;
   padding: 15px 5px;
   border-radius: 5px;
   width: 100%;
   text-align: center;
   display: block;
 }
-.place button:hover {
+.location:hover {
   box-shadow: 0 0 12px 2px #ddd;
 }
 
 
-.place button::before {
-  content: url('/location.svg');
+.location::before {
+  content: url('/location_wh.svg');
   display: inline-block;
   margin-left: 10px;
   transform: translate(-7px, 2px);

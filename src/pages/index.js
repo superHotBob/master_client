@@ -11,7 +11,7 @@ import Head from 'next/head'
 
 
 export default function Home() {
-  const { service, city } = useSelector(state => state.counter)
+  const { service, mystate, city } = useSelector(state => state.counter)
   const [view_image, viewImage] = useState(false)
   const [data, setdata] = useState({})
 
@@ -28,9 +28,7 @@ export default function Home() {
     }
   };
 
-  useEffect(() => { 
-   
-           
+  useEffect(() => {           
     if (ref.current.getBoundingClientRect().bottom.toFixed(0) < window.innerHeight) {
       setview(3)
       view_ref.current = view_ref.current + 1
@@ -44,7 +42,7 @@ export default function Home() {
       setdata([])
       servref.current = service
     }   
-    fetch(`/api/get_images_master_city?service=${service}&city=${city.toLowerCase()}`)
+    fetch(`/api/get_images_master_city?service=${service}&city=${mystate.toLowerCase()}`)
       .then(res => res.json())
       .then(res => {
         if (res['one']) {
@@ -83,7 +81,7 @@ export default function Home() {
             Вы можете выбрать понравившуюся работу и 
             написать мастеру !'
       />
-      <CitySelect city={city} />
+      <CitySelect city={mystate} />
       <FilterServices />
       <div className={styles.images} id="myDiv" ref={ref} onClick={viewNewImage} >
         <div className={styles.images_one}>

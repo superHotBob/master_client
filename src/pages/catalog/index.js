@@ -12,19 +12,22 @@ import Head from 'next/head'
 export default function Catalog() {
     const dispatch = useDispatch()
     const router = useRouter()
-    const city = useSelector(state => state.counter.city)
+    const mystate = useSelector(state => state.counter.mystate)
     const ToService = (e) => {
         if (e.target.id) {
             dispatch(setservice(e.target.id))
+            console.log(e.target.id)
             router.push(`/masternear/${e.target.id}`)
         }
     }
 
     return (
         <>
-            <Head><title>Каталог мастеров в вашем городе</title>  </Head>        
+            <Head>
+                <title>Каталог мастеров в вашем городе</title>  
+            </Head>        
             <section className={styles.section}>
-                <CitySelect city={city} />
+                <CitySelect city={mystate} />
                 <Link href="/event" className={styles.model}>
                     СТАНЬ МOДЕЛЬЮ БЕCПЛАТНO
                 </Link>

@@ -19,12 +19,12 @@ const sel = {
 const API_KEY = "89caab37-749d-4e30-8fdf-e8045542f060"
 
 export default function MasterNear() {
-    const my_city = useSelector((state) => state.counter.city)
-    const service = useSelector((state) => state.counter.service)
+    const { service, mystate } = useSelector((state) => state.counter)
+    
     const [viewRange, setViewRange] = useState(false)
     const [zoom, setZoom] = useState(11)
   
-    const [veiw_select, set_view_select] = useState(false)
+   
 
     const [radius, setRadius] = useState(10)
     const [mapHeight, setMapHeight] = useState()
@@ -45,7 +45,7 @@ export default function MasterNear() {
                     ваш город, что бы увидеть список мастеров.
                 ' />
             </div>
-            <Link className={styles.city} href='/city'>Ваш город {my_city}</Link>
+            <Link className={styles.city} href='/states'>{mystate}</Link>
             <div className={styles.selector}>
                 <Link href={`/masternear/${service}`}>Список</Link>
                 <Link href="/masternear/city" style={sel}>На карте</Link>
@@ -76,15 +76,14 @@ export default function MasterNear() {
             <div className={styles.my_map} id="my_map">
                 <YMaps query={{ apikey: API_KEY }}>
                     {mapHeight &&
-                    <MapComponent
-                        setRadius={setRadius}
-                        set_view_select={set_view_select}                       
-                        my_zoom={zoom}                       
-                        setzoom={setZoom}
-                        divHeight={mapHeight}
-                    />}
-                </YMaps>
-               
+                        <MapComponent
+                            setRadius={setRadius}                                            
+                            my_zoom={zoom}                       
+                            setzoom={setZoom}
+                            divHeight={mapHeight}
+                        />
+                    }
+                </YMaps>               
             </div>
         </div>
     )

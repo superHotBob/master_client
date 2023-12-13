@@ -3,21 +3,21 @@ import arrow_down from '../../../public/arrow_down.svg'
 import Link from 'next/link'
 import { useSelector } from 'react-redux'
 import React, { useState, useEffect } from 'react'
-import {YMap, Map, Placemark, Clusterer, useYMaps } from '@pbe/react-yandex-maps'
+import { YMap, Map, Placemark, Clusterer, useYMaps } from '@pbe/react-yandex-maps'
 import styles from '../../pages/masternear/city/near.module.css'
 import useSWR from 'swr'
 
 
-export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight }) {
-    const loc = useSelector((state => state.counter.location))
-    const my_city = useSelector((state) => state.counter.city)
+export default function MapComponent({ setRadius, setzoom, divHeight }) {
+    const loc = useSelector((state => state.counter.location))    
     const service = useSelector((state) => state.counter.service)
     const [center, setCenter] = useState()
-    const [zoom, setZoom] = useState(15)
+    const [zoom, setZoom] = useState(13)
     const [mapHeight, setMapHeight] = useState()
-
-    const [address, setaddres] = useState()
+    const [masters, setmasters] = useState([])
    
+    const [address, setaddres] = useState()
+    
     const [viewMasters, setViewMasters] = useState(0)
     const [filter_masters, setFilterMasters] = useState([])
 
@@ -32,8 +32,8 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
         "geoQuery"
     ])
 
-    const { data: masters } = useSWR(`/api/all_masters_city?city=${my_city.toLowerCase()}&service=${service}`)
-    
+    //const { data: masters, mutate } = useSWR(`/api/all_masters_city?city=${my_city.toLowerCase()}&service=${service}`)
+    // const { data: masters } = useSWR(`/api/get_masters_coord?coord=${coord}&service=${service}`)
 
     // useEffect(() => {
     //     setMapHeight(window.innerHeight - 300)
@@ -51,18 +51,27 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
     //     //     .then(data => setMasters(data))
     // }, [my_city])
 
-    useEffect(() => {        
-        setMapHeight(divHeight)       
-        setZoom(10.8)
+    useEffect(() => {
+        setMapHeight(divHeight)
+        setZoom(10)
         setCenter(loc)
+
     }, [])
 
-    useEffect(() => setZoom(my_zoom), [my_zoom])
+    // useEffect(() => {
+    //     setZoom(my_zoom)
+
+    // }, [my_zoom, coord])
 
 
 
     function OnLoadMap() {
-        setTimeout(() => {
+        const bounds = Map.current.getBounds()
+        const coord = bounds.flat().map(i => +i.toFixed(4))
+        fetch(`/api/get_masters_coord?coord=${coord}&service=${service}`)
+            .then(res => res.json())
+            .then(res => setmasters(res))
+        setTimeout(() => {            
             document.getElementsByClassName('ymaps-2-1-79-ground-pane')[0].style.filter = 'grayscale(1)'
             document.getElementsByClassName('ymaps-2-1-79-copyright')[0].style.display = 'none'
             document.getElementsByClassName('ymaps-2-1-79-gotoymaps')[0].style.display = 'none'
@@ -71,57 +80,64 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
             document.getElementsByClassName('ymaps-2-1-79-gototech')[0].style.display = 'none';
             document.getElementById('my_map').style.opacity = '1';
         }, 500)
-       
+
     }
 
-    function filter_all_masters() {
-        let coord = Map.current.getBounds()
-        let new_masters = [...masters]
-            .filter(i => { return coord[1][1] - i.locations[1] > 0 })
-            .filter(i => { return coord[0][1] - i.locations[1] < 0 })
-            .filter(i => { return coord[1][0] - i.locations[0] > 0 })
-            .filter(i => { return coord[0][0] - i.locations[0] < 0 })
-        setFilterMasters(new_masters)
-        // selectMaster(new_masters)
-       
-        const center = Map.current.getCenter()
-        let radius = ymaps.coordSystem.geo.getDistance(center, coord[1])
-        setRadius(Math.ceil(radius.toFixed(0) / 1000))
-    }
-    function SetFilterCluster(a) {
-      
-        if (a) {
-            setTimeout(() => {
-                let coord = Map.current.getBounds()
-                const center = Map.current.getCenter()
-                let radius = ymaps.coordSystem.geo.getDistance(center, coord[1])
-                setRadius(Math.ceil(radius.toFixed(0) / 1000))
-            }, 1000)           
+    // function filter_all_masters() {
+    //     let coord = Map.current.getBounds()       
+    //     // let new_masters = [...masters]
+    //     //     .filter(i => { return coord[1][1] - i.locations[1] > 0 })
+    //     //     .filter(i => { return coord[0][1] - i.locations[1] < 0 })
+    //     //     .filter(i => { return coord[1][0] - i.locations[0] > 0 })
+    //     //     .filter(i => { return coord[0][0] - i.locations[0] < 0 })
+    //     // setFilterMasters(new_masters)
+    //     // selectMaster(new_masters)
+
+    //     const center = Map.current.getCenter()
+    //     let radius = ymaps.coordSystem.geo.getDistance(center, coord[1])
+    //     setRadius(Math.ceil(radius.toFixed(0) / 1000))
+    // }
+    async function SetFilterCluster() {
+        // if () {
             setzoom(17)
-        } else {
-            setTimeout(() => filter_all_masters(), 500)
-        }
+            setTimeout(() => {
+                const bounds = Map.current.getBounds()
+                const coord = bounds.flat().map(i => +i.toFixed(4))
+                // const center = Map.current.getCenter()
+                // let radius = ymaps.coordSystem.geo.getDistance(center, coord[1])
+                // console.log(center, radius)
+                // setRadius(Math.ceil(radius.toFixed(0) / 1000))           
+              
+                setTimeout(()=> {                
+                fetch(`/api/get_masters_coord?coord=${coord}&service=${service}`)
+                .then(res => res.json())
+                .then(res => setFilterMasters(res))} ,500)  
+            } , 500)
+        // } else {
+        //     setTimeout(() => filter_all_masters(), 500)
+        // }
     }
 
     function ViewMaster(event, a) {
-
         event.stopPropagation()
         setCenter(a)
         setZoom(17)
-        setzoom(17)
-       
-        SetFilterCluster()
-       
-        // SetFilterCluster(i.locations)                                 
+        setzoom(17)       
         setMapHeight(window.innerWidth > 500 ? '300px' : '300px')
+        setTimeout(() => {
+        const bounds = Map.current.getBounds()
+        const coord = bounds.flat().map(i => +i.toFixed(4))
+        fetch(`/api/get_masters_coord?coord=${coord}&service=${service}`)
+        .then(res => res.json())
+        .then(res => setFilterMasters(res))  } , 500)
     }
 
-    function closeView() {        
+    function closeView() {
         setViewMasters([])
         setFilterMasters([])
-        setMapHeight(divHeight)       
+        setMapHeight(divHeight)
     }
-    
+
     const getRadius = async (a) => {
         // const geo = await ymaps.geoQuery(ymaps.geocode('Минск')).getLength()
         // var myGeocoder = ymaps.geocode('МИнск');
@@ -139,31 +155,37 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
         // // if (view != 0) {
         // //     SetFilterCluster()
         // // }
-       
+
         setzoom(Map.current.getZoom())
         if (Map.current) {
-            const bounds = Map.current.getBounds()
+           
             const center = Map.current.getCenter()
-            const zoom = Map.current.getZoom()
-            setZoom(zoom)           
-            let radius = ymaps.coordSystem.geo.getDistance(center, bounds[1])/1.2            
+            const zoom = Map.current.getZoom()           
+            setZoom(zoom)
+            const bounds = Map.current.getBounds()
+            const coord = bounds.flat().map(i => +i.toFixed(4))
+            fetch(`/api/get_masters_coord?coord=${coord}&service=${service}`)
+            .then(res => res.json())
+            .then(res => setmasters(res))  
+            let radius = ymaps.coordSystem.geo.getDistance(center, bounds[1]) / 1.2
+            console.log('radius', Math.ceil(radius.toFixed(0) / 1000))
             setRadius(Math.ceil(radius.toFixed(0) / 1000))
         }
         SetFilterCluster()
     }
-    function Bob() { setzoom(17) }
-    async function getAddress(a) {       
-        const geocoder = ymaps.geocode(a.map(i=>+i));        
+    function Bob() { setzoom(16) }
+    async function getAddress(a) {
+        const geocoder = ymaps.geocode(a.map(i => +i));
         geocoder.then(
             function (res) {
-                const address = res.geoObjects.get(0).getAddressLine()                
-                setaddres(address)             
+                const address = res.geoObjects.get(0).getAddressLine()
+                setaddres(address)
             },
             function (err) {
                 console.log('Ошибка');
             }
-        )     
-    }        
+        )
+    }
     const placeMark = (a, b, c) => {
         const Layout = a.createClass(zoom > 12 ?
             `<img style=" border-radius: 50%; border: 3px solid #3D4EEA" height="44px" width="44px" src=${process.env.url_image + b + '.jpg'} />` :
@@ -176,7 +198,7 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
                         type: 'Circle',
                         coordinates: [20, 20],
                         radius: 22,
-                    };                   
+                    };
                     this.getData().options.set('shape', bigShape);
                     this.getData().geoObject.events.add('click', function () { Bob(b) }, this);
                     this.getData().geoObject.events.add('mouseenter', function () { getAddress(c) }, this)
@@ -205,9 +227,8 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
                     }
                 }}
                 onLoad={OnLoadMap}
-                onWheel={() => getRadius()}
-                onTouchMove={SetFilterCluster}
-           
+                onWheel={getRadius}
+
             >
                 <Clusterer
                     options={{
@@ -227,7 +248,7 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
                     onClick={(event) => {
                         SetFilterCluster()
                         event.stopPropagation()
-                        setZoom(15)                       
+                        setZoom(15)
                         setMapHeight(window.innerWidth > 500 ? '400px' : '350px')
                     }}
 
@@ -252,9 +273,9 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
                                     strokeColor: 'blue',
                                 }}
                                 options={{
-                                    iconLayout: placeMark(ymaps.templateLayoutFactory, i.nikname,i.locations),                                   
+                                    iconLayout: placeMark(ymaps.templateLayoutFactory, i.nikname, i.locations),
                                     iconOffset: [-20, -20]
-                                }}                               
+                                }}
                                 onClick={event => ViewMaster(event, i.locations)}
                             />
                         )}
@@ -263,7 +284,7 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
             </Map>
 
 
-            {filter_masters.length ? 
+            {filter_masters.length ?
                 <Image alt="close"
                     className={styles.close}
                     src={arrow_down}
@@ -271,25 +292,25 @@ export default function MapComponent({ setRadius, my_zoom, setzoom, divHeight })
                     onClick={closeView}
                 /> : null
             }
-            {filter_masters.length > 0 ? 
-            <section className={styles.section}>
-                {filter_masters?.map(i =>
-                    <Link key={i.nikname} className={styles.master} href={`/${i.nikname}`}>
-                        <div>
-                            <p>
-                                <b>{i.name}</b>
-                                <span className={styles.pro}>MASTER</span>
-                                {i.stars != '0.0' ? <span className={styles.stars}>{i.stars}</span> : null}
-                            </p>
-                            <h4>{i.address}</h4>
-                            <h5>{i.services.map(a => <span key={a} className={styles.service}>{a}</span>)}</h5>
-                        </div>
-                        <Image src={process.env.url_image + i.nikname + '.jpg'} width={60} height={60} alt="master" />
-                    </Link>
-                )}               
-            </section> : null}
+            {filter_masters.length > 0 ?
+                <section className={styles.section}>
+                    {filter_masters?.map(i =>
+                        <Link key={i.nikname} className={styles.master} href={`/${i.nikname}`}>
+                            <div>
+                                <p>
+                                    <b>{i.name}</b>
+                                    <span className={styles.pro}>MASTER</span>
+                                    {i.stars != '0.0' ? <span className={styles.stars}>{i.stars}</span> : null}
+                                </p>
+                                <h4>{i.address}</h4>
+                                <h5>{i.services.map(a => <span key={a} className={styles.service}>{a}</span>)}</h5>
+                            </div>
+                            <Image src={process.env.url_image + i.nikname + '.jpg'} width={60} height={60} alt="master" />
+                        </Link>
+                    )}
+                </section> : null}
 
-           
+
         </>
     );
 };

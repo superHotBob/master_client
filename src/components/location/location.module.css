@@ -28,9 +28,8 @@
 .map img:hover {
     transform: scale(1.1);
 }
-.confirm {
-    width: calc(100% - 32px);
-    margin: 5px 16px;
-    line-height: 40px;
-    display: block;
+.address p {
+    margin: 10px;
+    font-size: 13px;
+    font-weight: 300;
 }

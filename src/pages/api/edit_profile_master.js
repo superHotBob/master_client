@@ -1,7 +1,7 @@
 const { Client } = require('pg')
 
 export default async function handler(req, res) {
-    const {nikname, name, text,currency,tema,city} = req.body;
+    const {nikname, name, text,currency,tema,city, state} = req.body;
 
     const client = new Client(process.env.pg_data)
     await client.connect();
@@ -10,10 +10,10 @@ export default async function handler(req, res) {
 
     const { rows: result_master } = await client.query(`
       update "masters"
-      set city = $2, name = $3, text = $4, currency = $5 , tema = $6
+      set city = $2, name = $3, text = $4, currency = $5 , tema = $6, state = $7
       where "nikname" =  $1
-      returning  nikname,name,text,currency,status,address,city,tema,locations, stars, services, address_full
-    `, [nikname, city, name, text, currency,  tema]
+      returning  state, nikname,name,text,currency,status,address,city,tema,locations, stars, services, address_full
+    `, [nikname, city, name, text, currency,  tema, state]
     );
     await client.query(`
             update "clients" 

@@ -69,6 +69,7 @@ export default async function handler(req, res) {
       const { rows: result } = await client.query(`
           SELECT 
           masters.address,masters.city,masters.currency,masters.locations,masters.name,masters.nikname,
+          masters.state,
           masters.services,masters.stars,masters.status,masters.tema,masters.text,masters.address_full,
           clients.confid
           FROM "masters"

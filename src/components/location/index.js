@@ -1,15 +1,15 @@
 import styles from './location.module.css'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import React from 'react'
-
+import { useSelector } from 'react-redux'
 import Image from 'next/image'
 import { useYMaps, YMaps, Map, Placemark } from '@pbe/react-yandex-maps'
 import icon_close from '../../../public/close.svg'
 
 const API_KEY = "89caab37-749d-4e30-8fdf-e8045542f060"
 
-function Mymap({ loc_master, nikname, place, address_total, city }) {   
-
+function Mymap({ loc_master, place, address_total, nikname }) {   
+    const { city: mycity,  mystate } = useSelector(state => state.counter)
     const [location, setLoc] = useState(loc_master)
     const [address , setaddress] = useState()
    
@@ -29,15 +29,21 @@ function Mymap({ loc_master, nikname, place, address_total, city }) {
         document.getElementsByClassName('ymaps-2-1-79-copyright')[0].style.display = 'none'
         document.getElementsByClassName('ymaps-2-1-79-gotoymaps')[0].style.display = 'none'
         getCoord(place)
+        console.log('place',place)
     }
     function updateLocation(a,b) {
+        let { nikname } = JSON.parse(localStorage.getItem('profile'))
+        if(!nikname) {
+            return;
+        }
         fetch('/api/edit_location_master', {
             method: 'Post',
             body: JSON.stringify({
                 nikname: nikname,
                 locations: a,
                 address: b,
-                city: city.toLowerCase(),
+                city: mycity.toLowerCase(),
+                state: mystate.toLowerCase(),
                 address_full: address_total
             }),
             headers: {
@@ -56,8 +62,7 @@ function Mymap({ loc_master, nikname, place, address_total, city }) {
         const geocoder = ymaps.geocode(a);
         geocoder.then(
             function (res) {
-                const address = res.geoObjects.get(0).getAddressLine() 
-                console.log(address)              
+                const address = res.geoObjects.get(0).getAddressLine()                             
                 setaddress(address) 
                 updateLocation(a,address)             
             },
@@ -71,9 +76,9 @@ function Mymap({ loc_master, nikname, place, address_total, city }) {
         myGeocoder.then(
             function (res) {
                 const my_loc = res.geoObjects.get(0).geometry.getCoordinates();
-                setLoc(my_loc)
-               
-                getAddress(my_loc)                
+                setLoc(my_loc)               
+                getAddress(my_loc)  
+                           
             },
             function (err) {
                 console.log('Ошибка');
@@ -115,8 +120,8 @@ function Mymap({ loc_master, nikname, place, address_total, city }) {
                     "geoObject.addon.balloon", "borders", "ObjectManager", 'geoObject.addon.balloon', 'clusterer.addon.balloon',
                     "templateLayoutFactory"]}               
                 state={{
-                    center: loc_master,
-                    zoom: 11,
+                    center: location,
+                    zoom:  13,
                     controls: [],
                     behaviors: ["default", "scrollZoom", "multiTouch", "drag", "onclick"]
                 }}
@@ -139,7 +144,7 @@ function Mymap({ loc_master, nikname, place, address_total, city }) {
                     onLoad={() => ViewGrayScale()}
                 /> : null}
             </Map>
-            {address && <div>
+            {address && <div className={styles.address}>
                 <p>Адрес: {address}</p>
                 
             </div>}
@@ -148,8 +153,8 @@ function Mymap({ loc_master, nikname, place, address_total, city }) {
 }
 
 
-export default function Location({ loc_master, close, nikname, place, address_total, city }) {
-    console.log(loc_master)
+export default function Location({ loc_master, close, nikname, place, address_total, city, state }) {
+   
     useEffect(()=>window.scrollTo(0,0),[])    
     return (
         <div className={styles.map}>
@@ -160,11 +165,11 @@ export default function Location({ loc_master, close, nikname, place, address_to
                         place={place} 
                         loc_master={loc_master}
                         nikname={nikname}
+                        state={state}
                         address_total={address_total}
                         city={city}
                     />
-                </YMaps> 
-                {/* <button onClick={() => close(false)} className={styles.confirm} >Сохранить</button>               */}
+                </YMaps>                       
             </div>
         </div>
     )

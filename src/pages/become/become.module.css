@@ -48,3 +48,23 @@
     color: #3D4EEA;
     margin: 16px 0 26px;
 }
+
+.main_section img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 16px;
+    border-radius: 8px;
+}
+
+.main_section button {
+    color: #fff;
+    font-size: 16px;
+    margin: 0 auto;
+    display: block;
+    width: 300px;
+    height: 46px;
+    padding: 11px 8px;
+    border-radius: 6px;
+    background: #3D4EEA;
+
+}

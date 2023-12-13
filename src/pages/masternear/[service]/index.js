@@ -20,13 +20,13 @@ export default function MasterNear() {
    
     const router = useRouter()
     const { service } = router.query   
-    const city = useSelector((state) => state.counter.city)
+    const { city, mystate } = useSelector((state) => state.counter)
     const services = useSelector((state) => state.counter.service)   
        
    
 
     const { data, error, isLoading } = useSWR('/api/all_masters_city?' + new URLSearchParams({
-        city: city.toLowerCase(),
+        city: mystate.toLowerCase(),
         service:  service})
     )
     
@@ -42,7 +42,7 @@ export default function MasterNear() {
                 />
             </div>
             <div style={{margin: '0 16px'}}>
-                <CitySelect city={city} />
+                <CitySelect city={mystate} />
             </div>            
             <div className={styles.selector}>                
                 <Link href={`/masternear/${service}`} style={sel}>Список</Link>

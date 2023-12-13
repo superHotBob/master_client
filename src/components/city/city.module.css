@@ -8,8 +8,8 @@
     letter-spacing: 0px;
     text-align: center;
     margin: 0 0 16px;
-    cursor: pointer;
-    display: block;
+    
+    width: 100%;
   }
   .city::after {
     content: url('/position.svg');  
@@ -17,5 +17,5 @@
   }
   .city span {
     color: inherit;
-    text-transform: capitalize;
+    
   }

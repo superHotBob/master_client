@@ -1,66 +1,64 @@
 import Image from 'next/image'
-import styles from './city.module.css'
+import styles from '../city/city.module.css'
 import arrow from '../../../public/arrow_back_bold.svg'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { useDispatch , useSelector} from 'react-redux'
-import { setcity, setstate, setlocation } from '../../reduser.js'
+import { useDispatch } from 'react-redux'
+import {  setstate, setlocation } from '../../reduser.js'
 import useSWR from 'swr'
 
 
 export default function City() {
-    const [selCity, setSelCity] = useState({})
+    const [place, setplace] = useState({})
     const [findcity, setfindcity] = useState('')
     const router = useRouter()
     const dispatch = useDispatch()
-    const mystate = useSelector(state=>state.counter.mystate)
 
-    const { data } = useSWR(`/api/get_cities?city=${findcity}&mystate=${mystate}`)
+    const { data } = useSWR(`/api/get_states?state=${findcity}`)
 
 
-    async function setMyCity() {
-        setfindcity(selCity.city)
-        const res = await fetch(`/api/get_citi_coord?city=${selCity.city}`)
-        const { lat, lon } = await res.json()
-        dispatch(setcity(selCity.city)) 
-        dispatch(setstate(selCity.state))           
-        dispatch(setlocation([lat, lon]))
+    async function setMyCity() {       
+        dispatch(setstate(place.state))           
+        dispatch(setlocation([place.lat, place.lon]))       
         router.back()
     }
     // useEffect(() => {
-    //     data?.filter(i => i.city.includes(findcity))
+    //     data?.filter(i => i.state.includes(findcity))
     // }, [findcity])
+
+
+
 
     return (
         <>
             <header className={styles.header}>
                 <Image src={arrow} alt="back" onClick={() => router.back()} />
-                 Выбор города
+                   Выбор области
                 <button onClick={setMyCity}>Принять</button>
             </header>
             <input
                 className={styles.seachcity}
                 type="search"
                 value={findcity}
-                placeholder='Ваш город'
+                placeholder='Ваша область'
                 onChange={(e) => setfindcity(e.target.value)}
             />
             <section className={styles.section}>
                 {data
                     ?.map(i =>
-                        <label className={styles.city} key={i.city}>
+                        <label className={styles.city} key={i.state}>
                             <div>
-                                <b>{i.city}</b>
+                                <b>{i.state}</b>
                                 <span>{i.country}</span>
                             </div>
 
-                            <span className={i.city === selCity.city ? styles.enabled : styles.disabled}></span>
+                            <span className={i.state === place.state ? styles.enabled : styles.disabled}></span>
                             <input
                                 type="radio"
-                                checked={i.city === selCity.city}
-                                value={selCity.city}
+                                checked={i.state === place.state}
+                                value={place.state}
                                 name="city"
-                                onChange={() => setSelCity({...selCity,city: i.city,state:i.state})}
+                                onChange={() => setplace({...place,state:i.state, lat: i.lat,lon: i.lon})}
                             />
                         </label>
                     )

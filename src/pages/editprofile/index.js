@@ -1,13 +1,13 @@
 import styles from './editprofile.module.css'
 import { useSelector, useDispatch } from 'react-redux'
-import { setlocation, setprofile } from '@/reduser'
+import { setlocation, setnikname, setprofile , setstate} from '@/reduser'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
-import arrow from '../../../public/arrow_back.svg'
+
 
 import { useRouter } from 'next/router'
-import Location from '@/components/location'
-import useSWR from 'swr'
+
+
 import Link from 'next/link'
 
 import { my_tema } from '@/data.'
@@ -44,47 +44,41 @@ export default function EditProfile() {
     const [file_for_upload, set_file_for_upload] = useState(null)
 
     const [message, setMessage] = useState()
-    const [master_address, setMasterAddress] = useState(false)
+   
     const [tema, viewTemaBlock] = useState(false)
     const [cur, setCur] = useState(false)
     const [color, setColor] = useState(my_tema[0].color)
     const [currency, setCurrency] = useState('BYN')
-    const [city, setCity] = useState('минск')
+    const [city, setCity] = useState('')
+    const [state, setMyState] = useState('')
     const [address, setAddress] = useState()
-    const [street , setstreet] = useState()
+    const [street, setstreet] = useState()
     const [address_full, setAddress_full] = useState({})
-    const [view_Loc, set_View_Loc] = useState(false)
+   
     
-    const { data } = useSWR(master_address ? '/api/get_cities':null)
-   
-   
-   
-    async function handleLocation(event) {  
-        if(event.target.value !=='0'){  
-            setCity(event.target.value)
-            let response = await fetch(`/api/get_citi_coord?city=${event.target.value}`)
-            let loc = await response.json()
-            // let loc = data.filter(i=>i.city.toLowerCase()===event.target.value).map(i=>i.lat + ',' + i.lon)[0].split(',')
-            console.log(Object.values(loc[0]))
-            dispatch(setlocation(Object.values(loc[0])))
-        }    
-    }    
+
+
+
+    
     useEffect(() => {
-        let pro = JSON.parse(localStorage.getItem('profile')) 
-        dispatch(setlocation(pro.locations))      
-        if (!pro) {
+        let {currency, name, text, city, address, nikname, address_full,state , tema, locations} = JSON.parse(localStorage.getItem('profile'))
+        dispatch(setlocation(locations))
+        dispatch(setnikname(nikname))
+        dispatch(setstate(state))
+        if (!nikname) {
             return () => router.push('/enter')
-        }else {
-            setName(pro.name),
-            setText(pro.text),
-            setCity(pro.city ? pro.city : 'минск'),
-            setCurrency(my_currency[current_symbol.indexOf(pro.currency)] || 'Белорусский рубль'),
-            setAddress(pro.address)
-            setSelectedFile(process.env.url_image + pro.nikname + '.jpg')
-            setAddress_full(pro.address_full),
-            setNikname(pro.nikname),
-            setstreet(pro.address.split(',').length === 3 ? pro.address.split(',')[1] :pro.address.split(',')[2] )
-            setColor(pro.tema ? my_tema[+pro.tema].color : my_tema[0].color)
+        } else {
+            setName(name),
+            setText(text),
+            setCity(city ? city : 'минск'),
+            setCurrency(my_currency[current_symbol.indexOf(currency)] || 'Белорусский рубль'),
+            setAddress(address)
+            setSelectedFile(process.env.url_image + nikname + '.jpg')
+            setAddress_full(address_full)
+            setNikname(nikname)
+            setMyState(state)
+            setstreet(address?.split(',').length === 3 ? address?.split(',')[1] : address?.split(',')[2])
+            setColor(tema ? my_tema[+tema].color : my_tema[0].color)
         }
 
     }, [])
@@ -102,12 +96,13 @@ export default function EditProfile() {
     const editMaster = async () => {
         const data = {
             status: 'master',
-            name: name,           
+            name: name,
             text: text,
+            state: state,
             nikname: nikname,
-            currency: current_symbol[my_currency.indexOf(currency)],           
-            city: city ? city.toLowerCase() : 'минск',           
-            tema: my_tema.map(i=>i.color).indexOf(color),           
+            currency: current_symbol[my_currency.indexOf(currency)],
+            city: city ? city.toLowerCase() : 'минск',
+            tema: my_tema.map(i => i.color).indexOf(color),
         }
         const response = await fetch('/api/edit_profile_master', {
             body: JSON.stringify(data),
@@ -121,56 +116,53 @@ export default function EditProfile() {
         localStorage.setItem("profile", JSON.stringify(result));
         dispatch(setprofile(result))
         router.push(`/masterprofile/${nikname}`)
-        
     }
-   
-    function selectUpload(e) {  
-        if(e.target.files[0].size > 3000000) {           
+
+    function selectUpload(e) {
+        if (e.target.files[0].size > 3000000) {
             setMessage('Размер изображения больше 3 мб')
-            return ;
-        }      
+            return;
+        }
         let url = URL.createObjectURL(e.target.files[0])
         setSelectedFile(url)
         set_file_for_upload(e.target.files[0])
     }
-    function SetAddressFull(e) {
-        setAddress_full({ ...address_full, ...{ 'тип': e.target.value } })
-    }
+   
     function PoliticReplace(a) {
         fetch(`/api/update_confid?confid=${a}&nikname=${profile.nikname}`)
-        .then(res=>res.json())
-        .then(res=> {
-            let pro = JSON.parse(localStorage.getItem('profile'))
-            pro['confid'] = a 
-            localStorage.setItem("profile", JSON.stringify(pro))
-            dispatch(setprofile(pro))
-        })
+            .then(res => res.json())
+            .then(res => {
+                let pro = JSON.parse(localStorage.getItem('profile'))
+                pro['confid'] = a
+                localStorage.setItem("profile", JSON.stringify(pro))
+                dispatch(setprofile(pro))
+            })
     }
-    const uploadToServer = () => {        
-        let data = new FormData()       
-        const type = file_for_upload.name.split('.')[1]       
-        data.append('file', file_for_upload, `${profile.nikname}.${type}`) 
-        data.append('name', profile.nikname)              
+    const uploadToServer = () => {
+        let data = new FormData()
+        const type = file_for_upload.name.split('.')[1]
+        data.append('file', file_for_upload, `${profile.nikname}.${type}`)
+        data.append('name', profile.nikname)
         fetch('/api/replace_icon', {
             method: 'POST',
             body: data,
         })
-        .then(res => res.text())
-        .then(res=>console.log(res))       
+            .then(res => res.text())
+            .then(res => console.log(res))
         setSelectedFile(process.env.url_image + profile.nikname + '.jpg')
     }
     return (
         <>
-            <header className={styles.header}>             
+            <header className={styles.header}>
                 <button onClick={Return} style={{ color: color[1] }}>Отмена</button>
                 <span>{nikname}</span>
                 <button onClick={editMaster} style={{ color: color[1] }}>Принять</button>
             </header>
             <div className={styles.image} style={{ background: color[0] }}>
                 <span onClick={() => viewTemaBlock(true)}>Изменить обложку</span>
-                <form  className={styles.profile_image}>
+                <form className={styles.profile_image}>
                     <Image
-                        src={file? file : process.env.url_image + profile.nikname + '.jpg'}
+                        src={file ? file : process.env.url_image + profile.nikname + '.jpg'}
                         alt="фото"
                         style={{ transform: 'translate(0)' }}
                         title='заменить изображение'
@@ -190,22 +182,22 @@ export default function EditProfile() {
             </div>
             <p className={styles.name}>{profile.name || name || 'Ваше имя'}</p>
             <section className={styles.inputs}>
-                <h6>
+                <p>
                     <span>Публичная ссылка, никнейм</span>
                     <Link className={styles.change} href="/editnikname">Изменить</Link>
-                </h6>
+                </p>
                 <div className={styles.nikname}>
                     <span>masters.place/</span>
-                    <b>{nikname}</b>                    
+                    <b>{nikname}</b>
                 </div>
                 <label>
                     Имя и фамилия
                     <input style={{ fontSize: 14 }} type="text" value={name} placeholder='Ваше имя' onChange={(e) => setName(e.target.value)} />
                 </label>
-                <h6>
+                <p>
                     <span>Место приема клиентов</span>
-                    <span className={styles.change} onClick={() => setMasterAddress(true)}>Изменить</span>
-                </h6>
+                    <Link href="/editprofile/address" className={styles.change} >Изменить</Link>
+                </p>
                 <div className={styles.address}>
                     <span>{address}</span>
                 </div>
@@ -218,100 +210,17 @@ export default function EditProfile() {
                     Основная валюта
                     <button onClick={() => setCur(true)}>{currency}</button>
                 </div>
-                <div className={styles.tema} style={{ background: color[0] }}>                    
+                <div className={styles.tema} style={{ background: color[0] }}>
                     <button onClick={() => viewTemaBlock(true)}>Изменить</button>
                 </div>
-                { profile.confid ? 
-                    <div className={styles.confid_politic_false} onClick={()=>PoliticReplace(false)}/>
-                    :    
-                    <div className={styles.confid_politic_true} onClick={()=>PoliticReplace(true)}/>
-                }        
-                <div className={styles.connect_master} />               
+                {profile.confid ?
+                    <div className={styles.confid_politic_false} onClick={() => PoliticReplace(false)} />
+                    :
+                    <div className={styles.confid_politic_true} onClick={() => PoliticReplace(true)} />
+                }
+                <div className={styles.connect_master} />
             </section>
-            {master_address ? 
-                <div className={styles.submitProfile}>
-                <header className={styles.header}>
-                    <Image src={arrow} alt="back" onClick={() => setMasterAddress(false)} />
-                    <h4>Адрес приема клиентов</h4>
-                    <button onClick={() => set_View_Loc(true)}>Принять</button>
-                </header>
-               
-                <section className={styles.inputs}>
-                    <label>
-                       Выберите город
-                        <select value={city} defaultValue='Минск' className={styles.select} onChange={handleLocation}>
-                            {data?.map(i=><option key={i.city} value={i.city}>
-                                {i.city}
-                                </option>
-                            )}
-                            <option value={0}>Нет в списке</option>
-                        </select>
-                       
-                    </label>
-                    <label>
-                        Проспект, улица, переулок, тракт
-                        <input                           
-                            type="text" value={street}
-                            onChange={(e) => setstreet(e.target.value)}
-                            placeholder='улица Ленина или проспект Независимости'
-                        />
-                    </label>
-                    <label>
-                        Номер дома / корпус
-                        <input 
-                            type="text"
-                            value={address_full?.дом}
-                            onChange={(e) => setAddress_full({ ...address_full, ...{ 'дом': e.target.value } })}
-                        />
-                    </label>
-                    <label className={styles.radio}>
-                        Квартира
-                        <input type="radio" name="type_house" value="квартира"
-                            checked={address_full?.тип === "квартира"}
-                            onChange={SetAddressFull}
-                        />
-                    </label>
-                    <label className={styles.radio}>
-                        Частный дом
-                        <input type="radio" name="type_house" value="частный дом"
-                            checked={address_full?.тип === "частный дом"}
-                            onChange={SetAddressFull}
-                        />
-                    </label>
-                    <label className={styles.radio}>
-                        Комерческое помещение
-                        <input type="radio" name="type_house" value="комерческое помещение"
-                            checked={address_full?.тип === "комерческое помещение"}
-                            onChange={SetAddressFull}
-                        />
-                    </label>
-                    <label>
-                        Этаж
-                        <input  type="text" value={address_full?.этаж}
-                            onChange={(e) => setAddress_full({ ...address_full,'этаж': e.target.value })}
-                        />
-                    </label>
-                    <label>
-                        Номер квартиры
-                        <input  type="text" value={address_full?.квартира}
-                            onChange={(e) => setAddress_full({ ...address_full,'квартира': e.target.value })}
-                        />
-                    </label>
-                </section>
-                <div className={styles.place} >
-                    <button onClick={() => set_View_Loc(true)}>
-                        Выбрать локацию                                        
-                    </button>
-                </div>
-                {view_Loc ? <Location 
-                    nikname={nikname} 
-                    loc_master={location}                 
-                    close={set_View_Loc} 
-                    city = { city }
-                    address_total={address_full}
-                    place={city + ' , ' + street + ' , ' + address_full.дом}
-                /> : null}
-            </div> : null}
+           
             {tema ?
                 <div className={styles.main_tema}>
                     <div className={styles.select_tema}>
@@ -344,14 +253,14 @@ export default function EditProfile() {
                                     >
                                         {i}
                                     </span>
-                                    {index === 0 && <span className={styles.img_currency} style={{  color: currency === i ? '#fff' : '#000' }}>BYN</span>}
-                                    {index === 1 && <span className={styles.img_currency} style={{  color: currency === i ? '#fff' : '#000' }}>₽</span>}
-                                    {index === 2 && <span className={styles.img_currency} style={{  color: currency === i ? '#fff' : '#000' }}>₸</span>}
+                                    {index === 0 && <span className={styles.img_currency} style={{ color: currency === i ? '#fff' : '#000' }}>BYN</span>}
+                                    {index === 1 && <span className={styles.img_currency} style={{ color: currency === i ? '#fff' : '#000' }}>₽</span>}
+                                    {index === 2 && <span className={styles.img_currency} style={{ color: currency === i ? '#fff' : '#000' }}>₸</span>}
                                 </div>
                             )}
                         </div>
                     </div> : null}
-            
+
         </>
     )
 }

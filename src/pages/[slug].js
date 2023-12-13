@@ -30,10 +30,11 @@ export default function Master() {
     const [message, setmessage] = useState(false)
     const [nav_view, setNavView] = useState(10)
     const [color, setColor] = useState(my_tema[0].color)
-   
+
     const dispatch = useDispatch()
-    const my_profile = useSelector(state => state.counter.profile)
-    const service = useSelector(state => state.counter.service)
+   
+    const { my_profile, service } = useSelector(state => state.counter)
+   
 
     useEffect(() => {
         setNavView(0)
@@ -72,11 +73,11 @@ export default function Master() {
                 <section className={styles.section_main}>
                     {message ? <div className={styles.dialog}>
                         <div >
-                            <span onClick={() => setmessage(false)}/>
+                            <span onClick={() => setmessage(false)} />
                             <h4>
-                                Эта функция доступна пользователям, <br/> 
-                                зарегистрированным в качестве kлиента . <br/>
-                                Для продолжения войдите или зарегистрируйте <br/> аккаунт.
+                                Эта функция доступна пользователям, <br />
+                                зарегистрированным в качестве kлиента . <br />
+                                Для продолжения войдите или зарегистрируйте <br /> аккаунт.
                             </h4>
                             <Link href="/enter">Войти</Link>
                         </div>
@@ -85,18 +86,14 @@ export default function Master() {
                         <div onClick={() => LinkTo(`/chat/messages/${slug}?name=${profile.name}`)}
                             style={{ backgroundColor: color[1] }}
                         >
-
                             Сообщения
                             <Menu_icon type="chat" color={color[2]} />
-
                         </div>
                         <div onClick={() => LinkTo(`/recordingtomaster?nikname=${slug}&name=${profile.name}`)}
                             style={{ backgroundColor: color[1] }}
                         >
-
                             Запись к мастеру
                             <Menu_icon type="edit" color={color[2]} />
-
                         </div>
                     </div>
                     <nav className={styles.navigation}>
@@ -105,8 +102,8 @@ export default function Master() {
                     </nav>
                     {nav_view === 3 ? <Reviews nikname={slug} nav={nav_view} /> :
                         nav_view === 1 ? <Services currency={profile.currency} name={slug} color={color} nav={nav_view} /> :
-                        nav_view === 0 ? <Lenta nikname={slug} color={color} name={profile.name} /> :
-                        <Sertificats nav={nav_view} nikname={slug} />
+                            nav_view === 0 ? <Lenta nikname={slug} color={color} name={profile.name} /> :
+                                <Sertificats nav={nav_view} nikname={slug} />
                     }
                     <Information />
                 </section>

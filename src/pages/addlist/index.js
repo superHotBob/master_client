@@ -62,8 +62,7 @@ export default function AddList() {
    
 
 
-    async function Upload() {   
-       
+    async function Upload() {        
         if (!file_for_upload) return
         const prof = JSON.parse(localStorage.getItem('profile'))
         let res = await fetch('/api/add_image_to_base', {
@@ -71,7 +70,7 @@ export default function AddList() {
             body: JSON.stringify({
                 nikname: prof.nikname,
                 service: services__name[tag] ? services__name[tag] : 'all',
-                city: prof.city,
+                city: prof.state,
                 master_name: prof.name,
                 review: my_ref.current.value
             }),
@@ -89,14 +88,7 @@ export default function AddList() {
         })
         .then(res => res.text())
         .then(res=>setSelectedFile(''))                 
-        .catch(err => console.log(err))      
-        // fetch('/api/add_image_to_server', {
-        //     method: 'POST',
-        //     body: data,
-        // })
-        // .then(res => res.text())
-        // .then(res=>setSelectedFile(''))                 
-        // .catch(err => console.log(err))
+        .catch(err => console.log(err))       
     }
   
 

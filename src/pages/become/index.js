@@ -16,41 +16,41 @@ export default function Become() {
             <section className={styles.main_section}>
                 <h4>Подключение аккаунта мастера</h4>
                 <p>Шаг первый. Регистрация.</p>
-                <Image />
+                <img src="https://masters.place/images/my/400.jpg" alt="main"  />
                 <span>
                     Для начала нужно зарегестрироваться на платформе.
                     Сделать это можно через <b>кнопку входа</b> в нижнем меню.
                 </span>
-                <Image />
+                <img src="https://masters.place/images/my/401.jpg" alt="main"  />
                 <span>
                     Введите свой номер телефона, который будет логином
                     для последующих входов на платформу. Нажмите на
                     кнопку войти.
                 </span>
-                <Image />
+                <img src="https://masters.place/images/my/402.jpg" alt="main"  />
                 <span>
                     После нажатия на вход, на ваш номер телефона
                     позвонит системный номер телефона, последние четыре
                     цифры которого нужно будет ввести в поле для ввода и
                     нажать подтвердить.
                 </span>
-                <Image />
+                <img src="https://masters.place/images/my/403.jpg" alt="main"  />
                 <span>
                     Придумайте пароль и продублируйте его во второй
                     строке, нажмите завершить регистрацию!
                 </span>
                 <p>Шаг второй. Подключение мастера.</p>
-                <Image />
+                <img src="https://masters.place/images/my/404.jpg" alt="main"  />
                 <span>
                     После завершения регистрации откройте меню в правом
                     верхнем углу, что бы активировать профиль мастера.
                 </span>
-                <image />
+                <img src="https://masters.place/images/my/405.jpg" alt="main"  />
                 <span>
                     В меню профиля вы увидите пункт для подключения
                     аккаунта мастера, нажмите кнопку подключить.
                 </span>
-                <Image />
+                <img src="https://masters.place/images/my/406.jpg" alt="main"  />
                 <span>
                     После подключения аккаунта мастера у вас открются
                     дополнительные пункты настройки. Вы сможете
@@ -58,12 +58,12 @@ export default function Become() {
                     стоимости ваших услуг и унифицировать свой профиль.
                 </span>
                 <p>Шаг третий. Настройка профиля.</p>
-                <Image />
+                <img src="https://masters.place/images/my/407.jpg" alt="main"  />
                 <span>
                     Что бы настроить место приема клиентов -
                     нажмите на “Изменить” в соотвествующем пункте.
                 </span>
-                <Image />
+                <img src="https://masters.place/images/my/408.jpg" alt="main"  />
                 <span>
                     После заполнения всех полей нажмити кнопку
                     в правом верхнем углу - применить,
@@ -75,6 +75,7 @@ export default function Become() {
                     услуг и время приема на сеансы
                     на странице вашего профиля.
                 </span>
+                <button>Заполнение профиля мастера</button>
             </section>
         </>
     )

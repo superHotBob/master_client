@@ -4,11 +4,14 @@ const { Client } = require('pg')
 export default async function handler(req, res) { 
   const client = new Client(process.env.pg_data)
   await client.connect();
-  const { rows } = await client.query( `
-    SELECT city, country, state  
+  const { my_city } = req.query.city
+  const { rows } = await client.query(`
+    SELECT city,country,state 
     FROM city 
-    WHERE  LOWER (city)  like $1 and state like $2
-    ORDER by city `,[req.query.city + '%', req.query.mystate + '%'])  
+    where city LIKE $1  
+    order by city 
+    `,[my_city]) 
+
   await client.end()  
   return res.json(rows)  
 }
