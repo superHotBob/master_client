@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux'
 import React, { useState, useEffect } from 'react'
 import { YMap, Map, Placemark, Clusterer, useYMaps } from '@pbe/react-yandex-maps'
 import styles from '../../pages/masternear/city/near.module.css'
-import useSWR from 'swr'
+
 
 
 export default function MapComponent({ setRadius, setzoom, divHeight }) {
@@ -32,8 +32,7 @@ export default function MapComponent({ setRadius, setzoom, divHeight }) {
         "geoQuery"
     ])
 
-    //const { data: masters, mutate } = useSWR(`/api/all_masters_city?city=${my_city.toLowerCase()}&service=${service}`)
-    // const { data: masters } = useSWR(`/api/get_masters_coord?coord=${coord}&service=${service}`)
+  
 
     // useEffect(() => {
     //     setMapHeight(window.innerHeight - 300)
@@ -58,15 +57,13 @@ export default function MapComponent({ setRadius, setzoom, divHeight }) {
 
     }, [])
 
-    // useEffect(() => {
-    //     setZoom(my_zoom)
-
-    // }, [my_zoom, coord])
+   
 
 
 
     function OnLoadMap() {
         const bounds = Map.current.getBounds()
+        console.log(bounds.map(i=>parseFloat(i)))
         const coord = bounds.flat().map(i => +i.toFixed(4))
         fetch(`/api/get_masters_coord?coord=${coord}&service=${service}`)
             .then(res => res.json())
@@ -81,22 +78,24 @@ export default function MapComponent({ setRadius, setzoom, divHeight }) {
             document.getElementById('my_map').style.opacity = '1';
         }, 500)
 
+        Map.current.events.add('actionend', function () {
+            let bounds = Map.current.getBounds();
+            let zoom = Map.current.getZoom();
+            const coord = bounds.flat().map(i => +i.toFixed(4))
+            const center = Map.current.getCenter()
+            fetch(`/api/get_masters_coord?coord=${coord}&service=${service}`)
+            .then(res => res.json())
+            .then(res => setmasters(res))  
+            setZoom(zoom)
+            let radius = ymaps.coordSystem.geo.getDistance(center, bounds[1])/1.2
+            setRadius(Math.ceil(radius.toFixed(0) / 1000))
+            console.log('Сейчас карта переместится в точку ', zoom, radius)
+               
+        });
+
     }
 
-    // function filter_all_masters() {
-    //     let coord = Map.current.getBounds()       
-    //     // let new_masters = [...masters]
-    //     //     .filter(i => { return coord[1][1] - i.locations[1] > 0 })
-    //     //     .filter(i => { return coord[0][1] - i.locations[1] < 0 })
-    //     //     .filter(i => { return coord[1][0] - i.locations[0] > 0 })
-    //     //     .filter(i => { return coord[0][0] - i.locations[0] < 0 })
-    //     // setFilterMasters(new_masters)
-    //     // selectMaster(new_masters)
-
-    //     const center = Map.current.getCenter()
-    //     let radius = ymaps.coordSystem.geo.getDistance(center, coord[1])
-    //     setRadius(Math.ceil(radius.toFixed(0) / 1000))
-    // }
+    
     async function SetFilterCluster() {
         // if () {
             setzoom(17)
@@ -140,10 +139,12 @@ export default function MapComponent({ setRadius, setzoom, divHeight }) {
 
     const getRadius = async (a) => {
         // const geo = await ymaps.geoQuery(ymaps.geocode('Минск')).getLength()
-        // var myGeocoder = ymaps.geocode('МИнск');
-        // // var geocoder = await ymaps.geocode(await ymaps.GeoPoint(37.588395, 55.762718), {results: 1});
+       
+        // const  myGeocoder = ymaps.geocode('Минск');
+        // console.log(myGeocoder)
+        // // // var geocoder = await ymaps.geocode(await ymaps.GeoPoint(37.588395, 55.762718), {results: 1});
 
-        // console.log(geo)
+        // // console.log(geo)
         // myGeocoder.then(
         //     function (res) {
         //         console.log('Координаты объекта :' + res.geoObjects.get(0).geometry.getCoordinates());
@@ -159,21 +160,22 @@ export default function MapComponent({ setRadius, setzoom, divHeight }) {
         setzoom(Map.current.getZoom())
         if (Map.current) {
            
-            const center = Map.current.getCenter()
-            const zoom = Map.current.getZoom()           
-            setZoom(zoom)
-            const bounds = Map.current.getBounds()
-            const coord = bounds.flat().map(i => +i.toFixed(4))
-            fetch(`/api/get_masters_coord?coord=${coord}&service=${service}`)
-            .then(res => res.json())
-            .then(res => setmasters(res))  
-            let radius = ymaps.coordSystem.geo.getDistance(center, bounds[1]) / 1.2
-            console.log('radius', Math.ceil(radius.toFixed(0) / 1000))
-            setRadius(Math.ceil(radius.toFixed(0) / 1000))
+            // const center = Map.current.getCenter()
+            // const zoom = Map.current.getZoom()           
+            // setZoom(zoom)
+            // const bounds = Map.current.getBounds()
+            // const coord = bounds.flat().map(i => +i.toFixed(4))
+            // fetch(`/api/get_masters_coord?coord=${coord}&service=${service}`)
+            // .then(res => res.json())
+            // .then(res => setmasters(res))  
+            // let radius = ymaps.coordSystem.geo.getDistance(center, bounds[1]) / 1.2
+            // console.log('radius', Math.ceil(radius.toFixed(0) / 1000))
+            // setRadius(Math.ceil(radius.toFixed(0) / 1000))
         }
         SetFilterCluster()
     }
     function Bob() { setzoom(16) }
+
     async function getAddress(a) {
         const geocoder = ymaps.geocode(a.map(i => +i));
         geocoder.then(
@@ -217,7 +219,7 @@ export default function MapComponent({ setRadius, setzoom, divHeight }) {
                 state={{
                     center: center,
                     zoom: zoom,
-                    behaviors: ["default", "scrollZoom", "multiTouch", "drag"]
+                    behaviors: ["default"]
                 }}
                 width="100%"
                 height={mapHeight}
@@ -248,7 +250,7 @@ export default function MapComponent({ setRadius, setzoom, divHeight }) {
                     onClick={(event) => {
                         SetFilterCluster()
                         event.stopPropagation()
-                        setZoom(15)
+                        // setZoom(15)
                         setMapHeight(window.innerWidth > 500 ? '400px' : '350px')
                     }}
 

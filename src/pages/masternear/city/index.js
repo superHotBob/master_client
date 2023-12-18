@@ -1,5 +1,4 @@
 import Header from '@/components/header'
-import Image from 'next/image'
 import Link from 'next/link'
 import styles from './near.module.css'
 import { useSelector } from 'react-redux'
@@ -13,38 +12,31 @@ import MapComponent from '@/components/map'
 const sel = {
     background: 'linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)',
     color: '#fff',
-    fontWeight: 600
+    fontWeight: 500
 }
 
 const API_KEY = "89caab37-749d-4e30-8fdf-e8045542f060"
 
 export default function MasterNear() {
     const { service, mystate } = useSelector((state) => state.counter)
-    
+
     const [viewRange, setViewRange] = useState(false)
     const [zoom, setZoom] = useState(11)
-  
-   
-
     const [radius, setRadius] = useState(10)
     const [mapHeight, setMapHeight] = useState()
-   
-   
 
 
-    useEffect(() => {        
+    useEffect(() => {
         setMapHeight(window.innerHeight - document.getElementById('my_map').getBoundingClientRect().top)
     }, [])
 
     return (
-        <div className={styles.main_city}>
-            <Header sel="/catalog" text="Мастера рядом " />
-            <div className={styles.message}>
-                <Message page="masternear" text='Masters.place позволяет познакомиться  с 
-                    мастерами вашего города. Для этого нужно выбрать 
-                    ваш город, что бы увидеть список мастеров.
-                ' />
-            </div>
+        <>
+            <Header sel="/catalog" text="Мастера рядом" />
+            <Message page="masternear" text='Masters.place позволяет познакомиться  с 
+                мастерами вашего города. Для этого нужно выбрать 
+                ваш город, что бы увидеть список мастеров.
+            ' />
             <Link className={styles.city} href='/states'>{mystate}</Link>
             <div className={styles.selector}>
                 <Link href={`/masternear/${service}`}>Список</Link>
@@ -66,8 +58,8 @@ export default function MasterNear() {
                         min="1"
                         max="11"
                         onChange={e => {
-                           setZoom(20 - e.target.value),
-                           setRadius(e.target.value)
+                            setZoom(20 - e.target.value),
+                                setRadius(e.target.value)
                         }}
                     />
 
@@ -77,14 +69,14 @@ export default function MasterNear() {
                 <YMaps query={{ apikey: API_KEY }}>
                     {mapHeight &&
                         <MapComponent
-                            setRadius={setRadius}                                            
-                            my_zoom={zoom}                       
+                            setRadius={setRadius}
+                            my_zoom={zoom}
                             setzoom={setZoom}
                             divHeight={mapHeight}
                         />
                     }
-                </YMaps>               
+                </YMaps>
             </div>
-        </div>
+        </>
     )
 }

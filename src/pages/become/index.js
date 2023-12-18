@@ -2,6 +2,7 @@ import Image from 'next/image'
 import arrow from '../../../public/arrow_back_bold.svg'
 import styles from './become.module.css'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 
 export default function Become() {
@@ -75,7 +76,7 @@ export default function Become() {
                     услуг и время приема на сеансы
                     на странице вашего профиля.
                 </span>
-                <button>Заполнение профиля мастера</button>
+                <Link href="/filling">Заполнение профиля мастера</Link>
             </section>
         </>
     )

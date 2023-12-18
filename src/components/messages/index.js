@@ -6,8 +6,8 @@ export default function Messages({ phone,name,close, nikname,text }) {
             <article className={styles.central_message}>
                 <Image                   
                     src='/close.svg' 
-                    height={12} 
-                    width={12} 
+                    height={10} 
+                    width={10} 
                     alt='close'
                     onClick={()=>close('')} 
                 />

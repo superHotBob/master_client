@@ -84,11 +84,9 @@ export default function EditPatern() {
 
     }
     return (
-        <main className={styles.mainnew}>
+        <>
             <header className={styles.header} >
-
                 <Menu_icon type="arrow_button" color="#000" />
-
                 <h4>Шаблон времени</h4>
                 <span onClick={SavePatern}>Сохранить</span>
             </header>
@@ -155,6 +153,6 @@ export default function EditPatern() {
 
 
             {message ? <Messages text={message} close={setMessage} /> : null}
-        </main>
+        </>
     )
 }

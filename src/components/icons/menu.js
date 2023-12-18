@@ -31,7 +31,7 @@ export default function Menu_icon({ color, type, setView }) {
             <circle cx="14" cy="10.5" r="0.5" fill={color} stroke={color} strokeWidth="1.25" />
         </svg>
     } else if (type === 'close__message') {
-        return <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        return <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M1 13L13 1" stroke={color} strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
             <path d="M13 13L1 1" stroke={color} strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
         </svg>

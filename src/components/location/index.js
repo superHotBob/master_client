@@ -29,7 +29,13 @@ function Mymap({ loc_master, place, address_total, nikname }) {
         document.getElementsByClassName('ymaps-2-1-79-copyright')[0].style.display = 'none'
         document.getElementsByClassName('ymaps-2-1-79-gotoymaps')[0].style.display = 'none'
         getCoord(place)
-        console.log('place',place)
+        Map.current.events.add('actionend', function () {
+            let tick = Map.current.getBounds();
+            let center = Map.current.getCenter();
+
+            console.log('Сейчас карта переместится в точку ',tick, center.map((i)=>i.toFixed(4)))
+               
+        });
     }
     function updateLocation(a,b) {
         let { nikname } = JSON.parse(localStorage.getItem('profile'))
@@ -53,6 +59,7 @@ function Mymap({ loc_master, place, address_total, nikname }) {
         .then(res => res.json())
         .then(res=>localStorage.setItem("profile", JSON.stringify(res)))
     }  
+  
     function getCoord(place) {
         if (!place) {
             return;
@@ -123,7 +130,7 @@ function Mymap({ loc_master, place, address_total, nikname }) {
                     center: location,
                     zoom:  13,
                     controls: [],
-                    behaviors: ["default", "scrollZoom", "multiTouch", "drag", "onclick"]
+                    behaviors: ["default"]
                 }}
                 width='100%'
                 height="85vh"

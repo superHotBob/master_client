@@ -1,20 +1,11 @@
-.main_city {
-  min-height: 100vh;  
-}
+
 .message {
   width: calc(100% - 32px);
   margin: 16px auto 0;
 }
-.city {
-  color: hsl(234, 80%, 58%);
-  margin: 16px auto 24px;
-  cursor: pointer;
-  display: inline;
-  margin: 16px auto;
-  display: block;
-  width: calc(100% - 32px);
-  font-weight: 600;
-  font-size: 22px;
+.city {  
+  margin: 16px auto;  
+  width: calc(100% - 32px); 
 }
 
 .selector {
@@ -282,26 +273,36 @@
   width: 90%;
   margin: 15px auto 30px;
   display: block;
+  appearance: none;
 }
 
 .range::-webkit-slider-runnable-track {
   width: 100%;
-  height: 15px;
+  height: 16px;
   background-color: #8B95F2;
-  border-radius: 2px;
+  border-radius: 5px;
 }
 input[type=range].range::-moz-range-thumb {
   background: #3D4EEA;
- 
-  border-radius: 0px;
+  width: 6px;
+  border-radius: 2px;
   cursor: pointer;  
 }
 
 input[type=range].range::-webkit-slider-thumb  {
   -webkit-appearance: none;
   background: #3D4EEA;
-  border-radius: 0px;
+  border-radius: 2px;
   cursor: pointer;  
+  width: 6px;
+}
+input[type=range].range::-webkit-slider-thumb::after,
+input[type=range].range::-moz-range-thumb,
+input[type=range].range::-ms-thumb {
+display: block;
+width: 100%;
+height: 15px;
+background-color: #000;
 }
 input[type=range].range::-ms-thumb {
   box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;

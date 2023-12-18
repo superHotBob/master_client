@@ -19,14 +19,14 @@ export default function Calendar({ profile }) {
     const router = useRouter()
     const pro = useSelector(state => state.counter.profile)
 
-   
+
 
     const days = ["пн", "вт", "ср", "чт", "пт", "сб", "вс"]
     const months = ['Декабрь', 'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'].map(i => i.toLowerCase())
-  
+
 
     const d = new Date()
-   
+
     const mon = d.getMonth()
 
     const [month, setMonth] = useState(mon)
@@ -50,18 +50,19 @@ export default function Calendar({ profile }) {
     const day = new Date(year, curmonth - 1, 1)
     let v = days.indexOf(days[day.getDay() - 1]) === -1 ? 6 : days.indexOf(days[day.getDay() - 1])
 
-    const { data: old_patern} = useSWR(pro.nikname ?  `/api/get_patern?nikname=${pro.nikname}` : null,
+    const { data: old_patern } = useSWR(pro.nikname ? `/api/get_patern?nikname=${pro.nikname}` : null,
         {
             onSuccess: (old_patern) => {
-            setPatern(old_patern)
-        }}
+                setPatern(old_patern)
+            }
+        }
     )
 
 
     function getOrders(a) {
         fetch(`/api/get_master_orders?nikname=${pro.nikname}&month=${a}&${year}`)
-        .then(res => res.json())
-        .then(res => setOrders(res))
+            .then(res => res.json())
+            .then(res => setOrders(res))
     }
 
     // function getPatern(a) {
@@ -70,17 +71,17 @@ export default function Calendar({ profile }) {
     //     .then(res => setPatern(res))
     // }
 
-    useEffect(() => {        
+    useEffect(() => {
         if (!pro.nikname) {
             router.push('/')
             return;
         }
-        
+
         // getPatern(pro.nikname)
 
     }, [])
     useEffect(() => {
-      
+
         if (!pro) {
             router.push('/')
             return;
@@ -162,7 +163,7 @@ export default function Calendar({ profile }) {
     }
     function setActiveDay(e) {
         let day_orders = orders.filter(i => i[0] === e.target.id).map(i => i[2])
-        setTimeOrders(day_orders)       
+        setTimeOrders(day_orders)
         if (monthSchedule[e.target.id - 1]) {
             let old_patern = monthSchedule[e.target.id - 1].split(',')
             const edit_patern = [...patern]
@@ -187,7 +188,7 @@ export default function Calendar({ profile }) {
             setcurmonth(curmonth == 1 ? 12 : curmonth - 1)
         }
     }
-   
+
 
 
     return <>
@@ -197,14 +198,12 @@ export default function Calendar({ profile }) {
                 <h4>Календарь работы</h4>
                 <span onClick={SaveSchedule}>Сохранить</span>
             </header>
+            <Message page="calendar" text='Выбирайте дни и время, вы которые вы готовы
+                принимать клиентов. При записи клиент  сможет
+                выбрать только те дни и время, которые 
+                вы указали рабочим.'
+            />
             <section className={styles.section}>
-                <Message page="calendar" text='Выбирайте дни и время, вы которые вы готовы
-                        принимать клиентов. При записи клиент  сможет
-                        выбрать только те дни и время, которые 
-                        вы указали рабочим.
-                    '
-                />
-               
                 <div className={styles.month}>
                     <button onClick={() => set(-1)} >
                         {my_months[curmonth - 1]}

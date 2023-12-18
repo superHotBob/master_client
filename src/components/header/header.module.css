@@ -38,18 +38,14 @@
   }
   .header div:last-of-type, .call, .image_master, .left__arrow {
     vertical-align: middle;
-    height: 38px;   
-    display: inline-block;    
-    width: 40px;
-    /* padding: 11px 10px; */
+    height: 40px;  
+    width: 40px;    
     text-align: center;
     line-height: 18px;
     background: #ECEEFD;
     border-radius: 100%;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+   
   }
   .left__arrow {
     display: flex;

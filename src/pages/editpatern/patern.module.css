@@ -28,7 +28,7 @@
     align-items: center;
     font-weight: 400;
     font-size: 16px;
-    margin-bottom: 16px;
+    margin: 0 16px 16px;
 }
 
 .header span {
@@ -48,6 +48,7 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    margin: 0 16px;
     
 }
 
