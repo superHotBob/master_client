@@ -56,7 +56,8 @@ export default function Address() {
                 <label>
                     Введите город
                     <input
-                        type="text" value={city}
+                        type="text" 
+                        value={city}
                         className={styles.city}
                         onChange={(e) => setCity(e.target.value)}
                         placeholder='например Минск, Ростов , Москва'

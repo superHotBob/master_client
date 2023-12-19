@@ -8,8 +8,8 @@ import icon_close from '../../../public/close.svg'
 
 const API_KEY = "89caab37-749d-4e30-8fdf-e8045542f060"
 
-function Mymap({ loc_master, place, address_total, nikname }) {   
-    const { city: mycity,  mystate } = useSelector(state => state.counter)
+function Mymap({ loc_master, place, address_total, nikname, city }) {   
+    const {  mystate } = useSelector(state => state.counter)
     const [location, setLoc] = useState(loc_master)
     const [address , setaddress] = useState()
    
@@ -48,7 +48,7 @@ function Mymap({ loc_master, place, address_total, nikname }) {
                 nikname: nikname,
                 locations: a,
                 address: b,
-                city: mycity.toLowerCase(),
+                city: city.toLowerCase(),
                 state: mystate.toLowerCase(),
                 address_full: address_total
             }),

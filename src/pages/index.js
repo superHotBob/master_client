@@ -11,7 +11,7 @@ import Head from 'next/head'
 
 
 export default function Home() {
-  const { service, mystate, city } = useSelector(state => state.counter)
+  const { service, mystate } = useSelector(state => state.counter)
   const [view_image, viewImage] = useState(false)
   const [data, setdata] = useState({})
 
@@ -28,7 +28,7 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {           
+  useEffect(() => {
     if (ref.current.getBoundingClientRect().bottom.toFixed(0) < window.innerHeight) {
       setview(3)
       view_ref.current = view_ref.current + 1
@@ -41,7 +41,7 @@ export default function Home() {
     if (servref.current != service) {
       setdata([])
       servref.current = service
-    }   
+    }
     fetch(`/api/get_images_master_city?service=${service}&city=${mystate.toLowerCase()}`)
       .then(res => res.json())
       .then(res => {
@@ -51,7 +51,7 @@ export default function Home() {
           return;
         }
       })
-   
+
   }, [service])
 
 
@@ -71,70 +71,71 @@ export default function Home() {
     }
   }
 
-  return (<>
-    <Head>
-      <title>Лучшие мастера маникюра , причёски, макияжа , массажа и др.  рядом с вами</title>
-    </Head>
-    <section className={styles.section} >
+  return (
+    <>
+      <Head>
+        <title>Лучшие мастера маникюра , причёски, макияжа , массажа и др.  рядом с вами</title>
+      </Head>
       <Message page="main" text='Masters.place показывает самые крутые и 
             актуальные работы мастеров в вашем городе. 
             Вы можете выбрать понравившуюся работу и 
             написать мастеру !'
       />
-      <CitySelect city={mystate} />
-      <FilterServices />
-      <div className={styles.images} id="myDiv" ref={ref} onClick={viewNewImage} >
-        <div className={styles.images_one}>
-          {data['one']?.map((i, index) =>
-            <Fragment key={i.id}>
-              {index < view ? <Image
-                alt="Изображение мастера"
-                id={JSON.stringify(i)}
-                loading='lazy'
-                src={process.env.url_image + i.id + '.jpg'}
-                title={i.master_name}
-                sizes="100vw"
-                style={{
-                  width: '100%',
-                  height: 'auto',
-                }}
-                width={500}
-                height={300}
-              /> : null}
-            </Fragment>
-          )}
+      <section className={styles.section} >
+        <CitySelect city={mystate} />
+        <FilterServices />
+        <div className={styles.images} id="myDiv" ref={ref} onClick={viewNewImage} >
+          <div className={styles.images_one}>
+            {data['one']?.map((i, index) =>
+              <Fragment key={i.id}>
+                {index < view ? <Image
+                  alt="Изображение мастера"
+                  id={JSON.stringify(i)}
+                  loading='lazy'
+                  src={process.env.url_image + i.id + '.jpg'}
+                  title={i.master_name}
+                  sizes="100vw"
+                  style={{
+                    width: '100%',
+                    height: 'auto',
+                  }}
+                  width={500}
+                  height={300}
+                /> : null}
+              </Fragment>
+            )}
+          </div>
+          <div className={styles.images_one}>
+            {data['two']?.map((i, index) =>
+              <Fragment key={i.id}>
+                {index < view ? <Image
+                  alt="Изображение мастера"
+                  key={i.id}
+                  id={JSON.stringify(i)}
+                  loading='lazy'
+                  src={process.env.url_image + i.id + '.jpg'}
+                  title={i.master_name}
+                  sizes="100vw"
+                  style={{
+                    width: '100%',
+                    height: 'auto',
+                  }}
+                  width={500}
+                  height={300}
+                /> : null}
+              </Fragment>
+            )}
+          </div>
         </div>
-        <div className={styles.images_one}>
-          {data['two']?.map((i, index) =>
-            <Fragment key={i.id}>
-              {index < view ? <Image
-                alt="Изображение мастера"
-                key={i.id}
-                id={JSON.stringify(i)}
-                loading='lazy'
-                src={process.env.url_image + i.id + '.jpg'}
-                title={i.master_name}
-                sizes="100vw"
-                style={{
-                  width: '100%',
-                  height: 'auto',
-                }}
-                width={500}
-                height={300}
-              /> : null}
-            </Fragment>
-          )}
-        </div>
-      </div>
-    </section>
-    {view_image &&
-      <ViewImage
-        service={service}
-        view_image={view_image}
-        viewImage={viewImage}
-      />
-    }
-  </>
+      </section>
+      {view_image &&
+        <ViewImage
+          service={service}
+          view_image={view_image}
+          viewImage={viewImage}
+        />
+      }
+    </>
 
 
   )

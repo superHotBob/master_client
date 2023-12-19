@@ -8,7 +8,7 @@
   width: calc(100% - 32px); 
 }
 
-.selector {
+/* .selector {
   font-weight: 500;
   font-size: 14px;
   line-height: 17px;
@@ -17,17 +17,19 @@
   align-items: center;
   padding: 10px;
   height: 27px;
-}
-.selector a {
-  width: 47%;
+} */
+.selector_one, .selector_two {
+  width: calc(50% - 16px);
   display: inline-block;
   padding: 5px 0;
   text-align: center;
   color: #000;
-  border-radius: 4px;
-  padding: 5px;
+  border-radius: 4px; 
   text-align: center;
   cursor: pointer;
+}
+.selector_one{
+  margin-left: 16px;
 }
 .master {
   background-color: #FFFFFF; 

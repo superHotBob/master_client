@@ -38,10 +38,8 @@ export default function MasterNear() {
                 ваш город, что бы увидеть список мастеров.
             ' />
             <Link className={styles.city} href='/states'>{mystate}</Link>
-            <div className={styles.selector}>
-                <Link href={`/masternear/${service}`}>Список</Link>
-                <Link href="/masternear/city" style={sel}>На карте</Link>
-            </div>
+            <Link className={styles.selector_one} href={`/masternear/${service}`}>Список</Link>
+            <Link className={styles.selector_two} href="/masternear/city" style={sel}>На карте</Link>
             <div className={styles.main__filter}>
                 {viewRange ? null : <>
                     <span>Мастера в радиусе {radius} км</span>

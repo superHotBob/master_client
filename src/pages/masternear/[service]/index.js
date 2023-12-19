@@ -15,6 +15,7 @@ const sel = {
     background: 'linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)',
     color: '#fff',
     fontWeight: 500
+   
 }
 export default function MasterNear() {
 
@@ -41,10 +42,9 @@ export default function MasterNear() {
                 ваш город, что бы увидеть список мастеров.'
             />
             <Link className={styles.city} href='/states'>{mystate}</Link>
-            <div className={styles.selector}>
-                <Link href={`/masternear/${service}`} style={sel}>Список</Link>
-                <Link href="/masternear/city" >На карте</Link>
-            </div>
+            <Link className={styles.selector_one} href={`/masternear/${service}`} style={sel}>Список</Link>
+            <Link className={styles.selector_two} href="/masternear/city" >На карте</Link>
+
             <section className={styles.section} >
                 <FilterServices />
                 {data?.map(i =>

@@ -27,9 +27,7 @@ export default function City() {
         dispatch(setlocation([lat, lon]))
         router.back()
     }
-    // useEffect(() => {
-    //     data?.filter(i => i.city.includes(findcity))
-    // }, [findcity])
+  
 
     return (
         <>

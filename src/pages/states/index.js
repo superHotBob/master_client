@@ -14,7 +14,7 @@ export default function City() {
     const router = useRouter()
     const dispatch = useDispatch()
 
-    const { data } = useSWR(`/api/get_states?state=${findcity}`)
+    const { data } = useSWR(`/api/get_states?state=${findcity.toLowerCase()}`)
 
 
     async function setMyCity() {       
@@ -22,13 +22,6 @@ export default function City() {
         dispatch(setlocation([place.lat, place.lon]))       
         router.back()
     }
-    // useEffect(() => {
-    //     data?.filter(i => i.state.includes(findcity))
-    // }, [findcity])
-
-
-
-
     return (
         <>
             <header className={styles.header}>
