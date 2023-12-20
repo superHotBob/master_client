@@ -45,7 +45,7 @@ export default function MasterNear() {
             <Link className={styles.selector_one} href={`/masternear/${service}`} style={sel}>Список</Link>
             <Link className={styles.selector_two} href="/masternear/city" >На карте</Link>
 
-            <section className={styles.section} >
+            {/* <section className={styles.section} > */}
                 <FilterServices />
                 {data?.map(i =>
                     <Link key={i.name} className={styles.master} href={'/' + i.nikname}>
@@ -63,7 +63,7 @@ export default function MasterNear() {
                 )}
                 {isLoading ? <p className={styles.message__await}>Загружаем мастеров...</p> : null}
                 {error ? <p className={styles.message__await}>Ошибка загрузки мастеров...</p> : null}
-            </section>
+            {/* </section> */}
         </>
     )
 }
