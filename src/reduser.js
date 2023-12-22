@@ -2,8 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   city: 'Минск',
-  password: null,
-  client: '',
+  password: null, 
   date_order:'',
   master: '',
   nikname:'',
@@ -42,16 +41,12 @@ export const counterSlice = createSlice({
     setservice: (state,action) => {
       state.service = action.payload
     },
-    setlocation: (state,action) =>{
-      console.log(action.payload)
+    setlocation: (state,action) =>{      
       state.location = action.payload
     },
     setprofile: (state,action) => {
       state.profile = Object.assign({},action.payload)
-    },
-    setclient: (state, action) => {
-      state.client = action.payload
-    },
+    },  
     setpassword: (state, action) => {
       state.password = action.payload
     },

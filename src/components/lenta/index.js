@@ -1,13 +1,13 @@
 import styles from './lenta.module.css'
 import Link from 'next/link'
 import Image from 'next/image'
-import arrow_down from '../../../public/arrow_down.svg'
 import { useSelector } from 'react-redux'
 import { useState } from 'react'
 import useSWR from 'swr'
 import ViewImage from '../viewimage'
 import { My_Date } from '@/profile'
 import Messages from '../messages'
+import { getImage } from '@/data.'
 
 export default function Lenta({ color, nikname, name }) {
 
@@ -39,22 +39,19 @@ export default function Lenta({ color, nikname, name }) {
         })
     }
     const ViewImageClick = (a) => {
-        const rating = document.getElementById(a.id).height/document.getElementById(a.id).width
-        console.log(rating)
+        const rating = document.getElementById(a.id).height/document.getElementById(a.id).width       
         viewImage({
             name: a.nikname,
-            image: process.env.url_image + a.id + '.jpg',
+            image: getImage(a.id),
             master_name: name,
             date: a.img_date,
             text: a.review,
             service: a.service,
             rating: rating.toFixed(2)
-        })
-        
+        })        
     }
 
     return <>
-
         {events?.length ? 
             <div onClick={() => setViewText(true)} className={styles.model} style={{ background: color[1] }}>
                 <h3>Нужна модель</h3>
@@ -69,7 +66,7 @@ export default function Lenta({ color, nikname, name }) {
                     <div key={i.id}>
                         <img alt="image" 
                             onClick={() => ViewImageClick(i)}
-                            src={process.env.url_image + i.id + '.jpg'} 
+                            src={getImage(i.id)} 
                             id={i.id}
                         />
                         {profile.status === 'client' ?
@@ -85,7 +82,7 @@ export default function Lenta({ color, nikname, name }) {
                     <div key={i.id}>
                         <img alt="image" 
                             onClick={() => ViewImageClick(i)}
-                            src={process.env.url_image + i.id + '.jpg'} 
+                            src={getImage(i.id)} 
                             id={i.id}
                         />
                         {profile.status === 'client' ?

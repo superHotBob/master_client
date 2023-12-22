@@ -5,6 +5,7 @@ import FilterServices from '@/components/filterServices'
 import Message from '@/components/message'
 import ViewImage from '@/components/viewimage'
 import CitySelect from '@/components/city'
+import  { getImage } from  '../data.'
 import Image from 'next/image'
 import Head from 'next/head'
 
@@ -92,7 +93,7 @@ export default function Home() {
                   alt="Изображение мастера"
                   id={JSON.stringify(i)}
                   loading='lazy'
-                  src={process.env.url_image + i.id + '.jpg'}
+                  src={getImage(i.id)}
                   title={i.master_name}
                   sizes="100vw"
                   style={{
@@ -113,7 +114,7 @@ export default function Home() {
                   key={i.id}
                   id={JSON.stringify(i)}
                   loading='lazy'
-                  src={process.env.url_image + i.id + '.jpg'}
+                  src={getImage(i.id)}
                   title={i.master_name}
                   sizes="100vw"
                   style={{

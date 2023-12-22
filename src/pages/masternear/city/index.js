@@ -12,13 +12,14 @@ import MapComponent from '@/components/map'
 const sel = {
     background: 'linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)',
     color: '#fff',
-    fontWeight: 500
+    fontWeight: 500,
+    cursor: 'default'
 }
 
 const API_KEY = "89caab37-749d-4e30-8fdf-e8045542f060"
 
 export default function MasterNear() {
-    const { service, mystate } = useSelector((state) => state.counter)
+    const { service, mystate } = useSelector(state => state.counter)
 
     const [viewRange, setViewRange] = useState(false)
     const [zoom, setZoom] = useState(11)
@@ -37,11 +38,13 @@ export default function MasterNear() {
                 мастерами вашего города. Для этого нужно выбрать 
                 ваш город, что бы увидеть список мастеров.
             ' />
-            <Link className={styles.city} href='/states'>{mystate}</Link>
+            <Link className={styles.city} href='/states'>
+                {mystate?.charAt(0).toUpperCase() + mystate?.slice(1)}
+            </Link>
             <Link className={styles.selector_one} href={`/masternear/${service}`}>Список</Link>
-            <Link className={styles.selector_two} href="/masternear/city" style={sel}>На карте</Link>
+            <span className={styles.selector_two} style={sel}>На карте</span>
             <div className={styles.main__filter}>
-                {viewRange ? null : <>
+                {!viewRange && <>
                     <span>Мастера в радиусе {radius} км</span>
                     <span onClick={() => setViewRange(true)}>радиус поиска</span>
                 </>}
@@ -57,7 +60,7 @@ export default function MasterNear() {
                         max="11"
                         onChange={e => {
                             setZoom(20 - e.target.value),
-                                setRadius(e.target.value)
+                            setRadius(e.target.value)
                         }}
                     />
 

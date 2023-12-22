@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import React, { useState, useEffect } from 'react'
 import { YMap, Map, Placemark, Clusterer, useYMaps } from '@pbe/react-yandex-maps'
 import styles from '../../pages/masternear/city/near.module.css'
+import { getImage } from '@/data.'
 
 
 
@@ -73,18 +74,18 @@ export default function MapComponent({ setRadius, setzoom, divHeight }) {
     }
 
 
-    async function SetFilterCluster() {
-        setzoom(17)
-        setTimeout(() => {
-            const bounds = Map.current.getBounds()
-            const coord = bounds.flat().map(i => +i.toFixed(4))
-            setTimeout(() => {
-                fetch(`/api/get_masters_coord?coord=${coord}&service=${service}`)
-                    .then(res => res.json())
-                    .then(res => setFilterMasters(res))
-            }, 500)
-        }, 500)
-    }
+    // async function SetFilterCluster() {
+    //     setzoom(17)
+    //     setTimeout(() => {
+    //         const bounds = Map.current.getBounds()
+    //         const coord = bounds.flat().map(i => +i.toFixed(4))
+    //         setTimeout(() => {
+    //             fetch(`/api/get_masters_coord?coord=${coord}&service=${service}`)
+    //                 .then(res => res.json())
+    //                 .then(res => setFilterMasters(res))
+    //         }, 500)
+    //     }, 500)
+    // }
 
     function ViewMaster(event, a) {
         event.stopPropagation()
@@ -216,9 +217,8 @@ export default function MapComponent({ setRadius, setzoom, divHeight }) {
                         }]
                     }}
                     onClick={(event) => {
-                        SetFilterCluster()
-                        event.stopPropagation()
-                        // setZoom(15)
+                        // SetFilterCluster()
+                        // event.stopPropagation()                       
                         setMapHeight(window.innerWidth > 500 ? '400px' : '350px')
                     }}
 
@@ -271,7 +271,7 @@ export default function MapComponent({ setRadius, setzoom, divHeight }) {
                             <h4>{i.address}</h4>
                             <h5>{i.services.map(a => <span key={a} className={styles.service}>{a}</span>)}</h5>
                         </div>
-                        <Image src={process.env.url_image + i.nikname + '.jpg'} width={60} height={60} alt="master" />
+                        <Image src={getImage(i.nikname)} width={60} height={60} alt="master" />
                     </Link>
                 )} 
             </>:null}

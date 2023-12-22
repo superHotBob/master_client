@@ -9,11 +9,6 @@ import { SWRConfig, useSWRConfig } from 'swr'
 import Header from '@/components/header'
 import { usePathname } from "next/navigation"
 
-
-
-
-
-
 const rubik = Rubik({
   weight: ['300', '400', '500', '700', '800'],
   subsets: ['cyrillic'],
@@ -21,8 +16,6 @@ const rubik = Rubik({
   display: 'auto',
 })
 export default function MyApp({ Component, pageProps }) {
-
-
 
 const my_path = ['informations', 'informations/aboutservice','filling',
   'newpassword','succesregistration','displaypublications',

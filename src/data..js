@@ -10,7 +10,7 @@ const my_tema = [
      { name: 'Темная ночь', color: ['linear-gradient(-90deg, #534E9B 0%, #7D78BF 50%, #534E9B 100%, #7D78BF 50%, #534E9B 100%)', '#534E9B', '#E5E7F0'] },
      { name: 'Лесной массив', color: ['linear-gradient(-90deg, #305F53 0%, #71978E 50%, #305F53 100%, #71978E 50%, #305F53 100%)', '#456A61', '#E1F3EB'] }
 ]
-  const months = [
+const months = [
      'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
      'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь', 
      'Январь', 'Февраль','Март', 'Апрель', 'Май', 'Июнь',
@@ -19,7 +19,10 @@ const my_tema = [
      'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь',
      'Январь', 'Февраль','Март', 'Апрель', 'Май', 'Июнь',
      'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'
- ]
+]
+function getImage(name) {
+     return  process.env.url_image + name + '.jpg'
+}
 
 const url = 'http://masters.place:5000'
-export { my_data, url, my_tema , months}
+export { my_data, url, my_tema , months, getImage}

@@ -33,7 +33,7 @@ export default function Master() {
 
     const dispatch = useDispatch()
    
-    const { my_profile, service } = useSelector(state => state.counter)
+    const { profile: my_profile, service } = useSelector(state => state.counter)
    
 
     useEffect(() => {
@@ -55,7 +55,6 @@ export default function Master() {
     function LinkTo(a) {
         if (my_profile.status === 'client') {
             router.push(a)
-
         } else {
             setmessage(true)
         }

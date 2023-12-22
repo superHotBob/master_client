@@ -12,21 +12,18 @@ import { months } from '@/profile'
 
 export default function Confirmation() {
     const router = useRouter()
-    const order = useSelector(state => state.counter.order)
-    const master = useSelector(state => state.counter.master)
-    const profile = useSelector(state=>state.counter.profile)
-    const date = useSelector(state => state.counter.date_order)
+    const { order, master, profile, date_order: date } = useSelector(state => state.counter)
+   
     const [goodorder, setgoodorder] = useState(false)
     const [address, setaddress] = useState()
 
     const { data:full_address } = useSWR(`/api/get_full_address?nikname=${master.nikname}`)
    
    
-    const SaveOrder = () => {
-        // const profile = JSON.parse(localStorage.getItem('profile'))        
-        const month =  months.indexOf(date.split(',')[1]) + 1
+    const SaveOrder = () => {              
+        const month =  months.lastIndexOf(date.split(',')[1])
         const year = date.split(',')[3]
-
+       
        
        
         if(profile.status === 'client') {
@@ -40,9 +37,11 @@ export default function Confirmation() {
                 myorder: order,
                 date: date,
                 address:  address,
-                month: month === 0 ? 12 : month - 1,
-                year:year
+                month: month ,
+                year: year
             }
+            console.log(data)
+           
             fetch('/api/save_order', {
                 body: JSON.stringify(data),
                 headers: {

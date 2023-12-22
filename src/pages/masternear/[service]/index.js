@@ -8,23 +8,21 @@ import { useEffect } from 'react'
 import FilterServices from '@/components/filterServices'
 import Message from '@/components/message'
 import useSWR from 'swr'
-import CitySelect from '@/components/city'
+
 
 
 const sel = {
     background: 'linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)',
     color: '#fff',
-    fontWeight: 500
-   
+    fontWeight: 500,
+    cursor: 'default'   
 }
 export default function MasterNear() {
 
     const router = useRouter()
     const { service } = router.query
-    const { city, mystate } = useSelector((state) => state.counter)
-    const services = useSelector((state) => state.counter.service)
-
-
+    const { mystate, service: services } = useSelector((state) => state.counter)    
+    
 
     const { data, error, isLoading } = useSWR('/api/all_masters_city?' + new URLSearchParams({
         city: mystate.toLowerCase(),
@@ -32,7 +30,7 @@ export default function MasterNear() {
     })
     )
 
-    useEffect(() => { router.push(`/masternear/${services}`) }, [services])
+    useEffect(() =>  { router.push(`/masternear/${services}`) }, [services])
 
     return (
         <>
@@ -42,7 +40,7 @@ export default function MasterNear() {
                 ваш город, что бы увидеть список мастеров.'
             />
             <Link className={styles.city} href='/states'>{mystate}</Link>
-            <Link className={styles.selector_one} href={`/masternear/${service}`} style={sel}>Список</Link>
+            <span className={styles.selector_one} style={sel}>Список</span>
             <Link className={styles.selector_two} href="/masternear/city" >На карте</Link>
 
             {/* <section className={styles.section} > */}
