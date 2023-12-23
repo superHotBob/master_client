@@ -17,18 +17,15 @@ export default function Confirmation() {
     const [goodorder, setgoodorder] = useState(false)
     const [address, setaddress] = useState()
 
-    const { data:full_address } = useSWR(`/api/get_full_address?nikname=${master.nikname}`)
+    const { data: {address_full: full_address, currency: currency} } = useSWR(`/api/get_full_address?nikname=${master.nikname}`)
    
    
     const SaveOrder = () => {              
         const month =  months.lastIndexOf(date.split(',')[1])
-        const year = date.split(',')[3]
-       
-       
-       
+        const year = date.split(',')[3]       
         if(profile.status === 'client') {
             const data = {
-                nikname: profile.nikname ,
+                client_nikname: profile.nikname ,
                 client_name:  profile.name,
                 master_nikname: master.nikname,
                 master_name: master.name,
@@ -39,9 +36,7 @@ export default function Confirmation() {
                 address:  address,
                 month: month ,
                 year: year
-            }
-            console.log(data)
-           
+            }           
             fetch('/api/save_order', {
                 body: JSON.stringify(data),
                 headers: {
@@ -55,7 +50,7 @@ export default function Confirmation() {
            
         } else {
             const data = {
-                client: profile.nikname ,
+                client_nikname: profile.nikname ,
                 client_name:  profile.name,
                 master: profile.nikname,
                 master_name: profile.name,
@@ -63,7 +58,7 @@ export default function Confirmation() {
                 order: order.join(','),
                 date: date,
                 address:  address,
-                month: month === 0 ? 12 : month - 1,
+                month: month,
                 year: year
             }
             fetch('/api/save_order_master', {
@@ -137,7 +132,7 @@ export default function Confirmation() {
        
     function Order_Date(a) { 
         if(a) {            
-            const dt = new Date()
+           
             let d = a.split(',')      
             const tm = d[2].split(':')  
                         
@@ -162,7 +157,7 @@ export default function Confirmation() {
                 <h4>Услуги:</h4>
                 {order?.map((i,index) =>
                     <p className={styles.uslugi} key={index}>
-                        <span>{i.split('~')[0]}</span><span>{i.split('~')[1]} {master.currency}</span>
+                        <span>{i.split('~')[0]}</span><span>{i.split('~')[1]} {currency}</span>
                    
                     {i.split('~')[2]}
                     </p>
@@ -172,10 +167,13 @@ export default function Confirmation() {
                 <h4>Дата: </h4>
                 <span className={styles.date}>{Order_Date(date)}</span>
                 <h3>Сумма</h3>
-                <p className={styles.summa}><span>Услуги и товары ({order.length})</span><span>{Cost()} BYN</span></p>
+                <p className={styles.summa}>
+                    <span>Услуги и товары ({order.length})</span>
+                    <span>{Cost()} {currency}</span>
+                </p>
               
                
-                <h3>Общая стоимость<span>{Cost(order)} BYN</span></h3>
+                <h3>Общая стоимость<span>{Cost(order)} {currency}</span></h3>
                 <div onClick={SaveOrder}>Записаться</div>
                 <Collaboration />
                 {goodorder ? <div className={styles.goodorder}>

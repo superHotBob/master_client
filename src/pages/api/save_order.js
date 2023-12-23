@@ -2,6 +2,8 @@ const { Client } = require('pg')
 
 export default async function handler(req, res) {
 
+  const { master_nikname, client_nikname, order, price, date, master_name, client_name, month, myorder, year} = req.body
+
   const client = new Client(process.env.pg_data)
 
   await client.connect()
@@ -10,8 +12,7 @@ export default async function handler(req, res) {
     insert into "orders" ( master, client,neworder,price,date_order,master_name,client_name,order_month,myorder,year ) 
     values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) 
     returning *   
-  `, [req.body.master_nikname, req.body.nikname, req.body.order, req.body.price,
-  req.body.date, req.body.master_name, req.body.client_name, req.body.month, req.body.myorder,req.body.year]
+  `, [master_nikname, client_nikname, order, price, date, master_name, client_name, month, myorder, year]
   );
 
 
@@ -20,7 +21,7 @@ export default async function handler(req, res) {
     from "chat"
     where (recipient_nikname = $1 and sendler_nikname = $2 ) or 
     (recipient_nikname = $2 and sendler_nikname = $1 )
-  `, [req.body.master_nikname, req.body.nikname]);
+  `, [master_nikname, client_nikname]);
 
   let my_chat = null
   if (chat.length === 0) {
@@ -31,19 +32,19 @@ export default async function handler(req, res) {
     my_chat = +chat[0]['chat']
   }
 
-  // const order = req.body.order.map(i => i.split(':')).map(i => i[0]).join()
+  
 
 
 
 
   const text = save_order[0]['id']; 
-  const date = Date.now()
+  const new_date = Date.now()
 
   await client.query(`
     insert into "chat" (recipient,recipient_nikname,sendler,sendler_nikname,ms_text,ms_date,chat) 
     values ($1,$2,$3,$4,$5,$6,$7)  
     returning *
-  `, [req.body.client_name, req.body.nikname, req.body.master_name, req.body.master_nikname, text, date, my_chat]);
+  `, [client_name, client_nikname, master_name, master_nikname, text, new_date, my_chat]);
 
 
 
@@ -52,13 +53,13 @@ export default async function handler(req, res) {
     update "clients" 
     set "rating" = rating::int + 1 
     where "nikname" = $1
-  `, [req.body.master_nikname]);
+  `, [master_nikname]);
 
   await client.query(`
     update "masters" 
     set "rating" = rating::int + 1 
     where "nikname" = $1
-  `, [req.body.master_nikname]);
+  `, [master_nikname]);
 
   await client.end();
   res.send('Ok');

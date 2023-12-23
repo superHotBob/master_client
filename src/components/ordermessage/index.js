@@ -20,6 +20,8 @@ export default function OrderMessage({ id, color }) {
             <p>Сумма: {order.price} BYN</p>
             <Link className={styles.link} style={{ color: color }} href={'/order/' + id}>Подробнее</Link>
         </div>
+    } else { 
+      return ; 
     }    
    
 

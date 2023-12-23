@@ -6,6 +6,7 @@ import { useRouter } from "next/router"
 import useSWR, { mutate } from 'swr'
 import Image from 'next/image'
 import OrderMessage from "@/components/ordermessage"
+import { getImage } from "@/data."
 
 const options = {
     month: 'long',
@@ -90,12 +91,20 @@ export default function Messages() {
         }
     }
     function FindLink(text) {
+       
         let match = text.match(/\bhttps?\:\/\/(\S+)\b/);
+       
         if (match) {           
             let text_split = text.split(match[0])
-            return <><p>{text_split[0]}</p><a href={match[0]}>{match[1]}</a><b style={{ fontWeight: 400 }}>{text_split[1]}</b></>
+            return ( 
+                <>
+                <p>{text_split[0]}</p>
+                <a href={match[0]}>{match[1]}</a>
+                <b style={{ fontWeight: 400 }}>{text_split[1]}</b>
+                </>
+            )    
         } else {
-            return text
+            return parseInt(text) ? null : text
         }
 
     }
@@ -137,15 +146,16 @@ export default function Messages() {
                                     title={i.sendler}
                                     style={{ cursor: status === 'client' ? 'pointer' : 'default' }}
                                     src={i.sendler === 'администратор' ?
-                                        "/image/администратор.jpg" :
-                                        process.env.url_image + i.sendler_nikname + '.jpg'
+                                        "/image/администратор.jpg" : getImage(i.sendler_nikname)
                                     }
                                     height={50} width={50}
                                     alt="sendler"
                                 />
                                 <div className={styles.master}>
-                                    <OrderMessage id={i.ms_text} color="#000" />
+                                    <OrderMessage id={i.ms_text} color="#000" /> 
+                                    
                                     {FindLink(i.ms_text)}
+                                  
                                     <span>{My_Date(+i.ms_date)}</span>
                                 </div>
                             </div>
