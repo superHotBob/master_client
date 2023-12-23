@@ -17,7 +17,7 @@ export default function Confirmation() {
     const [goodorder, setgoodorder] = useState(false)
     const [address, setaddress] = useState()
 
-    const { data: {address_full: full_address, currency: currency} } = useSWR(`/api/get_full_address?nikname=${master.nikname}`)
+    const { data } = useSWR(`/api/get_full_address?nikname=${master.nikname}`)
    
    
     const SaveOrder = () => {              
@@ -104,9 +104,9 @@ export default function Confirmation() {
 
     }
 
-    useEffect(()=>{
-        setaddress('Ул. ' + master.address  + ', дом ' + full_address?.дом + ', кв.' + full_address?.квартира + ', этаж ' + full_address?.этаж)
-    },[full_address])
+    // useEffect(()=>{
+    //     setaddress('Ул. ' + master.address  + ', дом ' + full_address?.дом + ', кв.' + full_address?.квартира + ', этаж ' + full_address?.этаж)
+    // },[full_address])
     
     function World(a) {
         if (a > 1 && a < 5) {
@@ -157,23 +157,23 @@ export default function Confirmation() {
                 <h4>Услуги:</h4>
                 {order?.map((i,index) =>
                     <p className={styles.uslugi} key={index}>
-                        <span>{i.split('~')[0]}</span><span>{i.split('~')[1]} {currency}</span>
+                        <span>{i.split('~')[0]}</span><span>{i.split('~')[1]} {data?.currency}</span>
                    
                     {i.split('~')[2]}
                     </p>
                 )}
                 <h4>Адрес:</h4>
-                <span className={styles.street}>{master.address}</span>, кв {full_address?.квартира}  этаж {full_address?.этаж}
+                <span className={styles.street}>{master.address}</span>, кв {data?.address_full.квартира}  этаж {data?.address_full.этаж}
                 <h4>Дата: </h4>
                 <span className={styles.date}>{Order_Date(date)}</span>
                 <h3>Сумма</h3>
                 <p className={styles.summa}>
                     <span>Услуги и товары ({order.length})</span>
-                    <span>{Cost()} {currency}</span>
+                    <span>{Cost()} {data?.currency}</span>
                 </p>
               
                
-                <h3>Общая стоимость<span>{Cost(order)} {currency}</span></h3>
+                <h3>Общая стоимость<span>{Cost(order)} {data?.currency}</span></h3>
                 <div onClick={SaveOrder}>Записаться</div>
                 <Collaboration />
                 {goodorder ? <div className={styles.goodorder}>
