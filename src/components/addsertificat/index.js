@@ -49,12 +49,7 @@ export default function AddSertificat({ nikname, view, color }) {
             .catch(err => console.log(err))
     }
     async function selectUpload(e) {
-        if (!e.target.files[0]) return
-        // if(e.target.files[0].size > 1000000) {
-        //     console.log(e.target.files[0].size)
-        //     setmessage('Размер изображения больше 1 мб')
-        //     return ;
-        // }      
+        if (!e.target.files[0]) return  
        
         const prof = JSON.parse(localStorage.getItem('profile'))
         let res = await fetch('/api/add_image_to_base', {
@@ -116,6 +111,7 @@ return (
         <dialog open={message} className={styles.message}>
             {message}
         </dialog>
+        
         <form className={styles.main__form}>
             <label title='Добавить сертификат' className={styles.sertificat__upload} style={{ color: color[1], backgroundColor: color[2] }}>
                 +

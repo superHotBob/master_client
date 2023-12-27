@@ -52,7 +52,7 @@ export default function Order() {
                 <span style={{ color: color ? color[1] : null }}>Готово</span>
             </header>
             {order ? <section className={styles.data} style={{ color: color ? color[1] : null }}>
-                <h5>Клиент</h5>
+                <h5>Клиент {order?.client_name}</h5>
                 <Detail order={order} />             
                 {NewOrder(order?.date_order, order?.order_month, order?.year ) ?
                     <button onClick={DeleteOrder}>

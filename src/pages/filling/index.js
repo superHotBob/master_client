@@ -57,7 +57,7 @@ export default function FillingProfile() {
                 Макрер над днем отобразит количество окон на этот день. 
                 Что бы добавить в шаблон новое время для записи, нажмите на соответствующую кнопку.
                 </span>
-                <Link href="/">Публикация работ</Link>
+                <Link href="/addpublications">Публикация работ</Link>
             </section>
         </>
     )

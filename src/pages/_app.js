@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import Head from 'next/head'
 import Navi from '@/components/navi'
 import { useRouter } from 'next/router'
-import { SWRConfig, useSWRConfig } from 'swr'
+import { SWRConfig } from 'swr'
 import Header from '@/components/header'
 import { usePathname } from "next/navigation"
 

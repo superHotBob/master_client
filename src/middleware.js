@@ -19,5 +19,10 @@ export async function middleware(request, res) {
   }
 }
 export const config = {
-  matcher: ['/chat','/editprofile','/masterrecords','/calendar','/masterprofile/:path*','/api/get_messages','/api/get_orders_client', '/api/save_image','/api/set_patern', '/api/save_order','/clientprofile/:path']
+  matcher: [
+  '/chat','/editprofile','/masterrecords','/calendar',
+  '/masterprofile/:path*','/api/get_messages','/api/get_orders_client', 
+  '/api/save_image','/api/set_patern', '/api/save_order','/clientprofile/:path',
+  '/api/get_orders_master'
+  ]
 };

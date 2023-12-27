@@ -5,9 +5,7 @@
     padding: 0;
     gap: 10px;
 }
-.image {
-    height: 48vw;
-    max-height: 240px;
+.image {    
     width: 100%;
     /* background-position: center;
     background-size: 100% 100%;    */

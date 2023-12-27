@@ -18,10 +18,10 @@ function Detail({ order }) {
     return <>
         <h5>Дата и время</h5>
         <span>{Convert_Date(order?.date_order, order?.order_month, order?.year)}</span>
-        <h5>Услуги и стоимость</h5>
+        <h5>Cтоимость</h5>
         <span>{order?.text}</span>
-        <span>Стоимость {order?.price} BYN</span>
-        <h5>Дополнительное описание</h5>
+        <span>{order?.price} BYN</span>
+        <h5>Описание</h5>
         {order?.myorder ?
             <div className={styles.review}>
                 {order?.myorder.map((i, index) =>

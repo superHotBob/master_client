@@ -3,7 +3,7 @@ import { Formidable } from 'formidable';
 const sharp = require('sharp');
 
 export async function POST(req, res) {
-    const form = new Formidable({maxFileSize: 2048 * 2048});
+    const form = new Formidable();
     form.parse(req, function (err, fields, files) {
 
         const oldpath = files.file[0].filepath
@@ -21,7 +21,7 @@ export async function POST(req, res) {
             .resize(500, +(500/ratio).toFixed(0))
             .toFormat('jpeg')
             .jpeg({
-                quality: 100,
+                quality: 80,
                 chromaSubsampling: '4:4:4',
                 force: true
             })

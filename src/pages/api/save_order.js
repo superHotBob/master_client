@@ -9,7 +9,8 @@ export default async function handler(req, res) {
   await client.connect()
 
   const { rows: save_order } = await client.query(`
-    insert into "orders" ( master, client,neworder,price,date_order,master_name,client_name,order_month,myorder,year ) 
+    insert into "orders" ( master, client , neworder, price, date_order, master_name, 
+      client_name, order_month, myorder, year ) 
     values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) 
     returning *   
   `, [master_nikname, client_nikname, order, price, date, master_name, client_name, month, myorder, year]
@@ -17,8 +18,7 @@ export default async function handler(req, res) {
 
 
   const { rows: chat } = await client.query(`
-    select (chat)
-    from "chat"
+    select (chat) from "chat"
     where (recipient_nikname = $1 and sendler_nikname = $2 ) or 
     (recipient_nikname = $2 and sendler_nikname = $1 )
   `, [master_nikname, client_nikname]);

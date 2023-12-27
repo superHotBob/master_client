@@ -1,3 +1,4 @@
+import { getImage } from '@/data.'
 import styles from './sertificats.module.css'
 import { useState, useEffect } from 'react'
 import useSWR from 'swr'
@@ -31,7 +32,7 @@ export default function Sertificats({ nikname , nav}) {
             alt="image"           
             onClick={() => viewBigImage(i)}
             className={styles.image}
-            src={process.env.url_image + i.id + '.jpg' }
+            src={getImage(i.id)}
           />
         )}
       </div>
@@ -41,10 +42,9 @@ export default function Sertificats({ nikname , nav}) {
             <h3 onClick={() => viewBigImage(false)} />
             <img
               alt="my_image"
-              src={process.env.url_image + image + '.jpg' }
+              src={getImage(image)}
               width="100%"
-              id={image}
-              height="auto"
+              id={image}             
             />
             <h6>{tag ? tag :
               `Без комментария`}

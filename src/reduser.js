@@ -59,7 +59,7 @@ export const counterSlice = createSlice({
     setorder: (state,action) => {
       state.order = action.payload
     }
-  },
+  } 
 })
 
 // Action creators are generated for each case reducer function

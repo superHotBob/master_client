@@ -12,16 +12,16 @@ import { months } from '@/profile'
 
 export default function Confirmation() {
     const router = useRouter()
-    const { order, master, profile, date_order: date } = useSelector(state => state.counter)
+    const { order, master, profile, date_order: date_order } = useSelector(state => state.counter)
    
     const [goodorder, setgoodorder] = useState(false)
-    const [address, setaddress] = useState()
+    const [address_master, setaddress] = useState()
 
     const { data } = useSWR(`/api/get_full_address?nikname=${master.nikname}`)
    
    
     const SaveOrder = () => {              
-        const month =  months.lastIndexOf(date.split(',')[1])
+        const month_order =  months.lastIndexOf(date.split(',')[1])
         const year = date.split(',')[3]       
         if(profile.status === 'client') {
             const data = {
@@ -32,9 +32,9 @@ export default function Confirmation() {
                 price: Cost(order),
                 order: order.join(','),
                 myorder: order,
-                date: date,
-                address:  address,
-                month: month ,
+                date: date_order,
+                address:  address_master,
+                month: month_order ,
                 year: year
             }           
             fetch('/api/save_order', {
@@ -56,17 +56,17 @@ export default function Confirmation() {
                 master_name: profile.name,
                 price: Cost(order),
                 order: order.join(','),
-                date: date,
-                address:  address,
-                month: month,
+                date: date_order,
+                address:  address_master,
+                month: month_order,
                 year: year
             }
             fetch('/api/save_order_master', {
-                body: JSON.stringify(data),
+                method: 'POST',               
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                method: 'POST',
+                body: JSON.stringify(data)
             }).then(res=>{
                 setgoodorder(true)
                 EditSchedule(profile.nikname)
@@ -104,9 +104,11 @@ export default function Confirmation() {
 
     }
 
-    // useEffect(()=>{
-    //     setaddress('Ул. ' + master.address  + ', дом ' + full_address?.дом + ', кв.' + full_address?.квартира + ', этаж ' + full_address?.этаж)
-    // },[full_address])
+    useEffect(()=>{       
+        setaddress('Ул. ' +  master.address  + ', дом ' + 
+        data?.full_address?.дом + ', кв.' + data?.full_address?.квартира  + ', этаж ' + 
+        data?.full_address?.этаж)
+    },[])
     
     function World(a) {
         if (a > 1 && a < 5) {
@@ -131,14 +133,12 @@ export default function Confirmation() {
     }
        
     function Order_Date(a) { 
-        if(a) {            
-           
+        if(a) {           
             let d = a.split(',')      
-            const tm = d[2].split(':')  
-                        
+            const tm = d[2].split(':')                        
             const date_ord = new Date(d[3],months.indexOf(d[1]) - 1 , d[0], tm[0],tm[1])            
-            const formattedDate = date_ord.toLocaleDateString('ru-RU', { month: 'long', day: 'numeric', hour:   '2-digit',
-            minute: '2-digit', })
+            const formattedDate = date_ord.toLocaleDateString('ru-RU', 
+            { month: 'long', day: 'numeric', hour:   '2-digit', minute: '2-digit' })
             return formattedDate
         } else {
             return 
@@ -165,7 +165,7 @@ export default function Confirmation() {
                 <h4>Адрес:</h4>
                 <span className={styles.street}>{master.address}</span>, кв {data?.address_full.квартира}  этаж {data?.address_full.этаж}
                 <h4>Дата: </h4>
-                <span className={styles.date}>{Order_Date(date)}</span>
+                <span className={styles.date}>{Order_Date(date_order)}</span>
                 <h3>Сумма</h3>
                 <p className={styles.summa}>
                     <span>Услуги и товары ({order.length})</span>

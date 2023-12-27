@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import { my_tema } from '@/data.'
 import Order from '@/components/order'
 import { months, week } from '@/profile'
-import AllOrders from '@/components/allorders'
+import HistoryOrders from '@/components/allorders'
 
 
 const activ_month = {
@@ -14,7 +14,7 @@ const activ_month = {
 
 export default function Records() {
 
-    const my_months = [...months]
+
     const d = new Date()
 
     const [selector, setSelector] = useState(true)
@@ -33,21 +33,18 @@ export default function Records() {
 
     let v = week.indexOf(week[day.getDay() - 1]) === -1 ? 6 : week.indexOf(week[day.getDay() - 1])
 
-   
+
 
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem("profile"))
         setProfile(pro)
         fetch(`/api/get_orders_master?nikname=${pro.nikname}&month=${curmonth}&year=${year}`, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            method: 'get',
+            headers: { 'Content-Type': 'application/json' }
         })
             .then(res => res.json())
             .then(res => {
                 const new_result = [...res]
-                let month_result = new_result.filter(i => i.date_order.includes(months[curmonth]))               
+                let month_result = new_result.filter(i => i.date_order.includes(months[curmonth]))
                 let flsd = month_result.map(i => +i.date_order.split(',')[0])
                 set_false_days(flsd)
                 setOrders(res)
@@ -57,12 +54,11 @@ export default function Records() {
 
     const FilterDay = e => {
         setActive_Day(+e.target.id)
-       
+
     }
 
-    function Count(a) {  
-        
-        let s = orders?.filter(i => +i.date_order.split(',')[0] === a).length       
+    function Count(a) {
+        let s = orders?.filter(i => +i.date_order.split(',')[0] === a).length
         return s
     }
     function set(a) {
@@ -141,9 +137,9 @@ export default function Records() {
                         </div>
                         <p className={styles.all_records}>
                             Все записи на сеансы
-                            { Count(active_day) > 0 ? <span style={{ color: my_tema[+profile.tema].color[1] }}>
-                                {active_day ?  months[curmonth] + " , "  + active_day   : null}
-                            </span> :null}
+                            {Count(active_day) > 0 ? <span style={{ color: my_tema[+profile.tema].color[1] }}>
+                                {active_day ? months[curmonth] + " , " + active_day : null}
+                            </span> : null}
                         </p>
                         <Link
                             href={`/recordingtomaster?name=${profile.name}&nikname=${profile.nikname}`}
@@ -152,7 +148,7 @@ export default function Records() {
                         {orders?.filter(i => +i.date_order.split(',')[0] === active_day).map(i => <Order order={i} key={i.id} profile={profile.tema} />)}
                     </section>
                     :
-                    <AllOrders profile={profile} />
+                    <HistoryOrders profile={profile} />
                 }
             </>}
 
