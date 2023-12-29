@@ -9,7 +9,7 @@ import { getImage } from '@/data.'
 
 
 
-export default function MapComponent({ setRadius, setzoom, divHeight }) {
+export default function MapComponent({ setRadius, setzoom, divHeight, my_zoom }) {
     const loc = useSelector((state => state.counter.location))
     const service = useSelector((state) => state.counter.service)
     const [center, setCenter] = useState()
@@ -35,20 +35,22 @@ export default function MapComponent({ setRadius, setzoom, divHeight }) {
 
     useEffect(() => {
         setMapHeight(divHeight)
-        setZoom(10)
+        setZoom(my_zoom)
         setCenter(loc)
-    }, [])
+      
+    }, [my_zoom])
 
     function OnLoadMap() {
         const bounds = Map.current.getBounds()       
         const coord = bounds.flat().map(i => +i.toFixed(4))
+        
         fetch(`/api/get_masters_coord?coord=${coord}&service=${service}`)
             .then(res => res.json())
             .then(res => setmasters(res))
         setTimeout(() => {
             document.getElementsByClassName('ymaps-2-1-79-ground-pane')[0].style.filter = 'grayscale(1)'
             document.getElementsByClassName('ymaps-2-1-79-copyright')[0].style.display = 'none'
-            document.getElementsByClassName('ymaps-2-1-79-gotoymaps')[0].style.display = 'none'
+            document.getElementsByClassName('ymaps-2-1-79-gotoymaps')[0].style.display = 'none'           
             document.getElementsByClassName('ymaps-2-1-79-copyright__link')[0].style.display = 'none';
             document.getElementsByClassName('ymaps-2-1-79-map-copyrights-promo')[0].style.display = 'none';
             document.getElementsByClassName('ymaps-2-1-79-gototech')[0].style.display = 'none';
@@ -59,6 +61,7 @@ export default function MapComponent({ setRadius, setzoom, divHeight }) {
             let bounds = Map.current.getBounds();
             let zoom = Map.current.getZoom();
             const coord = bounds.flat().map(i => +i.toFixed(4))
+            
             const center = Map.current.getCenter()
             fetch(`/api/get_masters_coord?coord=${coord}&service=${service}`)
                 .then(res => res.json())
@@ -68,7 +71,11 @@ export default function MapComponent({ setRadius, setzoom, divHeight }) {
                 })
             setZoom(zoom)
             let radius = ymaps.coordSystem.geo.getDistance(center, bounds[1]) / 1.2
-            setRadius(Math.ceil(radius.toFixed(0) / 1000))
+            setRadius((radius/1000).toFixed(1))
+            console.log(zoom,(radius/1000).toFixed(1))
+            // Map.current.zoomRange.get([20, 30]).then(function (zoomRange) {
+            //     console.log(zoomRange);
+            // });
         });
 
     }

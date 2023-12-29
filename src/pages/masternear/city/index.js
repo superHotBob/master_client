@@ -9,6 +9,7 @@ import { YMaps } from '@pbe/react-yandex-maps'
 import Message from '@/components/message'
 import MapComponent from '@/components/map'
 
+
 const sel = {
     background: 'linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)',
     color: '#fff',
@@ -49,9 +50,13 @@ export default function MasterNear() {
                     <span onClick={() => setViewRange(true)}>радиус поиска</span>
                 </>}
                 {viewRange ? <div className={styles.all__filter}>
-                    <h6 onClick={() => setViewRange(false)} />
-                    <p>{radius} км</p>
-                    <input
+                    <h6 onClick={() => setViewRange(false)} >радиус поиска</h6>
+                    <div className={styles.buttons}>
+                        <button onClick={()=>setZoom(zoom > 5 ? zoom + 1 : 5)} > - </button>
+                        <p>{+radius > 1 ? (+radius).toFixed(0) : radius } км</p>
+                        <button onClick={()=>setZoom(zoom - 1)} >+</button>
+                    </div>
+                    {/* <input
                         className={styles.range}
                         step="1"
                         type="range"
@@ -62,7 +67,7 @@ export default function MasterNear() {
                             setZoom(20 - e.target.value),
                             setRadius(e.target.value)
                         }}
-                    />
+                    /> */}
 
                 </div> : null}
             </div>
@@ -72,6 +77,7 @@ export default function MasterNear() {
                         <MapComponent
                             setRadius={setRadius}
                             my_zoom={zoom}
+                            radius={radius}
                             setzoom={setZoom}
                             divHeight={mapHeight}
                         />

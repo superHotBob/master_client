@@ -1,5 +1,7 @@
 .date {
-    width: 100%;
+    width: calc(100% - 32px);
+    margin: 0 auto;
+
 }
 
 .custom_input {
@@ -63,7 +65,7 @@
 }
 .message button {
     display: block;
-    width: 80%;
+    width: 100%;
 }
 .message_create {
     position: absolute;
