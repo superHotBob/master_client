@@ -18,11 +18,15 @@ export default function Confirmation() {
     const [address_master, setaddress] = useState()
 
     const { data } = useSWR(`/api/get_full_address?nikname=${master.nikname}`)
+
+
+
+    
    
    
     const SaveOrder = () => {              
-        const month_order =  months.lastIndexOf(date.split(',')[1])
-        const year = date.split(',')[3]       
+        const month_order =  months.lastIndexOf(date_order.split(',')[1])
+        const year = date_order.split(',')[3]       
         if(profile.status === 'client') {
             const data = {
                 client_nikname: profile.nikname ,
@@ -80,15 +84,15 @@ export default function Confirmation() {
     async function EditSchedule(a) {
         const my_data = {
             nikname: a,
-            month: date.split(',')[1].toLowerCase(),
-            year: date.split(',')[3]            
+            month: date_order.split(',')[1].toLowerCase(),
+            year: date_order.split(',')[3]            
         } 
         await  fetch(`/api/get_schedule?nikname=${a}&month=${my_data.month}&year=${my_data.year}`)
         .then(res => res.json())
         .then(data =>{
             let new_schedule = data;
-            let new_days = new_schedule[date.split(',')[0]-1].split(',').filter(i=>i!=date.split(',')[2]);           
-            new_schedule[date.split(',')[0] - 1] = new_days.join();
+            let new_days = new_schedule[date_order.split(',')[0]-1].split(',').filter(i=>i!=date_order.split(',')[2]);           
+            new_schedule[date_order.split(',')[0] - 1] = new_days.join();
             my_data['schedule'] = new_schedule;
             
         }) 

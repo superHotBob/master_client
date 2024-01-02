@@ -29,6 +29,7 @@ function Mymap({ loc_master, place, address_total, nikname, city }) {
         document.getElementsByClassName('ymaps-2-1-79-copyright')[0].style.display = 'none'
         document.getElementsByClassName('ymaps-2-1-79-gotoymaps')[0].style.display = 'none'
         document.getElementsByClassName('ymaps-2-1-79-gototech')[0].style.display = 'none'
+        document.getElementsByClassName('ymaps-2-1-79-map-copyrights-promo')[0].style.display = 'none'
         getCoord(place)
         Map.current.events.add('actionend', function () {
             let tick = Map.current.getBounds();

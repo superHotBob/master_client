@@ -40,7 +40,7 @@ export default function Reviews({ nikname }) {
                     </div>
                 </div>
                 <p className={styles.service}>
-                    {i.neworder.replace(/[0-9]/g, '').replace(':', '')}, {i.price} BYN
+                    <span>{i.neworder.split('~')[0]}</span>  <span>{i.price} BYN</span>
                 </p>
                 <p className={styles.message}>{view === i.id ? i.review : i.review.length > 80 ? i.review.slice(0, 145) + '...' : i.review}</p>
                 {i.review.length > 80 ? <span onClick={() => setView(view === i.id ? null : i.id)}>

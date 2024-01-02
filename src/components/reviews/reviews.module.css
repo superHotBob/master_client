@@ -35,6 +35,8 @@
     color: #D0D0D0;
     margin: 10px auto;
     font: 600 14px/16px 'Rubil', sans-serif;
+    display: flex;
+    justify-content: space-between;
 }
 .message {
     height: max-content;

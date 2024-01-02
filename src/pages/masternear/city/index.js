@@ -46,7 +46,7 @@ export default function MasterNear() {
             <span className={styles.selector_two} style={sel}>На карте</span>
             <div className={styles.main__filter}>
                 {!viewRange && <>
-                    <span>Мастера в радиусе {radius} км</span>
+                    <span>Мастера в радиусе {+radius > 1 ? (+radius).toFixed(0) : radius } км</span>
                     <span onClick={() => setViewRange(true)}>радиус поиска</span>
                 </>}
                 {viewRange ? <div className={styles.all__filter}>
