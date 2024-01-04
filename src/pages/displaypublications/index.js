@@ -17,7 +17,7 @@ export default function DisplayPublications() {
     const [delete_images, setDeleteImages] = useState([])
 
 
-    console.log(imagesone)
+   
 
 
 
@@ -57,7 +57,7 @@ export default function DisplayPublications() {
                 setImagesTwo(res.filter((i, index) => (index + 1) % 2 === 0))
                 setImages(res)
             })
-    }, [])
+    }, [router])
     function submit() {
         if (delete_images.length > 0) {
             fetch(`/api/delete_images_dnd?ids=${delete_images}`)

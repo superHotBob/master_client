@@ -28,7 +28,7 @@ export default function EditProfile() {
         dispatch(setprofile(prof))         
         setSelectedFile(process.env.url_image + prof.nikname + '.jpg')
             
-    }, [])   
+    }, [dispatch])   
     function Return() {
         const prof = JSON.parse(localStorage.getItem('profile'))
         setmy_profile(prof) 

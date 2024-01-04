@@ -19,7 +19,7 @@ export default function Password() {
         onepassword.current.focus()
         document.body.addEventListener('keydown', handler);
         return ()=>document.body.removeEventListener('keydown', handler);
-    },[handler])
+    },[])
     
     const handler = event => {
         if(event.key === 'Enter') {

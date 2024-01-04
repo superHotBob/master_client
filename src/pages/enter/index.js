@@ -29,7 +29,7 @@ export default function Enter() {
             Call() 
             setSelect('Восстановление пароля')          
         }        
-    }, [])
+    }, [password, my_phone])
 
    
 

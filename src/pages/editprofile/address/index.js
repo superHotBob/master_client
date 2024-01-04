@@ -32,7 +32,7 @@ export default function Address() {
             setMyState(state)
             setstreet(address?.split(',').length === 3 ? address?.split(',')[1] : address?.split(',')[2])
         }
-    }, [])
+    }, [router])
   
     function SetAddressFull(e) {
         setAddress_full({ ...address_full, ...{ 'тип': e.target.value } })

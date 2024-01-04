@@ -30,7 +30,7 @@ export default function MasterNear() {
     })
     )
 
-    useEffect(() =>  { router.push(`/masternear/${services}`) }, [services])
+    useEffect(() =>  { router.push(`/masternear/${services}`) }, [services,router])
 
     return (
         <>

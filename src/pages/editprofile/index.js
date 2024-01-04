@@ -81,7 +81,7 @@ export default function EditProfile() {
             setColor(tema ? my_tema[+tema].color : my_tema[0].color)
         }
 
-    }, [])
+    }, [dispatch,router])
     function Return() {
         let pro = JSON.parse(localStorage.getItem('profile'))
         setName(pro.name),
