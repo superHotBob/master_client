@@ -19,14 +19,20 @@ export default function Confirmation() {
 
     const { data } = useSWR(`/api/get_full_address?nikname=${master.nikname}`)
 
-
+    useEffect(()=>{       
+        setaddress('Ул. ' +  master.address  + ', дом ' + 
+        data?.full_address?.дом + ', кв.' + data?.full_address?.квартира  + ', этаж ' + 
+        data?.full_address?.этаж)
+    },[])
 
     
    
    
     const SaveOrder = () => {              
         const month_order =  months.lastIndexOf(date_order.split(',')[1])
-        const year = date_order.split(',')[3]       
+        const year = date_order.split(',')[3]  
+        const arr = date_order.split(',')  
+        const order_date = [arr[0],arr[2]]     
         if(profile.status === 'client') {
             const data = {
                 client_nikname: profile.nikname ,
@@ -36,11 +42,11 @@ export default function Confirmation() {
                 price: Cost(order),
                 order: order.join(','),
                 myorder: order,
-                date: date_order,
+                date: order_date,
                 address:  address_master,
                 month: month_order ,
                 year: year
-            }           
+            }             
             fetch('/api/save_order', {
                 body: JSON.stringify(data),
                 headers: {
@@ -60,7 +66,7 @@ export default function Confirmation() {
                 master_name: profile.name,
                 price: Cost(order),
                 order: order.join(','),
-                date: date_order,
+                date: order_date,
                 address:  address_master,
                 month: month_order,
                 year: year
@@ -74,12 +80,9 @@ export default function Confirmation() {
             }).then(res=>{
                 setgoodorder(true)
                 EditSchedule(profile.nikname)
-            })
-            
-        }
-        
+            })            
+        }        
     }
-
 
     async function EditSchedule(a) {
         const my_data = {
@@ -108,11 +111,7 @@ export default function Confirmation() {
 
     }
 
-    useEffect(()=>{       
-        setaddress('Ул. ' +  master.address  + ', дом ' + 
-        data?.full_address?.дом + ', кв.' + data?.full_address?.квартира  + ', этаж ' + 
-        data?.full_address?.этаж)
-    },[])
+   
     
     function World(a) {
         if (a > 1 && a < 5) {
@@ -163,11 +162,11 @@ export default function Confirmation() {
                     <p className={styles.uslugi} key={index}>
                         <span>{i.split('~')[0]}</span><span>{i.split('~')[1]} {data?.currency}</span>
                    
-                    {i.split('~')[2]}
+                    {/* {i.split('~')[2]} */}
                     </p>
                 )}
                 <h4>Адрес:</h4>
-                <span className={styles.street}>{master.address}</span>, кв {data?.address_full.квартира}  этаж {data?.address_full.этаж}
+                <span className={styles.street}>{master.address}</span>, кв {data?.address_full.квартира},  этаж {data?.address_full.этаж}
                 <h4>Дата: </h4>
                 <span className={styles.date}>{Order_Date(date_order)}</span>
                 <h3>Сумма</h3>

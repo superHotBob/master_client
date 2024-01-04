@@ -50,13 +50,13 @@ export default function Calendar({ profile }) {
     const day = new Date(year, curmonth - 1, 1)
     let v = days.indexOf(days[day.getDay() - 1]) === -1 ? 6 : days.indexOf(days[day.getDay() - 1])
 
-    const { data: old_patern } = useSWR(pro.nikname ? `/api/get_patern?nikname=${pro.nikname}` : null,
-        {
-            onSuccess: (old_patern) => {
-                setPatern(old_patern)
-            }
-        }
-    )
+    // const { data: old_patern } = useSWR(pro.nikname ? `/api/get_patern?nikname=${pro.nikname}` : null,
+    //     {
+    //         onSuccess: (old_patern) => {
+    //             setPatern(old_patern)
+    //         }
+    //     }
+    // )
 
 
     function getOrders(a) {
@@ -65,11 +65,7 @@ export default function Calendar({ profile }) {
             .then(res => setOrders(res))
     }
 
-    // function getPatern(a) {
-    //     fetch(`/api/get_patern?nikname=${a}`)
-    //     .then(res => res.json())
-    //     .then(res => setPatern(res))
-    // }
+   
 
     useEffect(() => {
         if (!pro.nikname) {

@@ -16,7 +16,7 @@ export default async function handler(req, res) {
 
   await client.end();
   if (rows.length > 0) {
-    res.status(200).json(rows.map(i=>i.date_order.split(',')))
+    res.status(200).json(rows.map(i=>i.date_order))
   } else {
     res.status(200).json([])
   }

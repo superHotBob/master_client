@@ -45,7 +45,7 @@ export default function Records() {
             .then(res => {
                 const new_result = [...res]
                 let month_result = new_result.filter(i => i.date_order.includes(months[curmonth]))
-                let flsd = month_result.map(i => +i.date_order.split(',')[0])
+                let flsd = month_result.map(i => +i.date_order[0])
                 set_false_days(flsd)
                 setOrders(res)
             })
@@ -58,7 +58,7 @@ export default function Records() {
     }
 
     function Count(a) {
-        let s = orders?.filter(i => +i.date_order.split(',')[0] === a).length
+        let s = orders?.filter(i => +i.date_order[0] === a).length
         return s
     }
     function set(a) {
@@ -145,7 +145,7 @@ export default function Records() {
                             href={`/recordingtomaster?name=${profile.name}&nikname=${profile.nikname}`}
                             style={{ backgroundColor: my_tema[+profile.tema].color[1] }}
                         >Добавить запись +</Link>
-                        {orders?.filter(i => +i.date_order.split(',')[0] === active_day).map(i => <Order order={i} key={i.id} profile={profile.tema} />)}
+                        {orders?.filter(i => +i.date_order[0] === active_day).map(i => <Order order={i} key={i.id} profile={profile.tema} />)}
                     </section>
                     :
                     <HistoryOrders profile={profile} />
