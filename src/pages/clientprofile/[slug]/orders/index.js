@@ -72,7 +72,7 @@ export default function Client() {
                         <span>#{i.id}</span>
                     </p>
                     <h3><span>{i.master_name || i.master}</span><span>{i.price} BYN</span></h3>                   
-                    <h6>{i.neworder.split(',').map((i, index) => <span>{i.split('~')[0]}. </span>)}</h6>
+                    <h6>{i.neworder.split(',').map((i, index) => <span key={index}>{i.split('~')[0]}. </span>)}</h6>
                 </div>
             )}
             {viewOrder ?
