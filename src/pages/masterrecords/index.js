@@ -49,7 +49,7 @@ export default function Records() {
                 set_false_days(flsd)
                 setOrders(res)
             })
-    }, [curmonth])
+    }, [curmonth,year])
 
 
     const FilterDay = e => {

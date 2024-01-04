@@ -51,7 +51,7 @@ export default function Client() {
             router.push('/')
         }
         return () => dispatch(settema(my_tema[0].color))
-    }, [pid, router])
+    }, [pid, router, dispatch])
 
     const viewService = () => {
         setView(false)

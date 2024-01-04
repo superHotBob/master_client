@@ -14,6 +14,12 @@ export default function Password() {
     const [message, setMessage] = useState('')
     const onepassword = useRef()
     const twopassword = useRef()
+
+    useEffect(()=>{
+        onepassword.current.focus()
+        document.body.addEventListener('keydown', handler);
+        return ()=>document.body.removeEventListener('keydown', handler);
+    },[handler])
     
     const handler = event => {
         if(event.key === 'Enter') {
@@ -26,11 +32,7 @@ export default function Password() {
 
         
     }
-    useEffect(()=>{
-        onepassword.current.focus()
-        document.body.addEventListener('keydown', handler);
-        return ()=>document.body.removeEventListener('keydown', handler);
-    },[])
+    
     
     const handleSubmit = async (e) => {
         e.preventDefault()

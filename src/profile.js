@@ -12,11 +12,9 @@ const my_profile = {
   }
 
 }
-function Convert_Date(a,b,c) {  
-  console.log(a,b,c)
+function Convert_Date(a,b,c) { 
   if (a) {
-    const dt = new Date()
-   
+    const dt = new Date()   
     const tm = a[1].split(':')
 
     if (tm[0] === '00') {

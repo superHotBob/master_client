@@ -51,7 +51,7 @@ export default function Recording() {
             setFilterServices(new_services)
         }
         GetServices()
-    }, [router.query, nikname, master])
+    }, [router.query, nikname, master,router])
 
     function SetActiveCategory(a) {
         set_Active_Category(a)

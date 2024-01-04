@@ -30,14 +30,14 @@ export default function Home() {
   };
 
   useEffect(() => {
-    console.groupEnd();
+   
     if (ref.current.getBoundingClientRect().bottom.toFixed(0) < window.innerHeight) {
       setview(3)
       view_ref.current = view_ref.current + 1
     }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
-  }, []);
+  }, [mystate]);
 
   useEffect(() => {
     if (servref.current != service) {
@@ -54,7 +54,7 @@ export default function Home() {
         }
       })
 
-  }, [service])
+  }, [service,mystate])
 
 
 

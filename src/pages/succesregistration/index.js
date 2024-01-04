@@ -7,7 +7,7 @@ export default function Succes() {
     useEffect(()=>{
         const set = setTimeout(()=>router.push('/'),5000)
         return ()=>clearTimeout.set;
-    },[])
+    },[router])
     return (
 
     <main className={styles.main}>       

@@ -50,8 +50,7 @@ export default function SelectDate({ nikname, order }) {
     const day = new Date(year, curmonth - 1, 1)
     let v = days.indexOf(days[day.getDay() - 1]) === -1 ? 6 : days.indexOf(days[day.getDay() - 1])
 
-    console.log(order)
-
+  
 
     useEffect(() => {
         setSchedule()
