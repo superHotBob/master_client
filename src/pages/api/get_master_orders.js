@@ -14,7 +14,7 @@ export default async function handler(req, res) {
   `,[req.query.nikname,req.query.month]);
  
 
-  await client.end();
+  await client.end()
   if (rows.length > 0) {
     res.status(200).json(rows.map(i=>i.date_order))
   } else {
