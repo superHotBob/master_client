@@ -17,15 +17,12 @@ export default function Confirmation() {
     const [goodorder, setgoodorder] = useState(false)
     const [address_master, setaddress] = useState()
 
-    const { data } = useSWR(`/api/get_full_address?nikname=${master.nikname}`)
-
-    useEffect(()=>{       
+    const { data } = useSWR(`/api/get_full_address?nikname=${master.nikname}`,
+    {onSuccess: (data)=> {
         setaddress('Ул. ' +  master.address  + ', дом ' + 
         data?.full_address?.дом + ', кв.' + data?.full_address?.квартира  + ', этаж ' + 
         data?.full_address?.этаж)
-    },[])
-
-    
+    }})    
    
    
     const SaveOrder = () => {              

@@ -5,7 +5,9 @@ export default async function handler(req, res) {
   const client = new Client(process.env.pg_data)
 
   await client.connect();
-
+  const months = [
+    'Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь',
+    'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
   const { rows } = await client.query(`
     delete from  "orders"        
     where "id" = $1
@@ -19,9 +21,9 @@ export default async function handler(req, res) {
 
   
 
-  let month = rows[0].date_order.split(",")[1].toLowerCase()
-  let day = rows[0].date_order.split(",")[0]
-  let time = rows[0].date_order.split(",")[2]
+  let month = months[rows[0].order_month -1].toLowerCase()
+  let day = rows[0].date_order[0]
+  let time = rows[0].date_order[1]
 
   console.log(rows[0].master, month)
 

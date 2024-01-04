@@ -35,10 +35,10 @@ export default function Client() {
             router.push('/')
         } else {
             fetch(`/api/get_orders_client?nikname=${slug}`)
-                .then(res => res.json())
-                .then(res => setData(res))
+            .then(res => res.json())
+            .then(res => setData(res))
         }
-    }, [slug, router])
+    }, [slug])
 
 
     function SetViewOrder(a) {
