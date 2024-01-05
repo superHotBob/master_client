@@ -1,11 +1,14 @@
 .main__filter {
-  margin: 16px 0;  
+  margin: 16px 0; 
+  display: flex;
+  justify-content: space-around; 
 }
 
 .main__filter span , .main__filter h2{
   display: inline-block; 
   color: #8B95F2; 
   font-weight: 500;
+  width: 50%;
   font-size:  14px;
   line-height: 17px; 
   vertical-align: middle;
@@ -20,8 +23,7 @@
   color: #3D4EEA;
   font-weight: 500;
   cursor: pointer;
-  text-align: center;
-  float: right;
+  text-align: center; 
   padding-right: 20px;
 }
 

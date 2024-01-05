@@ -6,13 +6,13 @@ import { useRouter } from 'next/router'
 import styles from './confirmation.module.css'
 import { Collaboration } from '../recordingtomaster'
 import { useState } from 'react'
-import { useEffect } from 'react'
+
 import { months } from '@/profile'
 
 
 export default function Confirmation() {
     const router = useRouter()
-    const { order, master, profile, date_order: date_order } = useSelector(state => state.counter)
+    const { order, master, profile, date_order } = useSelector(state => state.counter)
    
     const [goodorder, setgoodorder] = useState(false)
     const [address_master, setaddress] = useState()

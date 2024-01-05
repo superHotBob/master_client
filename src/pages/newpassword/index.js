@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setpassword, setprofile } from '@/reduser'
 
 export default function Password() {
-    const phone = useSelector(state => state.counter.phone)
+    const my_phone = useSelector(state => state.counter.my_phone)
     const password = useSelector(state => state.counter.password)
     const dispatch = useDispatch()
     const router = useRouter()
@@ -44,7 +44,8 @@ export default function Password() {
             setTimeout(() => setMessage(''), 2000)
             return setMessage('Пароли не совпадают')
         }
-        const data = { tel: phone, password: onepassword.current.value }
+        const data = { tel: my_phone, password: onepassword.current.value }
+        console.log(data)
         setBack("await.gif")
         if (password === 'new') {
             fetch('/api/replace_password', {
