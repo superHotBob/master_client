@@ -26,9 +26,8 @@ export default function EditProfile() {
         const prof = JSON.parse(localStorage.getItem('profile'))        
         setmy_profile(prof)  
         dispatch(setprofile(prof))         
-        setSelectedFile(process.env.url_image + prof.nikname + '.jpg')
-            
-    }, [dispatch])   
+        setSelectedFile(process.env.url_image + prof.nikname + '.jpg')            
+    }, [])   
     function Return() {
         const prof = JSON.parse(localStorage.getItem('profile'))
         setmy_profile(prof) 
@@ -115,7 +114,7 @@ export default function EditProfile() {
             </header>
             <form style={{ height: '106px' }} className={styles.image}>
                 <Image
-                    src={file}
+                    src={file ? file : 'https://masters.place/images/undefined.jpg'}
                     alt="фото клиента"
                     title='Заменить иконку профиля'
                     priority={true}
