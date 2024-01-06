@@ -18,12 +18,13 @@ export default function City() {
     const { data } = useSWR(`/api/get_cities?city=${findcity}&mystate=${mystate}`)
 
 
-    async function setMyCity() {
-        setfindcity(selCity.city)
-        const res = await fetch(`/api/get_citi_coord?city=${selCity.city}`)
+    async function setMyCity(a,b) {
+        setSelCity({...selCity,city: a, state: b})
+        setfindcity(a)
+        const res = await fetch(`/api/get_citi_coord?city=${a}`)
         const { lat, lon } = await res.json()
-        dispatch(setcity(selCity.city)) 
-        dispatch(setstate(selCity.state))           
+        dispatch(setcity(a)) 
+        dispatch(setstate(b))           
         dispatch(setlocation([lat, lon]))
         router.back()
     }
@@ -43,7 +44,7 @@ export default function City() {
                 placeholder='Ваш город'
                 onChange={(e) => setfindcity(e.target.value)}
             />
-            <section className={styles.section}>
+           
                 {data
                     ?.map(i =>
                         <label className={styles.city} key={i.city}>
@@ -58,12 +59,13 @@ export default function City() {
                                 checked={i.city === selCity.city}
                                 value={selCity.city}
                                 name="city"
-                                onChange={() => setSelCity({...selCity,city: i.city,state:i.state})}
+                                onChange={() => setMyCity(i.city,i.state)}
                             />
                         </label>
                     )
                 }
-            </section>
+           
         </>
     )
+
 }

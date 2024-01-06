@@ -8,25 +8,22 @@
 }
 
 .header {
-    display: flex;
-    justify-content: space-between;
+   
+    text-align: center;
     height: 46px;
-    padding: 11px;
+    padding: 16px;
     padding-left: 21px;
-    align-items: center;
+   
     font-weight: 500;
     font-size:  16px;
-    line-height:  17px;
+    line-height:  21px;
 }
 
-.header button {
-    color: #3D4EEA;
-    font-size: 16px;
-    background-color: #fff;
-}    
+
 .header img {
     cursor: pointer;
-    margin-right: 55px;
+   float: left;
+   margin-top: 5px;
 }
 .section {
     width: 300px;
@@ -78,6 +75,8 @@
     font-weight: 500;
     font-size:  14px;
     line-height: 17px;
+    width: 300px;
+    margin: 0 auto;
    
     color: #000;
     height: 48px;

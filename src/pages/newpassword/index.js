@@ -45,7 +45,7 @@ export default function Password() {
             return setMessage('Пароли не совпадают')
         }
         const data = { tel: my_phone, password: onepassword.current.value }
-        console.log(data)
+       
         setBack("await.gif")
         if (password === 'new') {
             fetch('/api/replace_password', {
@@ -81,6 +81,7 @@ export default function Password() {
         }
     }
 
+    
 
     return (
         <section className={styles.section} >

@@ -12,9 +12,9 @@ import { getImage } from '@/data.'
 export default function MapComponent({ setRadius, setzoom, divHeight, my_zoom }) {
     const loc = useSelector((state => state.counter.location))
     const service = useSelector((state) => state.counter.service)
-    const [center, setCenter] = useState()
-    const [zoom, setZoom] = useState(13)
-    const [mapHeight, setMapHeight] = useState()
+    const [center, setCenter] = useState(loc)
+    const [zoom, setZoom] = useState(my_zoom)
+    const [mapHeight, setMapHeight] = useState(divHeight)
     const [masters, setmasters] = useState([])
 
     const [address, setaddres] = useState()
@@ -33,20 +33,20 @@ export default function MapComponent({ setRadius, setzoom, divHeight, my_zoom })
         "geoQuery"
     ])
 
-    useEffect(() => {
-        setMapHeight(divHeight)
-        setZoom(my_zoom)
-        setCenter(loc)
-      
-    }, [my_zoom])
+    // useEffect(() => {      
+    //     // setZoom(my_zoom)        
+    // }, [my_zoom])
 
     function OnLoadMap() {
         const bounds = Map.current.getBounds()       
         const coord = bounds.flat().map(i => +i.toFixed(4))
         
         fetch(`/api/get_masters_coord?coord=${coord}&service=${service}`)
-            .then(res => res.json())
-            .then(res => setmasters(res))
+        .then(res => res.json())
+        .then(res => {
+            setFilterMasters(res)
+            setmasters(res)
+        })
         setTimeout(() => {
             document.getElementsByClassName('ymaps-2-1-79-ground-pane')[0].style.filter = 'grayscale(1)'
             document.getElementsByClassName('ymaps-2-1-79-copyright')[0].style.display = 'none'
@@ -69,30 +69,16 @@ export default function MapComponent({ setRadius, setzoom, divHeight, my_zoom })
                     setmasters(res)
                     setFilterMasters(res)
                 })
-            setZoom(zoom)
+           setZoom(zoom)
             let radius = ymaps.coordSystem.geo.getDistance(center, bounds[1]) / 1.2
-            setRadius((radius/1000).toFixed(1))
-            console.log(zoom,(radius/1000).toFixed(1))
-            // Map.current.zoomRange.get([20, 30]).then(function (zoomRange) {
-            //     console.log(zoomRange);
-            // });
+            setRadius((radius/1000).toFixed(1))            
+          
         });
 
     }
 
 
-    // async function SetFilterCluster() {
-    //     setzoom(17)
-    //     setTimeout(() => {
-    //         const bounds = Map.current.getBounds()
-    //         const coord = bounds.flat().map(i => +i.toFixed(4))
-    //         setTimeout(() => {
-    //             fetch(`/api/get_masters_coord?coord=${coord}&service=${service}`)
-    //                 .then(res => res.json())
-    //                 .then(res => setFilterMasters(res))
-    //         }, 500)
-    //     }, 500)
-    // }
+   
 
     function ViewMaster(event, a) {
         event.stopPropagation()
@@ -105,7 +91,10 @@ export default function MapComponent({ setRadius, setzoom, divHeight, my_zoom })
             const coord = bounds.flat().map(i => +i.toFixed(4))
             fetch(`/api/get_masters_coord?coord=${coord}&service=${service}`)
                 .then(res => res.json())
-                .then(res => setFilterMasters(res))
+                .then(res => {
+                    setFilterMasters(res)
+                    setmasters(res)
+                })
         }, 500)
     }
 
@@ -196,7 +185,7 @@ export default function MapComponent({ setRadius, setzoom, divHeight, my_zoom })
                     'templateLayoutFactory']}
                 state={{
                     center: center,
-                    zoom: zoom,
+                    zoom: my_zoom,
                     behaviors: ["default"]
                 }}
                 width="100%"
@@ -223,9 +212,7 @@ export default function MapComponent({ setRadius, setzoom, divHeight, my_zoom })
                             offset: [-20, -20],
                         }]
                     }}
-                    onClick={(event) => {
-                        // SetFilterCluster()
-                        // event.stopPropagation()                       
+                    onClick={() => {                                    
                         setMapHeight(window.innerWidth > 500 ? '400px' : '350px')
                     }}
 
