@@ -15,19 +15,19 @@ export default function City() {
     const dispatch = useDispatch()
     const mystate = useSelector(state=>state.counter.mystate)
 
-    // const { data } = useSWR(`/api/get_cities?city=${findcity}&mystate=${mystate}`)
+    const { data } = useSWR(`/api/get_cities?city=${findcity}&mystate=${mystate}`)
 
 
-    // async function setMyCity(a,b) {
-    //     setSelCity({...selCity,city: a, state: b})
-    //     setfindcity(a)
-    //     const res = await fetch(`/api/get_citi_coord?city=${a}`)
-    //     const { lat, lon } = await res.json()
-    //     dispatch(setcity(a)) 
-    //     dispatch(setstate(b))           
-    //     dispatch(setlocation([lat, lon]))
-    //     // router.back()
-    // }
+    async function setMyCity(a,b) {
+        setSelCity({...selCity,city: a, state: b})
+        setfindcity(a)
+        const res = await fetch(`/api/get_citi_coord?city=${a}`)
+        const { lat, lon } = await res.json()
+        dispatch(setcity(a)) 
+        dispatch(setstate(b))           
+        dispatch(setlocation([lat, lon]))
+        // router.back()
+    }
   
 
     return (
@@ -59,7 +59,7 @@ export default function City() {
                                 checked={i.city === selCity.city}
                                 value={selCity.city}
                                 name="city"
-                                // onChange={() => setMyCity(i.city,i.state)}
+                                onChange={() => setMyCity(i.city,i.state)}
                             />
                         </label>
                     )
