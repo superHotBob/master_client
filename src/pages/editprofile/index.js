@@ -64,7 +64,10 @@ export default function EditProfile() {
         let {currency, name, text, city, address, nikname, address_full,state , tema, locations} = JSON.parse(localStorage.getItem('profile'))
         dispatch(setlocation(locations))
         dispatch(setnikname(nikname))
-        dispatch(setstate(state))
+        if(state) {
+            console.log('state',state)
+            dispatch(setstate(state))
+        }    
         if (!nikname) {
             return () => router.push('/enter')
         } else {
@@ -81,7 +84,7 @@ export default function EditProfile() {
             setColor(tema ? my_tema[+tema].color : my_tema[0].color)
         }
 
-    }, [dispatch,router])
+    }, [])
     function Return() {
         let pro = JSON.parse(localStorage.getItem('profile'))
         setName(pro.name),

@@ -8,16 +8,16 @@ import { setstate, setlocation } from '../../reduser.js'
 import useSWR from 'swr'
 
 
-export default function City() {
+export default function States() {
     const [place, setplace] = useState({})
     const [findcity, setfindcity] = useState('')
     const router = useRouter()
     const dispatch = useDispatch()
 
-    const { data } = useSWR(`/api/get_states?state=${findcity.toLowerCase()}`)
+   const { data } = useSWR(`/api/get_states?state=${findcity.toLowerCase()}`)
 
 
-    async function setMyCity(a, b, c) {
+    function setMyCity(a, b, c) {
         setplace({ ...place, state: a, lat: b, lon: c })
         dispatch(setstate(a))
         dispatch(setlocation([b, c]))
@@ -26,7 +26,7 @@ export default function City() {
     return (
         <>
             <header className={styles.header}>
-                <Image src={arrow} alt="back" onClick={() => router.back()} />
+               <Image src={arrow} alt="back" onClick={() => router.back()} />
                 Выбор области
             </header>
             <input

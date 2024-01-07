@@ -44,7 +44,8 @@ export default function Home() {
       setdata([])
       servref.current = service
     }
-    fetch(`/api/get_images_master_city?service=${service}&city=${mystate.toLowerCase()}`)
+   
+    fetch(`/api/get_images_master_city?service=${service}&city=${mystate?.toLowerCase()}`)
       .then(res => res.json())
       .then(res => {
         if (res['one']) {

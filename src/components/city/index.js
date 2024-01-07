@@ -9,7 +9,7 @@ export default function CitySelect({city}) {
     const router = useRouter()
 
     function handleClick() {
-        // dispatch(setstate(''))
+       dispatch(setstate(''))
         router.push("/states")
     }
     return <button className={styles.city}  onClick={handleClick}> 

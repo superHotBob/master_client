@@ -20,7 +20,7 @@ export default function MyApp({ Component, pageProps }) {
 const my_path = ['informations', 'informations/aboutservice','filling',
   'newpassword','succesregistration','displaypublications',
   'masterrecords','confirmation','addlist','calendar', 'become','editprofile/address',
-  'city', 'masternear', 'masternear/city', 'editprofile', 'addmasterorder']
+  'states', 'masternear', 'masternear/city', 'editprofile', 'addmasterorder']
 
   const router = useRouter()
   const { slug } = router.query

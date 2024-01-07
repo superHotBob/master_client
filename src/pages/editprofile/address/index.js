@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 
 export default function Address() {
 
-    const { nikname,  location, mystate } = useSelector(state => state.counter)
+    const { nikname,  location, mystate } = useSelector((state) => state.counter)
     const router = useRouter()
     const dispatch = useDispatch()
     const [city, setCity] = useState('')
@@ -23,16 +23,13 @@ export default function Address() {
 
     useEffect(() => {
         let { city, address, address_full, state } = JSON.parse(localStorage.getItem('profile'))      
-        if (!city) {
-            return () => router.push('/editprofile')
-        } else {
-            setCity(city ? city : 'минск')
+            setCity(city ? city : 'минск')           
             setAddress(address)
             setAddress_full(address_full)
-            setMyState(state)
+            setMyState(mystate ? mystate : 'Минская область')
             setstreet(address?.split(',').length === 3 ? address?.split(',')[1] : address?.split(',')[2])
-        }
-    }, [router])
+       
+    }, [])
   
     function SetAddressFull(e) {
         setAddress_full({ ...address_full, ...{ 'тип': e.target.value } })
