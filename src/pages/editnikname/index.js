@@ -22,10 +22,10 @@ export default function EditNikname() {
     }
 
     function ViewCurrentName(e) {
-        setnewnikname(e.target.value)
+       
         let str = e.target.value
 
-        const regex = /[/А-я,ё// //.//;//://-//*//?//$//%/]/g;
+        const regex = /[/А-я,ё// //.//;//://-//*//?//$//%//@/]/g;
 
 
 
@@ -33,10 +33,14 @@ export default function EditNikname() {
         if (found?.length > 0) {
             document.getElementById("name").style.display = 'block'
             document.getElementById("name").style.color = 'red'
-            document.getElementById("name").innerText = "Только латинские буквы,цифры, дефис и нижнее подчёркивание"
+            document.getElementById("name").innerText = "Только латинские буквы, цифры, дефис и нижнее подчёркивание"
             document.getElementById("change").style.opacity = 0
             return;
+        } else {
+            document.getElementById("name").innerText = ""
+            document.getElementById("change").style.opacity = 1
         }
+        setnewnikname(e.target.value)
         if (e.target.value.length > 3) {
             fetch(`/api/view_name?name=${e.target.value}`)
                 .then(res => res.text())
@@ -79,9 +83,9 @@ export default function EditNikname() {
             <section className={styles.main_block}>
                 <p>{`Вы можете указать своё короткое имя, чтобы другим
              людям было проще вас найти или упомянуть в своих 
-             записях. Ваше короткое имя: `}<span>@{newnikname}</span>
+             записях. Ваше короткое имя: `}<span>{newnikname}</span>
                 </p>
-                <p>Ваша ссылка MasterPlace: <b>master.palce/{newnikname}</b></p>
+                <p>Ваша ссылка mastes.place: <b>masters.place/{newnikname}</b></p>
 
                 <input
                     type="text"

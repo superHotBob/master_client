@@ -5,6 +5,10 @@ export default async function handler(req, res) {
   const client = new Client(process.env.pg_data)
 
   await client.connect();
+
+  
+
+  
   const { rows } = await client.query(`
   select id,img_date,master_name,nikname,review
     from "images"

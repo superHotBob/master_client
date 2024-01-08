@@ -12,8 +12,7 @@ export default async function handler(req, res) {
         where "nikname" LIKE $1 
        
    `,[req.query.name + '%']);
-
-   console.log(rows[0].count)
+   
 
     await client.end();
     

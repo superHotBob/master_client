@@ -26,7 +26,7 @@ export default function Address() {
             setCity(city ? city : 'минск')           
             setAddress(address)
             setAddress_full(address_full)
-            setMyState(mystate ? mystate : 'Минская область')
+            setMyState(mystate ? mystate : 'минск')
             setstreet(address?.split(',').length === 3 ? address?.split(',')[1] : address?.split(',')[2])
        
     }, [])

@@ -33,7 +33,9 @@ export default function MasterNear() {
                 мастерами вашего города. Для этого нужно выбрать 
                 ваш город, что бы увидеть список мастеров.'
             />
-            <Link className={styles.city} href='/states'>{mystate}</Link>
+            <Link className={styles.city} href='/states'> 
+                {mystate?.charAt(0).toUpperCase() + mystate?.slice(1)}
+            </Link>
             <span className={styles.selector_one} style={sel}>Список</span>
             <Link className={styles.selector_two} href="/masternear/city" >На карте</Link>
             <FilterServices />
