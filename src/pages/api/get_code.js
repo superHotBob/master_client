@@ -13,11 +13,7 @@ export default async function handler(req, res) {
       ip: ipAddress
     })
   })
-  const txt = await st.text();
- 
-
-  console.log(txt)
-  
+  const txt = await st.text(); 
 
   if ( txt === 'Code is good' ) {
     res.status(200).send(st)
@@ -28,5 +24,4 @@ export default async function handler(req, res) {
   } else {
     res.status(404).send('code is fall')
   }
-
 }

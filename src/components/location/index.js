@@ -8,11 +8,10 @@ import icon_close from '../../../public/close.svg'
 
 const API_KEY = "89caab37-749d-4e30-8fdf-e8045542f060"
 
-function Mymap({ loc_master, place, address_total, nikname, city }) {   
-    const {  mystate } = useSelector(state => state.counter)
+function Mymap({ loc_master, place, address_total, city , state }) {   
+    let { nikname } = JSON.parse(localStorage.getItem('profile'))
     const [location, setLoc] = useState(loc_master)
-    const [address , setaddress] = useState()
-   
+    const [address , setaddress] = useState()   
     const ymaps = useYMaps([
         "Map",
         "option.Manager",
@@ -31,16 +30,16 @@ function Mymap({ loc_master, place, address_total, nikname, city }) {
         document.getElementsByClassName('ymaps-2-1-79-gototech')[0].style.display = 'none'
         document.getElementsByClassName('ymaps-2-1-79-map-copyrights-promo')[0].style.display = 'none'
         getCoord(place)
-        Map.current.events.add('actionend', function () {
-            let tick = Map.current.getBounds();
-            let center = Map.current.getCenter();
+        // Map.current.events.add('actionend', function () {
+        //     let tick = Map.current.getBounds();
+        //     let center = Map.current.getCenter();
 
-            console.log('Сейчас карта переместится в точку ',tick, center.map((i)=>i.toFixed(4)))
+           
                
-        });
+        // });
     }
     function updateLocation(a,b) {
-        let { nikname } = JSON.parse(localStorage.getItem('profile'))
+       
         if(!nikname) {
             return;
         }
@@ -51,7 +50,7 @@ function Mymap({ loc_master, place, address_total, nikname, city }) {
                 locations: a,
                 address: b,
                 city: city.toLowerCase(),
-                state: mystate.toLowerCase(),
+                state: state.toLowerCase(),
                 address_full: address_total
             }),
             headers: {
@@ -150,7 +149,7 @@ function Mymap({ loc_master, place, address_total, nikname, city }) {
                         ['geoObject.addon.balloon', 'geoObject.addon.hint', "templateLayoutFactory"]
                     }
                     options={{iconLayout: placeMark(ymaps.templateLayoutFactory, nikname),iconOffset: [-20, -20]}}
-                    onLoad={() => ViewGrayScale()}
+                    onLoad={ViewGrayScale}
                 /> : null}
             </Map>
             {address && <div className={styles.address}>

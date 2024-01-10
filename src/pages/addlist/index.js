@@ -46,7 +46,8 @@ export default function AddList() {
         setnikname(prof.nikname)
         setColor([...my_tema[prof.tema].color])
         setServices(prof.services)
-        settag(prof.services[0])       
+        
+        settag(prof.services != undefined ? prof.services[0] : [])       
     }, [])
 
    

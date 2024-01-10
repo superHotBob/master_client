@@ -14,6 +14,13 @@ export default async function handler(req, res) {
       `, [locations, nikname, address, address_full, city, state])
 
 
+  const { rows: images } = await client.query(`
+    update "images"
+    set "city" = $2
+    where "nikname" = $1
+     `,[nikname,state]
+  ) 
+
   await client.end();
   if (rows.length > 0) {
     res.status(200).json(rows[0])

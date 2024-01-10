@@ -65,7 +65,7 @@ export default function EditProfile() {
         dispatch(setlocation(locations))
         dispatch(setnikname(nikname))
         if(state) {
-            console.log('state',state)
+            
             dispatch(setstate(state))
         }    
         if (!nikname) {
@@ -122,8 +122,8 @@ export default function EditProfile() {
     }
 
     function selectUpload(e) {
-        if (e.target.files[0].size > 3000000) {
-            setMessage('Размер изображения больше 3 мб')
+        if (e.target.files[0].size > 5000000) {
+            setMessage('Размер изображения больше 5 мб')
             return;
         }
         let url = URL.createObjectURL(e.target.files[0])

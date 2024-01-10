@@ -13,7 +13,7 @@ const initialState = {
   location: [53.902735, 27.561771],
   message: '',
   tema: 0,
-  mystate: 'Минская область'
+  mystate: 'Минск'
 }
 
 export const counterSlice = createSlice({

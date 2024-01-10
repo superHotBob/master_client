@@ -5,28 +5,30 @@ import arrow from '../../../../public/arrow_back.svg'
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+
 
 
 export default function Address() {
 
-    const { nikname,  location, mystate } = useSelector((state) => state.counter)
-    const router = useRouter()
-    const dispatch = useDispatch()
+    const { location, mystate  } = useSelector((state) => state.counter)
+   
+   
     const [city, setCity] = useState('')
-    const [state, setMyState] = useState('')
-    const [address, setAddress] = useState()
+    // const [state, setMyState] = useState('')
+    // const [address, setAddress] = useState()
     const [street, setstreet] = useState()
     const [address_full, setAddress_full] = useState({})
 
     const [view_Loc, set_View_Loc] = useState(false)
 
+   
+
     useEffect(() => {
-        let { city, address, address_full, state } = JSON.parse(localStorage.getItem('profile'))      
+        
+        let { city, address, address_full } = JSON.parse(localStorage.getItem('profile'))      
             setCity(city ? city : 'минск')           
-            setAddress(address)
-            setAddress_full(address_full)
-            setMyState(mystate ? mystate : 'минск')
+            // setAddress(address)
+            setAddress_full(address_full)          
             setstreet(address?.split(',').length === 3 ? address?.split(',')[1] : address?.split(',')[2])
        
     }, [])
@@ -65,7 +67,7 @@ export default function Address() {
                     <input
                         type="text" value={street}
                         onChange={(e) => setstreet(e.target.value)}
-                        placeholder='улица Ленина или проспект Независимости'
+                        placeholder='улица Ленина, проспект Независимости, переулок Будёного'
                     />
                 </label>
                 <label>
@@ -109,19 +111,17 @@ export default function Address() {
                         onChange={(e) => setAddress_full({ ...address_full, 'квартира': e.target.value })}
                     />
                 </label>
-
                 <button className={styles.location} onClick={() => set_View_Loc(true)}>
                     Выбрать локацию
                 </button>
             </section>
             {view_Loc ? <Location
-                nikname={nikname}
-                loc_master={location}
-                close={set_View_Loc}
                 city={city}
                 state={mystate}
+                close={set_View_Loc}
+                loc_master={location}                            
                 address_total={address_full}
-                place={mystate + ' , ' + city + ' , ' + street + ' , ' + address_full.дом}
+                place={mystate + ' , ' + city + ' , ' + street + ' , ' + address_full?.дом}
             /> : null}
 
         </>

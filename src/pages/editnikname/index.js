@@ -62,7 +62,7 @@ export default function EditNikname() {
     }
     async function ChangeNikname() {
         if (!profile.nikname) { return; }
-        // if( document.getElementById("change").style.opacity === 1) { return; }
+      
 
         fetch(`/api/edit_nikname?newnikname=${newnikname}&oldnikname=${profile.nikname}`)
             .then(res => res.text())
@@ -81,9 +81,10 @@ export default function EditNikname() {
                 <button id="change" onClick={ChangeNikname}>Принять</button>
             </header>
             <section className={styles.main_block}>
-                <p>{`Вы можете указать своё короткое имя, чтобы другим
-             людям было проще вас найти или упомянуть в своих 
-             записях. Ваше короткое имя: `}<span>{newnikname}</span>
+                <p>{`Вы можете придумать уникальную ссылку на свой профиль, 
+                    чтобы делится с ней со своими клиентами.
+                    Вам и клиентам будет проще вас найти.
+                    Вы можете использовать английские буквы и цифры:  `}<span>{newnikname}</span>
                 </p>
                 <p>Ваша ссылка mastes.place: <b>masters.place/{newnikname}</b></p>
 
