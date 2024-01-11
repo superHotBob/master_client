@@ -40,7 +40,7 @@ export default function EnterPassword() {
         } else {
             localStorage.setItem("profile", JSON.stringify(result))
             dispatch(setprofile(result)) 
-            dispatch(setcity(result.city ? result.city : 'Минск'))          
+            dispatch(setcity(result.city ))          
             router.push('/')
         }
     }

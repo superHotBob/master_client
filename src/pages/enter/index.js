@@ -33,9 +33,11 @@ export default function Enter() {
 
    
 
-    const checkClient = () => {
+    async function checkClient() {
         if(!phone) return;
-        fetch(`/api/check_client?phone=${phone}`)
+        let responce = await fetch('https://ipgeolocation.abstractapi.com/v1/?api_key=ecc713e733a64a24bd32521c2f47be98&fields=city,ip_address')
+        let data = await responce.json()    
+        fetch(`/api/check_client?phone=${phone}&city=${data.city}&ip_address=${data.ip_address}`)
             .then(res => res.json())
             .then(res => {
                 if(password === 'new') {
