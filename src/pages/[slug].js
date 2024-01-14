@@ -37,6 +37,7 @@ export default function Master() {
    
 
     useEffect(() => {
+       
         setNavView(0)
         return () => dispatch(settema(my_tema[0].color))
     }, [])

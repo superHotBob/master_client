@@ -44,7 +44,7 @@ export default function States() {
                             <span>{i.country}</span>
                         </div>
 
-                        <span className={i.state === place.state ? styles.enabled : styles.disabled}></span>
+                        <span className={i.state === place.state ? styles.enabled : styles.disabled}/>
                         <input
                             type="radio"
                             checked={i.state === place.state}

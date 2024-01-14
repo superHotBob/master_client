@@ -17,13 +17,7 @@ export default async function handler(req, res) {
  
    
     
-    let date_enter = Date.now()
    
-    await client.query(
-        `INSERT INTO "history" ("ip", "date_enter", "city" , "phone")  
-        VALUES ($1, $2, $3, $4)`
-        , [req.query.ip_address, date_enter, req.query.city, req.query.phone]
-    )
     await client.end()
     res.status(200).json(rows)
 }

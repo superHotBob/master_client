@@ -8,22 +8,27 @@ import { setprofile, setpassword, setphone, setcity } from '@/reduser'
 
 
 export default function EnterPassword() {
-    
+    const  phone  = useSelector(state=>state.counter.my_phone)
     const dispatch = useDispatch()
     const router = useRouter()
     const [back, setBack] = useState('logo-main.svg')
     const [message, setMessage] = useState('')
     const passRef = useRef()
-
+    console.log(phone)
     const ReplacePassword = () => {
         dispatch(setpassword('new'))
-        dispatch(setphone(router.query.phone))       
+        // dispatch(setphone(router.query.phone))       
         router.push('/enter')
+    }
+
+    if (!phone ) {
+       
+        setTimeout(()=>router.push('/enter'),500) 
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();       
-        const data = { tel: +router.query.phone, password: passRef.current.value }      
+        const data = { tel: +phone, password: passRef.current.value }      
         setMessage('')      
 
         const response = await fetch('/api/enter_password', {
@@ -40,9 +45,19 @@ export default function EnterPassword() {
         } else {
             localStorage.setItem("profile", JSON.stringify(result))
             dispatch(setprofile(result)) 
-            dispatch(setcity(result.city ))          
+            if( result.city) {
+                dispatch(setcity(result.city ))      
+            }
+            saveToHistory(result)   
             router.push('/')
         }
+    }
+
+    async function saveToHistory() {
+        let responce = await fetch('https://ipgeolocation.abstractapi.com/v1/?api_key=ecc713e733a64a24bd32521c2f47be98&fields=city,ip_address')
+        let data = await responce.json()    
+        fetch(`/api/save_history?phone=${phone}&city=${data.city}&ip_address=${data.ip_address}`)
+        .then(res=>res.json())
     }
 
     return (

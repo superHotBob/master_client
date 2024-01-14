@@ -9,12 +9,11 @@ import 'react-phone-input-2/lib/style.css'
 
 export default function Enter() {
 
-    const [phone, setPhone] = useState()
     const dispatch = useDispatch()
-    const { password, my_phone } = useSelector(state => state.counter)
-    
-
     const router = useRouter()
+    const { password, my_phone } = useSelector(state => state.counter)
+
+    // const [phone, setPhone] = useState()   
     const [number, setNumber] = useState([, , ,])
     const [back, setBack] = useState('logo-main.svg')
     const [select, setSelect] = useState('Вход')
@@ -23,39 +22,36 @@ export default function Enter() {
 
 
 
-    useEffect(() => {
-        setPhone(my_phone)       
+    useEffect(() => {        
         if (password === 'new') {
             Call() 
             setSelect('Восстановление пароля')          
         }        
-    }, [password, my_phone])
+    }, [password])
 
    
 
     async function checkClient() {
-        if(!phone) return;
-        let responce = await fetch('https://ipgeolocation.abstractapi.com/v1/?api_key=ecc713e733a64a24bd32521c2f47be98&fields=city,ip_address')
-        let data = await responce.json()    
-        fetch(`/api/check_client?phone=${phone}&city=${data.city}&ip_address=${data.ip_address}`)
+        if(password === 'new') {
+            return Call()                   
+        }        
+        fetch(`/api/check_client?phone=${my_phone}`)
+            
             .then(res => res.json())
             .then(res => {
-                if(password === 'new') {
-                    Call()                   
-                }
-                if (res.length === 0) {
-                    Call();                    
+                console.log(res)
+               if (res.length === 0) {
+                    Call()                    
                 } else if (res[0].blocked != '0') {
                     router.push('/enter')
-                } else {
-                   
-                    router.push(`/enterpassword?phone=${phone}`)
+                } else {                   
+                    router.push('/enterpassword')
                 }
         })
     }
 
     async function Call() {
-        const data = { tel: phone || my_phone}        
+        const data = { tel: +my_phone }        
         const res = await fetch(`/api/get_code`, {
             body: JSON.stringify(data),
             headers: {
@@ -67,12 +63,11 @@ export default function Enter() {
        
 
         if (res.status === 400) {
-            setSelect('Подтвердить'),
-            setTimeout(() => document.getElementById(1).focus(), 500),
-            dispatch(setphone(phone))
+            setSelect('Подтвердить')
+            setTimeout(() => document.getElementById(1).focus(), 500)
+            // dispatch(setphone(phone))
         } else {
-            setT(+txt)
-            console.log(txt)
+            setT(+txt)           
         }
 
     }
@@ -94,7 +89,7 @@ export default function Enter() {
 
 
     async function sendCode() {
-        const data = { tel: phone, number: +number.join('') }
+        const data = { tel: my_phone, number: +number.join('') }
        
         fetch('/api/get_code', {
             body: JSON.stringify(data),
@@ -105,10 +100,10 @@ export default function Enter() {
         })
             .then(res => {
                 if (res.status === 200) {
-                    dispatch(setphone(phone))
+                    // dispatch(setphone(phone))
                     router.push('newpassword')
                 } else if (res.status === 404) {
-                    setSelect('Подтвердить')
+                   setSelect('Подтвердить')
                    setMessage('Не верный код')
                 } else if (res.status === 500) {
                     setMessage('Вы исчерпали лимит попыток')
@@ -182,7 +177,7 @@ export default function Enter() {
                         }}
                         countryCodeEditable={false}
                         onlyCountries={['by', 'ru']}
-                        value={phone}
+                        value={my_phone}
                         prefix='+'
                         containerStyle={{
                             border: '1px solid #3D4EEA',
@@ -196,7 +191,7 @@ export default function Enter() {
                         buttonStyle={{ border: 'none', borderTopLeftRadius: '6px', borderBottomLeftRadius: '6px' }}
                         placeholder='номер телефона'
 
-                        onChange={phone => setPhone(phone)}
+                        onChange={phone => dispatch(setphone(phone))}
 
                         inputStyle={{ fontFamily: '__Rubik_7303a2', border: 'none', borderRight: 'none', height: 'auto' }}
                     />
@@ -206,7 +201,7 @@ export default function Enter() {
                             можно будет через  <b>{t}</b> сек.
                         </h3> :
                         <>
-                            <button disabled={phone?.length < 11} className={styles.button} onClick={checkClient}>
+                            <button disabled={my_phone?.length < 11} className={styles.button} onClick={checkClient}>
                                 Войти
                             </button>
                             <div className={styles.colaboration}>
@@ -223,7 +218,7 @@ export default function Enter() {
                         Отвечать на звонок не нужно. Звоним на <br />
                         указанный номер:
                     </p>
-                    <h4>+{phone}</h4>
+                    <h4>+{my_phone}</h4>
                     <h5>Например +7 XXX XXX  <span>12 34</span></h5>
                     <div className={styles.numbers} >
                         {[1, 2, 3, 4].map(i =>
@@ -241,7 +236,7 @@ export default function Enter() {
                     </div>
                     {message ?
                         <>
-                            <h3 className={styles.error} >Не верный код</h3>
+                            <h3 className={styles.error}>Не верный код</h3>
                             <div className={styles.button} onClick={sendCode}>Подтвердить</div>
                         </>
                         :
