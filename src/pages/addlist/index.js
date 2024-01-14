@@ -90,6 +90,7 @@ export default function AddList() {
         .then(res=>setSelectedFile(''))                 
         .catch(err => console.log(err))       
     }
+    
   
 
     return (

@@ -77,7 +77,7 @@ export default function AddSertificat({ nikname, view, color }) {
         data.append('file',  e.target.files[0], `${res.id}.${type}`) 
         data.append('name', res.id)       
 
-        fetch('/api/add_image_to_server', {
+        fetch('https://admin.masters.place/upload', {
             method: 'POST',
             body: data,
         })
