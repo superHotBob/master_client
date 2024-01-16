@@ -69,7 +69,7 @@ function ClientOrder({ order, active, close }) {
         }
     }
     async function DeleteOrder() {
-        const data = { id: order.id }
+        const data = { id: order.id , month: order.order_month }
         const response = await fetch('/api/delete_order', {
             body: JSON.stringify(data),
             headers: {
@@ -79,6 +79,7 @@ function ClientOrder({ order, active, close }) {
         })
         if (response.status === 200) {
             setresult('Ваш заказ отменён')
+            setTimeout(()=> close(),2000)
         }
 
     }
