@@ -29,8 +29,7 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
-   
+  useEffect(() => {   
     if (ref.current.getBoundingClientRect().bottom.toFixed(0) < window.innerHeight) {
       setview(3)
       view_ref.current = view_ref.current + 1

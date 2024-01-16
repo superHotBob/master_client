@@ -15,5 +15,5 @@ export default async function handler(req, res) {
         , [req.query.ip_address, date_enter, req.query.city, req.query.phone]
     )
     await client.end()
-    res.status(200)
+    res.status(200).send('ok')
 }

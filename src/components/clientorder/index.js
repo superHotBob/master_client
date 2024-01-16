@@ -15,6 +15,7 @@ const review = {
 
 
 function Detail({ order }) {
+  
     return <>
         <h5>Дата и время</h5>
         <span>{Convert_Date(order?.date_order, order?.order_month, order?.year)}</span>
@@ -22,25 +23,16 @@ function Detail({ order }) {
         <span>{order?.text}</span>
         <span>{order?.price} BYN</span>
         <h5>Описание</h5>
-        {order?.myorder ?
+       
             <div className={styles.review}>
-                {order?.myorder.map((i, index) =>
+                {order.myorder.map((i, index) =>
                     <Fragment key={index}>
                         <p >{(index + 1 + '. ' + i.split('~')[0])}</p>
                         <span>{i.split('~')[2]}</span>
                     </Fragment>
                 )}
             </div>
-            :
-            <div className={styles.review}>
-                {order?.neworder.split(',').map((i, index) =>
-                    <Fragment key={index}>
-                        <p>{(index + 1 + '. ' + i.split('~')[0])}</p>
-                        {i.split(':')[2]}
-                    </Fragment>
-                )}
-            </div>
-        }
+          
     </>
 }
 

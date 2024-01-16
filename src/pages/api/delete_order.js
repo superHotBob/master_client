@@ -32,7 +32,7 @@ export default async function handler(req, res) {
   const { rows: schedule } = await client.query(`
     select ${columns} from "schedule" 
     where "nikname" = $1 
-  `,[rows[0].master])
+  `,[req.body.nikname])
 
   let new_schedule = schedule[0][month]
 
@@ -46,11 +46,14 @@ export default async function handler(req, res) {
   
 
 
-  await client.query(`
+  const { rows: master_new_schedule } = await client.query(`
     update "schedule"
     SET ${columns} = $1
     WHERE "nikname" = $2
-  `, [new_schedule, rows[0].master])
+   
+  `, [new_schedule, req.body.nikname])
+
+    console.log(master_new_schedule)
 
 
   await client.query(`

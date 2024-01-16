@@ -17,9 +17,9 @@ export default function Order() {
    
    
     useEffect(() => {
-        let pro = JSON.parse(localStorage.getItem("profile"))
-        setColor(pro.color)       
-    }, [router,order])
+        let { color } = JSON.parse(localStorage.getItem("profile"))
+        setColor(color)       
+    }, [order])
    
     async function DeleteOrder() {
         const my_data = { id: order.id, nikname: order.master }
@@ -40,6 +40,7 @@ export default function Order() {
 
 
     if(isLoading) {
+        console.log('isLoading')
         return;
     }
 
@@ -48,8 +49,8 @@ export default function Order() {
         <main className={styles.main}>
             <header>
                 <b onClick={() => router.back()} />
-                <span>#{pid}</span>
-                <span style={{ color: color ? color[1] : null }}>Готово</span>
+                Заказ #{pid}
+                {/* <span style={{ color: color ? color[1] : null }}>Готово</span> */}
             </header>
             {order ? <section className={styles.data} style={{ color: color ? color[1] : null }}>
                 <h5>Клиент {order?.client_name}</h5>

@@ -73,7 +73,6 @@ export default function Calendar({ profile }) {
 
     }, [])
     useEffect(() => {
-
         if (!pro) {
             router.push('/')
             return;
@@ -99,7 +98,7 @@ export default function Calendar({ profile }) {
         const data = {
             nikname: pro.nikname,
             month: my_months[curmonth].toLocaleLowerCase(),
-            schedule: monthSchedule,
+            schedule: monthSchedule.map(i=> i ? i: ''),
             year: year
         }
         fetch('/api/edit_schedule', {

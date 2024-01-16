@@ -6,7 +6,7 @@ export default async function handler(req, res) {
 
   await client.connect();
   const { rows } = await client.query(`
-    select id,master,master_name,date_order,neworder,order_month,price,read,review,year
+    select id,master,master_name,date_order,myorder,order_month,price,read,review,year
     from "orders"
     where "client" = $1 
     order by id desc 

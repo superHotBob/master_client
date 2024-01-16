@@ -12,8 +12,7 @@
 }
 
 .main header {
-    display: flex;
-    justify-content: space-between;
+    padding: 21px 0;
     align-items: center;
     font-weight: 500;
     height: 46px;
@@ -21,10 +20,10 @@
 
 }
 
-.main header span,
+
 .main header b {
     color: #3D4EEA;
-    width: 30%;
+    float: left;
     cursor: pointer;
 }
 .main header b {
