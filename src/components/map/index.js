@@ -104,43 +104,7 @@ export default function MapComponent({ setRadius, setzoom, divHeight, my_zoom })
         setMapHeight(divHeight)
     }
 
-    const getRadius = async (a) => {
-        // const geo = await ymaps.geoQuery(ymaps.geocode('Минск')).getLength()
-
-        // const  myGeocoder = ymaps.geocode('Минск');
-        // console.log(myGeocoder)
-        // // // var geocoder = await ymaps.geocode(await ymaps.GeoPoint(37.588395, 55.762718), {results: 1});
-
-        // // console.log(geo)
-        // myGeocoder.then(
-        //     function (res) {
-        //         console.log('Координаты объекта :' + res.geoObjects.get(0).geometry.getCoordinates());
-        //     },
-        //     function (err) {
-        //         alert('Ошибка');
-        //     }
-        // );
-        // // if (view != 0) {
-        // //     SetFilterCluster()
-        // // }
-
-        //     setzoom(Map.current.getZoom())
-        //     if (Map.current) {
-
-        //         // const center = Map.current.getCenter()
-        //         // const zoom = Map.current.getZoom()           
-        //         // setZoom(zoom)
-        //         // const bounds = Map.current.getBounds()
-        //         // const coord = bounds.flat().map(i => +i.toFixed(4))
-        //         // fetch(`/api/get_masters_coord?coord=${coord}&service=${service}`)
-        //         // .then(res => res.json())
-        //         // .then(res => setmasters(res))  
-        //         // let radius = ymaps.coordSystem.geo.getDistance(center, bounds[1]) / 1.2
-        //         // console.log('radius', Math.ceil(radius.toFixed(0) / 1000))
-        //         // setRadius(Math.ceil(radius.toFixed(0) / 1000))
-        //     }
-        //     SetFilterCluster()
-    }
+   
     function Bob() { setzoom(16) }
 
     async function getAddress(a) {

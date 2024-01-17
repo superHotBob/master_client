@@ -71,7 +71,7 @@ export default function Header({ sel, text, mes, col = my_tema[0].color, select,
           <Menu_icon color={col[1] || '#3D4EEA'} />
         </div>
         : <div className={styles.shadow_arrow} />
-        // <Image alt="Picture" src={arrow} className={styles.arrow} style={{ opacity: 0 }} width={20} height={20} />
+      
 
       }
 

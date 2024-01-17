@@ -9,7 +9,7 @@ import icon_close from '../../../public/close.svg'
 const API_KEY = "89caab37-749d-4e30-8fdf-e8045542f060"
 
 function Mymap({ loc_master, place, nikname, address_total, city , state }) {   
-    // let { nikname } = JSON.parse(localStorage.getItem('profile'))
+   
     const [location, setLoc] = useState(loc_master)
     const [address , setaddress] = useState()   
     const ymaps = useYMaps([
@@ -39,6 +39,7 @@ function Mymap({ loc_master, place, nikname, address_total, city , state }) {
         // });
     }
     function updateLocation(a,b) {
+        console.log(nikname)
        
         if(!nikname) {
             return;
@@ -50,7 +51,7 @@ function Mymap({ loc_master, place, nikname, address_total, city , state }) {
                 locations: a,
                 address: b,
                 city: city.toLowerCase(),
-                state: state.toLowerCase(),
+                state:  city.toLowerCase() === 'минск' ? 'минск' : state.toLowerCase(),
                 address_full: address_total
             }),
             headers: {

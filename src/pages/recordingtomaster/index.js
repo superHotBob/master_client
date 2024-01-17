@@ -143,9 +143,7 @@ export default function Recording() {
                 <SelectDate
                     name={name}
                     nikname={nikname}
-                    order={orders}
-                    // close={setView}
-                    // price={Cost(orders)}
+                    order={orders}                    
                 />
             }
             <div className={styles.order}>

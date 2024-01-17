@@ -5,17 +5,17 @@ import arrow from '../../../../public/arrow_back.svg'
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Link from 'next/link'
+import { EDGE_UNSUPPORTED_NODE_APIS } from 'next/dist/shared/lib/constants'
 
 
 
 export default function Address() {
 
-    const { location, mystate  } = useSelector((state) => state.counter)
+    const { location, mystate , nikname } = useSelector((state) => state.counter)
    
    
     const [city, setCity] = useState('')
-    // const [state, setMyState] = useState('')
-    // const [address, setAddress] = useState()
+   
     const [street, setstreet] = useState()
     const [address_full, setAddress_full] = useState({})
 
@@ -119,6 +119,7 @@ export default function Address() {
                 city={city}
                 state={mystate}
                 close={set_View_Loc}
+                nikname={nikname}
                 loc_master={location}                            
                 address_total={address_full}
                 place={mystate + ' , ' + city + ' , ' + street + ' , ' + address_full?.дом}

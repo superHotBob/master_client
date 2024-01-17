@@ -22,9 +22,9 @@ export default async function handler(req, res) {
  
  
 
-  const month = months[+req.body.month - 1]
+  
   const day = +rows[0].date_order[0]
-  const time = +rows[0].date_order[1]
+  const time = rows[0].date_order[1]
 
   
 
@@ -58,7 +58,7 @@ export default async function handler(req, res) {
    
   `, [rows[0].master, rows[0].year, new_schedule])
 
-    console.log(master_new_schedule)
+   
    
 
   await client.query(`
