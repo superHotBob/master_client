@@ -30,6 +30,15 @@ export default function Home() {
   };
 
   useEffect(() => {   
+   
+   
+      // window.dataLayer = window.dataLayer || [] 
+      // function gtag() {
+      //   window.dataLayer.push(arguments)
+      // }
+      // gtag('js', new Date())
+      // gtag('config', 'AW-11474901956');
+   
     if (ref.current.getBoundingClientRect().bottom.toFixed(0) < window.innerHeight) {
       setview(3)
       view_ref.current = view_ref.current + 1
@@ -83,6 +92,7 @@ export default function Home() {
             Вы можете выбрать понравившуюся работу и 
             написать мастеру !'
       />
+       
       <section className={styles.section} >
         <CitySelect city={mystate} />
         <FilterServices />

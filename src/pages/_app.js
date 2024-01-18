@@ -8,6 +8,8 @@ import { useRouter } from 'next/router'
 import { SWRConfig } from 'swr'
 import Header from '@/components/header'
 import { usePathname } from "next/navigation"
+import Script from 'next/script'
+import { useEffect } from 'react'
 
 const rubik = Rubik({
   weight: ['300', '400', '500', '700', '800'],
@@ -17,24 +19,29 @@ const rubik = Rubik({
 })
 export default function MyApp({ Component, pageProps }) {
 
-const my_path = ['informations', 'informations/aboutservice','filling',
-  'newpassword','succesregistration','displaypublications',
-  'masterrecords','confirmation','addlist','calendar', 'become','editprofile/address',
-  'states', 'masternear', 'masternear/city', 'editprofile', 'addmasterorder']
+  const my_path = ['informations', 'informations/aboutservice', 'filling',
+    'newpassword', 'succesregistration', 'displaypublications',
+    'masterrecords', 'confirmation', 'addlist', 'calendar', 'become', 'editprofile/address',
+    'states', 'masternear', 'masternear/city', 'editprofile', 'addmasterorder']
 
   const router = useRouter()
   const { slug } = router.query
-  const pathname = usePathname() 
-  
+  const pathname = usePathname()
+    useEffect(()=>{ 
+      window.dataLayer = window.dataLayer || []
+      function gtag() {
+        window.dataLayer.push(arguments)
+      }
+      gtag('js', new Date())
+      gtag('config', 'AW-11474901956');
+    },[])
   return (
-    <SWRConfig value={{ provider: () => new Map(),
+    <SWRConfig value={{
+      provider: () => new Map(),
       fetcher: (resource, init) => fetch(resource, init).then(res => res.json())
     }}>
       <Provider store={store}>
         <Head>
-          <meta name="description" 
-          content="Лучшие мастера в вашем городе: маникюр, прически , массаж, педикюр, окрашивание, депиляция, барбер, стрижка, брови и многое другое" 
-          />
           <meta name="keywords" content="маникюр,	парикмахер, парикмахерские услуги, стрижки, прически, укладки, выпрямления, лечение, косметология, маникюр, педикюр, депиляция, низкие цены, Белорусь, сложное окрашивание, омбре, балаяж, шатуш, калифорнийское мелирование"></meta>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="color-scheme" content="dark light" />
@@ -45,17 +52,21 @@ const my_path = ['informations', 'informations/aboutservice','filling',
           <link rel="apple-touch-icon" href="icons/android-chrome-192x192.png" />
           <meta name="application-name" lang='ru' content="masters.place" />
           <meta name="mobile-web-app-capable" content="yes" />
+          <meta name="description"
+            content="Лучшие мастера в вашем городе: маникюр, прически , массаж, педикюр, окрашивание, депиляция, барбер, стрижка, брови и многое другое"
+          />
         </Head>
-        <main className={rubik.className} > 
-        {pathname ? 
-          (pathname === '/' ? <Header sel="back" /> : pathname === '/catalog' || pathname === '/catalog/services' ?  <Header sel='/' /> : null) 
-          : null
-        }    
+        <main className={rubik.className} >
+          <Script async src="https://www.googletagmanager.com/gtag/js?id=AW-11474901956"/>
+          {pathname ?
+            (pathname === '/' ? <Header sel="back" /> : pathname === '/catalog' || pathname === '/catalog/services' ? <Header sel='/' /> : null)
+            : null
+          }
           <Component {...pageProps} />
           {pathname ?
-          (my_path.includes(pathname.replace('/', '')) ? null : <Navi />) : null}
+            (my_path.includes(pathname.replace('/', '')) ? null : <Navi />) : null}
         </main>
       </Provider>
-    </SWRConfig>
+    </SWRConfig >
   )
 }
