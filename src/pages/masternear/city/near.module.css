@@ -1,11 +1,6 @@
-
 .message {
   width: calc(100% - 32px);
   margin: 16px auto 0;
-}
-.city {  
-  margin: 16px auto;  
-  width: calc(100% - 32px); 
 }
 
 .selector_one, .selector_two {
@@ -310,27 +305,19 @@ width: 100%;
 height: 15px;
 background-color: #000;
 }
-/* input[type=range].range::-ms-thumb {
-  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-  border: 1px solid #000000;
-  border-radius: 0;
-  cursor: pointer;
-} */
-
-
 .city {
   color: #3D4EEA;
   background: #ECEEFD;
   border-radius: 6px;
   font-weight: 500;
   font-size: 16px;
-
+  margin: 16px auto;  
+  width: calc(100% - 32px); 
   line-height: 46px;
   letter-spacing: 0px;
   text-align: center;
   display: block;
 }
-
 .city::after {
   content: url('/position.svg');
   display: inline-block;

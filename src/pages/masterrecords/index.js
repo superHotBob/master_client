@@ -1,7 +1,7 @@
 import Header from '@/components/header'
 import Link from 'next/link'
 import styles from './records.module.css'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo, useMemo, useCallback } from 'react'
 import { my_tema } from '@/data.'
 import Order from '@/components/order'
 import { months, week } from '@/profile'
@@ -30,10 +30,11 @@ export default function Records() {
     const all_days = new Date(year, curmonth, 0)
     const day = new Date(year, curmonth - 1, 1)
 
+ 
 
     let v = week.indexOf(week[day.getDay() - 1]) === -1 ? 6 : week.indexOf(week[day.getDay() - 1])
 
-
+  
 
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem("profile"))
@@ -49,7 +50,7 @@ export default function Records() {
                 set_false_days(flsd)
                 setOrders(res)
             })
-    }, [curmonth,year])
+    }, [curmonth, year])
 
 
     const FilterDay = e => {
@@ -83,15 +84,16 @@ export default function Records() {
     return (
         <>
             {profile && <>
-                <Header sel="/" text="Записи на сеанс" color={my_tema[+profile.tema].color} />
+                <Header sel="/" text="Записи на сеанс" col={my_tema[profile.tema].color} />
+               
                 <div className={styles.selector}>
                     <span
                         onClick={() => setSelector(true)}
-                        style={selector ? { backgroundColor: my_tema[+profile.tema].color[1], color: '#fff', fontWeight: 600 } : null}
+                        style={selector ? { backgroundColor: my_tema[profile.tema].color[1], color: '#fff', fontWeight: 600 } : null}
                     >Записи на сеанс</span>
                     <span
                         onClick={() => setSelector(false)}
-                        style={selector ? null : { backgroundColor: my_tema[+profile.tema].color[1], color: '#fff', fontWeight: 600 }}
+                        style={selector ? null : { backgroundColor: my_tema[profile.tema].color[1], color: '#fff', fontWeight: 600 }}
                     >История записей</span>
                 </div>
                 {selector ?

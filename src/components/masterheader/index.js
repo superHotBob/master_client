@@ -7,7 +7,7 @@ import { my_tema } from '@/data.'
 
 
 export default function MasterHeader({ profile, slug }) {   
-    const [gradient, color, background] = my_tema[+profile.tema].color
+    const [gradient, color, background] = my_tema[profile.tema].color
     const [viewText, setViewText] = useState(true)
     const [mapview, setmapview] = useState(false)   
     return (
@@ -35,7 +35,7 @@ export default function MasterHeader({ profile, slug }) {
                 {viewText ? <span className={styles.text}>{profile?.text}</span> : null}
                 <span style={{ color: color }} className={styles.view_text} onClick={() => setViewText(!viewText)}>{viewText ? 'Скрыть описание' : 'Описание'}</span>
             </section>
-            {mapview ? <Location nikname={slug} loc_master={profile?.locations} close={setmapview} /> : null}
+            {mapview ? <Location nikname={slug} loc_master={profile.locations} close={setmapview} /> : null}
         </>
     )
 }

@@ -36,16 +36,14 @@ export default function Master() {
     const { profile: my_profile, service } = useSelector(state => state.counter)
    
 
-    useEffect(() => {
-       
+    useEffect(() => {       
         setNavView(0)
         return () => dispatch(settema(my_tema[0].color))
     }, [])
     const { data: profile } = useSWR(slug ? `/api/master?nikname=${slug}` : null,
         {
             onSuccess: (profile) => profile.status ?
-                (
-
+                (                    
                     dispatch(setmaster({ ...profile, nikname: slug })),
                     dispatch(settema(my_tema[+profile.tema].color)),
                     setColor(my_tema[+profile.tema].color)
@@ -64,12 +62,12 @@ export default function Master() {
     return (
         <>
 
-            {profile ?
+            {profile?.status ?
                 <>
                     <Header text={slug} sel={'/masternear/' + service} col={color} />
                     <MasterHeader profile={profile} slug={slug} />
                 </> : null}
-            {profile &&
+            {profile?.status &&
                 <section className={styles.section_main}>
                     {message ? <div className={styles.dialog}>
                         <div >

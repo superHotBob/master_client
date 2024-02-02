@@ -7,7 +7,9 @@
     line-height: 46px;
     letter-spacing: 0px;
     text-align: center;    
-    width: 100%;
+    width: calc(100% - 32px);
+    margin: 16px auto;
+    display: block;
   }
   .city::after {
     content: url('/position.svg');  

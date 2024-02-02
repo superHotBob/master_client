@@ -9,9 +9,9 @@ export default async function handler(req, res) {
     const { rows } = await client.query(`
         select Count(nikname)
         from "clients"
-        where "nikname" LIKE $1 
+        where "nikname" = $1 
        
-   `,[req.query.name + '%']);
+   `,[req.query.name]);
    
 
     await client.end();

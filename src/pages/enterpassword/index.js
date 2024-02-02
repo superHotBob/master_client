@@ -14,10 +14,10 @@ export default function EnterPassword() {
     const [back, setBack] = useState('logo-main.svg')
     const [message, setMessage] = useState('')
     const passRef = useRef()
-    console.log(phone)
+   
+    
     const ReplacePassword = () => {
-        dispatch(setpassword('new'))
-        // dispatch(setphone(router.query.phone))       
+        dispatch(setpassword('new'))        
         router.push('/enter')
     }
 

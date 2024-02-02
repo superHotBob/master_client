@@ -185,7 +185,7 @@ export default function Calendar({ profile }) {
     return <>
         {Object.keys(pro).length > 0 && <>
             <header className={styles.header} >
-                <Menu_icon type="/" color='#3D4EEA' />
+            <Menu_icon type="/" color="#3D4EEA" />
                 <h4>Календарь работы</h4>
                 <span onClick={SaveSchedule}>Сохранить</span>
             </header>

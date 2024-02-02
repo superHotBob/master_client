@@ -73,6 +73,7 @@ export default function EditProfile() {
         .then(res => res.json())
         .then(res => {            
             localStorage.setItem('profile', JSON.stringify(res[0]))
+            dispatch(setprofile(res[0]))
             router.push('/editprofile')
         })
         .catch(err => setMessage("Ошибка создания профиля мастера"))

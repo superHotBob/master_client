@@ -10,7 +10,7 @@ export default function CitySelect({city}) {
 
     function handleClick() {
        dispatch(setstate(''))
-        router.push("/states")
+       router.push("/states")
     }
     return <button className={styles.city}  onClick={handleClick}> 
         <span>{city?.charAt(0).toUpperCase() + city?.slice(1)}</span>

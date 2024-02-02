@@ -28,7 +28,7 @@ export default async function handler(req, res) {
     `,[nikname]
   );
 
-  
+ 
 
   const { rows: admin_sub} = await client.query(`
     SELECT * FROM (

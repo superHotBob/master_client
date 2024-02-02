@@ -27,21 +27,22 @@ const new_text_mes = {
 
 
 export default function Header({ sel, text, mes, col = my_tema[0].color, select,view_time ,name}) {
-  const profile = useSelector((state) => state.counter.profile)
+  const dispatch = useDispatch()
+  const { profile } = useSelector((state) => state.counter) 
+  const router = useRouter()
   const [menu, menuView] = useState(false)
   const [phone, setphone] = useState()
   const { data } = useSWR(profile.status === 'master' ? `/api/get_new_orders_master?nikname=${profile.nikname}`
   : null, {loadingTimeout:5000})
 
-  const dispatch = useDispatch()
-  const router = useRouter()
+  
   
   useEffect(() => {
     let pro = JSON.parse(localStorage.getItem("profile"))
     if (!profile.status) {
       dispatch(setprofile(pro))
     }   
-  }, [profile.status, dispatch])
+  }, [profile.status])
 
   const getPhone = () => {
     if(phone) {
@@ -108,8 +109,8 @@ export default function Header({ sel, text, mes, col = my_tema[0].color, select,
         {data && !menu? <span className={styles.count}>{data}</span> : null}
         <Menu_icon  color={menu ? col[2] || '#3D4EEA' : col[1] || '#3D4EEA'} type={menu ? 'close' : 'menu'} />
       </div>     
-      {menu ? <Menu  count={data} profile={profile} /> : null}
-      {phone ? <Messages phone={phone} name={text} nikname={name} close={getPhone} /> : null }
+      {menu && <Menu  count={data} profile={profile} /> }
+      {phone && <Messages phone={phone} name={text} nikname={name} close={getPhone} /> }
     </header>
   )
 }

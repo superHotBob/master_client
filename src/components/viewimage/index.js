@@ -5,10 +5,10 @@ import Link from 'next/link'
 import Image from 'next/image'
 import icon_close from '../../../public/chevron_down.svg'
 
-export default function ViewImage({rating, view_image, viewImage, pid = null, service, marg = 0 }) {
+export default function ViewImage({ view_image, viewImage, pid = null, service, marg = 0 }) {
 
 
-    const status = useSelector(state => state.counter.profile['status'])
+    const { status } = useSelector(state => state.counter.profile)
    
 
     useEffect(() => {      
@@ -17,10 +17,10 @@ export default function ViewImage({rating, view_image, viewImage, pid = null, se
         let width_img = document.getElementById("image").offsetWidth
        
         document.getElementById("image").style.height = (width_img*view_image.rating).toFixed(0) + 'px'    
-        window.scroll({
-            top: 0,           
-            behavior: "smooth",
-          }); 
+        // window.scroll({
+        //     top: 0,           
+        //     behavior: "smooth",
+        //   }); 
     }, [viewImage])
 
     const ViewImage = () => {

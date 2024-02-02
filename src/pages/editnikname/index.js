@@ -3,12 +3,14 @@ import Image from 'next/image'
 import arrow from '../../../public/arrow_back.svg'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { setprofile } from '@/reduser'
 import { useEffect } from 'react'
 import { EditLocalStorage } from '@/profile'
 
 export default function EditNikname() {
     const router = useRouter()
+    const dispatch = useDispatch()
     const profile = useSelector(state => state.counter.profile)
     const [newnikname, setnewnikname] = useState()
     const [copyring, setcopyring] = useState('')
@@ -62,13 +64,18 @@ export default function EditNikname() {
     }
     async function ChangeNikname() {
         if (!profile.nikname) { return; }
-      
+
+        let new_profile = Object.assign({},profile);
+       
+        new_profile.nikname = newnikname
+       
 
         fetch(`/api/edit_nikname?newnikname=${newnikname}&oldnikname=${profile.nikname}`)
             .then(res => res.text())
             .then(res => {
                 EditLocalStorage('nikname', newnikname)
                 setcopyring('Nikname изменён. ')
+                dispatch(setprofile(new_profile))
                 setTimeout(() => setcopyring(''), 3000)
                 router.push(`/${newnikname}`)
             })

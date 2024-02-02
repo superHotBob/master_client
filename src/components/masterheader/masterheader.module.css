@@ -16,10 +16,10 @@
     transform: scale(1.1);
   }
   .section address {
-    margin: 0 0 5px;
+    margin: 0 40px 5px;
     color: #282828;   
     font-size:  12px;
-    line-height: 22px;
+    line-height: 18px;
     text-align: center;  
     cursor: pointer;
     color: #3D4EEA;  

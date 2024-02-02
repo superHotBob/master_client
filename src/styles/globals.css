@@ -54,7 +54,7 @@ input[type=range]::-ms-fill-lower {
   background: #777;
   border-radius: 10px;
 }
-a:hover {
+a:hover , button:hover {
   opacity: 0.9;
 }
 input[type=range]::-ms-fill-upper {
@@ -119,13 +119,14 @@ button {
   border-radius: 8px;
   text-align: center;
 }
+
 ::after, ::before {
   display: inline-block;
 }
-button:hover {
+/* button:hover {
   transform: scale(1.03);
   transition: all 0.5s;
-}
+} */
 
 .await {
   text-align: center;

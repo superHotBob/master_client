@@ -14,9 +14,9 @@ const sel = {
 export default function Client() {
     const router = useRouter()
     const { slug } = router.query
-    const profile = useSelector((state) => state.counter.profile)
+    const { profile } = useSelector((state) => state.counter)
     const [data, setData] = useState([])
-
+ 
     useEffect(() => {
         let pro = JSON.parse(localStorage.getItem('profile'))
         pro.saved_image.forEach(i => {
@@ -28,9 +28,7 @@ export default function Client() {
 
 
     const goToMaster = (a) => router.push(`/${a}`) 
-    // function loaded(a) {
-    //     document.getElementById(a).style.opacity = 1
-    // }
+   
     function deleteImage(a) {
         let pro = JSON.parse(localStorage.getItem('profile'))
         let new_saved = [...pro.saved_image]
@@ -55,7 +53,11 @@ export default function Client() {
         <>
             <Header text={profile.nikname} sel="back" />
             <div className={styles.profile}>
-                <img src={process.env.url_image + slug + '.jpg'} alt="client" height={50} />
+                <img 
+                    src={process.env.url_image + slug + '.jpg'}                   
+                    alt="client" 
+                    height={50} 
+                />
                 <h2>{profile.name}</h2>
                 <p>{profile.text}</p>
             </div>
@@ -71,7 +73,7 @@ export default function Client() {
                                 title={'Master ' + i.nikname}
                                 onClick={() => goToMaster(i.nikname)}
                                 alt="image"
-                                // onLoad={() => loaded(i.id)}
+                               
                                 src={process.env.url_image +  i.id + '.jpg'}
                             />
                             <span
@@ -90,7 +92,7 @@ export default function Client() {
                                 onClick={() => goToMaster(i.nikname)}
                                 alt="image"
                                 src={process.env.url_image  + i.id + '.jpg'}
-                                // onLoad={() => loaded(i.id)}
+                               
                             />
                             <span
                                 className={styles.save__image}

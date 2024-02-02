@@ -39,13 +39,14 @@ export default function Enter() {
             
             .then(res => res.json())
             .then(res => {
-                console.log(res)
+               
                if (res.length === 0) {
                     Call()                    
                 } else if (res[0].blocked != '0') {
                     router.push('/enter')
                 } else {                   
                     router.push('/enterpassword')
+                    
                 }
         })
     }
@@ -99,8 +100,7 @@ export default function Enter() {
             method: 'POST',
         })
             .then(res => {
-                if (res.status === 200) {
-                    // dispatch(setphone(phone))
+                if (res.status === 200) {                 
                     router.push('newpassword')
                 } else if (res.status === 404) {
                    setSelect('Подтвердить')
@@ -191,7 +191,7 @@ export default function Enter() {
                         buttonStyle={{ border: 'none', borderTopLeftRadius: '6px', borderBottomLeftRadius: '6px' }}
                         placeholder='номер телефона'
 
-                        onChange={phone => dispatch(setphone(phone))}
+                        onChange={phone => phone.length < 11 ? null : dispatch(setphone(phone))}
 
                         inputStyle={{ fontFamily: '__Rubik_7303a2', border: 'none', borderRight: 'none', height: 'auto' }}
                     />

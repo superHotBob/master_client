@@ -5,7 +5,7 @@
 .main__detail { 
   width: min(100% ,500px);
   height: 100vh;
-  position: absolute;
+  position: fixed;
   z-index: 120; 
   padding-top: 72px; 
   opacity: 0;

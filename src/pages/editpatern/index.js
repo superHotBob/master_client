@@ -86,7 +86,7 @@ export default function EditPatern() {
     return (
         <>
             <header className={styles.header} >
-                <Menu_icon type="arrow_button" color="#000" />
+                <Menu_icon type="arrow_button" color="#3D4EEA" />
                 <h4>Шаблон времени</h4>
                 <span onClick={SavePatern}>Сохранить</span>
             </header>
