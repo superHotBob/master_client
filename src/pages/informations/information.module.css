@@ -64,6 +64,10 @@
     font-weight: 500;
     font-size: 16px;
 }
+.links a {
+    display: inline-block;
+    color: #3D4EEA;
+}
 .links  dt, .links  dd {
     display: inline-block;
     font-size: 16px;

@@ -20,6 +20,8 @@ export default function Enter() {
     const [select, setSelect] = useState('Вход')
     const [message, setMessage] = useState('')
     const [t, setT] = useState()
+    const [validnumber, setvalidnumber] = useState(true)
+   
 
 
 
@@ -35,9 +37,8 @@ export default function Enter() {
     async function checkClient() {
         if(password === 'new') {
             return Call()                   
-        }        
-        fetch(`/api/check_client?phone=${my_phone}`)
-            
+        }     
+        fetch(`/api/check_client?phone=${my_phone}`)            
             .then(res => res.json())
             .then(res => {
                
@@ -160,6 +161,7 @@ export default function Enter() {
         setBack('logo-main.svg')
         setMessage('')
     }
+   
     return (
         <section className={styles.section} style={{ backgroundImage: `url(${back})` }}>
             <Header text={select} sel="back" />
@@ -179,6 +181,15 @@ export default function Enter() {
                         countryCodeEditable={false}
                         onlyCountries={['by', 'ru']}
                         value={my_phone}
+                        isValid={(value, country) => {
+                            if (value.length < 12 && country.dialCode === '375' ) {
+                                return setvalidnumber(true)
+                            } else if (value.length < 11 && country.dialCode === '7') {
+                                return setvalidnumber(true)
+                            } else {
+                              return setvalidnumber(false)
+                            }
+                          }}
                         prefix='+'
                         containerStyle={{
                             border: '1px solid #3D4EEA',
@@ -192,7 +203,7 @@ export default function Enter() {
                         buttonStyle={{ border: 'none', borderTopLeftRadius: '6px', borderBottomLeftRadius: '6px' }}
                         placeholder='номер телефона'
 
-                        onChange={phone => phone.length < 11 ? null : dispatch(setphone(phone))}
+                        onChange={e => e.length < 11 ? null : dispatch(setphone(e))}
 
                         inputStyle={{ fontFamily: '__Rubik_7303a2', border: 'none', borderRight: 'none', height: 'auto' }}
                     />
@@ -202,7 +213,7 @@ export default function Enter() {
                             можно будет через  <b>{t}</b> сек.
                         </h3> :
                         <>
-                            <button disabled={my_phone?.length < 11} className={styles.button} onClick={checkClient}>
+                            <button disabled={validnumber} className={styles.button} onClick={checkClient}>
                                 Войти
                             </button>
                             <div className={styles.colaboration}>

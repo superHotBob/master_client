@@ -19,10 +19,7 @@ export default function Contacts() {
             </header>
             <section className={styles.links}>
                 <h3>Контакты</h3>
-                <dd>Tелефон:</dd> <dt>+375 00 000 00 00</dt>
-                <br/>
-                <dd>Телефон:</dd> <dt>+375 11 000 00 00</dt>
-                <br/>
+               
                 <dd>Почта:</dd> <dt>support@masters.place</dt>            
             </section>
         </main>
