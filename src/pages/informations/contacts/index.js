@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import styles from '../information.module.css'
 
-export default function contacts() {
+export default function Contacts() {
 
     const router = useRouter()
 
