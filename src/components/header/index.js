@@ -95,8 +95,7 @@ export default function Header({ sel, text, mes, col = my_tema[0].color, select,
       }
       {mes && name != 'администратор' ? <Image
         src={call}
-        alt="phone"
-        style={{ transform: 'transitionX(20px)' }}
+        alt="phone"      
         className={styles.call}
         width={10} height={10}
         onClick={getPhone}

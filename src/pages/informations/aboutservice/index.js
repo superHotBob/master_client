@@ -2,8 +2,11 @@ import arrow from '../../../../public/arrow_back_bold.svg'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import styles from '../information.module.css'
+
 export default function Aboutservice() {
+
     const router = useRouter()
+
     return (
         <main className={styles.main}>
             <header className={styles.header}>
@@ -46,9 +49,7 @@ export default function Aboutservice() {
                     результатом. Анна всю работу выполнила
                     аккуратно и кропотливо. Чувствует и знает форму ногтя.
                 </p>
-
             </section>
-
         </main>
     )
 }

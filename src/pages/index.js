@@ -77,12 +77,12 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Лучшие мастера маникюра , причёски, макияжа , массажа и др.  рядом с вами</title>
+        <title>Лучшие мастера маникюра, причёски, макияжа, массажа и др. рядом с Вами</title>
       </Head>
       <Message page="main" text='Masters.place показывает самые крутые и 
             актуальные работы мастеров в вашем городе. 
             Вы можете выбрать понравившуюся работу и 
-            написать мастеру !'
+            написать мастеру!'
       />   
       <Link className={styles.city} href='/states'> 
         {mystate?.charAt(0).toUpperCase() + mystate?.slice(1)}

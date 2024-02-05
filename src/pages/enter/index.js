@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setphone } from '@/reduser'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
+import Link from 'next/link'
 
 export default function Enter() {
 
@@ -51,6 +52,7 @@ export default function Enter() {
         })
     }
 
+   
     async function Call() {
         const data = { tel: +my_phone }        
         const res = await fetch(`/api/get_code`, {
@@ -65,8 +67,7 @@ export default function Enter() {
 
         if (res.status === 400) {
             setSelect('Подтвердить')
-            setTimeout(() => document.getElementById(1).focus(), 500)
-            // dispatch(setphone(phone))
+            setTimeout(() => document.getElementById(1).focus(), 500)           
         } else {
             setT(+txt)           
         }
@@ -207,7 +208,7 @@ export default function Enter() {
                             <div className={styles.colaboration}>
                                 Нажмая на кнопку, вы соглашаетесь с<br />
                                 <a>Условиями обработки персональных <br />
-                                данных</a>  и <a>Пользовательским соглашением</a>
+                                данных</a>  и <Link href="/informations/agreement">Пользовательским соглашением</Link>
                             </div>
                         </>}
                 </div>

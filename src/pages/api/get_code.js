@@ -1,6 +1,6 @@
 const IP = require('ip')
 export default async function handler(req, res) {
-  const ipAddress = IP.address()
+  const ipAddress =  IP.address()
   
   const st = await fetch('http://localhost:5000/call', {
     headers: {
@@ -17,8 +17,8 @@ export default async function handler(req, res) {
 
   if ( txt === 'Code is good' ) {
     res.status(200).send(st)
-  } else if ( txt === 'Enter code' ) {
-    res.status(400).send(st) 
+  } else if ( txt === 'Enter code' ) {   
+    res.status(400).send('Enter code') 
   } else if( st.status === 500) {
     res.status(500).send(txt)
   } else {

@@ -50,37 +50,11 @@ input[type='text'], input[type='tel'], input[type='radio'], input[type='search']
   background-color: #fff;
   outline: none;  
 }
-input[type=range]::-ms-fill-lower {
-  background: #777;
-  border-radius: 10px;
-}
 a:hover , button:hover {
   opacity: 0.9;
 }
-input[type=range]::-ms-fill-upper {
-  background: #ddd;
-  border-radius: 10px;
-}
-input[type=range]::-webkit-slider-thumb { 
-  padding: 20px 0; 
-  cursor: pointer;
-  -webkit-appearance: none;
-  margin-top: -12px;
-  width: 10px;
-}
-input[type=range]::-moz-range-thumb {
-  
- 
-  height: 30px;
-  width: 15px;
-  border-radius: 1px;
-  background: #FFFFFF;
-  cursor: pointer;
-}
-
 html,
-body {
- 
+body { 
   min-height: 100vh;
   background-color: #ddd;
   white-space: pre-line;
@@ -92,8 +66,7 @@ body {
   align-items: center;
   flex-wrap: wrap;  
   line-height: 35px;
-} 
-
+}
 .star {
   font-weight: 600;
   font-size:  12px;
@@ -119,22 +92,15 @@ button {
   border-radius: 8px;
   text-align: center;
 }
-
 ::after, ::before {
   display: inline-block;
 }
-/* button:hover {
-  transform: scale(1.03);
-  transition: all 0.5s;
-} */
-
 .await {
   text-align: center;
   padding-top: 50px;
 }
 body { 
-  max-width: 500px;
- 
+  max-width: 500px; 
   background-repeat: no-repeat; 
   margin: 0 auto;
   background-color: #fff;
@@ -145,5 +111,3 @@ a {
   text-decoration: none;
   cursor: pointer;
 }
-
-

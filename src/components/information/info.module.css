@@ -15,6 +15,9 @@
     margin: 16px 0;
     text-align: left;
 }
+.info:hover {
+    text-decoration: underline;
+}
 
 .agreement {
     font-weight: 400;

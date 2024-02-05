@@ -73,6 +73,7 @@
     height: 30px;
     width: 30px;
     padding: 5px;
+    transform: transitionX(20px);
   }
   .image_master {  
     padding: 0 !important;
