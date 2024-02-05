@@ -64,12 +64,13 @@
     font-weight: 500;
     font-size: 16px;
 }
-.links p dt, .links p dd {
+.links  dt, .links  dd {
     display: inline-block;
     font-size: 16px;
     font-weight: 500;
+    margin-bottom: 12px;
 }
-.links p dd {
+.links dd {
     font-size: 15px;
     font-weight: 400;
 }
