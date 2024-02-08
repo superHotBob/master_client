@@ -166,8 +166,7 @@ export default function EditProfile() {
                 <form className={styles.profile_image}>
                     <Image
                         src={file ? file : process.env.url_image + profile.nikname + '.jpg'}
-                        alt="фото"
-                        style={{ transform: 'translate(0)' }}
+                        alt="фото"                        
                         title='заменить изображение'
                         height={106}
                         width={106}
@@ -176,7 +175,7 @@ export default function EditProfile() {
                         title="Клик для выбора изображения"
                         type="file"
                         name="image"
-                        style={{ transform: 'translateY(-106px)' }}
+                        style={{ transform: 'translateY(-170px)' }}
                         onChange={selectUpload}
                         accept="image/*"
                     />
@@ -206,7 +205,7 @@ export default function EditProfile() {
                 </div>
                 <label>
                     Краткая информация
-                    <textarea value={text} placeholder='Расскажите о себе' rows={3} onChange={e => setText(e.target.value)} />
+                    <textarea maxLength={300} value={text} placeholder='Расскажите о себе' rows={3} onChange={e => setText(e.target.value)} />
                 </label>
 
                 <div className={styles.currency} >

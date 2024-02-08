@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import FilterServices from '@/components/filterServices'
 import Message from '@/components/message'
 import ViewImage from '@/components/viewimage'
-import  { getImage } from  '../data.'
+import { getImage } from '../data.'
 import Image from 'next/image'
 import Link from 'next/link'
 import Head from 'next/head'
@@ -15,7 +15,7 @@ export default function Home() {
   const { service, mystate } = useSelector(state => state.counter)
   const [view_image, viewImage] = useState(false)
   const [data, setdata] = useState({})
- 
+
   const [view, setview] = useState(2)
 
   const ref = useRef(null)
@@ -29,22 +29,31 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {    
+  useEffect(() => {
     if (ref.current.getBoundingClientRect().bottom.toFixed(0) < window.innerHeight) {
       setview(3)
       view_ref.current = view_ref.current + 1
+    }
+    
+    if (navigator.setAppBadge) {
+      const unread = 30;
+      navigator.setAppBadge(unread);
+     
+      console.log('The API is supported, use it.')
+    } else {
+      console.log('The API is not supported, do not use it.')
     }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [mystate]);
 
   useEffect(() => {
-   
+
     if (servref.current != service) {
       setdata([])
       servref.current = service
     }
-   
+
     fetch(`/api/get_images_master_city?service=${service}&city=${mystate?.toLowerCase()}`)
       .then(res => res.json())
       .then(res => {
@@ -83,14 +92,14 @@ export default function Home() {
             актуальные работы мастеров в вашем городе. 
             Вы можете выбрать понравившуюся работу и 
             написать мастеру!'
-      />   
-      <Link className={styles.city} href='/states'> 
+      />
+      <Link className={styles.city} href='/states'>
         {mystate?.charAt(0).toUpperCase() + mystate?.slice(1)}
       </Link>
       <FilterServices />
       <section className={styles.section} >
-        
-        
+
+
         <div className={styles.images} id="myDiv" ref={ref} onClick={viewNewImage} >
           <div className={styles.images_one}>
             {data['one']?.map((i, index) =>

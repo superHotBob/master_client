@@ -19,43 +19,46 @@ export default function Enter() {
     const [back, setBack] = useState('logo-main.svg')
     const [select, setSelect] = useState('Вход')
     const [message, setMessage] = useState('')
-    const [t, setT] = useState()
+    const [t, setT] = useState(null)
     const [validnumber, setvalidnumber] = useState(true)
-   
 
 
 
-    useEffect(() => {        
+
+    useEffect(() => {
         if (password === 'new') {
-            Call() 
-            setSelect('Восстановление пароля')          
-        }        
+            Call()
+            setSelect('Восстановление пароля')
+        }
     }, [password])
 
-   
+
 
     async function checkClient() {
-        if(password === 'new') {
-            return Call()                   
-        }     
-        fetch(`/api/check_client?phone=${my_phone}`)            
+        if (password === 'new') {
+            return Call()
+        }
+        fetch(`/api/check_client?phone=${my_phone}`)
             .then(res => res.json())
             .then(res => {
-               
-               if (res.length === 0) {
-                    Call()                    
+
+                if (res.length === 0) {
+                    Call()
                 } else if (res[0].blocked != '0') {
                     router.push('/enter')
-                } else {                   
+                } else {
                     router.push('/enterpassword')
-                    
+
                 }
-        })
+            })
     }
 
-   
+
     async function Call() {
-        const data = { tel: +my_phone }        
+        const res_ip = await fetch('https://api.ipgeolocation.io/getip')
+        const ip = await res_ip.json()
+        const data = { tel: +my_phone, ip: ip.ip }
+        console.log(data)
         const res = await fetch(`/api/get_code`, {
             body: JSON.stringify(data),
             headers: {
@@ -64,7 +67,7 @@ export default function Enter() {
             method: 'POST',
         })
         const txt = await res.text()
-       
+
 
         if (res.status === 400) {
             setSelect('Подтвердить')
@@ -93,7 +96,7 @@ export default function Enter() {
 
     async function sendCode() {
         const data = { tel: my_phone, number: +number.join('') }
-       
+
         fetch('/api/get_code', {
             body: JSON.stringify(data),
             headers: {
@@ -102,11 +105,11 @@ export default function Enter() {
             method: 'POST',
         })
             .then(res => {
-                if (res.status === 200) {                 
+                if (res.status === 200) {
                     router.push('newpassword')
                 } else if (res.status === 404) {
-                   setSelect('Подтвердить')
-                   setMessage('Не верный код')
+                    setSelect('Подтвердить')
+                    setMessage('Не верный код')
                 } else if (res.status === 500) {
                     setMessage('Вы исчерпали лимит попыток')
                     setT(60)
@@ -115,23 +118,23 @@ export default function Enter() {
                 }
             })
     }
-    
+
 
 
     const handleKeyDown = (e, b) => {
-       
-        if (e.key === 'Backspace') { 
-           
-            if(b === 1) {
+
+        if (e.key === 'Backspace') {
+
+            if (b === 1) {
                 document.getElementById("1").value = null
                 return;
             }
-            if(e.target.value !='') {
+            if (e.target.value != '') {
                 document.getElementById(b).value = null
             } else {
                 document.getElementById(b - 1).focus()
             }
-          
+
         }
         if (e.key === 'Enter' && b === 4) {
             sendCode()
@@ -139,20 +142,20 @@ export default function Enter() {
     };
 
     function Number(e, b) {
-        if (e.key === 'Backspace' ) {
+        if (e.key === 'Backspace') {
             return;
         }
-        if( b === 4) {
+        if (b === 4) {
             let nmb = number
-            nmb[b] = e.target.value       
+            nmb[b] = e.target.value
             setNumber(nmb)
             return;
-        }    
+        }
         let nmb = number
-        nmb[b-1] = e.target.value       
+        nmb[b - 1] = e.target.value
         setNumber(nmb)
         // if (+e.target.value > 0 && b < 4) {
-            document.getElementById(b + 1).focus()
+        document.getElementById(b + 1).focus()
         // }
     }
     function Reload() {
@@ -161,7 +164,7 @@ export default function Enter() {
         setBack('logo-main.svg')
         setMessage('')
     }
-   
+
     return (
         <section className={styles.section} style={{ backgroundImage: `url(${back})` }}>
             <Header text={select} sel="back" />
@@ -182,14 +185,14 @@ export default function Enter() {
                         onlyCountries={['by', 'ru']}
                         value={my_phone}
                         isValid={(value, country) => {
-                            if (value.length < 12 && country.dialCode === '375' ) {
+                            if (value.length < 12 && country.dialCode === '375') {
                                 return setvalidnumber(true)
                             } else if (value.length < 11 && country.dialCode === '7') {
                                 return setvalidnumber(true)
                             } else {
-                              return setvalidnumber(false)
+                                return setvalidnumber(false)
                             }
-                          }}
+                        }}
                         prefix='+'
                         containerStyle={{
                             border: '1px solid #3D4EEA',
@@ -219,7 +222,7 @@ export default function Enter() {
                             <div className={styles.colaboration}>
                                 Нажмая на кнопку, вы соглашаетесь с<br />
                                 <a>Условиями обработки персональных <br />
-                                данных</a>  и <Link href="/informations/agreement">Пользовательским соглашением</Link>
+                                    данных</a>  и <Link href="/informations/agreement">Пользовательским соглашением</Link>
                             </div>
                         </>}
                 </div>
@@ -236,12 +239,12 @@ export default function Enter() {
                         {[1, 2, 3, 4].map(i =>
                             <input
                                 id={i}
-                                key={i}                               
+                                key={i}
                                 pattern="[0-9]*"
                                 type="text"
                                 inputMode='numeric'
                                 required
-                                maxLength={1} 
+                                maxLength={1}
                                 onChange={(e) => Number(e, i)}
                                 onKeyDown={(e) => handleKeyDown(e, i)}
                             />)}

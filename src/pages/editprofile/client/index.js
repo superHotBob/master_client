@@ -119,8 +119,9 @@ export default function EditProfile() {
                     alt="фото клиента"
                     title='Заменить иконку профиля'
                     priority={true}
-                    height={file ? 106 : 50}
-                    width={file ? 106 : 50}
+                    style={{transform: 'translateY(53px)'}}
+                    height={106}
+                    width={106}
                 />
                 <input
                     title="Заменить иконку профиля"
@@ -148,6 +149,7 @@ export default function EditProfile() {
                         value={text} 
                         placeholder='Расскажите о себе' 
                         rows={3} 
+                        maxLength={300}
                         onChange={e => setmy_profile(my_profile=>({...my_profile,...{'text': e.target.value}}))} 
                     />
                 </label>

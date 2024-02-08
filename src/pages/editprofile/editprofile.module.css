@@ -73,14 +73,8 @@
   background: linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%);
 }
 
-.image img {
-  height: 105px;
-  width: 105px;
-  display: block;
-  margin: 0 auto;
-  border-radius: 100%;
-  transform: translateY(53px);
-  line-height: 105px; 
+.image img { 
+  border-radius: 100%;  
 }
 
 .image span {

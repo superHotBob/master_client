@@ -1,6 +1,6 @@
 const IP = require('ip')
 export default async function handler(req, res) {
-  const ipAddress =  IP.address()
+  // const ipAddress =  IP.address()
   
   const st = await fetch('http://localhost:5000/call', {
     headers: {
@@ -10,7 +10,7 @@ export default async function handler(req, res) {
     body: JSON.stringify({
       tel: req.body.tel,
       code: req.body.number,
-      ip: ipAddress
+      ip: req.body.ip
     })
   })
   const txt = await st.text(); 
