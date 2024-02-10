@@ -10,9 +10,9 @@
 }
 .images {
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: repeat(5, 20%);
     max-width:  500px;
-    gap: 21px 26px;
+  
     padding: 0 16px;
 }
 .images img {

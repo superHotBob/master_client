@@ -16,8 +16,8 @@ export default async function handler(req, res) {
   
     from  "events" 
     INNER JOIN "masters" ON master_nikname = nikname
-    where +date_event > $1  and city = $2
-    `,[curr_date,req.query.city]);
+    where +date_event > $1  and state = $2
+    `,[curr_date,req.query.state]);
 
     await client.end();
 

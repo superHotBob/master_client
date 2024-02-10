@@ -1,29 +1,9 @@
-.section {
-  padding: 0 16px 250px;
-}
 
-.city {
-  color: #3D4EEA;
-  background: #ECEEFD;
-  border-radius: 6px;
-  font-weight: 500;
-  font-size: 16px;
-  margin: 16px auto;  
-  width: calc(100% - 32px); 
-  line-height: 46px;
-  letter-spacing: 0px;
-  text-align: center;
-  display: block;
-}
-.city::after {
-  content: url('/position.svg');
-  display: inline-block;
-  transform: translate(10px, 5px);
-}
 .images {
   display: flex;
   justify-content: space-between;
   height: auto;
+  padding: 0 16px 250px;
 }
 .images_one,
 .images_two { 

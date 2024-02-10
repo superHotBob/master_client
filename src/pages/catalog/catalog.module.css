@@ -31,7 +31,7 @@
 }
 .images {
     display: grid;
-    grid-template-columns: auto auto auto auto;    
+    grid-template-columns: repeat(3, 33%);    
 }
 
 .images img {
@@ -39,18 +39,6 @@
     margin: 0 auto;
     cursor: pointer;
 }
-.city {
-    color: hsl(234, 80%, 58%);
-    margin: 16px auto 24px;
-    cursor: pointer;
-    display: inline;
-    margin: 16px auto;
-    display: block;
-    width: calc(100% - 32px);
-    font-weight: 600;
-    font-size: 22px;
-  }
-
 .uslugi,
 .around__masters {
     height: 46px;

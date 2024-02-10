@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from './catalog.module.css'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setservice } from '../../reduser.js'
 import { useRouter } from 'next/router'
 import { my_data } from '@/data.'
@@ -12,7 +12,7 @@ import Head from 'next/head'
 export default function Catalog() {
     const dispatch = useDispatch()
     const router = useRouter()
-    const { mystate } = useSelector(state => state.counter)
+   
     const ToService = (e) => {
         if (e.target.id) {
             dispatch(setservice(e.target.id))
@@ -26,9 +26,8 @@ export default function Catalog() {
             <Head>
                 <title>Каталог мастеров в вашем городе</title>  
             </Head>  
-            <CitySelect city={mystate} />      
-            <section className={styles.section}>
-               
+            <CitySelect />      
+            <section className={styles.section}>               
                 <Link href="/event" className={styles.model}>
                     СТАНЬ МOДЕЛЬЮ БЕCПЛАТНO
                 </Link>

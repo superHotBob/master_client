@@ -1,19 +1,19 @@
 import styles from "./city.module.css" 
 import { useRouter } from "next/router"
-import { useDispatch } from "react-redux"
-import { setstate } from "@/reduser"
+import { useSelector } from "react-redux"
 
 
-export default function CitySelect({city}) {
-    const dispatch = useDispatch()
+
+export default function CitySelect() {
+   
+    const { mystate } = useSelector(state => state.counter)
     const router = useRouter()
 
-    function handleClick() {
-       dispatch(setstate(''))
+    function handleClick() {    
        router.push("/states")
     }
     return <button className={styles.city}  onClick={handleClick}> 
-        <span>{city?.charAt(0).toUpperCase() + city?.slice(1)}</span>
+        <span>{mystate?.charAt(0).toUpperCase() + mystate?.slice(1)}</span>
     </button>
    
 }

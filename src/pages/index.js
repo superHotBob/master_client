@@ -8,6 +8,8 @@ import { getImage } from '../data.'
 import Image from 'next/image'
 import Link from 'next/link'
 import Head from 'next/head'
+import City from './city'
+import CitySelect from '@/components/city'
 
 
 
@@ -34,15 +36,27 @@ export default function Home() {
       setview(3)
       view_ref.current = view_ref.current + 1
     }
-    
-    if (navigator.setAppBadge) {
-      const unread = 30;
-      navigator.setAppBadge(unread);
-     
-      console.log('The API is supported, use it.')
-    } else {
-      console.log('The API is not supported, do not use it.')
-    }
+
+    // if (Worker) {
+    //   const options = {
+    //     enableHighAccuracy: true,
+    //     timeout: 5000,
+    //     maximumAge: 0,
+    //   };
+    //   async function success(pos) {
+    //     const crd = pos.coords;
+    //     console.log(crd.latitude, crd.longitude);       
+    //   }
+    //   function error(err) {
+    //     console.warn(`ERROR(${err.code}): ${err.message}`);
+    //   }
+    //   navigator.geolocation.getCurrentPosition(success, error, options)
+    //   const unread = 1;
+    //   navigator.setAppBadge(unread);
+    //   console.log('The API is supported, use it.')
+    // } else {
+    //   console.log('The API is not supported, do not use it.')
+    // }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [mystate]);
@@ -89,61 +103,56 @@ export default function Home() {
         <title>Лучшие мастера маникюра, причёски, макияжа, массажа и др. рядом с Вами</title>
       </Head>
       <Message page="main" text='Masters.place показывает самые крутые и 
-            актуальные работы мастеров в вашем городе. 
-            Вы можете выбрать понравившуюся работу и 
-            написать мастеру!'
+        актуальные работы мастеров в вашем городе. 
+        Вы можете выбрать понравившуюся работу и 
+        написать мастеру!'
       />
-      <Link className={styles.city} href='/states'>
-        {mystate?.charAt(0).toUpperCase() + mystate?.slice(1)}
-      </Link>
+      <CitySelect />
       <FilterServices />
-      <section className={styles.section} >
-
-
-        <div className={styles.images} id="myDiv" ref={ref} onClick={viewNewImage} >
-          <div className={styles.images_one}>
-            {data['one']?.map((i, index) =>
-              <Fragment key={i.id}>
-                {index < view ? <Image
-                  alt="Изображение мастера"
-                  id={JSON.stringify(i)}
-                  loading='lazy'
-                  src={getImage(i.id)}
-                  title={i.master_name}
-                  sizes="100vw"
-                  style={{
-                    width: '100%',
-                    height: 'auto',
-                  }}
-                  width={500}
-                  height={300}
-                /> : null}
-              </Fragment>
-            )}
-          </div>
-          <div className={styles.images_one}>
-            {data['two']?.map((i, index) =>
-              <Fragment key={i.id}>
-                {index < view ? <Image
-                  alt="Изображение мастера"
-                  key={i.id}
-                  id={JSON.stringify(i)}
-                  loading='lazy'
-                  src={getImage(i.id)}
-                  title={i.master_name}
-                  sizes="100vw"
-                  style={{
-                    width: '100%',
-                    height: 'auto',
-                  }}
-                  width={500}
-                  height={300}
-                /> : null}
-              </Fragment>
-            )}
-          </div>
+      <div className={styles.images} id="myDiv" ref={ref} onClick={viewNewImage} >
+        <div className={styles.images_one}>
+          {data['one']?.map((i, index) =>
+            <Fragment key={i.id}>
+              {index < view ? <Image
+                alt="Изображение мастера"
+                id={JSON.stringify(i)}
+                loading='lazy'
+                src={getImage(i.id)}
+                title={i.master_name}
+                sizes="100vw"
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                }}
+                width={500}
+                height={300}
+              /> : null}
+            </Fragment>
+          )}
         </div>
-      </section>
+        <div className={styles.images_one}>
+          {data['two']?.map((i, index) =>
+            <Fragment key={i.id}>
+              {index < view ? <Image
+                alt="Изображение мастера"
+                key={i.id}
+                id={JSON.stringify(i)}
+                loading='lazy'
+                src={getImage(i.id)}
+                title={i.master_name}
+                sizes="100vw"
+                style={{
+                  width: '100%',
+                  height: 'auto',
+                }}
+                width={500}
+                height={300}
+              /> : null}
+            </Fragment>
+          )}
+        </div>
+      </div>
+
       {view_image &&
         <ViewImage
           service={service}

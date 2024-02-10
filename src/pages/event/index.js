@@ -8,8 +8,8 @@ import useSWR from 'swr'
 export default function Event() {
     const router = useRouter()   
     const status = useSelector(state=>state.counter.profile['status'])
-    const city = useSelector(state=>state.counter.city)
-    const { data } = useSWR(`/api/get_events?city=${city.toLowerCase()}`)
+    const state = useSelector(state=>state.counter.mystate)
+    const { data } = useSWR(`/api/get_events?state=${state.toLowerCase()}`)
     
 
     function My_Date(a) {        
@@ -24,7 +24,7 @@ export default function Event() {
         <>
             <Header text="Мероприятия" sel="/catalog/services" />           
             {data?.map(i=>
-                <section key={i.event_id} className={styles.event}>
+                <section key={i.id} className={styles.event}>
                     <img src={process.env.url_image + i.master_nikname + '.jpg'} alt="master" height={50} width={50}/>
                     <p>
                         {i.name}<br />
