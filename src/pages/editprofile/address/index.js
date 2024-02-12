@@ -78,6 +78,7 @@ export default function Address() {
                         onChange={(e) => setAddress_full({ ...address_full, ...{ 'дом': e.target.value } })}
                     />
                 </label>
+                <p>Следущие данные видны только клиенту после заказа</p>
                 <label className={styles.radio}>
                     Квартира
                     <input type="radio" name="type_house" value="квартира"
