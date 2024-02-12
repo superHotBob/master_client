@@ -32,7 +32,7 @@ export default async function handler(req, res) {
 
 
     fetch(`https://admin.masters.place/createclienticon?name=${nikname}`)
-      .then(res => console.log('Иконка клиента создана'))
+    .then(res => console.log('Иконка клиента создана , тел: ' , tel))
 
     const { rows: max_chat } = await client.query("SELECT Max(chat) from adminchat");
     let chat = +max_chat[0].max + 1;

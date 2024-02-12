@@ -41,14 +41,12 @@ export default function Enter() {
         fetch(`/api/check_client?phone=${my_phone}`)
             .then(res => res.json())
             .then(res => {
-
                 if (res.length === 0) {
                     Call()
                 } else if (res[0].blocked != '0') {
                     router.push('/enter')
                 } else {
                     router.push('/enterpassword')
-
                 }
             })
     }
@@ -57,8 +55,7 @@ export default function Enter() {
     async function Call() {
         const res_ip = await fetch('https://api.ipgeolocation.io/getip')
         const ip = await res_ip.json()
-        const data = { tel: +my_phone, ip: ip.ip }
-        console.log(data)
+        const data = { tel: +my_phone, ip: ip.ip }       
         const res = await fetch(`/api/get_code`, {
             body: JSON.stringify(data),
             headers: {
@@ -67,8 +64,6 @@ export default function Enter() {
             method: 'POST',
         })
         const txt = await res.text()
-
-
         if (res.status === 400) {
             setSelect('Подтвердить')
             setTimeout(() => document.getElementById(1).focus(), 500)           

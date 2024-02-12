@@ -36,27 +36,7 @@ export default function Home() {
       setview(3)
       view_ref.current = view_ref.current + 1
     }
-
-    // if (Worker) {
-    //   const options = {
-    //     enableHighAccuracy: true,
-    //     timeout: 5000,
-    //     maximumAge: 0,
-    //   };
-    //   async function success(pos) {
-    //     const crd = pos.coords;
-    //     console.log(crd.latitude, crd.longitude);       
-    //   }
-    //   function error(err) {
-    //     console.warn(`ERROR(${err.code}): ${err.message}`);
-    //   }
-    //   navigator.geolocation.getCurrentPosition(success, error, options)
-    //   const unread = 1;
-    //   navigator.setAppBadge(unread);
-    //   console.log('The API is supported, use it.')
-    // } else {
-    //   console.log('The API is not supported, do not use it.')
-    // }
+    
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [mystate]);
@@ -68,7 +48,7 @@ export default function Home() {
       servref.current = service
     }
 
-    fetch(`/api/get_images_master_city?service=${service}&city=${mystate?.toLowerCase()}`)
+    fetch(`/api/get_images_master_city?service=${service}&city=${mystate.toLowerCase()}`)
       .then(res => res.json())
       .then(res => {
         if (res['one']) {
@@ -100,7 +80,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Лучшие мастера маникюра, причёски, макияжа, массажа и др. рядом с Вами</title>
+        <title>Лучшие мастера маникюра, причёски, макияжа, окрашивания и др. рядом с Вами</title>
       </Head>
       <Message page="main" text='Masters.place показывает самые крутые и 
         актуальные работы мастеров в вашем городе. 

@@ -1,6 +1,7 @@
-.message {
+.message__await {
   width: calc(100% - 32px);
-  margin: 16px auto 0;
+  margin: 160px auto 0;
+  text-align: center;
 }
 
 .selector_one, .selector_two {
@@ -156,8 +157,7 @@
   width: 32%;
   color: #3D4EEA;
   background-position: right center;
-  background-size: 18%;
- 
+  background-size: 18%; 
   cursor: pointer;
 }
 
@@ -181,29 +181,11 @@
 }
 
 .all__filter p {
-  text-align: center;
-  
-  
- 
+  text-align: center; 
   margin: 0 auto;
   font-size: 20px;
   color: #3D4EEA;
 }
-/* .all__filter p::after, .all__filter p::before {
-  content: '11 км';
-  position: absolute;
-  right: 3px;
-  font-size: 14px;
-  font-weight: 400;
-  color: #D0D0D0;
-  top: 60px;
-}
-.all__filter p::before {
-  content: '1 км';
-  left: 0%;
-  display: flex;
-} */
-
 .buttons {
   display: flex;
   justify-content: space-between;

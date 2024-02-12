@@ -159,7 +159,7 @@ export default function EditProfile() {
             <header className={styles.header}>
                 <button onClick={Return} style={{ color: color[1] }}>Отмена</button>
                 <span>{nikname}</span>
-                <button onClick={editMaster} style={{ color: color[1] }}>Принять</button>
+                <button onClick={editMaster} style={{ color: color[1] }}>Далее</button>
             </header>
             <div className={styles.image} style={{ background: color[0] }}>
                 <span onClick={() => viewTemaBlock(true)}>Изменить обложку</span>
