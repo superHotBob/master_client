@@ -21,7 +21,7 @@ export default function Enter() {
     const [message, setMessage] = useState('')
     const [t, setT] = useState(null)
     const [validnumber, setvalidnumber] = useState(true)
-
+    const [repeat, setrepeat] = useState(true)
 
 
 
@@ -66,7 +66,8 @@ export default function Enter() {
         const txt = await res.text()
         if (res.status === 400) {
             setSelect('Подтвердить')
-            setTimeout(() => document.getElementById(1).focus(), 500)           
+            setTimeout(() => document.getElementById(1).focus(), 500)
+            setTimeout(()=>setrepeat(false), 10000)           
         } else {
             setT(+txt)           
         }
@@ -256,7 +257,7 @@ export default function Enter() {
 
                         </>
                     }
-                    <h4 onClick={Reload}>Повторить попытку</h4>
+                    <button disabled={repeat} className={styles.my_button} onClick={Reload}>Повторить попытку</button>
                 </div>}
         </section>
 
