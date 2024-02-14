@@ -15,6 +15,8 @@ export default async function handler(req, res) {
   })
   const txt = await st.text(); 
 
+  console.log(req.body.ip,':',req.body.tel, ':', req.body.number)
+
   if ( txt === 'Code is good' ) {
     res.status(200).send(st)
   } else if ( txt === 'Enter code' ) {   

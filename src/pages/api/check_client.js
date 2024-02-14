@@ -8,7 +8,8 @@ export default async function handler(req, res) {
         from  "clients"
         where "phone" = $1 
         `, [+req.query.phone]
-    );   
+    );
+    console.log('check client:', req.query.phone, 'Date:' , new Date())   
     await client.end()
     res.status(200).json(rows)
 }

@@ -18,7 +18,7 @@ export default function Password() {
     useEffect(()=>{
         onepassword.current.focus()
         document.body.addEventListener('keydown', handler);
-        return ()=>document.body.removeEventListener('keydown', handler);
+        return ()=>document.body.removeEventListener('keydown', handler);       
     },[])
     
     const handler = event => {
@@ -57,8 +57,12 @@ export default function Password() {
             })
                 .then(res => {
                     setMessage('Пароль изменен. Войдите с новым паролем.')
-                    dispatch(setpassword(''))
-                    setTimeout(() => {router.push('/enter')}, 4000);
+                    document.getElementById('button').style.display = "none"
+                   
+                    setTimeout(() => {
+                        dispatch(setpassword('')),
+                        router.push('/enter')
+                    }, 4000);
                 })
         } else {
             const response = await fetch('/api/enter_password', {
@@ -94,7 +98,7 @@ export default function Password() {
                 <form onSubmit={handleSubmit}>
                     <input required ref={onepassword} placeholder='Пароль (не менее 8 символов)' type="password" minLength={8}  />
                     <input required ref={twopassword} placeholder='Подтвердить пароль' type="password" minLength={8}  />
-                    <button className={styles.button} type="submit">
+                    <button id="button" className={styles.button} type="submit">
                         {password === 'new' ? 'Восстановить пароль' : 'Завершить регистрацию'}
                     </button>
                 </form>
