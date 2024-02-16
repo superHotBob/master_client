@@ -69,7 +69,7 @@ export default function EnterPassword() {
                 <p>Введите пароль вашего  аккаунта.</p>
                 <input required autoComplete='on' autoFocus ref={passRef} placeholder='Пароль' type="password" inputMode="numeric" />
                 <button type='submit' className={styles.button}>Войти</button>
-                <p onClick={ReplacePassword}>Востановить или изменить пароль</p>
+                <p onClick={ReplacePassword}>Восстановить или изменить пароль</p>
             </form>
             <h4 className={styles.error}>{message}</h4>
         </section>

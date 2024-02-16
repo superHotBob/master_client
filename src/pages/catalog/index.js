@@ -15,8 +15,7 @@ export default function Catalog() {
    
     const ToService = (e) => {
         if (e.target.id) {
-            dispatch(setservice(e.target.id))
-           
+            dispatch(setservice(e.target.id))           
             router.push(`/masternear/${e.target.id}`)
         }
     }
@@ -47,9 +46,6 @@ export default function Catalog() {
                 </Link>
                 <Information />
             </section>
-
         </>
-
     )
-
 }
