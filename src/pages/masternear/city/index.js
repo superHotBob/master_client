@@ -34,7 +34,7 @@ export default function MasterNear() {
 
     return (
         <>
-            <Header sel="/catalog" text="Мастера рядом" />
+            <Header sel="/" text="Мастера рядом" />
             <Message page="masternear" text='Masters.place позволяет познакомиться  с 
                 мастерами вашего города. Для этого нужно выбрать 
                 ваш город, что бы увидеть список мастеров.
