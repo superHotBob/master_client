@@ -17,19 +17,18 @@ const rubik = Rubik({
   style: ['normal'],
   display: 'auto',
 })
-export default function MyApp({ Component, pageProps }) {
-
-  const my_path = ['informations', 'informations/aboutservice', 'filling',
+ const my_path = ['informations', 'informations/aboutservice', 'filling',
     'newpassword', 'succesregistration', 'displaypublications',
     'masterrecords', 'confirmation', 'addlist', 'calendar', 'become', 'editprofile/address',
     'states', 'masternear', 'masternear/city', 'editprofile', 'addmasterorder']
+export default function MyApp({ Component, pageProps }) {
+
+ 
 
   const router = useRouter()
   const { slug } = router.query
   const pathname = usePathname()
-  useEffect(() => {
-    console.log('mertica')
-   
+  useEffect(() => {   
     window.dataLayer = window.dataLayer || []
     function gtag() {
       window.dataLayer.push(arguments)

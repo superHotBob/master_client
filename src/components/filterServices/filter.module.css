@@ -64,7 +64,7 @@
 
 .all__filter__data {
   display: grid;
-  grid-template-columns: 50% auto;
+  grid-template-columns: auto auto auto;
   padding: 5px;
 }
 

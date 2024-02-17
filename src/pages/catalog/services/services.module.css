@@ -10,7 +10,7 @@
 }
 .images {
     display: grid;
-    grid-template-columns: repeat(5, 20%);
+    grid-template-columns: repeat(4, 25%);
     max-width:  500px;
   
     padding: 0 16px;
