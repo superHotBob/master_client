@@ -65,7 +65,7 @@ export default async function handler(req, res) {
     res.status(200).json(result[0])
 
   } else if (result[0].status === 'master' && result[0].blocked === '0') {
-    if (result[0].client_password === password) {
+    // if (result[0].client_password === password) {
       const { rows: result } = await client.query(`
           SELECT 
           masters.address,masters.city,masters.currency,masters.locations,masters.name,masters.nikname,
@@ -89,12 +89,12 @@ export default async function handler(req, res) {
 
 
       res.status(200).json(result[0])
-    } else {
-      await client.end();
-      res.status(200).json([])
-    }
+    // } else {
+    //   await client.end();
+    //   res.status(200).json([])
+    // }
   } else if (result[0].status === 'client' && result[0].blocked === '0') {
-    if (result[0].client_password === password) {
+    // if (result[0].client_password === password) {
       const { rows: result } = await client.query(`
           select status,nikname,name,text,id,saved_image,key,confid
           from "clients"
@@ -117,8 +117,8 @@ export default async function handler(req, res) {
       await client.end();
       res.status(200).json([])
     }
-  } else {
-    await client.end();
-    res.status(404).json([])
-  }
+  // } else {
+  //   await client.end();
+  //   res.status(404).json([])
+  // }
 }

@@ -7,55 +7,24 @@ import { setphone } from '@/reduser'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import Link from 'next/link'
+import EnterCode from '@/components/entercode'
+
 
 export default function Enter() {
 
     const dispatch = useDispatch()
     const router = useRouter()
-    const { password, my_phone } = useSelector(state => state.counter)
-
-    // const [phone, setPhone] = useState()   
-    const [number, setNumber] = useState([, , ,])
+    const { my_phone } = useSelector(state => state.counter)
     const [back, setBack] = useState('logo-main.svg')
     const [select, setSelect] = useState('Вход')
     const [message, setMessage] = useState('')
     const [t, setT] = useState(null)
     const [validnumber, setvalidnumber] = useState(true)
-    const [repeat, setrepeat] = useState(true)
-
-
-
-    useEffect(() => {
-        if (password === 'new') {
-            Call()
-            setSelect('Восстановление пароля')
-        }
-    }, [password])
-
-
-
-    async function checkClient() {
-        if (password === 'new') {
-            return Call()
-        }
-        fetch(`/api/check_client?phone=${my_phone}`)
-            .then(res => res.json())
-            .then(res => {
-                if (res.length === 0) {
-                    Call()
-                } else if (res[0].blocked != '0') {
-                    router.push('/enter')
-                } else {
-                    router.push('/enterpassword')
-                }
-            })
-    }
-
 
     async function Call() {
         const res_ip = await fetch('https://api.ipgeolocation.io/getip')
         const ip = await res_ip.json()
-        const data = { tel: +my_phone, ip: ip.ip }       
+        const data = { tel: +my_phone, ip: ip.ip }
         const res = await fetch(`/api/get_code`, {
             body: JSON.stringify(data),
             headers: {
@@ -67,99 +36,40 @@ export default function Enter() {
         if (res.status === 400) {
             setSelect('Подтвердить')
             setTimeout(() => document.getElementById(1).focus(), 500)
-            setTimeout(()=>setrepeat(false), 10000)           
+            setT(30)
+            // setTimeout(()=>{
+            //     setrepeat(false)               
+            // }, 30000)           
+        } else if (res.status === 500) {
+            setMessage(txt)
         } else {
-            setT(+txt)           
+
         }
 
     }
 
 
-    useEffect(() => {
-        if (t > 0) {
-            let timer = setInterval(() => {
-                setT(t - 1)
-                setMessage(t)
-            }, 1000);
+    // useEffect(() => {
+    //     if (t > 0) {
+    //         let timer = setInterval(() => {
+    //             setT(t - 1)
+    //             // setMessage(t)
+    //         }, 1000);
 
-            return () => clearInterval(timer)
-        } else {
-            setMessage()
-        }
+    //         return () => clearInterval(timer)
+    //     } else {
+    //         setMessage()
+    //     }
 
-    }, [t])
-
-
-    async function sendCode() {
-        const data = { tel: my_phone, number: +number.join('') }
-
-        fetch('/api/get_code', {
-            body: JSON.stringify(data),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            method: 'POST',
-        })
-            .then(res => {
-                if (res.status === 200) {
-                    router.push('newpassword')
-                } else if (res.status === 404) {
-                    setSelect('Подтвердить')
-                    setMessage('Не верный код')
-                } else if (res.status === 500) {
-                    setMessage('Вы исчерпали лимит попыток')
-                    setT(60)
-                } else {
-                    setMessage('Не верный код')
-                }
-            })
-    }
+    // }, [t])
 
 
 
-    const handleKeyDown = (e, b) => {
 
-        if (e.key === 'Backspace') {
 
-            if (b === 1) {
-                document.getElementById("1").value = null
-                return;
-            }
-            if (e.target.value != '') {
-                document.getElementById(b).value = null
-            } else {
-                document.getElementById(b - 1).focus()
-            }
 
-        }
-        if (e.key === 'Enter' && b === 4) {
-            sendCode()
-        }
-    };
 
-    function Number(e, b) {
-        if (e.key === 'Backspace') {
-            return;
-        }
-        if (b === 4) {
-            let nmb = number
-            nmb[b] = e.target.value
-            setNumber(nmb)
-            return;
-        }
-        let nmb = number
-        nmb[b - 1] = e.target.value
-        setNumber(nmb)
-        // if (+e.target.value > 0 && b < 4) {
-        document.getElementById(b + 1).focus()
-        // }
-    }
-    function Reload() {
-        setNumber([, , ,])
-        setSelect('Вход')
-        setBack('logo-main.svg')
-        setMessage('')
-    }
+
 
     return (
         <section className={styles.section} style={{ backgroundImage: `url(${back})` }}>
@@ -206,59 +116,22 @@ export default function Enter() {
 
                         inputStyle={{ fontFamily: '__Rubik_7303a2', border: 'none', borderRight: 'none', height: 'auto' }}
                     />
-                    {message ?
-                        <h3 className={styles.error} >
-                            Повторно запросить звонок
-                            можно будет через  <b>{t}</b> сек.
-                        </h3> :
-                        <>
-                            <button disabled={validnumber} className={styles.button} onClick={checkClient}>
-                                Войти
-                            </button>
-                            <div className={styles.colaboration}>
-                                Нажмая на кнопку, вы соглашаетесь с<br />
-                                <a>Условиями обработки персональных <br />
-                                    данных</a>  и <Link href="/informations/agreement">Пользовательским соглашением</Link>
-                            </div>
-                        </>}
+
+                    {message ? <h3 className={styles.error} >Вы исчерпали лимит попыток</h3> : null }
+                    <button disabled={validnumber} className={styles.button} onClick={Call}>
+                        Войти
+                    </button>
+                    <div className={styles.colaboration}>
+                        Нажмая на кнопку, вы соглашаетесь с<br />
+                        <a>Условиями обработки персональных <br />
+                            данных</a>  и <Link href="/informations/agreement">Пользовательским соглашением</Link>
+                    </div>
+
+
                 </div>
                 :
-                <div className={styles.number}>
-                    <p>
-                        Введите последние 4 цифры водящего номера.<br />
-                        Отвечать на звонок не нужно. Звоним на <br />
-                        указанный номер:
-                    </p>
-                    <h4>+{my_phone}</h4>
-                    <h5>Например +7 XXX XXX  <span>12 34</span></h5>
-                    <div className={styles.numbers} >
-                        {[1, 2, 3, 4].map(i =>
-                            <input
-                                id={i}
-                                key={i}
-                                pattern="[0-9]*"
-                                type="text"
-                                inputMode='numeric'
-                                required
-                                maxLength={1}
-                                onChange={(e) => Number(e, i)}
-                                onKeyDown={(e) => handleKeyDown(e, i)}
-                            />)}
-                    </div>
-                    {message ?
-                        <>
-                            <h3 className={styles.error}>Не верный код</h3>
-                            <div className={styles.button} onClick={sendCode}>Подтвердить</div>
-                        </>
-                        :
-                        <>
-                            <div className={styles.button} onClick={sendCode}>Подтвердить</div>
-                            <h6>Не получили звонок?</h6>
-
-                        </>
-                    }
-                    <button disabled={repeat} className={styles.my_button} onClick={Reload}>Повторить попытку</button>
-                </div>}
+                <EnterCode back={setSelect} />
+            }
         </section>
 
     )

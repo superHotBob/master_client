@@ -1,6 +1,6 @@
 import styles from './menu.module.css'
 import { useDispatch } from 'react-redux'
-import { setprofile } from "@/reduser"
+import { setprofile,setnew_message } from "@/reduser"
 import { useRouter } from "next/router"
 import Link from 'next/link'
 import useSWR from 'swr'
@@ -23,7 +23,9 @@ export default function Menu({ count, profile }) {
         `: null)
 
 
-
+    if(data){
+        dispatch(setnew_message(data))
+    }
     function CopyProfile() {
         navigator.clipboard.writeText(window.location.host + '/' + profile.status + '/' + profile.nikname)
         alert("Copied the text: " + window.location.host);

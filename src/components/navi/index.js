@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { usePathname } from 'next/navigation'
+import useSWR from 'swr'
 
 const active = {
     backgroundColor: '#fff',
@@ -35,15 +36,18 @@ const chat = {
     backgroundPosition: 'center',
 }
 
-export default function Navi({ save, color }) {
+export default function Navi({ save, color }) {   
     const [height, setHeight] = useState('700px')
-    const prof = useSelector(state => state.counter.profile)
-    const tema = useSelector(state => state.counter.tema)
+    const { profile, tema } = useSelector(state => state.counter)    
     const router = useRouter()
     const pathname = usePathname() 
-    
+  
    
     useEffect(() => setHeight(window.innerHeight - 70 + 'px'), [])
+
+    const { data } = useSWR(profile.status && JSON.parse(localStorage.getItem('chat')) ? `
+    /api/get_new_messages?nikname=${profile.nikname}&status=${profile.status}&chat=${JSON.parse(localStorage.getItem('chat'))}
+    `: null)
     
     return (        
         <div className={styles.total} style={{ top: height }}>
@@ -54,29 +58,29 @@ export default function Navi({ save, color }) {
                 <Link title="Каталог" href="/catalog" className={pathname === '/catalog' ? styles.home : styles.dashboard}>
                     <Image alt="catalog"  src={pathname === '/catalog' ? dashboard_bl : dashboard} height={20} width={20} />
                 </Link>
-                {prof.status ? 
+                {profile.status ? 
                     <Link 
                         href="/chat" 
                         title="Чат" 
                         className={styles.message} 
                         style={pathname === '/chat' ?  chat : null}
-                    /> : null
+                    >{data ? <span/> : null}</Link> : null
                 }
-                {prof.status === 'client' ?
+                {profile.status === 'client' ?
                     <Link
-                        href={'/clientprofile/' + prof.nikname  }
+                        href={'/clientprofile/' + profile.nikname  }
                         title="Сохранённые публикации"
                         className={styles.stroke}
-                        style={(router.asPath.includes('orders') || !router.asPath.includes(prof.nikname)) ? null : saved}
+                        style={(router.asPath.includes('orders') || !router.asPath.includes(profile.nikname)) ? null : saved}
                     /> : null
                 }
                 <Link
-                    href={prof.status  === 'master' ? "/masterprofile/" + prof.nikname : 
-                    prof.status  === 'client' ? "/clientprofile/" + prof.nikname + "/orders" :
+                    href={profile.status  === 'master' ? "/masterprofile/" + profile.nikname : 
+                    profile.status  === 'client' ? "/clientprofile/" + profile.nikname + "/orders" :
                     "/enter"}
                     title="Мой профиль"
                     className={styles.enter}
-                    style={prof.status ?
+                    style={profile.status ?
                         (router.asPath.includes('orders') || router.asPath.includes('masterprofile/') ? active : active_two) : null}
                 >
                     Вход

@@ -35,15 +35,18 @@
     text-align: center;
     color: #fff;
     margin: 0 3px;
-
-
 }
 
 .message {
     background-image: url('/message.svg');
 }
-
-
+.message span {
+    background-color: red;
+    padding: 5px;
+    display: inline-block;
+    border-radius: 5px;
+    transform: translateX(10px);
+}
 .dashboard,
 .home,
 .message,
@@ -57,21 +60,17 @@
     text-align: center;
     margin: 0 3px;
 }
-
 .stroke {
     background-image: url('/stroke.svg');
     background-size: 30%;
 }
-
 .home {
     background-color: #fff;
 }
-
 .dashboard img,
 .home img {
     margin-top: 13px;
 }
-
 
 @keyframes gradient {
     0% {

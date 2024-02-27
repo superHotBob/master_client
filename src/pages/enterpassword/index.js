@@ -26,7 +26,7 @@ export default function EnterPassword() {
         setTimeout(()=>router.push('/enter'),500) 
     }
 
-    const handleSubmit = async (e) => {
+    const passwordControl = async (e) => {
         e.preventDefault();       
         const data = { tel: +phone, password: passRef.current.value }      
         setMessage('')      
@@ -64,7 +64,7 @@ export default function EnterPassword() {
     return (
         <section className={styles.section} style={{ backgroundImage: `url(${back})` }}>
             <Header text='Вход' sel="/enter" />            
-            <form onSubmit={handleSubmit} className={styles.inputs_password}>
+            <form onSubmit={passwordControl} className={styles.inputs_password}>
                 <h3 className={styles.registration}>Вход по номеру телефона</h3>
                 <p>Введите пароль вашего  аккаунта.</p>
                 <input required autoComplete='on' autoFocus ref={passRef} placeholder='Пароль' type="password" inputMode="numeric" />
