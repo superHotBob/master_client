@@ -12,8 +12,7 @@ import EnterCode from '@/components/entercode'
 
 export default function Enter() {
 
-    const dispatch = useDispatch()
-    const router = useRouter()
+    const dispatch = useDispatch()    
     const { my_phone } = useSelector(state => state.counter)
     const [back, setBack] = useState('logo-main.svg')
     const [select, setSelect] = useState('Вход')
@@ -42,10 +41,7 @@ export default function Enter() {
             // }, 30000)           
         } else if (res.status === 500) {
             setMessage(txt)
-        } else {
-
-        }
-
+        } else { }
     }
 
 
@@ -62,15 +58,6 @@ export default function Enter() {
     //     }
 
     // }, [t])
-
-
-
-
-
-
-
-
-
     return (
         <section className={styles.section} style={{ backgroundImage: `url(${back})` }}>
             <Header text={select} sel="back" />
@@ -133,6 +120,5 @@ export default function Enter() {
                 <EnterCode back={setSelect} />
             }
         </section>
-
     )
 }
