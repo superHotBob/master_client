@@ -85,7 +85,7 @@ export default function EnterCode({back}) {
                 } else if (res.status === 404) {
                     setSelect('Подтвердить')
                     setMessage('Не верный код')
-                } else if (res.status === 500) {
+                } else if (res.status === 429) {
                     setMessage('Вы исчерпали лимит попыток')
                     setT(60)
                 } else {

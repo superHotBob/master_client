@@ -24,7 +24,7 @@ export default function Enter() {
         const res_ip = await fetch('https://api.ipgeolocation.io/getip')
         const ip = await res_ip.json()
         const data = { tel: +my_phone, ip: ip.ip }
-        const res = await fetch(`/api/get_code`, {
+        const res = await fetch(`/api/get_code_first`, {
             body: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json',
@@ -32,14 +32,14 @@ export default function Enter() {
             method: 'POST',
         })
         const txt = await res.text()
-        if (res.status === 400) {
+        if (res.status === 200) {
             setSelect('Подтвердить')
-            setTimeout(() => document.getElementById(1).focus(), 500)
-            setT(30)
+            // setTimeout(() => document.getElementById(1).focus(), 500)
+            // setT(30)
             // setTimeout(()=>{
             //     setrepeat(false)               
             // }, 30000)           
-        } else if (res.status === 500) {
+        } else if (res.status === 429) {
             setMessage(txt)
         } else { }
     }
@@ -104,7 +104,10 @@ export default function Enter() {
                         inputStyle={{ fontFamily: '__Rubik_7303a2', border: 'none', borderRight: 'none', height: 'auto' }}
                     />
 
-                    {message ? <h3 className={styles.error} >Вы исчерпали лимит попыток</h3> : null }
+                    {message ? <h5 className={styles.error} >
+                        Вы исчерпали лимит попыток, попробуйте через 5 мин.
+                        </h5> : null 
+                    }
                     <button disabled={validnumber} className={styles.button} onClick={Call}>
                         Войти
                     </button>

@@ -23,7 +23,10 @@ export default async function handler(req, res) {
     res.status(400).send('Enter code') 
   } else if( st.status === 500) {
     res.status(500).send(txt)
-  } else {
+  } else if( st.status === 429) {
+    res.status(429).send(txt)  
+  }
+  else {
     res.status(404).send('code is fall')
   }
 }

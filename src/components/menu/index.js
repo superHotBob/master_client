@@ -72,8 +72,7 @@ export default function Menu({ count, profile }) {
 
                         }} className={styles.collections}>Мои заказы</Link>
                         <p className={styles.menu_prof}>Общее</p>
-                        <Link href="/editprofile/client" className={styles.edit_profile}>Настройки профиля</Link>
-                        {/* <p className={styles.copy} onClick={CopyProfile}>Скопировать ссылку профиля</p> */}
+                        <Link href="/editprofile/client" className={styles.edit_profile}>Настройки профиля</Link>                       
                         <p className={styles.chat}>Техническая поддержка</p>
                         <Link href="/informations" className={styles.about}>Информация</Link>
                         <p onClick={ExitFromAccount}>Выйти из аккаунта</p>

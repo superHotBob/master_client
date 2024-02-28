@@ -8,19 +8,18 @@ export default async function handler(req, res) {
     },
     method: 'POST',
     body: JSON.stringify({
-      tel: req.body.tel,
-      number: req.body.number      
+      tel: req.body.tel          
     })
   })
   const txt = await st.text(); 
 
   
-  console.log(req.body.ip,':',req.body.tel, ':', req.body.number)
+  console.log(req.body.ip,':',req.body.tel)
 
-   if ( txt === 'good' ) {
+   if ( txt === 'Enter code' ) {
      res.status(200).send(txt)
    } else {   
-     res.status(400).send(txt) 
+     res.status(429).send(txt) 
    }
 // //   } else if( st.status === 500) {
 // //     res.status(500).send(txt)
