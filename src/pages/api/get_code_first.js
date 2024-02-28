@@ -8,7 +8,8 @@ export default async function handler(req, res) {
     },
     method: 'POST',
     body: JSON.stringify({
-      tel: req.body.tel          
+      tel: req.body.tel,
+      ip: req.body.ip         
     })
   })
   const txt = await st.text(); 
