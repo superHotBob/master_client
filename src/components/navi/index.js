@@ -45,7 +45,7 @@ export default function Navi({ save, color }) {
    
     useEffect(() => setHeight(window.innerHeight - 70 + 'px'), [])
 
-    const { data } = useSWR(profile.status && JSON.parse(localStorage.getItem('chat')) ? `
+    const { data } = useSWR(profile.status  ? `
     /api/get_new_messages?nikname=${profile.nikname}&status=${profile.status}&chat=${JSON.parse(localStorage.getItem('chat'))}
     `: null)
     

@@ -20,24 +20,47 @@ export default async function handler(req, res) {
         `, [req.query.nikname]
   );
 
-  // const { rows: admin_all } = await client.query(`
-  //     select MIN(ms_date) 
-  //     from  "adminchat"       
-  //     where "recipient_nikname" = $1          
-  //     `, [req.query.nikname])
+  if (req.query.chat !="null") {
 
-  const { rows: subscribe } = await client.query(`
-      select COUNT(*) 
-      from  "adminchat"       
-      where "chat" = 0 and "ms_date" > $1 and "read" = false and ("recipient" = $2 or "recipient" = 'all')              
-    `, [req.query.chat, req.query.status]
-  );
+    const { rows: subscribe } = await client.query(`
+    select COUNT(*) 
+    from  "adminchat"       
+    where "chat" = 0 and "ms_date" > $1 and "read" = false and ("recipient" = $2 or "recipient" = 'all')              
+  `, [req.query.chat, req.query.status]
+    );
 
-  const result = +admin[0].count + +client_count[0].count + +subscribe[0].count
+    const result = +admin[0].count + +client_count[0].count + +subscribe[0].count
+    await client.end();
+    res.status(200).send(result)
+
+  } else {
+
+    const { rows: registration } = await client.query(`
+      select "registration" from  "clients"       
+      where "nikname" = $1          
+      `, [req.query.nikname]
+    )
+    const time = Date.parse(new Date(registration[0].registration))
+
+    const { rows: subscribe } = await client.query(`
+    select COUNT(*) 
+    from  "adminchat"       
+    where "chat" = 0 and "ms_date" > $1 and "read" = false and ("recipient" = $2 or "recipient" = 'all')              
+  `, [time, req.query.status]
+    );
+
+    const result = +admin[0].count + +client_count[0].count + +subscribe[0].count
+    await client.end();
+    res.status(200).send(result)
+
+  }
 
 
 
 
-  await client.end();
-  res.status(200).send(result)
+
+
+
+
+
 }

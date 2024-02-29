@@ -8,9 +8,7 @@
 }
 .model,
 .master {
-    height: 80px;
-    width: 100%;
-    text-align: center;
+    height: 80px;   
     border-radius: 8px;
     display: block;
     padding: 10px;   

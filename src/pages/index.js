@@ -9,17 +9,16 @@ import Information from '@/components/information'
 import CitySelect from '@/components/city'
 import Head from 'next/head'
 
+
 export default function Catalog() {
     const dispatch = useDispatch()
-    const router = useRouter()
-   
+    const router = useRouter()   
     const ToService = (e) => {
         if (e.target.id) {
             dispatch(setservice(e.target.id))           
             router.push(`/masternear/${e.target.id}`)
         }
-    }
-
+    }   
     return (
         <>
             <Head>
