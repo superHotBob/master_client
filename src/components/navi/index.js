@@ -17,6 +17,10 @@ const active = {
     width: '46px',
     fontSize: 0
 }
+const active_enter = {
+    backgroundColor: '#fff',
+    color: '#000'
+}
 const active_two = {
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
     backgroundImage: 'url("/profile.svg")',
@@ -36,18 +40,18 @@ const chat = {
     backgroundPosition: 'center',
 }
 
-export default function Navi({ save, color }) {   
+export default function Navi() {   
     const [height, setHeight] = useState('700px')
-    const { profile, tema } = useSelector(state => state.counter)    
+    const { profile: {nikname,status}, tema } = useSelector(state => state.counter)    
     const router = useRouter()
     const pathname = usePathname() 
-  
+   
    
     useEffect(() => setHeight(window.innerHeight - 70 + 'px'), [])
 
-    const { data } = useSWR(profile.status  ? `
-    /api/get_new_messages?nikname=${profile.nikname}&status=${profile.status}&chat=${JSON.parse(localStorage.getItem('chat'))}
-    `: null)
+    const { data } = useSWR(status  ? `
+    /api/get_new_messages?nikname=${nikname}&status=${status}&chat=${JSON.parse(localStorage.getItem('chat'))}
+    `: null)   
     
     return (        
         <div className={styles.total} style={{ top: height }}>
@@ -58,7 +62,7 @@ export default function Navi({ save, color }) {
                 <Link title="Каталог" href="/catalog" className={pathname === '/catalog' ? styles.home : styles.dashboard}>
                     <Image alt="catalog"  src={pathname === '/catalog' ? dashboard_bl : dashboard} height={20} width={20} />
                 </Link>
-                {profile.status ? 
+                {status ? 
                     <Link 
                         href="/chat" 
                         title="Чат" 
@@ -66,25 +70,33 @@ export default function Navi({ save, color }) {
                         style={pathname === '/chat' ?  chat : null}
                     >{data ? <span/> : null}</Link> : null
                 }
-                {profile.status === 'client' ?
+                {status === 'client' ?
                     <Link
-                        href={'/clientprofile/' + profile.nikname  }
+                        href={'/clientprofile/' + nikname  }
                         title="Сохранённые публикации"
                         className={styles.stroke}
-                        style={(router.asPath.includes('orders') || !router.asPath.includes(profile.nikname)) ? null : saved}
+                        style={(router.asPath.includes('orders') || !router.asPath.includes(nikname)) ? null : saved}
                     /> : null
                 }
-                <Link
-                    href={profile.status  === 'master' ? "/masterprofile/" + profile.nikname : 
-                    profile.status  === 'client' ? "/clientprofile/" + profile.nikname + "/orders" :
-                    "/enter"}
+                {status != undefined && <Link
+                    href={status  === 'master' ? "/masterprofile/" + nikname : "/clientprofile/" + nikname + "/orders" }
                     title="Мой профиль"
                     className={styles.enter}
-                    style={profile.status ?
+                    style={status ?
                         (router.asPath.includes('orders') || router.asPath.includes('masterprofile/') ? active : active_two) : null}
+                /> }
+                { router.asPath === '/enter' ? 
+                <span className={styles.enter} style={active_enter}>
+                    Вход
+                </span> 
+                : <>                   
+                {status === undefined && <Link
+                    href="/enter"
+                    title="Вход"
+                    className={styles.enter}                   
                 >
                     Вход
-                </Link>
+                </Link>  } </> }
             </div>
         </div>
     )

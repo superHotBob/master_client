@@ -13,7 +13,7 @@
     display: block;
     padding: 10px;   
     font-size: 30px;    
-    line-height: 29px; 
+    line-height: 31px; 
     font-weight: 800;   
     text-align: center;  
     margin: 8px 0;   
@@ -29,7 +29,7 @@
 }
 .images {
     display: grid;
-    grid-template-columns: repeat(3, 33%);    
+    grid-template-columns: repeat(4, 25%);    
 }
 
 .images img {

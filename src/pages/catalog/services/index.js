@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux'
 
 const sel = {
     background: 'linear-gradient(90deg, #3D4EEA 0%, #5E2AF0 100%)',
-    fontWeight: 600,
+    fontWeight: 500,
     color: '#fff'
 }
 const My_Events = () => {

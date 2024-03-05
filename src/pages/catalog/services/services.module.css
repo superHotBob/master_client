@@ -10,7 +10,7 @@
 }
 .images {
     display: grid;
-    grid-template-columns: repeat(4, 25%);
+    grid-template-columns: repeat(3, 33.3%);
     max-width:  500px;
   
     padding: 0 16px;
@@ -47,7 +47,7 @@
     height: 27px;
 }
 .selector span {
-    width: 45%;
+    width: 49%;
     display: inline-block;
     padding: 5px 0;
     text-align: center;
