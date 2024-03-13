@@ -74,13 +74,13 @@ export default function Menu({ count, profile }) {
                         <p className={styles.menu_prof}>Общее</p>
                         <Link href="/editprofile/client" className={styles.edit_profile}>Настройки профиля</Link>                       
                         <p className={styles.chat}>Техническая поддержка</p>
-                        <Link href="/informations" className={styles.about}>Информация</Link>
+                        <Link href="/informations/aboutservice" className={styles.about}>Информация</Link>
                         <p onClick={ExitFromAccount}>Выйти из аккаунта</p>
                     </main> :
                     <main className={styles.main_menu} style={style}>
                         <p className={styles.menu_prof}>Общее</p>
                         <p className={styles.chat}>Техническая поддержка</p>
-                        <Link href="/informations" className={styles.about}>Информация</Link>
+                        <Link href="/informations/aboutservice" className={styles.about}>Информация</Link>
                         <p onClick={() => router.push("/enter")} style={login}>Войти в аккаунт</p>
                     </main>}
         </>

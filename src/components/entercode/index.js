@@ -64,9 +64,7 @@ export default function EnterCode({back}) {
     async function saveToHistory() {
         let responce = await fetch('https://ipgeolocation.abstractapi.com/v1/?api_key=ecc713e733a64a24bd32521c2f47be98&fields=city,ip_address')
         let data = await responce.json()
-        fetch(`/api/save_history?phone=${my_phone}&city=${data.city}&ip_address=${data.ip_address}`)
-            .then(res => res.text())
-            .then(res => console.log(res))
+        fetch(`/api/save_history?phone=${my_phone}&city=${data.city}&ip_address=${data.ip_address}`)      
     }
 
     async function sendCode() {

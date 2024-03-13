@@ -21,9 +21,7 @@ const rubik = Rubik({
     'newpassword', 'succesregistration', 'displaypublications',
     'masterrecords', 'confirmation', 'addlist', 'calendar', 'become', 'editprofile/address',
     'states', 'masternear', 'masternear/city', 'editprofile', 'addmasterorder']
-export default function MyApp({ Component, pageProps }) {
-
- 
+export default function MyApp({ Component, pageProps }) { 
 
   const router = useRouter()
   const { slug } = router.query
@@ -69,7 +67,7 @@ export default function MyApp({ Component, pageProps }) {
     }}>
       <Provider store={store}>
         <Head>
-          <meta name="keywords" content="маникюр,	парикмахер, парикмахерские услуги, стрижки, прически, укладки, выпрямления,  косметология, педикюр,  Белорусь, сложное окрашивание, омбре, балаяж, шатуш, калифорнийское мелирование"></meta>
+          <meta name="keywords" content="маникюр, макияж, стрижка, прически, укладки, выпрямления,  косметология, педикюр,  Белорусь, сложное окрашивание, омбре, балаяж, шатуш, калифорнийское мелирование"></meta>
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="color-scheme" content="dark light" />
           <link rel="icon" href="/favicon.ico" />
@@ -80,7 +78,7 @@ export default function MyApp({ Component, pageProps }) {
           <meta name="application-name" lang='ru' content="masters.place" />
           <meta name="mobile-web-app-capable" content="yes" />
           <meta name="description"
-            content="Лучшие мастера в вашем городе: маникюр, прически , педикюр, окрашивание, ресницы, окрашивание,  барбер, стрижка, брови и многое другое"
+            content="Лучшие мастера в вашем городе: маникюр, прически , педикюр, окрашивание, ресницы, макияж, барбер, стрижка, брови и многое другое"
           />
         </Head>
         <main className={rubik.className} >

@@ -55,8 +55,7 @@ export default function Home() {
     })
   }, [service])
 
-  const viewNewImage = (e) => {
-    console.log(e)
+  const viewNewImage = (e) => {    
     if (e.target.id) {
       const rating = document.getElementById(e.target.id).height / document.getElementById(e.target.id).width
       viewImage({

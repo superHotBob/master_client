@@ -55,8 +55,7 @@ export default function Home() {
     })
   }, [service])
 
-  const viewNewImage = (e) => {
-    console.log(e)
+  const viewNewImage = (e) => {    
     if (e.target.id) {
       const rating = document.getElementById(e.target.id).height / document.getElementById(e.target.id).width
       viewImage({
@@ -72,7 +71,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Лучшие мастера маникюра, причёски, макияжа, окрашивания и др. рядом с Вами</title>
+        <title>Лучшие мастера маникюра, причёски, макияжа, окрашивания, педикюра, массажа и пр. рядом с Вами</title>
       </Head>
       <Message page="main" text='Masters.place показывает самые крутые и 
         актуальные работы мастеров в вашем городе. 

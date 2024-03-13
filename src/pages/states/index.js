@@ -33,7 +33,8 @@ export default function States() {
                 className={styles.seachcity}
                 type="search"
                 value={findcity}
-                placeholder='Ваша область'
+                autoFocus
+                placeholder='Введите область'
                 onChange={(e) => setfindcity(e.target.value)}
             />
             {data

@@ -37,7 +37,7 @@
     
   }
   .header div:last-of-type, .call, .image_master, .left__arrow {
-    vertical-align: middle;
+   
     height: 40px;  
     width: 40px;    
     text-align: center;

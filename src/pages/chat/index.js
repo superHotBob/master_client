@@ -10,11 +10,10 @@ import useSWR from 'swr'
 
 export default function Chat() {
     const router = useRouter()
-    const name = useSelector(state => state.counter.profile['nikname'])
-    const status = useSelector(state => state.counter.profile['status'])
-  
-    const { data, error } = useSWR('/api/get_messages?' + new URLSearchParams({
-            nikname: name,
+    const {nikname , status } = useSelector(state => state.counter.profile)   
+    
+    const { data } = useSWR('/api/get_messages?' + new URLSearchParams({
+            nikname: nikname,
             status: status,
         }).toString(),
         { refreshInterval: 30000,shouldRetryOnError : true,
@@ -52,7 +51,7 @@ export default function Chat() {
                                 <b>Администратор</b>
                                 <span>{My_Date(i.ms_date)}</span>
                             </p>
-                            <span className={i.read  ? null :  i.sendler_nikname === name ? null : styles.new_message }>
+                            <span className={i.read  ? null :  i.sendler_nikname === nikname ? null : styles.new_message }>
                                 {i.ms_text}
                             </span>
                         </div>
@@ -60,32 +59,28 @@ export default function Chat() {
                 )}
                 {data?.admin.length === 0 ? 
                     <Link href='/chat/messages/администратор' className={styles.chat}>
-                        <img src="/image/администратор.jpg" alt="master" />
-                        {/* <div>
-                            <p><b>Администратор</b><span>{'12:33'}</span></p>
-                            <span>Отвечу на любые вопросы</span>
-                        </div> */}
+                        <img src="/image/администратор.jpg" alt="master" />                      
                     </Link> 
                 : null}
                 <div>
                     {data?.client.map(i =>
                         <Link
-                            href={'/chat/messages/' + (i.sendler_nikname === name ? i.recipient_nikname : i.sendler_nikname) + '?name=' + (i.sendler_nikname === name  ? i.recipient : i.sendler)}
+                            href={'/chat/messages/' + (i.sendler_nikname === nikname ? i.recipient_nikname : i.sendler_nikname) + '?name=' + (i.sendler_nikname === nikname  ? i.recipient : i.sendler)}
                             key={i.chat}
                             className={styles.chat}
                         >
                             <Image 
                                 width={55} 
                                 height={55}
-                                src={process.env.url_image + (i.sendler_nikname === name ? i.recipient_nikname : i.sendler_nikname) + '.jpg'} 
+                                src={process.env.url_image + (i.sendler_nikname === nikname ? i.recipient_nikname : i.sendler_nikname) + '.jpg'} 
                                 alt="master" 
                             />
                             <div>
                                 <p>
-                                    <b>{i.sendler_nikname === name ? i.recipient : i.sendler}</b>
+                                    <b>{i.sendler_nikname === nikname ? i.recipient : i.sendler}</b>
                                     <span>{My_Date(i.ms_date)}</span>
                                 </p>
-                                <h6 className={i.read  ? null :  i.sendler_nikname === name ? null:  styles.new_message }>
+                                <h6 className={i.read  ? null :  i.sendler_nikname === nikname ? null:  styles.new_message }>
                                 {!isNaN(i.ms_text) ? "Заказ №: " : null}{i.ms_text}
                                 </h6>
                             </div>

@@ -1,7 +1,7 @@
 import Header from '@/components/header'
 import Link from 'next/link'
 import styles from './records.module.css'
-import { useState, useEffect, memo, useMemo, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import { my_tema } from '@/data.'
 import Order from '@/components/order'
 import { months, week } from '@/profile'

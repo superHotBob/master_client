@@ -1,7 +1,6 @@
 import Header from '@/components/header'
 import styles from './enter.module.css'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setphone } from '@/reduser'
 import PhoneInput from 'react-phone-input-2'
@@ -45,19 +44,7 @@ export default function Enter() {
     }
 
 
-    // useEffect(() => {
-    //     if (t > 0) {
-    //         let timer = setInterval(() => {
-    //             setT(t - 1)
-    //             // setMessage(t)
-    //         }, 1000);
-
-    //         return () => clearInterval(timer)
-    //     } else {
-    //         setMessage()
-    //     }
-
-    // }, [t])
+   
     return (
         <section className={styles.section} style={{ backgroundImage: `url(${back})` }}>
             <Header text={select} sel="back" />

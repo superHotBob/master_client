@@ -54,7 +54,7 @@ export default function Services() {
             {selector ? 
                 <div className={styles.images} onClick={ToService}>
                     {my_data.category.map(i =>
-                        <img key={i} id={i} alt={i} src={'/' + i + '.svg'} width='100%' height='auto' />
+                        <img key={i} id={i} alt={i} src={'/' + i + '.svg'} width='100px' height='auto' />
 
                     )}
                 </div>

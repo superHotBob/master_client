@@ -29,7 +29,7 @@
     position: relative;    
     padding-top: 130px;
 }
-.inputs_password input,
+
 .number p {
     text-align: center;
     font-weight: 400;
@@ -39,12 +39,10 @@
     margin: 24px auto;
 }
 
-.inputs_password {
-    margin-top: 130px;
-}
 
 
-.inputs_password p,
+
+
 .inputs p {
     color: #3D4EEA;
     font-size: 12px;
@@ -70,45 +68,22 @@
 .colaboration a {
     color: #3D4EEA
 }
-
-.inputs_password input {
-    height: 46px ;
-    width: 300px;
-    text-align: left;
-    display: block;
-    color: #3D4EEA;
-    margin: 0 auto;
-    padding: 0 10px; 
-    margin-bottom: 12px;   
-    font-size: 14px;
-    border-radius: 6px;
-    border: 1px solid #3D4EEA ;
-}
-.inputs_password input::placeholder {
-    color: #3D4EEA
-}
 .button {
     height: 46px;
-    width: 300px;
-    display: block;
-    cursor: pointer;
-    text-align: center;
-    font-size: 16px;
-    font-weight: 500;
+    width: 300px;    
+    font-size: 16px;    
     border-radius: 6px;
     padding: 13px 8px 11px 8px;
     background-color: #3D4EEA;
-    color: #fff;
-    border: none;
-    margin: 24px auto;
-    transition: all 0.5s;
+    color: #fff;   
+    margin: 24px auto;   
 }
 .button:hover {
-    transform: scale(1.04);
+   
     transition: all 0.5s;
 }
 .inputs h3 {
-    font-size: 18px;
+   
     margin:  0 auto 20px; 
     text-align: center;
     line-height: 17px;
