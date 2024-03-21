@@ -47,7 +47,16 @@ export default function Navi() {
     const pathname = usePathname() 
    
    
-    useEffect(() => setHeight(window.innerHeight - 70 + 'px'), [])
+    useEffect(() => {
+        function handleResize() {           
+            setHeight(window.innerHeight - 70 + 'px')
+        }
+        setHeight(window.innerHeight - 70 + 'px')
+        window.addEventListener('resize', handleResize);
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, [])
 
     const { data } = useSWR(status  ? `
     /api/get_new_messages?nikname=${nikname}&status=${status}&chat=${JSON.parse(localStorage.getItem('chat'))}

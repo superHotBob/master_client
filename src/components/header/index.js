@@ -71,9 +71,8 @@ export default function Header({ sel, text, mes, col = my_tema[0].color, select,
         >
           <Menu_icon color={col[1] || '#3D4EEA'} />
         </div>
-        : <div className={styles.shadow_arrow} />
-      
-
+        : 
+        <div className={styles.shadow_arrow} />
       }
 
       {text ?
@@ -85,7 +84,7 @@ export default function Header({ sel, text, mes, col = my_tema[0].color, select,
             width={39} height={40}
           /> : null}
 
-          {text}
+          <span>{text}</span>
         </h4>
         :
         <div className={styles.logo}>

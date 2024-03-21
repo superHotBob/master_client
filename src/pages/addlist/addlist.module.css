@@ -115,19 +115,18 @@
     font-size: 14px;
     font-weight: 500;   
     display: inline-block;
-    line-height: 27px;
+    line-height: 30px;
     text-align: center;
     cursor: pointer;
     border: 1.5px solid;
     border-radius: 4px;
 }
- span.all {
+.all {
     width: calc(100% - 52px);
     margin: 0 auto;
     display: block;
     transform: translateY(-42px);
-    line-height: 30px;
-    height: 30px;
+    line-height: 30px;   
 }
 
 .services span::first-letter {
@@ -136,11 +135,7 @@
 
 .active__service {
     color: #fff;
-    background-color: #3D4EEA;
-    border-radius: 4px;
-    height: 30px;
-    border: none;
-   
+    background-color: #3D4EEA;   
 }
 
 .addtag {

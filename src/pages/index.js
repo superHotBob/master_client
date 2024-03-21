@@ -13,7 +13,7 @@ import Head from 'next/head'
 export default function Catalog() {
     const dispatch = useDispatch()
     const router = useRouter()   
-    const ToService = (e) => {
+    const toService = (e) => {
         if (e.target.id) {
             dispatch(setservice(e.target.id))           
             router.push(`/masternear/${e.target.id}`)
@@ -32,9 +32,9 @@ export default function Catalog() {
                 <Link href="/become" className={styles.master}>
                     СТАНЬ МАСТЕРОМ
                 </Link>
-                <div className={styles.images} onClick={ToService}>
+                <div className={styles.images} onClick={toService}>
                     {my_data['category'].map(i =>
-                        <Image key={i} id={i} alt={i} src={'/' + i + '.svg'} width="80" height='90' />
+                        <Image title={i} key={i} id={i} alt={i} src={'/' + i + '.svg'} width="80" height='90' />
                     )}
                 </div>
                 <Link href="/catalog/services" className={styles.uslugi}>

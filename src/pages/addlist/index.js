@@ -28,6 +28,9 @@ const services__name = {
 }
 
 
+
+
+
 import Event from '@/components/event'
 
 export default function AddList() {
@@ -35,20 +38,17 @@ export default function AddList() {
     const my_ref = useRef(null)
     const [nikname, setnikname] = useState()
     const [color, setColor] = useState([])   
-    const [tag, settag] = useState()
+    const [tag, settag] = useState(false)
     const [selector, setSelector] = useState(true)
     const [file_for_upload, set_file_for_upload] = useState()
     const [file, setSelectedFile] = useState('')
-
+  
+   
 
     useEffect(() => {
         const prof = JSON.parse(localStorage.getItem('profile'))
         setnikname(prof.nikname)
-
-        setColor([...my_tema[prof.tema].color])
-        // setServices(prof.services)
-
-        // settag(prof.services != undefined ? prof.services[0] : [])
+        setColor([...my_tema[prof.tema].color])     
     }, [])
 
 
@@ -70,7 +70,7 @@ export default function AddList() {
             method: 'POST',
             body: JSON.stringify({
                 nikname: prof.nikname,
-                service: services__name[tag] ? services__name[tag] : 'all',
+                service: services__name[tag] ,
                 city: prof.state,
                 master_name: prof.name,
                 review: my_ref.current.value
@@ -117,7 +117,7 @@ export default function AddList() {
             {selector ? <>
                 <form className={styles.main__form}>
                     {file ? <img src={file} alt="image" /> :
-                        <label title={tag ? 'Добавить публикацию' : ' Необходимо выбрать услугу'} className={styles.sertificat__upload} style={{ color: color[1], backgroundColor: color[2] }}>
+                        <label title="Выбрать изображение" className={styles.sertificat__upload} style={{ color: color[1], backgroundColor: color[2] }}>
                             +
                             <input
                                 type="file"
@@ -126,7 +126,8 @@ export default function AddList() {
                                 accept=".jpg,.png"
                                 onChange={(e) => SelectUpload(e)}
                             />
-                        </label>}
+                        </label>
+                    }
                 </form>
                 <p className={styles.select__cat} style={{ background: color[2] }}>Выбрать категорию +</p>
                 <section className={styles.services} style={{ background: color[2] }}>
@@ -164,7 +165,13 @@ export default function AddList() {
                         style={{ borderColor: color[1] }}
                     />
                 </label>
-                <button disabled={!file} className={styles.buttonupload} onClick={Upload}>Опубликовать</button>
+                <button 
+                    disabled={!file ? true : tag ? false : true} 
+                    className={styles.buttonupload} 
+                    onClick={Upload}
+                >
+                    Опубликовать
+                </button>
 
             </>
                 :

@@ -72,8 +72,7 @@
     right: 64px;
     height: 30px;
     width: 30px;
-    padding: 5px;
-    transform: transitionX(20px);
+    padding: 5px;   
   }
   .image_master {  
     padding: 0 !important;
@@ -81,6 +80,7 @@
     margin-right: 5px;
     color: #282828;
     display: inline-block;
+    vertical-align: middle;
   }
   .count {
     position: absolute;

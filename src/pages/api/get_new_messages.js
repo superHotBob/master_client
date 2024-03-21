@@ -7,26 +7,26 @@ export default async function handler(req, res) {
   await client.connect();
 
   const { rows: client_count } = await client.query(`
-        select Count(*)      
-        from  "chat"       
+        SELECT count(recipient_nikname) from  "chat"       
         where "recipient_nikname" = $1 and "read" = false        
       `, [req.query.nikname]
   );
 
   const { rows: admin } = await client.query(`
-        select COUNT(*) 
-        from  "adminchat"       
+        Select count(recipient_nikname) from  "adminchat"       
         where "recipient_nikname" = $1 and "read" = false           
         `, [req.query.nikname]
   );
 
+ 
+
   if (req.query.chat !="null") {
 
     const { rows: subscribe } = await client.query(`
-    select COUNT(*) 
-    from  "adminchat"       
-    where "chat" = 0 and "ms_date" > $1 and "read" = false and ("recipient" = $2 or "recipient" = 'all')              
-  `, [req.query.chat, req.query.status]
+        select COUNT(*) 
+        from  "adminchat"       
+        where "chat" = 0 and "ms_date" > $1 and "read" = false and ("recipient" = $2 or "recipient" = 'all')              
+      `, [req.query.chat, req.query.status]
     );
 
     const result = +admin[0].count + +client_count[0].count + +subscribe[0].count

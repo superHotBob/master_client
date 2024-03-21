@@ -37,22 +37,20 @@ export default function Services() {
     const router = useRouter()
 
 
-    function ToService(event) {
-        if( my_data.category.includes(event.target.id)) {
-            dispatch(setservice(event.target.id))
-            router.push(`/masternear/${event.target.id}`)
-        }
-       
+    const toService = ( e ) => {
+        if( my_data.category.includes(e.target.id)) {
+            dispatch(setservice(e.target.id))
+            router.push(`/masternear/${e.target.id}`)
+        }       
     }
     return (
-        <>
-            
+        <>            
             <div className={styles.selector}>
                 <span onClick={() => setSelector(true)} style={selector ? sel : null}>Каталог услуг</span>
                 <span onClick={() => setSelector(false)} style={selector ? null : sel}>Мероприятия</span>
             </div>
             {selector ? 
-                <div className={styles.images} onClick={ToService}>
+                <div className={styles.images} onClick={toService}>
                     {my_data.category.map(i =>
                         <img key={i} id={i} alt={i} src={'/' + i + '.svg'} width='100px' height='auto' />
 
@@ -63,5 +61,4 @@ export default function Services() {
             }
         </>
     )
-
 }  
