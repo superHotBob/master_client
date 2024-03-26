@@ -250,6 +250,7 @@ div.nikname {
 
 div.connect_master,
 div.create_master,
+.remotely,
 div.confid_politic_true,
 div.confid_politic_false,
 div.currency,
@@ -273,6 +274,7 @@ div.confid_politic_true {
   background-color: #ccc;
 }
 
+
 div.currency {
   background: #D0D0D0;
 }
@@ -282,6 +284,7 @@ div.tema {
 }
 
 .currency button,
+.remotely button,
 .tema button {
   height: 38px;
   width: 130px;
@@ -292,7 +295,12 @@ div.tema {
   border: none;
   color: #fff;
 }
-
+div.remotely {
+  background: gray;
+}
+.remotely button {
+  background-color: red;
+}
 .connect_master::after,
 .confid_politic_true::after,
 .confid_politic_false::after,
@@ -320,7 +328,6 @@ div.tema {
 }
 .tema::before {
   content: 'Тема профиля';
-
 }
 
 .create_master::after {

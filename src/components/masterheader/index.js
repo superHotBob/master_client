@@ -31,7 +31,10 @@ export default function MasterHeader({ profile, slug }) {
                         style={{ color: color, backgroundColor: background }}
                     >{profile?.stars}</span>}
                 </p>
-                <address onClick={() => setmapview(true)}>{profile?.address}</address>
+                <address onClick={() => setmapview(true)}>
+                    {profile?.address}
+                    {profile.remotely && <Image className={styles.remotely} src="/bus.svg" title='возможен выезд' width={25} height={20} alt="image" /> }
+                </address>
                 {viewText ? <span className={styles.text}>{profile?.text}</span> : null}
                 <span style={{ color: color }} className={styles.view_text} onClick={() => setViewText(!viewText)}>{viewText ? 'Скрыть описание' : 'Описание'}</span>
             </section>

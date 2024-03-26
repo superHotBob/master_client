@@ -45,6 +45,7 @@ export default function MasterNear() {
                         <p>
                             <b>{i.name}</b>
                             <span className={styles.pro}>MASTER</span>
+                            {i.remotely && <Image className={styles.remotely} src="/bus.svg" title='возможен выезд' width={25} height={20} alt="image" /> }
                             {i.stars != 0.0 ? <span className={styles.stars}>{i.stars}</span> : null}
                         </p>
                         <h4>{i.address}</h4>

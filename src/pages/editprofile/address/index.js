@@ -5,7 +5,7 @@ import arrow from '../../../../public/arrow_back.svg'
 import { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Link from 'next/link'
-import { EDGE_UNSUPPORTED_NODE_APIS } from 'next/dist/shared/lib/constants'
+
 
 
 
@@ -23,14 +23,11 @@ export default function Address() {
 
    
 
-    useEffect(() => {
-        
+    useEffect(() => {        
         let { city, address, address_full } = JSON.parse(localStorage.getItem('profile'))      
-            setCity(city ? city : 'минск')           
-            // setAddress(address)
-            setAddress_full(address_full)          
-            setstreet(address?.split(',').length === 3 ? address?.split(',')[1] : address?.split(',')[2])
-       
+        setCity(city ? city : 'минск')           
+        setAddress_full(address_full)          
+        setstreet(address?.split(',').length === 3 ? address?.split(',')[1] : address?.split(',')[2])       
     }, [])
   
     function SetAddressFull(e) {

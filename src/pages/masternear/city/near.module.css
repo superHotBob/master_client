@@ -13,6 +13,9 @@
   text-align: center;
   cursor: pointer;
 }
+.remotely {
+  vertical-align: middle;
+}
 .selector_one{
   margin-left: 16px;
 }

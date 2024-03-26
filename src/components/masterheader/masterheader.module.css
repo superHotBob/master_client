@@ -5,6 +5,10 @@
     line-height: 17px;
     margin: 0 16px;
   }
+  .remotely {
+    vertical-align: bottom;
+    margin-left: 10px;
+  }
   
   .section address::before {
     content: url('/location.svg');

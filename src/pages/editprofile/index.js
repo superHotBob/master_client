@@ -1,6 +1,6 @@
 import styles from './editprofile.module.css'
 import { useSelector, useDispatch } from 'react-redux'
-import { setlocation, setnikname, setprofile , setstate} from '@/reduser'
+import { setlocation, setnikname, setprofile, setstate } from '@/reduser'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
@@ -33,7 +33,7 @@ const current_symbol = ['BYN', '₽', '₸']
 
 export default function EditProfile() {
     const profile = useSelector(state => state.counter.profile)
-    const location = useSelector(state => state.counter.location)
+
     const router = useRouter()
 
     const dispatch = useDispatch()
@@ -42,9 +42,9 @@ export default function EditProfile() {
     const [text, setText] = useState()
     const [file, setSelectedFile] = useState()
     const [file_for_upload, set_file_for_upload] = useState(null)
-
-    const [message, setMessage] = useState()
    
+    const [message, setMessage] = useState()
+
     const [tema, viewTemaBlock] = useState(false)
     const [cur, setCur] = useState(false)
     const [color, setColor] = useState(my_tema[0].color)
@@ -54,28 +54,28 @@ export default function EditProfile() {
     const [address, setAddress] = useState()
     const [street, setstreet] = useState()
     const [address_full, setAddress_full] = useState({})
-   
-    
 
 
 
-    
+
+
+
     useEffect(() => {
-        let {currency, name, text, city, address, nikname, address_full,state , tema, locations} = JSON.parse(localStorage.getItem('profile'))
+        let { currency, name, text, city, address, nikname, address_full, state, tema, locations } = JSON.parse(localStorage.getItem('profile'))
         dispatch(setlocation(locations))
         dispatch(setnikname(nikname))
-        if(state) {
-            
+        if (state) {
+
             dispatch(setstate(state))
-        }    
+        }
         if (!nikname) {
             return () => router.push('/enter')
         } else {
             setName(name),
-            setText(text),
-            setCity(city ? city : 'минск'),
-            setCurrency(my_currency[current_symbol.indexOf(currency)] || 'Белорусский рубль'),
-            setAddress(address)
+                setText(text),
+                setCity(city ? city : 'минск'),
+                setCurrency(my_currency[current_symbol.indexOf(currency)] || 'Белорусский рубль'),
+                setAddress(address)
             setSelectedFile(process.env.url_image + nikname + '.jpg')
             setAddress_full(address_full)
             setNikname(nikname)
@@ -96,6 +96,7 @@ export default function EditProfile() {
         setColor(my_tema[+pro.tema].color)
         router.push(`/${pro.nikname}`)
     }
+    
     const editMaster = async () => {
         const data = {
             status: 'master',
@@ -130,16 +131,20 @@ export default function EditProfile() {
         setSelectedFile(url)
         set_file_for_upload(e.target.files[0])
     }
-   
-    function PoliticReplace(a) {
-        fetch(`/api/update_confid?confid=${a}&nikname=${profile.nikname}`)
-            .then(res => res.json())
-            .then(res => {
-                let pro = JSON.parse(localStorage.getItem('profile'))
-                pro['confid'] = a
-                localStorage.setItem("profile", JSON.stringify(pro))
-                dispatch(setprofile(pro))
-            })
+
+    async function politicReplace(a) {
+        let pro = JSON.parse(localStorage.getItem('profile'))
+        await fetch(`/api/update_confid?confid=${a}&nikname=${profile.nikname}`)       
+        pro['confid'] = a
+        localStorage.setItem("profile", JSON.stringify(pro))
+        dispatch(setprofile(pro))         
+    }
+    async function setRemotely() {
+        let profile = JSON.parse(localStorage.getItem('profile'))
+        await fetch(`/api/update_remotely?remotely=${!profile.remotely}&nikname=${profile.nikname}`)       
+        profile['remotely'] = !profile.remotely
+        localStorage.setItem("profile", JSON.stringify(profile))
+        dispatch(setprofile(profile))         
     }
     const uploadToServer = () => {
         let data = new FormData()
@@ -166,7 +171,7 @@ export default function EditProfile() {
                 <form className={styles.profile_image}>
                     <Image
                         src={file ? file : process.env.url_image + profile.nikname + '.jpg'}
-                        alt="фото"                        
+                        alt="фото"
                         title='заменить изображение'
                         height={106}
                         width={106}
@@ -177,7 +182,7 @@ export default function EditProfile() {
                         name="image"
                         style={{ transform: 'translateY(-170px)' }}
                         onChange={selectUpload}
-                        accept="image/*"
+                        accept=".jpg,.png"
                     />
                 </form>
 
@@ -207,7 +212,12 @@ export default function EditProfile() {
                     Краткая информация
                     <textarea maxLength={300} value={text} placeholder='Расскажите о себе' rows={3} onChange={e => setText(e.target.value)} />
                 </label>
-
+                <div className={[styles.currency , styles.remotely].join(' ')} >
+                    Выезд к клиенту {profile.remotely ? 'возможен' : 'невозможен'}
+                    <button onClick={setRemotely} style={{backgroundColor: profile.remotely ? 'green' : 'red' }}>
+                        Изменить
+                    </button>
+                </div>
                 <div className={styles.currency} >
                     Основная валюта
                     <button onClick={() => setCur(true)}>{currency}</button>
@@ -215,14 +225,12 @@ export default function EditProfile() {
                 <div className={styles.tema} style={{ background: color[0] }}>
                     <button onClick={() => viewTemaBlock(true)}>Изменить</button>
                 </div>
-                {profile.confid ?
-                    <div className={styles.confid_politic_false} onClick={() => PoliticReplace(false)} />
-                    :
-                    <div className={styles.confid_politic_true} onClick={() => PoliticReplace(true)} />
-                }
+                <div className={profile.confid ? styles.confid_politic_false : styles.confid_politic_true}
+                    onClick={() => politicReplace(!profile.confid)}
+                />
                 <div className={styles.connect_master} />
             </section>
-           
+
             {tema ?
                 <div className={styles.main_tema}>
                     <div className={styles.select_tema}>

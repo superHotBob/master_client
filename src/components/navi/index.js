@@ -41,10 +41,12 @@ const chat = {
 }
 
 export default function Navi() {   
-    const [height, setHeight] = useState('700px')
+    const [height, setHeight] = useState('1000px')
     const { profile: {nikname,status}, tema } = useSelector(state => state.counter)    
-    const router = useRouter()
+   
     const pathname = usePathname() 
+
+   
    
    
     useEffect(() => {
@@ -84,7 +86,7 @@ export default function Navi() {
                         href={'/clientprofile/' + nikname  }
                         title="Сохранённые публикации"
                         className={styles.stroke}
-                        style={(router.asPath.includes('orders') || !router.asPath.includes(nikname)) ? null : saved}
+                        style={(pathname.includes('orders') || !pathname.includes(nikname)) ? null : saved}
                     /> : null
                 }
                 {status != undefined && <Link
@@ -92,9 +94,9 @@ export default function Navi() {
                     title="Мой профиль"
                     className={styles.enter}
                     style={status ?
-                        (router.asPath.includes('orders') || router.asPath.includes('masterprofile/') ? active : active_two) : null}
+                        (pathname.includes('orders') || pathname.includes('masterprofile/') ? active : active_two) : null}
                 /> }
-                { router.asPath === '/enter' ? 
+                { pathname === '/enter' ? 
                 <span className={styles.enter} style={active_enter}>
                     Вход
                 </span> 

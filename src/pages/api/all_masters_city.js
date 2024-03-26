@@ -6,7 +6,7 @@ export default async function handler(req, res) {
 
   await client.connect();
     const {rows: result } = await client.query(`
-        select nikname, name, stars, address, services
+        select nikname, name, stars, address, services, remotely
         from "masters" 
         where $1 = ANY (services) and state = $2 and buy = true
         order by rating DESC
