@@ -13,8 +13,10 @@
   text-align: center;
   cursor: pointer;
 }
-.remotely {
+.master img.remotely{
   vertical-align: middle;
+  border-radius: 0;
+  margin: -5px 0 0 8px;
 }
 .selector_one{
   margin-left: 16px;

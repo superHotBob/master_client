@@ -213,9 +213,9 @@ export default function EditProfile() {
                     <textarea maxLength={300} value={text} placeholder='Расскажите о себе' rows={3} onChange={e => setText(e.target.value)} />
                 </label>
                 <div className={[styles.currency , styles.remotely].join(' ')} >
-                    Выезд к клиенту {profile.remotely ? 'возможен' : 'невозможен'}
+                     {profile.remotely ? 'Подключен' : 'Отключен'}
                     <button onClick={setRemotely} style={{backgroundColor: profile.remotely ? 'green' : 'red' }}>
-                        Изменить
+                    Выезд к клиенту
                     </button>
                 </div>
                 <div className={styles.currency} >
