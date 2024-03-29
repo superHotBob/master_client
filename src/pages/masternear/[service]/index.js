@@ -44,11 +44,12 @@ export default function MasterNear() {
                     <div>
                         <p>
                             <b>{i.name}</b>
-                            <span className={styles.pro}>MASTER</span>
-                            
+                            <span className={styles.pro}>MASTER</span>                            
                             {i.stars != 0.0 ? <span className={styles.stars}>{i.stars}</span> : null}
                         </p>
-                        <h4>{i.address} {i.remotely && <Image className={styles.remotely} src="/bus.svg" title='возможен выезд' width={25} height={20} alt="image" /> }</h4>
+                        <h4>{i.address}
+                        {i.remotely && <Image className={styles.remotely} src="/bus.svg" title='возможен выезд' width={25} height={20} alt="image" /> }
+                        </h4>
                         <h5>{i.services.map(a => <span key={a} className={styles.service}>{a}</span>)}</h5>
                     </div>
                     <Image src={process.env.url_image + i.nikname + '.jpg'} width={60} height={60} alt="image" />
