@@ -26,7 +26,7 @@ export default function MyApp({ Component, pageProps }) {
   const router = useRouter()
   const { slug } = router.query
   const pathname = usePathname()
-  useEffect(() => {   
+  useEffect(() => {     
     window.dataLayer = window.dataLayer || []
     function gtag() {
       window.dataLayer.push(arguments)

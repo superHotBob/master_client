@@ -38,11 +38,11 @@ export default function Header({ sel, text, mes, col = my_tema[0].color, select,
   
   
   useEffect(() => {
-    let pro = JSON.parse(localStorage.getItem("profile"))
-    if (!profile.status) {
+    let pro = JSON.parse(localStorage.getItem("profile"))    
+    if (pro) {
       dispatch(setprofile(pro))
     }   
-  }, [profile.status])
+  }, [])
 
   const getPhone = () => {
     if(phone) {

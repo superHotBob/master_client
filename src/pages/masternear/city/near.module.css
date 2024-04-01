@@ -30,6 +30,9 @@
   justify-content: space-between;
   align-items: center;
 }
+.master:last-of-type {
+  margin-bottom: 12px;
+}
 .master div {
   width: calc(100% - 60px);
 }
