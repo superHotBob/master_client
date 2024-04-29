@@ -13,7 +13,7 @@ export default function Home() {
   const { service, mystate } = useSelector(state => state.counter)
   const [view_image, viewImage] = useState(false)
   const [data, setdata] = useState({})
-  const [view, setview] = useState(2)
+  const [view, setview] = useState(4)
   const ref_one = useRef(null)
   const ref_two = useRef(null)
   const servref = useRef(service)
@@ -32,12 +32,13 @@ export default function Home() {
     if (ref_one.current?.getBoundingClientRect().bottom.toFixed(0) < window.innerHeight ||
         ref_two.current?.getBoundingClientRect().bottom.toFixed(0) < window.innerHeight 
     ) {
-      setview(3)
+      setview(4)
       view_ref.current = view_ref.current + 1
     }
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [mystate]);
+  
 
   useEffect(() => {
     if (servref.current != service) {

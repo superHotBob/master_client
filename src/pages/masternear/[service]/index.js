@@ -3,10 +3,13 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import styles from '../city/near.module.css'
-import { useSelector } from 'react-redux'
+import { setservice } from '../../../reduser'
+import { useSelector, useDispatch } from 'react-redux'
 import FilterServices from '@/components/filterServices'
 import Message from '@/components/message'
 import useSWR from 'swr'
+import { useEffect } from 'react'
+
 
 
 
@@ -17,14 +20,21 @@ const sel = {
     cursor: 'default'
 }
 export default function MasterNear() {
-
-    const router = useRouter()
-    const { mystate, service: services } = useSelector((state) => state.counter)
+    const dispatch = useDispatch()
+    const router = useRouter() 
+    useEffect(()=> {
+    dispatch(setservice(router.query.service ? router.query.service : 'маникюр'))
+    return () => console.log(router.query.service)
+    },[])   
+    
+    const { mystate, service } = useSelector((state) => state.counter)
 
     const { data, error, isLoading } = useSWR('/api/all_masters_city?' + new URLSearchParams({
         city: mystate.toLowerCase(),
-        service: services
-    }), { onSuccess: () => router.push(`/masternear/${services}`) })
+        service: service
+    }), { onSuccess: () => router.push(`/masternear/${service}`)})
+        
+  
 
     return (
         <>

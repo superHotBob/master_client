@@ -30,16 +30,17 @@ export default function Enter() {
             },
             method: 'POST',
         })
-        const txt = await res.text()
-        if (res.status === 200) {
+        const txt = await res.json()          
+        if (txt.statusCode === 200) {
             setSelect('Подтвердить')
             // setTimeout(() => document.getElementById(1).focus(), 500)
             // setT(30)
             // setTimeout(()=>{
             //     setrepeat(false)               
             // }, 30000)           
-        } else if (res.status === 429) {
-            setMessage(txt)
+        } else if (txt.statusCode === 429) {           
+            console.log(txt.message)
+            setMessage(txt.message)
         } else { }
     }
 
@@ -91,10 +92,7 @@ export default function Enter() {
                         inputStyle={{ fontFamily: '__Rubik_7303a2', border: 'none', borderRight: 'none', height: 'auto' }}
                     />
 
-                    {message ? <h5 className={styles.error} >
-                        Вы исчерпали лимит попыток, попробуйте через 5 мин.
-                        </h5> : null 
-                    }
+                    {message ? <h5 className={styles.error}>{ message }</h5> : null }
                     <button disabled={validnumber} className={styles.button} onClick={Call}>
                         Войти
                     </button>

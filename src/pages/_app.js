@@ -18,7 +18,7 @@ const rubik = Rubik({
   display: 'auto',
 })
  const my_path = ['informations', 'informations/aboutservice', 'filling',
-    'newpassword', 'succesregistration', 'displaypublications',
+    'newpassword', 'succesregistration', 'displaypublications','enter',
     'masterrecords', 'confirmation', 'addlist', 'calendar', 'become', 'editprofile/address',
     'states', 'masternear', 'masternear/city', 'editprofile', 'addmasterorder']
 export default function MyApp({ Component, pageProps }) { 

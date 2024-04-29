@@ -57,7 +57,7 @@
     cursor: pointer;
 }
 .events a {
-    width: 90%;
+    width: calc(100% - 32px);
     margin: 8px auto;
     border-radius: 8px;
     background-position: center;   

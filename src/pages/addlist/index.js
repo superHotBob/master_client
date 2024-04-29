@@ -9,7 +9,7 @@ const active = {
     color: "#fff",
     borderRadius: "4px",
     fontWeight: 500,
-    
+
 }
 
 const services__name = {
@@ -27,28 +27,24 @@ const services__name = {
     макияж: 'макияж'
 }
 
-
-
-
-
 import Event from '@/components/event'
 
 export default function AddList() {
 
     const my_ref = useRef(null)
     const [nikname, setnikname] = useState()
-    const [color, setColor] = useState([])   
+    const [color, setColor] = useState([])
     const [tag, settag] = useState(false)
     const [selector, setSelector] = useState(true)
     const [file_for_upload, set_file_for_upload] = useState()
     const [file, setSelectedFile] = useState('')
-  
-   
+
+
 
     useEffect(() => {
         const prof = JSON.parse(localStorage.getItem('profile'))
         setnikname(prof.nikname)
-        setColor([...my_tema[prof.tema].color])     
+        setColor([...my_tema[prof.tema].color])
     }, [])
 
 
@@ -65,12 +61,13 @@ export default function AddList() {
 
     async function Upload() {
         if (!file_for_upload) return
+        if (!tag) return
         const prof = JSON.parse(localStorage.getItem('profile'))
         let res = await fetch('/api/add_image_to_base', {
             method: 'POST',
             body: JSON.stringify({
                 nikname: prof.nikname,
-                service: services__name[tag] ,
+                service: services__name[tag],
                 city: prof.state,
                 master_name: prof.name,
                 review: my_ref.current.value
@@ -87,13 +84,10 @@ export default function AddList() {
             method: 'POST',
             body: data,
         })
-            .then(res => res.text())
-            .then(res => setSelectedFile(''))
-            .catch(err => console.log(err))
+        .then(res => res.text())
+        .then(res => setSelectedFile(''))
+        .catch(err => console.log(err))
     }
-
-
-
     return (
         <>
             <header className={styles.header}>
@@ -135,8 +129,10 @@ export default function AddList() {
                         <span
                             key={i}
                             className={tag === i ? styles.active__service : null}
-                            style={{ backgroundColor: tag === i ? color[1] : null, 
-                                borderColor: tag != i ? '#000' : color[1] }}
+                            style={{
+                                backgroundColor: tag === i ? color[1] : null,
+                                borderColor: tag != i ? '#000' : color[1]
+                            }}
                             onClick={() => settag(i)}
                         >
                             {i}
@@ -145,7 +141,7 @@ export default function AddList() {
                 </section>
                 <span
 
-                    className={tag === 'all' ? [styles.active__service , styles.all].join(' '): styles.all}
+                    className={tag === 'all' ? [styles.active__service, styles.all].join(' ') : styles.all}
                     style={{
                         backgroundColor: tag === 'all' ? color[1] : null,
                         borderColor: tag != 'all' ? '#000' : null
@@ -155,8 +151,7 @@ export default function AddList() {
                     Опубликовать без категории
                 </span>
 
-                <label className={styles.addtag}>
-                    {/* Раскажите о работе подробнее .... */}
+                <label className={styles.addtag}>                   
                     <textarea
                         ref={my_ref}
                         maxLength="500"
@@ -165,17 +160,14 @@ export default function AddList() {
                         style={{ borderColor: color[1] }}
                     />
                 </label>
-                <button 
-                    disabled={!file ? true : tag ? false : true} 
-                    className={styles.buttonupload} 
+                <button
+                    disabled={!file ? true : tag ? false : true}
+                    className={styles.buttonupload}
                     onClick={Upload}
                 >
                     Опубликовать
                 </button>
-
-            </>
-                :
-                <Event nikname={nikname} color={color} sel={selector} />
+            </>:<Event nikname={nikname} color={color} sel={selector} />
             }
         </>
     )

@@ -1,28 +1,17 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from './catalog/catalog.module.css'
-import { useDispatch } from 'react-redux'
-import { setservice } from '../reduser.js'
-import { useRouter } from 'next/router'
 import { my_data } from '@/data.'
 import Information from '@/components/information'
 import CitySelect from '@/components/city'
 import Head from 'next/head'
 
 
-export default function Catalog() {
-    const dispatch = useDispatch()
-    const router = useRouter()   
-    const toService = (e) => {
-        if (e.target.id) {
-            dispatch(setservice(e.target.id))           
-            router.push(`/masternear/${e.target.id}`)
-        }
-    }   
+export default function Catalog() {   
     return (
         <>
             <Head>
-                <title>Каталог мастеров в вашем городе</title>  
+                <title>Каталог мастеров маникюра,  в вашем городе</title>  
             </Head>  
             <CitySelect />      
             <section className={styles.section}>               
@@ -32,9 +21,11 @@ export default function Catalog() {
                 <Link href="/become" className={styles.master}>
                     СТАНЬ МАСТЕРОМ
                 </Link>
-                <div className={styles.images} onClick={toService}>
+                <div className={styles.images}>
                     {my_data['category'].map(i =>
-                        <Image title={i} key={i} id={i} alt={i} src={'/' + i + '.svg'} width="80" height='90' />
+                        <Link href={`/masternear/${i}`} key={i}>
+                            <Image title={i}  id={i} alt={i} src={'/' + i + '.svg'} width="80" height='90' />
+                        </Link>                        
                     )}
                 </div>
                 <Link href="/catalog/services" className={styles.uslugi}>

@@ -15,8 +15,8 @@ const sel = {
     color: '#fff'
 }
 const My_Events = () => {
-    const city = useSelector(state=>state.counter.city)
-    const { data: events } = useSWR(`/api/get_events?city=${city.toLowerCase()}`)
+    const state = useSelector(state=>state.counter.mystate)
+    const { data: events } = useSWR(`/api/get_events?state=${state.toLowerCase()}`)
 
     if (events?.length === 0) {
         return <h3 className={styles.message}>Мероприятий нет</h3>
