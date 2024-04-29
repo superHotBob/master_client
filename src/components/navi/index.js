@@ -67,11 +67,11 @@ export default function Navi() {
     return (        
         <div className={styles.total} style={{ top: height }}>
             <div className={styles.main_navi} style={{ backgroundColor: tema[1]}}>
-                <Link title='Главная страница' href="/" className={pathname === '/' ? styles.home : styles.dashboard}>
-                    <Image  alt="home"  src={pathname === '/' ? home : home_wh} height={20} width={20} />
+                <Link href="/" className={pathname === '/' ? styles.home : styles.dashboard}>
+                    <Image title='на главную' alt="home"  src={pathname === '/' ? home : home_wh} height={20} width={20} />
                 </Link>
-                <Link title="Каталог" href="/catalog" className={pathname === '/catalog' ? styles.home : styles.dashboard}>
-                    <Image alt="catalog"  src={pathname === '/catalog' ? dashboard_bl : dashboard} height={20} width={20} />
+                <Link href="/catalog" className={pathname === '/catalog' ? styles.home : styles.dashboard}>
+                    <Image title='в каталог' alt="catalog"  src={pathname === '/catalog' ? dashboard_bl : dashboard} height={20} width={20} />
                 </Link>
                 {status ? 
                     <Link 

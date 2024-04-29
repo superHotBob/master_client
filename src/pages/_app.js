@@ -77,6 +77,7 @@ export default function MyApp({ Component, pageProps }) {
           <link rel="apple-touch-icon" href="icons/android-chrome-192x192.png" />
           <meta name="application-name" lang='ru' content="masters.place" />
           <meta name="mobile-web-app-capable" content="yes" />
+          <meta property="og:locale" content="ru_RU" />
           <meta name="description"
             content="Лучшие мастера в вашем городе: маникюр, прически , педикюр, окрашивание, ресницы, макияж, барбер, стрижка, брови и многое другое"
           />
