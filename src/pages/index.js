@@ -11,7 +11,7 @@ export default function Catalog() {
     return (
         <>
             <Head>
-                <title>Каталог мастеров маникюра,  в вашем городе</title>  
+                <title>Каталог мастеров  в вашем городе</title>  
             </Head>  
             <CitySelect />      
             <section className={styles.section}>               
