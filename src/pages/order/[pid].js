@@ -22,9 +22,9 @@ export default function Order() {
     }, [order])
    
     async function DeleteOrder() {
-        const my_data = { id: order.id, nikname: order.master }
+        const order_data = { id: order.id, nikname: order.master }
         const response = await fetch('/api/delete_order', {
-            body: JSON.stringify(my_data),
+            body: JSON.stringify(order_data),
             headers: {
                 'Content-Type': 'application/json',
             },

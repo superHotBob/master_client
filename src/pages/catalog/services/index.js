@@ -4,7 +4,7 @@ import styles from './services.module.css'
 import { useDispatch } from 'react-redux'
 import { setservice } from '@/reduser'
 import { useRouter } from 'next/router'
-import { my_data } from '@/data.'
+import { category } from '@/data.'
 import useSWR from 'swr'
 import { useSelector } from 'react-redux'
 
@@ -38,7 +38,7 @@ export default function Services() {
 
 
     const toService = ( e ) => {
-        if( my_data.category.includes(e.target.id)) {
+        if( category.includes(e.target.id)) {
             dispatch(setservice(e.target.id))
             router.push(`/masternear/${e.target.id}`)
         }       
@@ -51,7 +51,7 @@ export default function Services() {
             </div>
             {selector ? 
                 <div className={styles.images} onClick={toService}>
-                    {my_data.category.map(i =>
+                    {category.map(i =>
                         <img key={i} id={i} alt={i} src={'/' + i + '.svg'} width='100px' height='auto' />
 
                     )}

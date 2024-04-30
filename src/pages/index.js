@@ -1,7 +1,6 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import styles from './catalog/catalog.module.css'
-import { my_data } from '@/data.'
+import { category } from '@/data.'
 import Information from '@/components/information'
 import CitySelect from '@/components/city'
 import Head from 'next/head'
@@ -11,7 +10,7 @@ export default function Catalog() {
     return (
         <>
             <Head>
-                <title>Каталог мастеров  в вашем городе</title>  
+                <title>Маникюр, педикюр, стрижка, прическа и др. в вашем городе</title>  
             </Head>  
             <CitySelect />      
             <section className={styles.section}>               
@@ -22,9 +21,9 @@ export default function Catalog() {
                     СТАНЬ МАСТЕРОМ
                 </Link>
                 <div className={styles.images}>
-                    {my_data['category'].map(i =>
+                    {category.map(i =>
                         <Link href={`/masternear/${i}`} key={i}>
-                            <Image title={i}  id={i} alt={i} src={'/' + i + '.svg'} width="80" height='90' />
+                            <img title={i}  id={i} alt={i} src={'/' + i + '.svg'} width="80" height='90' />
                         </Link>                        
                     )}
                 </div>

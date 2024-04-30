@@ -82,23 +82,23 @@ export default function Confirmation() {
     }
 
     async function EditSchedule(a) {
-        const my_data = {
+        const order_data = {
             nikname: a,
             month: date_order.split(',')[1].toLowerCase(),
             year: date_order.split(',')[3]            
         } 
-        await  fetch(`/api/get_schedule?nikname=${a}&month=${my_data.month}&year=${my_data.year}`)
+        await  fetch(`/api/get_schedule?nikname=${a}&month=${order_data.month}&year=${order_data.year}`)
         .then(res => res.json())
         .then(data =>{
             let new_schedule = data;
             let new_days = new_schedule[date_order.split(',')[0]-1].split(',').filter(i=>i!=date_order.split(',')[2]);           
             new_schedule[date_order.split(',')[0] - 1] = new_days.join();
-            my_data['schedule'] = new_schedule;
+            order_data['schedule'] = new_schedule;
             
         }) 
        
         fetch('/api/edit_schedule', {
-            body: JSON.stringify(my_data),
+            body: JSON.stringify(order_data),
             headers: {
                 'Content-Type': 'application/json',
             },

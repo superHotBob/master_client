@@ -1,6 +1,5 @@
-const my_data = {
-     category: ['маникюр', 'прически', 'педикюр', 'массаж','депиляция', 'макияж', 'барбер', 'ресницы', 'брови',  'чистка', 'стрижка', 'окрашивание'],
-}
+const category = ['маникюр', 'прически', 'педикюр', 'массаж','депиляция', 'макияж', 'барбер', 'ресницы', 'брови',  'чистка', 'стрижка', 'окрашивание']
+
 const my_tema = [
      { name: 'Оригинальный', color: ['linear-gradient(to left, #3D4EEA, #3D4EEA)', '#3D4EEA', '#ECEEFD'] },
      { name: 'Розовый фламинго', color: ['linear-gradient(-90deg , #EA3DC4 1%, #F02A5A 50%, #EA3DC4 99%, #F02A5A 50%, #EA3DC4 99% )', '#F47BC3', '#FDECF6'] },
@@ -25,4 +24,4 @@ function getImage(name) {
 }
 
 const url = 'http://masters.place:5000'
-export { my_data, url, my_tema , months, getImage}
+export { category, url, my_tema , months, getImage}

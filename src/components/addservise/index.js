@@ -3,7 +3,7 @@ import React from 'react'
 import trash from '../../../public/trash.svg'
 import trash_blk from '../../../public/trash_blk.svg'
 import Image from 'next/image'
-import { my_data } from '@/data.'
+import { category } from '@/data.'
 import { useEffect, useState, useRef } from 'react'
 import Menu_icon from '@/components/icons/menu'
 import Messages from '../messages'
@@ -140,7 +140,7 @@ export default function AddService({ view, setView, color }) {
                 <span style={{ color: color[1], cursor: 'pointer' }} onClick={() => setViewFilter(true)}>Добавить  категорию +</span>
                 <div className={styles.all__filter} style={{ display: viewFilter ? 'block' : 'none' }}>
                     <div className={styles.all__filter__data} onClick={AddCategory}>
-                        {my_data.category?.map(cat =>
+                        {category?.map(cat =>
                             <b
                                 key={cat}
                                 id={cat}

@@ -75,7 +75,7 @@ export default function MyApp({ Component, pageProps }) {
           <link rel="canonical" href="https://masters.place" />
           <title>{slug ? slug : 'masters.place'}</title>
           <link rel="apple-touch-icon" href="icons/android-chrome-192x192.png" />
-          <meta name="application-name" lang='ru' content="masters.place" />
+          <meta name="application-name" lang='en' content="masters.place" />
           <meta name="mobile-web-app-capable" content="yes" />
           <meta property="og:locale" content="ru_RU" />
           <meta name="description"
