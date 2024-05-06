@@ -26,7 +26,7 @@ export default function AddService({ view, setView, color }) {
     const [viewFilter, setViewFilter] = useState(false)
     const [addUsluga, setaddUsluga] = useState([])
     const [new_category, add_new_category] = useState([])
-    const [category, addCategory] = useState([])
+    const [my_category, addCategory] = useState([])
     const [services, setServices] = useState()
     const [message, viewMessage] = useState('')
 
@@ -74,8 +74,8 @@ export default function AddService({ view, setView, color }) {
             setTimeout(() => viewMessage(), 3000)
         }
     }
-    function AddCategory(e) {
-        if (category.includes(e.target.id)) {
+    function AddCategory(e) {        
+        if (my_category.includes(e.target.id)) {
 
         } else {
             // add_new_category(new_category => ([...new_category, e.target.id]))
@@ -84,7 +84,7 @@ export default function AddService({ view, setView, color }) {
             let new_serv = services
             new_serv[ind][1] = ['']
             setServices(services)
-            addCategory(category => ([...category, e.target.id]))
+            addCategory(my_category => ([...my_category, e.target.id]))           
         }
     }
     function DeleteMessage(a, b) {
@@ -122,7 +122,7 @@ export default function AddService({ view, setView, color }) {
         let new_serv = services;
         new_serv[ind][1] = []
         setServices([...new_serv])
-        let new_cat = category.filter(i => i !== del_category)
+        let new_cat = my_category.filter(i => i !== del_category)
         addCategory([...new_cat])
     }
     return (
@@ -140,11 +140,11 @@ export default function AddService({ view, setView, color }) {
                 <span style={{ color: color[1], cursor: 'pointer' }} onClick={() => setViewFilter(true)}>Добавить  категорию +</span>
                 <div className={styles.all__filter} style={{ display: viewFilter ? 'block' : 'none' }}>
                     <div className={styles.all__filter__data} onClick={AddCategory}>
-                        {category?.map(cat =>
+                        {category.map(cat =>
                             <b
                                 key={cat}
                                 id={cat}
-                                style={category.includes(cat) ?
+                                style={my_category.includes(cat) ?
                                     { ...style_one, color: color[1], backgroundColor: color[2], borderColor: color[1] } : new_category.includes(cat) ?
                                     { ...style_two, color: color[1], borderColor: color[1] } : { cursor: 'pointer', color: color[1], borderColor: color[1] }}
                             >

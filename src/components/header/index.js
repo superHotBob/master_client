@@ -44,6 +44,7 @@ export default function Header({ sel, text, mes, col = my_tema[0].color, select,
     }   
   }, [])
 
+  
   const getPhone = () => {
     if(phone) {
       setphone(null)
